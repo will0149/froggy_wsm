@@ -2,6 +2,7 @@
   "parkeaAppName": "Parkea!",
   "parkeaAndShare": "Parkea & Comparte",
   "eventsForAll": "Eventos para todos",
+  "authentication": "autenticacion",
   "@authentication": {
     "welcomeAgain": "Bienvenido de nuevo!",
     "login": "Iniciar Sesión",

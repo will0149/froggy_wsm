@@ -49,6 +49,46 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `Parkea!`
+  String get parkeaAppName {
+    return Intl.message(
+      'Parkea!',
+      name: 'parkeaAppName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Parkea & Comparte`
+  String get parkeaAndShare {
+    return Intl.message(
+      'Parkea & Comparte',
+      name: 'parkeaAndShare',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Eventos para todos`
+  String get eventsForAll {
+    return Intl.message(
+      'Eventos para todos',
+      name: 'eventsForAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `autenticacion`
+  String get authentication {
+    return Intl.message(
+      'autenticacion',
+      name: 'authentication',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -56,6 +96,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
+      Locale.fromSubtags(languageCode: 'es'),
       Locale.fromSubtags(languageCode: 'en'),
     ];
   }
