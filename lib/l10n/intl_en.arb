@@ -1,10 +1,12 @@
 {
   "parkeaAppName": "Parkea!",
   "parkeaAndShare": "Parkea & Comparte",
+  "joinOurUniverse": "Unete a nuestro universo",
   "eventsForAll": "Eventos para todos",
-  "@authentication": {
-    "welcomeAgain": "Bienvenido de nuevo!",
-    "login": "Iniciar Sesión",
-    "signUp": "Registrate"
-  }
+  "authentication": "autenticacion",
+  "welcomeAgain": "Bienvenido de nuevo!",
+  "login": "Iniciar Sesión",
+  "signUp": "Registrate",
+  "email": "Correo Electrónico",
+  "password": "Contraseña"
 }

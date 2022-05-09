@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:parkea/src/pages/auth/auth_page.dart';
+import 'package:parkea/src/pages/auth/login_page.dart';
+import 'package:parkea/src/themes/parkea_input_decoration_theme.dart';
 
 import 'generated/l10n.dart';
 
@@ -23,8 +25,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+          primarySwatch: Colors.cyan,
+          fontFamily: 'Lato',
+          inputDecorationTheme: parkeaInputDecorationTheme,
       ),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case "/main":
+            return MaterialPageRoute(builder: (_) => const AuthPage());
+          case "/login":
+            return MaterialPageRoute(builder: (_) => const LoginPage());
+        }
+        return null;
+      },
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

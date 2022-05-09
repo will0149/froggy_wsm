@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `Unete a nuestro universo`
+  String get joinOurUniverse {
+    return Intl.message(
+      'Unete a nuestro universo',
+      name: 'joinOurUniverse',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Eventos para todos`
   String get eventsForAll {
     return Intl.message(
@@ -85,6 +95,56 @@ class S {
     return Intl.message(
       'autenticacion',
       name: 'authentication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bienvenido de nuevo!`
+  String get welcomeAgain {
+    return Intl.message(
+      'Bienvenido de nuevo!',
+      name: 'welcomeAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Iniciar Sesión`
+  String get login {
+    return Intl.message(
+      'Iniciar Sesión',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registrate`
+  String get signUp {
+    return Intl.message(
+      'Registrate',
+      name: 'signUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Correo Electrónico`
+  String get email {
+    return Intl.message(
+      'Correo Electrónico',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contraseña`
+  String get password {
+    return Intl.message(
+      'Contraseña',
+      name: 'password',
       desc: '',
       args: [],
     );

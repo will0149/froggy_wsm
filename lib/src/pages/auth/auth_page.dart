@@ -62,8 +62,8 @@ class _AuthPageState extends State<AuthPage> {
                     crossAxisAlignment: WrapCrossAlignment.center,
                     alignment: WrapAlignment.center,
                     children: [
-                      const Text(
-                          "Unete a nuestro universo",
+                      Text(
+                          S.of(context).joinOurUniverse,
                           style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.normal,
@@ -76,13 +76,15 @@ class _AuthPageState extends State<AuthPage> {
                         width: size.width * 0.4,
                         height: size.height * 0.055,
                         child: ElevatedButton(
-                          child: const Text(
-                            "Login",
+                          child: Text(
+                            S.of(context).login,
                             style: TextStyle(
                                 color: Colors.white
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, "/login");
+                          },
                           style: buttonStyle,
                         ),
                       ),
@@ -91,8 +93,8 @@ class _AuthPageState extends State<AuthPage> {
                         width: size.width * 0.4,
                         height: size.height * 0.055,
                         child: ElevatedButton(
-                          child: const Text(
-                            "Login",
+                          child: Text(
+                            S.of(context).signUp,
                             style: TextStyle(
                                 color: Colors.white
                             ),
