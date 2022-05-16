@@ -1,12 +1,14 @@
 {
+  "devStudio": "Atheneox",
   "parkeaAppName": "Parkea!",
   "parkeaAndShare": "Parkea & Comparte",
   "joinOurUniverse": "Unete a nuestro universo",
   "eventsForAll": "Eventos para todos",
-  "authentication": "autenticacion",
+  "authenticate": "Autenticar",
   "welcomeAgain": "Bienvenido de nuevo!",
   "login": "Iniciar Sesión",
   "signUp": "Registrate",
   "email": "Correo Electrónico",
-  "password": "Contraseña"
+  "password": "Contraseña",
+  "forgotPassword": "Olvide mi Contraseña"
 }

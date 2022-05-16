@@ -22,10 +22,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "authentication": MessageLookupByLibrary.simpleMessage("autenticacion"),
+        "authenticate": MessageLookupByLibrary.simpleMessage("Autenticar"),
+        "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox"),
         "email": MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
         "eventsForAll":
             MessageLookupByLibrary.simpleMessage("Eventos para todos"),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("Olvide mi Contraseña"),
         "joinOurUniverse":
             MessageLookupByLibrary.simpleMessage("Unete a nuestro universo"),
         "login": MessageLookupByLibrary.simpleMessage("Iniciar Sesión"),

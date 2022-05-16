@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 
+import '../constants/colors.dart';
+
 var parkeaInputDecorationTheme = InputDecorationTheme(
-  labelStyle: TextStyle(color: Colors.cyan),
-  hintStyle: TextStyle(color: Colors.cyan),
-  suffixStyle: TextStyle(color: Colors.cyan),
-  helperStyle: TextStyle(color: Colors.cyan),
-  prefixStyle: TextStyle(color: Colors.cyan),
-  floatingLabelStyle: const TextStyle(color: Colors.cyan),
+  labelStyle: const TextStyle(color: parkeaBlueAccent),
+  hintStyle: const TextStyle(color: parkeaBlueAccent),
+  suffixStyle: const TextStyle(color: parkeaBlueAccent),
+  helperStyle: const TextStyle(color: parkeaBlueAccent),
+  prefixStyle: const TextStyle(color: parkeaBlueAccent),
+  floatingLabelStyle: const TextStyle(color: parkeaBlueAccent),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.circular(30),
     borderSide: const BorderSide(
-      color: Colors.cyan,
+      color: parkeaBlueAccent,
       width: 4,
     ),
   ),
   enabledBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(30),
     borderSide: const BorderSide(
-      color: Colors.cyan,
+      color: parkeaBlueAccent,
       width: 2.5,
     ),
   ),
@@ -25,7 +27,7 @@ var parkeaInputDecorationTheme = InputDecorationTheme(
     gapPadding: 0.0,
     borderRadius: BorderRadius.circular(30),
     borderSide: const BorderSide(
-      color: Colors.cyan,
+      color: parkeaBlueAccent,
       width: 2.5,
     ),
   ),

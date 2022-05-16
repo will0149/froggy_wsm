@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Atheneox`
+  String get devStudio {
+    return Intl.message(
+      'Atheneox',
+      name: 'devStudio',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Parkea!`
   String get parkeaAppName {
     return Intl.message(
@@ -90,11 +100,11 @@ class S {
     );
   }
 
-  /// `autenticacion`
-  String get authentication {
+  /// `Autenticar`
+  String get authenticate {
     return Intl.message(
-      'autenticacion',
-      name: 'authentication',
+      'Autenticar',
+      name: 'authenticate',
       desc: '',
       args: [],
     );
@@ -145,6 +155,16 @@ class S {
     return Intl.message(
       'Contraseña',
       name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Olvide mi Contraseña`
+  String get forgotPassword {
+    return Intl.message(
+      'Olvide mi Contraseña',
+      name: 'forgotPassword',
       desc: '',
       args: [],
     );

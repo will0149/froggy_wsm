@@ -1,6 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_toastr/flutter_toastr.dart';
 
 import '../../../generated/l10n.dart';
+import '../../constants/colors.dart';
+import '../../themes/buttom_transparent_border_blue.dart';
+import '../../widgets/paints/bottom_left_curve_orange.dart';
+import '../../widgets/paints/middle_wave_white.dart';
+import '../../widgets/scaffolds/safe_scaffold.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -10,46 +18,61 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  DateTime timeBackPress = DateTime.now();
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Back"),
-      //   leading: IconButton(
-      //     icon: const Icon(
-      //       Icons.arrow_back,
-      //     ),
-      //     onPressed: () => Navigator.of(context).pop(),
-      //   ),
-      // ),
-      body: Container(
+    return WillPopScope(
+        child: SafeScaffold(
+      child: Container(
         constraints: const BoxConstraints.expand(),
         height: size.height / 1.4,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            opacity: 0.9,
-              image: NetworkImage(
-                  "https://w0.peakpx.com/wallpaper/107/456/HD-wallpaper-cyan-alegre-animado-cian-colorido-divertido-emoticono-simple-sonrisa.jpg"),
-              fit: BoxFit.cover),
-        ),
+        color: Colors.lightBlueAccent,
         child: SafeArea(
           top: true,
-          bottom: false,
+          bottom: true,
           child: Stack(
             children: [
               Positioned(
-                  top: 40,
-                  left: size.width * 0.05,
+                top: 40,
+                left: size.width * 0.05,
+                child: Container(
                   child: Text(
-                      S.of(context).parkeaAndShare,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
+                  S.of(context).parkeaAndShare,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 28,
+                    // decoration: TextDecoration.underline,
+                    // decorationColor: parkeaOrange,
+                  ),
+                ),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.orange.withOpacity(0.50),
+                        width: 3,
+                      ),
                     ),
-                  )
+                  ),
+                ),
               ),
+          SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: CustomPaint(
+              painter: MiddleWaveWhite(),
+            ),
+          ),
+          SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: CustomPaint(
+              painter: BottomLeftCurveOrange(),
+            ),
+          ),
+              //
               Align(
                 alignment: Alignment.center,
                 child: Container(
@@ -61,76 +84,82 @@ class _AuthPageState extends State<AuthPage> {
                   child: Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
                     alignment: WrapAlignment.center,
+                    direction: Axis.vertical,
+                    spacing: 15.0,
+                    runSpacing: 20.0,
                     children: [
                       Text(
-                          S.of(context).joinOurUniverse,
-                          style: TextStyle(
-                          color: Colors.white,
+                        S.of(context).joinOurUniverse,
+                        style: const TextStyle(
+                          color: parkeaBlueAccent,
                           fontWeight: FontWeight.normal,
-                          fontSize: 17,
+                          fontSize: 20,
                         ),
-
                       ),
-                      const Divider(),
                       SizedBox(
                         width: size.width * 0.4,
                         height: size.height * 0.055,
                         child: ElevatedButton(
                           child: Text(
-                            S.of(context).login,
-                            style: TextStyle(
-                                color: Colors.white
+                            S.of(context).authenticate,
+                            style: const TextStyle(
+                              color: parkeaBlueAccent,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
                             ),
                           ),
                           onPressed: () {
                             Navigator.pushNamed(context, "/login");
                           },
-                          style: buttonStyle,
+                          style: buttonTransparentBlue,
                         ),
                       ),
-                      const Divider(),
                       SizedBox(
                         width: size.width * 0.4,
                         height: size.height * 0.055,
                         child: ElevatedButton(
                           child: Text(
                             S.of(context).signUp,
-                            style: TextStyle(
-                                color: Colors.white
+                            style: const TextStyle(
+                              color: parkeaBlueAccent,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
                             ),
                           ),
                           onPressed: () {},
-                          style: buttonStyle,
+                          style: buttonTransparentBlue,
                         ),
                       ),
                     ],
                   ),
-                )
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  S.of(context).devStudio,
+                  style: TextStyle(
+                    color: Colors.white
+                  ),
+                ),
               ),
             ],
           ),
         ),
       ),
-    );
+    ),
+        onWillPop: () async {
+          final difference = DateTime.now().difference(timeBackPress);
+          final isExitWarning = difference >= Duration(seconds: 2);
+          timeBackPress = DateTime.now();
+
+          if (isExitWarning) {
+            const message = "Press back again to exit";
+            FlutterToastr.show(message, context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
+            return false;
+          } else {
+            exit(0);
+          }
+        });
   }
 }
-
-
-ButtonStyle buttonStyle = ButtonStyle(
-  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-    RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(22.0),
-      side: const BorderSide(
-          color: Colors.white,
-          width: 1.2
-      ),
-    ),
-  ),
-  padding: MaterialStateProperty.all<EdgeInsets>(
-    const EdgeInsets.all(10),
-  ),
-  foregroundColor:
-  MaterialStateProperty.all<Color>(Colors.lightBlueAccent.withOpacity(0.2)),
-  backgroundColor:
-  MaterialStateProperty.all<Color>(Colors.lightBlueAccent.withOpacity(0.2)),
-);
