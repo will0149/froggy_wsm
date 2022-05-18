@@ -9,7 +9,7 @@ class SafeScaffold extends StatelessWidget {
     return Scaffold(
         body: SafeArea(
         top: true,
-        bottom: false,
+        bottom: true,
           child: child,
         ),
     );

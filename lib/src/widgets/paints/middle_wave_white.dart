@@ -13,11 +13,12 @@ class MiddleWaveWhite extends CustomPainter {
 
     final path = Path();
     path.moveTo(width * 0.0, height * 0.45);
-    path.lineTo(width * 0.0, height * 0.80);
+    path.lineTo(width * 0.0, height * 0.90);
     path.quadraticBezierTo(
-        width * 0.10, height * 0.77, width * 0.16, height * 0.80);
-    path.quadraticBezierTo(width * 0.43, height * 0.95, width * 0.50, height * 0.83);
-    path.quadraticBezierTo(width * 0.80, height * 0.50, width * 1, height * 0.66);
+        width * 0.05, height * 0.78, width * 0.40, height * 0.80);
+    path.quadraticBezierTo(width * 0.75, height * 0.80, width * 0.63, height * 0.65);
+    path.quadraticBezierTo(width * 0.45, height * 0.45, width * 1, height * 0.56);
+
     path.lineTo(width * 1, height * 0);
     path.lineTo(width * 0.85, height * 0);
     path.quadraticBezierTo(width * 0.86, height * 0.10, width * 0.55, height * 0.12);
