@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parkea/src/constants/colors.dart';
 
 class SafeScaffold extends StatelessWidget {
   final Widget child;
@@ -7,8 +8,9 @@ class SafeScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: parkeaBlueAccentOpacity,
         body: SafeArea(
-        top: true,
+        top: false,
         bottom: true,
           child: child,
         ),

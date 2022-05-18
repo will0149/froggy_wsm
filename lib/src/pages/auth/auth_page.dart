@@ -27,7 +27,6 @@ class _AuthPageState extends State<AuthPage> {
       child: Container(
         constraints: const BoxConstraints.expand(),
         height: size.height / 1.4,
-        color: Colors.lightBlueAccent,
         child: Stack(
           children: [
             Positioned(
@@ -60,7 +59,6 @@ class _AuthPageState extends State<AuthPage> {
                     painter: BottomLeftCurveOrange(),
                   ),
                 ),
-                //
             Align(
               alignment: Alignment.center,
               child: Container(
