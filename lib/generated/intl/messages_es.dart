@@ -32,12 +32,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "joinOurUniverse":
             MessageLookupByLibrary.simpleMessage("Unete a nuestro universo"),
         "login": MessageLookupByLibrary.simpleMessage("Iniciar Sesión"),
+        "name": MessageLookupByLibrary.simpleMessage("Nombre"),
         "parkeaAndShare":
             MessageLookupByLibrary.simpleMessage("Parkea & Comparte"),
         "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
         "password": MessageLookupByLibrary.simpleMessage("Contraseña"),
+        "province": MessageLookupByLibrary.simpleMessage("Provincia"),
         "signUp": MessageLookupByLibrary.simpleMessage("Registrate"),
         "welcomeAgain":
-            MessageLookupByLibrary.simpleMessage("Bienvenido de nuevo!")
+            MessageLookupByLibrary.simpleMessage("¡Bienvenido de nuevo!")
       };
 }

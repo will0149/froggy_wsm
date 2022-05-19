@@ -5,10 +5,12 @@
   "joinOurUniverse": "Unete a nuestro universo",
   "eventsForAll": "Eventos para todos",
   "authenticate": "Autenticar",
-  "welcomeAgain": "Bienvenido de nuevo!",
+  "welcomeAgain": "¡Bienvenido de nuevo!",
   "login": "Iniciar Sesión",
   "signUp": "Registrate",
   "email": "Correo Electrónico",
   "password": "Contraseña",
-  "forgotPassword": "Olvide mi Contraseña"
+  "forgotPassword": "Olvide mi Contraseña",
+  "name": "Nombre",
+  "province": "Provincia"
 }

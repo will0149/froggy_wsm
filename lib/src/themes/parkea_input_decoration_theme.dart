@@ -9,6 +9,8 @@ var parkeaInputDecorationTheme = InputDecorationTheme(
   helperStyle: const TextStyle(color: parkeaBlueAccent),
   prefixStyle: const TextStyle(color: parkeaBlueAccent),
   floatingLabelStyle: const TextStyle(color: parkeaBlueAccent),
+  filled: true,
+  fillColor: Colors.white.withOpacity(0.70),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.circular(30),
     borderSide: const BorderSide(
@@ -31,4 +33,5 @@ var parkeaInputDecorationTheme = InputDecorationTheme(
       width: 2.5,
     ),
   ),
+
 );

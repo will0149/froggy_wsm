@@ -110,10 +110,10 @@ class S {
     );
   }
 
-  /// `Bienvenido de nuevo!`
+  /// `¡Bienvenido de nuevo!`
   String get welcomeAgain {
     return Intl.message(
-      'Bienvenido de nuevo!',
+      '¡Bienvenido de nuevo!',
       name: 'welcomeAgain',
       desc: '',
       args: [],
@@ -165,6 +165,26 @@ class S {
     return Intl.message(
       'Olvide mi Contraseña',
       name: 'forgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nombre`
+  String get name {
+    return Intl.message(
+      'Nombre',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Provincia`
+  String get province {
+    return Intl.message(
+      'Provincia',
+      name: 'province',
       desc: '',
       args: [],
     );

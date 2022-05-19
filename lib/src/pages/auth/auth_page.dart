@@ -83,8 +83,8 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     ),
                     SizedBox(
-                      width: size.width * 0.4,
-                      height: size.height * 0.055,
+                      width: size.width * 0.5,
+                      height: size.height * 0.065,
                       child: ElevatedButton(
                         child: Text(
                           S.of(context).authenticate,
@@ -101,8 +101,10 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     ),
                     SizedBox(
-                      width: size.width * 0.4,
-                      height: size.height * 0.055,
+                      width: size.width * 0.5,
+                      height: size.height * 0.065,
+                      // width: size.width * 0.8,
+                      // height: size.height * 0.07,
                       child: ElevatedButton(
                         child: Text(
                           S.of(context).signUp,
@@ -112,7 +114,9 @@ class _AuthPageState extends State<AuthPage> {
                             fontSize: 12,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/signup");
+                        },
                         style: buttonTransparentBlue,
                       ),
                     ),
@@ -135,7 +139,7 @@ class _AuthPageState extends State<AuthPage> {
     ),
         onWillPop: () async {
           final difference = DateTime.now().difference(timeBackPress);
-          final isExitWarning = difference >= Duration(seconds: 2);
+          final isExitWarning = difference >= const Duration(seconds: 2);
           timeBackPress = DateTime.now();
 
           if (isExitWarning) {

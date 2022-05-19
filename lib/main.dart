@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:parkea/src/constants/colors.dart';
 import 'package:parkea/src/pages/auth/auth_page.dart';
 import 'package:parkea/src/pages/auth/login_page.dart';
+import 'package:parkea/src/pages/auth/sign_up_page.dart';
 import 'package:parkea/src/themes/parkea_input_decoration_theme.dart';
 
 import 'generated/l10n.dart';
@@ -23,11 +25,38 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Parkea',
       theme: ThemeData(
           primarySwatch: Colors.cyan,
           fontFamily: 'Gothic A1',
           inputDecorationTheme: parkeaInputDecorationTheme,
+        // textTheme: const TextTheme(
+        //   titleLarge: TextStyle(
+        //     color: Colors.white,
+        //     fontWeight: FontWeight.bold,
+        //     fontSize: 24,
+        //   ),
+        //   titleMedium: TextStyle(
+        //     color: parkeaBlueAccent,
+        //     fontWeight: FontWeight.normal,
+        //     fontSize: 28,
+        //   ),
+        //   bodySmall: TextStyle(
+        //     color: parkeaBlueAccent,
+        //     fontWeight: FontWeight.normal,
+        //     fontSize: 12,
+        //   ),
+        //   bodyMedium: TextStyle(
+        //     color: parkeaBlueAccent,
+        //     fontWeight: FontWeight.bold,
+        //     fontSize: 12,
+        //   ),
+        //   bodyLarge: TextStyle(
+        //     color: parkeaBlueAccent,
+        //     fontWeight: FontWeight.normal,
+        //     fontSize: 20,
+        //   ),
+        // ),
       ),
       onGenerateRoute: (settings) {
         switch (settings.name) {
@@ -35,6 +64,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const AuthPage());
           case "/login":
             return MaterialPageRoute(builder: (_) => const LoginPage());
+          case "/signup":
+            return MaterialPageRoute(builder: (_)  => const SignUpPage());
         }
         return null;
       },

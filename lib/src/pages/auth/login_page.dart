@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () {},
                             child: Text(
                               S.of(context).login,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.normal,
                                   fontSize: 12.0),
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
                               ),
-                              recognizer: new TapGestureRecognizer()
+                              recognizer: TapGestureRecognizer()
                                 ..onTap =
                                     () => Navigator.pushNamed(context, "/main"),
                             ),
