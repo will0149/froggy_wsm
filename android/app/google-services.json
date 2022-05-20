@@ -1,0 +1,235 @@
+{
+  "project_info": {
+    "project_number": "450051229221",
+    "firebase_url": "https://neoxprojects-007.firebaseio.com",
+    "project_id": "neoxprojects-007",
+    "storage_bucket": "neoxprojects-007.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450051229221:android:0b78b577b82f718b1261cc",
+        "android_client_info": {
+          "package_name": "com.atheneox.eqq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450051229221-7d8h2kvrlbu4chjb9laneomfm8kkahhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGi4BERayNUatFhsk54PrlC0ekTQznPLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450051229221-7d8h2kvrlbu4chjb9laneomfm8kkahhg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "450051229221-1enf9j2du6thnq1lcsjvf4jckcs4b61k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.atheneoxstudios.parkea"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450051229221:android:0176335dbc0d7ecd1261cc",
+        "android_client_info": {
+          "package_name": "com.atheneox.idoneos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450051229221-7d8h2kvrlbu4chjb9laneomfm8kkahhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGi4BERayNUatFhsk54PrlC0ekTQznPLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450051229221-7d8h2kvrlbu4chjb9laneomfm8kkahhg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "450051229221-1enf9j2du6thnq1lcsjvf4jckcs4b61k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.atheneoxstudios.parkea"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450051229221:android:1cff9276197fbed61261cc",
+        "android_client_info": {
+          "package_name": "com.atheneox.oxygen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450051229221-vb83d0sk0ke176cikca42ttnseovgvq9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.atheneox.oxygen",
+            "certificate_hash": "0887b17a33ec6366a63bf9aedd81be35aa9d31bb"
+          }
+        },
+        {
+          "client_id": "450051229221-7d8h2kvrlbu4chjb9laneomfm8kkahhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGi4BERayNUatFhsk54PrlC0ekTQznPLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450051229221-7d8h2kvrlbu4chjb9laneomfm8kkahhg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "450051229221-1enf9j2du6thnq1lcsjvf4jckcs4b61k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.atheneoxstudios.parkea"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450051229221:android:0ca6e93ef47765b81261cc",
+        "android_client_info": {
+          "package_name": "com.atheneox.parkea"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450051229221-7d8h2kvrlbu4chjb9laneomfm8kkahhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGi4BERayNUatFhsk54PrlC0ekTQznPLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450051229221-7d8h2kvrlbu4chjb9laneomfm8kkahhg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "450051229221-1enf9j2du6thnq1lcsjvf4jckcs4b61k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.atheneoxstudios.parkea"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450051229221:android:e3f8dcb46233f1f21261cc",
+        "android_client_info": {
+          "package_name": "com.atheneox.trainingme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450051229221-7d8h2kvrlbu4chjb9laneomfm8kkahhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGi4BERayNUatFhsk54PrlC0ekTQznPLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450051229221-7d8h2kvrlbu4chjb9laneomfm8kkahhg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "450051229221-1enf9j2du6thnq1lcsjvf4jckcs4b61k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.atheneoxstudios.parkea"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450051229221:android:ecc3c9c1d25bf67e1261cc",
+        "android_client_info": {
+          "package_name": "com.atheneoxstudios.amint.exodo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450051229221-7d8h2kvrlbu4chjb9laneomfm8kkahhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGi4BERayNUatFhsk54PrlC0ekTQznPLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450051229221-7d8h2kvrlbu4chjb9laneomfm8kkahhg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "450051229221-1enf9j2du6thnq1lcsjvf4jckcs4b61k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.atheneoxstudios.parkea"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
