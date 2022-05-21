@@ -23,38 +23,53 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SafeScaffold(
-        child: Container(
-      constraints: const BoxConstraints.expand(),
-      height: size.height / 1.4,
-      child: Stack(
-        children: [
-          SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: CustomPaint(
-              painter: SignInUpWhiteShape(),
-            ),
-          ),
-          SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: CustomPaint(
-              painter: BottomLeftCurveOrange(),
-            ),
-          ),
-          Center(
-            child: Container(
-              margin: EdgeInsets.only(
-                left: size.width * 0.10,
-                right: size.width * 0.10,
-              ),
-              child: SignInForm(
-                formKey: loginFormKey,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: size.height * 0.55,
+                width: size.height * 0.55,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    alignment: Alignment.bottomRight,
+                    image: AssetImage(
+                        "assets/backgrounds/alexander-popov-9vDdkxSCAD4-unsplash.jpg"),
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    ));
+            Container(
+              decoration: const BoxDecoration(
+                color: parkeaBlueAccentOpacity,
+              ),
+            ),
+            SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: CustomPaint(
+                painter: SignInUpWhiteShape(),
+              ),
+            ),
+            SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: CustomPaint(
+                painter: BottomLeftCurveOrange(),
+              ),
+            ),
+            Center(
+              child: Container(
+                margin: EdgeInsets.only(
+                  left: size.width * 0.10,
+                  right: size.width * 0.10,
+                ),
+                child: SignInForm(
+                  formKey: loginFormKey,
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }

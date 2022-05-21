@@ -8,7 +8,6 @@ class SafeScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: parkeaBlueAccentOpacity,
         body: SafeArea(
         top: false,
         bottom: true,
