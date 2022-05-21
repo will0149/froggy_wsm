@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_toastr/flutter_toastr.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../config/loggerConfig.dart';
@@ -75,75 +76,75 @@ class _SignInFormState extends State<SignInForm> {
               }
             },
           ),
-          Container(
-            child: Wrap(
-              direction: Axis.vertical,
-              alignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 10.0,
-              runSpacing: 10.0,
-              children: [
-                ElevatedButton(
-                  child: Text(
-                    S.of(context).login,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 12.0),
+          Wrap(
+            direction: Axis.vertical,
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 10.0,
+            runSpacing: 10.0,
+            children: [
+             _loading ? const CircularProgressIndicator.adaptive() : ElevatedButton(
+                child: Text(
+                  S.of(context).login,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 12.0),
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: parkeaBlueAccent,
+                  fixedSize: const Size(120, 43),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    side:
+                        const BorderSide(color: parkeaBlueAccent, width: 1.2),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: parkeaBlueAccent,
-                    fixedSize: const Size(120, 43),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side:
-                          const BorderSide(color: parkeaBlueAccent, width: 1.2),
-                    ),
-                  ),
-                  onPressed: () async {
+                ),
+                onPressed: () async {
+                  setState(() {
+                    _valid = widget.formKey.currentState!.validate();
+                  });
+                  if (_valid) {
                     setState(() {
-                      _valid = widget.formKey.currentState!.validate();
+                      _loading = true;
                     });
-                    if (_valid) {
+
+                    //set user session data
+                    User? user = await fireBaseAuthHelper
+                        .signInUsingEmailPassword(
+                            email: emailController.value.text,
+                            password: passwordController.value.text,
+                            context: context,
+                    )
+                        .whenComplete(() {
+                      logger.d("Process Complete");
                       setState(() {
-                        _loading = true;
+                        _loading = false;
                       });
+                    });
 
-                      //set user session data
-                      User? user = await fireBaseAuthHelper
-                          .signInUsingEmailPassword(
-                              email: emailController.value.text,
-                              password: passwordController.value.text,
-                              context: context,
-                      )
-                          .whenComplete(() {
-                        logger.d("Process Complete");
-                        setState(() {
-                          _loading = false;
-                        });
-                      });
-
-                      if (user != null) {
-                        logger.d('User is signed in!');
-                        //Navigator.pushNamed(context, "/navigation");
-                      }
+                    if (user != null) {
+                      logger.d('User is signed in!');
+                      FlutterToastr.show("User Sign in ${user.displayName}", context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
+                      //Navigator.pushNamed(context, "/navigation");
                     }
-                  },
-                ),
-                Text.rich(
-                  TextSpan(
-                    text: S.of(context).forgotPassword,
-                    style: const TextStyle(
-                      color: parkeaBlueAccent,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () => Navigator.pushNamed(context, "/main"),
+                    fireBaseAuthHelper.signOut();
+                  }
+                },
+              ),
+              Text.rich(
+                TextSpan(
+                  text: S.of(context).forgotPassword,
+                  style: const TextStyle(
+                    color: parkeaBlueAccent,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
                   ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => Navigator.pushNamed(context, "/main"),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),

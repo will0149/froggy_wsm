@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:select_form_field/select_form_field.dart';
 
 import '../../../../generated/l10n.dart';
@@ -63,9 +64,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    return _loading
-        ? const CircularProgressIndicator.adaptive()
-        : Form(
+    return Form(
             key: widget.formKey,
             child: Wrap(
               alignment: WrapAlignment.center,
@@ -137,7 +136,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   spacing: 10.0,
                   runSpacing: 10.0,
                   children: [
-                    ElevatedButton(
+                    _loading ? const CircularProgressIndicator.adaptive() : ElevatedButton(
                       child: Text(
                         S.of(context).signUp,
                         style: const TextStyle(
@@ -178,8 +177,10 @@ class _SignUpFormState extends State<SignUpForm> {
                           logger.d(user);
                           if (user != null) {
                             logger.d('User is signed in!');
+                            FlutterToastr.show("User Sign in ${user.displayName}", context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
                             // Navigator.pushNamed(context, "/navigation");
                           }
+                          fireBaseAuthHelper.signOut();
                         }
                       },
                     ),
