@@ -21,6 +21,7 @@ class _SignInFormState extends State<SignInForm> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   bool _savePassword = false;
+  //ValueNotifier<bool> _loading = ValueNotifier(false);
   bool _loading = false;
   bool _valid = false;
   bool _isObscure = true;

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:parkea/src/widgets/forms/auth/sign_up_form.dart';
 import 'package:parkea/src/widgets/scaffolds/safe_scaffold.dart';
-import 'package:select_form_field/select_form_field.dart';
 
-import '../../../generated/l10n.dart';
-import '../../constants/colors.dart';
-import '../../widgets/paints/bottom_left_curve_orange.dart';
-import '../../widgets/paints/sign_in_up_white_shape.dart';
+import 'package:parkea/src/constants/colors.dart';
+import 'package:parkea/src/widgets/paints/bottom_left_curve_orange.dart';
+import 'package:parkea/src/widgets/paints/sign_in_up_white_shape.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -33,7 +31,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 image: DecorationImage(
                   alignment: Alignment.bottomRight,
                   image: AssetImage(
-                      "assets/backgrounds/alexander-popov-9vDdkxSCAD4-unsplash.jpg"),
+                      "assets/backgrounds/alexander-popov-9vDdkxSCAD4-unsplash.jpg",
+                  ),
                 ),
               ),
             ),
@@ -73,7 +72,27 @@ class _SignUpPageState extends State<SignUpPage> {
                 ],
               ),
             ),
-          )
+          ),
+          Positioned(
+            left: 0.0,
+            top: size.height * 0.08,
+            child: Container(
+              child: const Text(
+                "Registro",
+                style: TextStyle(color: Colors.white,
+                  fontSize: 20
+                ),
+              ),
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight:  Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                  ),
+                color: parkeaOrange
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -36,7 +36,17 @@ class _SignUpFormState extends State<SignUpForm> {
         fontWeight: FontWeight.bold,
         fontSize: 12,
       ),
-      'icon': Icon(Icons.location_city),
+      'icon': const Icon(Icons.location_city),
+    },
+    {
+      'value': 'colon',
+      'label': 'Colón',
+      'textStyle': const TextStyle(
+        color: parkeaBlueAccent,
+        fontWeight: FontWeight.bold,
+        fontSize: 12,
+      ),
+      'icon': const Icon(Icons.location_city),
     },
     {
       'value': 'herrera',
@@ -47,7 +57,7 @@ class _SignUpFormState extends State<SignUpForm> {
         fontWeight: FontWeight.bold,
         fontSize: 12,
       ),
-      'icon': Icon(Icons.location_city),
+      'icon': const Icon(Icons.location_city),
     },
     {
       'value': 'chorrera',
@@ -58,7 +68,7 @@ class _SignUpFormState extends State<SignUpForm> {
         fontWeight: FontWeight.bold,
         fontSize: 12,
       ),
-      'icon': Icon(Icons.location_city),
+      'icon': const Icon(Icons.location_city),
     },
   ];
 
