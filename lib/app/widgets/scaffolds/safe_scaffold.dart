@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parkea/src/constants/colors.dart';
+import 'package:parkea/app/colors.dart';
 
 class SafeScaffold extends StatelessWidget {
   final Widget child;

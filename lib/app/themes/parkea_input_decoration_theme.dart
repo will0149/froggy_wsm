@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
+import '../../app/colors.dart';
 
 var parkeaInputDecorationTheme = InputDecorationTheme(
   labelStyle: const TextStyle(color: parkeaBlueAccent),

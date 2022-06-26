@@ -2,13 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
-
-import '../../../generated/l10n.dart';
-import '../../constants/colors.dart';
-import '../../themes/buttom_transparent_border_blue.dart';
-import '../../widgets/paints/bottom_left_curve_orange.dart';
-import '../../widgets/paints/middle_wave_white.dart';
-import '../../widgets/scaffolds/safe_scaffold.dart';
+import 'package:parkea/app/colors.dart';
+import 'package:parkea/app/pages/auth/auth_page_controller.dart';
+import 'package:parkea/app/themes/buttom_transparent_border_blue.dart';
+import 'package:parkea/app/widgets/paints/bottom_left_curve_orange.dart';
+import 'package:parkea/app/widgets/paints/middle_wave_white.dart';
+import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
+import 'package:parkea/generated/l10n.dart';
+import 'package:provider/provider.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -18,8 +19,7 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  DateTime timeBackPress = DateTime.now();
-
+  DateTime _timeBackPress = DateTime.now();
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -47,11 +47,11 @@ class _AuthPageState extends State<AuthPage> {
                   height: size.height * 0.55,
                   width: size.height * 0.55,
                   decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        alignment: Alignment.bottomRight,
-                    image: AssetImage(
-                        "assets/backgrounds/angello-pro-tL5RIAYxObs-unsplash.jpg"),
-                  ),
+                    image: DecorationImage(
+                      alignment: Alignment.bottomRight,
+                      image: AssetImage(
+                          "assets/backgrounds/angello-pro-tL5RIAYxObs-unsplash.jpg"),
+                    ),
                   ),
                 ),
               ),
@@ -164,9 +164,9 @@ class _AuthPageState extends State<AuthPage> {
           ),
         ),
         onWillPop: () async {
-          final difference = DateTime.now().difference(timeBackPress);
+          final difference = DateTime.now().difference(_timeBackPress);
           final isExitWarning = difference >= const Duration(seconds: 2);
-          timeBackPress = DateTime.now();
+          _timeBackPress = DateTime.now();
 
           if (isExitWarning) {
             const message = "Press back again to exit";
@@ -177,6 +177,7 @@ class _AuthPageState extends State<AuthPage> {
           } else {
             exit(0);
           }
-        });
+        },
+      );
   }
 }

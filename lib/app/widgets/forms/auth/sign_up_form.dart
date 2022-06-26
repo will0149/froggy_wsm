@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
+import 'package:parkea/app/colors.dart';
+import 'package:parkea/data/repositories/fire_base_auth_handler.dart';
+import 'package:parkea/device/utils/loggerConfig.dart';
+import 'package:parkea/generated/l10n.dart';
 import 'package:select_form_field/select_form_field.dart';
-
-import '../../../../generated/l10n.dart';
-import '../../../config/loggerConfig.dart';
-import '../../../constants/colors.dart';
-import '../../../helpers/fire_base_auth_helper.dart';
 
 class SignUpForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;

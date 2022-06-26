@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../constants/colors.dart';
+import 'package:parkea/app/colors.dart';
 
 class BottomLeftCurveOrange extends CustomPainter {
   @override
