@@ -2,11 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
-
-import '../../../../generated/l10n.dart';
-import '../../../config/loggerConfig.dart';
-import '../../../constants/colors.dart';
-import '../../../helpers/fire_base_auth_helper.dart';
+import 'package:parkea/app/colors.dart';
+import 'package:parkea/data/repositories/fire_base_auth_handler.dart';
+import 'package:parkea/device/utils/loggerConfig.dart';
+import 'package:parkea/generated/l10n.dart';
 
 class SignInForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;

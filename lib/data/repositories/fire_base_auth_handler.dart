@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../config/loggerConfig.dart';
+import '../../device/utils/loggerConfig.dart' show logger;
 
 class FireBaseAuthHelper {
   Future<User?> signInUsingEmailPassword({

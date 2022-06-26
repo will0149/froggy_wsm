@@ -2,12 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:parkea/src/constants/colors.dart';
-import 'package:parkea/src/pages/auth/auth_page.dart';
-import 'package:parkea/src/pages/auth/login_page.dart';
-import 'package:parkea/src/pages/auth/sign_up_page.dart';
-import 'package:parkea/src/themes/parkea_input_decoration_theme.dart';
-
+import 'package:parkea/app/pages/auth/auth_page.dart';
+import 'package:parkea/app/pages/auth/login_page.dart';
+import 'package:parkea/app/pages/auth/sign_up_page.dart';
+import 'package:parkea/app/themes/parkea_input_decoration_theme.dart';
 import 'generated/l10n.dart';
 
 void main() async {

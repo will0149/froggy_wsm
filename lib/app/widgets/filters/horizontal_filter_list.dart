@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:parkea/src/config/loggerConfig.dart';
+import 'package:parkea/device/utils/loggerConfig.dart';
 
 class HorizontalFilterList extends StatefulWidget {
   final List<String> filterListItems;
