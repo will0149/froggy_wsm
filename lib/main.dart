@@ -6,6 +6,7 @@ import 'package:parkea/app/pages/auth/auth_page.dart';
 import 'package:parkea/app/pages/auth/login_page.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
 import 'package:parkea/app/themes/parkea_input_decoration_theme.dart';
+import 'app/pages/onboarding_page.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -28,6 +29,10 @@ class MyApp extends StatelessWidget {
       title: 'Parkea',
       theme: ThemeData(
           primarySwatch: Colors.cyan,
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.white,
+            elevation: 0.10
+          ),
           fontFamily: 'Gothic A1',
           inputDecorationTheme: parkeaInputDecorationTheme,
         // textTheme: const TextTheme(
@@ -66,6 +71,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const LoginPage());
           case "/signup":
             return MaterialPageRoute(builder: (_)  => const SignUpPage());
+          case "/onboarding":
+            return MaterialPageRoute(builder: (_) => OnboardingPage());
         }
         return null;
       },
