@@ -1,0 +1,50 @@
+{
+    "body": {
+        "events": [
+            {
+                "id": 1,
+                "eventName": "Parkea Premier",
+                "shortDescription": "Inauguracion",
+                "description": "Evento por premier del app",
+                "date": "11-11-2022",
+                "eventType": "FREE",
+                "amount": {
+                    "price": "0.00",
+                    "currency": "PAB"
+                },
+                "eventOwner": "Atheneox",
+                "bannerImageUrl": "",
+                "privacyType": "PUBLIC",
+                "location": {
+                    "latitud": "",
+                    "longitud": "",
+                    "country": "Panama",
+                    "city": "Panama",
+                    "place": "Amador"
+                }
+            },
+            {
+                "id": 2,
+                "eventName": "Panama Comic Com",
+                "shortDescription": "Inauguracion",
+                "description": "Evento de comics",
+                "date": "25-08-2022",
+                "eventType": "PAID",
+                "amount": {
+                    "price": "10.00",
+                    "currency": "PAB"
+                },
+                "eventOwner": "Comic Com",
+                "bannerImageUrl": "",
+                "privacyType": "PUBLIC",
+                "location": {
+                    "latitud": "",
+                    "longitud": "",
+                    "country": "Panama",
+                    "city": "Panama",
+                    "place": "Centro de convenciones Atlapa"
+                }
+            }
+        ]
+    }
+}

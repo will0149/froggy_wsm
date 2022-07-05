@@ -20,8 +20,6 @@ class _SignInFormState extends State<SignInForm> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   bool _savePassword = false;
-  //ValueNotifier<bool> _loading = ValueNotifier(false);
-  bool _loading = false;
   bool _valid = false;
   bool _isObscure = true;
   var fireBaseAuthHelper = FireBaseAuthHelper();
@@ -83,7 +81,7 @@ class _SignInFormState extends State<SignInForm> {
             spacing: 10.0,
             runSpacing: 10.0,
             children: [
-             _loading ? const CircularProgressIndicator.adaptive() : ElevatedButton(
+             ElevatedButton(
                 child: Text(
                   S.of(context).login,
                   style: const TextStyle(
@@ -105,10 +103,6 @@ class _SignInFormState extends State<SignInForm> {
                     _valid = widget.formKey.currentState!.validate();
                   });
                   if (_valid) {
-                    setState(() {
-                      _loading = true;
-                    });
-
                     //set user session data
                     User? user = await fireBaseAuthHelper
                         .signInUsingEmailPassword(
@@ -118,17 +112,12 @@ class _SignInFormState extends State<SignInForm> {
                     )
                         .whenComplete(() {
                       logger.d("Process Complete");
-                      setState(() {
-                        _loading = false;
-                      });
+                      Navigator.pushNamed(context, "/onboarding");
+                    })
+                    .onError((error, stackTrace) {
+                      FlutterToastr.show("Failed Logging", context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
                     });
-
-                    if (user != null) {
-                      logger.d('User is signed in!');
-                      FlutterToastr.show("User Sign in ${user.displayName}", context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
-                      //Navigator.pushNamed(context, "/navigation");
-                    }
-                    fireBaseAuthHelper.signOut();
+                    //fireBaseAuthHelper.signOut();
                   }
                 },
               ),

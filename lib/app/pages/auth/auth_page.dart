@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:parkea/app/colors.dart';
-import 'package:parkea/app/pages/auth/auth_page_controller.dart';
 import 'package:parkea/app/themes/buttom_transparent_border_blue.dart';
 import 'package:parkea/app/widgets/paints/bottom_left_curve_orange.dart';
 import 'package:parkea/app/widgets/paints/middle_wave_white.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:parkea/generated/l10n.dart';
 import 'package:provider/provider.dart';
+
+import '../../widgets/exit_pop_scope.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -19,11 +20,10 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  DateTime _timeBackPress = DateTime.now();
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return WillPopScope(
+    return ExitPopScope(
         child: SafeScaffold(
           child: Stack(
             children: [
@@ -163,21 +163,6 @@ class _AuthPageState extends State<AuthPage> {
             ],
           ),
         ),
-        onWillPop: () async {
-          final difference = DateTime.now().difference(_timeBackPress);
-          final isExitWarning = difference >= const Duration(seconds: 2);
-          _timeBackPress = DateTime.now();
-
-          if (isExitWarning) {
-            const message = "Press back again to exit";
-            FlutterToastr.show(message, context,
-                duration: FlutterToastr.lengthShort,
-                position: FlutterToastr.bottom);
-            return false;
-          } else {
-            exit(0);
-          }
-        },
       );
   }
 }
