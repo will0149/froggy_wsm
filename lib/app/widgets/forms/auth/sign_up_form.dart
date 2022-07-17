@@ -176,20 +176,17 @@ class _SignUpFormState extends State<SignUpForm> {
                             name: userNameController.value.text,
                             email: emailController.value.text,
                             password: passwordController.value.text,
-                          )
-                              .whenComplete(() {
+                          );
+
+                          if(user != null){
                             logger.d("Process Complete");
                             setState(() {
                               _loading = false;
                             });
-                          });
-                          logger.d(user);
-                          if (user != null) {
-                            logger.d('User is signed in!');
-                            FlutterToastr.show("User Sign in ${user.displayName}", context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
-                            // Navigator.pushNamed(context, "/navigation");
+                            Navigator.pushNamed(context, "/onboarding");
+                          }else {
+                            FlutterToastr.show("Failed Logging", context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
                           }
-                          fireBaseAuthHelper.signOut();
                         }
                       },
                     ),

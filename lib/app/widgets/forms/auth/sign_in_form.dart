@@ -109,14 +109,13 @@ class _SignInFormState extends State<SignInForm> {
                             email: emailController.value.text,
                             password: passwordController.value.text,
                             context: context,
-                    )
-                        .whenComplete(() {
+                    );
+                    if(user != null){
                       logger.d("Process Complete");
                       Navigator.pushNamed(context, "/onboarding");
-                    })
-                    .onError((error, stackTrace) {
+                    }else {
                       FlutterToastr.show("Failed Logging", context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
-                    });
+                    }
                     //fireBaseAuthHelper.signOut();
                   }
                 },

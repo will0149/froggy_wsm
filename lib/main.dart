@@ -6,7 +6,9 @@ import 'package:parkea/app/pages/auth/auth_page.dart';
 import 'package:parkea/app/pages/auth/login_page.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
 import 'package:parkea/app/themes/parkea_input_decoration_theme.dart';
+import 'app/navigator.dart';
 import 'app/pages/onboarding_page.dart';
+import 'app/pages/validate_page/loading_page.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -72,7 +74,9 @@ class MyApp extends StatelessWidget {
           case "/signup":
             return MaterialPageRoute(builder: (_)  => const SignUpPage());
           case "/onboarding":
-            return MaterialPageRoute(builder: (_) => OnboardingPage());
+            return MaterialPageRoute(builder: (_) => const OnboardingPage());
+          case "/navigator":
+            return MaterialPageRoute(builder: (_) => const NavigatorBar());
         }
         return null;
       },
@@ -94,7 +98,7 @@ class MyApp extends StatelessWidget {
           child: child!,
         );
       },
-      home: const AuthPage(),
+      home: const SplashScreen(),
     );
   }
 }
