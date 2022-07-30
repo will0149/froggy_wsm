@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Parkea & Comparte"),
         "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
         "password": MessageLookupByLibrary.simpleMessage("Contraseña"),
+        "seeEvent": MessageLookupByLibrary.simpleMessage("Ir al Evento"),
         "signUp": MessageLookupByLibrary.simpleMessage("Registrate"),
         "welcomeAgain":
             MessageLookupByLibrary.simpleMessage("Bienvenido de nuevo!")

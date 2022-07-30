@@ -1,10 +1,7 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/data/repositories/events_repository.dart';
 import 'package:parkea/domain/dtos/event_dto.dart';
 
-import '../dtos/response_entity.dart';
 import '../repositories/fetch_events_type.dart';
 
 /**
@@ -21,7 +18,7 @@ class FetchEventsUC implements FetchEventsType {
   }
 
   @override
-  Future<List<EventDTO>?> getAllEvents() async {
+  Future<List<EventDTO>> getAllEvents() async {
     Map<String, dynamic> result = await repository.fetchEventsList();
     // print(result["body"]["events"]);
     List<dynamic> jsonResponse = result["body"]["events"];
@@ -32,3 +29,5 @@ class FetchEventsUC implements FetchEventsType {
     return bodyResponse;
   }
 }
+
+final eventsApiProvider = Provider<FetchEventsUC>((ref) => FetchEventsUC(),);

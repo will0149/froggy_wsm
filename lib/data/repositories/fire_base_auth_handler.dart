@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../device/utils/loggerConfig.dart' show logger;
 
-class FireBaseAuthHelper {
+class AuthenticationRepository {
   Future<User?> signInUsingEmailPassword({
     required String email,
     required String password,
@@ -57,6 +57,41 @@ class FireBaseAuthHelper {
     }
     return user;
   }
+
+  //  SignIn the user Google
+  // Future<void> signInWithGoogle(BuildContext context) async {
+  //   // Trigger the authentication flow
+  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  //
+  //   // Obtain the auth details from the request
+  //   final GoogleSignInAuthentication googleAuth =
+  //   await googleUser!.authentication;
+  //
+  //   // Create a new credential
+  //   final credential = GoogleAuthProvider.credential(
+  //     accessToken: googleAuth.accessToken,
+  //     idToken: googleAuth.idToken,
+  //   );
+  //
+  //   try {
+  //     await _auth.signInWithCredential(credential);
+  //   } on FirebaseAuthException catch (e) {
+  //     await showDialog(
+  //       context: context,
+  //       builder: (ctx) => AlertDialog(
+  //         title: Text('Error Occured'),
+  //         content: Text(e.toString()),
+  //         actions: [
+  //           TextButton(
+  //               onPressed: () {
+  //                 Navigator.of(ctx).pop();
+  //               },
+  //               child: Text("OK"))
+  //         ],
+  //       ),
+  //     );
+  //   }
+  // }
 
   void signOut() async {
     await FirebaseAuth.instance.signOut();

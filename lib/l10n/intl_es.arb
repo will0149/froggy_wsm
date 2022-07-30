@@ -12,5 +12,7 @@
   "password": "Contraseña",
   "forgotPassword": "Olvide mi Contraseña",
   "name": "Nombre",
-  "province": "Provincia"
+  "province": "Provincia",
+  "popularEvents": "Eventos Populares",
+  "seeEvent": "Ir al Evento"
 }

@@ -13,7 +13,7 @@
                     "currency": "PAB"
                 },
                 "eventOwner": "Atheneox",
-                "bannerImageUrl": "",
+                "bannerImageUrl": "https://img.freepik.com/premium-photo/blurred-background-many-people-had-fun-beach-party_96943-14.jpg?w=2000",
                 "privacyType": "PUBLIC",
                 "location": {
                     "latitud": "",
@@ -35,7 +35,95 @@
                     "currency": "PAB"
                 },
                 "eventOwner": "Comic Com",
-                "bannerImageUrl": "",
+                "bannerImageUrl": "https://image.shutterstock.com/image-photo/multi-colored-fun-group-beautiful-260nw-499233259.jpg",
+                "privacyType": "PUBLIC",
+                "location": {
+                    "latitud": "",
+                    "longitud": "",
+                    "country": "Panama",
+                    "city": "Panama",
+                    "place": "Centro de convenciones Atlapa"
+                }
+            },
+            {
+                "id": 3,
+                "eventName": "Parkea Premier",
+                "shortDescription": "Inauguracion",
+                "description": "Evento por premier del app",
+                "date": "11-11-2022",
+                "eventType": "FREE",
+                "amount": {
+                    "price": "0.00",
+                    "currency": "PAB"
+                },
+                "eventOwner": "Atheneox",
+                "bannerImageUrl": "https://img.freepik.com/premium-photo/blurred-background-many-people-had-fun-beach-party_96943-14.jpg?w=2000",
+                "privacyType": "PUBLIC",
+                "location": {
+                    "latitud": "",
+                    "longitud": "",
+                    "country": "Panama",
+                    "city": "Panama",
+                    "place": "Amador"
+                }
+            },
+            {
+                "id": 4,
+                "eventName": "Panama Comic Com",
+                "shortDescription": "Inauguracion",
+                "description": "Evento de comics",
+                "date": "25-08-2022",
+                "eventType": "PAID",
+                "amount": {
+                    "price": "10.00",
+                    "currency": "PAB"
+                },
+                "eventOwner": "Comic Com",
+                "bannerImageUrl": "https://image.shutterstock.com/image-photo/multi-colored-fun-group-beautiful-260nw-499233259.jpg",
+                "privacyType": "PUBLIC",
+                "location": {
+                    "latitud": "",
+                    "longitud": "",
+                    "country": "Panama",
+                    "city": "Panama",
+                    "place": "Centro de convenciones Atlapa"
+                }
+            },
+            {
+                "id": 5,
+                "eventName": "Parkea Premier",
+                "shortDescription": "Inauguracion",
+                "description": "Evento por premier del app",
+                "date": "11-11-2022",
+                "eventType": "FREE",
+                "amount": {
+                    "price": "0.00",
+                    "currency": "PAB"
+                },
+                "eventOwner": "Atheneox",
+                "bannerImageUrl": "https://img.freepik.com/premium-photo/blurred-background-many-people-had-fun-beach-party_96943-14.jpg?w=2000",
+                "privacyType": "PUBLIC",
+                "location": {
+                    "latitud": "",
+                    "longitud": "",
+                    "country": "Panama",
+                    "city": "Panama",
+                    "place": "Amador"
+                }
+            },
+            {
+                "id": 6,
+                "eventName": "Panama Comic Com",
+                "shortDescription": "Inauguracion",
+                "description": "Evento de comics",
+                "date": "25-08-2022",
+                "eventType": "PAID",
+                "amount": {
+                    "price": "10.00",
+                    "currency": "PAB"
+                },
+                "eventOwner": "Comic Com",
+                "bannerImageUrl": "https://image.shutterstock.com/image-photo/multi-colored-fun-group-beautiful-260nw-499233259.jpg",
                 "privacyType": "PUBLIC",
                 "location": {
                     "latitud": "",

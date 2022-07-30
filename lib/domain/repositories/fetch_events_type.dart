@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../dtos/event_dto.dart';
 
 /**

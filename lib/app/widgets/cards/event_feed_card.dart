@@ -1,0 +1,116 @@
+import 'package:flutter/material.dart';
+
+import '../../../domain/dtos/event_dto.dart';
+import '../../../generated/l10n.dart';
+import '../../colors.dart';
+
+/**
+ * Made for parkea.
+ * By User: josedominguez
+ * Date: 07/30/22
+ */
+
+class EventFeedCard extends StatelessWidget {
+  final EventDTO event;
+  final double width;
+  final double height;
+  const EventFeedCard({Key? key, required this.event, required this.width, required this.height}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+      child: Stack(
+        children: [
+          Container(
+            width: 150,
+            height: 100,
+            padding: EdgeInsets.all(10.0),
+            child: Wrap(
+              children: [
+                Text(
+                  event.eventName,
+                  style: const TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        event.description,
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        softWrap: false,
+                        maxLines: 2,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      event.date,
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                ),
+
+              ],
+            ),
+            decoration: const BoxDecoration(
+              color: parkeaBlueAccent,
+              borderRadius: BorderRadius.only(
+                // topRight: Radius.circular(55.0),
+                bottomRight: Radius.circular(55.0),
+              ),
+            ),
+          ),
+          Positioned(
+            right: 20,
+            bottom: 15,
+            child: ElevatedButton(
+              onPressed: (){}, child: Text(S.of(context).seeEvent,
+              style: const TextStyle(
+                fontSize: 15.0,
+                color: Colors.white,
+              ),),
+              style: ElevatedButton.styleFrom(
+                primary: parkeaOrange,
+                fixedSize: const Size(120, 43),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                  side:
+                  const BorderSide(color: parkeaOrange, width: 1.2),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(
+            event.bannerImageUrl.toString(),
+          ),
+          fit: BoxFit.cover,
+        ),
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(15.0),
+          bottomRight: Radius.circular(15.0),
+        ),
+      ),
+    );
+  }
+}

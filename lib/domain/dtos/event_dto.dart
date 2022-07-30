@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import 'amount_dto.dart';
 import 'location_dto.dart';
 

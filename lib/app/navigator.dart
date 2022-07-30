@@ -8,7 +8,6 @@ import 'package:parkea/app/pages/onboarding_page.dart';
 import 'package:parkea/app/pages/profile_page.dart';
 import 'package:parkea/app/pages/saved_event_page.dart';
 import 'package:parkea/app/utils/hex_color.dart';
-import 'package:parkea/app/utils/svg_icons_states.dart';
 
 import 'colors.dart';
 /*
@@ -79,7 +78,7 @@ class _NavigatorBarState
         rotateAngle = 0;
       });
     }
-    return const <Widget>[
+    return <Widget>[
       OnboardingPage(),
       SavedEventPage(),
       ProfilePage()
@@ -91,8 +90,6 @@ class _NavigatorBarState
     return Scaffold(
       extendBody: true,
       body: SafeArea(
-        left: false,
-        right: false,
         child: IndexedStack(
           index: _bottomNavIndex,
           children: _pageChooser(_bottomNavIndex),
@@ -104,13 +101,11 @@ class _NavigatorBarState
           return navigationBody(index, isActive);
         },
         activeIndex: _bottomNavIndex,
-        leftCornerRadius: 100,
-        rightCornerRadius: 100,
+        leftCornerRadius: 25,
+        rightCornerRadius: 25,
         gapLocation: GapLocation.none,
-        backgroundColor: parkeaOrange.withOpacity(0.7),
+        backgroundColor: parkeaOrange,
         height: 50.0,
-        safeAreaLeft: false,
-        safeAreaRight: false,
         onTap: (index) => setState(() => _bottomNavIndex = index),
       ),
     );
@@ -126,9 +121,9 @@ class _NavigatorBarState
 
   Widget getWidgetByPosition(int index, bool active) {
     final navOptions = <Widget>[
-      active ? Icon(Icons.feed) : Icon(Icons.feed_outlined),
-      active ?Icon(Icons.event) : Icon(Icons.event_available),
-      active ?Icon(Icons.favorite) : Icon(Icons.favorite_border),
+      active ? Icon(Icons.feed, color: Colors.white,) : Icon(Icons.feed_outlined, color: Colors.white,),
+      active ?Icon(Icons.event, color: Colors.white,) : Icon(Icons.event_available, color: Colors.white,),
+      active ?Icon(Icons.favorite, color: Colors.white,) : Icon(Icons.favorite_border, color: Colors.white,),
       // SvgIconsStates(
       //     active: active,
       //     activeImg: "assets/icon/activos/home-active.svg",

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:parkea/app/colors.dart';
-
 import 'package:parkea/device/utils/loggerConfig.dart';
 
 class HorizontalFilterList extends StatefulWidget {
@@ -23,6 +21,18 @@ class _HorizontalFilterListState extends State<HorizontalFilterList> {
       alignment: Alignment.topCenter,
       height: 60,
       child: horizontalCategoryListView(widget.filterListItems),
+      // decoration: BoxDecoration(
+      //   border: Border(
+      //     top: BorderSide(
+      //       color: Colors.grey,
+      //       width: 0.8,
+      //     ),
+      //     bottom: BorderSide(
+      //       color: Colors.grey,
+      //       width: 0.8,
+      //     ),
+      //   ),
+      // ),
     );
   }
 

@@ -24,7 +24,7 @@ class _SignUpFormState extends State<SignUpForm> {
   bool _isObscure = true;
   bool _loading = false;
   bool _valid = false;
-  var fireBaseAuthHelper = FireBaseAuthHelper();
+  var fireBaseAuthHelper = AuthenticationRepository();
 
   final List<Map<String, dynamic>> _provinces = [
     {

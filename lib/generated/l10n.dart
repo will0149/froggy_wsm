@@ -189,6 +189,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Eventos Populares`
+  String get popularEvents {
+    return Intl.message(
+      'Eventos Populares',
+      name: 'popularEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ir al Evento`
+  String get seeEvent {
+    return Intl.message(
+      'Ir al Evento',
+      name: 'seeEvent',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

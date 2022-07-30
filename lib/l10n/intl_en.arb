@@ -8,5 +8,6 @@
   "login": "Iniciar Sesión",
   "signUp": "Registrate",
   "email": "Correo Electrónico",
-  "password": "Contraseña"
+  "password": "Contraseña",
+  "seeEvent": "Ir al Evento"
 }

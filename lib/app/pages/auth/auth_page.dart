@@ -1,14 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:parkea/app/colors.dart';
 import 'package:parkea/app/themes/buttom_transparent_border_blue.dart';
 import 'package:parkea/app/widgets/paints/bottom_left_curve_orange.dart';
 import 'package:parkea/app/widgets/paints/middle_wave_white.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:parkea/generated/l10n.dart';
-import 'package:provider/provider.dart';
 
 import '../../widgets/exit_pop_scope.dart';
 

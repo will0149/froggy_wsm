@@ -22,7 +22,7 @@ class _SignInFormState extends State<SignInForm> {
   bool _savePassword = false;
   bool _valid = false;
   bool _isObscure = true;
-  var fireBaseAuthHelper = FireBaseAuthHelper();
+  var fireBaseAuthHelper = AuthenticationRepository();
 
   @override
   Widget build(BuildContext context) {

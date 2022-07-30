@@ -1,10 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../domain/dtos/event_dto.dart';
-import '../../domain/dtos/response_entity.dart';
 import '../constants.dart';
 
 /**

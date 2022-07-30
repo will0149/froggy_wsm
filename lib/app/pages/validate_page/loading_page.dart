@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:flutter/material.dart';
 
 import '../../../domain/usecases/auth/validate_session_uc.dart';
 import '../../widgets/color_loader.dart';
-import '../onboarding_page.dart';
 
 /**
  * Made for parkea.

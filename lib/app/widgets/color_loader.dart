@@ -1,12 +1,6 @@
-import 'package:flutter/material.dart';
-
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/16/22
- */
-import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'package:flutter/material.dart';
 
 class ColorLoader extends StatefulWidget {
 
