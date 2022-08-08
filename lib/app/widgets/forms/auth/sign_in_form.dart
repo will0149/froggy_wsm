@@ -84,10 +84,7 @@ class _SignInFormState extends State<SignInForm> {
              ElevatedButton(
                 child: Text(
                   S.of(context).login,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 12.0),
+                  style: Theme.of(context).textTheme.button?.copyWith(color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
                   primary: parkeaBlueAccent,
@@ -116,7 +113,6 @@ class _SignInFormState extends State<SignInForm> {
                     }else {
                       FlutterToastr.show("Failed Logging", context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
                     }
-                    //fireBaseAuthHelper.signOut();
                   }
                 },
               ),

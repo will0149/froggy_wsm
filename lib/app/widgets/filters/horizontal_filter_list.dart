@@ -74,14 +74,7 @@ class _HorizontalFilterListState extends State<HorizontalFilterList> {
         child: Center(
           child: Text(
             title,
-            style: TextStyle(
-              //fontFamily: PentacleFontFamily.Poppins,
-              fontWeight: FontWeight.w500,
-              fontStyle: FontStyle.normal,
-              fontSize: 18,
-              height: 2,
-              color: activeTextColor,
-            ),
+            style: Theme.of(context).textTheme.bodyText1?.copyWith(color: activeTextColor),
           ),
         ),
         decoration: BoxDecoration(

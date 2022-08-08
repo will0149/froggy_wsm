@@ -14,5 +14,7 @@
   "name": "Nombre",
   "province": "Provincia",
   "popularEvents": "Eventos Populares",
-  "seeEvent": "Ir al Evento"
+  "seeEvent": "Ir al Evento",
+  "buyTicket": "Comprar Entrada",
+  "saveEvent": "Guardar Evento"
 }

@@ -209,6 +209,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Comprar Entrada`
+  String get buyTicket {
+    return Intl.message(
+      'Comprar Entrada',
+      name: 'buyTicket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Guardar Evento`
+  String get saveEvent {
+    return Intl.message(
+      'Guardar Evento',
+      name: 'saveEvent',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:intl/intl.dart';
+
 import '../../../domain/dtos/event_dto.dart';
 import '../../../generated/l10n.dart';
 import '../../colors.dart';
+import '../../pages/event_detail_page.dart';
 
 /**
  * Made for parkea.
@@ -14,7 +17,13 @@ class EventFeedCard extends StatelessWidget {
   final EventDTO event;
   final double width;
   final double height;
-  const EventFeedCard({Key? key, required this.event, required this.width, required this.height}) : super(key: key);
+
+  const EventFeedCard(
+      {Key? key,
+      required this.event,
+      required this.width,
+      required this.height})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +34,8 @@ class EventFeedCard extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            width: 150,
-            height: 100,
+            width: 200,
+            height: 150,
             padding: EdgeInsets.all(10.0),
             child: Wrap(
               children: [
@@ -56,17 +65,20 @@ class EventFeedCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
-                      event.date,
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
+                    Expanded(
+                      child: Text(
+                        DateFormat.yMMMMEEEEd().format(DateTime.parse(event.date)),
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        softWrap: false,
+                        maxLines: 2,
                       ),
                     ),
                   ],
                 ),
-
               ],
             ),
             decoration: const BoxDecoration(
@@ -81,18 +93,18 @@ class EventFeedCard extends StatelessWidget {
             right: 20,
             bottom: 15,
             child: ElevatedButton(
-              onPressed: (){}, child: Text(S.of(context).seeEvent,
-              style: const TextStyle(
-                fontSize: 15.0,
-                color: Colors.white,
-              ),),
+              onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => EventDetailPage(event.id))),
+              child: Text(
+                S.of(context).seeEvent,
+                style: Theme.of(context).textTheme.button?.copyWith(color: Colors.white),
+              ),
               style: ElevatedButton.styleFrom(
                 primary: parkeaOrange,
                 fixedSize: const Size(120, 43),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
-                  side:
-                  const BorderSide(color: parkeaOrange, width: 1.2),
+                  side: const BorderSide(color: parkeaOrange, width: 1.2),
                 ),
               ),
             ),

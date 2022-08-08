@@ -24,7 +24,7 @@ class OnboardingPage extends ConsumerWidget {
 
   Future<void> _refresh() {
     return Future.delayed(
-      Duration(seconds: 2),
+      const Duration(seconds: 2),
     );
   }
 
@@ -39,7 +39,7 @@ class OnboardingPage extends ConsumerWidget {
           automaticallyImplyLeading: false,
           leading: Container(
             margin: const EdgeInsets.only(top: 5, bottom: 5),
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 20.0,
             ),
             child: Image.asset("assets/logo/Parkea (1).png"),
@@ -48,7 +48,7 @@ class OnboardingPage extends ConsumerWidget {
             Ink(
               child: Container(
                 margin: const EdgeInsets.only(right: 10.0),
-                child: CircleAvatar(
+                child: const CircleAvatar(
                   radius: 25,
                   backgroundColor: parkeaOrange,
                   child: CircleAvatar(
@@ -80,10 +80,7 @@ class OnboardingPage extends ConsumerWidget {
                     children: [
                       Text(
                         S.of(context).popularEvents,
-                        style: const TextStyle(
-                          color: parkeaBlueAccent,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.headline3,
                       ),
                       IconButton(
                         //onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SearchPage())),

@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "authenticate": MessageLookupByLibrary.simpleMessage("Autenticar"),
+        "buyTicket": MessageLookupByLibrary.simpleMessage("Comprar Entrada"),
         "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox"),
         "email": MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
         "eventsForAll":
@@ -40,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "popularEvents":
             MessageLookupByLibrary.simpleMessage("Eventos Populares"),
         "province": MessageLookupByLibrary.simpleMessage("Provincia"),
+        "saveEvent": MessageLookupByLibrary.simpleMessage("Guardar Evento"),
         "seeEvent": MessageLookupByLibrary.simpleMessage("Ir al Evento"),
         "signUp": MessageLookupByLibrary.simpleMessage("Registrate"),
         "welcomeAgain":

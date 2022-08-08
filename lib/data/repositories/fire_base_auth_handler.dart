@@ -19,6 +19,7 @@ class AuthenticationRepository {
       );
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
+      logger.e(e);
       if (e.code == 'user-not-found') {
         logger.e('No user found for that email.');
       } else if (e.code == 'wrong-password') {
@@ -46,6 +47,7 @@ class AuthenticationRepository {
       await user.reload();
       user = auth.currentUser;
     } on FirebaseAuthException catch (e) {
+      logger.e(e);
       if (e.code == 'weak-password') {
         logger.d('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {

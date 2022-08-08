@@ -5,8 +5,8 @@
                 "id": 1,
                 "eventName": "Parkea Premier",
                 "shortDescription": "Inauguracion",
-                "description": "Evento por premier del app",
-                "date": "11-11-2022",
+                "description": "El mejor evento geek de la Ciudad de Panamá y lorem ipsum y todo eso y blah blah...",
+                "date": "2022-02-27 13:27:00.123456789z",
                 "eventType": "FREE",
                 "amount": {
                     "price": "0.00",
@@ -28,7 +28,7 @@
                 "eventName": "Panama Comic Com",
                 "shortDescription": "Inauguracion",
                 "description": "Evento de comics",
-                "date": "25-08-2022",
+                "date": "2022-03-27 13:27:00.123456789z",
                 "eventType": "PAID",
                 "amount": {
                     "price": "10.00",
@@ -50,7 +50,7 @@
                 "eventName": "Parkea Premier",
                 "shortDescription": "Inauguracion",
                 "description": "Evento por premier del app",
-                "date": "11-11-2022",
+                "date": "2022-04-27 13:27:00.123456789z",
                 "eventType": "FREE",
                 "amount": {
                     "price": "0.00",
@@ -72,7 +72,7 @@
                 "eventName": "Panama Comic Com",
                 "shortDescription": "Inauguracion",
                 "description": "Evento de comics",
-                "date": "25-08-2022",
+                "date": "2022-06-22 13:27:00.123456789z",
                 "eventType": "PAID",
                 "amount": {
                     "price": "10.00",
@@ -94,7 +94,7 @@
                 "eventName": "Parkea Premier",
                 "shortDescription": "Inauguracion",
                 "description": "Evento por premier del app",
-                "date": "11-11-2022",
+                "date": "2022-07-12 13:27:00.123456789z",
                 "eventType": "FREE",
                 "amount": {
                     "price": "0.00",
@@ -116,7 +116,7 @@
                 "eventName": "Panama Comic Com",
                 "shortDescription": "Inauguracion",
                 "description": "Evento de comics",
-                "date": "25-08-2022",
+                "date": "2022-12-25 13:27:00.123456789z",
                 "eventType": "PAID",
                 "amount": {
                     "price": "10.00",

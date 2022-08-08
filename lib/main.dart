@@ -8,9 +8,11 @@ import 'package:parkea/app/pages/auth/login_page.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
 import 'package:parkea/app/themes/parkea_input_decoration_theme.dart';
 
+import 'app/colors.dart';
 import 'app/navigator.dart';
 import 'app/pages/onboarding_page.dart';
 import 'app/pages/validate_page/loading_page.dart';
+import 'app/themes/text_theme.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -39,33 +41,7 @@ class MyApp extends StatelessWidget {
           ),
           fontFamily: 'Gothic A1',
           inputDecorationTheme: parkeaInputDecorationTheme,
-        // textTheme: const TextTheme(
-        //   titleLarge: TextStyle(
-        //     color: Colors.white,
-        //     fontWeight: FontWeight.bold,
-        //     fontSize: 24,
-        //   ),
-        //   titleMedium: TextStyle(
-        //     color: parkeaBlueAccent,
-        //     fontWeight: FontWeight.normal,
-        //     fontSize: 28,
-        //   ),
-        //   bodySmall: TextStyle(
-        //     color: parkeaBlueAccent,
-        //     fontWeight: FontWeight.normal,
-        //     fontSize: 12,
-        //   ),
-        //   bodyMedium: TextStyle(
-        //     color: parkeaBlueAccent,
-        //     fontWeight: FontWeight.bold,
-        //     fontSize: 12,
-        //   ),
-        //   bodyLarge: TextStyle(
-        //     color: parkeaBlueAccent,
-        //     fontWeight: FontWeight.normal,
-        //     fontSize: 20,
-        //   ),
-        // ),
+        textTheme: textThemeParkea,
       ),
       onGenerateRoute: (settings) {
         switch (settings.name) {

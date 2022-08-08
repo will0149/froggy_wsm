@@ -148,10 +148,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     _loading ? const CircularProgressIndicator.adaptive() : ElevatedButton(
                       child: Text(
                         S.of(context).signUp,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 12.0),
+                        style: Theme.of(context).textTheme.button?.copyWith(color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(
                         primary: parkeaOrange,
@@ -185,6 +182,9 @@ class _SignUpFormState extends State<SignUpForm> {
                             });
                             Navigator.pushNamed(context, "/onboarding");
                           }else {
+                            setState(() {
+                              _loading = false;
+                            });
                             FlutterToastr.show("Failed Logging", context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
                           }
                         }
