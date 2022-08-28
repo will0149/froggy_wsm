@@ -19,7 +19,7 @@ var textThemeParkea = const TextTheme(
     fontWeight: FontWeight.bold,
     fontStyle: FontStyle.normal,
     fontSize: 17,
-    height: 2,
+    // height: 2,
   ),
   headline3: TextStyle(
     color: parkeaBlueAccent,
@@ -31,14 +31,21 @@ var textThemeParkea = const TextTheme(
     fontWeight: FontWeight.w500,
     fontStyle: FontStyle.normal,
     fontSize: 17,
-    height: 2,
+    // height: 2,
   ),
   bodyText2: TextStyle(
     color: parkeaBlueAccent,
     fontWeight: FontWeight.w500,
     fontStyle: FontStyle.normal,
     fontSize: 15,
-    height: 2,
+    // height: 2,
+  ),
+  caption: TextStyle(
+    color: parkeaBlueAccent,
+    fontWeight: FontWeight.normal,
+    fontStyle: FontStyle.normal,
+    fontSize: 12,
+    // height: 2,
   ),
   button: TextStyle(
     color: Colors.white,

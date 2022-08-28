@@ -84,7 +84,7 @@ class _SignInFormState extends State<SignInForm> {
              ElevatedButton(
                 child: Text(
                   S.of(context).login,
-                  style: Theme.of(context).textTheme.button?.copyWith(color: Colors.white),
+                  style: Theme.of(context).textTheme.button?.copyWith(color: Colors.white, fontSize: 12),
                 ),
                 style: ElevatedButton.styleFrom(
                   primary: parkeaBlueAccent,
@@ -109,7 +109,7 @@ class _SignInFormState extends State<SignInForm> {
                     );
                     if(user != null){
                       logger.d("Process Complete");
-                      Navigator.pushNamed(context, "/onboarding");
+                      Navigator.pushNamed(context, "/navigator");
                     }else {
                       FlutterToastr.show("Failed Logging", context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
                     }

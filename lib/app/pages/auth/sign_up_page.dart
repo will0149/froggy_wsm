@@ -54,6 +54,24 @@ class _SignUpPageState extends State<SignUpPage> {
               painter: BottomLeftCurveOrange(),
             ),
           ),
+          Positioned(
+            left: 0.0,
+            top: size.height * 0.08,
+            child: Container(
+              child: Text(
+                "Registro",
+                style: Theme.of(context).textTheme.headline1?.copyWith(color: Colors.white, fontSize: 24),
+              ),
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight:  Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                  ),
+                  color: parkeaOrange
+              ),
+            ),
+          ),
           Center(
             child: SingleChildScrollView(
               child: Column(
@@ -71,26 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
           ),
-          Positioned(
-            left: 0.0,
-            top: size.height * 0.08,
-            child: Container(
-              child: const Text(
-                "Registro",
-                style: TextStyle(color: Colors.white,
-                  fontSize: 20
-                ),
-              ),
-              padding: const EdgeInsets.all(10),
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topRight:  Radius.circular(15),
-                    bottomRight: Radius.circular(15),
-                  ),
-                color: parkeaOrange
-              ),
-            ),
-          ),
+
         ],
       ),
     );

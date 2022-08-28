@@ -18,4 +18,7 @@ ButtonStyle buttonTransparentBlue = ButtonStyle(
   backgroundColor: MaterialStateProperty.all<Color>(
     Colors.white.withOpacity(0.70),
   ),
+  overlayColor: MaterialStateProperty.all<Color>(
+      parkeaOrange.withOpacity(0.2),
+  ),
 );
