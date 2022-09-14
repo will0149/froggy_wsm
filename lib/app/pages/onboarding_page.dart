@@ -59,7 +59,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
               child: Container(
                 margin: const EdgeInsets.only(right: 10.0),
                 child: const Hero(
-                  tag: 'ProfilePic',
+                  tag: 'profile_pic',
                   child: CircleAvatar(
                     radius: 25,
                     backgroundColor: parkeaOrange,
@@ -125,7 +125,8 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                                     (e) => EventFeedCard(
                                         event: e,
                                         width: double.infinity,
-                                        height: size.height * 0.40),
+                                        height: size.height * 0.40,
+                                    ),
                                   ),
                                 ],
                               );

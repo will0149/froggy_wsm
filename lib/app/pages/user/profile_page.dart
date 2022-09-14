@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parkea/app/pages/user/user_settings.dart';
 import 'package:parkea/app/widgets/filters/horizontal_filter_list.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 
@@ -23,6 +24,7 @@ class ProfilePage extends ConsumerStatefulWidget {
 class _ProfilePageState extends ConsumerState<ProfilePage> {
   List<String> filters = ["Eventos", "Pagos", "Guardados"];
   final ScrollController _controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -37,8 +39,17 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         elevation: 0,
         actions: [
           IconButton(
-              onPressed: () {}, icon: const Icon(Icons.settings_outlined)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.help_outline)),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const UserSettingsPage(),
+              ),
+            ),
+            icon: const Icon(Icons.settings_outlined),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.help_outline),
+          ),
         ],
       ),
       child: SingleChildScrollView(
@@ -46,7 +57,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           children: [
             Container(
               width: double.infinity,
-              padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
               child: Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 alignment: WrapAlignment.spaceEvenly,
@@ -54,7 +65,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                 children: [
                   SizedBox(
                     child: Hero(
-                      tag: 'ProfilePic1',
+                      tag: 'profile_pic1',
+                      createRectTween: (begin, end) {
+                        // Create and return your custom rect
+                        return MaterialRectArcTween(begin: begin, end: end);
+                      },
                       child: ClipOval(
                         child: Image.network(
                           'https://avatars.githubusercontent.com/u/37553901?v=4',
@@ -101,7 +116,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     shrinkWrap: true,
                     children: [
                       ..._eventsData.map(
-                            (e) => EventFeedCard(
+                        (e) => EventFeedCard(
                             event: e,
                             width: double.infinity,
                             height: size.height * 0.20),
