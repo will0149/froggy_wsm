@@ -79,9 +79,9 @@ class _NavigatorBarState
       });
     }
     return <Widget>[
-      OnboardingPage(),
-      SavedEventPage(),
-      ProfilePage()
+      const OnboardingPage(),
+      const SavedEventPage(),
+      const ProfilePage()
     ];
   }
 
@@ -105,7 +105,9 @@ class _NavigatorBarState
         rightCornerRadius: 25,
         gapLocation: GapLocation.none,
         backgroundColor: parkeaOrange,
-        height: 50.0,
+        borderColor: Colors.white,
+        borderWidth: 3.0,
+        height: 40.0,
         onTap: (index) => setState(() => _bottomNavIndex = index),
       ),
     );

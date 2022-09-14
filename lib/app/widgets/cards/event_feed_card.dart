@@ -68,7 +68,7 @@ class EventFeedCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Divider(),
+                  const Divider(),
                   Row(
                     children: [
                       Expanded(

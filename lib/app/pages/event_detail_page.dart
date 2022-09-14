@@ -163,12 +163,9 @@ Widget _eventDescription(Size size, String eventName, String date, String place,
                     style: Theme.of(context).textTheme.bodyText2,
                     softWrap: true,
                     maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                // IconButton(
-                //   onPressed: () {},
-                //   icon: const Icon(Icons.send),
-                // ),
               ],
             ),
             Row(
@@ -221,7 +218,7 @@ Widget _eventDescription(Size size, String eventName, String date, String place,
       ),
       Container(
         margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-        child: RelationalEvents(),
+        child: const RelationalEvents(),
       ),
     ],
   );
@@ -241,7 +238,7 @@ class RelationalEvents extends ConsumerWidget {
           children: [
             Text(
               "Eventos similares",
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.headline3,
               softWrap: true,
               maxLines: 1,
             ),
@@ -249,7 +246,7 @@ class RelationalEvents extends ConsumerWidget {
         ),
         Container(
           alignment: Alignment.center,
-          height: _size.height * 0.50,
+          height: _size.height * 0.20,
           child: _eventsData.when(
             data: (_eventsData) {
               return ListView(
@@ -259,9 +256,10 @@ class RelationalEvents extends ConsumerWidget {
                   ..._eventsData.map((e) => Container(
                         width: _size.width * 0.25,
                         height: _size.height * 0.40,
-                        margin: EdgeInsets.only(left: 8.0, right: 8.0),
+                        margin: const EdgeInsets.only(left: 8.0, right: 8.0),
                         child: Wrap(
                           direction: Axis.vertical,
+                          clipBehavior: Clip.hardEdge,
                           children: [
                             Row(
                               children: [
@@ -274,15 +272,17 @@ class RelationalEvents extends ConsumerWidget {
                             ),
                             Text(
                               e.eventName,
-                              style: Theme.of(context).textTheme.caption,
-                              softWrap: false,
+                              style: Theme.of(context).textTheme.bodyText2,
+                              softWrap: true,
                               maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
                             Text(
                               e.amount.price,
-                              style: Theme.of(context).textTheme.caption,
-                              softWrap: false,
+                              style: Theme.of(context).textTheme.bodyText2,
+                              softWrap: true,
                               maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ],
                         ),

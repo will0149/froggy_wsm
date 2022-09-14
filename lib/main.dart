@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
           case "/signup":
             return MaterialPageRoute(builder: (_)  => const SignUpPage());
           case "/onboarding":
-            return MaterialPageRoute(builder: (_) => OnboardingPage());
+            return MaterialPageRoute(builder: (_) => const OnboardingPage());
           case "/navigator":
             return MaterialPageRoute(builder: (_) => const NavigatorBar());
         }
