@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/colors.dart';
+import 'package:parkea/app/pages/user/profile_page.dart';
 
 import '../../domain/providers/onboarding_provider.dart';
 import '../../domain/usecases/fetch_events_uc.dart';
@@ -15,21 +16,30 @@ import '../widgets/filters/horizontal_filter_list.dart';
  * Date: 07/02/22
  */
 
-class OnboardingPage extends ConsumerWidget {
-  OnboardingPage({Key? key}) : super(key: key);
+class OnboardingPage extends ConsumerStatefulWidget {
+  const OnboardingPage({Key? key}) : super(key: key);
 
+  @override
+  _OnboardingPageState createState() => _OnboardingPageState();
+}
+
+class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   final titles = ["All", "Panamá", "Colón", "Panamá Oeste", "Bocas del Toro"];
   late final FetchEventsUC useCase = FetchEventsUC();
   final ScrollController _controller = ScrollController();
 
-  Future<void> _refresh() {
-    return Future.delayed(
-      const Duration(seconds: 2),
-    );
+  @override
+  void initState() {
+    super.initState();
+    ref.read(getEventsProvider);
+  }
+
+  Future<void> _refresh() async {
+    ref.refresh(getEventsProvider);
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     final _eventsData = ref.watch(getEventsProvider);
     return ExitPopScope(
@@ -45,19 +55,25 @@ class OnboardingPage extends ConsumerWidget {
             child: Image.asset("assets/logo/Parkea (1).png"),
           ),
           actions: [
-            Ink(
+            GestureDetector(
               child: Container(
                 margin: const EdgeInsets.only(right: 10.0),
-                child: const CircleAvatar(
-                  radius: 25,
-                  backgroundColor: parkeaOrange,
+                child: const Hero(
+                  tag: 'ProfilePic',
                   child: CircleAvatar(
-                    radius: 23,
-                    backgroundImage: NetworkImage(
-                        'https://avatars.githubusercontent.com/u/37553901?v=4'),
+                    radius: 25,
+                    backgroundColor: parkeaOrange,
+                    child: CircleAvatar(
+                      radius: 23,
+                      backgroundImage: NetworkImage(
+                        'https://avatars.githubusercontent.com/u/37553901?v=4',
+                      ),
+                    ),
                   ),
                 ),
               ),
+              onTap: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => const ProfilePage())),
             ),
           ],
         ),
@@ -107,8 +123,9 @@ class OnboardingPage extends ConsumerWidget {
                                 children: [
                                   ..._eventsData.map(
                                     (e) => EventFeedCard(
-                                       event: e, width: double.infinity, height: size.height * 0.40
-                                    ),
+                                        event: e,
+                                        width: double.infinity,
+                                        height: size.height * 0.40),
                                   ),
                                 ],
                               );
@@ -130,4 +147,6 @@ class OnboardingPage extends ConsumerWidget {
       ),
     );
   }
+
+
 }

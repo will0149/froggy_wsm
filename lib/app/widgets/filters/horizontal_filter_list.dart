@@ -5,8 +5,24 @@ class HorizontalFilterList extends StatefulWidget {
   final List<String> filterListItems;
   final Color activeColor;
   final Color inactiveColor;
+  final bool bottomLine;
+  final bool shrinkWrap;
+  final double itemLeftPadding;
+  final double itemRightPadding;
+  final double itemTopPadding;
+  final double itemBottomPadding;
 
-  const HorizontalFilterList({Key? key, required this.filterListItems, required this.activeColor, required this.inactiveColor})
+  const HorizontalFilterList(
+      {Key? key,
+      required this.filterListItems,
+      required this.activeColor,
+      required this.inactiveColor,
+      this.bottomLine = true,
+      this.shrinkWrap = false,
+      this.itemLeftPadding = 10,
+      this.itemRightPadding = 10,
+      this.itemTopPadding = 0,
+      this.itemBottomPadding= 10})
       : super(key: key);
 
   @override
@@ -15,6 +31,7 @@ class HorizontalFilterList extends StatefulWidget {
 
 class _HorizontalFilterListState extends State<HorizontalFilterList> {
   int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,6 +56,7 @@ class _HorizontalFilterListState extends State<HorizontalFilterList> {
   ListView horizontalCategoryListView(List<String> titles) {
     return ListView(
       scrollDirection: Axis.horizontal,
+      shrinkWrap: widget.shrinkWrap,
       children: <Widget>[
         for (var item in titles)
           InkWell(
@@ -60,32 +78,36 @@ class _HorizontalFilterListState extends State<HorizontalFilterList> {
   }
 
   Widget _buildCategoryListItemIndicator(String title, bool active) {
-    var activeTextColor =
-    active ? widget.activeColor: widget.inactiveColor;
+    var activeTextColor = active ? widget.activeColor : widget.inactiveColor;
     var activeLineColor = active ? widget.activeColor : Colors.transparent;
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 10,
-        right: 10,
-        top: 0,
-        bottom: 10,
+      padding: EdgeInsets.only(
+        left: widget.itemLeftPadding,
+        right: widget.itemRightPadding,
+        top: widget.itemTopPadding,
+        bottom: widget.itemBottomPadding,
       ),
       child: Container(
         child: Center(
           child: Text(
             title,
-            style: Theme.of(context).textTheme.bodyText1?.copyWith(color: activeTextColor),
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(color: activeTextColor),
           ),
         ),
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          border: Border(
-            bottom: BorderSide(
-              color: activeLineColor,
-              width: 3,
-            ),
-          ),
-        ),
+        decoration: widget.bottomLine
+            ? BoxDecoration(
+                color: Colors.transparent,
+                border: Border(
+                  bottom: BorderSide(
+                    color: activeLineColor,
+                    width: 3,
+                  ),
+                ),
+              )
+            : null,
       ),
     );
   }

@@ -5,7 +5,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:parkea/app/pages/onboarding_page.dart';
-import 'package:parkea/app/pages/profile_page.dart';
+import 'package:parkea/app/pages/user/profile_page.dart';
 import 'package:parkea/app/pages/saved_event_page.dart';
 import 'package:parkea/app/utils/hex_color.dart';
 
