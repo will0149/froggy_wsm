@@ -44,7 +44,7 @@ var textThemeParkea = const TextTheme(
     color: parkeaBlueAccent,
     fontWeight: FontWeight.normal,
     fontStyle: FontStyle.normal,
-    fontSize: 12,
+    fontSize: 14,
     // height: 2,
   ),
   button: TextStyle(

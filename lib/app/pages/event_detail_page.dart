@@ -47,20 +47,17 @@ class EventDetailPage extends ConsumerWidget {
                 children: [
                   Container(
                     height: _size.height * 0.35,
-                    foregroundDecoration: BoxDecoration(
-                      // gradient: LinearGradient(
-                      //   end: const Alignment(0.0, 1),
-                      //   begin: const Alignment(0.0, -0.4),
-                      //   colors: <Color>[
-                      //     const Color(0x8A000000),
-                      //     Colors.white.withOpacity(0.0)
-                      //   ],
-                      // ),
-                    ),
-                    child: Image.network(
-                      _eventDetail.bannerImageUrl.toString(),
-                      fit: BoxFit.cover,
-                    ),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(_eventDetail.bannerImageUrl.toString(),),
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                            bottomRight: Radius.circular(15.0),
+                            bottomLeft: Radius.circular(15.0)
+                        ),
+                        color: Colors.green),
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -131,7 +128,7 @@ Widget _eventDescription(Size size, String eventName, String date, String place,
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
             Text(
-              "\$${amount}",
+              "\$$amount",
               style: Theme.of(context)
                   .textTheme
                   .bodyText2

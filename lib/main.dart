@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       title: 'Parkea',
       theme: ThemeData(
           primarySwatch: Colors.cyan,
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
             backgroundColor: Colors.white,
             elevation: 0.10
           ),

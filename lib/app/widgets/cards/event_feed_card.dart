@@ -37,21 +37,20 @@ class EventFeedCard extends StatelessWidget {
       child: Container(
         width: width,
         height: height,
-        margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+        margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
         child: Stack(
           children: [
             Container(
               width: 200,
               height: 150,
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
               child: Wrap(
                 children: [
                   Text(
                     event.eventName,
-                    style: const TextStyle(
-                      fontSize: 15.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                        color: Colors.white,
+                      fontWeight: FontWeight.bold
                     ),
                   ),
                   Row(
@@ -59,29 +58,28 @@ class EventFeedCard extends StatelessWidget {
                       Expanded(
                         child: Text(
                           event.description,
-                          style: const TextStyle(
-                            fontSize: 12.0,
+                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
                             color: Colors.white,
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.w400,
                           ),
-                          softWrap: false,
+                          softWrap: true,
                           maxLines: 2,
                         ),
                       ),
                     ],
                   ),
+                  Divider(),
                   Row(
                     children: [
                       Expanded(
                         child: Text(
                           DateFormat.yMMMMEEEEd()
                               .format(DateTime.parse(event.date)),
-                          style: const TextStyle(
-                            fontSize: 12.0,
+                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
                             color: Colors.white,
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.w800,
                           ),
-                          softWrap: false,
+                          softWrap: true,
                           maxLines: 2,
                         ),
                       ),
