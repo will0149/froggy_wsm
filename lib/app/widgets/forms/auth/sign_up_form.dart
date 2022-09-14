@@ -180,7 +180,7 @@ class _SignUpFormState extends State<SignUpForm> {
                             setState(() {
                               _loading = false;
                             });
-                            Navigator.pushNamed(context, "/onboarding");
+                            Navigator.pushNamed(context, "/navigator");
                           }else {
                             setState(() {
                               _loading = false;
