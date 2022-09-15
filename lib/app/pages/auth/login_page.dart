@@ -19,6 +19,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SafeScaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+      ),
         child: Stack(
           children: [
             Align(

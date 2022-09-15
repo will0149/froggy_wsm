@@ -5,6 +5,7 @@ import 'package:parkea/app/widgets/paints/bottom_left_curve_orange.dart';
 import 'package:parkea/app/widgets/paints/middle_wave_white.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:parkea/generated/l10n.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 import '../../widgets/exit_pop_scope.dart';
 
@@ -59,12 +60,21 @@ class _AuthPageState extends State<AuthPage> {
             Positioned(
               top: 40,
               left: size.width * 0.05,
-              child: Text(
-                S.of(context).parkeaAndShare,
-                style: Theme.of(context).textTheme.headline1?.copyWith(
-                      color: Colors.white,
-                    ),
+              child:
+
+              AnimatedTextKit(
+                animatedTexts: [
+                  WavyAnimatedText(S.of(context).parkeaAndShare,
+                      textStyle: Theme.of(context).textTheme.headline1?.copyWith(
+                        color: Colors.white,
+                      ),),
+                ],
+                repeatForever: false,
+                onTap: () {
+                  print("Tap Event");
+                },
               ),
+
             ),
             SizedBox(
               height: double.infinity,

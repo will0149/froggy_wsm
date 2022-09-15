@@ -119,7 +119,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                 _loading = true;
               });
               fireBaseAuthHelper.signOut();
-              Navigator.pushNamed(context, "/navigator");
+              Navigator.pushNamed(context, "/main");
             },
           )),
         ],

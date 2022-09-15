@@ -13,6 +13,9 @@ import 'app/navigator.dart';
 import 'app/pages/onboarding_page.dart';
 import 'app/pages/validate_page/loading_page.dart';
 import 'app/themes/text_theme.dart';
+import 'app/utils/transitions/FadeRoute.dart';
+import 'app/utils/transitions/SlideRightRoute.dart';
+import 'app/utils/transitions/slide_left_route.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -48,13 +51,13 @@ class MyApp extends StatelessWidget {
           case "/main":
             return MaterialPageRoute(builder: (_) => const AuthPage());
           case "/login":
-            return MaterialPageRoute(builder: (_) => const LoginPage());
+            return SlideLeftRoute(page: const LoginPage());
           case "/signup":
-            return MaterialPageRoute(builder: (_)  => const SignUpPage());
+            return SlideRightRoute(page: const SignUpPage());
           case "/onboarding":
             return MaterialPageRoute(builder: (_) => const OnboardingPage());
           case "/navigator":
-            return MaterialPageRoute(builder: (_) => const NavigatorBar());
+            return FadeRoute(page: const NavigatorBar());
         }
         return null;
       },

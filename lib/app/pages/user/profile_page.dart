@@ -6,6 +6,7 @@ import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 
 import '../../../domain/providers/onboarding_provider.dart';
 import '../../colors.dart';
+import '../../utils/transitions/slide_left_route.dart';
 import '../../widgets/cards/event_feed_card.dart';
 
 /**
@@ -32,6 +33,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
     return SafeScaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         leading: const BackButton(
           color: parkeaBlueAccent,
         ),
@@ -39,16 +41,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         elevation: 0,
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const UserSettingsPage(),
+            onPressed: () => Navigator.push(
+              context,
+              SlideLeftRoute(page: const UserSettingsPage(),
               ),
             ),
             icon: const Icon(Icons.settings_outlined),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.help_outline),
           ),
         ],
       ),
