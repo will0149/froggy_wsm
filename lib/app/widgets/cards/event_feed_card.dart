@@ -27,7 +27,7 @@ class EventFeedCard extends StatelessWidget {
   void __renderToDetailPage(BuildContext context) {
     Navigator
         .of(context)
-        .push(MaterialPageRoute(builder: (_) => EventDetailPage(event.id)));
+        .push(MaterialPageRoute(builder: (_) => EventDetailPage(eventId: event.id,)));
     }
 
   @override

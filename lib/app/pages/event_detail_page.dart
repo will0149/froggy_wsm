@@ -13,11 +13,16 @@ import '../../generated/l10n.dart';
  * Date: 07/30/22
  */
 
-class EventDetailPage extends ConsumerWidget {
+class EventDetailPage extends ConsumerStatefulWidget {
   final int eventId;
 
-  const EventDetailPage(this.eventId, {Key? key}) : super(key: key);
+  const EventDetailPage({Key? key, required this.eventId}) : super(key: key);
 
+  @override
+  _EventDetailPageState createState() => _EventDetailPageState();
+}
+
+class _EventDetailPageState extends ConsumerState<EventDetailPage> {
   Future<void> _refresh() {
     return Future.delayed(
       const Duration(seconds: 2),
@@ -25,10 +30,9 @@ class EventDetailPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final _eventDetail = ref.watch(getEventDetailProvider(eventId));
+  Widget build(BuildContext context) {
+    final _eventDetail = ref.watch(getEventDetailProvider(widget.eventId));
     var _size = MediaQuery.of(context).size;
-    final ScrollController? controller = ScrollController();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -53,10 +57,7 @@ class EventDetailPage extends ConsumerWidget {
                           image: NetworkImage(_eventDetail.bannerImageUrl.toString(),),
                           fit: BoxFit.cover,
                         ),
-                        borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(15.0),
-                            bottomLeft: Radius.circular(15.0)
-                        ),
+                        border: Border.all(color: parkeaOrange, width: 2.0),
                         color: Colors.green),
                   ),
                   Container(
@@ -82,147 +83,150 @@ class EventDetailPage extends ConsumerWidget {
       ),
     );
   }
+
+  Widget _eventDescription(Size size, String eventName, String date, String place,
+      String amount, String description, BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
+    print(myLocale.languageCode);
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(5.0),
+          margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                eventName,
+                style: Theme.of(context).textTheme.headline1,
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.share_outlined),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          height: size.height * 0.20,
+          margin: const EdgeInsets.only(top: 5.0,),
+          child: Wrap(
+            direction: Axis.vertical,
+            children: [
+              Text(
+                DateFormat.yMMMMEEEEd(myLocale.languageCode).format(DateTime.parse(date)),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                place,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "\$$amount",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        const Divider(
+          thickness: 1,
+          // thickness of the line
+          // indent: 20,
+          // empty space to the leading edge of divider.
+          // endIndent: 20,
+          // empty space to the trailing edge of the divider.
+          color: parkeaBlueAccent,
+          // The color to use when painting the line.
+          height: 10, // The divider's height extent.
+        ),
+        Container(
+          height: size.height * 0.12,
+          width: double.infinity,
+          margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+          child: Wrap(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      description,
+                      style: Theme.of(context).textTheme.headline3,
+                      softWrap: true,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: size.width * 0.15,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      S.of(context).buyTicket,
+                      style: Theme.of(context)
+                          .textTheme
+                          .button
+                          ?.copyWith(color: Colors.white, fontSize: 12),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: parkeaOrange,
+                      // fixedSize: const Size(140, 43),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        side: const BorderSide(color: parkeaOrange, width: 1.2),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      S.of(context).saveEvent,
+                      style: Theme.of(context)
+                          .textTheme
+                          .button
+                          ?.copyWith(color: Colors.white, fontSize: 12),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: parkeaOrange,
+                      // fixedSize: const Size(140, 43),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        side: const BorderSide(color: parkeaOrange, width: 1.2),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+          child: const RelationalEvents(),
+        ),
+      ],
+    );
+  }
 }
 
-Widget _eventDescription(Size size, String eventName, String date, String place,
-    String amount, String description, BuildContext context) {
-  return Column(
-    children: [
-      Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(5.0),
-        margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              eventName,
-              style: Theme.of(context).textTheme.headline1,
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.share_outlined),
-            ),
-          ],
-        ),
-      ),
-      Container(
-        width: double.infinity,
-        height: size.height * 0.20,
-        margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-        child: Wrap(
-          direction: Axis.vertical,
-          children: [
-            Text(
-              DateFormat.yMMMMEEEEd().format(DateTime.parse(date)),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2
-                  ?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            Text(
-              place,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2
-                  ?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            Text(
-              "\$$amount",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2
-                  ?.copyWith(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-      const Divider(
-        thickness: 1,
-        // thickness of the line
-        indent: 20,
-        // empty space to the leading edge of divider.
-        endIndent: 20,
-        // empty space to the trailing edge of the divider.
-        color: parkeaBlueAccent,
-        // The color to use when painting the line.
-        height: 10, // The divider's height extent.
-      ),
-      Container(
-        height: size.height * 0.12,
-        width: double.infinity,
-        margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-        child: Wrap(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    description,
-                    style: Theme.of(context).textTheme.bodyText2,
-                    softWrap: true,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                SizedBox(
-                  width: size.width * 0.15,
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    S.of(context).buyTicket,
-                    style: Theme.of(context)
-                        .textTheme
-                        .button
-                        ?.copyWith(color: Colors.white, fontSize: 12),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: parkeaOrange,
-                    // fixedSize: const Size(140, 43),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: parkeaOrange, width: 1.2),
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    S.of(context).saveEvent,
-                    style: Theme.of(context)
-                        .textTheme
-                        .button
-                        ?.copyWith(color: Colors.white, fontSize: 12),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: parkeaOrange,
-                    // fixedSize: const Size(140, 43),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: parkeaOrange, width: 1.2),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      Container(
-        margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-        child: const RelationalEvents(),
-      ),
-    ],
-  );
-}
 
 class RelationalEvents extends ConsumerWidget {
   const RelationalEvents({Key? key}) : super(key: key);
