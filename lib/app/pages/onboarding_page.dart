@@ -73,7 +73,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                 ),
               ),
               onTap: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => const ProfilePage())),
+                  .push(MaterialPageRoute(builder: (_) => const ProfilePage(showBackButton: true,))),
             ),
           ],
         ),

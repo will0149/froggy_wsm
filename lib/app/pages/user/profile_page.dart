@@ -16,7 +16,9 @@ import '../../widgets/cards/event_feed_card.dart';
  */
 
 class ProfilePage extends ConsumerStatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  final bool showBackButton;
+
+  const ProfilePage({Key? key, this.showBackButton = false}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -33,17 +35,20 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
     return SafeScaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: const BackButton(
-          color: parkeaBlueAccent,
-        ),
+        automaticallyImplyLeading: widget.showBackButton,
+        leading: widget.showBackButton
+            ? const BackButton(
+                color: parkeaBlueAccent,
+              )
+            : null,
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
           IconButton(
             onPressed: () => Navigator.push(
               context,
-              SlideLeftRoute(page: const UserSettingsPage(),
+              SlideLeftRoute(
+                page: const UserSettingsPage(),
               ),
             ),
             icon: const Icon(Icons.settings_outlined),
