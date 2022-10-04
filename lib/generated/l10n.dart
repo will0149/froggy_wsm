@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Atheneox`
+  /// `Atheneox Studios`
   String get devStudio {
     return Intl.message(
-      'Atheneox',
+      'Atheneox Studios',
       name: 'devStudio',
       desc: '',
       args: [],
@@ -80,10 +80,10 @@ class S {
     );
   }
 
-  /// `Unete a nuestro universo`
+  /// `Únete a nuestro universo`
   String get joinOurUniverse {
     return Intl.message(
-      'Unete a nuestro universo',
+      'Únete a nuestro universo',
       name: 'joinOurUniverse',
       desc: '',
       args: [],
@@ -130,10 +130,10 @@ class S {
     );
   }
 
-  /// `Registrate`
+  /// `Regístrate`
   String get signUp {
     return Intl.message(
-      'Registrate',
+      'Regístrate',
       name: 'signUp',
       desc: '',
       args: [],
@@ -229,6 +229,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Registro`
+  String get register {
+    return Intl.message(
+      'Registro',
+      name: 'register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Eventos`
+  String get myEvents {
+    return Intl.message(
+      'Eventos',
+      name: 'myEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pagos`
+  String get myEventsPaid {
+    return Intl.message(
+      'Pagos',
+      name: 'myEventsPaid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gardados`
+  String get myEventsSaved {
+    return Intl.message(
+      'Gardados',
+      name: 'myEventsSaved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Información`
+  String get information {
+    return Intl.message(
+      'Información',
+      name: 'information',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Eventos Similares`
+  String get similarEvents {
+    return Intl.message(
+      'Eventos Similares',
+      name: 'similarEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Configuración`
+  String get settings {
+    return Intl.message(
+      'Configuración',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cerrar Sesión`
+  String get logout {
+    return Intl.message(
+      'Cerrar Sesión',
+      name: 'logout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ayuda`
+  String get getHelp {
+    return Intl.message(
+      'Ayuda',
+      name: 'getHelp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Datos & Privacidad`
+  String get dataAndPrivacy {
+    return Intl.message(
+      'Datos & Privacidad',
+      name: 'dataAndPrivacy',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -237,7 +337,12 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'es'),
+      Locale.fromSubtags(languageCode: 'de'),
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'fr'),
+      Locale.fromSubtags(languageCode: 'pt'),
+      Locale.fromSubtags(languageCode: 'ru'),
+      Locale.fromSubtags(languageCode: 'zh'),
     ];
   }
 

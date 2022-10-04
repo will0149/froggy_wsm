@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a es locale. All the
+// This is a library that provides messages for a pt locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -18,45 +18,45 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'es';
+  String get localeName => 'pt';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "authenticate": MessageLookupByLibrary.simpleMessage("Autenticar"),
-        "buyTicket": MessageLookupByLibrary.simpleMessage("Comprar Entrada"),
+        "buyTicket": MessageLookupByLibrary.simpleMessage("Comprar bilhete"),
         "dataAndPrivacy":
-            MessageLookupByLibrary.simpleMessage("Datos & Privacidad"),
+            MessageLookupByLibrary.simpleMessage("Dados e privacidade"),
         "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
-        "email": MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
+        "email": MessageLookupByLibrary.simpleMessage("Correio eletrônico"),
         "eventsForAll":
             MessageLookupByLibrary.simpleMessage("Eventos para todos"),
         "forgotPassword":
-            MessageLookupByLibrary.simpleMessage("Olvide mi Contraseña"),
-        "getHelp": MessageLookupByLibrary.simpleMessage("Ayuda"),
-        "information": MessageLookupByLibrary.simpleMessage("Información"),
+            MessageLookupByLibrary.simpleMessage("Esqueci minha senha"),
+        "getHelp": MessageLookupByLibrary.simpleMessage("Ajuda"),
+        "information": MessageLookupByLibrary.simpleMessage("Informação"),
         "joinOurUniverse":
-            MessageLookupByLibrary.simpleMessage("Únete a nuestro universo"),
-        "login": MessageLookupByLibrary.simpleMessage("Iniciar Sesión"),
-        "logout": MessageLookupByLibrary.simpleMessage("Cerrar Sesión"),
+            MessageLookupByLibrary.simpleMessage("Junte-se ao nosso universo"),
+        "login": MessageLookupByLibrary.simpleMessage("Iniciar sessão"),
+        "logout": MessageLookupByLibrary.simpleMessage("Fechar Sessão"),
         "myEvents": MessageLookupByLibrary.simpleMessage("Eventos"),
-        "myEventsPaid": MessageLookupByLibrary.simpleMessage("Pagos"),
-        "myEventsSaved": MessageLookupByLibrary.simpleMessage("Gardados"),
-        "name": MessageLookupByLibrary.simpleMessage("Nombre"),
+        "myEventsPaid": MessageLookupByLibrary.simpleMessage("Pago"),
+        "myEventsSaved": MessageLookupByLibrary.simpleMessage("Salvou"),
+        "name": MessageLookupByLibrary.simpleMessage("Nome"),
         "parkeaAndShare":
             MessageLookupByLibrary.simpleMessage("Parkea & Comparte"),
         "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
-        "password": MessageLookupByLibrary.simpleMessage("Contraseña"),
+        "password": MessageLookupByLibrary.simpleMessage("Senha"),
         "popularEvents":
             MessageLookupByLibrary.simpleMessage("Eventos Populares"),
-        "province": MessageLookupByLibrary.simpleMessage("Provincia"),
-        "register": MessageLookupByLibrary.simpleMessage("Registro"),
-        "saveEvent": MessageLookupByLibrary.simpleMessage("Guardar Evento"),
-        "seeEvent": MessageLookupByLibrary.simpleMessage("Ir al Evento"),
-        "settings": MessageLookupByLibrary.simpleMessage("Configuración"),
-        "signUp": MessageLookupByLibrary.simpleMessage("Regístrate"),
+        "province": MessageLookupByLibrary.simpleMessage("Província"),
+        "register": MessageLookupByLibrary.simpleMessage("Inscrever-se"),
+        "saveEvent": MessageLookupByLibrary.simpleMessage("Salvar Evento"),
+        "seeEvent": MessageLookupByLibrary.simpleMessage("ver evento"),
+        "settings": MessageLookupByLibrary.simpleMessage("Definições"),
+        "signUp": MessageLookupByLibrary.simpleMessage("Inscrever-se"),
         "similarEvents":
-            MessageLookupByLibrary.simpleMessage("Eventos Similares"),
+            MessageLookupByLibrary.simpleMessage("Eventos Semelhantes"),
         "welcomeAgain":
-            MessageLookupByLibrary.simpleMessage("¡Bienvenido de nuevo!")
+            MessageLookupByLibrary.simpleMessage("¡Bem vindo de novo!")
       };
 }

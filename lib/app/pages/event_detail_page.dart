@@ -87,7 +87,6 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
   Widget _eventDescription(Size size, String eventName, String date, String place,
       String amount, String description, BuildContext context) {
     Locale myLocale = Localizations.localeOf(context);
-    print(myLocale.languageCode);
     return Column(
       children: [
         Container(
@@ -241,7 +240,7 @@ class RelationalEvents extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Eventos similares",
+              S.of(context).similarEvents,
               style: Theme.of(context).textTheme.headline3,
               softWrap: true,
               maxLines: 1,

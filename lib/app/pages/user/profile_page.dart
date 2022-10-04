@@ -5,6 +5,7 @@ import 'package:parkea/app/widgets/filters/horizontal_filter_list.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 
 import '../../../domain/providers/onboarding_provider.dart';
+import '../../../generated/l10n.dart';
 import '../../colors.dart';
 import '../../utils/transitions/slide_left_route.dart';
 import '../../widgets/cards/event_feed_card.dart';
@@ -25,11 +26,11 @@ class ProfilePage extends ConsumerStatefulWidget {
 }
 
 class _ProfilePageState extends ConsumerState<ProfilePage> {
-  List<String> filters = ["Eventos", "Pagos", "Guardados"];
   final ScrollController _controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    List<String> filters = [S.of(context).myEvents, S.of(context).myEventsPaid, S.of(context).myEventsSaved];
     var size = MediaQuery.of(context).size;
     final _subscribeEventsData = ref.watch(getEventsProvider);
 
@@ -84,7 +85,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   ),
                   SizedBox(
                     child: Text(
-                      "Information",
+                      S.of(context).information,
                       style: Theme.of(context).textTheme.headline1,
                     ),
                   ),

@@ -22,19 +22,38 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "email": MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
+        "authenticate": MessageLookupByLibrary.simpleMessage("Authenticate"),
+        "buyTicket": MessageLookupByLibrary.simpleMessage("Buy ticket"),
+        "dataAndPrivacy":
+            MessageLookupByLibrary.simpleMessage("Data & Privacy"),
+        "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
         "eventsForAll":
-            MessageLookupByLibrary.simpleMessage("Eventos para todos"),
+            MessageLookupByLibrary.simpleMessage("Events for everyone"),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("I forgot my password"),
+        "getHelp": MessageLookupByLibrary.simpleMessage("Help"),
+        "information": MessageLookupByLibrary.simpleMessage("Information"),
         "joinOurUniverse":
-            MessageLookupByLibrary.simpleMessage("Unete a nuestro universo"),
-        "login": MessageLookupByLibrary.simpleMessage("Iniciar Sesión"),
+            MessageLookupByLibrary.simpleMessage("Join our universe"),
+        "login": MessageLookupByLibrary.simpleMessage("Sign In"),
+        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "myEvents": MessageLookupByLibrary.simpleMessage("Events"),
+        "myEventsPaid": MessageLookupByLibrary.simpleMessage("Paid"),
+        "myEventsSaved": MessageLookupByLibrary.simpleMessage("Saved"),
+        "name": MessageLookupByLibrary.simpleMessage("Name"),
         "parkeaAndShare":
-            MessageLookupByLibrary.simpleMessage("Parkea & Comparte"),
+            MessageLookupByLibrary.simpleMessage("Parkea & Share"),
         "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
-        "password": MessageLookupByLibrary.simpleMessage("Contraseña"),
-        "seeEvent": MessageLookupByLibrary.simpleMessage("Ir al Evento"),
-        "signUp": MessageLookupByLibrary.simpleMessage("Registrate"),
-        "welcomeAgain":
-            MessageLookupByLibrary.simpleMessage("Bienvenido de nuevo!")
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "popularEvents": MessageLookupByLibrary.simpleMessage("Popular events"),
+        "province": MessageLookupByLibrary.simpleMessage("Province"),
+        "register": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "saveEvent": MessageLookupByLibrary.simpleMessage("Save event"),
+        "seeEvent": MessageLookupByLibrary.simpleMessage("Show event"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "similarEvents": MessageLookupByLibrary.simpleMessage("Similar events"),
+        "welcomeAgain": MessageLookupByLibrary.simpleMessage("¡Welcome back!")
       };
 }

@@ -1,13 +1,13 @@
 {
-  "devStudio": "Atheneox",
+  "devStudio": "Atheneox Studios",
   "parkeaAppName": "Parkea!",
   "parkeaAndShare": "Parkea & Comparte",
-  "joinOurUniverse": "Unete a nuestro universo",
+  "joinOurUniverse": "Únete a nuestro universo",
   "eventsForAll": "Eventos para todos",
   "authenticate": "Autenticar",
   "welcomeAgain": "¡Bienvenido de nuevo!",
   "login": "Iniciar Sesión",
-  "signUp": "Registrate",
+  "signUp": "Regístrate",
   "email": "Correo Electrónico",
   "password": "Contraseña",
   "forgotPassword": "Olvide mi Contraseña",
@@ -16,5 +16,15 @@
   "popularEvents": "Eventos Populares",
   "seeEvent": "Ir al Evento",
   "buyTicket": "Comprar Entrada",
-  "saveEvent": "Guardar Evento"
+  "saveEvent": "Guardar Evento",
+  "register": "Registro",
+  "myEvents": "Eventos",
+  "myEventsPaid": "Pagos",
+  "myEventsSaved": "Gardados",
+  "information": "Información",
+  "similarEvents": "Eventos Similares",
+  "settings": "Configuración",
+  "logout": "Cerrar Sesión",
+  "getHelp": "Ayuda",
+  "dataAndPrivacy": "Datos & Privacidad"
 }

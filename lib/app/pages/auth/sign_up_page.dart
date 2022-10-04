@@ -4,6 +4,8 @@ import 'package:parkea/app/widgets/forms/auth/sign_up_form.dart';
 import 'package:parkea/app/widgets/paints/bottom_left_curve_orange.dart';
 import 'package:parkea/app/widgets/paints/sign_in_up_white_shape.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
+
+import '../../../generated/l10n.dart';
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
@@ -62,7 +64,7 @@ class _SignUpPageState extends State<SignUpPage> {
             top: size.height * 0.08,
             child: Container(
               child: Text(
-                "Registro",
+                S.of(context).register,
                 style: Theme.of(context).textTheme.headline1?.copyWith(color: Colors.white, fontSize: 24),
               ),
               padding: const EdgeInsets.all(10),

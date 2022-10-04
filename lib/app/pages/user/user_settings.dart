@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parkea/app/colors.dart';
 
 import '../../../data/repositories/fire_base_auth_handler.dart';
+import '../../../generated/l10n.dart';
 import '../../themes/border_radious.dart';
 
 /**
@@ -26,14 +27,15 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings".toUpperCase()),
+        title: Text(S.of(context).settings),
       ),
       body: ListView(
         padding: const EdgeInsets.only(top: 30, bottom: 20, left: 15, right: 15),
         children: [
-          _buildCardSettings(const ListTile(
+          _buildCardSettings(
+               ListTile(
             title: Text(
-              "Language",
+              S.of(context).dataAndPrivacy,
             ),
             textColor: Colors.white,
             trailing: Icon(Icons.play_arrow),
@@ -41,74 +43,21 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
             contentPadding:
             EdgeInsets.only(left: 20, right: 30, top: 8.5, bottom: 9.5),
           )),
-          _buildCardSettings(const ListTile(
+          _buildCardSettings( ListTile(
             title: Text(
-              "Edit Profile",
+              S.of(context).getHelp,
             ),
             textColor: Colors.white,
-            trailing: Icon(Icons.play_arrow),
-            iconColor: Colors.white,
-            contentPadding:
-            EdgeInsets.only(left: 20, right: 30, top: 8.5, bottom: 9.5),
-          )),
-          _buildCardSettings(ListTile(
-            title: const Text(
-              "Theme",
-            ),
-            textColor: Colors.white,
-            trailing: SwitchTheme(
-              data: SwitchTheme.of(context),
-              child: ToggleButtonsTheme(
-                data: const ToggleButtonsThemeData(color: Colors.green),
-                child: Wrap(
-                  children: const [
-                    Icon(Icons.dark_mode),
-                    Icon(Icons.light_mode),
-                  ],
-                ),
-              ),
-            ),
             iconColor: Colors.white,
             contentPadding:
             const EdgeInsets.only(left: 20, right: 30, top: 8.5, bottom: 9.5),
-          )),
-          _buildCardSettings(const ListTile(
-            title: Text(
-              "Saved Posts",
-            ),
-            textColor: Colors.white,
-            trailing: Icon(Icons.play_arrow),
-            iconColor: Colors.white,
-            contentPadding:
-            EdgeInsets.only(left: 20, right: 30, top: 8.5, bottom: 9.5),
-          ),
-          ),
-          _buildCardSettings(
-              const ListTile(
-            title: Text(
-              "Privacy & Data",
-            ),
-            textColor: Colors.white,
-            trailing: Icon(Icons.play_arrow),
-            iconColor: Colors.white,
-            contentPadding:
-            EdgeInsets.only(left: 20, right: 30, top: 8.5, bottom: 9.5),
-          )),
-          _buildCardSettings(const ListTile(
-            title: Text(
-              "Get Help",
-            ),
-            textColor: Colors.white,
-            iconColor: Colors.white,
-            contentPadding:
-            EdgeInsets.only(left: 20, right: 30, top: 8.5, bottom: 9.5),
           )),
           _buildCardSettings(
               ListTile(
             title: _loading
                 ? const CircularProgressIndicator()
-                : const Text(
-              "Log Out",
+                :  Text(
+              S.of(context).logout,
             ),
             textColor: Colors.white,
             iconColor: Colors.white,
