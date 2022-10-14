@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../../device/utils/is_first_run.dart';
 import '../../../domain/usecases/auth/validate_session_uc.dart';
 import '../../widgets/color_loader.dart';
 
@@ -21,6 +22,15 @@ class SplashScreen extends StatefulWidget {
 class StartState extends State<SplashScreen> {
   late final ValidateSessionUC uc = ValidateSessionUC();
 
+  checkFirstSeen() async {
+    bool firstCall = await IsFirstRun.isFirstRun();
+    if (!firstCall) {
+      uc.validateInstance(context);
+    } else {
+      Navigator.pushReplacementNamed(context, "/slideshow");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return initScreen(context);
@@ -34,11 +44,7 @@ class StartState extends State<SplashScreen> {
 
   startTimer() async {
     var duration = const Duration(milliseconds: 1500);
-    return Timer(duration, route);
-  }
-
-  route() {
-    uc.validateInstance(context);
+    return Timer(duration, checkFirstSeen);
   }
 
   initScreen(BuildContext context) {

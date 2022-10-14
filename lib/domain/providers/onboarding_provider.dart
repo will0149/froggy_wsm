@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../dtos/event_dto.dart';

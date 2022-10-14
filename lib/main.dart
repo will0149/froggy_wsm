@@ -8,9 +8,9 @@ import 'package:parkea/app/pages/auth/login_page.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
 import 'package:parkea/app/themes/parkea_input_decoration_theme.dart';
 
-import 'app/colors.dart';
 import 'app/navigator.dart';
 import 'app/pages/onboarding_page.dart';
+import 'app/pages/slide_show_page.dart';
 import 'app/pages/validate_page/loading_page.dart';
 import 'app/themes/text_theme.dart';
 import 'app/utils/transitions/FadeRoute.dart';
@@ -58,6 +58,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const OnboardingPage());
           case "/navigator":
             return FadeRoute(page: const NavigatorBar());
+          case "/slideshow":
+            return FadeRoute(page: const SlideshowPage());
         }
         return null;
       },

@@ -19,7 +19,7 @@ class ValidateSessionUC {
         Navigator.pushReplacementNamed(context, "/main");
       } else {
         logger.d('User is signed in!');
-        Navigator.pushNamed(context, "/navigator");
+        Navigator.pushReplacementNamed(context, "/navigator");
       }
     });
   }

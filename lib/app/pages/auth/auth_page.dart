@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:parkea/app/colors.dart';
 import 'package:parkea/app/themes/buttom_transparent_border_blue.dart';
@@ -5,7 +6,6 @@ import 'package:parkea/app/widgets/paints/bottom_left_curve_orange.dart';
 import 'package:parkea/app/widgets/paints/middle_wave_white.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:parkea/generated/l10n.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 
 import '../../widgets/exit_pop_scope.dart';
 
@@ -60,21 +60,20 @@ class _AuthPageState extends State<AuthPage> {
             Positioned(
               top: 40,
               left: size.width * 0.05,
-              child:
-
-              AnimatedTextKit(
+              child: AnimatedTextKit(
                 animatedTexts: [
-                  WavyAnimatedText(S.of(context).parkeaAndShare,
-                      textStyle: Theme.of(context).textTheme.headline1?.copyWith(
-                        color: Colors.white,
-                      ),),
+                  WavyAnimatedText(
+                    S.of(context).parkeaAndShare,
+                    textStyle: Theme.of(context).textTheme.headline1?.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
                 ],
                 repeatForever: false,
                 onTap: () {
                   print("Tap Event");
                 },
               ),
-
             ),
             SizedBox(
               height: double.infinity,
@@ -107,14 +106,11 @@ class _AuthPageState extends State<AuthPage> {
                   children: [
                     Text(
                       S.of(context).joinOurUniverse,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2
-                          ?.copyWith(
-                        fontWeight: FontWeight.normal,
+                      style: Theme.of(context).textTheme.headline2?.copyWith(
+                          fontWeight: FontWeight.normal,
                           fontSize: 22,
                           shadows: [
-                            Shadow(
+                            const Shadow(
                                 color: Colors.white,
                                 offset: Offset(2, 1),
                                 blurRadius: 2)
@@ -126,12 +122,10 @@ class _AuthPageState extends State<AuthPage> {
                       child: ElevatedButton(
                         child: Text(
                           S.of(context).authenticate,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              ?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, "/login");
@@ -150,8 +144,7 @@ class _AuthPageState extends State<AuthPage> {
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2
-                              ?.copyWith(
-                                  fontWeight: FontWeight.bold),
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, "/signup");
@@ -163,12 +156,15 @@ class _AuthPageState extends State<AuthPage> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                S.of(context).devStudio,
-                style: const TextStyle(color: Colors.white),
+            GestureDetector(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  S.of(context).devStudio,
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
+              onTap: () {},
             ),
           ],
         ),
