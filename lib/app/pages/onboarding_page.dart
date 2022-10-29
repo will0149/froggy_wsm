@@ -41,7 +41,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final _eventsData = ref.watch(getEventsProvider);
+    final eventsData = ref.watch(getEventsProvider);
     return ExitPopScope(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -115,13 +115,13 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                     child: Column(
                       children: [
                         Container(
-                          child: _eventsData.when(
-                            data: (_eventsData) {
+                          child: eventsData.when(
+                            data: (eventsData) {
                               return ListView(
                                 controller: _controller,
                                 shrinkWrap: true,
                                 children: [
-                                  ..._eventsData.map(
+                                  ...eventsData.map(
                                     (e) => EventFeedCard(
                                         event: e,
                                         width: double.infinity,
