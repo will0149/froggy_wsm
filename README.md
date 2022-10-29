@@ -33,3 +33,12 @@ lib/
 main.dart                     <--- entry point
 
 '''
+
+## Riverpod 2.0
+```
+tiene dependencias con flutter_hooks y hooks_riverpod
+y en las dev con build_runner, riverpod_generator
+
+despues de instalar correr
+**flutter pub run build_runner watch** para observar cambios en la generacion de providers
+```

@@ -31,8 +31,8 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _eventDetail = ref.watch(getEventDetailProvider(widget.eventId));
-    var _size = MediaQuery.of(context).size;
+    final eventDetail = ref.watch(getEventDetailProvider(widget.eventId));
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -45,16 +45,16 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
       body: RefreshIndicator(
         onRefresh: _refresh,
         child: SingleChildScrollView(
-          child: _eventDetail.when(
-            data: (_eventDetail) {
+          child: eventDetail.when(
+            data: (eventDetail) {
               return Column(
                 children: [
                   Container(
-                    height: _size.height * 0.35,
+                    height: size.height * 0.35,
                     width: double.infinity,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: NetworkImage(_eventDetail.bannerImageUrl.toString(),),
+                          image: NetworkImage(eventDetail.bannerImageUrl.toString(),),
                           fit: BoxFit.cover,
                         ),
                         border: Border.all(color: parkeaOrange, width: 2.0),
@@ -63,12 +63,12 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: _eventDescription(
-                        _size,
-                        _eventDetail.eventName,
-                        _eventDetail.date,
-                        _eventDetail.location.place,
-                        _eventDetail.amount.price,
-                        _eventDetail.description,
+                        size,
+                        eventDetail.eventName,
+                        eventDetail.date,
+                        eventDetail.location.place,
+                        eventDetail.amount.price,
+                        eventDetail.description,
                         context),
                   ),
                 ],
@@ -178,6 +178,14 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: parkeaOrange,
+                      // fixedSize: const Size(140, 43),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        side: const BorderSide(color: parkeaOrange, width: 1.2),
+                      ),
+                    ),
                     child: Text(
                       S.of(context).buyTicket,
                       style: Theme.of(context)
@@ -185,6 +193,9 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
                           .button
                           ?.copyWith(color: Colors.white, fontSize: 12),
                     ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       primary: parkeaOrange,
                       // fixedSize: const Size(140, 43),
@@ -193,23 +204,12 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
                         side: const BorderSide(color: parkeaOrange, width: 1.2),
                       ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
                     child: Text(
                       S.of(context).saveEvent,
                       style: Theme.of(context)
                           .textTheme
                           .button
                           ?.copyWith(color: Colors.white, fontSize: 12),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: parkeaOrange,
-                      // fixedSize: const Size(140, 43),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(color: parkeaOrange, width: 1.2),
-                      ),
                     ),
                   ),
                 ],
@@ -232,8 +232,8 @@ class RelationalEvents extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _eventsData = ref.watch(getEventsProvider);
-    var _size = MediaQuery.of(context).size;
+    final eventsData = ref.watch(getEventsProvider);
+    var size = MediaQuery.of(context).size;
     return Column(
       children: [
         Row(
@@ -249,16 +249,16 @@ class RelationalEvents extends ConsumerWidget {
         ),
         Container(
           alignment: Alignment.center,
-          height: _size.height * 0.20,
-          child: _eventsData.when(
-            data: (_eventsData) {
+          height: size.height * 0.20,
+          child: eventsData.when(
+            data: (eventsData) {
               return ListView(
                 scrollDirection: Axis.horizontal,
                 // padding: EdgeInsets.all(5.0),
                 children: <Widget>[
-                  ..._eventsData.map((e) => Container(
-                        width: _size.width * 0.25,
-                        height: _size.height * 0.40,
+                  ...eventsData.map((e) => Container(
+                        width: size.width * 0.25,
+                        height: size.height * 0.40,
                         margin: const EdgeInsets.only(left: 8.0, right: 8.0),
                         child: Wrap(
                           direction: Axis.vertical,
@@ -268,8 +268,8 @@ class RelationalEvents extends ConsumerWidget {
                               children: [
                                 Image.network(
                                   e.bannerImageUrl.toString(),
-                                  width: _size.width * 0.25,
-                                  height: _size.height * 0.10,
+                                  width: size.width * 0.25,
+                                  height: size.height * 0.10,
                                 ),
                               ],
                             ),

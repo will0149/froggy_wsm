@@ -40,17 +40,33 @@ class SlideshowPage extends StatelessWidget {
     );
   }
 
-  Widget slideContainer(String word, String path, String desciption, BuildContext context) {
+  Widget slideContainer(
+      String word, String path, String description, BuildContext context) {
     return Column(
       children: [
-
-        Lottie.asset(path, width: double.infinity, height: 450),
-        Text(
-          word,
-          style: Theme.of(context).textTheme.headline1,
+        Expanded(
+          child: Text(
+            "Parkea App",
+            style: Theme.of(context).textTheme.headline1,
+          ),
         ),
-        const Spacer(),
-        Text(desciption),
+        Expanded(
+          flex: 9,
+          child: Lottie.asset(path,
+              width: double.infinity,
+              height: 450,
+              repeat: false,
+              frameRate: FrameRate(200.0)),
+        ),
+        Expanded(
+          child: Text(
+            word,
+            style: Theme.of(context).textTheme.headline1,
+          ),
+        ),
+        Expanded(
+          child: Text(description),
+        )
       ],
     );
   }

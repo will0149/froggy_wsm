@@ -120,6 +120,10 @@ class _AuthPageState extends State<AuthPage> {
                       width: size.width * 0.5,
                       height: size.height * 0.065,
                       child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/login");
+                        },
+                        style: buttonTransparentBlue,
                         child: Text(
                           S.of(context).authenticate,
                           style:
@@ -127,10 +131,6 @@ class _AuthPageState extends State<AuthPage> {
                                     fontWeight: FontWeight.bold,
                                   ),
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/login");
-                        },
-                        style: buttonTransparentBlue,
                       ),
                     ),
                     SizedBox(
@@ -139,6 +139,10 @@ class _AuthPageState extends State<AuthPage> {
                       // width: size.width * 0.8,
                       // height: size.height * 0.07,
                       child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/signup");
+                        },
+                        style: buttonTransparentBlue,
                         child: Text(
                           S.of(context).signUp,
                           style: Theme.of(context)
@@ -146,10 +150,6 @@ class _AuthPageState extends State<AuthPage> {
                               .bodyText2
                               ?.copyWith(fontWeight: FontWeight.bold),
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/signup");
-                        },
-                        style: buttonTransparentBlue,
                       ),
                     ),
                   ],
@@ -164,7 +164,9 @@ class _AuthPageState extends State<AuthPage> {
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacementNamed(context, "/slideshow");
+              },
             ),
           ],
         ),
