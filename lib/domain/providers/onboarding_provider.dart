@@ -1,4 +1,5 @@
-import 'package:riverpod/riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../dtos/event_dto.dart';
 import '../usecases/fetch_events_uc.dart';
@@ -9,7 +10,9 @@ import '../usecases/fetch_events_uc.dart';
  * Date: 07/17/22
  */
 
+part 'onboarding_provider.g.dart';
 
-final getEventsProvider = FutureProvider<List<EventDTO>>((ref) async {
+@riverpod
+Future<List<EventDTO>> getEvents(GetEventsRef ref) async {
   return ref.read(eventsApiProvider).getAllEvents();
-});
+}

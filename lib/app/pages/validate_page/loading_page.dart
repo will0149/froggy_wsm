@@ -39,12 +39,7 @@ class StartState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    startTimer();
-  }
-
-  startTimer() async {
-    var duration = const Duration(milliseconds: 1500);
-    return Timer(duration, checkFirstSeen);
+    checkFirstSeen();
   }
 
   initScreen(BuildContext context) {
