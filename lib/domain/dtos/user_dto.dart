@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
  */
 
 class UserDTO {
-  final int id;
+  final int userId;
   final String firstName;
   final String? lastName;
   final String phoneNumber;
@@ -15,7 +15,7 @@ class UserDTO {
   final String? profileImage;
 
   UserDTO(
-      {required this.id,
+      {required this.userId,
       required this.firstName,
       this.lastName,
       required this.phoneNumber,
@@ -23,7 +23,7 @@ class UserDTO {
       this.profileImage});
 
   factory UserDTO.fromJson(Map<String, dynamic> json) => UserDTO(
-        id: json["id"],
+        userId: json["userId"],
         firstName: json["firstName"],
         lastName: json["lastName"],
         phoneNumber: json["phoneNumber"],
@@ -32,7 +32,7 @@ class UserDTO {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "userId": userId,
         "firstName": firstName,
         "lastName": lastName,
         "phoneNumber": phoneNumber,

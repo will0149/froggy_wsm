@@ -4,6 +4,7 @@ import 'package:parkea/app/colors.dart';
 import 'package:parkea/app/pages/user/profile_page.dart';
 
 import '../../domain/providers/onboarding_provider.dart';
+import '../../domain/providers/user_detail_provider.dart';
 import '../../domain/usecases/fetch_events_uc.dart';
 import '../../generated/l10n.dart';
 import '../widgets/cards/event_feed_card.dart';
@@ -42,6 +43,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     final eventsData = ref.watch(getEventsProvider);
+    final userData = ref.watch(getUserDetailProvider);
     return ExitPopScope(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -58,16 +60,24 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
             GestureDetector(
               child: Container(
                 margin: const EdgeInsets.only(right: 10.0),
-                child: const Hero(
+                child: Hero(
                   tag: 'profile_pic',
-                  child: CircleAvatar(
-                    radius: 25,
-                    backgroundColor: parkeaOrange,
-                    child: CircleAvatar(
-                      radius: 23,
-                      backgroundImage: NetworkImage(
-                        'https://avatars.githubusercontent.com/u/37553901?v=4',
-                      ),
+                  child: userData.when(
+                    data: (userData) {
+                      return CircleAvatar(
+                        radius: 25,
+                        backgroundColor: parkeaOrange,
+                        child: CircleAvatar(
+                          radius: 23,
+                          backgroundImage: userData.profileImage.toString().isNotEmpty
+                              ? NetworkImage(userData.profileImage.toString())
+                              : const NetworkImage('https://avatars.githubusercontent.com/u/37553901?v=4',),
+                        ),
+                      );
+                    },
+                    error: (err, s) => Text(err.toString()),
+                    loading: () => const Center(
+                      child: CircularProgressIndicator.adaptive(),
                     ),
                   ),
                 ),

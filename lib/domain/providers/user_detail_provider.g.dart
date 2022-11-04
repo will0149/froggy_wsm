@@ -29,72 +29,13 @@ class _SystemHash {
   }
 }
 
-String $getUserDetailHash() => r'3f13407534464fcf9ba6f0a6d270f0e1c884d75b';
+String $getUserDetailHash() => r'c3dc85b0bc3d417fbe1f9b37d5fdf2eb15c1bef5';
 
 /// See also [getUserDetail].
-class GetUserDetailProvider extends AutoDisposeFutureProvider<UserDTO> {
-  GetUserDetailProvider(
-    this.email,
-  ) : super(
-          (ref) => getUserDetail(
-            ref,
-            email,
-          ),
-          from: getUserDetailProvider,
-          name: r'getUserDetailProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : $getUserDetailHash,
-        );
-
-  final String email;
-
-  @override
-  bool operator ==(Object other) {
-    return other is GetUserDetailProvider && other.email == email;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, email.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
+final getUserDetailProvider = AutoDisposeFutureProvider<UserDTO>(
+  getUserDetail,
+  name: r'getUserDetailProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : $getUserDetailHash,
+);
 typedef GetUserDetailRef = AutoDisposeFutureProviderRef<UserDTO>;
-
-/// See also [getUserDetail].
-final getUserDetailProvider = GetUserDetailFamily();
-
-class GetUserDetailFamily extends Family<AsyncValue<UserDTO>> {
-  GetUserDetailFamily();
-
-  GetUserDetailProvider call(
-    String email,
-  ) {
-    return GetUserDetailProvider(
-      email,
-    );
-  }
-
-  @override
-  AutoDisposeFutureProvider<UserDTO> getProviderOverride(
-    covariant GetUserDetailProvider provider,
-  ) {
-    return call(
-      provider.email,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'getUserDetailProvider';
-}

@@ -15,14 +15,14 @@ class UsersUC {
 
   Future<UserDTO> getUserDataByEmail(String email) async {
     Map<String, dynamic> result = await repository.fetchUsersList();
-
     List<dynamic> jsonResponse = result["body"]["users"];
     List<UserDTO> bodyResponse = [];
+
     jsonResponse.map((element) {
       bodyResponse.add(UserDTO.fromJson(element));
     }).toList();
-
-    return bodyResponse.firstWhere((element) => element.emailAddress == email);
+    var user = bodyResponse.firstWhere((element) => element.emailAddress == email);
+    return user;
   }
 }
 
