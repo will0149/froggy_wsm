@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../device/utils/loggerConfig.dart';
 
@@ -9,13 +11,14 @@ import '../../../device/utils/loggerConfig.dart';
  * Date: 06/26/22
  */
 
-class LoginUseCase {
+class FireBaseAuthUC {
 
   Future<User?> signInUsingEmailPassword({
     required String email,
     required String password,
     required BuildContext context,
   }) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
 
@@ -36,4 +39,24 @@ class LoginUseCase {
     return user;
   }
 
+  void validateInstance(BuildContext context) async {
+    logger.d("validating user session");
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        logger.w('User is currently signed out!');
+        Navigator.pushReplacementNamed(context, "/main");
+      } else {
+        logger.d('User is signed in!');
+        Navigator.pushReplacementNamed(context, "/navigator");
+      }
+    });
+  }
+
+  Future<User?> getUserInstance() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    return user;
+  }
+
 }
+
+final fireBaseAuthApiProvider = Provider<FireBaseAuthUC>((ref) => FireBaseAuthUC());

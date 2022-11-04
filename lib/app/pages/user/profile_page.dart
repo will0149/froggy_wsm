@@ -32,7 +32,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   Widget build(BuildContext context) {
     List<String> filters = [S.of(context).myEvents, S.of(context).myEventsPaid, S.of(context).myEventsSaved];
     var size = MediaQuery.of(context).size;
-    final _subscribeEventsData = ref.watch(getEventsProvider);
+    final subscribeEventsData = ref.watch(getEventsProvider);
 
     return SafeScaffold(
       appBar: AppBar(
@@ -113,7 +113,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             ),
             Container(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-              child: _subscribeEventsData.when(
+              child: subscribeEventsData.when(
                 data: (_eventsData) {
                   return ListView(
                     controller: _controller,

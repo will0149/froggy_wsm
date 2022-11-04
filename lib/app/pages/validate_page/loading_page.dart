@@ -1,10 +1,13 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:parkea/domain/providers/fire_base_auth_provider.dart';
+import 'package:parkea/app/navigator.dart';
+import 'package:parkea/app/widgets/color_loader.dart';
+import 'package:parkea/app/pages/auth/auth_page.dart';
 
 import '../../../device/utils/is_first_run.dart';
-import '../../../domain/usecases/auth/validate_session_uc.dart';
-import '../../widgets/color_loader.dart';
+import '../../../domain/providers/first_run_provider.dart';
 
 /**
  * Made for parkea.
@@ -12,45 +15,49 @@ import '../../widgets/color_loader.dart';
  * Date: 07/16/22
  */
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => StartState();
+  StartState createState() => StartState();
 }
 
-class StartState extends State<SplashScreen> {
-  late final ValidateSessionUC uc = ValidateSessionUC();
+class StartState extends ConsumerState<SplashScreen> {
+  @override
+  void initState() {
+    checkFirstSeen();
+    super.initState();
+  }
 
   checkFirstSeen() async {
-    bool firstCall = await IsFirstRun.isFirstRun();
-    if (!firstCall) {
-      uc.validateInstance(context);
-    } else {
+    var firstRun = IsFirstRun();
+    bool firstCall = await firstRun.isFirstRun();
+    if (firstCall) {
       Navigator.pushReplacementNamed(context, "/slideshow");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return initScreen(context);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    checkFirstSeen();
-  }
-
-  initScreen(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            ColorLoader(),
-          ],
+    final authProvider = ref.watch(userInstanceProvider);
+    return authProvider.when(
+      data: (user) {
+        if (user != null) {
+          return const NavigatorBar();
+        } else {
+          return const AuthPage();
+        }
+      },
+      error: (err, s) => Text(err.toString()),
+      loading: () => Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const <Widget>[
+              ColorLoader(),
+            ],
+          ),
         ),
       ),
     );

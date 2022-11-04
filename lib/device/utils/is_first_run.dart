@@ -1,3 +1,4 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /**
@@ -18,7 +19,7 @@ class IsFirstRun {
   /// In contrast to [IsFirstRun.isFirstRun()], this method only returns true
   /// on the first call after installing the app, while [IsFirstRun.isFirstRun()] continues
   /// to return true as long as the app is running after calling it the first time after installing it.
-  static Future<bool> isFirstCall() async {
+  Future<bool> isFirstCall() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool firstCall;
     try {
@@ -37,7 +38,7 @@ class IsFirstRun {
   /// In contrast to [IsFirstRun.isFirstCall()], this method continues
   /// to return true as long as the app keeps running after the first call after installing the app,
   /// while [IsFirstRun.isFirstCall()] returns true only on the first call after installing the app.
-  static Future<bool> isFirstRun() async {
+  Future<bool> isFirstRun() async {
     if (_isFirstRun != null) {
       return _isFirstRun!;
     } else {
@@ -63,9 +64,11 @@ class IsFirstRun {
   /// for as long as the app is running after calling [[IsFirstRun.isFirstRun()]]
   /// the first time after the reset.
   /// After a restart of the app, [IsFirstRun.isFirstRun()] will return false.
-  static Future<void> reset() async {
+  Future<void> reset() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(_firstRunSettingsKey, true);
     prefs.setBool(_firstCallSettingsKey, true);
   }
 }
+
+final firstInstanceProvider = Provider<IsFirstRun>((ref) => IsFirstRun());

@@ -82,15 +82,15 @@ class _Dots extends StatelessWidget {
           child: Center(
             child: ElevatedButton(
               onPressed: () => Navigator.pushReplacementNamed(context, "/main"),
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(40),
+              ),
               child: Text(
                 "Empezar",
                 style: Theme.of(context)
                     .textTheme
                     .button
                     ?.copyWith(fontSize: 20),
-              ),
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(40),
               ),
             ),
           ),

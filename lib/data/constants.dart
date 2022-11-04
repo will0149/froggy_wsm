@@ -7,3 +7,4 @@
  */
 
 const eventsPath = "assets/samples/parkea-events.json";
+const usersPath = "assets/samples/parkea-users.json";

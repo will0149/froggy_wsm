@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+      debugShowCheckedModeBanner: true,
       title: 'Parkea',
       theme: ThemeData(
           primarySwatch: Colors.cyan,
