@@ -6,6 +6,7 @@ import 'package:parkea/app/widgets/paints/sign_in_up_white_shape.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 
 import '../../../generated/l10n.dart';
+
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
@@ -34,7 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 image: DecorationImage(
                   alignment: Alignment.bottomRight,
                   image: AssetImage(
-                      "assets/backgrounds/alexander-popov-9vDdkxSCAD4-unsplash.jpg",
+                    "assets/backgrounds/alexander-popov-9vDdkxSCAD4-unsplash.jpg",
                   ),
                 ),
               ),
@@ -63,38 +64,48 @@ class _SignUpPageState extends State<SignUpPage> {
             left: 0.0,
             top: size.height * 0.08,
             child: Container(
-              child: Text(
-                S.of(context).register,
-                style: Theme.of(context).textTheme.headline1?.copyWith(color: Colors.white, fontSize: 24),
-              ),
               padding: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
-                    topRight:  Radius.circular(15),
+                    topRight: Radius.circular(15),
                     bottomRight: Radius.circular(15),
                   ),
-                  color: parkeaOrange
+                  color: parkeaOrange),
+              child: Text(
+                S.of(context).register,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1
+                    ?.copyWith(color: Colors.white, fontSize: 24),
               ),
             ),
           ),
-          Center(
+          Container(
+            alignment: Alignment.center,
+            height: size.height,
+            width: double.infinity,
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom + 1,
+            ),
             child: SingleChildScrollView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               child: Column(
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(
-                      left: size.width * 0.10,
-                      right: size.width * 0.10,
-                    ),
-                    child: SignUpForm(
-                      formKey: signUpFormKey,
+                  Center(
+                    child: Container(
+                      margin: EdgeInsets.only(
+                        left: size.width * 0.10,
+                        right: size.width * 0.10,
+                      ),
+                      child: SignUpForm(
+                        formKey: signUpFormKey,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-
         ],
       ),
     );

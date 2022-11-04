@@ -59,6 +59,12 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Center(
               child: Container(
+                alignment: Alignment.center,
+                height: size.height,
+                width: double.infinity,
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom + 1,
+                ),
                 margin: EdgeInsets.only(
                   left: size.width * 0.10,
                   right: size.width * 0.10,
