@@ -9,7 +9,6 @@ import '../usecases/get_event_by_id_uc.dart';
  * By User: josedominguez
  * Date: 07/30/22
  */
-
 part 'event_detail_provider.g.dart';
 
 @riverpod

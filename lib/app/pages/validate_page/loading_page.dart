@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:parkea/domain/providers/fire_base_auth_provider.dart';
 import 'package:parkea/app/navigator.dart';
-import 'package:parkea/app/widgets/color_loader.dart';
 import 'package:parkea/app/pages/auth/auth_page.dart';
+import 'package:parkea/app/widgets/color_loader.dart';
+import 'package:parkea/domain/providers/fire_base_auth_provider.dart';
 
 import '../../../device/utils/is_first_run.dart';
-import '../../../domain/providers/first_run_provider.dart';
 
 /**
  * Made for parkea.

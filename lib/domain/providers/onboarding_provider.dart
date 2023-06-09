@@ -9,7 +9,6 @@ import '../usecases/fetch_events_uc.dart';
  * By User: josedominguez
  * Date: 07/17/22
  */
-
 part 'onboarding_provider.g.dart';
 
 @riverpod

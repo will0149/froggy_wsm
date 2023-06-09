@@ -88,15 +88,6 @@ class _HorizontalFilterListState extends State<HorizontalFilterList> {
         bottom: widget.itemBottomPadding,
       ),
       child: Container(
-        child: Center(
-          child: Text(
-            title,
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1
-                ?.copyWith(color: activeTextColor),
-          ),
-        ),
         decoration: widget.bottomLine
             ? BoxDecoration(
                 color: Colors.transparent,
@@ -108,6 +99,15 @@ class _HorizontalFilterListState extends State<HorizontalFilterList> {
                 ),
               )
             : null,
+        child: Center(
+          child: Text(
+            title,
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(color: activeTextColor),
+          ),
+        ),
       ),
     );
   }

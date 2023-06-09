@@ -7,7 +7,6 @@ import '../../device/utils/is_first_run.dart';
  * By User: josedominguez
  * Date: 11/03/22
  */
-
 part 'first_run_provider.g.dart';
 
 @riverpod

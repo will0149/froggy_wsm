@@ -9,7 +9,6 @@ import 'fire_base_auth_provider.dart';
  * By User: josedominguez
  * Date: 11/03/22
  */
-
 part 'user_detail_provider.g.dart';
 
 @riverpod

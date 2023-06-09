@@ -21,10 +21,10 @@ class OnboardingPage extends ConsumerStatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
 
   @override
-  _OnboardingPageState createState() => _OnboardingPageState();
+  OnboardingPageState createState() => OnboardingPageState();
 }
 
-class _OnboardingPageState extends ConsumerState<OnboardingPage> {
+class OnboardingPageState extends ConsumerState<OnboardingPage> {
   final titles = ["All", "Panamá", "Colón", "Panamá Oeste", "Bocas del Toro"];
   late final FetchEventsUC useCase = FetchEventsUC();
   final ScrollController _controller = ScrollController();

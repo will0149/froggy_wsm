@@ -4,10 +4,12 @@ import 'dart:math';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:parkea/app/pages/onboarding_page.dart';
 import 'package:parkea/app/pages/saved_event_page.dart';
 import 'package:parkea/app/pages/user/profile_page.dart';
 import 'package:parkea/app/utils/hex_color.dart';
+import 'package:parkea/app/utils/svg_icons_states.dart';
 
 import 'colors.dart';
 /*
@@ -15,26 +17,21 @@ import 'colors.dart';
 *
 * */
 
-class NavigatorBar extends StatefulWidget {
+class NavigatorBar extends ConsumerStatefulWidget {
   const NavigatorBar({Key? key}) : super(key: key);
 
   @override
-  _NavigatorBarState createState() =>
-      _NavigatorBarState();
+  NavigatorBarState createState() => NavigatorBarState();
 }
 
-class _NavigatorBarState
-    extends State<NavigatorBar> with TickerProviderStateMixin {
+class NavigatorBarState
+    extends ConsumerState<NavigatorBar> with TickerProviderStateMixin {
   var _bottomNavIndex = 0; //default index of a first screen
 
   late AnimationController _animationController;
   late Animation<double> animation;
   late CurvedAnimation curve;
   double rotateAngle = 0;
-
-  //routes keys
-  final homeKey = GlobalKey<NavigatorState>();
-  final profileKey = GlobalKey<NavigatorState>();
 
   @override
   void initState() {
@@ -63,7 +60,7 @@ class _NavigatorBarState
     ).animate(curve);
 
     Future.delayed(
-      Duration(seconds: 1),
+      const Duration(seconds: 1),
       () => _animationController.forward(),
     );
   }
@@ -79,9 +76,9 @@ class _NavigatorBarState
       });
     }
     return <Widget>[
-      const OnboardingPage(),
-      const SavedEventPage(),
-      const ProfilePage()
+      OnboardingPage(key: UniqueKey(),),
+      SavedEventPage(key: UniqueKey(),),
+      ProfilePage(key: UniqueKey(),)
     ];
   }
 
@@ -123,13 +120,18 @@ class _NavigatorBarState
 
   Widget getWidgetByPosition(int index, bool active) {
     final navOptions = <Widget>[
-      active ? Icon(Icons.feed, color: Colors.white,) : Icon(Icons.feed_outlined, color: Colors.white,),
-      active ?Icon(Icons.event, color: Colors.white,) : Icon(Icons.event_available, color: Colors.white,),
-      active ?Icon(Icons.favorite, color: Colors.white,) : Icon(Icons.favorite_border, color: Colors.white,),
-      // SvgIconsStates(
-      //     active: active,
-      //     activeImg: "assets/icon/activos/home-active.svg",
-      //     inactiveImg: "assets/icon/inactivos/home-inactive.svg"),
+      SvgIconsStates(
+          active: active,
+          activeImg: "assets/navbar/hogar_black.svg",
+          inactiveImg: "assets/navbar/hogar.svg"),
+      SvgIconsStates(
+          active: active,
+          activeImg: "assets/navbar/calendario_black.svg",
+          inactiveImg: "assets/navbar/calendario.svg"),
+      SvgIconsStates(
+          active: active,
+          activeImg: "assets/navbar/usuario.svg",
+          inactiveImg: "assets/navbar/usuario_black.svg"),
     ];
     return navOptions.elementAt(index);
   }
