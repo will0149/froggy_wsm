@@ -15,6 +15,6 @@ class SvgIconsStates extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(active ? activeImg : inactiveImg);
+    return SvgPicture.asset(active ? activeImg : inactiveImg, color: Colors.white,);
   }
 }
