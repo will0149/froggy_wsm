@@ -89,8 +89,8 @@ class OnboardingPageState extends ConsumerState<OnboardingPage> {
         ),
         body: Padding(
           padding: const EdgeInsets.only(
-            right: 20.0,
-            left: 20.0,
+            right: 10.0,
+            left: 10.0,
           ),
           child: Stack(
             children: [
@@ -158,6 +158,4 @@ class OnboardingPageState extends ConsumerState<OnboardingPage> {
       ),
     );
   }
-
-
 }

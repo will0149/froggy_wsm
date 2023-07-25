@@ -50,6 +50,24 @@ class EventFeedCard extends StatelessWidget {
             topRight: Radius.circular(15.0),
             bottomRight: Radius.circular(15.0),
           ),
+          border: const Border(
+            top: BorderSide(
+                width: 4,
+                color: Colors.black,
+                style: BorderStyle.solid), //BorderSide
+            bottom: BorderSide(
+                width: 4,
+                color: Colors.black,
+                style: BorderStyle.solid), //BorderSide
+            left: BorderSide(
+                width: 4,
+                color: Colors.black,
+                style: BorderStyle.solid), //Borderside
+            right: BorderSide(
+                width: 4,
+                color: Colors.black,
+                style: BorderStyle.solid), //BorderSide
+          ),
         ),
         child: Stack(
           children: [
@@ -68,7 +86,7 @@ class EventFeedCard extends StatelessWidget {
                 children: [
                   Text(
                     event.eventName,
-                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   Row(
@@ -77,7 +95,7 @@ class EventFeedCard extends StatelessWidget {
                         child: Text(
                           event.description,
                           style:
-                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -95,7 +113,7 @@ class EventFeedCard extends StatelessWidget {
                           DateFormat.yMMMMEEEEd()
                               .format(DateTime.parse(event.date)),
                           style:
-                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w800,
                                   ),
@@ -114,7 +132,7 @@ class EventFeedCard extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () => __renderToDetailPage(context),
                 style: ElevatedButton.styleFrom(
-                  primary: parkeaOrange,
+                  backgroundColor: parkeaOrange,
                   fixedSize: const Size(120, 43),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
@@ -125,17 +143,17 @@ class EventFeedCard extends StatelessWidget {
                   S.of(context).seeEvent,
                   style: Theme.of(context)
                       .textTheme
-                      .button
+                      .labelLarge
                       ?.copyWith(color: Colors.white),
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 20,
               bottom: 15,
               child: Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
-                children: const [
+                children: [
                   Icon(
                     Icons.remove_red_eye_outlined,
                     color: Colors.white70,
@@ -148,15 +166,15 @@ class EventFeedCard extends StatelessWidget {
                 ],
               ),
             ),
-            // const Positioned(
-            //   top: 15,
-            //   right: 20,
-            //   child: Icon(
-            //     Icons.favorite_rounded,
-            //     color: Colors.red,
-            //     size: 30.0,
-            //   ),
-            // )
+            const Positioned(
+              top: 15,
+              right: 20,
+              child: Icon(
+                Icons.favorite_rounded,
+                color: Colors.red,
+                size: 30.0,
+              ),
+            )
           ],
         ),
       ),

@@ -47,12 +47,12 @@ class StartState extends ConsumerState<SplashScreen> {
         }
       },
       error: (err, s) => Text(err.toString()),
-      loading: () => Scaffold(
+      loading: () => const Scaffold(
         backgroundColor: Colors.white,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const <Widget>[
+            children: <Widget>[
               ColorLoader(),
             ],
           ),

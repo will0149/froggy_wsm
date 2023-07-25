@@ -38,18 +38,6 @@ class _HorizontalFilterListState extends State<HorizontalFilterList> {
       alignment: Alignment.topCenter,
       height: 60,
       child: horizontalCategoryListView(widget.filterListItems),
-      // decoration: BoxDecoration(
-      //   border: Border(
-      //     top: BorderSide(
-      //       color: Colors.grey,
-      //       width: 0.8,
-      //     ),
-      //     bottom: BorderSide(
-      //       color: Colors.grey,
-      //       width: 0.8,
-      //     ),
-      //   ),
-      // ),
     );
   }
 
@@ -104,7 +92,7 @@ class _HorizontalFilterListState extends State<HorizontalFilterList> {
             title,
             style: Theme.of(context)
                 .textTheme
-                .bodyText1
+                .bodyLarge
                 ?.copyWith(color: activeTextColor),
           ),
         ),
