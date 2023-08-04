@@ -98,7 +98,7 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
             children: [
               Text(
                 eventName,
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               IconButton(
                 onPressed: () {},
@@ -118,21 +118,21 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
                 DateFormat.yMMMMEEEEd(myLocale.languageCode).format(DateTime.parse(date)),
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText2
+                    .bodyMedium
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
               Text(
                 place,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText2
+                    .bodyMedium
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
               Text(
                 "\$$amount",
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText2
+                    .bodyMedium
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
             ],
@@ -161,7 +161,7 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
                   Expanded(
                     child: Text(
                       description,
-                      style: Theme.of(context).textTheme.headline3,
+                      style: Theme.of(context).textTheme.bodySmall,
                       softWrap: true,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -190,7 +190,7 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
                       S.of(context).buyTicket,
                       style: Theme.of(context)
                           .textTheme
-                          .button
+                          .labelSmall
                           ?.copyWith(color: Colors.white, fontSize: 12),
                     ),
                   ),
@@ -208,7 +208,7 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
                       S.of(context).saveEvent,
                       style: Theme.of(context)
                           .textTheme
-                          .button
+                          .labelSmall
                           ?.copyWith(color: Colors.white, fontSize: 12),
                     ),
                   ),
@@ -241,7 +241,7 @@ class RelationalEvents extends ConsumerWidget {
           children: [
             Text(
               S.of(context).similarEvents,
-              style: Theme.of(context).textTheme.headline3,
+              style: Theme.of(context).textTheme.titleMedium,
               softWrap: true,
               maxLines: 1,
             ),
@@ -275,14 +275,14 @@ class RelationalEvents extends ConsumerWidget {
                             ),
                             Text(
                               e.eventName,
-                              style: Theme.of(context).textTheme.bodyText2,
+                              style: Theme.of(context).textTheme.bodyMedium,
                               softWrap: true,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
                               e.amount.price,
-                              style: Theme.of(context).textTheme.bodyText2,
+                              style: Theme.of(context).textTheme.bodyMedium,
                               softWrap: true,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

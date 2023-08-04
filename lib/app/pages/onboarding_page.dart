@@ -106,7 +106,7 @@ class OnboardingPageState extends ConsumerState<OnboardingPage> {
                     children: [
                       Text(
                         S.of(context).popularEvents,
-                        style: Theme.of(context).textTheme.headline3,
+                        style: Theme.of(context).textTheme.labelLarge,
                       ),
                       IconButton(
                         //onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SearchPage())),

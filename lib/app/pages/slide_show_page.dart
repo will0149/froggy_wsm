@@ -47,7 +47,7 @@ class SlideshowPage extends StatelessWidget {
         Expanded(
           child: Text(
             "Parkea App",
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),
         Expanded(
@@ -61,11 +61,12 @@ class SlideshowPage extends StatelessWidget {
         Expanded(
           child: Text(
             word,
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
         Expanded(
-          child: Text(description),
+          child: Text(description,
+            style: Theme.of(context).textTheme.bodyMedium,),
         )
       ],
     );

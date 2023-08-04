@@ -6,16 +6,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/pages/auth/auth_page.dart';
 import 'package:parkea/app/pages/auth/login_page.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
-import 'package:parkea/app/themes/parkea_input_decoration_theme.dart';
 
 import 'app/navigator.dart';
 import 'app/pages/onboarding_page.dart';
 import 'app/pages/slide_show_page.dart';
 import 'app/pages/validate_page/loading_page.dart';
-import 'app/themes/text_theme.dart';
+import 'app/themes/custom_theme.dart';
 import 'app/utils/transitions/FadeRoute.dart';
 import 'app/utils/transitions/SlideRightRoute.dart';
 import 'app/utils/transitions/slide_left_route.dart';
+import 'domain/providers/app_theme_provider.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -24,12 +24,12 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -37,16 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: true,
       title: 'Parkea',
-      theme: ThemeData(
-          primarySwatch: Colors.cyan,
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.white,
-            elevation: 0.10
-          ),
-          fontFamily: 'Gothic A1',
-          inputDecorationTheme: parkeaInputDecorationTheme,
-        textTheme: textThemeParkea,
-      ),
+      theme: getAppTheme(context, ref.watch(appThemeProvider)),
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case "/main":

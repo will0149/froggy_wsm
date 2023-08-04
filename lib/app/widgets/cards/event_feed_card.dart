@@ -86,7 +86,7 @@ class EventFeedCard extends StatelessWidget {
                 children: [
                   Text(
                     event.eventName,
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   Row(
@@ -143,7 +143,7 @@ class EventFeedCard extends StatelessWidget {
                   S.of(context).seeEvent,
                   style: Theme.of(context)
                       .textTheme
-                      .labelLarge
+                      .labelSmall
                       ?.copyWith(color: Colors.white),
                 ),
               ),

@@ -69,7 +69,7 @@ class UserProfileDashboardState extends ConsumerState<UserProfileDashboard> {
           left: 10.0,
           child: Text(
             widget.userData.firstName,
-            style: Theme.of(context).textTheme.headline1?.copyWith(color: Colors.black87),
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.black87),
           ),
         ),
       ],

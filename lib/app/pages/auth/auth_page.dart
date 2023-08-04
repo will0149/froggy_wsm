@@ -69,7 +69,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
               animatedTexts: [
                 WavyAnimatedText(
                   S.of(context).parkeaAndShare,
-                  textStyle: Theme.of(context).textTheme.headline1?.copyWith(
+                  textStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         color: Colors.white,
                       ),
                 ),

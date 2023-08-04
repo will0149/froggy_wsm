@@ -9,47 +9,50 @@ import '../colors.dart';
  */
 
 var textThemeParkea = const TextTheme(
-  headline1: TextStyle(
+  displayLarge: TextStyle(
     color: parkeaBlueAccent,
-    fontSize: 25.0,
-    fontWeight: FontWeight.bold,
   ),
-  headline2: TextStyle(
+  displayMedium: TextStyle(
     color: parkeaBlueAccent,
-    fontWeight: FontWeight.bold,
-    fontStyle: FontStyle.normal,
-    fontSize: 17,
-    // height: 2,
   ),
-  headline3: TextStyle(
+  displaySmall: TextStyle(
     color: parkeaBlueAccent,
-    fontSize: 15.0,
-    fontWeight: FontWeight.bold,
   ),
-  bodyText1: TextStyle(
+  headlineLarge: TextStyle(
     color: parkeaBlueAccent,
-    fontWeight: FontWeight.w500,
-    fontStyle: FontStyle.normal,
-    fontSize: 17,
-    // height: 2,
   ),
-  bodyText2: TextStyle(
+  headlineMedium: TextStyle(
     color: parkeaBlueAccent,
-    fontWeight: FontWeight.w500,
-    fontStyle: FontStyle.normal,
-    fontSize: 15,
-    // height: 2,
   ),
-  caption: TextStyle(
+  headlineSmall: TextStyle(
     color: parkeaBlueAccent,
-    fontWeight: FontWeight.normal,
-    fontStyle: FontStyle.normal,
-    fontSize: 14,
-    // height: 2,
   ),
-  button: TextStyle(
-    color: Colors.white,
-    fontWeight: FontWeight.normal,
-    fontSize: 15.0,
+  titleLarge: TextStyle(
+    color: parkeaBlueAccent,
+  ),
+  titleMedium: TextStyle(
+    color: parkeaBlueAccent,
+  ),
+  titleSmall: TextStyle(
+    color: parkeaBlueAccent,
+  ),
+  //
+  bodyLarge: TextStyle(
+    color: parkeaBlueAccent,
+  ),
+  bodyMedium: TextStyle(
+    color: parkeaBlueAccent,
+  ),
+  bodySmall: TextStyle(
+    color: parkeaBlueAccent,
+  ),
+  labelLarge: TextStyle(
+    color: parkeaBlueAccent,
+  ),
+  labelMedium: TextStyle(
+    color: parkeaBlueAccent,
+  ),
+  labelSmall: TextStyle(
+    color: parkeaBlueAccent,
   ),
 );

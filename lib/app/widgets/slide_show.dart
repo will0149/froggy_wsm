@@ -89,8 +89,7 @@ class _Dots extends StatelessWidget {
                 "Empezar",
                 style: Theme.of(context)
                     .textTheme
-                    .button
-                    ?.copyWith(fontSize: 20),
+                    .labelLarge,
               ),
             ),
           ),
