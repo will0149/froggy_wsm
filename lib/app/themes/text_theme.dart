@@ -8,51 +8,53 @@ import '../colors.dart';
  * Date: 08/01/22
  */
 
-var textThemeParkea = const TextTheme(
-  displayLarge: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  displayMedium: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  displaySmall: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  headlineLarge: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  headlineMedium: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  headlineSmall: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  titleLarge: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  titleMedium: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  titleSmall: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  //
-  bodyLarge: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  bodyMedium: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  bodySmall: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  labelLarge: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  labelMedium: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-  labelSmall: TextStyle(
-    color: parkeaBlueAccent,
-  ),
-);
+TextTheme getTextTheme(bool isDarkTheme) {
+  return TextTheme(
+    displayLarge: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccentOpacity,
+    ),
+    displayMedium: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    displaySmall: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    headlineLarge: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    headlineMedium: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    headlineSmall: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    titleLarge: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    titleMedium: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    titleSmall: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    //
+    bodyLarge: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    bodyMedium: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    bodySmall: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    labelLarge: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    labelMedium: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+    labelSmall: TextStyle(
+      color: isDarkTheme ? parkeaWhite :parkeaBlueAccent,
+    ),
+  );
+}

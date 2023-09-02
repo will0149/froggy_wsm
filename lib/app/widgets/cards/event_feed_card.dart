@@ -131,20 +131,11 @@ class EventFeedCard extends StatelessWidget {
               bottom: 15,
               child: ElevatedButton(
                 onPressed: () => __renderToDetailPage(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: parkeaOrange,
-                  fixedSize: const Size(120, 43),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: const BorderSide(color: parkeaOrange, width: 1.2),
-                  ),
-                ),
                 child: Text(
                   S.of(context).seeEvent,
                   style: Theme.of(context)
                       .textTheme
                       .labelSmall
-                      ?.copyWith(color: Colors.white),
                 ),
               ),
             ),
@@ -156,7 +147,7 @@ class EventFeedCard extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.remove_red_eye_outlined,
-                    color: Colors.white70,
+                    // color: Colors.white70,
                     size: 15.0,
                   ),
                   Text(

@@ -26,10 +26,10 @@ class HorizontalFilterList extends StatefulWidget {
       : super(key: key);
 
   @override
-  _HorizontalFilterListState createState() => _HorizontalFilterListState();
+  HorizontalFilterListState createState() => HorizontalFilterListState();
 }
 
-class _HorizontalFilterListState extends State<HorizontalFilterList> {
+class HorizontalFilterListState extends State<HorizontalFilterList> {
   int selectedIndex = 0;
 
   @override

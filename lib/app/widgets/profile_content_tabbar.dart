@@ -21,27 +21,26 @@ class ProfileContentTabBar extends ConsumerStatefulWidget {
 class ProfileContentTabBarState extends ConsumerState<ProfileContentTabBar> {
   final ScrollController _controller = ScrollController();
 
-  Widget _getFirstPage(AsyncValue<List<EventDTO>> subscribeEventsData, Size size){
+  Widget _getFirstPage(
+      AsyncValue<List<EventDTO>> subscribeEventsData, Size size) {
     return subscribeEventsData.when(
-        data: (eventsData) {
-          return ListView(
-            controller: _controller,
-            shrinkWrap: true,
-            children: [
-              ...eventsData.map(
-                    (e) => EventFeedCard(
-                    event: e,
-                    width: double.infinity,
-                    height: size.height * 0.20),
-              ),
-            ],
-          );
-        },
-        error: (err, s) => Text(err.toString()),
-        loading: () => const Center(
-          child: CircularProgressIndicator.adaptive(),
-        ),
-      );
+      data: (eventsData) {
+        return ListView(
+          controller: _controller,
+          shrinkWrap: true,
+          children: [
+            ...eventsData.map(
+              (e) => EventFeedCard(
+                  event: e, width: double.infinity, height: size.height * 0.20),
+            ),
+          ],
+        );
+      },
+      error: (err, s) => Text(err.toString()),
+      loading: () => const Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
+    );
   }
 
   @override
@@ -57,9 +56,24 @@ class ProfileContentTabBarState extends ConsumerState<ProfileContentTabBar> {
           primary: false,
           title: TabBar(
             tabs: [
-              Tab(text: S.of(context).myEvents,),
-              Tab(text: S.of(context).myEventsPaid,),
-              Tab(text: S.of(context).myEventsSaved,),
+              Tab(
+                child: Text(
+                  S.of(context).myEvents,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              ),
+              Tab(
+                child: Text(
+                  S.of(context).myEventsPaid,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              ),
+              Tab(
+                child: Text(
+                  S.of(context).myEventsSaved,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              ),
             ],
           ),
           // title: Text('Tabs Demo'),
@@ -67,12 +81,11 @@ class ProfileContentTabBarState extends ConsumerState<ProfileContentTabBar> {
         body: TabBarView(
           children: [
             _getFirstPage(subscribeEventsData, size),
-            Icon(Icons.directions_transit, size: 350),
-            Icon(Icons.directions_car, size: 350),
+            const Icon(Icons.directions_transit, size: 350),
+            const Icon(Icons.directions_car, size: 350),
           ],
         ),
       ),
     );
-
   }
 }

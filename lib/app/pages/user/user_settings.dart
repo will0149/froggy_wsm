@@ -17,10 +17,10 @@ class UserSettingsPage extends ConsumerStatefulWidget {
   const UserSettingsPage({Key? key}) : super(key: key);
 
   @override
-  _UserSettingsPageState createState() => _UserSettingsPageState();
+  UserSettingsPageState createState() => UserSettingsPageState();
 }
 
-class _UserSettingsPageState extends ConsumerState<UserSettingsPage> {
+class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
   // late final SettingsController controller;
   late bool _loading = false;
   var fireBaseAuthHelper = AuthenticationRepository();
@@ -71,13 +71,13 @@ class _UserSettingsPageState extends ConsumerState<UserSettingsPage> {
           children: [
             _buildCardSettings(
               ListTile(
-                leading: Icon(isDarkMode ? Icons.brightness_3 : Icons.sunny, color: Colors.white,),
+                leading: Icon(isDarkMode ? Icons.brightness_3 : Icons.sunny, color: parkeaWhite,),
                 title: Text(
                   isDarkMode ? "Dark mode" : "Light mode",
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium
-                      ?.copyWith(color: Colors.white),
+                      ?.copyWith(color: parkeaWhite),
                 ),
                 trailing: Consumer(builder: (context, ref, child) {
                   return Transform.scale(
@@ -105,11 +105,11 @@ class _UserSettingsPageState extends ConsumerState<UserSettingsPage> {
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium
-                      ?.copyWith(color: Colors.white),
+                      ?.copyWith(color: parkeaWhite),
                 ),
-                textColor: Colors.white,
+                textColor: parkeaWhite,
                 trailing: const Icon(Icons.play_arrow),
-                iconColor: Colors.white,
+                iconColor: parkeaWhite,
                 // contentPadding: const EdgeInsets.only(
                 //     left: 20, right: 30, top: 8.5, bottom: 9.5),
               ),
@@ -122,10 +122,10 @@ class _UserSettingsPageState extends ConsumerState<UserSettingsPage> {
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
-                    ?.copyWith(color: Colors.white),
+                    ?.copyWith(color: parkeaWhite),
               ),
-              textColor: Colors.white,
-              iconColor: Colors.white,
+              textColor: parkeaWhite,
+              iconColor: parkeaWhite,
               // contentPadding: const EdgeInsets.only(
               //     left: 20, right: 30, top: 8.5, bottom: 9.5),
             )),
@@ -140,10 +140,10 @@ class _UserSettingsPageState extends ConsumerState<UserSettingsPage> {
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium
-                            ?.copyWith(color: Colors.white),
+                            ?.copyWith(color: parkeaWhite),
                       ),
-                textColor: Colors.white,
-                iconColor: Colors.white,
+                textColor: parkeaWhite,
+                iconColor: parkeaWhite,
                 // contentPadding: const EdgeInsets.only(
                 //     left: 20, right: 30, top: 8.5, bottom: 9.5),
                 onTap: () {

@@ -60,27 +60,30 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
           ),
         ],
       ),
-      child: CustomScrollView(
-        key: UniqueKey(),
-        controller: _controller,
-        slivers: userData.when(
-          data: (userData) {
-            return [
-              SliverToBoxAdapter(
-                child: UserProfileDashboard(userData, size),
-              ),
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: ProfileContentTabBar(key: UniqueKey(),),
-              ),
-            ];
-          },
-          error: (err, s) => [Text(err.toString())],
-          loading: () => [
-            const Center(
-              child: CircularProgressIndicator.adaptive(),
-            )
-          ],
+      child: AnimatedContainer(
+        duration: const Duration(microseconds: 500),
+        child: CustomScrollView(
+          key: UniqueKey(),
+          controller: _controller,
+          slivers: userData.when(
+            data: (userData) {
+              return [
+                SliverToBoxAdapter(
+                  child: UserProfileDashboard(userData, size),
+                ),
+                SliverFillRemaining(
+                  hasScrollBody: true,
+                  child: ProfileContentTabBar(key: UniqueKey(),),
+                ),
+              ];
+            },
+            error: (err, s) => [Text(err.toString())],
+            loading: () => [
+              const Center(
+                child: CircularProgressIndicator.adaptive(),
+              )
+            ],
+          ),
         ),
       ),
     );

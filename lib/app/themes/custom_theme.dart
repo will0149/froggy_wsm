@@ -28,24 +28,45 @@ ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
           isDarkTheme ? parkeaOrange : parkeaBlueAccent),
     ),
     listTileTheme: ListTileThemeData(
-        iconColor: isDarkTheme ? Colors.orange : Colors.purple,
+      iconColor: isDarkTheme ? Colors.orange : Colors.purple,
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: isDarkTheme ? Colors.black : Colors.white,
       elevation: 0.10,
       iconTheme:
-          IconThemeData(color: isDarkTheme ? Colors.white : Colors.black54),
+          IconThemeData(color: isDarkTheme ? parkeaWhite :parkeaBlueAccent),
     ),
     fontFamily: 'Gothic A1',
     inputDecorationTheme: parkeaInputDecorationTheme,
-    textTheme: textThemeParkea,
-        // .copyWith(
-        //   titleSmall:
-        //       Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 8),
-        // )
-        // .apply(
-        //   bodyColor: isDarkTheme ? Colors.white : Colors.black,
-        //   displayColor: Colors.grey,
-        // ),
+    textTheme: getTextTheme(isDarkTheme),
+    // .copyWith(
+    //   titleSmall:
+    //       Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 8),
+    // )
+    // .apply(
+    //   bodyColor: isDarkTheme ? Colors.white : Colors.black,
+    //   displayColor: Colors.grey,
+    // ),
+    buttonTheme: ButtonThemeData(
+      buttonColor: isDarkTheme ? parkeaDarkBlueAccent : parkeaLightOrange,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18.0),
+        side: BorderSide(
+            color: isDarkTheme ? parkeaDarkBlueAccent : parkeaOrange,
+            width: 1.2),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: isDarkTheme ? parkeaDarkBlueAccent : parkeaOrange,
+        fixedSize: const Size(120, 43),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18.0),
+          side: BorderSide(
+              color: isDarkTheme ? parkeaDarkBlueAccent : parkeaOrange,
+              width: 1.2),
+        ),
+      ),
+    ),
   );
 }

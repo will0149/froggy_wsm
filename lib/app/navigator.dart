@@ -11,6 +11,7 @@ import 'package:parkea/app/pages/user/profile_page.dart';
 import 'package:parkea/app/utils/hex_color.dart';
 import 'package:parkea/app/utils/svg_icons_states.dart';
 
+import '../domain/providers/app_theme_provider.dart';
 import 'colors.dart';
 /*
 * Bottom navigation bar for Pentacle app
@@ -84,6 +85,7 @@ class NavigatorBarState
 
   @override
   Widget build(BuildContext context) {
+    var isDarkMode = ref.watch(appThemeProvider);
     return Scaffold(
       extendBody: true,
       body: SafeArea(
@@ -101,10 +103,11 @@ class NavigatorBarState
         leftCornerRadius: 25,
         rightCornerRadius: 25,
         gapLocation: GapLocation.none,
-        backgroundColor: parkeaOrange,
-        borderColor: Colors.white,
+        backgroundColor: isDarkMode ? parkeaDarkBlueAccent : parkeaOrange,
+        borderColor: isDarkMode ? parkeaDarkBlueAccent : parkeaOrange,
         borderWidth: 3.0,
         height: 40.0,
+        elevation: 10.0,
         onTap: (index) => setState(() => _bottomNavIndex = index),
       ),
     );
