@@ -69,7 +69,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
               animatedTexts: [
                 WavyAnimatedText(
                   S.of(context).parkeaAndShare,
-                  textStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  textStyle: Theme.of(context).textTheme.headlineMedium/**/?.copyWith(
                         color: Colors.white,
                       ),
                 ),
@@ -111,14 +111,13 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                 children: [
                   Text(
                     S.of(context).joinOurUniverse,
-                    style: Theme.of(context).textTheme.headline2?.copyWith(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 22,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontFamily: "GothicA1-Bold",
                         shadows: [
                           const Shadow(
                               color: Colors.white,
                               offset: Offset(2, 1),
-                              blurRadius: 2)
+                              blurRadius: 1)
                         ]),
                   ),
                   SizedBox(
@@ -131,7 +130,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                       style: buttonTransparentBlue,
                       child: Text(
                         S.of(context).authenticate,
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                       ),
@@ -151,7 +150,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                         S.of(context).signUp,
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText2
+                            .bodyMedium
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -165,7 +164,10 @@ class _AuthPageState extends ConsumerState<AuthPage> {
               alignment: Alignment.bottomCenter,
               child: Text(
                 S.of(context).devStudio,
-                style: const TextStyle(color: Colors.white),
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: Colors.white,
+                  fontFamily: "GothicA1-Bold"
+                ),
               ),
             ),
             onTap: () {

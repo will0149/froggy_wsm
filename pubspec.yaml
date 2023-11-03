@@ -51,6 +51,7 @@ dependencies:
   #riverpod dependencies:
   hooks_riverpod: ^2.2.0
   flutter_hooks: ^0.18.6
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -101,9 +102,11 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Gothic A1
+    - family: GothicA1
       fonts:
         - asset: assets/fonts/GothicA1-Regular.ttf
+          style: normal
+          weight: 700
         - asset: assets/fonts/GothicA1-Bold.ttf
         - asset: assets/fonts/GothicA1-SemiBold.ttf
 

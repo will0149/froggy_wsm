@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import '../../../domain/dtos/event_dto.dart';
 import '../../../generated/l10n.dart';
 import '../../colors.dart';
-import '../../pages/event_detail_page.dart';
+import '../../pages/event/event_detail_page.dart';
 
 /**
  * Made for parkea.

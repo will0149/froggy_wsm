@@ -8,7 +8,7 @@ import 'package:parkea/app/pages/auth/login_page.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
 
 import 'app/navigator.dart';
-import 'app/pages/onboarding_page.dart';
+import 'app/pages/onboarding/onboarding_page.dart';
 import 'app/pages/slide_show_page.dart';
 import 'app/pages/validate_page/loading_page.dart';
 import 'app/themes/custom_theme.dart';

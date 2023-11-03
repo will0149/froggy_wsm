@@ -8,4 +8,5 @@ import '../dtos/event_dto.dart';
 
 abstract class FetchEventsType {
   Future<List<EventDTO>?> getAllEvents();
+  Future<List<EventDTO>?> getSearchResult(String searchText);
 }

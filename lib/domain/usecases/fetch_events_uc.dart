@@ -28,6 +28,20 @@ class FetchEventsUC implements FetchEventsType {
     }).toList();
     return bodyResponse;
   }
+
+  @override
+  Future<List<EventDTO>?> getSearchResult(String searchText) async {
+    Map<String, dynamic> result = await repository.fetchSearchResult(searchText);
+    // print(result["body"]["events"]);
+    List<dynamic> jsonResponse = result["body"]["events"];
+    List<EventDTO> bodyResponse = [];
+    jsonResponse.map((element) {
+      bodyResponse.add(EventDTO.fromJson(element));
+    }).toList();
+    return bodyResponse;
+  }
+
+
 }
 
 final eventsApiProvider = Provider<FetchEventsUC>((ref) => FetchEventsUC(),);

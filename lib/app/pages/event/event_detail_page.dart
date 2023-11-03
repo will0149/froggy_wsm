@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:parkea/app/colors.dart';
 
-import '../../domain/providers/event_detail_provider.dart';
-import '../../domain/providers/onboarding_provider.dart';
-import '../../generated/l10n.dart';
+import '../../../domain/providers/event_detail_provider.dart';
+import '../../../domain/providers/onboarding_provider.dart';
+import '../../../generated/l10n.dart';
 
 /**
  * Made for parkea.

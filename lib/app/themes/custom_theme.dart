@@ -36,7 +36,7 @@ ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
       iconTheme:
           IconThemeData(color: isDarkTheme ? parkeaWhite :parkeaBlueAccent),
     ),
-    fontFamily: 'Gothic A1',
+    fontFamily: 'GothicA1',
     inputDecorationTheme: parkeaInputDecorationTheme,
     textTheme: getTextTheme(isDarkTheme),
     // .copyWith(

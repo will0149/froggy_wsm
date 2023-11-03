@@ -3,13 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/colors.dart';
 import 'package:parkea/app/pages/user/profile_page.dart';
 
-import '../../domain/providers/onboarding_provider.dart';
-import '../../domain/providers/user_detail_provider.dart';
-import '../../domain/usecases/fetch_events_uc.dart';
-import '../../generated/l10n.dart';
-import '../widgets/cards/event_feed_card.dart';
-import '../widgets/exit_pop_scope.dart';
-import '../widgets/filters/horizontal_filter_list.dart';
+import '../../../domain/providers/onboarding_provider.dart';
+import '../../../domain/providers/user_detail_provider.dart';
+import '../../../domain/usecases/fetch_events_uc.dart';
+import '../../../generated/l10n.dart';
+import '../../widgets/cards/event_feed_card.dart';
+import '../../widgets/exit_pop_scope.dart';
+import '../../widgets/filters/horizontal_filter_list.dart';
 
 /**
  * Made for parkea.
