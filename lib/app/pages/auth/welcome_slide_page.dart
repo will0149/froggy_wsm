@@ -2,15 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 
-import '../widgets/slide_show.dart';
+import '../../../device/utils/is_first_run.dart';
+import '../../widgets/slide_show.dart';
 
 /**
  * Made for parkea.
  * By User: josedominguez
  * Date: 10/11/22
  */
-class SlideshowPage extends StatelessWidget {
-  const SlideshowPage({Key? key}) : super(key: key);
+class WelcomeSlidePage extends StatefulWidget {
+  const WelcomeSlidePage({Key? key}) : super(key: key);
+  static String get routeName => 'welcome';
+  static String get routeLocation => '/$routeName';
+
+  @override
+  State<WelcomeSlidePage> createState() => _WelcomeSlidePageState();
+}
+
+class _WelcomeSlidePageState extends State<WelcomeSlidePage> {
+
+  @override
+  void initState() {
+    var firstRun = IsFirstRun();
+    firstRun.setAfterFirstRun();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

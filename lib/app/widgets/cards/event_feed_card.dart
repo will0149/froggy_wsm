@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../domain/dtos/event_dto.dart';
@@ -24,17 +25,14 @@ class EventFeedCard extends StatelessWidget {
       required this.height})
       : super(key: key);
 
-  void __renderToDetailPage(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (_) => EventDetailPage(
-              eventId: event.id,
-            )));
+  void __renderToDetailPage(BuildContext context, String eventId) {
+    context.goNamed(EventDetailPage.routeName, pathParameters: {"id": eventId});
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => __renderToDetailPage(context),
+      onTap: () => __renderToDetailPage(context, event.id.toString()),
       child: Container(
         width: width,
         height: height,
@@ -130,7 +128,7 @@ class EventFeedCard extends StatelessWidget {
               right: 20,
               bottom: 15,
               child: ElevatedButton(
-                onPressed: () => __renderToDetailPage(context),
+                onPressed: () => __renderToDetailPage(context, event.id.toString()),
                 child: Text(
                   S.of(context).seeEvent,
                   style: Theme.of(context)

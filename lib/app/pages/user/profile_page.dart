@@ -19,6 +19,8 @@ class ProfilePage extends ConsumerStatefulWidget {
   final bool showBackButton;
 
   const ProfilePage({Key? key, this.showBackButton = false}) : super(key: key);
+  static String get routeName => 'profile';
+  static String get routeLocation => '/$routeName';
 
   @override
   ProfilePageState createState() => ProfilePageState();

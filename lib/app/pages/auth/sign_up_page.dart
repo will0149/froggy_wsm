@@ -9,6 +9,8 @@ import '../../../generated/l10n.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
+  static String get routeName => 'signup';
+  static String get routeLocation => '$routeName';
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();

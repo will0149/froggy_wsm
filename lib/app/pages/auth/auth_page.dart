@@ -1,7 +1,10 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:parkea/app/colors.dart';
+import 'package:parkea/app/pages/auth/sign_up_page.dart';
+import 'package:parkea/app/pages/auth/welcome_slide_page.dart';
 import 'package:parkea/app/themes/buttom_transparent_border_blue.dart';
 import 'package:parkea/app/widgets/exit_pop_scope.dart';
 import 'package:parkea/app/widgets/paints/bottom_left_curve_orange.dart';
@@ -9,14 +12,18 @@ import 'package:parkea/app/widgets/paints/middle_wave_white.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:parkea/generated/l10n.dart';
 
+import 'login_page.dart';
+
 class AuthPage extends ConsumerStatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
+  static String get routeName => 'auth';
+  static String get routeLocation => '/$routeName';
 
   @override
-  _AuthPageState createState() => _AuthPageState();
+  AuthPageState createState() => AuthPageState();
 }
 
-class _AuthPageState extends ConsumerState<AuthPage> {
+class AuthPageState extends ConsumerState<AuthPage> {
   @override
   Widget build(BuildContext context) {
 
@@ -125,7 +132,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                     height: size.height * 0.065,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "/login");
+                        context.goNamed(LoginPage.routeName);
                       },
                       style: buttonTransparentBlue,
                       child: Text(
@@ -143,7 +150,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                     // height: size.height * 0.07,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "/signup");
+                        context.goNamed(SignUpPage.routeName);
                       },
                       style: buttonTransparentBlue,
                       child: Text(
@@ -171,7 +178,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
               ),
             ),
             onTap: () {
-              Navigator.pushReplacementNamed(context, "/slideshow");
+              context.goNamed(WelcomeSlidePage.routeName);
             },
           ),
         ],

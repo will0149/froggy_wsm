@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 
 class SavedEventPage extends StatefulWidget {
   const SavedEventPage({Key? key}) : super(key: key);
+  static String get routeName => 'savedEvent';
+  static String get routeLocation => '/$routeName';
 
   @override
   State<SavedEventPage> createState() => _SavedEventPageState();

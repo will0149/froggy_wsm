@@ -17,14 +17,16 @@ import '../../widgets/filters/horizontal_filter_list.dart';
  * Date: 07/02/22
  */
 
-class OnboardingPage extends ConsumerStatefulWidget {
-  const OnboardingPage({Key? key}) : super(key: key);
+class HomeFeedPage extends ConsumerStatefulWidget {
+  const HomeFeedPage({Key? key}) : super(key: key);
+  static String get routeName => 'home';
+  static String get routeLocation => '/';
 
   @override
   OnboardingPageState createState() => OnboardingPageState();
 }
 
-class OnboardingPageState extends ConsumerState<OnboardingPage> {
+class OnboardingPageState extends ConsumerState<HomeFeedPage> {
   final titles = ["All", "Panamá", "Colón", "Panamá Oeste", "Bocas del Toro"];
   late final FetchEventsUC useCase = FetchEventsUC();
   final ScrollController _controller = ScrollController();
@@ -60,30 +62,36 @@ class OnboardingPageState extends ConsumerState<OnboardingPage> {
             GestureDetector(
               child: Container(
                 margin: const EdgeInsets.only(right: 10.0),
-                child: Hero(
-                  tag: 'profile_pic',
-                  child: userData.when(
-                    data: (userData) {
-                      return CircleAvatar(
+                child: userData.when(
+                  data: (userData) {
+                    return Hero(
+                      tag: 'profile_pic',
+                      child: CircleAvatar(
                         radius: 25,
                         backgroundColor: parkeaOrange,
                         child: CircleAvatar(
                           radius: 23,
-                          backgroundImage: userData.profileImage.toString().isNotEmpty
+                          backgroundImage: userData.profileImage
+                                  .toString()
+                                  .isNotEmpty
                               ? NetworkImage(userData.profileImage.toString())
-                              : const NetworkImage('https://avatars.githubusercontent.com/u/37553901?v=4',),
+                              : const NetworkImage(
+                                  'https://avatars.githubusercontent.com/u/37553901?v=4',
+                                ),
                         ),
-                      );
-                    },
-                    error: (err, s) => Text(err.toString()),
-                    loading: () => const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    ),
+                      ),
+                    );
+                  },
+                  error: (err, s) => Text(err.toString()),
+                  loading: () => const Center(
+                    child: CircularProgressIndicator.adaptive(),
                   ),
                 ),
               ),
-              onTap: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => const ProfilePage(showBackButton: true,))),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => const ProfilePage(
+                        showBackButton: true,
+                      ))),
             ),
           ],
         ),
@@ -133,9 +141,9 @@ class OnboardingPageState extends ConsumerState<OnboardingPage> {
                                 children: [
                                   ...eventsData.map(
                                     (e) => EventFeedCard(
-                                        event: e,
-                                        width: double.infinity,
-                                        height: size.height * 0.40,
+                                      event: e,
+                                      width: double.infinity,
+                                      height: size.height * 0.40,
                                     ),
                                   ),
                                 ],

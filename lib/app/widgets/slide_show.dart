@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:parkea/app/colors.dart';
 
 import '../../domain/models/slider_model.dart';
+import '../pages/auth/auth_page.dart';
 
 /**
  * Made for parkea.
@@ -81,7 +83,7 @@ class _Dots extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
           child: Center(
             child: ElevatedButton(
-              onPressed: () => Navigator.pushReplacementNamed(context, "/main"),
+              onPressed: () => context.goNamed(AuthPage.routeName),
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(40),
               ),

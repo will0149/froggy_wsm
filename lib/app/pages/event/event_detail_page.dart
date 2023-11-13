@@ -17,12 +17,14 @@ class EventDetailPage extends ConsumerStatefulWidget {
   final int eventId;
 
   const EventDetailPage({Key? key, required this.eventId}) : super(key: key);
+  static String get routeName => 'eventDetail';
+  static String get routeLocation => '$routeName/:id';
 
   @override
-  _EventDetailPageState createState() => _EventDetailPageState();
+  EventDetailPageState createState() => EventDetailPageState();
 }
 
-class _EventDetailPageState extends ConsumerState<EventDetailPage> {
+class EventDetailPageState extends ConsumerState<EventDetailPage> {
   Future<void> _refresh() {
     return Future.delayed(
       const Duration(seconds: 2),
@@ -36,10 +38,8 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: const BackButton(
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.white.withOpacity(0.19),
+        leading: const BackButton(),
+        backgroundColor: Colors.white.withOpacity(0.70),
         elevation: 0,
       ),
       body: RefreshIndicator(
@@ -197,7 +197,7 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      primary: parkeaOrange,
+                      backgroundColor: parkeaOrange,
                       // fixedSize: const Size(140, 43),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0),

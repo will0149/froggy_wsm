@@ -1,12 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_toastr/flutter_toastr.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:parkea/app/colors.dart';
 import 'package:parkea/data/repositories/fire_base_auth_handler.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:parkea/generated/l10n.dart';
+
+import '../../../../domain/usecases/auth/fire_base_auth_uc.dart';
+import '../../../pages/home/home_feed_page.dart';
 
 class SignInForm extends ConsumerStatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -34,6 +35,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(fireBaseAuthApiProvider);
     return Form(
       key: widget.formKey,
       child: Wrap(
@@ -91,7 +93,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
             children: [
              isLoading ? const CircularProgressIndicator() : ElevatedButton(
                style: ElevatedButton.styleFrom(
-                 primary: parkeaBlueAccent,
+                 backgroundColor: parkeaBlueAccent,
                  fixedSize: const Size(120, 43),
                  shape: RoundedRectangleBorder(
                    borderRadius: BorderRadius.circular(10.0),
@@ -106,29 +108,33 @@ class SignInFormState extends ConsumerState<SignInForm> {
                  });
                  if (_valid) {
                    //set user session data
-                   User? user = await fireBaseAuthHelper
-                       .signInUsingEmailPassword(
+                   authState.signInUsingEmailPassword(
                      email: emailController.value.text,
                      password: passwordController.value.text,
                      context: context,
-                   );
-                   if(user != null){
-                     logger.d("Process Complete");
+                   ).catchError((error) {
+                     logger.e(error);
                      setState(() {
                        isLoading = false;
                      });
-                     Navigator.pushNamed(context, "/navigator");
-                   }else {
+                   });
+
+                   if(authState.isLoggedIn){
+                     logger.d("Process Complete and logging");
                      setState(() {
                        isLoading = false;
                      });
-                     return FlutterToastr.show("Failed Logging", context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
+                     context.goNamed(HomeFeedPage.routeName);
+                   }else{
+                     setState(() {
+                       isLoading = false;
+                     });
                    }
                  }
                },
                child: Text(
                  S.of(context).login,
-                 style: Theme.of(context).textTheme.button?.copyWith(color: Colors.white, fontSize: 12),
+                 style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.white, fontSize: 12),
                ),
              ),
               Text.rich(
@@ -139,8 +145,8 @@ class SignInFormState extends ConsumerState<SignInForm> {
                     fontWeight: FontWeight.bold,
                     fontSize: 12,
                   ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () => Navigator.pushNamed(context, "/main"),
+                  // recognizer: TapGestureRecognizer()
+                  //   ..onTap = () => Navigator.pushNamed(context, "/main"),
                 ),
               ),
             ],

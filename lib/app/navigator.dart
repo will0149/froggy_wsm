@@ -1,13 +1,10 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:parkea/app/pages/onboarding/onboarding_page.dart';
-import 'package:parkea/app/pages/event/saved_event_page.dart';
-import 'package:parkea/app/pages/user/profile_page.dart';
 import 'package:parkea/app/utils/hex_color.dart';
 import 'package:parkea/app/utils/svg_icons_states.dart';
 
@@ -19,7 +16,9 @@ import 'colors.dart';
 * */
 
 class NavigatorBar extends ConsumerStatefulWidget {
-  const NavigatorBar({Key? key}) : super(key: key);
+  const NavigatorBar( {Key? key, required this.navigationShell,}) : super(key: key);
+
+  final StatefulNavigationShell navigationShell;
 
   @override
   NavigatorBarState createState() => NavigatorBarState();
@@ -66,40 +65,41 @@ class NavigatorBarState
     );
   }
 
-  List<Widget> _pageChooser(int page) {
-    if (page == 2) {
-      setState(() {
-        rotateAngle = pi / 5.0;
-      });
-    } else {
-      setState(() {
-        rotateAngle = 0;
-      });
-    }
-    return <Widget>[
-      OnboardingPage(key: UniqueKey(),),
-      SavedEventPage(key: UniqueKey(),),
-      ProfilePage(key: UniqueKey(),)
-    ];
-  }
+  // List<Widget> _pageChooser(int page) {
+  //   if (page == 2) {
+  //     setState(() {
+  //       rotateAngle = pi / 5.0;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       rotateAngle = 0;
+  //     });
+  //   }
+  //   return <Widget>[
+  //     OnboardingPage(key: UniqueKey(),),
+  //     SavedEventPage(key: UniqueKey(),),
+  //     ProfilePage(key: UniqueKey(),)
+  //   ];
+  // }
 
   @override
   Widget build(BuildContext context) {
     var isDarkMode = ref.watch(appThemeProvider);
     return Scaffold(
       extendBody: true,
-      body: SafeArea(
-        child: IndexedStack(
-          index: _bottomNavIndex,
-          children: _pageChooser(_bottomNavIndex),
-        ),
-      ),
+      body: widget.navigationShell,
+      // body: SafeArea(
+      //   child: IndexedStack(
+      //     index: _bottomNavIndex,
+      //     children: _pageChooser(_bottomNavIndex),
+      //   ),
+      // ),
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
         itemCount: 3,
         tabBuilder: (int index, bool isActive) {
           return navigationBody(index, isActive);
         },
-        activeIndex: _bottomNavIndex,
+        activeIndex: widget.navigationShell.currentIndex,
         leftCornerRadius: 25,
         rightCornerRadius: 25,
         gapLocation: GapLocation.none,
@@ -108,7 +108,7 @@ class NavigatorBarState
         borderWidth: 3.0,
         height: 40.0,
         elevation: 10.0,
-        onTap: (index) => setState(() => _bottomNavIndex = index),
+        onTap: (index) => _onTap(context, index),
       ),
     );
   }
@@ -137,5 +137,21 @@ class NavigatorBarState
           inactiveImg: "assets/navbar/usuario_black.svg"),
     ];
     return navOptions.elementAt(index);
+  }
+
+  /// Navigate to the current location of the branch at the provided index when
+  /// tapping an item in the BottomNavigationBar.
+  void _onTap(BuildContext context, int index) {
+    // When navigating to a new branch, it's recommended to use the goBranch
+    // method, as doing so makes sure the last navigation state of the
+    // Navigator for the branch is restored.
+    widget.navigationShell.goBranch(
+      index,
+      // A common pattern when using bottom navigation bars is to support
+      // navigating to the initial location when tapping the item that is
+      // already active. This example demonstrates how to support this behavior,
+      // using the initialLocation parameter of goBranch.
+      initialLocation: index ==  widget.navigationShell.currentIndex,
+    );
   }
 }

@@ -1,5 +1,6 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'loggerConfig.dart';
 
 /**
  * Made for parkea.
@@ -39,6 +40,7 @@ class IsFirstRun {
   /// to return true as long as the app keeps running after the first call after installing the app,
   /// while [IsFirstRun.isFirstCall()] returns true only on the first call after installing the app.
   Future<bool> isFirstRun() async {
+    logger.i("Validating if its firs run");
     if (_isFirstRun != null) {
       return _isFirstRun!;
     } else {
@@ -53,6 +55,12 @@ class IsFirstRun {
       _isFirstRun ??= isFirstRun;
       return isFirstRun;
     }
+  }
+
+  void setAfterFirstRun() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _isFirstRun = false;
+    await prefs.setBool(_firstRunSettingsKey, _isFirstRun!);
   }
 
   /// Resets the plugin.
@@ -70,5 +78,3 @@ class IsFirstRun {
     prefs.setBool(_firstCallSettingsKey, true);
   }
 }
-
-final firstInstanceProvider = Provider<IsFirstRun>((ref) => IsFirstRun());

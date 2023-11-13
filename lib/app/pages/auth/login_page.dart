@@ -7,6 +7,8 @@ import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+  static String get routeName => 'login';
+  static String get routeLocation => '$routeName';
 
   @override
   State<LoginPage> createState() => _LoginPageState();

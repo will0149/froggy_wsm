@@ -15,6 +15,8 @@ import '../../themes/border_radious.dart';
 //make with settings_ui: ^2.0.2 later
 class UserSettingsPage extends ConsumerStatefulWidget {
   const UserSettingsPage({Key? key}) : super(key: key);
+  static String get routeName => 'settings';
+  static String get routeLocation => routeName;
 
   @override
   UserSettingsPageState createState() => UserSettingsPageState();

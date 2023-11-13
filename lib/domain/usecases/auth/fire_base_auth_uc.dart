@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../device/utils/loggerConfig.dart';
@@ -11,16 +11,18 @@ import '../../../device/utils/loggerConfig.dart';
  * Date: 06/26/22
  */
 
-class FireBaseAuthUC {
+class FireBaseAuthUC extends ChangeNotifier {
 
-  Future<User?> signInUsingEmailPassword({
+  bool isLoggedIn = false;
+  User? user;
+
+  Future<void> signInUsingEmailPassword({
     required String email,
     required String password,
     required BuildContext context,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
 
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
@@ -28,6 +30,7 @@ class FireBaseAuthUC {
         password: password,
       );
       user = userCredential.user;
+      notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         logger.e('No user found for that email.');
@@ -35,8 +38,6 @@ class FireBaseAuthUC {
         logger.e('Wrong password provided.');
       }
     }
-
-    return user;
   }
 
   void validateInstance(BuildContext context) async {
@@ -44,9 +45,13 @@ class FireBaseAuthUC {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
         logger.w('User is currently signed out!');
+        isLoggedIn = false;
+        notifyListeners();
         Navigator.pushReplacementNamed(context, "/main");
       } else {
         logger.d('User is signed in!');
+        isLoggedIn = true;
+        notifyListeners();
         Navigator.pushReplacementNamed(context, "/navigator");
       }
     });
@@ -59,4 +64,4 @@ class FireBaseAuthUC {
 
 }
 
-final fireBaseAuthApiProvider = Provider<FireBaseAuthUC>((ref) => FireBaseAuthUC());
+final fireBaseAuthApiProvider = ChangeNotifierProvider<FireBaseAuthUC>((ref) => FireBaseAuthUC());

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/material/theme_data.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:parkea/app/colors.dart';
 import 'package:parkea/app/themes/parkea_input_decoration_theme.dart';
 import 'package:parkea/app/themes/text_theme.dart';
