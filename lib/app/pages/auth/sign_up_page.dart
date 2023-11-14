@@ -77,7 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 S.of(context).register,
                 style: Theme.of(context)
                     .textTheme
-                    .headline1
+                    .displayMedium
                     ?.copyWith(color: Colors.white, fontSize: 24),
               ),
             ),

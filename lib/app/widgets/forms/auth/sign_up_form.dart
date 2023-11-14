@@ -1,28 +1,31 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_toastr/flutter_toastr.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:parkea/app/colors.dart';
 import 'package:parkea/data/repositories/fire_base_auth_handler.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:parkea/generated/l10n.dart';
 import 'package:select_form_field/select_form_field.dart';
 
-class SignUpForm extends StatefulWidget {
+import '../../../../domain/usecases/auth/fire_base_auth_uc.dart';
+import '../../../pages/home/home_feed_page.dart';
+
+class SignUpForm extends ConsumerStatefulWidget {
   final GlobalKey<FormState> formKey;
 
   const SignUpForm({Key? key, required this.formKey}) : super(key: key);
 
   @override
-  State<SignUpForm> createState() => _SignUpFormState();
+  SignUpFormState createState() => SignUpFormState();
 }
 
-class _SignUpFormState extends State<SignUpForm> {
+class SignUpFormState extends ConsumerState<SignUpForm> {
   var userNameController = TextEditingController();
   var provinceController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   bool _isObscure = true;
-  bool _loading = false;
+  bool _isLoading = false;
   bool _valid = false;
   var fireBaseAuthHelper = AuthenticationRepository();
 
@@ -73,85 +76,83 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(fireBaseAuthApiProvider);
     return Form(
-            key: widget.formKey,
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              spacing: 15.0,
-              runSpacing: 20.0,
-              children: [
-                TextField(
-                  controller: userNameController,
-                  decoration: InputDecoration(
-                    hintText: 'fulano',
-                    labelText: S.of(context).name,
-                    prefixIcon: const Icon(Icons.person),
-                  ),
-                ),
-                SelectFormField(
-                  //controller: provinceController,
-                  type: SelectFormFieldType.dropdown,
-                  // or can be dialog
-                  initialValue: 'panama',
-                  labelText: S.of(context).province,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: parkeaBlueAccent,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 16,
-                  ),
-                  items: _provinces,
-                  onChanged: (val) => print(val),
-                  onSaved: (val) => print(val),
-                ),
-                TextField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    hintText: 'example@example.com',
-                    labelText: S.of(context).email,
-                    prefixIcon: const Icon(Icons.email),
-                  ),
-                ),
-                TextFormField(
-                  controller: passwordController,
-                  keyboardType: TextInputType.text,
-                  obscureText: _isObscure,
-                  decoration: InputDecoration(
-                    hintText: '******',
-                    labelText: S.of(context).password,
-                    prefixIcon: const Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                        icon: Icon(_isObscure
-                            ? Icons.visibility
-                            : Icons.visibility_off),
-                        onPressed: () {
-                          setState(() {
-                            _isObscure = !_isObscure;
-                          });
-                        }),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Password must be longer than 8 characters';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                Wrap(
-                  direction: Axis.vertical,
-                  alignment: WrapAlignment.center,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  spacing: 10.0,
-                  runSpacing: 10.0,
-                  children: [
-                    _loading ? const CircularProgressIndicator.adaptive() : ElevatedButton(
-                      child: Text(
-                        S.of(context).signUp,
-                        style: Theme.of(context).textTheme.button?.copyWith(color: Colors.white),
-                      ),
+      key: widget.formKey,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        spacing: 15.0,
+        runSpacing: 20.0,
+        children: [
+          TextField(
+            controller: userNameController,
+            decoration: InputDecoration(
+              hintText: 'fulano',
+              labelText: S.of(context).name,
+              prefixIcon: const Icon(Icons.person),
+            ),
+          ),
+          SelectFormField(
+            //controller: provinceController,
+            type: SelectFormFieldType.dropdown,
+            // or can be dialog
+            initialValue: 'panama',
+            labelText: S.of(context).province,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: parkeaBlueAccent,
+              fontWeight: FontWeight.normal,
+              fontSize: 16,
+            ),
+            items: _provinces,
+            onChanged: (val) => print(val),
+            onSaved: (val) => print(val),
+          ),
+          TextField(
+            controller: emailController,
+            decoration: InputDecoration(
+              hintText: 'example@example.com',
+              labelText: S.of(context).email,
+              prefixIcon: const Icon(Icons.email),
+            ),
+          ),
+          TextFormField(
+            controller: passwordController,
+            keyboardType: TextInputType.text,
+            obscureText: _isObscure,
+            decoration: InputDecoration(
+              hintText: '******',
+              labelText: S.of(context).password,
+              prefixIcon: const Icon(Icons.lock),
+              suffixIcon: IconButton(
+                  icon: Icon(
+                      _isObscure ? Icons.visibility : Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      _isObscure = !_isObscure;
+                    });
+                  }),
+            ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Password must be longer than 8 characters';
+              } else {
+                return null;
+              }
+            },
+          ),
+          Wrap(
+            direction: Axis.vertical,
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 10.0,
+            runSpacing: 10.0,
+            children: [
+              _isLoading
+                  ? const CircularProgressIndicator.adaptive()
+                  : ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: parkeaOrange,
+                        backgroundColor: parkeaOrange,
                         fixedSize: const Size(120, 43),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -162,38 +163,48 @@ class _SignUpFormState extends State<SignUpForm> {
                       onPressed: () async {
                         setState(() {
                           _valid = widget.formKey.currentState!.validate();
+                          _isLoading = true;
                         });
                         if (_valid) {
-                          setState(() {
-                            _loading = true;
-                          });
                           //set user session data
-                          User? user = await fireBaseAuthHelper
+                          authState
                               .registerUsingEmailPassword(
                             name: userNameController.value.text,
                             email: emailController.value.text,
                             password: passwordController.value.text,
-                          );
+                          )
+                              .catchError((error) {
+                            logger.e(error);
+                            setState(() {
+                              _isLoading = false;
+                            });
+                          });
 
-                          if(user != null){
-                            logger.d("Process Complete");
+                          if (authState.isLoggedIn) {
+                            logger.d("Process Complete and logging");
                             setState(() {
-                              _loading = false;
+                              _isLoading = false;
                             });
-                            Navigator.pushNamed(context, "/navigator");
-                          }else {
+                            context.goNamed(HomeFeedPage.routeName);
+                          } else {
                             setState(() {
-                              _loading = false;
+                              _isLoading = false;
                             });
-                            FlutterToastr.show("Failed Logging", context, duration: FlutterToastr.lengthShort, position:  FlutterToastr.bottom);
                           }
                         }
                       },
+                      child: Text(
+                        S.of(context).signUp,
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(color: Colors.white),
+                      ),
                     ),
-                  ],
-                ),
-              ],
-            ),
-          );
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

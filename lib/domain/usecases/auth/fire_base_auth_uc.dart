@@ -12,7 +12,6 @@ import '../../../device/utils/loggerConfig.dart';
  */
 
 class FireBaseAuthUC extends ChangeNotifier {
-
   bool isLoggedIn = false;
   User? user;
 
@@ -40,6 +39,35 @@ class FireBaseAuthUC extends ChangeNotifier {
     }
   }
 
+  Future<void> registerUsingEmailPassword({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try {
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      user = userCredential.user;
+      await user!.updateDisplayName(name);
+      await user.reload();
+      user = auth.currentUser;
+    } on FirebaseAuthException catch (e) {
+      logger.e(e);
+      if (e.code == 'weak-password') {
+        logger.d('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        logger.d('The account already exists for that email.');
+      }
+      logger.e(e);
+    } catch (e) {
+      logger.e(e);
+    }
+  }
+
   void validateInstance(BuildContext context) async {
     logger.d("validating user session");
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
@@ -61,7 +89,7 @@ class FireBaseAuthUC extends ChangeNotifier {
     User? user = FirebaseAuth.instance.currentUser;
     return user;
   }
-
 }
 
-final fireBaseAuthApiProvider = ChangeNotifierProvider<FireBaseAuthUC>((ref) => FireBaseAuthUC());
+final fireBaseAuthApiProvider =
+    ChangeNotifierProvider<FireBaseAuthUC>((ref) => FireBaseAuthUC());
