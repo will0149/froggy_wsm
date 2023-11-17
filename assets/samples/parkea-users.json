@@ -40,6 +40,14 @@
         "phoneNumber": "111111111",
         "emailAddress": "jone.mac@learningcontainer.com",
         "profileImage": ""
+      },
+      {
+        "userId": 6,
+        "firstName": "Kevin",
+        "lastName": "Ocho",
+        "phoneNumber": "111111111",
+        "emailAddress": "river2@yopmail.com",
+        "profileImage": ""
       }
     ]
   }

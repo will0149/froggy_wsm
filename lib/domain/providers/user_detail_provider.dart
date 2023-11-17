@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../device/utils/loggerConfig.dart';
 import '../dtos/user_dto.dart';
 import '../usecases/users_uc.dart';
 import 'fire_base_auth_provider.dart';
@@ -15,5 +16,8 @@ part 'user_detail_provider.g.dart';
 Future<UserDTO> getUserDetail(GetUserDetailRef ref){
   final authInstance = ref.watch(userInstanceProvider);
   String? email = authInstance.value?.email;
-  return ref.read(userApiProvider).getUserDataByEmail(email!);
+  ref.onDispose(() {
+    logger.w('userProvider has been disposed');
+  });
+  return ref.read(userApiProvider).getUserDataByEmail(email);
 }

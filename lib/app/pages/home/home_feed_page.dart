@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/colors.dart';
 import 'package:parkea/app/pages/user/profile_page.dart';
 
+import '../../../device/utils/loggerConfig.dart';
 import '../../../domain/providers/onboarding_provider.dart';
 import '../../../domain/providers/user_detail_provider.dart';
 import '../../../domain/usecases/fetch_events_uc.dart';
@@ -10,6 +11,7 @@ import '../../../generated/l10n.dart';
 import '../../widgets/cards/event_feed_card.dart';
 import '../../widgets/exit_pop_scope.dart';
 import '../../widgets/filters/horizontal_filter_list.dart';
+import '../../widgets/user/user_empty_image_avatar.dart';
 
 /**
  * Made for parkea.
@@ -35,10 +37,12 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
   void initState() {
     super.initState();
     ref.read(getEventsProvider);
+    ref.read(getUserDetailProvider);
   }
 
   Future<void> _refresh() async {
     ref.refresh(getEventsProvider);
+    ref.refresh(getUserDetailProvider);
   }
 
   @override
@@ -61,33 +65,32 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
           actions: [
             GestureDetector(
               child: Container(
-                margin: const EdgeInsets.only(right: 10.0),
-                child: userData.when(
-                  data: (userData) {
-                    return Hero(
-                      tag: 'profile_pic',
-                      child: CircleAvatar(
-                        radius: 25,
-                        backgroundColor: parkeaOrange,
-                        child: CircleAvatar(
-                          radius: 23,
-                          backgroundImage: userData.profileImage
-                                  .toString()
-                                  .isNotEmpty
-                              ? NetworkImage(userData.profileImage.toString())
-                              : const NetworkImage(
-                                  'https://avatars.githubusercontent.com/u/37553901?v=4',
-                                ),
+                  margin: const EdgeInsets.only(right: 10.0),
+                  child: Hero(
+                    tag: 'profile_pic',
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundColor: parkeaOrange,
+                      child: userData.when(
+                        data: (userData) {
+                          return userData.profileImage
+                              .toString()
+                              .isNotEmpty ? CircleAvatar(
+                            radius: 23,
+                            backgroundImage: NetworkImage(userData.profileImage.toString())
+                                ,
+                          ) : const UserEmptyImageAvatar();
+                        },
+                        error: (err, s){
+                          logger.e(err.toString());
+                          return const UserEmptyImageAvatar();
+                        },
+                        loading: () => const Center(
+                          child: CircularProgressIndicator.adaptive(),
                         ),
                       ),
-                    );
-                  },
-                  error: (err, s) => Text(err.toString()),
-                  loading: () => const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  ),
-                ),
-              ),
+                    ),
+                  )),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (_) => const ProfilePage(
                         showBackButton: true,

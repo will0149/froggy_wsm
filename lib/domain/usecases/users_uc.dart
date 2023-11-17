@@ -1,4 +1,5 @@
 import 'package:parkea/data/repositories/user_repository.dart';
+import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../dtos/user_dto.dart';
@@ -12,7 +13,11 @@ import '../dtos/user_dto.dart';
 class UsersUC {
   late final UserRepository repository = UserRepository();
 
-  Future<UserDTO> getUserDataByEmail(String email) async {
+  Future<UserDTO> getUserDataByEmail(String? email) async {
+    if(email == null){
+      logger.e("Email null in UsersUC");
+      throw Exception('Email error');
+    }
     Map<String, dynamic> result = await repository.fetchUsersList();
     List<dynamic> jsonResponse = result["body"]["users"];
     List<UserDTO> bodyResponse = [];

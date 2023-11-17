@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../domain/dtos/event_dto.dart';
 import '../../domain/providers/onboarding_provider.dart';
@@ -12,7 +13,7 @@ import 'cards/event_feed_card.dart';
  * Date: 03/09/23
  */
 class ProfileContentTabBar extends ConsumerStatefulWidget {
-  const ProfileContentTabBar({Key? key}) : super(key: key);
+  const ProfileContentTabBar({super.key});
 
   @override
   ProfileContentTabBarState createState() => ProfileContentTabBarState();
@@ -23,22 +24,22 @@ class ProfileContentTabBarState extends ConsumerState<ProfileContentTabBar> {
 
   Widget _getFirstPage(
       AsyncValue<List<EventDTO>> subscribeEventsData, Size size) {
-    return subscribeEventsData.when(
-      data: (eventsData) {
-        return ListView(
-          controller: _controller,
-          shrinkWrap: true,
-          children: [
-            ...eventsData.map(
-              (e) => EventFeedCard(
-                  event: e, width: double.infinity, height: size.height * 0.20),
-            ),
-          ],
-        );
-      },
-      error: (err, s) => Text(err.toString()),
-      loading: () => const Center(
-        child: CircularProgressIndicator.adaptive(),
+    return ListView(
+      controller: _controller,
+      shrinkWrap: true,
+      children: subscribeEventsData.when(
+        data: (eventsData) {
+          List<Widget> widgets = [];
+          for (var element in eventsData) {
+            widgets.add(EventFeedCard(
+                event: element,
+                width: double.infinity,
+                height: size.height * 0.20));
+          }
+          return widgets;
+        },
+        error: (err, s) => [],
+        loading: () => [],
       ),
     );
   }
@@ -47,43 +48,46 @@ class ProfileContentTabBarState extends ConsumerState<ProfileContentTabBar> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     final subscribeEventsData = ref.watch(getEventsProvider);
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        primary: false,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
+    return Skeletonizer(
+      enabled: subscribeEventsData.isLoading,
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
           primary: false,
-          title: TabBar(
-            tabs: [
-              Tab(
-                child: Text(
-                  S.of(context).myEvents,
-                  style: Theme.of(context).textTheme.labelLarge,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            primary: false,
+            title: TabBar(
+              tabs: [
+                Tab(
+                  child: Text(
+                    S.of(context).myEvents,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
                 ),
-              ),
-              Tab(
-                child: Text(
-                  S.of(context).myEventsPaid,
-                  style: Theme.of(context).textTheme.labelLarge,
+                Tab(
+                  child: Text(
+                    S.of(context).myEventsPaid,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
                 ),
-              ),
-              Tab(
-                child: Text(
-                  S.of(context).myEventsSaved,
-                  style: Theme.of(context).textTheme.labelLarge,
+                Tab(
+                  child: Text(
+                    S.of(context).myEventsSaved,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
                 ),
-              ),
+              ],
+            ),
+            // title: Text('Tabs Demo'),
+          ),
+          body: TabBarView(
+            children: [
+              _getFirstPage(subscribeEventsData, size),
+              const Icon(Icons.directions_transit, size: 350),
+              const Icon(Icons.directions_car, size: 350),
             ],
           ),
-          // title: Text('Tabs Demo'),
-        ),
-        body: TabBarView(
-          children: [
-            _getFirstPage(subscribeEventsData, size),
-            const Icon(Icons.directions_transit, size: 350),
-            const Icon(Icons.directions_car, size: 350),
-          ],
         ),
       ),
     );

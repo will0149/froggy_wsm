@@ -6,7 +6,7 @@ part of 'event_detail_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-// ignore_for_file: avoid_private_typedef_functions, non_constant_identifier_names, subtype_of_sealed_class, invalid_use_of_internal_member, unused_element, constant_identifier_names, unnecessary_raw_strings, library_private_types_in_public_api
+String _$getEventDetailHash() => r'd25abf1359fe509242145b3a1cde63013544710b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,15 +29,56 @@ class _SystemHash {
   }
 }
 
-String $getEventDetailHash() => r'd25abf1359fe509242145b3a1cde63013544710b';
+/// See also [getEventDetail].
+@ProviderFor(getEventDetail)
+const getEventDetailProvider = GetEventDetailFamily();
+
+/// See also [getEventDetail].
+class GetEventDetailFamily extends Family<AsyncValue<EventDTO>> {
+  /// See also [getEventDetail].
+  const GetEventDetailFamily();
+
+  /// See also [getEventDetail].
+  GetEventDetailProvider call(
+    int id,
+  ) {
+    return GetEventDetailProvider(
+      id,
+    );
+  }
+
+  @override
+  GetEventDetailProvider getProviderOverride(
+    covariant GetEventDetailProvider provider,
+  ) {
+    return call(
+      provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getEventDetailProvider';
+}
 
 /// See also [getEventDetail].
 class GetEventDetailProvider extends AutoDisposeFutureProvider<EventDTO> {
+  /// See also [getEventDetail].
   GetEventDetailProvider(
-    this.id,
-  ) : super(
+    int id,
+  ) : this._internal(
           (ref) => getEventDetail(
-            ref,
+            ref as GetEventDetailRef,
             id,
           ),
           from: getEventDetailProvider,
@@ -45,10 +86,47 @@ class GetEventDetailProvider extends AutoDisposeFutureProvider<EventDTO> {
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : $getEventDetailHash,
+                  : _$getEventDetailHash,
+          dependencies: GetEventDetailFamily._dependencies,
+          allTransitiveDependencies:
+              GetEventDetailFamily._allTransitiveDependencies,
+          id: id,
         );
 
+  GetEventDetailProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
   final int id;
+
+  @override
+  Override overrideWith(
+    FutureOr<EventDTO> Function(GetEventDetailRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetEventDetailProvider._internal(
+        (ref) => create(ref as GetEventDetailRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<EventDTO> createElement() {
+    return _GetEventDetailProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -64,37 +142,17 @@ class GetEventDetailProvider extends AutoDisposeFutureProvider<EventDTO> {
   }
 }
 
-typedef GetEventDetailRef = AutoDisposeFutureProviderRef<EventDTO>;
-
-/// See also [getEventDetail].
-final getEventDetailProvider = GetEventDetailFamily();
-
-class GetEventDetailFamily extends Family<AsyncValue<EventDTO>> {
-  GetEventDetailFamily();
-
-  GetEventDetailProvider call(
-    int id,
-  ) {
-    return GetEventDetailProvider(
-      id,
-    );
-  }
-
-  @override
-  AutoDisposeFutureProvider<EventDTO> getProviderOverride(
-    covariant GetEventDetailProvider provider,
-  ) {
-    return call(
-      provider.id,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'getEventDetailProvider';
+mixin GetEventDetailRef on AutoDisposeFutureProviderRef<EventDTO> {
+  /// The parameter `id` of this provider.
+  int get id;
 }
+
+class _GetEventDetailProviderElement
+    extends AutoDisposeFutureProviderElement<EventDTO> with GetEventDetailRef {
+  _GetEventDetailProviderElement(super.provider);
+
+  @override
+  int get id => (origin as GetEventDetailProvider).id;
+}
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

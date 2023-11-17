@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:parkea/app/colors.dart';
-import 'package:parkea/data/repositories/fire_base_auth_handler.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:parkea/generated/l10n.dart';
 
@@ -25,7 +24,6 @@ class SignInFormState extends ConsumerState<SignInForm> {
   bool _valid = false;
   bool _isObscure = true;
   bool isLoading = false;
-  var fireBaseAuthHelper = AuthenticationRepository();
 
   @override
   void initState() {

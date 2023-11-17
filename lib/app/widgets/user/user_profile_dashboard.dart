@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:parkea/app/widgets/user/user_empty_image_avatar.dart';
 
 import '../../../domain/dtos/user_dto.dart';
 
@@ -13,7 +14,7 @@ class UserProfileDashboard extends ConsumerStatefulWidget {
   final UserDTO userData;
   final Size size;
 
-  const UserProfileDashboard(this.userData, this.size, {Key? key}) : super(key: key);
+  const UserProfileDashboard(this.userData, this.size, {super.key});
 
   @override
   UserProfileDashboardState createState() => UserProfileDashboardState();
@@ -52,7 +53,7 @@ class UserProfileDashboardState extends ConsumerState<UserProfileDashboard> {
 // Create and return your custom rect
               return MaterialRectArcTween(begin: begin, end: end);
             },
-            child: CircleAvatar(
+            child: widget.userData.profileImage.toString().isNotEmpty ? CircleAvatar(
               backgroundColor: Colors.white,
               radius: 50,
               child: CircleAvatar(
@@ -61,7 +62,7 @@ class UserProfileDashboardState extends ConsumerState<UserProfileDashboard> {
                 backgroundImage:
                     NetworkImage(widget.userData.profileImage.toString()),
               ), //CircleAvatar
-            ),
+            ) : const UserEmptyImageAvatar(),
           ),
         ),
         Positioned(

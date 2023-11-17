@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:parkea/app/pages/user/user_settings.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../domain/providers/user_detail_provider.dart';
 import '../../colors.dart';
@@ -18,7 +20,7 @@ import '../../widgets/user/user_profile_dashboard.dart';
 class ProfilePage extends ConsumerStatefulWidget {
   final bool showBackButton;
 
-  const ProfilePage({Key? key, this.showBackButton = false}) : super(key: key);
+  const ProfilePage({super.key, this.showBackButton = false});
   static String get routeName => 'profile';
   static String get routeLocation => '/$routeName';
 
@@ -52,39 +54,38 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
         elevation: 0,
         actions: [
           IconButton(
-            onPressed: () => Navigator.push(
-              context,
-              SlideLeftRoute(
-                page: const UserSettingsPage(),
-              ),
-            ),
+            onPressed: () => context.goNamed(UserSettingsPage.routeName),
             icon: const Icon(Icons.settings_outlined),
           ),
         ],
       ),
       child: AnimatedContainer(
         duration: const Duration(microseconds: 500),
-        child: CustomScrollView(
-          key: UniqueKey(),
-          controller: _controller,
-          slivers: userData.when(
-            data: (userData) {
-              return [
-                SliverToBoxAdapter(
-                  child: UserProfileDashboard(userData, size),
-                ),
-                SliverFillRemaining(
-                  hasScrollBody: true,
-                  child: ProfileContentTabBar(key: UniqueKey(),),
-                ),
-              ];
-            },
-            error: (err, s) => [Text(err.toString())],
-            loading: () => [
-              const Center(
-                child: CircularProgressIndicator.adaptive(),
-              )
-            ],
+        child: Skeletonizer(
+          enabled: userData.isLoading,
+          child: CustomScrollView(
+            key: UniqueKey(),
+            controller: _controller,
+            slivers: userData.when(
+              data: (userData) {
+                return [
+                  SliverToBoxAdapter(
+                      child: UserProfileDashboard(userData, size)),
+                  SliverFillRemaining(
+                    hasScrollBody: true,
+                    child: ProfileContentTabBar(
+                      key: UniqueKey(),
+                    ),
+                  ),
+                ];
+              },
+              error: (err, s) => [Text(err.toString())],
+              loading: () => [
+                const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                )
+              ],
+            ),
           ),
         ),
       ),

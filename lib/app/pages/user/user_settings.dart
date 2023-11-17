@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:parkea/app/colors.dart';
+import 'package:parkea/app/pages/auth/sign_up_page.dart';
 
-import '../../../data/repositories/fire_base_auth_handler.dart';
 import '../../../domain/providers/app_theme_provider.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/border_radious.dart';
@@ -25,7 +27,6 @@ class UserSettingsPage extends ConsumerStatefulWidget {
 class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
   // late final SettingsController controller;
   late bool _loading = false;
-  var fireBaseAuthHelper = AuthenticationRepository();
 
   final MaterialStateProperty<Color?> trackColor =
       MaterialStateProperty.resolveWith<Color?>(
@@ -148,12 +149,12 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
                 iconColor: parkeaWhite,
                 // contentPadding: const EdgeInsets.only(
                 //     left: 20, right: 30, top: 8.5, bottom: 9.5),
-                onTap: () {
+                onTap: () async {
                   setState(() {
                     _loading = true;
                   });
-                  fireBaseAuthHelper.signOut();
-                  Navigator.pushNamed(context, "/main");
+                  await FirebaseAuth.instance.signOut();
+                  context.goNamed(SignUpPage.routeName);
                 },
               ),
             ),

@@ -13,16 +13,21 @@ import '../../../device/utils/loggerConfig.dart';
 
 class FireBaseAuthUC extends ChangeNotifier {
   bool isLoggedIn = false;
+  bool isLoading = false;
+  late FirebaseAuth auth;
   User? user;
+
+  FireBaseAuthUC() {
+    isLoading = true;
+    auth = FirebaseAuth.instance;
+    isLoading = false;
+  }
 
   Future<void> signInUsingEmailPassword({
     required String email,
     required String password,
     required BuildContext context,
   }) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    FirebaseAuth auth = FirebaseAuth.instance;
-
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
         email: email,
@@ -44,8 +49,6 @@ class FireBaseAuthUC extends ChangeNotifier {
     required String email,
     required String password,
   }) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
@@ -53,8 +56,9 @@ class FireBaseAuthUC extends ChangeNotifier {
       );
       user = userCredential.user;
       await user!.updateDisplayName(name);
-      await user.reload();
+      await user?.reload();
       user = auth.currentUser;
+      notifyListeners();
     } on FirebaseAuthException catch (e) {
       logger.e(e);
       if (e.code == 'weak-password') {
@@ -68,25 +72,23 @@ class FireBaseAuthUC extends ChangeNotifier {
     }
   }
 
-  void validateInstance(BuildContext context) async {
+  void validateInstance() async {
     logger.d("validating user session");
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    auth.authStateChanges().listen((User? user) {
       if (user == null) {
         logger.w('User is currently signed out!');
         isLoggedIn = false;
         notifyListeners();
-        Navigator.pushReplacementNamed(context, "/main");
       } else {
         logger.d('User is signed in!');
         isLoggedIn = true;
         notifyListeners();
-        Navigator.pushReplacementNamed(context, "/navigator");
       }
     });
   }
 
   Future<User?> getUserInstance() async {
-    User? user = FirebaseAuth.instance.currentUser;
+    user ??= auth.currentUser;
     return user;
   }
 }
