@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:parkea/app/pages/auth/auth_page.dart';
 import 'package:parkea/app/pages/auth/login_page.dart';
+import 'package:parkea/app/pages/auth/password_reset_page.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
 import 'package:parkea/app/pages/user/user_settings.dart';
 
@@ -64,6 +65,13 @@ final routerProvider = Provider<GoRouter>((ref) {
               path: SignUpPage.routeLocation,
               builder: (BuildContext context, GoRouterState state) {
                 return const SignUpPage();
+              },
+            ),
+            GoRoute(
+              name: PasswordResetPage.routeName,
+              path: PasswordResetPage.routeLocation,
+              builder: (BuildContext context, GoRouterState state) {
+                return const PasswordResetPage();
               },
             ),
             GoRoute(

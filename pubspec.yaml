@@ -31,6 +31,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  intl: any
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -54,6 +55,7 @@ dependencies:
   go_router: ^12.1.1
   skeletonizer: ^0.8.0
   cached_network_image: ^3.3.0
+  intl_utils: ^2.8.5
 
 dev_dependencies:
   flutter_test:
@@ -117,7 +119,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 flutter_intl:
-  enabled: false # TODO: poner en false cuando no se agreguen nuevos textos
+  enabled: true # TODO: poner en false cuando no se agreguen nuevos textos
   main_locale: es
   class_name: S # TODO: puede llamarse app_localization
     #arb_dir: lib/l10n

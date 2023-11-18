@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Événements populaires"),
         "province": MessageLookupByLibrary.simpleMessage("Province"),
         "register": MessageLookupByLibrary.simpleMessage("S\'inscrire"),
+        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "saveEvent":
             MessageLookupByLibrary.simpleMessage("Enregistrer l\'événement"),
         "seeEvent": MessageLookupByLibrary.simpleMessage("Voir événement"),

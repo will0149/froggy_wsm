@@ -35,29 +35,9 @@ class MyApp extends ConsumerWidget {
     var router = ref.watch(routerProvider);
     return MaterialApp.router(
       routerConfig: router,
-      // routeInformationParser: router.routeInformationParser,
-      // routerDelegate: router.routerDelegate,
-      // routeInformationProvider: router.routeInformationProvider,
       debugShowCheckedModeBanner: true,
       title: 'Parkea',
       theme: getAppTheme(context, ref.watch(appThemeProvider)),
-      // onGenerateRoute: (settings) {
-      //   switch (settings.name) {
-      //     case "/main":
-      //       return MaterialPageRoute(builder: (_) => const AuthPage());
-      //     case "/login":
-      //       return SlideLeftRoute(page: const LoginPage());
-      //     case "/signup":
-      //       return SlideRightRoute(page: const SignUpPage());
-      //     case "/onboarding":
-      //       return MaterialPageRoute(builder: (_) => const OnboardingPage());
-      //     // case "/navigator":
-      //     //   return FadeRoute(page: const NavigatorBar());
-      //     case "/slideshow":
-      //       return FadeRoute(page: const SlideshowPage());
-      //   }
-      //   return null;
-      // },
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

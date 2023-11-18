@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "popularEvents": MessageLookupByLibrary.simpleMessage("流行的事件"),
         "province": MessageLookupByLibrary.simpleMessage("省"),
         "register": MessageLookupByLibrary.simpleMessage("報名"),
+        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "saveEvent": MessageLookupByLibrary.simpleMessage("保存事件"),
         "seeEvent": MessageLookupByLibrary.simpleMessage("显示事件"),
         "settings": MessageLookupByLibrary.simpleMessage("設置"),

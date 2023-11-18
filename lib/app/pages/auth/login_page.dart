@@ -5,8 +5,11 @@ import 'package:parkea/app/widgets/paints/bottom_left_curve_orange.dart';
 import 'package:parkea/app/widgets/paints/sign_in_up_white_shape.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 
+import '../../../generated/l10n.dart';
+import '../../widgets/scaffolds/AuthScaffold.dart';
+
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
   static String get routeName => 'login';
   static String get routeLocation => '$routeName';
 
@@ -19,64 +22,12 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return SafeScaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
+    return AuthScaffold(
+      color: parkeaBlueAccent,
+      bannerText: S.of(context).login,
+      form: SignInForm(
+        formKey: loginFormKey,
       ),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: size.height * 0.55,
-                width: size.height * 0.55,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    alignment: Alignment.bottomRight,
-                    image: AssetImage(
-                        "assets/backgrounds/alexander-popov-9vDdkxSCAD4-unsplash.jpg"),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                color: parkeaBlueAccentOpacity,
-              ),
-            ),
-            SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: CustomPaint(
-                painter: SignInUpWhiteShape(),
-              ),
-            ),
-            SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: CustomPaint(
-                painter: BottomLeftCurveOrange(),
-              ),
-            ),
-            Center(
-              child: Container(
-                alignment: Alignment.center,
-                height: size.height,
-                width: double.infinity,
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom + 1,
-                ),
-                margin: EdgeInsets.only(
-                  left: size.width * 0.10,
-                  right: size.width * 0.10,
-                ),
-                child: SignInForm(
-                  formKey: loginFormKey,
-                ),
-              ),
-            ),
-          ],
-        ));
+    );
   }
 }

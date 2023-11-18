@@ -16,7 +16,7 @@ import '../../../generated/l10n.dart';
 class EventDetailPage extends ConsumerStatefulWidget {
   final int eventId;
 
-  const EventDetailPage({Key? key, required this.eventId}) : super(key: key);
+  const EventDetailPage({super.key, required this.eventId});
   static String get routeName => 'eventDetail';
   static String get routeLocation => '$routeName/:id';
 

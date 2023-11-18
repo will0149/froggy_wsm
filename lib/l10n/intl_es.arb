@@ -8,6 +8,7 @@
   "welcomeAgain": "¡Bienvenido de nuevo!",
   "login": "Iniciar Sesión",
   "signUp": "Regístrate",
+  "resetPassword": "Reestablecer Contraseña",
   "email": "Correo Electrónico",
   "password": "Contraseña",
   "forgotPassword": "Olvide mi Contraseña",

@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Популярные события"),
         "province": MessageLookupByLibrary.simpleMessage("Провинция"),
         "register": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "saveEvent": MessageLookupByLibrary.simpleMessage("сохранить событие"),
         "seeEvent": MessageLookupByLibrary.simpleMessage("Показать событие"),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),

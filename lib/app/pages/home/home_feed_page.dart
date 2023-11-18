@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/colors.dart';
 import 'package:parkea/app/pages/user/profile_page.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../device/utils/loggerConfig.dart';
 import '../../../domain/providers/onboarding_provider.dart';
@@ -85,8 +86,9 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                           logger.e(err.toString());
                           return const UserEmptyImageAvatar();
                         },
-                        loading: () => const Center(
-                          child: CircularProgressIndicator.adaptive(),
+                        loading: () => const Skeletonizer(
+                          enabled: true,
+                          child: UserEmptyImageAvatar(),
                         ),
                       ),
                     ),

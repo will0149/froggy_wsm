@@ -6,12 +6,13 @@ import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:parkea/generated/l10n.dart';
 
 import '../../../../domain/usecases/auth/fire_base_auth_uc.dart';
+import '../../../pages/auth/password_reset_page.dart';
 import '../../../pages/home/home_feed_page.dart';
 
 class SignInForm extends ConsumerStatefulWidget {
   final GlobalKey<FormState> formKey;
 
-  const SignInForm({Key? key, required this.formKey}) : super(key: key);
+  const SignInForm({super.key, required this.formKey});
 
   @override
   SignInFormState createState() => SignInFormState();
@@ -135,16 +136,20 @@ class SignInFormState extends ConsumerState<SignInForm> {
                  style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.white, fontSize: 12),
                ),
              ),
-              Text.rich(
-                TextSpan(
-                  text: S.of(context).forgotPassword,
-                  style: const TextStyle(
-                    color: parkeaBlueAccent,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
+              GestureDetector(
+               onTap: () => context.pushNamed(PasswordResetPage.routeName),
+                child: Text.rich(
+                  TextSpan(
+                    text: S.of(context).forgotPassword,
+                    style: const TextStyle(
+                      color: parkeaBlueAccent,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                    // recognizer: TapGestureRecognizer()
+                    //   ..onTap = () => Navigator.pushNamed(context, "/main"),
                   ),
-                  // recognizer: TapGestureRecognizer()
-                  //   ..onTap = () => Navigator.pushNamed(context, "/main"),
+
                 ),
               ),
             ],

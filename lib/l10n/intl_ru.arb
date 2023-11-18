@@ -8,6 +8,7 @@
   "welcomeAgain": "¡Добро пожаловать обратно!",
   "login": "Войти в систему",
   "signUp": "Зарегистрироваться",
+  "resetPassword": "Reset Password",
   "email": "Эл. адрес",
   "password": "Пароль",
   "forgotPassword": "Я забыл мой пароль",
