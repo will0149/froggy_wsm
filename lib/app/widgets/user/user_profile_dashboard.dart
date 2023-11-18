@@ -33,9 +33,19 @@ class UserProfileDashboardState extends ConsumerState<UserProfileDashboard> {
               width: double.infinity,
               height: widget.size.height * 0.35,
               child: Wrap(
+                alignment: WrapAlignment.center,
                 children: [
                   Image.network(
-                      "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2022/09/dragon-ball-z-crunchyroll.jpg?fit=1280%2C720&quality=80&ssl=1"),
+                      "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2022/09/dragon-ball-z-crunchyroll.jpg?fit=1280%2C720&quality=80&ssl=1",
+                      loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      );
+                    }
+                  }),
                   Container(
                     height: 80,
                   ),
@@ -53,16 +63,18 @@ class UserProfileDashboardState extends ConsumerState<UserProfileDashboard> {
 // Create and return your custom rect
               return MaterialRectArcTween(begin: begin, end: end);
             },
-            child: widget.userData.profileImage.toString().isNotEmpty ? CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 50,
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 45,
-                backgroundImage:
-                    NetworkImage(widget.userData.profileImage.toString()),
-              ), //CircleAvatar
-            ) : const UserEmptyImageAvatar(),
+            child: widget.userData.profileImage.toString().isNotEmpty
+                ? CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 50,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 45,
+                      backgroundImage:
+                          NetworkImage(widget.userData.profileImage.toString()),
+                    ), //CircleAvatar
+                  )
+                : const UserEmptyImageAvatar(),
           ),
         ),
         Positioned(
@@ -70,7 +82,10 @@ class UserProfileDashboardState extends ConsumerState<UserProfileDashboard> {
           left: 10.0,
           child: Text(
             widget.userData.firstName,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.black87),
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(color: Colors.black87),
           ),
         ),
       ],
