@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
  */
 
 class SearchEventPage extends StatefulWidget {
-  const SearchEventPage({Key? key}) : super(key: key);
+  const SearchEventPage({super.key});
 
   @override
   State<SearchEventPage> createState() => _SearchEventPageState();

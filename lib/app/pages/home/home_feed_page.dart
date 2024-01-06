@@ -37,13 +37,11 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(getEventsProvider);
-    ref.read(getUserDetailProvider);
   }
 
   Future<void> _refresh() async {
-    ref.refresh(getEventsProvider);
-    ref.refresh(getUserDetailProvider);
+    ref.refresh(getEventsProvider.future);
+    ref.refresh(getUserDetailProvider.future);
   }
 
   @override

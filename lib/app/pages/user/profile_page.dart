@@ -7,7 +7,6 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../domain/providers/user_detail_provider.dart';
 import '../../colors.dart';
-import '../../utils/transitions/slide_left_route.dart';
 import '../../widgets/profile_content_tabbar.dart';
 import '../../widgets/user/user_profile_dashboard.dart';
 

@@ -19,14 +19,14 @@ class EventFeedCard extends StatelessWidget {
   final double height;
 
   const EventFeedCard(
-      {Key? key,
+      {super.key,
       required this.event,
       required this.width,
-      required this.height})
-      : super(key: key);
+      required this.height});
 
   void __renderToDetailPage(BuildContext context, String eventId) {
-    context.goNamed(EventDetailPage.routeName, pathParameters: {"id": eventId});
+    context
+        .pushNamed(EventDetailPage.routeName, pathParameters: {"id": eventId});
   }
 
   @override
@@ -39,10 +39,21 @@ class EventFeedCard extends StatelessWidget {
         margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(
+            fit: BoxFit.fill,
+            image: Image.network(
               event.bannerImageUrl.toString(),
-            ),
-            fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+                }
+              },
+              errorBuilder: (context, exception, stackTrace) =>
+                  const Text('😢'),
+            ).image,
           ),
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(15.0),
@@ -128,29 +139,26 @@ class EventFeedCard extends StatelessWidget {
               right: 20,
               bottom: 15,
               child: ElevatedButton(
-                onPressed: () => __renderToDetailPage(context, event.id.toString()),
-                child: Text(
-                  S.of(context).seeEvent,
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelSmall
-                ),
+                onPressed: () =>
+                    __renderToDetailPage(context, event.id.toString()),
+                child: Text(S.of(context).seeEvent,
+                    style: Theme.of(context).textTheme.labelSmall),
               ),
             ),
-            const Positioned(
+            Positioned(
               left: 20,
               bottom: 15,
               child: Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.remove_red_eye_outlined,
                     // color: Colors.white70,
                     size: 15.0,
                   ),
                   Text(
                     "1.2k",
-                    style: TextStyle(color: Colors.white70, fontSize: 10.0),
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.white70, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

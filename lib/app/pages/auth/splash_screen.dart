@@ -9,7 +9,7 @@ import 'package:parkea/app/widgets/color_loader.dart';
  */
 
 class SplashScreen extends ConsumerStatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
   static String get routeName => 'splash';
   static String get routeLocation => '$routeName';
 
@@ -18,7 +18,6 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class StartState extends ConsumerState<SplashScreen> {
-  bool isWelcome = false;
   @override
   Widget build(BuildContext context) {
     return const Center(

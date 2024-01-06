@@ -2,7 +2,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../device/utils/loggerConfig.dart';
 import '../dtos/user_dto.dart';
-import '../usecases/auth/fire_base_auth_uc.dart';
 import '../usecases/users_uc.dart';
 import 'fire_base_auth_provider.dart';
 

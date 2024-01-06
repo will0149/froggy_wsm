@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 
-import '../../../generated/l10n.dart';
 import '../../colors.dart';
 import '../paints/bottom_left_curve_orange.dart';
 import '../paints/sign_in_up_white_shape.dart';
