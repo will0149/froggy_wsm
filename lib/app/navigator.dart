@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:parkea/app/utils/hex_color.dart';
 import 'package:parkea/app/utils/svg_icons_states.dart';
+import 'package:parkea/app/widgets/exit_pop_scope.dart';
 
 import '../domain/providers/app_theme_provider.dart';
 import 'colors.dart';
@@ -16,7 +17,7 @@ import 'colors.dart';
 * */
 
 class NavigatorBar extends ConsumerStatefulWidget {
-  const NavigatorBar( {Key? key, required this.navigationShell,}) : super(key: key);
+  const NavigatorBar( {super.key, required this.navigationShell,});
 
   final StatefulNavigationShell navigationShell;
 
@@ -26,7 +27,6 @@ class NavigatorBar extends ConsumerStatefulWidget {
 
 class NavigatorBarState
     extends ConsumerState<NavigatorBar> with TickerProviderStateMixin {
-  var _bottomNavIndex = 0; //default index of a first screen
 
   late AnimationController _animationController;
   late Animation<double> animation;
@@ -65,35 +65,13 @@ class NavigatorBarState
     );
   }
 
-  // List<Widget> _pageChooser(int page) {
-  //   if (page == 2) {
-  //     setState(() {
-  //       rotateAngle = pi / 5.0;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       rotateAngle = 0;
-  //     });
-  //   }
-  //   return <Widget>[
-  //     OnboardingPage(key: UniqueKey(),),
-  //     SavedEventPage(key: UniqueKey(),),
-  //     ProfilePage(key: UniqueKey(),)
-  //   ];
-  // }
-
   @override
   Widget build(BuildContext context) {
     var isDarkMode = ref.watch(appThemeProvider);
-    return Scaffold(
+    return ExitPopScope(
+        child: Scaffold(
       extendBody: true,
       body: widget.navigationShell,
-      // body: SafeArea(
-      //   child: IndexedStack(
-      //     index: _bottomNavIndex,
-      //     children: _pageChooser(_bottomNavIndex),
-      //   ),
-      // ),
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
         itemCount: 3,
         tabBuilder: (int index, bool isActive) {
@@ -110,6 +88,7 @@ class NavigatorBarState
         elevation: 10.0,
         onTap: (index) => _onTap(context, index),
       ),
+    ),
     );
   }
 
@@ -124,33 +103,24 @@ class NavigatorBarState
   Widget getWidgetByPosition(int index, bool active) {
     final navOptions = <Widget>[
       SvgIconsStates(
-          active: active,
+          isActive: active,
           activeImg: "assets/navbar/hogar_black.svg",
-          inactiveImg: "assets/navbar/hogar.svg"),
+          inactiveImg: "assets/navbar/hogar.svg",),
       SvgIconsStates(
-          active: active,
+          isActive: active,
           activeImg: "assets/navbar/calendario_black.svg",
           inactiveImg: "assets/navbar/calendario.svg"),
       SvgIconsStates(
-          active: active,
+          isActive: active,
           activeImg: "assets/navbar/usuario.svg",
           inactiveImg: "assets/navbar/usuario_black.svg"),
     ];
     return navOptions.elementAt(index);
   }
 
-  /// Navigate to the current location of the branch at the provided index when
-  /// tapping an item in the BottomNavigationBar.
   void _onTap(BuildContext context, int index) {
-    // When navigating to a new branch, it's recommended to use the goBranch
-    // method, as doing so makes sure the last navigation state of the
-    // Navigator for the branch is restored.
     widget.navigationShell.goBranch(
       index,
-      // A common pattern when using bottom navigation bars is to support
-      // navigating to the initial location when tapping the item that is
-      // already active. This example demonstrates how to support this behavior,
-      // using the initialLocation parameter of goBranch.
       initialLocation: index ==  widget.navigationShell.currentIndex,
     );
   }

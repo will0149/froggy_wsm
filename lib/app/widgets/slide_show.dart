@@ -15,7 +15,7 @@ import '../pages/auth/auth_page.dart';
 class Slideshow extends ConsumerWidget {
   final List<Widget> slides;
 
-  const Slideshow({Key? key, required this.slides}) : super(key: key);
+  const Slideshow({super.key, required this.slides});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

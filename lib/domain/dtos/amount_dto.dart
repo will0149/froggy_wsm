@@ -7,10 +7,10 @@
  */
 
 class AmountDTO {
-  final String price;
+  String price;
   final String currency;
 
-  AmountDTO({required this.price, required this.currency});
+  AmountDTO({this.price = "0.0", required this.currency});
 
   factory AmountDTO.fromJson(Map<String, dynamic> json) => AmountDTO(
         price: json["price"],

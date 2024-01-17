@@ -4,24 +4,32 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:parkea/app/colors.dart';
 
 import '../../domain/providers/app_theme_provider.dart';
+import '../../domain/providers/icons/svg_icon_provider.dart';
 
-class SvgIconsStates extends StatelessWidget {
-  final bool active;
+class SvgIconsStates extends ConsumerStatefulWidget {
+  final bool isActive;
   final String activeImg;
   final String inactiveImg;
+  final SvgTheme? theme;
 
   const SvgIconsStates(
-      {Key? key,
-      required this.active,
+      {super.key,
+      this.isActive = false,
       required this.activeImg,
-      required this.inactiveImg})
-      : super(key: key);
+      required this.inactiveImg,
+        this.theme});
 
   @override
+  SvgIconsStatesState createState() => SvgIconsStatesState();
+}
+
+class SvgIconsStatesState extends ConsumerState<SvgIconsStates> {
+  @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, _) {
-      var isDarkMode = ref.watch(appThemeProvider);
-      return SvgPicture.asset(active ? activeImg : inactiveImg, color: isDarkMode ? parkeaWhite :parkeaBlueAccent,);
-    },);
+    var isDarkMode = ref.watch(appThemeProvider);
+    return SvgPicture.asset(
+      widget.isActive ? widget.activeImg : widget.inactiveImg,
+      theme: widget.theme,
+    );
   }
 }

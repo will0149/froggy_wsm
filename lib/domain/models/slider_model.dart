@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SliderModel extends StateNotifier<double> {
 
-  SliderModel(double state) : super(state);
+  SliderModel(super.state);
 
   void setCurrentPage(double currentPage) => state = currentPage;
 }

@@ -32,7 +32,7 @@ ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
       backgroundColor: isDarkTheme ? Colors.black : Colors.white,
       elevation: 0.10,
       iconTheme:
-          IconThemeData(color: isDarkTheme ? parkeaWhite :parkeaBlueAccent),
+          IconThemeData(color: isDarkTheme ? parkeaWhite :parkeaOrange),
     ),
     fontFamily: 'GothicA1',
     inputDecorationTheme: parkeaInputDecorationTheme,
@@ -57,7 +57,7 @@ ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: isDarkTheme ? parkeaDarkBlueAccent : parkeaOrange,
-        fixedSize: const Size(120, 43),
+        // fixedSize: const Size(120, 43),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18.0),
           side: BorderSide(

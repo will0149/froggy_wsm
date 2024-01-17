@@ -49,8 +49,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
     var size = MediaQuery.of(context).size;
     final eventsData = ref.watch(getEventsProvider);
     final userData = ref.watch(getUserDetailProvider);
-    return ExitPopScope(
-      child: Scaffold(
+    return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -61,42 +60,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
             ),
             child: Image.asset("assets/logo/Parkea (1).png"),
           ),
-          actions: [
-            GestureDetector(
-              child: Container(
-                  margin: const EdgeInsets.only(right: 10.0),
-                  child: Hero(
-                    tag: 'profile_pic',
-                    child: CircleAvatar(
-                      radius: 25,
-                      backgroundColor: parkeaOrange,
-                      child: userData.when(
-                        data: (userData) {
-                          return userData.profileImage
-                              .toString()
-                              .isNotEmpty ? CircleAvatar(
-                            radius: 23,
-                            backgroundImage: NetworkImage(userData.profileImage.toString())
-                                ,
-                          ) : const UserEmptyImageAvatar();
-                        },
-                        error: (err, s){
-                          logger.e(err.toString());
-                          return const UserEmptyImageAvatar();
-                        },
-                        loading: () => const Skeletonizer(
-                          enabled: true,
-                          child: UserEmptyImageAvatar(),
-                        ),
-                      ),
-                    ),
-                  )),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => const ProfilePage(
-                        showBackButton: true,
-                      ))),
-            ),
-          ],
+          title: Text(S.of(context).parkeaAppName, style: Theme.of(context).textTheme.titleLarge,),
         ),
         body: Padding(
           padding: const EdgeInsets.only(
@@ -166,7 +130,6 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }
