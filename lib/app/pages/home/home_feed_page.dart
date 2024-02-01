@@ -21,7 +21,7 @@ import '../../widgets/user/user_empty_image_avatar.dart';
  */
 
 class HomeFeedPage extends ConsumerStatefulWidget {
-  const HomeFeedPage({Key? key}) : super(key: key);
+  const HomeFeedPage({super.key});
   static String get routeName => 'home';
   static String get routeLocation => '/';
 
@@ -50,86 +50,92 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
     final eventsData = ref.watch(getEventsProvider);
     final userData = ref.watch(getUserDetailProvider);
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: Container(
-            margin: const EdgeInsets.only(top: 5, bottom: 5),
-            padding: const EdgeInsets.only(
-              left: 20.0,
-            ),
-            child: Image.asset("assets/logo/Parkea (1).png"),
-          ),
-          title: Text(S.of(context).parkeaAppName, style: Theme.of(context).textTheme.titleLarge,),
-        ),
-        body: Padding(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: Container(
+          margin: const EdgeInsets.only(top: 5, bottom: 5),
           padding: const EdgeInsets.only(
-            right: 10.0,
-            left: 10.0,
+            left: 20.0,
           ),
-          child: Stack(
-            children: [
-              Wrap(
-                children: [
-                  HorizontalFilterList(
-                    filterListItems: titles,
-                    activeColor: parkeaOrange,
-                    inactiveColor: parkeaBlueAccent,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Image.asset("assets/logo/Parkea (1).png"),
+        ),
+        title: Text(
+          S.of(context).parkeaAppName,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(
+          right: 10.0,
+          left: 10.0,
+        ),
+        child: Stack(
+          children: [
+            Wrap(
+              children: [
+                HorizontalFilterList(
+                  filterListItems: titles,
+                  activeColor: parkeaBlueAccent,
+                  inactiveColor: parkeaBlack,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      S.of(context).popularEvents,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    IconButton(
+                      //onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SearchPage())),
+                      onPressed: () {},
+                      icon: const Icon(Icons.search),
+                    )
+                  ],
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 100),
+              child: RefreshIndicator(
+                onRefresh: _refresh,
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
-                      Text(
-                        S.of(context).popularEvents,
-                        style: Theme.of(context).textTheme.labelLarge,
-                      ),
-                      IconButton(
-                        //onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SearchPage())),
-                        onPressed: () {},
-                        icon: const Icon(Icons.search),
+                      Container(
+                        child: eventsData.when(
+                          data: (eventsData) {
+                            return ListView(
+                              controller: _controller,
+                              shrinkWrap: true,
+                              children: [
+                                ...eventsData.map(
+                                  (e) => EventFeedCard(
+                                    event: e,
+                                    width: double.infinity,
+                                    height: size.height * 0.40,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                          error: (err, s) => Text(err.toString()),
+                          loading: () => const Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          ),
+                        ),
                       )
                     ],
                   ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 100),
-                child: RefreshIndicator(
-                  onRefresh: _refresh,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Container(
-                          child: eventsData.when(
-                            data: (eventsData) {
-                              return ListView(
-                                controller: _controller,
-                                shrinkWrap: true,
-                                children: [
-                                  ...eventsData.map(
-                                    (e) => EventFeedCard(
-                                      event: e,
-                                      width: double.infinity,
-                                      height: size.height * 0.40,
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                            error: (err, s) => Text(err.toString()),
-                            loading: () => const Center(
-                              child: CircularProgressIndicator.adaptive(),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
-      );
+      ),
+    );
   }
 }

@@ -40,11 +40,6 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        leading: const BackButton(),
-        // backgroundColor: Colors.white.withOpacity(0.40),
-        bottomOpacity: 0.30
-      ),
       body: RefreshIndicator(
         onRefresh: _refresh,
         child: SingleChildScrollView(
@@ -95,7 +90,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
                 eventName,
                 style: Theme.of(context)
                     .textTheme
-                    .headlineMedium
+                    .headlineSmall
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
               IconButton(
@@ -107,7 +102,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
         ),
         Container(
           width: double.infinity,
-          height: size.height * 0.20,
+          // height: size.height * 0.20,
           margin: const EdgeInsets.only(
             top: 5.0,
           ),

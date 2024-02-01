@@ -82,7 +82,7 @@ class NavigatorBarState
         rightCornerRadius: 25,
         gapLocation: GapLocation.none,
         backgroundColor: isDarkMode ? parkeaDarkBlueAccent : parkeaOrange,
-        borderColor: isDarkMode ? parkeaDarkBlueAccent : parkeaOrange,
+        borderColor: isDarkMode ? parkeaBlack : parkeaWhite,
         borderWidth: 3.0,
         height: 40.0,
         elevation: 10.0,

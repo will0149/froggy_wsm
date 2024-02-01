@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:parkea/app/colors.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
 
-class HorizontalFilterList extends StatefulWidget {
+import '../../../domain/providers/app_theme_provider.dart';
+
+class HorizontalFilterList extends ConsumerStatefulWidget {
   final List<String> filterListItems;
   final Color activeColor;
   final Color inactiveColor;
@@ -13,7 +17,7 @@ class HorizontalFilterList extends StatefulWidget {
   final double itemBottomPadding;
 
   const HorizontalFilterList(
-      {Key? key,
+      {super.key,
       required this.filterListItems,
       required this.activeColor,
       required this.inactiveColor,
@@ -22,15 +26,19 @@ class HorizontalFilterList extends StatefulWidget {
       this.itemLeftPadding = 10,
       this.itemRightPadding = 10,
       this.itemTopPadding = 0,
-      this.itemBottomPadding= 10})
-      : super(key: key);
+      this.itemBottomPadding= 10});
 
   @override
   HorizontalFilterListState createState() => HorizontalFilterListState();
 }
 
-class HorizontalFilterListState extends State<HorizontalFilterList> {
+class HorizontalFilterListState extends ConsumerState<HorizontalFilterList> {
   int selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +62,7 @@ class HorizontalFilterListState extends State<HorizontalFilterList> {
               setState(() {
                 selectedIndex = titles.indexOf(item);
               });
-              logger.wtf("selected index $selectedIndex");
+              logger.w("selected index $selectedIndex");
             },
             child: _buildCategoryListItemIndicator(
               item,
@@ -66,7 +74,9 @@ class HorizontalFilterListState extends State<HorizontalFilterList> {
   }
 
   Widget _buildCategoryListItemIndicator(String title, bool active) {
-    var activeTextColor = active ? widget.activeColor : widget.inactiveColor;
+    // final isDarkTheme = ref.watch(appThemeProvider);
+    // var inactiveThemeColor = isDarkTheme ? parkeaWhite : widget.inactiveColor;
+    var activeTextColor = active ? widget.activeColor : parkeaBlack;
     var activeLineColor = active ? widget.activeColor : Colors.transparent;
     return Padding(
       padding: EdgeInsets.only(
@@ -92,7 +102,7 @@ class HorizontalFilterListState extends State<HorizontalFilterList> {
             title,
             style: Theme.of(context)
                 .textTheme
-                .bodyLarge
+                .titleMedium
                 ?.copyWith(color: activeTextColor),
           ),
         ),

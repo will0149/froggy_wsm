@@ -11,7 +11,7 @@ import 'package:flutter_toastr/flutter_toastr.dart';
 
 class ExitPopScope extends StatefulWidget {
   final Widget child;
-  const ExitPopScope({Key? key, required this.child}) : super(key: key);
+  const ExitPopScope({super.key, required this.child});
 
   @override
   State<ExitPopScope> createState() => _ExitPopScopeState();
