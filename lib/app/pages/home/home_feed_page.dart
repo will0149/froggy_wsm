@@ -116,7 +116,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                                   (e) => EventFeedCard(
                                     event: e,
                                     width: double.infinity,
-                                    height: size.height * 0.40,
+                                    height: size.height * 0.30,
                                   ),
                                 ),
                               ],

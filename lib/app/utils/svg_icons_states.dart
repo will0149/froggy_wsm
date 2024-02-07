@@ -30,6 +30,7 @@ class SvgIconsStatesState extends ConsumerState<SvgIconsStates> {
     return SvgPicture.asset(
       widget.isActive ? widget.activeImg : widget.inactiveImg,
       theme: widget.theme,
+      color: parkeaWhite,
     );
   }
 }
