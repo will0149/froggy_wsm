@@ -23,13 +23,13 @@ ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
     fontFamily: 'Ubuntu',
     textTheme: getTextTheme(),
     scaffoldBackgroundColor: Colors.white,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       elevation: 0.9,
       iconTheme: IconThemeData(color: Colors.black87),
     ),
 
-    cardTheme: CardTheme(
+    cardTheme: const CardTheme(
       elevation: 15.0,
       margin: EdgeInsets.all(10.0),
     ),

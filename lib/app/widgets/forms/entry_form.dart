@@ -1,12 +1,33 @@
+import 'dart:io';
+
+import 'package:cct_management/data/entities/clients/client_entity.dart';
 import 'package:cct_management/domain/dtos/inbound_dto.dart';
+import 'package:cct_management/domain/dtos/series_dto.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_input_chips/flutter_input_chips.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:device_imei/device_imei.dart'; //TODO: replace with one better
+import 'package:permission_handler/permission_handler.dart';
 
+import '../../../data/entities/base_data_entity.dart';
+import '../../../data/entities/base_response_entity.dart';
+import '../../../data/entities/entry_data_entity.dart';
 import '../../../device/utils/logger_config.dart';
+import '../../../domain/dtos/dimensions_dto.dart';
 import '../../../domain/providers/add_entry_provider.dart';
+import '../../../domain/providers/clients/client_provider.dart';
 import '../../constants.dart';
+import 'inputs/assets_input.dart';
+import 'inputs/batch_input.dart';
+import 'inputs/date_input.dart';
+import 'inputs/dimensions_input.dart';
+import 'inputs/dropdown_button_input.dart';
+import 'inputs/location_input.dart';
+import 'inputs/quantity_input.dart';
+import 'inputs/series_input.dart';
 
 /**
  * Made for cct_management.
@@ -18,34 +39,55 @@ class EntryForm extends ConsumerStatefulWidget {
   const EntryForm({super.key});
 
   @override
-  _EntryFormState createState() => _EntryFormState();
+  EntryFormState createState() => EntryFormState();
 }
 
-class _EntryFormState extends ConsumerState<EntryForm> {
+class EntryFormState extends ConsumerState<EntryForm> {
   late final GlobalKey<FormState> entryFormKey = GlobalKey<FormState>();
 
   late final TextEditingController locationController = TextEditingController();
+  late final TextEditingController assetsController = TextEditingController();
   late final TextEditingController batchController = TextEditingController();
-  late final TextEditingController seriesController = TextEditingController();
-  late final TextEditingController quantityController = TextEditingController();
+  late final TextEditingController quantityController =
+      TextEditingController(text: "1");
+
+  // late List<ClientEntity>? clientsData = clients;
 
   String? selectedPerson;
   String? selectedWarehouse;
   DateTime? selectedDate;
+  DateTime? expirationDate;
   bool? isChecked = false;
+  DimensionsDto? dimensions = DimensionsDto(height: "0", width: "0", long: "0");
+
   bool _valid = false;
   bool isLoading = false;
 
+  // device info
+  // String message = "Please allow permission request!";
+  // String? deviceImei;
+  // final _deviceImeiPlugin = DeviceImei();
+  // bool getPermission = false;
+  // DeviceInfo? deviceInfo;
+  // String? type;
+
+  List<String> _seriesList = [];
+
   @override
-  void initState() {
-    // TODO: implement initState
-    initializeDateFormatting();
-    super.initState();
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    locationController.dispose();
+    assetsController.dispose();
+    batchController.dispose();
+    quantityController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     var inboundPost = ref.watch(addEntryProvider);
+    // var clientLogic = ref.watch(clientsProvider);
+
     var size = MediaQuery.of(context).size;
     return Form(
       key: entryFormKey,
@@ -65,69 +107,34 @@ class _EntryFormState extends ConsumerState<EntryForm> {
             children: [
               Column(
                 children: [
-                  Container(
+                  SizedBox(
                     // color: Colors.lightBlueAccent,
                     width: size.width * 0.40,
-                    child: DropdownButtonFormField<String>(
-                      value: selectedPerson,
-                      hint: Text(
-                        'Cliente',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      icon: const Icon(Icons.person),
-                      alignment: AlignmentDirectional.center,
-                      onChanged: (String? newValue) {
+                    child: DropdownButtonInput(
+                      onSelectParam: (value) {
                         setState(() {
-                          selectedPerson = newValue;
+                          selectedPerson = value;
                         });
                       },
-                      validator: (String? value) {
-                        if (value == null) {
-                          return 'Please select an option';
-                        }
-                        return null;
-                      },
-                      items:
-                          clients.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+                      title: "clientes",
+                      values: clients,
+
                     ),
                   ),
                 ],
               ),
               Column(
                 children: [
-                  Container(
+                  SizedBox(
                     width: size.width * 0.40,
-                    child: DropdownButtonFormField<String>(
-                      value: selectedWarehouse,
-                      icon: const Icon(Icons.warehouse),
-                      alignment: AlignmentDirectional.center,
-                      hint: Text(
-                        'Bodega',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      onChanged: (String? newValue) {
+                    child: DropdownButtonInput(
+                      title: "Bodegas",
+                      values: bodegas,
+                      onSelectParam: (value) {
                         setState(() {
-                          selectedWarehouse = newValue;
+                          selectedWarehouse = value;
                         });
                       },
-                      validator: (String? value) {
-                        if (value == null) {
-                          return 'Please select an option';
-                        }
-                        return null;
-                      },
-                      items:
-                          bodegas.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
                     ),
                   ),
                 ],
@@ -137,112 +144,93 @@ class _EntryFormState extends ConsumerState<EntryForm> {
           Wrap(
             runSpacing: wrapVerticalSpacing,
             children: [
-              TextFormField(
+              LocationInput(
                 controller: locationController,
-                decoration: const InputDecoration(
-                  hintText: 'Colón',
-                  labelText: 'Ubicación',
-                  prefixIcon: Icon(Icons.location_on_outlined),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'El campo no puede estar vacío';
-                  } else {
-                    return null;
-                  }
-                },
+                allowNull: false,
               ),
-              TextFormField(
+              BatchInput(
                 controller: batchController,
-                decoration: const InputDecoration(
-                  hintText: '45',
-                  labelText: 'Lote',
-                  // prefixIcon: Icon(Icons.),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'El campo no puede estar vacío';
-                  } else {
-                    return null;
-                  }
-                },
               ),
-              TextFormField(
-                controller: seriesController,
-                decoration: const InputDecoration(
-                  hintText: 'N2J3N1K2N2',
-                  labelText: 'Serie',
-                  // prefixIcon: Icon(Icons.location_on_outlined),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'El campo no puede estar vacío';
-                  } else {
-                    return null;
-                  }
+              AssetsInput(
+                controller: assetsController,
+              ),
+              SeriesInput(
+                seriesList: _seriesList,
+                onSelectParam: (value){
+                  setState(() {
+                    _seriesList = value;
+                  });
                 },
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          Wrap(
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+            runSpacing: wrapVerticalSpacing,
             children: [
-              SizedBox(
-                width: size.width * 0.40,
-                child: DateTimeFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Seleccion la fecha',
-                    labelStyle: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  initialPickerDateTime:
-                      DateTime.now().add(const Duration(days: 20)),
-                  mode: DateTimeFieldPickerMode.date,
-                  onChanged: (DateTime? value) {
+              DateInput(
+                title: 'Fecha de Llegada',
+                onSelectParam: (value) {
+                  setState(() {
                     selectedDate = value;
-                  },
+                  });
+                },
+                selectedDate: selectedDate,
+              ),
+              DateInput(
+                onSelectParam: (value) {
+                  setState(() {
+                    expirationDate = value;
+                  });
+                },
+                title: 'Fecha de Caducidad',
+                selectedDate: expirationDate,
+              ),
+              Container(
+                width: size.width * 0.40,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Dañado"),
+                    Checkbox(
+                        semanticLabel: "Dañado",
+                        value: isChecked,
+                        onChanged: (newBool) {
+                          setState(() {
+                            isChecked = newBool;
+                          });
+                        }),
+                  ],
                 ),
               ),
-              SizedBox(
-                  width: size.width * 0.40,
-                  child: Row(
-                    children: [
-                      const Text("Dañado"),
-                      Checkbox(
-                          semanticLabel: "Dañado",
-                          value: isChecked,
-                          onChanged: (newBool) {
-                            setState(() {
-                              isChecked = newBool;
-                            });
-                          }),
-                    ],
-                  ))
             ],
           ),
           Wrap(
             children: [
-              TextFormField(
+              QuantityInput(
                 controller: quantityController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  hintText: '1',
-                  labelText: 'Cantidad',
-                  prefixIcon: Icon(Icons.numbers_sharp),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'El campo no puede estar vacío';
-                  } else {
-                    return null;
-                  }
-                },
               ),
             ],
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: DimensionsInput(dimensions: dimensions),
+          ),
+          SizedBox(
+            height: size.height * 0.65,
           ),
           isLoading
               ? Container(
                   margin: EdgeInsets.all(10.0),
-                  child: Center(
+                  child: const Center(
                     child: CircularProgressIndicator(),
                   ))
               : Container(
@@ -250,36 +238,75 @@ class _EntryFormState extends ConsumerState<EntryForm> {
                   margin: EdgeInsets.all(10.0),
                   child: OutlinedButton(
                     onPressed: () {
+                      var request = InboundDto(
+                          docnum: "0001",
+                          device: "deviceImei",
+                          branch: "branch",
+                          asset: "PANELSOLAR",
+                          user: "user",
+                          lpn: "000011",
+                          customer: selectedPerson,
+                          warehouse: selectedWarehouse,
+                          location: locationController.text,
+                          batch: batchController.text,
+                          series: SeriesDto(series: _seriesList),
+                          expiryAt: expirationDate.toString(),
+                          condition: "$isChecked",
+                          quantity: quantityController.text,
+                          entryAt: selectedDate.toString(),
+                          remarks: "observación",
+                          dimensions: dimensions?.toJson().toString()
+                      );
+
+                      logger.d("Request in form");
+                      logger.d(request.toJson());
                       setState(() {
                         _valid = entryFormKey.currentState!.validate();
                         isLoading = true;
                       });
+                      logger.i("is valida $_valid");
                       if (_valid) {
-                        var request = InboundDto(
-                            docnum: "",
-                            lpn: "",
-                            customer: selectedPerson,
-                            warehouse: selectedWarehouse,
-                            location: locationController.text,
-                            batch: batchController.text,
-                            serie: seriesController.text,
-                            expiryAt: "",
-                            condition: "$isChecked",
-                            quantity: quantityController.text,
-                            entryAt: selectedDate.toString(),
-                            remarks: "");
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Processing Data')),
+                        );
 
-                        logger.d(request.toJson());
                         var response = inboundPost.addEntry(request);
-                        response.whenComplete(() {
+
+                        response.then((value) {
+                          int? count = value?.insertedCount ?? 0;
+                          if (count >= 1) {
+                            Fluttertoast.showToast(
+                                msg: "Agregado Correctamente",
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.greenAccent,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                          }
+                        }).whenComplete(() {
                           setState(() {
                             isLoading = false;
                           });
                           // context.goNamed(MainPage.routeName);
+                        }).catchError((error) {
+                          logger.e(error);
+                          Fluttertoast.showToast(
+                              msg: "Algo fallo",
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
                         });
+
                         logger.i("Form response");
                         logger.i(response);
                       }
+                      setState(() {
+                        isLoading = false;
+                      });
                     },
                     child: Text("Guardar",
                         style: Theme.of(context).textTheme.headlineMedium),

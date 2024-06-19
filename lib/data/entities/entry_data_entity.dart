@@ -32,7 +32,7 @@ class EntryDataEntity {
   String? _location;
   @JsonKey(name: 'batch')
   String? _batch;
-  @JsonKey(name: 'serie')
+  @JsonKey(name: 'series')
   String? _serie;
   @JsonKey(name: 'expiryAt')
   String? _expiryAt;

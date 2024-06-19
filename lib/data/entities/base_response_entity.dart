@@ -20,11 +20,10 @@ class BaseResponseEntity<T> {
   @JsonKey(name: 'status')
   StatusEntity? status;
 
-  BaseResponseEntity({this.body, this.status}) {
-    if (status != null) {
-      this.status = status;
-    }
-  }
+  @JsonKey(name: 'insertedCount')
+  int? insertedCount;
+
+  BaseResponseEntity({this.body, this.status, this.insertedCount});
 
   factory BaseResponseEntity.fromJson(
           Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>

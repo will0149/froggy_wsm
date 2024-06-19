@@ -34,6 +34,10 @@ dependencies:
   http: ^1.2.1
   # dependencia para objetos deserializables DTOs
   json_annotation: ^4.9.0
+  flutter_input_chips: ^1.0.3
+  device_imei: ^0.0.4+2
+  permission_handler: ^11.3.1
+  fluttertoast: ^8.2.6
 
 
 

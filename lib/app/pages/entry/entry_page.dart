@@ -23,23 +23,18 @@ class EntryPage extends ConsumerStatefulWidget {
 class _EntryPageState extends ConsumerState<EntryPage> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return SafeScaffold(
       appBar: AppBar(
         title: Text("Entradas", ),
         centerTitle: true,
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
+      child: const SingleChildScrollView(
+        child: SizedBox(
               width: double.infinity,
-              child: const BaseFormDecorator(
+              child: BaseFormDecorator(
                 body: EntryForm(),
               ),
             ),
-          ],
-        ),
       ),
     );
   }

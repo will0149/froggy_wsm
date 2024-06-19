@@ -15,6 +15,7 @@ BaseResponseEntity<T> _$BaseResponseEntityFromJson<T>(
       status: json['status'] == null
           ? null
           : StatusEntity.fromJson(json['status'] as Map<String, dynamic>),
+      insertedCount: (json['insertedCount'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$BaseResponseEntityToJson<T>(
@@ -24,6 +25,7 @@ Map<String, dynamic> _$BaseResponseEntityToJson<T>(
     <String, dynamic>{
       'body': _$nullableGenericToJson(instance.body, toJsonT),
       'status': instance.status,
+      'insertedCount': instance.insertedCount,
     };
 
 T? _$nullableGenericFromJson<T>(
