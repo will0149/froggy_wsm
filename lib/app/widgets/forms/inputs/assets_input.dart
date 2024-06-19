@@ -25,7 +25,7 @@ class AssetsInputState extends ConsumerState<AssetsInput> {
       decoration: const InputDecoration(
         hintText: 'Assets',
         labelText: 'Activos',
-        prefixIcon: Icon(Icons.location_on_outlined),
+        // prefixIcon: Icon(Icons.location_on_outlined),
       ),
       validator: (value) {
         if (!widget.allowNull) {

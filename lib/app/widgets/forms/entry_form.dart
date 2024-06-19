@@ -225,7 +225,9 @@ class EntryFormState extends ConsumerState<EntryForm> {
             child: DimensionsInput(dimensions: dimensions),
           ),
           SizedBox(
-            height: size.height * 0.65,
+            height: MediaQuery.of(context)
+                .viewInsets
+                .bottom,
           ),
           isLoading
               ? Container(
