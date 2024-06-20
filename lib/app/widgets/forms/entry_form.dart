@@ -240,43 +240,43 @@ class EntryFormState extends ConsumerState<EntryForm> {
                   margin: EdgeInsets.all(10.0),
                   child: OutlinedButton(
                     onPressed: () {
-                      var request = InboundDto(
-                          docnum: "0001",
-                          device: "deviceImei",
-                          branch: "branch",
-                          asset: "PANELSOLAR",
-                          user: "user",
-                          lpn: "000011",
-                          customer: selectedPerson,
-                          warehouse: selectedWarehouse,
-                          location: locationController.text,
-                          batch: batchController.text,
-                          series: SeriesDto(series: _seriesList),
-                          expiryAt: expirationDate.toString(),
-                          condition: "$isChecked",
-                          quantity: quantityController.text,
-                          entryAt: selectedDate.toString(),
-                          remarks: "observación",
-                          dimensions: dimensions?.toJson().toString()
-                      );
-
-                      logger.d("Request in form");
-                      logger.d(request.toJson());
                       setState(() {
                         _valid = entryFormKey.currentState!.validate();
                         isLoading = true;
                       });
                       logger.i("is valida $_valid");
                       if (_valid) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   const SnackBar(content: Text('Processing Data')),
+                        // );
+
+                        var request = InboundDto(
+                            docnum: "0001",
+                            device: "deviceImei",
+                            branch: "branch",
+                            asset: "PANELSOLAR",
+                            user: "user",
+                            lpn: "000011",
+                            customer: selectedPerson,
+                            warehouse: selectedWarehouse,
+                            location: locationController.text,
+                            batch: batchController.text,
+                            series: SeriesDto(series: _seriesList),
+                            expiryAt: expirationDate.toString(),
+                            condition: "$isChecked",
+                            quantity: quantityController.text,
+                            entryAt: selectedDate.toString(),
+                            remarks: "observación",
+                            dimensions: dimensions?.toJson().toString()
                         );
+
+                        logger.d("Request in form");
+                        logger.d(request.toJson());
 
                         var response = inboundPost.addEntry(request);
 
                         response.then((value) {
-                          int? count = value?.insertedCount ?? 0;
-                          if (count >= 1) {
+                          if (value?.status?.code == "200") {
                             Fluttertoast.showToast(
                                 msg: "Agregado Correctamente",
                                 toastLength: Toast.LENGTH_LONG,
@@ -306,9 +306,6 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         logger.i("Form response");
                         logger.i(response);
                       }
-                      setState(() {
-                        isLoading = false;
-                      });
                     },
                     child: Text("Guardar",
                         style: Theme.of(context).textTheme.headlineMedium),
