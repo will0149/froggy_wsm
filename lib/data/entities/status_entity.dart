@@ -8,38 +8,19 @@ import 'package:json_annotation/json_annotation.dart';
  * Date: 06/12/24
  */
 
-@JsonSerializable(
-  genericArgumentFactories: true,
-)
+part 'status_entity.g.dart';
+
+@JsonSerializable()
 class StatusEntity {
   @JsonKey(name: 'code')
-  String? _code;
+  int? code;
   @JsonKey(name: 'msg')
-  String? _msg;
+  String? msg;
 
-  StatusEntity({String? code, String? msg}) {
-    if (code != null) {
-      this._code = code;
-    }
-    if (msg != null) {
-      this._msg = msg;
-    }
-  }
+  StatusEntity({this.code, this.msg});
 
-  String? get code => _code;
-  set code(String? code) => _code = code;
-  String? get msg => _msg;
-  set msg(String? msg) => _msg = msg;
 
-  StatusEntity.fromJson(Map<String, dynamic> json) {
-    _code = json['code'].toString();
-    _msg = json['msg'];
-  }
+  factory StatusEntity.fromJson(Map<String, dynamic> json) => _$StatusEntityFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this._code;
-    data['msg'] = this._msg;
-    return data;
-  }
+  Map<String, dynamic> toJson() => _$StatusEntityToJson(this);
 }

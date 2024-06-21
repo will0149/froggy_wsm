@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,8 +14,9 @@ class DropdownButtonInput extends ConsumerStatefulWidget {
   String title;
   List<String> values;
   Function(String) onSelectParam;
+  IconData? icon;
 
-  DropdownButtonInput({super.key, this.title = "", required this.values, required this.onSelectParam});
+  DropdownButtonInput({super.key, this.title = "", required this.values, required this.onSelectParam, this.icon});
 
   @override
   DropdownButtonInputState createState() => DropdownButtonInputState();
@@ -30,7 +32,7 @@ class DropdownButtonInputState extends ConsumerState<DropdownButtonInput> {
         widget.title,
         style: Theme.of(context).textTheme.titleMedium,
       ),
-      icon: const Icon(Icons.person),
+      icon: Icon(widget.icon),
       alignment: AlignmentDirectional.center,
       onChanged: (String? newValue) {
         widget.onSelectParam(newValue!);

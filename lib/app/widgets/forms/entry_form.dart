@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cct_management/data/entities/clients/client_entity.dart';
+import 'package:cct_management/data/entities/status_entity.dart';
 import 'package:cct_management/domain/dtos/inbound_dto.dart';
 import 'package:cct_management/domain/dtos/series_dto.dart';
 import 'package:date_field/date_field.dart';
@@ -17,6 +18,7 @@ import '../../../data/entities/base_response_entity.dart';
 import '../../../data/entities/entry_data_entity.dart';
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/dimensions_dto.dart';
+import '../../../domain/logics/inbound_logic.dart';
 import '../../../domain/providers/add_entry_provider.dart';
 import '../../../domain/providers/clients/client_provider.dart';
 import '../../constants.dart';
@@ -26,6 +28,7 @@ import 'inputs/date_input.dart';
 import 'inputs/dimensions_input.dart';
 import 'inputs/dropdown_button_input.dart';
 import 'inputs/location_input.dart';
+import 'inputs/lpn_input.dart';
 import 'inputs/quantity_input.dart';
 import 'inputs/series_input.dart';
 
@@ -48,13 +51,14 @@ class EntryFormState extends ConsumerState<EntryForm> {
   late final TextEditingController locationController = TextEditingController();
   late final TextEditingController assetsController = TextEditingController();
   late final TextEditingController batchController = TextEditingController();
+  late final TextEditingController lpnController = TextEditingController();
   late final TextEditingController quantityController =
       TextEditingController(text: "1");
 
   // late List<ClientEntity>? clientsData = clients;
 
-  String? selectedPerson;
-  String? selectedWarehouse;
+  String? selectedPerson = clients[0];
+  String? selectedWarehouse = bodegas[0];
   DateTime? selectedDate;
   DateTime? expirationDate;
   bool? isChecked = false;
@@ -74,20 +78,52 @@ class EntryFormState extends ConsumerState<EntryForm> {
   List<String> _seriesList = [];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    // ref.listenManual(addEntryProvider, (previous, next) {});
+    super.initState();
+  }
+
+  @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     locationController.dispose();
     assetsController.dispose();
     batchController.dispose();
     quantityController.dispose();
+    lpnController.dispose();
     super.dispose();
+  }
+
+  void addInboundAsync(InboundDto request) async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      InboundLogic logic = InboundLogic();
+      final response = await logic.addEntry(request);
+      if (response?.status!.code == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Status Code ${response?.status!.code}")),
+        );
+      }
+      setState(() {
+        isLoading = false;
+      });
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Algo fallo $error")),
+      );
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    var inboundPost = ref.watch(addEntryProvider);
     // var clientLogic = ref.watch(clientsProvider);
-
+    // final AsyncValue<> provider = ref.read(addEntryProvider.notifier);
     var size = MediaQuery.of(context).size;
     return Form(
       key: entryFormKey,
@@ -102,51 +138,33 @@ class EntryFormState extends ConsumerState<EntryForm> {
             ),
           ),
           Wrap(
-            spacing: 30.0, //espacio horizontal
-            // runSpacing: 10.0, //espacio vertical
-            children: [
-              Column(
-                children: [
-                  SizedBox(
-                    // color: Colors.lightBlueAccent,
-                    width: size.width * 0.40,
-                    child: DropdownButtonInput(
-                      onSelectParam: (value) {
-                        setState(() {
-                          selectedPerson = value;
-                        });
-                      },
-                      title: "clientes",
-                      values: clients,
-
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    width: size.width * 0.40,
-                    child: DropdownButtonInput(
-                      title: "Bodegas",
-                      values: bodegas,
-                      onSelectParam: (value) {
-                        setState(() {
-                          selectedWarehouse = value;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-          Wrap(
             runSpacing: wrapVerticalSpacing,
             children: [
+              DropdownButtonInput(
+                onSelectParam: (value) {
+                  setState(() {
+                    selectedPerson = value;
+                  });
+                },
+                title: "clientes",
+                values: clients,
+                icon: Icons.arrow_drop_down_circle_outlined,
+              ),
+              DropdownButtonInput(
+                title: "Bodegas",
+                values: bodegas,
+                onSelectParam: (value) {
+                  setState(() {
+                    selectedWarehouse = value;
+                  });
+                },
+                icon: Icons.arrow_drop_down_circle_outlined,
+              ),
+              LpnInput(
+                controller: lpnController,
+              ),
               LocationInput(
                 controller: locationController,
-                allowNull: false,
               ),
               BatchInput(
                 controller: batchController,
@@ -156,7 +174,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
               ),
               SeriesInput(
                 seriesList: _seriesList,
-                onSelectParam: (value){
+                onSelectParam: (value) {
                   setState(() {
                     _seriesList = value;
                   });
@@ -225,9 +243,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
             child: DimensionsInput(dimensions: dimensions),
           ),
           SizedBox(
-            height: MediaQuery.of(context)
-                .viewInsets
-                .bottom,
+            height: MediaQuery.of(context).viewInsets.bottom,
           ),
           isLoading
               ? Container(
@@ -244,19 +260,17 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         _valid = entryFormKey.currentState!.validate();
                         isLoading = true;
                       });
-                      logger.i("is valida $_valid");
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("form $_valid")),
+                      );
                       if (_valid) {
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   const SnackBar(content: Text('Processing Data')),
-                        // );
-
                         var request = InboundDto(
                             docnum: "0001",
                             device: "deviceImei",
                             branch: "branch",
                             asset: "PANELSOLAR",
                             user: "user",
-                            lpn: "000011",
+                            lpn: lpnController.text,
                             customer: selectedPerson,
                             warehouse: selectedWarehouse,
                             location: locationController.text,
@@ -267,44 +281,38 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             quantity: quantityController.text,
                             entryAt: selectedDate.toString(),
                             remarks: "observación",
-                            dimensions: dimensions?.toJson().toString()
+                            dimensions: dimensions?.toJson().toString());
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("building request")),
                         );
 
-                        logger.d("Request in form");
-                        logger.d(request.toJson());
+                        addInboundAsync(request);
 
-                        var response = inboundPost.addEntry(request);
+                        // provider.addEntry(request).then(
+                        //         (value) {
+                        //           setState(() {
+                        //             isLoading = true;
+                        //           });
+                        //           var code = value?.status?.code;
+                        //           logger.i("Adding Entry $code");
+                        //         }
+                        // ).whenComplete(
+                        //         () {
+                        //           logger.i("finished Entry");
+                        //           setState(() {
+                        //             isLoading = false;
+                        //           });
+                        //         }
+                        // ).catchError((error) {
+                        //   setState(() {
+                        //     isLoading = false;
+                        //   });
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     SnackBar(content: Text("Algo fallo $error")),
+                        //   );
+                        // });
 
-                        response.then((value) {
-                          if (value?.status?.code == "200") {
-                            Fluttertoast.showToast(
-                                msg: "Agregado Correctamente",
-                                toastLength: Toast.LENGTH_LONG,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.greenAccent,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-                          }
-                        }).whenComplete(() {
-                          setState(() {
-                            isLoading = false;
-                          });
-                          // context.goNamed(MainPage.routeName);
-                        }).catchError((error) {
-                          logger.e(error);
-                          Fluttertoast.showToast(
-                              msg: "Algo fallo",
-                              toastLength: Toast.LENGTH_LONG,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
-                        });
-
-                        logger.i("Form response");
-                        logger.i(response);
                       }
                     },
                     child: Text("Guardar",

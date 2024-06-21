@@ -28,7 +28,6 @@ ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
       elevation: 0.9,
       iconTheme: IconThemeData(color: Colors.black87),
     ),
-
     cardTheme: const CardTheme(
       elevation: 15.0,
       margin: EdgeInsets.all(10.0),
@@ -37,6 +36,7 @@ ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: raisedButtonStyle,
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(style: raisedButtonStyle),
     dropdownMenuTheme: DropdownMenuThemeData(
       inputDecorationTheme: inputDecorationTheme,
     ),
@@ -44,8 +44,7 @@ ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
       // buttonColor: isDarkTheme ? parkeaDarkBlueAccent : parkeaLightOrange,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18.0),
-        side: const BorderSide(
-            width: 1.2),
+        side: const BorderSide(width: 1.2),
       ),
     ),
   );

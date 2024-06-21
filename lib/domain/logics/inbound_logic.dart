@@ -19,9 +19,13 @@ import '../dtos/inbound_dto.dart';
 class InboundLogic extends ChangeNotifier {
   late final OperationRepository repository;
   bool isLoading = false;
+  bool isSuccess = false;
+  int code = 0;
 
   InboundLogic() {
+    isLoading = true;
     repository = OperationRepository();
+    isLoading = false;
   }
   Future<BaseResponseEntity<BaseDataEntity<EntryDataEntity>>?> addEntry(
       InboundDto request) async {
@@ -30,6 +34,14 @@ class InboundLogic extends ChangeNotifier {
     try {
       result = await repository.entryAdd(request);
 
+      code = result['status']['code'];
+      if(code == 200){
+        isSuccess = true;
+        notifyListeners();
+      } else {
+        isSuccess = false;
+        notifyListeners();
+      }
       responseEntity =
           BaseResponseEntity<BaseDataEntity<EntryDataEntity>>.fromJson(
               result,
@@ -37,14 +49,22 @@ class InboundLogic extends ChangeNotifier {
                   json as Map<String, dynamic>,
                   (json) =>
                       EntryDataEntity.fromJson(json as Map<String, dynamic>)));
-      logger.i("Response in logic");
-      logger.i(responseEntity
-          .toJson((json) => json.toJson((json) => json.toJson())));
+      // logger.i("Response in logic");
+      // logger.i(
+      //     responseEntity
+      //     .toJson(
+      //             (json) => json.toJson(
+      //                     (json) => json.toJson()
+      //             )
+      //     )
+      // );
       notifyListeners();
     } on Exception catch (e) {
       logger.e(e.toString());
+      notifyListeners();
       return responseEntity;
     }
+    notifyListeners();
     return responseEntity;
   }
 }
