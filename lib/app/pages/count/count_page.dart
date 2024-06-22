@@ -1,3 +1,4 @@
+import 'package:cct_management/app/widgets/scaffolds/exit_pop_scope.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/forms/base_form_decorator.dart';
@@ -22,22 +23,24 @@ class _CountPageState extends State<CountPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Conteo"),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              height: size.height,
-              child: const BaseFormDecorator(
-                body: CountForm(),
+    return ExitPopScope(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Conteo"),
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                height: size.height,
+                child: const BaseFormDecorator(
+                  body: CountForm(),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

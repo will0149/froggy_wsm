@@ -1,3 +1,4 @@
+import 'package:cct_management/app/widgets/scaffolds/exit_pop_scope.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/forms/base_form_decorator.dart';
@@ -22,21 +23,23 @@ class _OutgoingPageState extends State<OutgoingPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Salida de Mercancia"),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              child: const BaseFormDecorator(
-                body: OutgoingForm(),
+    return ExitPopScope(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Salida de Mercancia"),
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                child: const BaseFormDecorator(
+                  body: OutgoingForm(),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

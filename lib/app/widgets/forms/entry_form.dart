@@ -95,35 +95,10 @@ class EntryFormState extends ConsumerState<EntryForm> {
     super.dispose();
   }
 
-  void addInboundAsync(InboundDto request) async {
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      InboundLogic logic = InboundLogic();
-      final response = await logic.addEntry(request);
-      if (response?.status!.code == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Status Code ${response?.status!.code}")),
-        );
-      }
-      setState(() {
-        isLoading = false;
-      });
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Algo fallo $error")),
-      );
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     // var clientLogic = ref.watch(clientsProvider);
-    // final AsyncValue<> provider = ref.read(addEntryProvider.notifier);
+    final provider = ref.read(addEntryProvider.notifier);
     var size = MediaQuery.of(context).size;
     return Form(
       key: entryFormKey,
@@ -260,9 +235,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         _valid = entryFormKey.currentState!.validate();
                         isLoading = true;
                       });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("form $_valid")),
-                      );
+
                       if (_valid) {
                         var request = InboundDto(
                             docnum: "0001",
@@ -283,36 +256,46 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             remarks: "observación",
                             dimensions: dimensions?.toJson().toString());
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("building request")),
-                        );
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   const SnackBar(content: Text("Procesando peticion")),
+                        // );
 
-                        addInboundAsync(request);
+                        provider.addEntry(request).then((value) {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          var code = value?.status?.code;
 
-                        // provider.addEntry(request).then(
-                        //         (value) {
-                        //           setState(() {
-                        //             isLoading = true;
-                        //           });
-                        //           var code = value?.status?.code;
-                        //           logger.i("Adding Entry $code");
-                        //         }
-                        // ).whenComplete(
-                        //         () {
-                        //           logger.i("finished Entry");
-                        //           setState(() {
-                        //             isLoading = false;
-                        //           });
-                        //         }
-                        // ).catchError((error) {
-                        //   setState(() {
-                        //     isLoading = false;
-                        //   });
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     SnackBar(content: Text("Algo fallo $error")),
-                        //   );
-                        // });
-
+                          if (code == 200) {
+                            Fluttertoast.showToast(
+                                msg: "Agregado Correctamente",
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.greenAccent,
+                                textColor: Colors.black54,
+                                fontSize: 16.0);
+                            entryFormKey.currentState?.reset();
+                          }
+                          logger.i("Adding Entry $code");
+                        }).whenComplete(() {
+                          logger.i("finished Entry");
+                          setState(() {
+                            isLoading = false;
+                          });
+                        }).catchError((error) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          Fluttertoast.showToast(
+                              msg: "Algo fallo!",
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        });
                       }
                     },
                     child: Text("Guardar",
