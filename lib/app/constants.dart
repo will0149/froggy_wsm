@@ -9,9 +9,9 @@
 const double wrapVerticalSpacing = 20.0;
 const double wrapHorizontalSpacing = 10.0;
 
-final List<String> clients = ['Cliente 1', 'Cliente 2', 'Cliente 3'];
+final List<String> clients = [' ', 'Cliente 1', 'Cliente 2', 'Cliente 3'];
 
-final List<String> bodegas = ['Bodega 1', 'Bodega 2', 'Bodega 3'];
+final List<String> bodegas = [' ', 'Bodega 1', 'Bodega 2', 'Bodega 3'];
 
 // inbound POST
 // https://cct-api.froggysoft.app/api/v1/inbound

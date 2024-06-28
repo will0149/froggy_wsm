@@ -30,17 +30,12 @@ class _RelocationPageState extends ConsumerState<RelocationPage> {
           title: const Text("Reubicar"),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: size.height,
-                child: const BaseFormDecorator(
-                  body: RelocationForm(),
-                ),
-              ),
-            ],
+        body: const SingleChildScrollView(
+          child: SizedBox(
+            width: double.infinity,
+            child: BaseFormDecorator(
+              body: RelocationForm(),
+            ),
           ),
         ),
       ),

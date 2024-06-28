@@ -8,10 +8,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
  */
 
 class LpnInput extends ConsumerStatefulWidget {
+  final String title;
   final TextEditingController controller;
   final bool allowNull;
 
-  const LpnInput({super.key, required this.controller, this.allowNull = true});
+  const LpnInput({super.key, this.title = 'LPN', required this.controller, this.allowNull = true});
 
   @override
   LpnInputState createState() => LpnInputState();
@@ -22,9 +23,9 @@ class LpnInputState extends ConsumerState<LpnInput> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      decoration: const InputDecoration(
+      decoration:  InputDecoration(
         hintText: 'XSKMCN',
-        labelText: 'LPN',
+        labelText: widget.title,
         // prefixIcon: Icon(Icons.port),
       ),
       validator: (value) {

@@ -28,9 +28,9 @@ class DropdownButtonInputState extends ConsumerState<DropdownButtonInput> {
   Widget build(BuildContext context) {
     String? selectedValue = widget.values[0];
     return DropdownButtonFormField<String>(
-      hint: Text(
-        widget.title,
-        style: Theme.of(context).textTheme.titleMedium,
+      decoration:  InputDecoration(
+        hintText: 'titulo',
+        labelText: widget.title,
       ),
       icon: Icon(widget.icon),
       alignment: AlignmentDirectional.center,

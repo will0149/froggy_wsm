@@ -1,5 +1,7 @@
 
 
+import 'package:cct_management/domain/dtos/series_dto.dart';
+
 /**
  * Made for cct_management.
  * By User: josedominguez
@@ -7,90 +9,65 @@
  */
 
 class RelocationDto {
-  String? _serie;
-  String? _lpn;
-  String? _towardswarehouse;
-  String? _towardslocation;
-  String? _fromwarehouse;
-  String? _fromlocation;
-  String? _quantity;
-  String? _remarks;
+  String? user;
+  String? asset;
+  SeriesDto? series;
+  String? branch;
+  String? fromlpn;
+  String? fromwarehouse;
+  String? fromlocation;
+  String? towardslpn;
+  String? towardswarehouse;
+  String? towardslocation;
+  String? quantity;
+  String? remarks;
 
   RelocationDto(
-      {String? serie,
-        String? lpn,
-        String? towardswarehouse,
-        String? towardslocation,
-        String? fromwarehouse,
-        String? fromlocation,
-        String? quantity,
-        String? remarks}) {
-    if (serie != null) {
-      this._serie = serie;
-    }
-    if (lpn != null) {
-      this._lpn = lpn;
-    }
-    if (towardswarehouse != null) {
-      this._towardswarehouse = towardswarehouse;
-    }
-    if (towardslocation != null) {
-      this._towardslocation = towardslocation;
-    }
-    if (fromwarehouse != null) {
-      this._fromwarehouse = fromwarehouse;
-    }
-    if (fromlocation != null) {
-      this._fromlocation = fromlocation;
-    }
-    if (quantity != null) {
-      this._quantity = quantity;
-    }
-    if (remarks != null) {
-      this._remarks = remarks;
-    }
-  }
-
-  String? get serie => _serie;
-  set serie(String? serie) => _serie = serie;
-  String? get lpn => _lpn;
-  set lpn(String? lpn) => _lpn = lpn;
-  String? get towardswarehouse => _towardswarehouse;
-  set towardswarehouse(String? towardswarehouse) =>
-      _towardswarehouse = towardswarehouse;
-  String? get towardslocation => _towardslocation;
-  set towardslocation(String? towardslocation) =>
-      _towardslocation = towardslocation;
-  String? get fromwarehouse => _fromwarehouse;
-  set fromwarehouse(String? fromwarehouse) => _fromwarehouse = fromwarehouse;
-  String? get fromlocation => _fromlocation;
-  set fromlocation(String? fromlocation) => _fromlocation = fromlocation;
-  String? get quantity => _quantity;
-  set quantity(String? quantity) => _quantity = quantity;
-  String? get remarks => _remarks;
-  set remarks(String? remarks) => _remarks = remarks;
+      {this.user,
+        this.asset,
+        this.series,
+        this.branch,
+        this.fromlpn,
+        this.fromwarehouse,
+        this.fromlocation,
+        this.towardslpn,
+        this.towardswarehouse,
+        this.towardslocation,
+        this.quantity,
+        this.remarks});
 
   RelocationDto.fromJson(Map<String, dynamic> json) {
-    _serie = json['serie'];
-    _lpn = json['lpn'];
-    _towardswarehouse = json['towardswarehouse'];
-    _towardslocation = json['towardslocation'];
-    _fromwarehouse = json['fromwarehouse'];
-    _fromlocation = json['fromlocation'];
-    _quantity = json['quantity'];
-    _remarks = json['remarks'];
+    user = json['user'];
+    asset = json['asset'];
+    series =
+    json['series'] != null ? new SeriesDto.fromJson(json['series']) : null;
+    branch = json['branch'];
+    fromlpn = json['fromlpn'];
+    fromwarehouse = json['fromwarehouse'];
+    fromlocation = json['fromlocation'];
+    towardslpn = json['towardslpn'];
+    towardswarehouse = json['towardswarehouse'];
+    towardslocation = json['towardslocation'];
+    quantity = json['quantity'];
+    remarks = json['remarks'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['serie'] = this._serie;
-    data['lpn'] = this._lpn;
-    data['towardswarehouse'] = this._towardswarehouse;
-    data['towardslocation'] = this._towardslocation;
-    data['fromwarehouse'] = this._fromwarehouse;
-    data['fromlocation'] = this._fromlocation;
-    data['quantity'] = this._quantity;
-    data['remarks'] = this._remarks;
+    data['user'] = this.user;
+    data['asset'] = this.asset;
+    if (this.series != null) {
+      data['series'] = this.series!.toJson();
+    }
+    data['branch'] = this.branch;
+    data['fromlpn'] = this.fromlpn;
+    data['fromwarehouse'] = this.fromwarehouse;
+    data['fromlocation'] = this.fromlocation;
+    data['towardslpn'] = this.towardslpn;
+    data['towardswarehouse'] = this.towardswarehouse;
+    data['towardslocation'] = this.towardslocation;
+    data['quantity'] = this.quantity;
+    data['remarks'] = this.remarks;
     return data;
   }
 }

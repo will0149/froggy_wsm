@@ -4,33 +4,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /**
  * Made for cct_management.
  * By User: josedominguez
- * Date: 06/19/24
+ * Date: 06/28/24
  */
 
-class LocationInput extends ConsumerStatefulWidget {
+class BranchInput extends ConsumerStatefulWidget {
   final String title;
   final TextEditingController controller;
   final bool allowNull;
 
-  const LocationInput(
-      {super.key, this.title = 'Ubicación',  required this.controller, this.allowNull = true});
+  const BranchInput( {super.key, this.title = 'Lote', required this.controller,this.allowNull = true});
 
   @override
-  LocationInputState createState() => LocationInputState();
+  BranchInputState createState() => BranchInputState();
 }
 
-class LocationInputState extends ConsumerState<LocationInput> {
+class BranchInputState extends ConsumerState<BranchInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
       decoration: InputDecoration(
-        hintText: 'Colón',
+        hintText: '45',
         labelText: widget.title,
-        prefixIcon: const Icon(Icons.location_on_outlined),
+        // prefixIcon: Icon(Icons.),
       ),
       validator: (value) {
-        if (!widget.allowNull) {
+        if(!widget.allowNull){
           if (value!.isEmpty) {
             return 'El campo no puede estar vacío';
           } else {

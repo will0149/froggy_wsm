@@ -21,6 +21,7 @@ import '../../../domain/dtos/dimensions_dto.dart';
 import '../../../domain/logics/inbound_logic.dart';
 import '../../../domain/providers/add_entry_provider.dart';
 import '../../../domain/providers/clients/client_provider.dart';
+import '../../../domain/utils/clean_list_util.dart';
 import '../../constants.dart';
 import 'inputs/assets_input.dart';
 import 'inputs/batch_input.dart';
@@ -47,6 +48,7 @@ class EntryForm extends ConsumerStatefulWidget {
 
 class EntryFormState extends ConsumerState<EntryForm> {
   late final GlobalKey<FormState> entryFormKey = GlobalKey<FormState>();
+  CleanListUtil cleanListUtil = CleanListUtil();
 
   late final TextEditingController locationController = TextEditingController();
   late final TextEditingController assetsController = TextEditingController();
@@ -57,8 +59,8 @@ class EntryFormState extends ConsumerState<EntryForm> {
 
   // late List<ClientEntity>? clientsData = clients;
 
-  String? selectedPerson = clients[0];
-  String? selectedWarehouse = bodegas[0];
+  String? selectedPerson = " ";
+  String? selectedWarehouse = " ";
   DateTime? selectedDate;
   DateTime? expirationDate;
   bool? isChecked = false;
@@ -237,6 +239,13 @@ class EntryFormState extends ConsumerState<EntryForm> {
                       });
 
                       if (_valid) {
+                        if(_seriesList.isNotEmpty && _seriesList.length <= 2){
+                          for(String v in _seriesList){
+                            if(v.contains(" ")){
+                              _seriesList.addAll(cleanListUtil.cleanList(v));
+                            }
+                          }
+                        }
                         var request = InboundDto(
                             docnum: "0001",
                             device: "deviceImei",
@@ -266,7 +275,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                           });
                           var code = value?.status?.code;
 
-                          if (code == 200) {
+                          if (code! >= 200 && code < 300) {
                             Fluttertoast.showToast(
                                 msg: "Agregado Correctamente",
                                 toastLength: Toast.LENGTH_LONG,
