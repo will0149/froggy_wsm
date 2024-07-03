@@ -21,6 +21,7 @@ class RelocationDto {
   String? towardslocation;
   String? quantity;
   String? remarks;
+  String? isseries;
 
   RelocationDto(
       {this.user,
@@ -34,7 +35,8 @@ class RelocationDto {
         this.towardswarehouse,
         this.towardslocation,
         this.quantity,
-        this.remarks});
+        this.remarks,
+      this.isseries});
 
   RelocationDto.fromJson(Map<String, dynamic> json) {
     user = json['user'];
@@ -50,6 +52,7 @@ class RelocationDto {
     towardslocation = json['towardslocation'];
     quantity = json['quantity'];
     remarks = json['remarks'];
+    isseries = json['isseries'];
   }
 
   Map<String, dynamic> toJson() {
@@ -68,6 +71,7 @@ class RelocationDto {
     data['towardslocation'] = this.towardslocation;
     data['quantity'] = this.quantity;
     data['remarks'] = this.remarks;
+    data['isseries'] = this.isseries;
     return data;
   }
 }

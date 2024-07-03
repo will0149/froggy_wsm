@@ -1,6 +1,8 @@
+import 'package:cct_management/app/pages/relocation/relocation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/relocation_dto.dart';
@@ -37,10 +39,12 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
       TextEditingController();
   late final TextEditingController locationToController =
       TextEditingController();
-  late final TextEditingController lpnFromController = TextEditingController();
-  late final TextEditingController lpnToController = TextEditingController();
-  late final TextEditingController assetsController = TextEditingController();
-  late final TextEditingController remarksController = TextEditingController();
+  late final TextEditingController lpnFromController = TextEditingController(text: "");
+  late final TextEditingController lpnToController = TextEditingController(text: "");
+  late final TextEditingController assetsController = TextEditingController(text: "");
+  late final TextEditingController remarksController = TextEditingController(text: "");
+
+  late final Key seriesKey = Key("series");
 
   late final TextEditingController quantityController =
       TextEditingController(text: "0");
@@ -49,6 +53,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
 
   String? selectedWarehouseFrom = " ";
   String? selectedWarehouseTo = " ";
+  bool? isSeries = false;
   bool _valid = false;
   bool isLoading = false;
 
@@ -93,7 +98,30 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                 AssetsInput(
                   controller: assetsController,
                 ),
+                Container(
+                  width: size.width * 0.40,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Es Serie"),
+                      Checkbox(
+                          semanticLabel: "Es Serie",
+                          value: isSeries,
+                          onChanged: (newBool) {
+                            setState(() {
+                              isSeries = newBool;
+                            });
+                          }),
+                    ],
+                  ),
+                ),
                 SeriesInput(
+                  key: seriesKey,
+                  initialValue: [],
                   seriesList: _seriesList,
                   onSelectParam: (value) {
                     setState(() {
@@ -149,7 +177,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
             SizedBox(
               height: MediaQuery.of(context).viewInsets.bottom,
             ),
-            relocateItems.isLoading
+            isLoading
                 ? Container(
                     margin: const EdgeInsets.all(10.0),
                     child: const Center(
@@ -174,22 +202,23 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                               }
                             }
                           }
-                          if(validateRequest(
-                            lpnFromController.text, lpnToController.text,
-                            locationFromController.text, locationToController.text,
-                              selectedWarehouseFrom!, selectedWarehouseTo!
-                          )){
+                          // if(validateRequest(
+                          //   lpnFromController.text, lpnToController.text,
+                          //   locationFromController.text, locationToController.text,
+                          //     selectedWarehouseFrom!, selectedWarehouseTo!
+                          // )){
                             var request = RelocationDto(
                                 user: "",
                                 asset: assetsController.text,
+                                isseries: "$isSeries",
                                 series: SeriesDto(series: _seriesList),
                                 branch: "1",
                                 fromlpn: lpnFromController.text,
-                                fromwarehouse: locationFromController.text,
-                                fromlocation: selectedWarehouseFrom,
+                                fromwarehouse: selectedWarehouseFrom,
+                                fromlocation: locationFromController.text,
                                 towardslpn: lpnToController.text,
                                 towardswarehouse: selectedWarehouseTo,
-                                towardslocation: locationFromController.text,
+                                towardslocation: locationToController.text,
                                 quantity: quantityController.text,
                                 remarks: "qwe");
 
@@ -210,6 +239,15 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                                     textColor: Colors.black54,
                                     fontSize: 16.0);
                                 relocationFormKey.currentState?.reset();
+                                _seriesList = <String>[];
+                                assetsController.text = "";
+                                lpnToController.text = "";
+                                lpnFromController.text = "";
+                                locationFromController.text = "";
+                                locationToController.text = "";
+                                quantityController.text = "0";
+                                isSeries = false;
+                                context.goNamed(RelocationPage.routeName);
                               }
                               logger.i("Adding Entry $code");
                             }).whenComplete(() {
@@ -230,19 +268,22 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                                   textColor: Colors.white,
                                   fontSize: 16.0);
                             });
-                          }
-                          else {
-                            Fluttertoast.showToast(
-                                msg: "El Destino y origen deben ser distintos!",
-                                toastLength: Toast.LENGTH_LONG,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.yellowAccent,
-                                textColor: Colors.black,
-                                fontSize: 16.0);
-                          }
+                          // }
+                          // else {
+                          //   Fluttertoast.showToast(
+                          //       msg: "El Destino y origen deben ser distintos!",
+                          //       toastLength: Toast.LENGTH_LONG,
+                          //       gravity: ToastGravity.CENTER,
+                          //       timeInSecForIosWeb: 1,
+                          //       backgroundColor: Colors.yellowAccent,
+                          //       textColor: Colors.black,
+                          //       fontSize: 16.0);
+                          // }
 
                         }
+                        setState(() {
+                          isLoading = false;
+                        });
                       },
                       child: Text("Guardar",
                           style: Theme.of(context).textTheme.headlineMedium),
@@ -259,14 +300,18 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
     bool warehouseValid = true;
 
     if(lpnFrom.isNotEmpty & lpnTo.isNotEmpty){
+      logger.d("lpnFrom $lpnFrom lpnTo $lpnTo");
       lpnValid = lpnFrom.compareTo(lpnTo) == -1;
     }
     if(locationFrom.isNotEmpty & locationTo.isNotEmpty){
+      logger.d("locationFrom $locationFrom locationTo $locationTo");
       locationValid = locationFrom.compareTo(locationTo) == -1;
     }
     if(warehouseFrom.isNotEmpty & warehouseTo.isNotEmpty){
+      logger.d("warehouseFrom $warehouseFrom warehouseTo $warehouseTo");
       warehouseValid = warehouseFrom.compareTo(warehouseTo) == -1;
     }
+    logger.i("lpnValid $lpnValid locationValid $locationValid warehouseValid $warehouseValid");
     pass = (lpnValid == (locationValid == warehouseValid));
     return pass;
   }

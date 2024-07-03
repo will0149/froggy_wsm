@@ -9,9 +9,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
  */
 
 class SeriesInput extends ConsumerStatefulWidget {
-  List<String> seriesList = [];
+  List<String> initialValue;
+  List<String> seriesList;
   Function(List<String>) onSelectParam;
-  SeriesInput({super.key, required this.seriesList, required this.onSelectParam});
+  SeriesInput({super.key, required this.initialValue, required this.seriesList, required this.onSelectParam});
 
   @override
   SeriesInputState createState() => SeriesInputState();
@@ -21,7 +22,7 @@ class SeriesInputState extends ConsumerState<SeriesInput> {
   @override
   Widget build(BuildContext context) {
     return FlutterInputChips(
-      initialValue: const [],
+      initialValue: widget.initialValue,
       // maxChips: 5,
       onChanged: (v) {
         widget.onSelectParam(v);

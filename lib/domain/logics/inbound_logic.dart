@@ -9,6 +9,7 @@ import '../../data/entities/entry_data_entity.dart';
 import '../../data/repositories/entry/operation_repository.dart';
 import '../../device/utils/logger_config.dart';
 import '../dtos/inbound_dto.dart';
+import '../interfaces/inbound_logic.dart';
 
 /**
  * Made for cct_management.
@@ -16,17 +17,19 @@ import '../dtos/inbound_dto.dart';
  * Date: 06/11/24
  */
 
-class InboundLogic extends ChangeNotifier {
+class InboundLogicImpl extends ChangeNotifier implements InboundLogic {
   late final OperationRepository repository;
   bool isLoading = false;
   bool isSuccess = false;
   int code = 0;
 
-  InboundLogic() {
+  InboundLogicImpl() {
     isLoading = true;
     repository = OperationRepository();
     isLoading = false;
   }
+
+  @override
   Future<BaseResponseEntity<BaseDataEntity<EntryDataEntity>>?> addEntry(
       InboundDto request) async {
     var result = <String, dynamic>{};

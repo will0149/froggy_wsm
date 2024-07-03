@@ -41,6 +41,7 @@ class RelocationLogic extends ChangeNotifier {
               json as Map<String, dynamic>,
                   (json) =>
                   Object));
+      logger.d("response $code");
       notifyListeners();
     } on Exception catch(e){
       logger.e(e.toString());

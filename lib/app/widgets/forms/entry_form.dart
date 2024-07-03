@@ -150,6 +150,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 controller: assetsController,
               ),
               SeriesInput(
+                initialValue: [],
                 seriesList: _seriesList,
                 onSelectParam: (value) {
                   setState(() {
