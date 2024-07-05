@@ -9,10 +9,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
  */
 
 class SeriesInput extends ConsumerStatefulWidget {
+  bool enable;
   List<String> initialValue;
   List<String> seriesList;
   Function(List<String>) onSelectParam;
-  SeriesInput({super.key, required this.initialValue, required this.seriesList, required this.onSelectParam});
+  int? maxChips;
+  SeriesInput({super.key, required this.initialValue, required this.seriesList, required this.onSelectParam, this.enable = true, this.maxChips});
 
   @override
   SeriesInputState createState() => SeriesInputState();
@@ -22,8 +24,9 @@ class SeriesInputState extends ConsumerState<SeriesInput> {
   @override
   Widget build(BuildContext context) {
     return FlutterInputChips(
+      enabled: widget.enable,
       initialValue: widget.initialValue,
-      // maxChips: 5,
+      maxChips: widget.maxChips,
       onChanged: (v) {
         widget.onSelectParam(v);
       },
@@ -32,9 +35,10 @@ class SeriesInputState extends ConsumerState<SeriesInput> {
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(10),
       ),
-      inputDecoration: const InputDecoration(
+      inputDecoration: InputDecoration(
         labelText: "Agregar Series",
         hintText: "N2J3N1K2N2",
+        labelStyle: widget.enable ? TextStyle() : TextStyle(color: Colors.black12),
       ),
       chipTextStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
         fontWeight: FontWeight.bold,

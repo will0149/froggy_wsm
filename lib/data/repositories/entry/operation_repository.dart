@@ -23,6 +23,7 @@ class OperationRepository {
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(ApiPathsEnums.host.path, ApiPathsEnums.inbound.path);
       logger.t(uri);
+      logger.i(request.toJson());
       final response = await client.post(
         uri,
         body: bodyEncoded,

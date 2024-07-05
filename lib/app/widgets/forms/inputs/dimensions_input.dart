@@ -46,6 +46,9 @@ class DimensionsInputState extends ConsumerState<DimensionsInput> {
         TextFormField(
           keyboardType: TextInputType.number,
           decoration: const InputDecoration(
+            // prefix: Text("Inch "),
+            suffix: Text("Inches"),
+            // helper: Text("pl "),
             hintText: '12',
             labelText: 'Altura',
             prefixIcon: Icon(Icons.height),
@@ -71,6 +74,7 @@ class DimensionsInputState extends ConsumerState<DimensionsInput> {
           decoration: const InputDecoration(
             hintText: '12',
             labelText: 'Anchura',
+            suffix: Text("Inches"),
             prefixIcon: Icon(Icons.width_normal),
           ),
           validator: (value) {
@@ -94,6 +98,7 @@ class DimensionsInputState extends ConsumerState<DimensionsInput> {
           decoration: const InputDecoration(
             hintText: '12',
             labelText: 'Largo',
+            suffix: Text("Inches"),
             prefixIcon: Icon(Icons.arrow_forward_sharp),
           ),
           validator: (value) {

@@ -151,6 +151,11 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
               children: [
                 QuantityInput(
                   controller: quantityController,
+                  onEditingComplete: (v){
+                    setState(() {
+
+                    });
+                  },
                 ),
               ],
             ),

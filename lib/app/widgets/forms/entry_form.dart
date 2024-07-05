@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cct_management/app/pages/entry/entry_page.dart';
 import 'package:cct_management/data/entities/clients/client_entity.dart';
 import 'package:cct_management/data/entities/status_entity.dart';
 import 'package:cct_management/domain/dtos/inbound_dto.dart';
@@ -8,6 +9,7 @@ import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_input_chips/flutter_input_chips.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:device_imei/device_imei.dart'; //TODO: replace with one better
@@ -54,8 +56,9 @@ class EntryFormState extends ConsumerState<EntryForm> {
   late final TextEditingController assetsController = TextEditingController();
   late final TextEditingController batchController = TextEditingController();
   late final TextEditingController lpnController = TextEditingController();
-  late final TextEditingController quantityController =
-      TextEditingController(text: "1");
+  late final TextEditingController containerNumberController = TextEditingController();
+  late final TextEditingController seriesQuantityController =
+  TextEditingController(text: "1");
 
   // late List<ClientEntity>? clientsData = clients;
 
@@ -64,8 +67,10 @@ class EntryFormState extends ConsumerState<EntryForm> {
   DateTime? selectedDate;
   DateTime? expirationDate;
   bool? isChecked = false;
+  String seriesLength = "0";
   DimensionsDto? dimensions = DimensionsDto(height: "0", width: "0", long: "0");
 
+  bool isSeries = false;
   bool _valid = false;
   bool isLoading = false;
 
@@ -92,8 +97,9 @@ class EntryFormState extends ConsumerState<EntryForm> {
     locationController.dispose();
     assetsController.dispose();
     batchController.dispose();
-    quantityController.dispose();
     lpnController.dispose();
+    containerNumberController.dispose();
+    seriesQuantityController.dispose();
     super.dispose();
   }
 
@@ -117,6 +123,51 @@ class EntryFormState extends ConsumerState<EntryForm> {
           Wrap(
             runSpacing: wrapVerticalSpacing,
             children: [
+              Container(
+                width: size.width * 0.40,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Es Serie"),
+                    Checkbox(
+                        semanticLabel: "Es Serie",
+                        value: isSeries,
+                        onChanged: (newBool) {
+                          setState(() {
+                            isSeries = newBool!;
+                          });
+                        }),
+                  ],
+                ),
+              ),
+              QuantityInput(
+                controller: seriesQuantityController,
+                title: "Cantidad de series",
+                enable: isSeries,
+                onEditingComplete: (v){
+                    logger.f("Tamano de series $v");
+                    if(v != null) {
+                      setState(() {
+                        seriesLength = v.toInt().toString();
+                      });
+                    }
+                },
+              ),
+              SeriesInput(
+                initialValue: [],
+                seriesList: _seriesList,
+                maxChips: int.parse(seriesLength),
+                enable: isSeries,
+                onSelectParam: (value) {
+                  setState(() {
+                    _seriesList = value;
+                  });
+                },
+              ),
               DropdownButtonInput(
                 onSelectParam: (value) {
                   setState(() {
@@ -139,6 +190,11 @@ class EntryFormState extends ConsumerState<EntryForm> {
               ),
               LpnInput(
                 controller: lpnController,
+                title: 'CARTONID',
+              ),
+              LpnInput(
+                  controller: containerNumberController,
+                title: 'Numero de Contenedor',
               ),
               LocationInput(
                 controller: locationController,
@@ -148,15 +204,6 @@ class EntryFormState extends ConsumerState<EntryForm> {
               ),
               AssetsInput(
                 controller: assetsController,
-              ),
-              SeriesInput(
-                initialValue: [],
-                seriesList: _seriesList,
-                onSelectParam: (value) {
-                  setState(() {
-                    _seriesList = value;
-                  });
-                },
               ),
             ],
           ),
@@ -205,13 +252,6 @@ class EntryFormState extends ConsumerState<EntryForm> {
               ),
             ],
           ),
-          Wrap(
-            children: [
-              QuantityInput(
-                controller: quantityController,
-              ),
-            ],
-          ),
           Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -251,9 +291,9 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             docnum: "0001",
                             device: "deviceImei",
                             branch: "branch",
-                            asset: "PANELSOLAR",
+                            asset: assetsController.text,
                             user: "user",
-                            lpn: lpnController.text,
+                            lpn: lpnController.text, //TODO: cambiar por carton_id
                             customer: selectedPerson,
                             warehouse: selectedWarehouse,
                             location: locationController.text,
@@ -261,7 +301,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             series: SeriesDto(series: _seriesList),
                             expiryAt: expirationDate.toString(),
                             condition: "$isChecked",
-                            quantity: quantityController.text,
+                            quantity: seriesQuantityController.text,
                             entryAt: selectedDate.toString(),
                             remarks: "observación",
                             dimensions: dimensions?.toJson().toString());
@@ -286,6 +326,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                                 textColor: Colors.black54,
                                 fontSize: 16.0);
                             entryFormKey.currentState?.reset();
+                            context.goNamed(EntryPage.routeName);
                           }
                           logger.i("Adding Entry $code");
                         }).whenComplete(() {

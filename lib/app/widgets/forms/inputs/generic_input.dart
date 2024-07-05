@@ -4,28 +4,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /**
  * Made for cct_management.
  * By User: josedominguez
- * Date: 06/19/24
+ * Date: 07/03/24
  */
 
-class AssetsInput extends ConsumerStatefulWidget {
+class GenericInput extends ConsumerStatefulWidget {
+  final String title;
+  final String hintText;
   final TextEditingController controller;
+  final bool enable;
   final bool allowNull;
-
-  const AssetsInput({super.key, required this.controller, this.allowNull = true});
+  const GenericInput({super.key, this.title = 'Mensaje', this.hintText = '', this.enable = true, required this.controller, this.allowNull = true});
 
   @override
-  AssetsInputState createState() => AssetsInputState();
+  GenericInputState createState() => GenericInputState();
 }
 
-class AssetsInputState extends ConsumerState<AssetsInput> {
+class GenericInputState extends ConsumerState<GenericInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      decoration: const InputDecoration(
-        hintText: 'Asset',
-        labelText: 'Activo',
-        // prefixIcon: Icon(Icons.location_on_outlined),
+      enabled: widget.enable,
+      decoration:  InputDecoration(
+        hintText: widget.hintText,
+        labelText: widget.title,
+        // prefixIcon: Icon(Icons.port),
       ),
       validator: (value) {
         if (!widget.allowNull) {

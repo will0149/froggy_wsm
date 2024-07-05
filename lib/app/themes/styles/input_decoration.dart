@@ -36,5 +36,12 @@ var inputDecorationTheme = InputDecorationTheme(
       color: Colors.purple,
       width: 2.0,
     ),
-  )
+  ),
+  disabledBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(18),
+    borderSide: const BorderSide(
+      color: Colors.yellow,
+      width: 0.5,
+    ),
+  ),
 );
