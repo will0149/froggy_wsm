@@ -1,7 +1,6 @@
 import 'package:cct_management/app/pages/relocation/relocation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../device/utils/logger_config.dart';

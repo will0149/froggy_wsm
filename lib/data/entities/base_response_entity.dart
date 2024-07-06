@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cct_management/data/entities/status_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
