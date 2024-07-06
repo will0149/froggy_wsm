@@ -45,8 +45,8 @@ class QuantityInputState extends ConsumerState<QuantityInput> {
         Center(
           child: InputQty(
             maxVal: 1000,
-            initVal: 0,
-            minVal: 0,
+            initVal: 0.0,
+            minVal: 0.0,
             steps: 1,
             onQtyChanged: (val) {
               logger.i("quantity value $val");

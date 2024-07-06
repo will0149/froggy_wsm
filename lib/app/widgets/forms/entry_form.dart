@@ -1,30 +1,16 @@
-import 'dart:io';
-
 import 'package:cct_management/app/pages/entry/entry_page.dart';
-import 'package:cct_management/data/entities/clients/client_entity.dart';
-import 'package:cct_management/data/entities/status_entity.dart';
 import 'package:cct_management/domain/dtos/inbound_dto.dart';
 import 'package:cct_management/domain/dtos/series_dto.dart';
-import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_input_chips/flutter_input_chips.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:device_imei/device_imei.dart'; //TODO: replace with one better
-import 'package:permission_handler/permission_handler.dart';
 
-import '../../../data/entities/base_data_entity.dart';
-import '../../../data/entities/base_response_entity.dart';
-import '../../../data/entities/entry_data_entity.dart';
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/dimensions_dto.dart';
-import '../../../domain/logics/inbound_logic.dart';
 import '../../../domain/providers/add_entry_provider.dart';
-import '../../../domain/providers/clients/client_provider.dart';
 import '../../../domain/utils/clean_list_util.dart';
 import '../../constants.dart';
+import '../toasts/build_toasts.dart';
 import 'inputs/assets_input.dart';
 import 'inputs/batch_input.dart';
 import 'inputs/date_input.dart';
@@ -56,9 +42,10 @@ class EntryFormState extends ConsumerState<EntryForm> {
   late final TextEditingController assetsController = TextEditingController();
   late final TextEditingController batchController = TextEditingController();
   late final TextEditingController lpnController = TextEditingController();
-  late final TextEditingController containerNumberController = TextEditingController();
+  late final TextEditingController containerNumberController =
+      TextEditingController();
   late final TextEditingController seriesQuantityController =
-  TextEditingController(text: "1");
+      TextEditingController(text: "1");
 
   // late List<ClientEntity>? clientsData = clients;
 
@@ -74,14 +61,6 @@ class EntryFormState extends ConsumerState<EntryForm> {
   bool _valid = false;
   bool isLoading = false;
 
-  // device info
-  // String message = "Please allow permission request!";
-  // String? deviceImei;
-  // final _deviceImeiPlugin = DeviceImei();
-  // bool getPermission = false;
-  // DeviceInfo? deviceInfo;
-  // String? type;
-
   List<String> _seriesList = [];
 
   @override
@@ -89,6 +68,28 @@ class EntryFormState extends ConsumerState<EntryForm> {
     // TODO: implement initState
     // ref.listenManual(addEntryProvider, (previous, next) {});
     super.initState();
+  }
+
+  void validateRequest() {
+    logger.d("validating seriesLength $seriesLength");
+    if (isSeries) {
+      if (int.parse(seriesLength) != _seriesList.length) {
+        setState(() {
+          _valid = false;
+          isLoading = false;
+        });
+        showWarningToast(
+            "La series deben coincidir con la cantidad introducida");
+      }
+    } else {
+      if (int.parse(seriesLength) <= 0) {
+        setState(() {
+          _valid = false;
+          isLoading = false;
+        });
+        showWarningToast("La cantidad no puede ser 0");
+      }
+    }
   }
 
   @override
@@ -147,14 +148,16 @@ class EntryFormState extends ConsumerState<EntryForm> {
               QuantityInput(
                 controller: seriesQuantityController,
                 title: "Cantidad de series",
-                enable: isSeries,
-                onEditingComplete: (v){
-                    logger.f("Tamano de series $v");
-                    if(v != null) {
-                      setState(() {
-                        seriesLength = v.toInt().toString();
-                      });
-                    }
+                // enable: isSeries,
+                onEditingComplete: (v) {
+                  logger.f("Tamaño de series $v");
+                  if (v != null) {
+                    setState(() {
+                      seriesLength = v.toInt().toString();
+                    });
+                  }else{
+                    seriesLength = "0.0";
+                  }
                 },
               ),
               SeriesInput(
@@ -193,7 +196,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 title: 'CARTONID',
               ),
               LpnInput(
-                  controller: containerNumberController,
+                controller: containerNumberController,
                 title: 'Numero de Contenedor',
               ),
               LocationInput(
@@ -279,10 +282,12 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         isLoading = true;
                       });
 
+                      validateRequest();
+
                       if (_valid) {
-                        if(_seriesList.isNotEmpty && _seriesList.length <= 2){
-                          for(String v in _seriesList){
-                            if(v.contains(" ")){
+                        if (_seriesList.isNotEmpty && _seriesList.length <= 2) {
+                          for (String v in _seriesList) {
+                            if (v.contains(" ")) {
                               _seriesList.addAll(cleanListUtil.cleanList(v));
                             }
                           }
@@ -293,7 +298,8 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             branch: "branch",
                             asset: assetsController.text,
                             user: "user",
-                            lpn: lpnController.text, //TODO: cambiar por carton_id
+                            lpn: lpnController.text,
+                            //TODO: cambiar por carton_id
                             customer: selectedPerson,
                             warehouse: selectedWarehouse,
                             location: locationController.text,
@@ -317,14 +323,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                           var code = value?.status?.code;
 
                           if (code! >= 200 && code < 300) {
-                            Fluttertoast.showToast(
-                                msg: "Agregado Correctamente",
-                                toastLength: Toast.LENGTH_LONG,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.greenAccent,
-                                textColor: Colors.black54,
-                                fontSize: 16.0);
+                            showSuccessToast("Agregado Correctamente");
                             entryFormKey.currentState?.reset();
                             context.goNamed(EntryPage.routeName);
                           }
@@ -338,14 +337,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                           setState(() {
                             isLoading = false;
                           });
-                          Fluttertoast.showToast(
-                              msg: "Algo fallo!",
-                              toastLength: Toast.LENGTH_LONG,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
+                          showErrorToast("Algo fallo!");
                         });
                       }
                     },
