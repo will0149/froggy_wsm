@@ -127,6 +127,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
               Container(
                 width: size.width * 0.40,
                 decoration: BoxDecoration(
+                  color: Colors.white,
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -235,6 +236,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
               Container(
                 width: size.width * 0.40,
                 decoration: BoxDecoration(
+                  color: Colors.white,
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -298,7 +300,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             branch: "branch",
                             asset: assetsController.text,
                             user: "user",
-                            lpn: lpnController.text,
+                            cartonId: lpnController.text,
                             //TODO: cambiar por carton_id
                             customer: selectedPerson,
                             warehouse: selectedWarehouse,

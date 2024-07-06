@@ -33,7 +33,7 @@ class DateInputState extends ConsumerState<DateInput> {
     return DateTimeFormField(
       decoration: InputDecoration(
         labelText: widget.title,
-        labelStyle: Theme.of(context).textTheme.bodySmall,
+        labelStyle: Theme.of(context).textTheme.bodyLarge,
       ),
       initialPickerDateTime:
       DateTime.now().add(const Duration(days: 20)),

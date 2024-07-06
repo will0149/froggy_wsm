@@ -125,6 +125,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                 Container(
                   width: size.width * 0.40,
                   decoration: BoxDecoration(
+                    color: Colors.white,
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -144,6 +145,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                   ),
                 ),
                 QuantityInput(
+                  title: "Cantidad de Series",
                   controller: quantityController,
                   onEditingComplete: (v){
                     logger.f("Tamaño de series $v");
@@ -249,10 +251,10 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                                 isseries: "$isSeries",
                                 series: SeriesDto(series: _seriesList),
                                 branch: "1",
-                                fromlpn: lpnFromController.text,
+                                fromCartonId: lpnFromController.text,
                                 fromwarehouse: selectedWarehouseFrom,
                                 fromlocation: locationFromController.text,
-                                towardslpn: lpnToController.text,
+                                towardsCartonId: lpnToController.text,
                                 towardswarehouse: selectedWarehouseTo,
                                 towardslocation: locationToController.text,
                                 quantity: quantityController.text,

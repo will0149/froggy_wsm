@@ -12,7 +12,7 @@ class InboundDto {
   String? branch;
   String? asset;
   String? user;
-  String? lpn;
+  String? cartonId;
   String? customer;
   String? warehouse;
   String? location;
@@ -31,7 +31,7 @@ class InboundDto {
       this.branch,
       this.asset,
       this.user,
-      this.lpn,
+      this.cartonId,
       this.customer,
       this.warehouse,
       this.location,
@@ -50,7 +50,7 @@ class InboundDto {
     branch = json['branch'];
     asset = json['asset'];
     user = json['user'];
-    lpn = json['lpn'];
+    cartonId = json['cartonId'];
     customer = json['customer'];
     warehouse = json['warehouse'];
     location = json['location'];
@@ -72,7 +72,7 @@ class InboundDto {
     data['branch'] = this.branch;
     data['asset'] = this.asset;
     data['user'] = this.user;
-    data['lpn'] = this.lpn;
+    data['cartonId'] = this.cartonId;
     data['customer'] = this.customer;
     data['warehouse'] = this.warehouse;
     data['location'] = this.location;

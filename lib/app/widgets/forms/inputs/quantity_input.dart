@@ -41,6 +41,7 @@ class QuantityInputState extends ConsumerState<QuantityInput> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               widget.title,
+              style: Theme.of(context).textTheme.bodyLarge,
             )),
         Center(
           child: InputQty(
@@ -58,6 +59,7 @@ class QuantityInputState extends ConsumerState<QuantityInput> {
               enabled: widget.enable,
             ),
             decoration: QtyDecorationProps(
+              fillColor: Colors.white,
               plusButtonConstrains: const BoxConstraints(minHeight: 60),
               minusButtonConstrains: const BoxConstraints(minHeight: 60),
               contentPadding: const EdgeInsets.all(10),

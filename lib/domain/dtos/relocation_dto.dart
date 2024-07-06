@@ -13,10 +13,10 @@ class RelocationDto {
   String? asset;
   SeriesDto? series;
   String? branch;
-  String? fromlpn;
+  String? fromCartonId;
   String? fromwarehouse;
   String? fromlocation;
-  String? towardslpn;
+  String? towardsCartonId;
   String? towardswarehouse;
   String? towardslocation;
   String? quantity;
@@ -28,10 +28,10 @@ class RelocationDto {
         this.asset,
         this.series,
         this.branch,
-        this.fromlpn,
+        this.fromCartonId,
         this.fromwarehouse,
         this.fromlocation,
-        this.towardslpn,
+        this.towardsCartonId,
         this.towardswarehouse,
         this.towardslocation,
         this.quantity,
@@ -44,10 +44,10 @@ class RelocationDto {
     series =
     json['series'] != null ? new SeriesDto.fromJson(json['series']) : null;
     branch = json['branch'];
-    fromlpn = json['fromlpn'];
+    fromCartonId = json['fromCartonId'];
     fromwarehouse = json['fromwarehouse'];
     fromlocation = json['fromlocation'];
-    towardslpn = json['towardslpn'];
+    towardsCartonId = json['cartonId'];
     towardswarehouse = json['towardswarehouse'];
     towardslocation = json['towardslocation'];
     quantity = json['quantity'];
@@ -63,10 +63,10 @@ class RelocationDto {
       data['series'] = this.series!.toJson();
     }
     data['branch'] = this.branch;
-    data['fromlpn'] = this.fromlpn;
+    data['fromCartonId'] = this.fromCartonId;
     data['fromwarehouse'] = this.fromwarehouse;
     data['fromlocation'] = this.fromlocation;
-    data['towardslpn'] = this.towardslpn;
+    data['cartonId'] = this.towardsCartonId;
     data['towardswarehouse'] = this.towardswarehouse;
     data['towardslocation'] = this.towardslocation;
     data['quantity'] = this.quantity;
