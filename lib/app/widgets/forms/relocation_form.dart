@@ -10,6 +10,7 @@ import '../../../domain/dtos/series_dto.dart';
 import '../../../domain/providers/relocate_provider.dart';
 import '../../../domain/utils/clean_list_util.dart';
 import '../../constants.dart';
+import '../toasts/build_toasts.dart';
 import 'inputs/assets_input.dart';
 import 'inputs/dropdown_button_input.dart';
 import 'inputs/location_input.dart';
@@ -49,11 +50,13 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
   late final TextEditingController quantityController =
       TextEditingController(text: "0");
 
+  String seriesLength = "0";
+
   List<String> _seriesList = [];
 
   String? selectedWarehouseFrom = " ";
   String? selectedWarehouseTo = " ";
-  bool? isSeries = false;
+  bool isSeries = false;
   bool _valid = false;
   bool isLoading = false;
 
@@ -62,6 +65,28 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
     // TODO: implement initState
     // ref.listenManual(addEntryProvider, (previous, next) {});
     super.initState();
+  }
+
+  void validateRequest() {
+    logger.d("validating seriesLength $seriesLength");
+    if (isSeries) {
+      if (int.parse(seriesLength) != _seriesList.length) {
+        setState(() {
+          _valid = false;
+          isLoading = false;
+        });
+        showWarningToast(
+            "La series deben coincidir con la cantidad introducida");
+      }
+    } else {
+      if (int.parse(seriesLength) <= 0) {
+        setState(() {
+          _valid = false;
+          isLoading = false;
+        });
+        showWarningToast("La cantidad no puede ser 0");
+      }
+    }
   }
 
   @override
@@ -113,16 +138,31 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                           value: isSeries,
                           onChanged: (newBool) {
                             setState(() {
-                              isSeries = newBool;
+                              isSeries = newBool!;
                             });
                           }),
                     ],
                   ),
                 ),
+                QuantityInput(
+                  controller: quantityController,
+                  onEditingComplete: (v){
+                    logger.f("Tamaño de series $v");
+                    if (v != null) {
+                      setState(() {
+                        seriesLength = v.toInt().toString();
+                      });
+                    }else{
+                      seriesLength = "0.0";
+                    }
+                  },
+                ),
                 SeriesInput(
                   key: seriesKey,
                   initialValue: [],
                   seriesList: _seriesList,
+                  maxChips: int.parse(seriesLength),
+                  enable: isSeries,
                   onSelectParam: (value) {
                     setState(() {
                       _seriesList = value;
@@ -131,11 +171,11 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                 ),
                 LpnInput(
                   controller: lpnFromController,
-                  title: 'LPN origen',
+                  title: 'CartonId origen',
                 ),
                 LpnInput(
                   controller: lpnToController,
-                  title: 'LPN destino',
+                  title: 'CartonId destino',
                 ),
                 LocationInput(
                   controller: locationFromController,
@@ -144,18 +184,6 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                 LocationInput(
                   controller: locationToController,
                   title: 'Ubicación Destino',
-                ),
-              ],
-            ),
-            Wrap(
-              children: [
-                QuantityInput(
-                  controller: quantityController,
-                  onEditingComplete: (v){
-                    setState(() {
-
-                    });
-                  },
                 ),
               ],
             ),
@@ -198,6 +226,9 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                           _valid = relocationFormKey.currentState!.validate();
                           isLoading = true;
                         });
+
+                        validateRequest();
+
                         if (_valid) {
                           if (_seriesList.isNotEmpty &&
                               _seriesList.length <= 2) {
@@ -207,7 +238,8 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                               }
                             }
                           }
-                          // if(validateRequest(
+                          // esta validacion es para que lo origenes no sean igual al destino
+                          // if(validateFromTo(
                           //   lpnFromController.text, lpnToController.text,
                           //   locationFromController.text, locationToController.text,
                           //     selectedWarehouseFrom!, selectedWarehouseTo!
@@ -235,14 +267,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                               var code = value?.status?.code;
 
                               if (code! >= 200 && code < 300) {
-                                Fluttertoast.showToast(
-                                    msg: "Agregado Correctamente",
-                                    toastLength: Toast.LENGTH_LONG,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.greenAccent,
-                                    textColor: Colors.black54,
-                                    fontSize: 16.0);
+                                showSuccessToast("Agregado Correctamente");
                                 relocationFormKey.currentState?.reset();
                                 _seriesList = <String>[];
                                 assetsController.text = "";
@@ -264,26 +289,8 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                               setState(() {
                                 isLoading = false;
                               });
-                              Fluttertoast.showToast(
-                                  msg: "Algo fallo!",
-                                  toastLength: Toast.LENGTH_LONG,
-                                  gravity: ToastGravity.CENTER,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.red,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0);
+                              showErrorToast("Algo fallo!");
                             });
-                          // }
-                          // else {
-                          //   Fluttertoast.showToast(
-                          //       msg: "El Destino y origen deben ser distintos!",
-                          //       toastLength: Toast.LENGTH_LONG,
-                          //       gravity: ToastGravity.CENTER,
-                          //       timeInSecForIosWeb: 1,
-                          //       backgroundColor: Colors.yellowAccent,
-                          //       textColor: Colors.black,
-                          //       fontSize: 16.0);
-                          // }
 
                         }
                         setState(() {
@@ -298,7 +305,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
         ));
   }
 
-  bool validateRequest(String lpnFrom, String lpnTo, String locationFrom, String locationTo, String warehouseFrom, String warehouseTo){
+  bool validateFromTo(String lpnFrom, String lpnTo, String locationFrom, String locationTo, String warehouseFrom, String warehouseTo){
     bool pass = true;
     bool lpnValid = true;
     bool locationValid = true;

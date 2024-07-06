@@ -340,6 +340,9 @@ class EntryFormState extends ConsumerState<EntryForm> {
                           showErrorToast("Algo fallo!");
                         });
                       }
+                      setState(() {
+                        isLoading = false;
+                      });
                     },
                     child: Text("Guardar",
                         style: Theme.of(context).textTheme.headlineMedium),
