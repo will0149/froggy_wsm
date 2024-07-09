@@ -154,7 +154,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                         seriesLength = v.toInt().toString();
                       });
                     }else{
-                      seriesLength = "0.0";
+                      seriesLength = "0";
                     }
                   },
                 ),
@@ -216,8 +216,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                     margin: const EdgeInsets.all(10.0),
                     child: const Center(
                       child: CircularProgressIndicator(),
-                    ),
-            )
+                    ))
                 : Container(
                     width: size.width,
                     margin: const EdgeInsets.all(10.0),
@@ -231,10 +230,9 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                         validateRequest();
 
                         if (_valid) {
-                          if (_seriesList.isNotEmpty &&
-                              _seriesList.length <= 2) {
+                          if (_seriesList.isNotEmpty) {
                             for (String v in _seriesList) {
-                              if(v.contains(" ")){
+                              if (v.contains(" ")) {
                                 _seriesList.addAll(cleanListUtil.cleanList(v));
                               }
                             }
@@ -257,7 +255,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                                 towardsCartonId: lpnToController.text,
                                 towardswarehouse: selectedWarehouseTo,
                                 towardslocation: locationToController.text,
-                                quantity: quantityController.text,
+                                quantity: seriesLength,
                                 remarks: "qwe");
 
                             logger.d(request.toJson());
@@ -270,14 +268,6 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                               if (code! >= 200 && code < 300) {
                                 showSuccessToast("Agregado Correctamente");
                                 relocationFormKey.currentState?.reset();
-                                _seriesList = <String>[];
-                                assetsController.text = "";
-                                lpnToController.text = "";
-                                lpnFromController.text = "";
-                                locationFromController.text = "";
-                                locationToController.text = "";
-                                quantityController.text = "0";
-                                isSeries = false;
                                 context.goNamed(RelocationPage.routeName);
                               }
                               logger.i("Adding Entry $code");
@@ -294,9 +284,6 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                             });
 
                         }
-                        setState(() {
-                          isLoading = false;
-                        });
                       },
                       child: Text("Guardar",
                           style: Theme.of(context).textTheme.headlineMedium),

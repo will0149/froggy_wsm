@@ -7,6 +7,14 @@ import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/outgoing_dto.dart';
 import '../../../domain/providers/add_outgoing_provider.dart';
 import '../../constants.dart';
+import '../toasts/build_toasts.dart';
+import 'inputs/assets_input.dart';
+import 'inputs/batch_input.dart';
+import 'inputs/date_input.dart';
+import 'inputs/dropdown_button_input.dart';
+import 'inputs/location_input.dart';
+import 'inputs/quantity_input.dart';
+import 'inputs/series_input.dart';
 
 /**
  * Made for cct_management.
@@ -18,28 +26,67 @@ class OutgoingForm extends ConsumerStatefulWidget {
   const OutgoingForm({super.key});
 
   @override
-  _OutgoingFormState createState() => _OutgoingFormState();
+  OutgoingFormState createState() => OutgoingFormState();
 }
 
-class _OutgoingFormState extends ConsumerState<OutgoingForm> {
+class OutgoingFormState extends ConsumerState<OutgoingForm> {
   late final GlobalKey<FormState> outgoingFormKey = GlobalKey<FormState>();
 
   late final TextEditingController locationController = TextEditingController();
   late final TextEditingController batchController = TextEditingController();
-  late final TextEditingController seriesController = TextEditingController();
-  late final TextEditingController quantityController = TextEditingController();
+  late final TextEditingController seriesQuantityController = TextEditingController();
+  late final TextEditingController lpnController = TextEditingController();
+  late final TextEditingController assetsController = TextEditingController();
 
   String? selectedPerson;
   String? selectedWarehouse;
   DateTime? selectedDate;
+  String seriesLength = "0";
+  bool isSeries = false;
+
   bool _valid = false;
   bool isLoading = false;
+
+  List<String> _seriesList = [];
 
   @override
   void initState() {
     // TODO: implement initState
     initializeDateFormatting();
     super.initState();
+  }
+
+  void validateRequest() {
+    logger.d("validating seriesLength $seriesLength");
+    if (isSeries) {
+      if (int.parse(seriesLength) != _seriesList.length) {
+        setState(() {
+          _valid = false;
+          isLoading = false;
+        });
+        showWarningToast(
+            "La series deben coincidir con la cantidad introducida");
+      }
+    } else {
+      if (int.parse(seriesLength) <= 0) {
+        setState(() {
+          _valid = false;
+          isLoading = false;
+        });
+        showWarningToast("La cantidad no puede ser 0");
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    locationController.dispose();
+    batchController.dispose();
+    lpnController.dispose();
+    seriesQuantityController.dispose();
+    assetsController.dispose();
+    super.dispose();
   }
 
   @override
@@ -57,170 +104,92 @@ class _OutgoingFormState extends ConsumerState<OutgoingForm> {
               "Registrar Salida",
               style: Theme.of(context).textTheme.titleLarge,
             ),
-          ),
-          Wrap(
-            spacing: 30.0, //espacio horizontal
-            // runSpacing: 10.0, //espacio vertical
-            children: [
-              Column(
+    ),
+            Container(
+              width: size.width * 0.40,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    // color: Colors.lightBlueAccent,
-                    width: size.width * 0.40,
-                    child: DropdownButtonFormField<String>(
-                      value: selectedPerson,
-                      hint: Text(
-                        'Cliente',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      icon: const Icon(Icons.person),
-                      alignment: AlignmentDirectional.center,
-                      onChanged: (String? newValue) {
+                  const Text("Es Serie"),
+                  Checkbox(
+                      semanticLabel: "Es Serie",
+                      value: isSeries,
+                      onChanged: (newBool) {
                         setState(() {
-                          selectedPerson = newValue;
+                          isSeries = newBool!;
                         });
-                      },
-                      validator: (String? value) {
-                        if (value == null) {
-                          return 'Please select an option';
-                        }
-                        return null;
-                      },
-                      items:
-                      clients.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+                      }),
                 ],
               ),
-              Column(
-                children: [
-                  Container(
-                    width: size.width * 0.40,
-                    child: DropdownButtonFormField<String>(
-                      value: selectedWarehouse,
-                      icon: const Icon(Icons.warehouse),
-                      alignment: AlignmentDirectional.center,
-                      hint: Text(
-                        'Bodega',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedWarehouse = newValue;
-                        });
-                      },
-                      validator: (String? value) {
-                        if (value == null) {
-                          return 'Please select an option';
-                        }
-                        return null;
-                      },
-                      items:
-                      bodegas.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
-              )
-            ],
+            ),
+            QuantityInput(
+              controller: seriesQuantityController,
+              title: "Cantidad de series",
+              // enable: isSeries,
+              onEditingComplete: (v) {
+                logger.f("Tamaño de series $v");
+                if (v != null) {
+                  setState(() {
+                    seriesLength = v.toInt().toString();
+                  });
+                }else{
+                  seriesLength = "0";
+                }
+              },
+            ),
+            SeriesInput(
+              initialValue: [],
+              seriesList: _seriesList,
+              maxChips: int.parse(seriesLength),
+              enable: isSeries,
+              onSelectParam: (value) {
+                setState(() {
+                  _seriesList = value;
+                });
+              },
+            ),
+            DropdownButtonInput(
+              onSelectParam: (value) {
+                setState(() {
+                  selectedPerson = value;
+                });
+              },
+              title: "clientes",
+              values: clients,
+              icon: Icons.arrow_drop_down_circle_outlined,
+            ),
+            DropdownButtonInput(
+              title: "Bodegas",
+              values: bodegas,
+              onSelectParam: (value) {
+                setState(() {
+                  selectedWarehouse = value;
+                });
+              },
+              icon: Icons.arrow_drop_down_circle_outlined,
+            ),
+          LocationInput(
+            controller: locationController,
           ),
-          Wrap(
-            runSpacing: wrapVerticalSpacing,
-            children: [
-              TextFormField(
-                controller: locationController,
-                decoration: const InputDecoration(
-                  hintText: 'Colón',
-                  labelText: 'Ubicación',
-                  prefixIcon: Icon(Icons.location_on_outlined),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'El campo no puede estar vacío';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-              TextFormField(
-                controller: batchController,
-                decoration: const InputDecoration(
-                  hintText: '45',
-                  labelText: 'Lote',
-                  // prefixIcon: Icon(Icons.),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'El campo no puede estar vacío';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-              TextFormField(
-                controller: seriesController,
-                decoration: const InputDecoration(
-                  hintText: 'N2J3N1K2N2',
-                  labelText: 'Serie',
-                  // prefixIcon: Icon(Icons.location_on_outlined),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'El campo no puede estar vacío';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-            ],
+          BatchInput(
+            controller: batchController,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                width: size.width * 0.80,
-                child: DateTimeFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Fecha de salida',
-                  ),
-                  initialPickerDateTime:
-                  DateTime.now().add(const Duration(days: 20)),
-                  mode: DateTimeFieldPickerMode.date,
-                  onChanged: (DateTime? value) {
-                    selectedDate = value;
-                  },
-                ),
-              ),
-            ],
+          AssetsInput(
+            controller: assetsController,
           ),
-          Wrap(
-            children: [
-              TextFormField(
-                controller: quantityController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  hintText: '1',
-                  labelText: 'Cantidad',
-                  prefixIcon: Icon(Icons.numbers_sharp),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'El campo no puede estar vacío';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-            ],
+          DateInput(
+            title: 'Fecha de Salida',
+            onSelectParam: (value) {
+              setState(() {
+                selectedDate = value;
+              });
+            },
+            selectedDate: selectedDate,
           ),
           isLoading
               ? Container(
@@ -245,8 +214,8 @@ class _OutgoingFormState extends ConsumerState<OutgoingForm> {
                       warehouse: selectedWarehouse,
                       location: locationController.text,
                       batch: batchController.text,
-                      serie: seriesController.text,
-                      quantity: quantityController.text,
+                      // serie: seriesController.text,
+                      quantity: seriesQuantityController.text,
                       exitAt: selectedDate.toString(),
                       remarks: "");
 

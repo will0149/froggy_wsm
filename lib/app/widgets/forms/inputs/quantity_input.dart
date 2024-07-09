@@ -16,7 +16,7 @@ class QuantityInput extends ConsumerStatefulWidget {
   final TextEditingController controller;
   final bool enable;
   final bool allowNull;
-  final Function(double) onEditingComplete;
+  final Function(int) onEditingComplete;
 
   const QuantityInput(
       {super.key,
@@ -46,12 +46,15 @@ class QuantityInputState extends ConsumerState<QuantityInput> {
         Center(
           child: InputQty(
             maxVal: 1000,
-            initVal: 0.0,
-            minVal: 0.0,
+            initVal: 0,
+            minVal: 0,
             steps: 1,
+            decimalPlaces: 0,
             onQtyChanged: (val) {
-              logger.i("quantity value $val");
-              widget.onEditingComplete(val);
+              var castValue = double.parse(val.toString());
+              int v = castValue.toInt();
+              logger.i("quantity value $val castValue $v");
+              widget.onEditingComplete(v);
             },
             isIntrinsicWidth: false,
             qtyFormProps: QtyFormProps(

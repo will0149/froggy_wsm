@@ -28,6 +28,7 @@ class DropdownButtonInputState extends ConsumerState<DropdownButtonInput> {
       decoration:  InputDecoration(
         hintText: 'titulo',
         labelText: widget.title,
+        labelStyle: Theme.of(context).textTheme.bodyLarge,
       ),
       icon: Icon(widget.icon),
       alignment: AlignmentDirectional.center,

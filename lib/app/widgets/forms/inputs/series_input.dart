@@ -23,6 +23,7 @@ class SeriesInput extends ConsumerStatefulWidget {
 class SeriesInputState extends ConsumerState<SeriesInput> {
   @override
   Widget build(BuildContext context) {
+    bool seriesAfford = widget.seriesList.length == widget.maxChips;
     return FlutterInputChips(
       enabled: widget.enable,
       initialValue: widget.initialValue,
@@ -38,7 +39,8 @@ class SeriesInputState extends ConsumerState<SeriesInput> {
       inputDecoration: InputDecoration(
         labelText: "Agregar Series",
         hintText: "N2J3N1K2N2",
-        labelStyle: widget.enable ? TextStyle() : TextStyle(color: Colors.black12),
+        suffix: widget.enable ? Text("${widget.seriesList.length}/${widget.maxChips}", style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: seriesAfford ? Colors.green : Colors.red),) : null,
+        labelStyle: widget.enable ? const TextStyle() : const TextStyle(color: Colors.black12),
       ),
       chipTextStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
         fontWeight: FontWeight.bold,

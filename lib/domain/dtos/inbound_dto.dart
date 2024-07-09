@@ -24,6 +24,7 @@ class InboundDto {
   String? entryAt;
   String? remarks;
   String? dimensions;
+  String? isseries;
 
   InboundDto(
       {this.docnum,
@@ -42,7 +43,8 @@ class InboundDto {
       this.quantity,
       this.entryAt,
       this.remarks,
-      this.dimensions});
+      this.dimensions,
+      this.isseries});
 
   InboundDto.fromJson(Map<String, dynamic> json) {
     docnum = json['docnum'];
@@ -50,7 +52,7 @@ class InboundDto {
     branch = json['branch'];
     asset = json['asset'];
     user = json['user'];
-    cartonId = json['cartonId'];
+    cartonId = json['cartonid'];
     customer = json['customer'];
     warehouse = json['warehouse'];
     location = json['location'];
@@ -63,6 +65,7 @@ class InboundDto {
     entryAt = json['entry_at'];
     remarks = json['remarks'];
     dimensions = json['dimensions'];
+    isseries = json['isseries'];
   }
 
   Map<String, dynamic> toJson() {
@@ -72,7 +75,7 @@ class InboundDto {
     data['branch'] = this.branch;
     data['asset'] = this.asset;
     data['user'] = this.user;
-    data['cartonId'] = this.cartonId;
+    data['cartonid'] = this.cartonId;
     data['customer'] = this.customer;
     data['warehouse'] = this.warehouse;
     data['location'] = this.location;
@@ -86,6 +89,7 @@ class InboundDto {
     data['entry_at'] = this.entryAt;
     data['remarks'] = this.remarks;
     data['dimensions'] = this.dimensions;
+    data['isseries'] = this.isseries;
     return data;
   }
 }

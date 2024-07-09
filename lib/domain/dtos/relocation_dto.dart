@@ -63,10 +63,10 @@ class RelocationDto {
       data['series'] = this.series!.toJson();
     }
     data['branch'] = this.branch;
-    data['fromCartonId'] = this.fromCartonId;
+    data['fromcartonid'] = this.fromCartonId;
     data['fromwarehouse'] = this.fromwarehouse;
     data['fromlocation'] = this.fromlocation;
-    data['cartonId'] = this.towardsCartonId;
+    data['towardscartonid'] = this.towardsCartonId;
     data['towardswarehouse'] = this.towardswarehouse;
     data['towardslocation'] = this.towardslocation;
     data['quantity'] = this.quantity;
