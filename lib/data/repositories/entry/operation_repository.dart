@@ -43,11 +43,11 @@ class OperationRepository {
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(ApiPathsEnums.host.path, ApiPathsEnums.outgoing.path);
       logger.t(uri);
+      logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
         headers: {"Content-Type": "application/json"},);
       final json = jsonDecode(response.body);
-      var serviceResponse = RelocationEntity.fromJson(json);
-      logger.w(serviceResponse);
+      logger.w(json);
       return json;
     }finally {
       client.close();
@@ -62,6 +62,7 @@ class OperationRepository {
       var uri =
           Uri.https(ApiPathsEnums.host.path, ApiPathsEnums.relocation.path);
       logger.t(uri);
+      logger.i(request.toJson());
       final response = await client.post(
         uri,
         body: bodyEncoded,
@@ -81,11 +82,11 @@ class OperationRepository {
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(ApiPathsEnums.host.path, ApiPathsEnums.count.path);
       logger.t(uri);
+      logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
         headers: {"Content-Type": "application/json"},);
       final json = jsonDecode(response.body);
-      var serviceResponse = RelocationEntity.fromJson(json);
-      logger.w(serviceResponse.toJson());
+      logger.w(json);
       return json;
     }finally {
       client.close();

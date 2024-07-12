@@ -1,18 +1,21 @@
-import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/outgoing_dto.dart';
+import '../../../domain/dtos/series_dto.dart';
 import '../../../domain/providers/add_outgoing_provider.dart';
 import '../../constants.dart';
+import '../../pages/outgoing/outgoing_page.dart';
 import '../toasts/build_toasts.dart';
 import 'inputs/assets_input.dart';
 import 'inputs/batch_input.dart';
 import 'inputs/date_input.dart';
 import 'inputs/dropdown_button_input.dart';
 import 'inputs/location_input.dart';
+import 'inputs/lpn_input.dart';
 import 'inputs/quantity_input.dart';
 import 'inputs/series_input.dart';
 
@@ -34,7 +37,8 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
 
   late final TextEditingController locationController = TextEditingController();
   late final TextEditingController batchController = TextEditingController();
-  late final TextEditingController seriesQuantityController = TextEditingController();
+  late final TextEditingController seriesQuantityController =
+      TextEditingController();
   late final TextEditingController lpnController = TextEditingController();
   late final TextEditingController assetsController = TextEditingController();
 
@@ -104,75 +108,79 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
               "Registrar Salida",
               style: Theme.of(context).textTheme.titleLarge,
             ),
-    ),
-            Container(
-              width: size.width * 0.40,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Es Serie"),
-                  Checkbox(
-                      semanticLabel: "Es Serie",
-                      value: isSeries,
-                      onChanged: (newBool) {
-                        setState(() {
-                          isSeries = newBool!;
-                        });
-                      }),
-                ],
-              ),
+          ),
+          Container(
+            width: size.width * 0.40,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(10),
             ),
-            QuantityInput(
-              controller: seriesQuantityController,
-              title: "Cantidad de series",
-              // enable: isSeries,
-              onEditingComplete: (v) {
-                logger.f("Tamaño de series $v");
-                if (v != null) {
-                  setState(() {
-                    seriesLength = v.toInt().toString();
-                  });
-                }else{
-                  seriesLength = "0";
-                }
-              },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Es Serie"),
+                Checkbox(
+                    semanticLabel: "Es Serie",
+                    value: isSeries,
+                    onChanged: (newBool) {
+                      setState(() {
+                        isSeries = newBool!;
+                      });
+                    }),
+              ],
             ),
-            SeriesInput(
-              initialValue: [],
-              seriesList: _seriesList,
-              maxChips: int.parse(seriesLength),
-              enable: isSeries,
-              onSelectParam: (value) {
+          ),
+          QuantityInput(
+            controller: seriesQuantityController,
+            title: "Cantidad de series",
+            // enable: isSeries,
+            onEditingComplete: (v) {
+              logger.f("Tamaño de series $v");
+              if (v != null) {
                 setState(() {
-                  _seriesList = value;
+                  seriesLength = v.toInt().toString();
                 });
-              },
-            ),
-            DropdownButtonInput(
-              onSelectParam: (value) {
-                setState(() {
-                  selectedPerson = value;
-                });
-              },
-              title: "clientes",
-              values: clients,
-              icon: Icons.arrow_drop_down_circle_outlined,
-            ),
-            DropdownButtonInput(
-              title: "Bodegas",
-              values: bodegas,
-              onSelectParam: (value) {
-                setState(() {
-                  selectedWarehouse = value;
-                });
-              },
-              icon: Icons.arrow_drop_down_circle_outlined,
-            ),
+              } else {
+                seriesLength = "0";
+              }
+            },
+          ),
+          SeriesInput(
+            initialValue: [],
+            seriesList: _seriesList,
+            maxChips: int.parse(seriesLength),
+            enable: isSeries,
+            onSelectParam: (value) {
+              setState(() {
+                _seriesList = value;
+              });
+            },
+          ),
+          // DropdownButtonInput(
+          //   onSelectParam: (value) {
+          //     setState(() {
+          //       selectedPerson = value;
+          //     });
+          //   },
+          //   title: "clientes",
+          //   values: clients,
+          //   icon: Icons.arrow_drop_down_circle_outlined,
+          // ),
+          DropdownButtonInput(
+            title: "Bodegas",
+            values: bodegas,
+            onSelectParam: (value) {
+              setState(() {
+                selectedWarehouse = value;
+              });
+            },
+            icon: Icons.arrow_drop_down_circle_outlined,
+          ),
+          LpnInput(
+            controller: lpnController,
+            title: 'carton ID',
+          ),
           LocationInput(
             controller: locationController,
           ),
@@ -193,47 +201,64 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
           ),
           isLoading
               ? Container(
-              margin: EdgeInsets.all(10.0),
-              child: Center(
-                child: CircularProgressIndicator(),
-              ))
+                  margin: EdgeInsets.all(10.0),
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ))
               : Container(
-            width: size.width,
-            margin: EdgeInsets.all(10.0),
-            child: OutlinedButton(
-              onPressed: () {
-                setState(() {
-                  _valid = outgoingFormKey.currentState!.validate();
-                  isLoading = true;
-                });
-                if (_valid) {
-                  var request = OutgoingDto(
-                      docnum: "",
-                      lpn: "",
-                      customer: selectedPerson,
-                      warehouse: selectedWarehouse,
-                      location: locationController.text,
-                      batch: batchController.text,
-                      // serie: seriesController.text,
-                      quantity: seriesQuantityController.text,
-                      exitAt: selectedDate.toString(),
-                      remarks: "");
+                  width: size.width,
+                  margin: EdgeInsets.all(10.0),
+                  child: OutlinedButton(
+                    onPressed: () {
+                      setState(() {
+                        _valid = outgoingFormKey.currentState!.validate();
+                        isLoading = true;
+                      });
+                      if (_valid) {
+                        var request = OutgoingDto(
+                            docnum: "sadas",
+                            warehouse: selectedWarehouse,
+                            device: "movil",
+                            location: locationController.text,
+                            isSeries: isSeries.toString(),
+                            series: SeriesDto(series: _seriesList),
+                            cartonId: lpnController.text,
+                            asset: assetsController.text,
+                            quantity: seriesLength,
+                        customer: "fasf",
+                        batch: batchController.text);
 
-                  logger.d(request.toJson());
-                  var response = outgoing.addOutgoing(request);
-                  response.whenComplete(() {
-                    setState(() {
-                      isLoading = false;
-                    });
-                    // context.goNamed(MainPage.routeName);
-                  });
-                  logger.i(response);
-                }
-              },
-              child: Text("Guardar",
-                  style: Theme.of(context).textTheme.headlineMedium),
-            ),
-          ),
+                        logger.d(request.toJson());
+                        var response =
+                            outgoing.addOutgoing(request).then((value) {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          var code = value?.status?.code;
+
+                          if (code! >= 200 && code < 300) {
+                            showSuccessToast("Agregado Correctamente");
+                            outgoingFormKey.currentState?.reset();
+                            context.goNamed(OutgoingPage.routeName);
+                          }
+                          logger.i("Adding Entry $code");
+                        }).whenComplete(() {
+                          logger.i("finished Entry");
+                          setState(() {
+                            isLoading = false;
+                          });
+                        }).catchError((error) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          showErrorToast("Algo fallo!");
+                        });
+                      }
+                    },
+                    child: Text("Guardar",
+                        style: Theme.of(context).textTheme.headlineMedium),
+                  ),
+                ),
         ],
       ),
     );

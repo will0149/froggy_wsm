@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../device/utils/logger_config.dart';
+import '../../../domain/dtos/series_dto.dart';
 import '../../../domain/dtos/tally_count_dto.dart';
 import '../../../domain/providers/tally_count_provider.dart';
 import '../../../domain/states/entry_form_view_notifier.dart';
 import '../../constants.dart';
+import '../../pages/count/count_page.dart';
 import '../toasts/build_toasts.dart';
 import 'inputs/assets_input.dart';
 import 'inputs/dropdown_button_input.dart';
@@ -47,7 +50,6 @@ class _CountFormState extends ConsumerState<CountForm> {
   @override
   void initState() {
     // TODO: implement initState
-    ref.watch(entryFormViewProvider);
     super.initState();
   }
 
@@ -177,8 +179,8 @@ class _CountFormState extends ConsumerState<CountForm> {
           ),
           isLoading
               ? Container(
-                  margin: const EdgeInsets.all(10.0),
-                  child: const Center(
+                  margin:  EdgeInsets.all(10.0),
+                  child:  Center(
                     child: CircularProgressIndicator(),
                   ))
               : Container(
@@ -192,22 +194,42 @@ class _CountFormState extends ConsumerState<CountForm> {
                       });
                       if (_valid) {
                         var request = TallyCountDto(
-                          lpn: "afas",
+                          device: "phone",
+                          branch: "1",
                           warehouse: "asdfas",
                           location: "jsfs",
-                          // serie: seriesController.text,
-                          quantity: seriesQuantityController.text,
+                          cartonid: "afas",
+                          asset: assetsController.text,
+                          isSeries: isSeries.toString(),
+                          series: SeriesDto(series: _seriesList),
+                          quantity: seriesLength,
+                          remark: "sfafafas"
                         );
 
                         logger.d(request.toJson());
-                        var response = tallyCount.count(request);
-                        response.whenComplete(() {
+                        tallyCount.count(request).then((value) {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          var code = value?.status?.code;
+
+                          if (code! >= 200 && code < 300) {
+                            showSuccessToast("Agregado Correctamente");
+                            countFormKey.currentState?.reset();
+                            context.goNamed(CountPage.routeName);
+                          }
+                          logger.i("Adding Entry $code");
+                        }).whenComplete(() {
+                          logger.i("finished Entry");
                           setState(() {
                             isLoading = false;
                           });
-                          // context.goNamed(MainPage.routeName);
+                        }).catchError((error) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          showErrorToast("Algo fallo!");
                         });
-                        logger.i(response);
                       }
                     },
                     child: Text("Guardar",
