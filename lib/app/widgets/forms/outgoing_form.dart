@@ -36,7 +36,6 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
   late final GlobalKey<FormState> outgoingFormKey = GlobalKey<FormState>();
 
   late final TextEditingController locationController = TextEditingController();
-  late final TextEditingController batchController = TextEditingController();
   late final TextEditingController seriesQuantityController =
       TextEditingController();
   late final TextEditingController lpnController = TextEditingController();
@@ -86,7 +85,6 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
   void dispose() {
     // Clean up the controller when the widget is disposed.
     locationController.dispose();
-    batchController.dispose();
     lpnController.dispose();
     seriesQuantityController.dispose();
     assetsController.dispose();
@@ -184,9 +182,6 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
           LocationInput(
             controller: locationController,
           ),
-          BatchInput(
-            controller: batchController,
-          ),
           AssetsInput(
             controller: assetsController,
           ),
@@ -224,9 +219,7 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
                             series: SeriesDto(series: _seriesList),
                             cartonId: lpnController.text,
                             asset: assetsController.text,
-                            quantity: seriesLength,
-                        customer: "fasf",
-                        batch: batchController.text);
+                            quantity: seriesLength);
 
                         logger.d(request.toJson());
                         var response =

@@ -27,7 +27,7 @@ class _EntryPageState extends ConsumerState<EntryPage> {
     return ExitPopScope(
       child: SafeScaffold(
         appBar: AppBar(
-          title: Text("Entradas", ),
+          title: const Text("Entradas", ),
           centerTitle: true,
         ),
         child: const SingleChildScrollView(

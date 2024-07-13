@@ -92,8 +92,10 @@ flutter:
 fonts:
  - family: Ubuntu
    fonts:
-     - asset: assets/fonts/Ubuntu-Light.ttf
+     - asset: assets/fonts/Ubuntu-Regular.ttf
        style: normal
+     - asset: assets/fonts/Ubuntu-Bold.ttf
+       style: bold
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

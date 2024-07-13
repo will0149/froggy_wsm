@@ -1,0 +1,74 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+
+import '../../../device/utils/logger_config.dart';
+
+/**
+ * Made for cct_management.
+ * By User: josedominguez
+ * Date: 07/11/24
+ */
+
+class KillPopScope extends StatefulWidget {
+  final Widget child;
+
+  const KillPopScope({super.key, required this.child});
+
+  @override
+  State<KillPopScope> createState() => _KillPopScopeState();
+}
+
+class _KillPopScopeState extends State<KillPopScope> {
+  Future<bool?> _showBackDialog() {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Quieres Salir?'),
+          content: const Text(
+            'Estas seguro que quieres salir de la aplicación?',
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Salir'),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (isPop) async {
+        logger.i("isPop $isPop");
+        if (isPop) {
+          return;
+        }
+        final bool shouldPop = await _showBackDialog() ?? false;
+        if (context.mounted && shouldPop) {
+          Navigator.pop(context);
+        }
+      },
+      child: widget.child,
+    );
+  }
+}

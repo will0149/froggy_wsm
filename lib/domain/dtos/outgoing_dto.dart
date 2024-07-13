@@ -18,8 +18,6 @@ class OutgoingDto {
   String? isSeries;
   SeriesDto? series;
   String? quantity;
-  String? customer;
-  String? batch;
 
   OutgoingDto(
       {this.docnum,
@@ -30,9 +28,7 @@ class OutgoingDto {
         this.location,
         this.isSeries,
         this.series,
-        this.quantity,
-      this.customer,
-      this.batch});
+        this.quantity});
 
   OutgoingDto.fromJson(Map<String, dynamic> json) {
     docnum = json['docnum'];
@@ -44,8 +40,6 @@ class OutgoingDto {
     isSeries = json['isseries'];
     series = json['series'];
     quantity = json['quantity'];
-    customer = json['customer'];
-    batch = json['batch'];
   }
 
   Map<String, dynamic> toJson() {
@@ -59,8 +53,6 @@ class OutgoingDto {
     data['isseries'] = this.isSeries;
     data['series'] = this.series;
     data['quantity'] = this.quantity;
-    data['customer'] = this.customer;
-    data['batch'] = this.batch;
     return data;
   }
 }

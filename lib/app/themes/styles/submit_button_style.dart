@@ -1,3 +1,4 @@
+import 'package:cct_management/app/constants.dart';
 import 'package:cct_management/app/themes/styles/text_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
  */
 
 final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-  backgroundColor: Colors.deepOrangeAccent,
+  backgroundColor: backGroundColor,
   overlayColor: Colors.white,
   textStyle: getTextTheme().displayLarge,
   // minimumSize: Size(88, 36),
