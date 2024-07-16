@@ -34,7 +34,8 @@ class _MainPageState extends State<MainPage> {
     return KillPopScope(
       child: SafeScaffold(
           appBar: AppBar(
-            title: Text("Pantalla pricipal", ),
+            title: Text("Bienvenido",
+                style: Theme.of(context).textTheme.titleLarge),
             centerTitle: true,
           ),
           child: SingleChildScrollView(
@@ -54,14 +55,6 @@ class _MainPageState extends State<MainPage> {
                 ),
                 Wrap(
                   children: [
-                    SizedBox(
-                      height: size.height * 0.10,
-                      child: const Center(
-                          child: Text(
-                        "Bienvenido",
-                        style: TextStyle(fontSize: 40.0),
-                      )),
-                    ),
                     GridView.count(
                       padding: const EdgeInsets.all(10.0),
                       mainAxisSpacing: 10.0,
@@ -96,7 +89,7 @@ class _MainPageState extends State<MainPage> {
                 ),
               ],
             ),
-          )),
+          ),),
     );
   }
 }

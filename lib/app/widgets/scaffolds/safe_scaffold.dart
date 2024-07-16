@@ -17,7 +17,6 @@ class SafeScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true, //When textformfield is at bottom of screen and we cannot able to see what we are typing
-      extendBody: true,
       appBar: appBar,
       body: SafeArea(
         top: true,
