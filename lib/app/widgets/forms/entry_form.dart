@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cct_management/app/pages/entry/entry_page.dart';
+import 'package:cct_management/data/entities/clients/customer_entity.dart';
 import 'package:cct_management/domain/dtos/inbound_dto.dart';
 import 'package:cct_management/domain/dtos/series_dto.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/dimensions_dto.dart';
 import '../../../domain/providers/add_entry_provider.dart';
+import '../../../domain/providers/clients/customer_provider.dart';
 import '../../../domain/states/entry_form_view_notifier.dart';
 import '../../../domain/utils/clean_list_util.dart';
 import '../../constants.dart';
@@ -19,6 +23,7 @@ import 'inputs/dimensions_input.dart';
 import 'inputs/dropdown_button_input.dart';
 import 'inputs/location_input.dart';
 import 'inputs/lpn_input.dart';
+import 'inputs/objet_dropdown_button.dart';
 import 'inputs/quantity_input.dart';
 import 'inputs/series_input.dart';
 
@@ -87,7 +92,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
 
   @override
   Widget build(BuildContext context) {
-    // var clientLogic = ref.watch(clientsProvider);
+    final customersData = ref.watch(getCustomersProvider);
     final viewState = ref.watch(entryFormViewProvider);
     final readState = ref.read(entryFormViewProvider.notifier);
     final entryLogicProvider = ref.read(addEntryProvider.notifier);
@@ -149,13 +154,25 @@ class EntryFormState extends ConsumerState<EntryForm> {
                   readState.setSeriesList(value);
                 },
               ),
-              DropdownButtonInput(
-                onSelectParam: (value) {
-                  readState.setSelectedPerson(value);
-                },
-                title: "clientes",
-                values: clients,
-                icon: Icons.arrow_drop_down_circle_outlined,
+              customersData.when(
+                  data: (data){
+                    List<CustomerEntity>? clients = data.body?.data!;
+                    return ObjetDropdownButton(
+                      onSelectParam: (value) {
+                        readState.setSelectedPerson(value);
+                      },
+                      title: "clientes",
+                      values: clients,
+                      icon: Icons.arrow_drop_down_circle_outlined,
+                    );
+                  },
+                  error: (err, s) {
+                    logger.e("error ${err}");
+                    return Text(err.toString());
+                  },
+                  loading: () => const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  )
               ),
               DropdownButtonInput(
                 title: "Bodegas",
@@ -277,7 +294,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             quantity: viewState.seriesLength,
                             entryAt: viewState.selectedDate.toString(),
                             remarks: "observación",
-                            dimensions: viewState.dimensions?.toJson().toString(),
+                            dimensions: viewState.dimensions,
                         isseries: viewState.isSeries.toString());
 
                         // ScaffoldMessenger.of(context).showSnackBar(

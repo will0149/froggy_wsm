@@ -56,6 +56,7 @@ dev_dependencies:
   logger: ^2.0.2+1
   # runner para hacer builds los DTOs a .g.dart
   build_runner: ^2.4.11
+  riverpod_generator: ^2.4.0
   # dependencia dev para objetos deserializables DTOs
   json_serializable: ^6.8.0
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../device/utils/is_first_run.dart';
 import '../../constants.dart';
 import '../../widgets/forms/base_form_decorator.dart';
 import '../../widgets/forms/login_form.dart';
@@ -26,6 +27,14 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class LoginPageState extends ConsumerState<LoginPage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    var firstRun = IsFirstRun();
+    firstRun.setAfterFirstRun();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;

@@ -10,9 +10,10 @@ import 'package:flutter/material.dart';
 
 final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
   backgroundColor: backGroundColor,
+  foregroundColor: Colors.white,
   overlayColor: Colors.white,
   textStyle: getTextTheme().displayLarge,
   // minimumSize: Size(88, 36),
-  fixedSize: Size(double.infinity, 60),
-  padding: EdgeInsets.symmetric(horizontal: 16),
+  fixedSize: const Size(double.infinity, 60),
+  padding: const EdgeInsets.symmetric(horizontal: 16),
 );

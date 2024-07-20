@@ -76,6 +76,23 @@ class OperationRepository {
     }
   }
 
+  Future<Map<String, dynamic>> countValidate(TallyCountDto request) async {
+    var client = http.Client();
+    try{
+      var bodyEncoded = jsonEncode(request);
+      var uri = Uri.https(ApiPathsEnums.host.path, ApiPathsEnums.countValidate.path);
+      logger.t(uri);
+      logger.i(request.toJson());
+      final response = await client.post(uri, body: bodyEncoded,
+        headers: {"Content-Type": "application/json"},);
+      final json = jsonDecode(response.body);
+      logger.w(json);
+      return json;
+    }finally {
+      client.close();
+    }
+  }
+
   Future<Map<String, dynamic>> count(TallyCountDto request) async {
     var client = http.Client();
     try{

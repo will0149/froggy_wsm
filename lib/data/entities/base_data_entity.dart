@@ -11,7 +11,7 @@ import '../../device/utils/logger_config.dart';
 part 'base_data_entity.g.dart';
 
 @JsonSerializable(
-  genericArgumentFactories: true,
+  genericArgumentFactories: true, explicitToJson: true
 )
 class BaseDataEntity<T> {
   @JsonKey(name: 'data')

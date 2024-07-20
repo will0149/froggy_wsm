@@ -1,6 +1,7 @@
 
 
 import 'package:cct_management/domain/dtos/series_dto.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 /**
  * Made for cct_management.
@@ -8,24 +9,37 @@ import 'package:cct_management/domain/dtos/series_dto.dart';
  * Date: 06/12/24
  */
 
+part 'relocation_dto.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class RelocationDto {
-  String? user;
+  @JsonKey(name: 'asset')
   String? asset;
+  @JsonKey(name: 'series')
   SeriesDto? series;
+  @JsonKey(name: 'branch')
   String? branch;
+  @JsonKey(name: 'fromcartonid')
   String? fromCartonId;
+  @JsonKey(name: 'fromwarehouse')
   String? fromwarehouse;
+  @JsonKey(name: 'fromlocation')
   String? fromlocation;
+  @JsonKey(name: 'towardscartonid')
   String? towardsCartonId;
+  @JsonKey(name: 'towardswarehouse')
   String? towardswarehouse;
+  @JsonKey(name: 'towardslocation')
   String? towardslocation;
+  @JsonKey(name: 'quantity')
   String? quantity;
+  @JsonKey(name: 'remarks')
   String? remarks;
+  @JsonKey(name: 'isseries')
   String? isseries;
 
   RelocationDto(
-      {this.user,
-        this.asset,
+      {this.asset,
         this.series,
         this.branch,
         this.fromCartonId,
@@ -38,40 +52,7 @@ class RelocationDto {
         this.remarks,
       this.isseries});
 
-  RelocationDto.fromJson(Map<String, dynamic> json) {
-    user = json['user'];
-    asset = json['asset'];
-    series =
-    json['series'] != null ? new SeriesDto.fromJson(json['series']) : null;
-    branch = json['branch'];
-    fromCartonId = json['fromCartonId'];
-    fromwarehouse = json['fromwarehouse'];
-    fromlocation = json['fromlocation'];
-    towardsCartonId = json['cartonId'];
-    towardswarehouse = json['towardswarehouse'];
-    towardslocation = json['towardslocation'];
-    quantity = json['quantity'];
-    remarks = json['remarks'];
-    isseries = json['isseries'];
-  }
+  factory RelocationDto.fromJson(Map<String, dynamic> json) => _$RelocationDtoFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user'] = this.user;
-    data['asset'] = this.asset;
-    if (this.series != null) {
-      data['series'] = this.series!.toJson();
-    }
-    data['branch'] = this.branch;
-    data['fromcartonid'] = this.fromCartonId;
-    data['fromwarehouse'] = this.fromwarehouse;
-    data['fromlocation'] = this.fromlocation;
-    data['towardscartonid'] = this.towardsCartonId;
-    data['towardswarehouse'] = this.towardswarehouse;
-    data['towardslocation'] = this.towardslocation;
-    data['quantity'] = this.quantity;
-    data['remarks'] = this.remarks;
-    data['isseries'] = this.isseries;
-    return data;
-  }
+  Map<String, dynamic> toJson()  => _$RelocationDtoToJson(this);
 }

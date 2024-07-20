@@ -32,7 +32,7 @@ class _CountPageState extends State<CountPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: double.infinity,
                 height: size.height,
                 child: const BaseFormDecorator(

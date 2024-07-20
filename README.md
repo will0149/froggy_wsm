@@ -1,16 +1,15 @@
-# cct_management
+# 1. cct_management
 
 App for logistic management
 
-## Getting Started
+## 1.1. Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 1.2. Helpers commands
+Building serializable objects
+```shell
+dart run build_runner build --delete-conflicting-outputs
+```
+Build apk release or debug
+```shell
+flutter build apk --release 
+```

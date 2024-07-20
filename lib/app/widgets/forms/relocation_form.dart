@@ -244,7 +244,6 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                           //     selectedWarehouseFrom!, selectedWarehouseTo!
                           // )){
                             var request = RelocationDto(
-                                user: "",
                                 asset: assetsController.text,
                                 isseries: "$isSeries",
                                 series: SeriesDto(series: _seriesList),

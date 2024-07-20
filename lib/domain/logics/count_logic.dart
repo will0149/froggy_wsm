@@ -21,48 +21,75 @@ class CountLogic extends ChangeNotifier {
   CountLogic() {
     repository = OperationRepository();
   }
-  Future<BaseResponseEntity<BaseDataEntity<Object>>?> count(TallyCountDto request) async {
+
+  Future<BaseResponseEntity<BaseDataEntity<Object>>?> count(
+      TallyCountDto request) async {
     var result = <String, dynamic>{};
     BaseResponseEntity<BaseDataEntity<Object>>? responseEntity;
     try {
       result = await repository.count(request);
-      if(result.containsKey('code')){
+      if (result.containsKey('code')) {
         code = result['code'];
-      }else{
+      } else {
         code = result['status']['code'];
       }
-      if(code >= 200 && code < 300){
-        responseEntity =
-        BaseResponseEntity<BaseDataEntity<Object>>.fromJson(
+      if (code >= 200 && code < 300) {
+        responseEntity = BaseResponseEntity<BaseDataEntity<Object>>.fromJson(
             result,
-                (json) => BaseDataEntity<Object>.fromJson(
-                json as Map<String, dynamic>,
-                    (json) =>
-                Object));
+            (json) => BaseDataEntity<Object>.fromJson(
+                json as Map<String, dynamic>, (json) => Object));
       } else {
-        if(result.containsKey('code')){
-          var status = {'status': {'code': result['code'], 'msg': 'Algo fallo' }};
-          responseEntity =
-          BaseResponseEntity<BaseDataEntity<Object>>.fromJson(
-              status,
-                  (json) => BaseDataEntity<Object>());
-        }else {
+        if (result.containsKey('code')) {
+          var status = {
+            'status': {'code': result['code'], 'msg': 'Algo fallo'}
+          };
+          responseEntity = BaseResponseEntity<BaseDataEntity<Object>>.fromJson(
+              status, (json) => BaseDataEntity<Object>());
+        } else {
           responseEntity?.status = StatusEntity.fromJson(result['status']);
         }
       }
       notifyListeners();
-    } on Exception catch(e){
+    } on Exception catch (e) {
       logger.e(e.toString());
-      if(result.containsKey('code')){
-        var status = {'code': result['code'], 'msg': 'Algo fallo' };
+      if (result.containsKey('code')) {
+        var status = {'code': result['code'], 'msg': 'Algo fallo'};
         result.addAll(status);
         responseEntity?.status = StatusEntity.fromJson(result['status']);
-      }else {
+      } else {
         responseEntity?.status = StatusEntity.fromJson(result['status']);
       }
       notifyListeners();
     }
-    logger.d("relocate responseEntity ${responseEntity?.toJson((json) => json.toJson((json)=> {}))}");
+    logger.d(
+        "relocate responseEntity ${responseEntity?.toJson((json) => json.toJson((json) => {}))}");
+    return responseEntity;
+  }
+
+  Future<BaseResponseEntity<BaseDataEntity<Object>>?> countValidate(
+      TallyCountDto request) async {
+    var result = <String, dynamic>{};
+    BaseResponseEntity<BaseDataEntity<Object>>? responseEntity;
+    try {
+      result = await repository.countValidate(request);
+      responseEntity = BaseResponseEntity<BaseDataEntity<Object>>.fromJson(
+          result,
+          (json) => BaseDataEntity<Object>.fromJson(
+              json as Map<String, dynamic>, (json) => Object));
+    } on Exception catch (e) {
+      logger.e(e.toString());
+      if (result.containsKey('code')) {
+        var status = {'code': result['code'], 'msg': 'Algo fallo'};
+        result.addAll(status);
+        responseEntity?.status = StatusEntity.fromJson(result['status']);
+      } else {
+        responseEntity?.status = StatusEntity.fromJson(result['status']);
+      }
+      notifyListeners();
+    }
+    logger.d(
+        "relocate responseEntity ${responseEntity?.toJson((json) => json.toJson((json) => {}))}");
+    notifyListeners();
     return responseEntity;
   }
 }

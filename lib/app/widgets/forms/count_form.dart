@@ -27,14 +27,15 @@ class CountForm extends ConsumerStatefulWidget {
   const CountForm({super.key});
 
   @override
-  _CountFormState createState() => _CountFormState();
+  CountFormState createState() => CountFormState();
 }
 
-class _CountFormState extends ConsumerState<CountForm> {
+class CountFormState extends ConsumerState<CountForm> {
   late final GlobalKey<FormState> countFormKey = GlobalKey<FormState>();
 
   late final TextEditingController locationController = TextEditingController();
-  late final TextEditingController seriesQuantityController = TextEditingController();
+  late final TextEditingController seriesQuantityController =
+      TextEditingController();
   late final TextEditingController lpnController = TextEditingController();
   late final TextEditingController assetsController = TextEditingController();
 
@@ -46,6 +47,10 @@ class _CountFormState extends ConsumerState<CountForm> {
   bool isSeries = false;
   bool _valid = false;
   bool isLoading = false;
+
+  TallyCountDto data = TallyCountDto();
+
+  bool dataValidate = false;
 
   @override
   void initState() {
@@ -136,7 +141,7 @@ class _CountFormState extends ConsumerState<CountForm> {
                     setState(() {
                       seriesLength = v.toInt().toString();
                     });
-                  }else{
+                  } else {
                     seriesLength = "0";
                   }
                 },
@@ -179,65 +184,144 @@ class _CountFormState extends ConsumerState<CountForm> {
           ),
           isLoading
               ? Container(
-                  margin:  EdgeInsets.all(10.0),
-                  child:  Center(
+                  margin: const EdgeInsets.all(10.0),
+                  child: const Center(
                     child: CircularProgressIndicator(),
                   ))
               : Container(
                   width: size.width,
                   margin: EdgeInsets.all(10.0),
-                  child: OutlinedButton(
-                    onPressed: () {
-                      setState(() {
-                        _valid = countFormKey.currentState!.validate();
-                        isLoading = true;
-                      });
-                      if (_valid) {
-                        var request = TallyCountDto(
-                          device: "phone",
-                          branch: "1",
-                          warehouse: "asdfas",
-                          location: "jsfs",
-                          cartonid: "afas",
-                          asset: assetsController.text,
-                          isSeries: isSeries.toString(),
-                          series: SeriesDto(series: _seriesList),
-                          quantity: seriesLength,
-                          remark: "sfafafas"
-                        );
+                  child: dataValidate
+                      ? OutlinedButton(
+                          onPressed: () {
+                            setState(() {
+                              _valid = countFormKey.currentState!.validate();
+                              isLoading = true;
+                            });
+                            if (_valid) {
+                              logger.d('save ${data.toJson()}');
+                              tallyCount.count(data).then((value) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                var code = value?.status?.code;
 
-                        logger.d(request.toJson());
-                        tallyCount.count(request).then((value) {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          var code = value?.status?.code;
-
-                          if (code! >= 200 && code < 300) {
-                            showSuccessToast("Agregado Correctamente");
-                            countFormKey.currentState?.reset();
-                            context.goNamed(CountPage.routeName);
-                          }
-                          logger.i("Adding Entry $code");
-                        }).whenComplete(() {
-                          logger.i("finished Entry");
-                          setState(() {
-                            isLoading = false;
-                          });
-                        }).catchError((error) {
-                          setState(() {
-                            isLoading = false;
-                          });
-                          showErrorToast("Algo fallo!");
-                        });
-                      }
-                    },
-                    child: Text("Guardar",
-                        style: Theme.of(context).textTheme.headlineMedium),
-                  ),
+                                if (code! >= 200 && code < 300) {
+                                  showSuccessToast("Agregado Correctamente");
+                                  countFormKey.currentState?.reset();
+                                  context.goNamed(CountPage.routeName);
+                                }
+                                logger.i("Adding Entry $code");
+                              }).whenComplete(() {
+                                logger.i("finished Entry");
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }).catchError((error) {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                showErrorToast("Algo fallo!");
+                              });
+                            }
+                          },
+                          child: Text("Guardar",
+                              style:
+                                  Theme.of(context).textTheme.headlineMedium),
+                        )
+                      : OutlinedButton(
+                          style: ElevatedButton.styleFrom(
+                            // Define button's look with styleFrom
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors
+                                .blueAccent, // Set the text (and icon) color
+                            shape: RoundedRectangleBorder(
+                              // The button's outline is defined as a rounded rectangle with circular corners
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _valid = countFormKey.currentState!.validate();
+                              isLoading = true;
+                              data = TallyCountDto(
+                                  device: "phone",
+                                  branch: "1",
+                                  warehouse: selectedWarehouse,
+                                  location: locationController.text,
+                                  cartonid: lpnController.text,
+                                  asset: assetsController.text,
+                                  isSeries: isSeries.toString(),
+                                  series: SeriesDto(series: _seriesList),
+                                  quantity: seriesLength,
+                                  remark: "sfafafas");
+                            });
+                            if (_valid) {
+                              logger.d('validate ${data.toJson()}');
+                              tallyCount.countValidate(data).then((value) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                var code = value?.status?.code;
+                                logger.e("code in form $code");
+                                if (code! >= 200 && code < 300) {
+                                  showSuccessToast("Datos validados");
+                                  setState(() {
+                                    dataValidate = true;
+                                    isLoading = false;
+                                  });
+                                } else {
+                                  showAlert(value?.status!.toJson().toString());
+                                }
+                                logger.i("Adding Entry $code");
+                              }).whenComplete(() {
+                                logger.i("finished Entry");
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }).catchError((error) {
+                                logger.e(error.toString());
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                showErrorToast("Algo fallo!");
+                              });
+                            }
+                          },
+                          child: Text("Validar datos",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium
+                                  ?.copyWith(color: Colors.white)),
+                        ),
                 ),
         ],
       ),
     );
+  }
+
+  void showAlert(String? message) {
+    showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            elevation: 10.0,
+            title: const Text('Datos Valdados'),
+            content: Text(
+              '$message\nAqui se muestran los valores no existentes',
+            ),
+            actions: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+                child: const Text('Ok'),
+                onPressed: () {
+                  Navigator.pop(context, false);
+                },
+              ),
+            ],
+          );
+        });
   }
 }

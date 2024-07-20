@@ -13,6 +13,7 @@ enum ApiPathsEnums {
   inbound(path: '/api/v1/inbound'),
   outgoing(path: '/api/v1/outbound'),
   count(path: '/api/v1/tally'),
+  countValidate(path: '/api/v1/tally/compare'),
   relocation(path: '/api/v1/relocation'),
   clients(path: '/api/v1/customers'),
   warehouses(path: '/api/v1/warehouses');
