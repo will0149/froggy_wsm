@@ -7,6 +7,7 @@ import '../../../domain/dtos/inbound_dto.dart';
 import '../../../domain/dtos/outgoing_dto.dart';
 import '../../../domain/dtos/relocation_dto.dart';
 import '../../../domain/dtos/tally_count_dto.dart';
+import '../../../flavors.dart';
 import '../../api_paths_enums.dart';
 import '../../entities/relocation_entity.dart';
 
@@ -15,13 +16,13 @@ import '../../entities/relocation_entity.dart';
  * By User: josedominguez
  * Date: 06/11/24
  */
-
+// String baseUrl = FlavorConfig.instance.variables["baseUrl"];
 class OperationRepository {
   Future<Map<String, dynamic>> entryAdd(InboundDto request) async {
     var client = http.Client();
     try {
       var bodyEncoded = jsonEncode(request);
-      var uri = Uri.https(ApiPathsEnums.host.path, ApiPathsEnums.inbound.path);
+      var uri = Uri.https(F.baseUrl, ApiPathsEnums.inbound.path);
       logger.t(uri);
       logger.i(request.toJson());
       final response = await client.post(

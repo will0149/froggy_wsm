@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cct_management/flavors.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../device/utils/logger_config.dart';
@@ -15,7 +16,7 @@ class ClientRepository {
   Future<Map<String, dynamic>> getCustomers() async {
     var client = http.Client();
     try {
-      var uri = Uri.https(ApiPathsEnums.host.path, ApiPathsEnums.clients.path);
+      var uri = Uri.https(F.baseUrl, ApiPathsEnums.clients.path);
       logger.t(uri);
       final response = await client.get(
         uri,

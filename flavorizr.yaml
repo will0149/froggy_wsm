@@ -1,0 +1,50 @@
+ide: idea
+flavors:
+  development:
+    app:
+      name: "Development App"
+
+    android:
+      applicationId: "com.cct.cct_management"
+      resValues:
+        base_url:
+          type: "string"
+          value: "https//cct-api-dev.froggysoft.app"
+    ios:
+      bundleId: "com.cct.cctManagement"
+      resValues:
+        base_url:
+          type: "string"
+          value: "https//cct-api-dev.froggysoft.app"
+  stage:
+    app:
+      name: "Stage App"
+
+    android:
+      applicationId: "com.cct.cct_management"
+      resValues:
+        base_url:
+          type: "string"
+          value: "https//cct-api-stg.froggysoft.app"
+    ios:
+      bundleId: "com.cct.cctManagement"
+      resValues:
+        base_url:
+          type: "string"
+          value: "https//cct-api-stg.froggysoft.app"
+  production:
+    app:
+      name: "Production App"
+
+    android:
+      applicationId: "com.cct.cct_management"
+      resValues:
+        base_url:
+          type: "string"
+          value: "https//cct-api-dev.froggysoft.app"
+    ios:
+      bundleId: "com.cct.cctManagement"
+      resValues:
+        base_url:
+          type: "string"
+          value: " https//cct-api.froggysoft.app"

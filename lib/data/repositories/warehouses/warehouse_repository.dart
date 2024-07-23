@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../../device/utils/logger_config.dart';
+import '../../../flavors.dart';
 import '../../api_paths_enums.dart';
 
 /**
@@ -16,7 +17,7 @@ class WarehouseRepository {
   Future<Map<String, dynamic>> getCustomers() async {
     var client = http.Client();
     try {
-      var uri = Uri.https(ApiPathsEnums.host.path, ApiPathsEnums.warehouses.path);
+      var uri = Uri.https(F.baseUrl, ApiPathsEnums.warehouses.path);
       logger.t(uri);
       final response = await client.get(
         uri,
