@@ -1,20 +1,18 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../device/utils/logger_config.dart';
-
 /**
- * Made for cctmanagement.
+ * Made for cct_management.
  * By User: josedominguez
- * Date: 06/16/24
+ * Date: 07/22/24
  */
-
-part 'customer_entity.g.dart';
+part 'warehouse_entity.g.dart';
 
 @JsonSerializable(
     explicitToJson: true,
     ignoreUnannotated: true
 )
-class CustomerEntity {
+class WarehouseEntity {
   @JsonKey(name: 'id')
   int? id;
   @JsonKey(name: 'name')
@@ -32,7 +30,7 @@ class CustomerEntity {
   @JsonKey(name: 'updated_at')
   String? updatedAt;
 
-  CustomerEntity(
+  WarehouseEntity(
       {this.name,
         this.description,
         this.barcode,
@@ -41,7 +39,7 @@ class CustomerEntity {
         this.createdAt,
         this.updatedAt});
 
-  factory CustomerEntity.fromJson(Map<String, dynamic> json) => _$CustomerEntityFromJson(json);
+  factory WarehouseEntity.fromJson(Map<String, dynamic> json) => _$WarehouseEntityFromJson(json);
 
-  Map<String, dynamic> toJson() => _$CustomerEntityToJson(this);
+  Map<String, dynamic> toJson() => _$WarehouseEntityToJson(this);
 }

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../device/utils/logger_config.dart';
@@ -18,9 +16,9 @@ class EntryFormViewNotifier extends AutoDisposeNotifier<EntryFormViewState> {
   String selectedPerson = " ";
   String selectedWarehouse = " ";
 
-  DateTime? selectedDate;
+  String selectedDate = " ";
 
-  DateTime? expirationDate;
+  String expirationDate = " ";
   bool isChecked = false;
   String seriesLength = "0";
   DimensionsDto dimensions = DimensionsDto(height: "0", width: "0", long: "0");
@@ -30,6 +28,8 @@ class EntryFormViewNotifier extends AutoDisposeNotifier<EntryFormViewState> {
   bool isLoading = false;
 
   List<String> seriesList = [];
+
+  bool componentsLoading = true;
 
   @override
   EntryFormViewState build() {
@@ -46,12 +46,12 @@ class EntryFormViewNotifier extends AutoDisposeNotifier<EntryFormViewState> {
     setState();
   }
 
-  void setSelectedDate(DateTime value) {
+  void setSelectedDate(String value) {
     selectedDate = value;
     setState();
   }
 
-  void setExpirationDate(DateTime value) {
+  void setExpirationDate(String value) {
     expirationDate = value;
     setState();
   }
@@ -96,6 +96,11 @@ class EntryFormViewNotifier extends AutoDisposeNotifier<EntryFormViewState> {
     setState();
   }
 
+  void setComponentsLoading(bool value) {
+    componentsLoading = value;
+    setState();
+  }
+
   void setState() {
     logger.d("current value valid ${state.isValid}");
     state = EntryFormViewState(
@@ -110,10 +115,12 @@ class EntryFormViewNotifier extends AutoDisposeNotifier<EntryFormViewState> {
         isSeries: isSeries,
         isValid: isValid,
         isLoading: isLoading,
-        seriesList: seriesList);
+        seriesList: seriesList,
+        componentsLoading: componentsLoading);
   }
 }
 
-final entryFormViewProvider = AutoDisposeNotifierProvider<EntryFormViewNotifier, EntryFormViewState>(() {
+final entryFormViewProvider =
+    AutoDisposeNotifierProvider<EntryFormViewNotifier, EntryFormViewState>(() {
   return EntryFormViewNotifier();
 });

@@ -10,7 +10,9 @@ import 'package:json_annotation/json_annotation.dart';
 part 'base_response_entity.g.dart';
 
 @JsonSerializable(
-  genericArgumentFactories: true, explicitToJson: true
+  genericArgumentFactories: true,
+    explicitToJson: true,
+    ignoreUnannotated: true
 )
 class BaseResponseEntity<T> {
   @JsonKey(name: 'body')

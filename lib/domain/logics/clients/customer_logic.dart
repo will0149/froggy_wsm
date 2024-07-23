@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:cct_management/data/entities/base_response_entity.dart';
 import 'package:cct_management/data/entities/clients/customer_entity.dart';
+import 'package:cct_management/data/entities/status_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../data/entities/base_data_entity.dart';
+import '../../../data/entities/clients/client_base_entity.dart';
 import '../../../data/repositories/clients/client_repository.dart';
 import '../../../device/utils/logger_config.dart';
 
@@ -22,32 +24,32 @@ class CustomerLogic extends ChangeNotifier {
   CustomerLogic() {
     repository = ClientRepository();
   }
-  Future<BaseResponseEntity<BaseDataEntity<List<CustomerEntity>?>>>
+  Future<ClientBaseEntity>
       getClients() async {
-    var result = BaseResponseEntity<BaseDataEntity<List<CustomerEntity>?>>();
+    var serviceResponse = <String, dynamic>{};
+    ClientBaseEntity responseEntity = ClientBaseEntity();
     try {
-      var serviceResponse = await repository.getCustomers();
-      logger.i("$serviceResponse");
+      serviceResponse = await repository.getCustomers();
       List<CustomerEntity> clients = [];
       if("${serviceResponse['status']['code']}" == "200"){
-        clients = (serviceResponse['body'] as List)
-        .map((i) => CustomerEntity.fromJson(i))
-        .toList();
+        responseEntity = ClientBaseEntity.fromJson(
+          serviceResponse);
+        logger.i("clients ${responseEntity.toJson()}");
 
-        logger.i("clients ${clients.length}");
+        // responseEntity.body? = clients;
+        if(serviceResponse["body"].isEmpty){
+          responseEntity.status?.code = 404;
+          responseEntity.status?.msg = "No se han encontrado clientes";
+        }
       }
-      BaseResponseEntity<BaseDataEntity<List<CustomerEntity>?>>.fromJson(
-        serviceResponse,
-        (json) => BaseDataEntity<List<CustomerEntity>>.fromJson(
-            json as Map<String, dynamic>,
-            clients as List<CustomerEntity> Function(Object? clients)
-        ));
       notifyListeners();
     } on Exception catch (e) {
       logger.e(e.toString());
-      return result;
+      responseEntity.status?.code = 500;
+      responseEntity.status?.msg = "Internal Error";
+      notifyListeners();
     }
-    return result;
+    return responseEntity;
   }
 }
 

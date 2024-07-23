@@ -12,9 +12,8 @@ import 'package:intl/date_symbol_data_local.dart';
 
 class DateInput extends ConsumerStatefulWidget {
   final String? title;
-  DateTime? selectedDate;
   Function(DateTime) onSelectParam;
-  DateInput({super.key, this.title, required this.selectedDate, required this.onSelectParam});
+  DateInput({super.key, this.title, required this.onSelectParam});
 
   @override
   DateInputState createState() => DateInputState();

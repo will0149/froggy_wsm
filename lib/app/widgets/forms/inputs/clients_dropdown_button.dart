@@ -9,25 +9,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
  * Date: 07/17/24
  */
 
-class ObjetDropdownButton extends ConsumerStatefulWidget {
+class ClientsDropdownButton extends ConsumerStatefulWidget {
   String title;
   List<CustomerEntity>? values;
   Function(String) onSelectParam;
   IconData? icon;
   // List<DropdownMenuItem<dynamic>>? items;
 
-  ObjetDropdownButton({super.key, this.title = "", required this.values, required this.onSelectParam, this.icon});
+  ClientsDropdownButton({super.key, this.title = "", required this.values, required this.onSelectParam, this.icon});
 
   @override
   ObjetDropdownButtonState createState() => ObjetDropdownButtonState();
 }
 
-class ObjetDropdownButtonState extends ConsumerState<ObjetDropdownButton> {
+class ObjetDropdownButtonState extends ConsumerState<ClientsDropdownButton> {
 
   @override
   Widget build(BuildContext context) {
     List<CustomerEntity>? clients =  widget.values;
-    String? selectedValue = clients?[0].id.toString();
+    if(clients!.length == 1){
+      clients.add(CustomerEntity(name: ""));
+    }
+    String? selectedValue = clients[0].name.toString();
     return DropdownButtonFormField<String>(
       decoration:  InputDecoration(
         hintText: 'titulo',
@@ -43,10 +46,10 @@ class ObjetDropdownButtonState extends ConsumerState<ObjetDropdownButton> {
         });
       },
       value: selectedValue,
-      items: clients?.map((CustomerEntity value) {
+      items: clients.map((CustomerEntity value) {
         logger.i("${value.toJson()}");
         return DropdownMenuItem(
-          value: "${value.id}",
+          value: "${value.name}",
           child: Text("${value.name}"),
         );
       }).toList(),

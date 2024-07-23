@@ -50,6 +50,9 @@ class InboundDto {
   @JsonKey(name: 'isseries')
   String? isseries;
 
+  @JsonKey(name: 'container')
+  String? container;
+
 
   InboundDto(
       {this.docnum,
@@ -69,7 +72,8 @@ class InboundDto {
       this.entryAt,
       this.remarks,
       this.dimensions,
-      this.isseries});
+      this.isseries,
+      this.container});
 
   factory InboundDto.fromJson(Map<String, dynamic> json)  => _$InboundDtoFromJson(json);
 

@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../data/entities/base_data_entity.dart';
 import '../../../data/entities/base_response_entity.dart';
+import '../../../data/entities/clients/client_base_entity.dart';
 import '../../logics/clients/customer_logic.dart';
 
 /**
@@ -14,6 +15,6 @@ import '../../logics/clients/customer_logic.dart';
 part 'customer_provider.g.dart';
 
 @riverpod
-Future<BaseResponseEntity<BaseDataEntity<List<CustomerEntity>?>>> getCustomers(GetCustomersRef ref) async {
+Future<ClientBaseEntity> getCustomers(GetCustomersRef ref) async {
   return ref.read(customerLogicProvider).getClients();
 }

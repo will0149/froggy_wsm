@@ -1,12 +1,11 @@
-import 'dart:convert';
-
 import 'package:cct_management/app/pages/entry/entry_page.dart';
-import 'package:cct_management/data/entities/clients/customer_entity.dart';
 import 'package:cct_management/domain/dtos/inbound_dto.dart';
 import 'package:cct_management/domain/dtos/series_dto.dart';
+import 'package:cct_management/domain/providers/warehouses/get_warehouses_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/dimensions_dto.dart';
@@ -18,14 +17,15 @@ import '../../constants.dart';
 import '../toasts/build_toasts.dart';
 import 'inputs/assets_input.dart';
 import 'inputs/batch_input.dart';
+import 'inputs/clients_dropdown_button.dart';
 import 'inputs/date_input.dart';
 import 'inputs/dimensions_input.dart';
 import 'inputs/dropdown_button_input.dart';
 import 'inputs/location_input.dart';
 import 'inputs/lpn_input.dart';
-import 'inputs/objet_dropdown_button.dart';
 import 'inputs/quantity_input.dart';
 import 'inputs/series_input.dart';
+import 'inputs/warehouses_dropdown_button.dart';
 
 /**
  * Made for cct_management.
@@ -61,7 +61,8 @@ class EntryFormState extends ConsumerState<EntryForm> {
   void validateRequest() {
     final viewModel = ref.watch(entryFormViewProvider);
     final readState = ref.read(entryFormViewProvider.notifier);
-    logger.d("validating seriesLength ${viewModel.seriesLength} list ${viewModel.seriesList.length}");
+    logger.d(
+        "validating seriesLength ${viewModel.seriesLength} list ${viewModel.seriesList.length}");
     if (viewModel.isSeries) {
       if (int.parse(viewModel.seriesLength) != viewModel.seriesList.length) {
         readState.setIsValid(false);
@@ -93,6 +94,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
   @override
   Widget build(BuildContext context) {
     final customersData = ref.watch(getCustomersProvider);
+    final warehouseData = ref.watch(getWarehousesProvider);
     final viewState = ref.watch(entryFormViewProvider);
     final readState = ref.read(entryFormViewProvider.notifier);
     final entryLogicProvider = ref.read(addEntryProvider.notifier);
@@ -140,7 +142,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                   logger.f("Tamaño de series $v");
                   if (v != null) {
                     readState.setSeriesLength(v.toInt().toString());
-                  }else{
+                  } else {
                     readState.setSeriesLength(v.toInt().toString());
                   }
                 },
@@ -155,25 +157,55 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 },
               ),
               customersData.when(
-                  data: (data){
-                    List<CustomerEntity>? clients = data.body?.data!;
-                    return ObjetDropdownButton(
+                  data: (data) {
+                    // readState.setComponentsLoading(false);
+                    logger.i("incoming data ${data.toString()}");
+                    return ClientsDropdownButton(
                       onSelectParam: (value) {
                         readState.setSelectedPerson(value);
                       },
                       title: "clientes",
-                      values: clients,
+                      values: data.body,
                       icon: Icons.arrow_drop_down_circle_outlined,
                     );
                   },
                   error: (err, s) {
-                    logger.e("error ${err}");
+                    logger.e("error ${s}");
                     return Text(err.toString());
                   },
-                  loading: () => const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  )
-              ),
+                  loading: () => Skeletonizer(
+                        enabled: true,
+                        enableSwitchAnimation: true,
+                        child: DropdownButton<String>(
+                          items: [],
+                          onChanged: (Object? value) {},
+                        ),
+                      )),
+              warehouseData.when(
+                  data: (data) {
+                    // readState.setComponentsLoading(false);
+                    logger.i("incoming data ${data.toString()}");
+                    return WarehousesDropdownButton(
+                      onSelectParam: (value) {
+                        readState.setSelectedWarehouse(value);
+                      },
+                      title: "Bodegas",
+                      values: data.body,
+                      icon: Icons.arrow_drop_down_circle_outlined,
+                    );
+                  },
+                  error: (err, s) {
+                    logger.e("error ${s}");
+                    return Text(err.toString());
+                  },
+                  loading: () => Skeletonizer(
+                        enabled: true,
+                        enableSwitchAnimation: true,
+                        child: DropdownButton<String>(
+                          items: [],
+                          onChanged: (Object? value) {},
+                        ),
+                      )),
               DropdownButtonInput(
                 title: "Bodegas",
                 values: bodegas,
@@ -208,16 +240,16 @@ class EntryFormState extends ConsumerState<EntryForm> {
               DateInput(
                 title: 'Fecha de Llegada',
                 onSelectParam: (value) {
-                  readState.setSelectedDate(value);
+                  readState.setSelectedDate(value.toString());
                 },
-                selectedDate: viewState.selectedDate,
+                // selectedDate: DateTime.parse(viewState.selectedDate),
               ),
               DateInput(
                 onSelectParam: (value) {
-                  readState.setExpirationDate(value);
+                  readState.setExpirationDate(value.toString());
                 },
                 title: 'Fecha de Caducidad',
-                selectedDate: viewState.expirationDate,
+                // selectedDate: DateTime.parse(viewState.expirationDate),
               ),
               Container(
                 width: size.width * 0.40,
@@ -263,17 +295,15 @@ class EntryFormState extends ConsumerState<EntryForm> {
                   margin: EdgeInsets.all(10.0),
                   child: OutlinedButton(
                     onPressed: () {
-                      logger.w("entryFormKey ${entryFormKey.currentState!.validate()}");
-                      // readState.setIsValid(entryFormKey.currentState!.validate());
                       readState.setIsLoading(true);
-
                       validateRequest();
                       logger.i("form valid ${viewState.isValid}");
                       if (entryFormKey.currentState!.validate()) {
                         if (viewState.seriesList.isNotEmpty) {
                           for (String v in viewState.seriesList) {
                             if (v.contains(" ")) {
-                              viewState.seriesList.addAll(cleanListUtil.cleanList(v));
+                              viewState.seriesList
+                                  .addAll(cleanListUtil.cleanList(v));
                             }
                           }
                         }
@@ -295,7 +325,8 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             entryAt: viewState.selectedDate.toString(),
                             remarks: "observación",
                             dimensions: viewState.dimensions,
-                        isseries: viewState.isSeries.toString());
+                            isseries: viewState.isSeries.toString(),
+                            container: containerNumberController.text);
 
                         // ScaffoldMessenger.of(context).showSnackBar(
                         //   const SnackBar(content: Text("Procesando peticion")),
@@ -306,11 +337,12 @@ class EntryFormState extends ConsumerState<EntryForm> {
                           if (code! >= 200 && code < 300) {
                             readState.setSelectedWarehouse("");
                             readState.setSelectedPerson("");
-                            readState.setSelectedDate(DateTime.now());
-                            readState.setExpirationDate(DateTime.now());
+                            readState.setSelectedDate("");
+                            readState.setExpirationDate("");
                             readState.setIsChecked(false);
                             readState.setSeriesLength("0");
-                            readState.setDimensions(DimensionsDto(height: "0", width: "0", long: "0"));
+                            readState.setDimensions(DimensionsDto(
+                                height: "0", width: "0", long: "0"));
                             readState.setBadStateItem(false);
                             readState.setIsSeries(false);
                             readState.setIsValid(false);
@@ -319,14 +351,16 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             showSuccessToast("Agregado Correctamente");
                             entryFormKey.currentState?.reset();
                             context.goNamed(EntryPage.routeName);
+                          }else {
+                            showErrorToast("Ha fallado el envio con status $code!");
                           }
                         }).whenComplete(() {
                           logger.i("finished Entry");
                           readState.setIsLoading(false);
                         }).catchError((error) {
-                          showErrorToast("Algo fallo!");
+                          showErrorToast("Error en el envio de datos!");
                         });
-                      }else {
+                      } else {
                         readState.setIsLoading(false);
                       }
                     },

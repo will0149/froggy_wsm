@@ -10,8 +10,8 @@ BaseDataEntity<T> _$BaseDataEntityFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) =>
-    BaseDataEntity<T>(
-      data: _$nullableGenericFromJson(json['data'], fromJsonT),
+    BaseDataEntity<T>._(
+      _$nullableGenericFromJson(json['data'], fromJsonT),
     );
 
 Map<String, dynamic> _$BaseDataEntityToJson<T>(

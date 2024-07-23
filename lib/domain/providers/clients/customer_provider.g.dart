@@ -6,12 +6,12 @@ part of 'customer_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getCustomersHash() => r'f182f0aafdb3bd1e08a1379c4c0c0bf36c37b742';
+String _$getCustomersHash() => r'317ef5464d36f0fe96ef0f6e3a13645a8de373db';
 
 /// See also [getCustomers].
 @ProviderFor(getCustomers)
-final getCustomersProvider = AutoDisposeFutureProvider<
-    BaseResponseEntity<BaseDataEntity<List<CustomerEntity>?>>>.internal(
+final getCustomersProvider =
+    AutoDisposeFutureProvider<ClientBaseEntity>.internal(
   getCustomers,
   name: r'getCustomersProvider',
   debugGetCreateSourceHash:
@@ -20,7 +20,6 @@ final getCustomersProvider = AutoDisposeFutureProvider<
   allTransitiveDependencies: null,
 );
 
-typedef GetCustomersRef = AutoDisposeFutureProviderRef<
-    BaseResponseEntity<BaseDataEntity<List<CustomerEntity>?>>>;
+typedef GetCustomersRef = AutoDisposeFutureProviderRef<ClientBaseEntity>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
