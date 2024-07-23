@@ -87,7 +87,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
                     color: Colors.black87,
                     fontFamily: "GothicA1-Bold"
                 ),
-                "Atheneox Studio",
+                "Atheneox Studios",
               ),
             ),
           ],
