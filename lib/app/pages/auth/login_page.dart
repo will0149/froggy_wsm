@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../device/utils/is_first_run.dart';
+import '../../../flavors.dart';
 import '../../constants.dart';
 import '../../widgets/forms/base_form_decorator.dart';
 import '../../widgets/forms/login_form.dart';
@@ -40,6 +41,10 @@ class LoginPageState extends ConsumerState<LoginPage> {
     var size = MediaQuery.of(context).size;
     return KillPopScope(
       child: SafeScaffold(
+        appBar: AppBar(
+          title: Text(F.name),
+          centerTitle: true,
+        ),
         child: Stack(
           fit: StackFit.expand,
           children: [

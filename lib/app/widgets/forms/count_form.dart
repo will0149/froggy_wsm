@@ -6,6 +6,7 @@ import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/series_dto.dart';
 import '../../../domain/dtos/tally_count_dto.dart';
 import '../../../domain/providers/tally_count_provider.dart';
+import '../../../domain/providers/warehouses/get_warehouses_provider.dart';
 import '../../../domain/states/entry_form_view_notifier.dart';
 import '../../constants.dart';
 import '../../pages/count/count_page.dart';
@@ -16,6 +17,7 @@ import 'inputs/location_input.dart';
 import 'inputs/lpn_input.dart';
 import 'inputs/quantity_input.dart';
 import 'inputs/series_input.dart';
+import 'inputs/warehouses_dropdown_button.dart';
 
 /**
  * Made for cct_management.
@@ -92,7 +94,7 @@ class CountFormState extends ConsumerState<CountForm> {
 
   @override
   Widget build(BuildContext context) {
-    var entryFormProvider = ref.watch(entryFormViewProvider);
+    final warehouseData = ref.watch(getWarehousesProvider);
     var tallyCount = ref.watch(tallyCountProvider);
     var size = MediaQuery.of(context).size;
     return Form(
@@ -164,15 +166,27 @@ class CountFormState extends ConsumerState<CountForm> {
               AssetsInput(
                 controller: assetsController,
               ),
-              DropdownButtonInput(
-                title: "Bodega",
-                values: bodegas,
-                onSelectParam: (value) {
-                  setState(() {
-                    selectedWarehouse = value;
-                  });
+              warehouseData.when(
+                data: (data) {
+                  // readState.setComponentsLoading(false);
+                  logger.i("incoming data ${data.toString()}");
+                  return WarehousesDropdownButton(
+                    key: Key("1"),
+                    onSelectParam: (value) {
+                      setState(() {
+                        selectedWarehouse = value;
+                      });
+                    },
+                    title: "Bodegas",
+                    values: data.body,
+                    icon: Icons.arrow_drop_down_circle_outlined,
+                  );
                 },
-                icon: Icons.arrow_drop_down_circle_outlined,
+                error: (err, s) {
+                  logger.e("error ${s}");
+                  return Text(err.toString());
+                },
+                loading: () => const  LinearProgressIndicator(),
               ),
               LocationInput(
                 controller: locationController,

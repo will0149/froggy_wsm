@@ -5,7 +5,6 @@ import 'package:cct_management/domain/providers/warehouses/get_warehouses_provid
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/dimensions_dto.dart';
@@ -161,6 +160,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     // readState.setComponentsLoading(false);
                     logger.i("incoming data ${data.toString()}");
                     return ClientsDropdownButton(
+                      key: Key("2"),
                       onSelectParam: (value) {
                         readState.setSelectedPerson(value);
                       },
@@ -173,19 +173,13 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     logger.e("error ${s}");
                     return Text(err.toString());
                   },
-                  loading: () => Skeletonizer(
-                        enabled: true,
-                        enableSwitchAnimation: true,
-                        child: DropdownButton<String>(
-                          items: [],
-                          onChanged: (Object? value) {},
-                        ),
-                      )),
+                  loading: () => const  LinearProgressIndicator()),
               warehouseData.when(
                   data: (data) {
                     // readState.setComponentsLoading(false);
                     logger.i("incoming data ${data.toString()}");
                     return WarehousesDropdownButton(
+                      key: Key("1"),
                       onSelectParam: (value) {
                         readState.setSelectedWarehouse(value);
                       },
@@ -198,21 +192,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     logger.e("error ${s}");
                     return Text(err.toString());
                   },
-                  loading: () => Skeletonizer(
-                        enabled: true,
-                        enableSwitchAnimation: true,
-                        child: DropdownButton<String>(
-                          items: [],
-                          onChanged: (Object? value) {},
-                        ),
-                      )),
-              DropdownButtonInput(
-                title: "Bodegas",
-                values: bodegas,
-                onSelectParam: (value) {
-                  readState.setSelectedWarehouse(value);
-                },
-                icon: Icons.arrow_drop_down_circle_outlined,
+                  loading: () => const  LinearProgressIndicator(),
               ),
               LpnInput(
                 controller: lpnController,

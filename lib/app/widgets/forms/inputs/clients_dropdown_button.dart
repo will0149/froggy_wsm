@@ -27,10 +27,10 @@ class ObjetDropdownButtonState extends ConsumerState<ClientsDropdownButton> {
   @override
   Widget build(BuildContext context) {
     List<CustomerEntity>? clients =  widget.values;
-    if(clients!.length == 1){
-      clients.add(CustomerEntity(name: ""));
+    if(clients?.length == 1){
+      clients?.add(CustomerEntity(name: ""));
     }
-    String? selectedValue = clients[0].name.toString();
+    String? selectedValue = clients?[0].name.toString();
     return DropdownButtonFormField<String>(
       decoration:  InputDecoration(
         hintText: 'titulo',
@@ -46,7 +46,7 @@ class ObjetDropdownButtonState extends ConsumerState<ClientsDropdownButton> {
         });
       },
       value: selectedValue,
-      items: clients.map((CustomerEntity value) {
+      items: clients?.map((CustomerEntity value) {
         logger.i("${value.toJson()}");
         return DropdownMenuItem(
           value: "${value.name}",

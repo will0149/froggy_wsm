@@ -7,6 +7,7 @@ import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/relocation_dto.dart';
 import '../../../domain/dtos/series_dto.dart';
 import '../../../domain/providers/relocate_provider.dart';
+import '../../../domain/providers/warehouses/get_warehouses_provider.dart';
 import '../../../domain/utils/clean_list_util.dart';
 import '../../constants.dart';
 import '../toasts/build_toasts.dart';
@@ -16,6 +17,7 @@ import 'inputs/location_input.dart';
 import 'inputs/lpn_input.dart';
 import 'inputs/quantity_input.dart';
 import 'inputs/series_input.dart';
+import 'inputs/warehouses_dropdown_button.dart';
 
 /**
  * Made for cct_management.
@@ -103,6 +105,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
 
   @override
   Widget build(BuildContext context) {
+    final warehouseData = ref.watch(getWarehousesProvider);
     var relocateItems = ref.watch(relocateProvider);
     var size = MediaQuery.of(context).size;
     return Form(
@@ -188,26 +191,50 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                 ),
               ],
             ),
-            DropdownButtonInput(
-              title: 'Bodega Origen',
-              values: bodegas,
-              onSelectParam: (value) {
-                setState(() {
-                  selectedWarehouseFrom = value;
-                });
+            warehouseData.when(
+                data: (data) {
+                  // readState.setComponentsLoading(false);
+                  logger.i("incoming data ${data.toString()}");
+                  return WarehousesDropdownButton(
+                    key: const Key("1"),
+                    onSelectParam: (value) {
+                      setState(() {
+                        selectedWarehouseFrom = value;
+                      });
+                    },
+                    title: "Bodega Origen",
+                    values: data.body,
+                    icon: Icons.arrow_drop_down_circle_outlined,
+                  );
+                },
+                error: (err, s) {
+                  logger.e("error ${s}");
+                  return Text(err.toString());
+                },
+                loading: () => const  LinearProgressIndicator(),),
+
+            warehouseData.when(
+              data: (data) {
+                // readState.setComponentsLoading(false);
+                logger.i("incoming data ${data.toString()}");
+                return WarehousesDropdownButton(
+                  key: const Key("2"),
+                  onSelectParam: (value) {
+                    setState(() {
+                      selectedWarehouseTo = value;
+                    });
+                  },
+                  title: "Bodega Destino",
+                  values: data.body,
+                  icon: Icons.arrow_drop_down_circle_outlined,
+                );
               },
-              icon: Icons.arrow_drop_down_circle_outlined,
-            ),
-            DropdownButtonInput(
-              title: 'Bodega Destino',
-              values: bodegas,
-              onSelectParam: (value) {
-                setState(() {
-                  selectedWarehouseTo = value;
-                });
+              error: (err, s) {
+                logger.e("error ${s}");
+                return Text(err.toString());
               },
-              icon: Icons.arrow_drop_down_circle_outlined,
-            ),
+              loading: () => const  LinearProgressIndicator(),),
+
             SizedBox(
               height: MediaQuery.of(context).viewInsets.bottom,
             ),
