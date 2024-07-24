@@ -40,6 +40,7 @@ dependencies:
   fluttertoast: ^8.2.6
   input_quantity: ^2.3.2
   flutter_flavorizr: ^2.2.3
+  connectivity_plus: ^6.0.3
 
 
 
@@ -78,6 +79,7 @@ flutter:
     - assets/froggy_banner.jpeg
     - assets/warehouse.png
     - assets/logo.png
+    - assets/maintainance/no_internet.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
