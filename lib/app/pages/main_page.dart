@@ -4,6 +4,7 @@ import 'package:cct_management/app/pages/relocation/relocation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../flavors.dart';
 import '../widgets/buttons/section_button.dart';
 import '../widgets/scaffolds/kill_pop_scope.dart';
 import '../widgets/scaffolds/safe_scaffold.dart';
@@ -34,7 +35,7 @@ class _MainPageState extends State<MainPage> {
     return KillPopScope(
       child: SafeScaffold(
           appBar: AppBar(
-            title: Text("Bienvenido",
+            title: Text("Bienvenido a ${F.name}",
                 style: Theme.of(context).textTheme.titleLarge),
             centerTitle: true,
           ),
