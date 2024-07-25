@@ -22,13 +22,24 @@ class WarehousesDropdownButton extends ConsumerStatefulWidget {
 class ObjetDropdownButtonState extends ConsumerState<WarehousesDropdownButton> {
 
   @override
+  void initState() {
+    // TODO: implement initState
+    // widget.values?.add(WarehouseEntity(description: "NONE"));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<WarehouseEntity>? warehouses =  widget.values;
-    if(warehouses?.length == 1){
-      warehouses?.add(WarehouseEntity(name: ""));
-    }
-    String? selectedValue = warehouses?[0].name.toString();
+    String? selectedValue = null;
     return DropdownButtonFormField<String>(
+      validator: (value){
+        if (value == null) {
+          return 'El campo no puede estar vacío';
+        } else {
+          return null;
+        }
+      },
       decoration:  InputDecoration(
         hintText: 'titulo',
         labelText: widget.title,

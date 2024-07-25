@@ -8,28 +8,28 @@ import '../../../../device/utils/logger_config.dart';
 /// By User: josedominguez
 /// Date: 06/19/24
 
-class QuantityInput extends ConsumerStatefulWidget {
+class WeightInput extends ConsumerStatefulWidget {
   final String title;
   final String hintText;
   final bool enable;
   final bool allowNull;
-  final Function(int) onEditingComplete;
+  final Function(double) onEditingComplete;
   final int decimalPlaces;
 
-  const QuantityInput(
+  const WeightInput(
       {super.key,
-      this.title = 'Mensaje',
-      this.hintText = '',
-      this.enable = true,
-      this.allowNull = false,
-      required this.onEditingComplete,
-      this.decimalPlaces = 0});
+        this.title = 'Mensaje',
+        this.hintText = '',
+        this.enable = true,
+        this.allowNull = false,
+        required this.onEditingComplete,
+        this.decimalPlaces = 0});
 
   @override
-  QuantityInputState createState() => QuantityInputState();
+  WeightInputState createState() => WeightInputState();
 }
 
-class QuantityInputState extends ConsumerState<QuantityInput> {
+class WeightInputState extends ConsumerState<WeightInput> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -44,15 +44,14 @@ class QuantityInputState extends ConsumerState<QuantityInput> {
         Center(
           child: InputQty(
             maxVal: 1000,
-            initVal: 0,
-            minVal: 0,
-            steps: 1,
+            initVal: 0.0,
+            minVal: 0.0,
+            steps: 1.0,
             decimalPlaces: widget.decimalPlaces,
             onQtyChanged: (val) {
               var castValue = double.parse(val.toString());
-              int v = castValue.toInt();
-              logger.i("quantity value $val castValue $v");
-              widget.onEditingComplete(v);
+              logger.i("Weight value $val castValue $castValue");
+              widget.onEditingComplete(castValue);
             },
             isIntrinsicWidth: false,
             qtyFormProps: QtyFormProps(
@@ -68,7 +67,7 @@ class QuantityInputState extends ConsumerState<QuantityInput> {
                     topLeft: Radius.circular(18.0),
                     // Adjust the values as needed
                     bottomLeft:
-                        Radius.circular(18.0), // Adjust the values as needed
+                    Radius.circular(18.0), // Adjust the values as needed
                   ),
                 ),
                 width: 100,

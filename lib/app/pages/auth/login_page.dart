@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../device/utils/device_info.dart';
 import '../../../device/utils/is_first_run.dart';
 import '../../../flavors.dart';
 import '../../constants.dart';
@@ -25,7 +26,8 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class LoginPageState extends ConsumerState<LoginPage> {
-
+  DeviceInfo deviceInfo = DeviceInfo();
+  String version = "";
   @override
   void initState() {
     // TODO: implement initState

@@ -23,13 +23,24 @@ class ClientsDropdownButton extends ConsumerStatefulWidget {
 class ObjetDropdownButtonState extends ConsumerState<ClientsDropdownButton> {
 
   @override
+  void initState() {
+    // TODO: implement initState
+    // widget.values?.add(CustomerEntity(name: "NONE"));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<CustomerEntity>? clients =  widget.values;
-    if(clients?.length == 1){
-      clients?.add(CustomerEntity(name: ""));
-    }
-    String? selectedValue = clients?[0].name.toString();
+    String? selectedValue = null;
     return DropdownButtonFormField<String>(
+      validator: (value){
+        if (value == null) {
+          return 'El campo no puede estar vacío';
+        } else {
+          return null;
+        }
+      },
       decoration:  InputDecoration(
         hintText: 'titulo',
         labelText: widget.title,

@@ -26,6 +26,7 @@ import 'inputs/quantity_input.dart';
 import 'inputs/remarks_input.dart';
 import 'inputs/series_input.dart';
 import 'inputs/warehouses_dropdown_button.dart';
+import 'inputs/weight_input.dart';
 
 /// Made for cct_management.
 /// By User: josedominguez
@@ -75,21 +76,23 @@ class EntryFormState extends ConsumerState<EntryForm> {
   }
 
   void validateRequest() {
-    final viewModel = ref.watch(entryFormViewProvider);
-    final readState = ref.read(entryFormViewProvider.notifier);
     logger.d(
-        "validating seriesLength ${viewModel.seriesLength} list ${viewModel.seriesList.length}");
-    if (viewModel.isSeries) {
-      if (int.parse(viewModel.seriesLength) != viewModel.seriesList.length) {
-        readState.setIsValid(false);
-        readState.setIsLoading(false);
+        "validating seriesLength ${seriesLength} list ${seriesList.length}");
+    if (isSeries) {
+      if (int.parse(seriesLength) != seriesList.length) {
+        setState(() {
+          isValid = false;
+          isLoading = false;
+        });
         showWarningToast(
             "La series deben coincidir con la cantidad introducida");
       }
     } else {
-      if (int.parse(viewModel.seriesLength) <= 0) {
-        readState.setIsValid(false);
-        readState.setIsLoading(false);
+      if (int.parse(seriesLength) <= 0) {
+        setState(() {
+          isValid = false;
+          isLoading = false;
+        });
         showWarningToast("La cantidad no puede ser 0");
       }
     }
@@ -277,8 +280,9 @@ class EntryFormState extends ConsumerState<EntryForm> {
                   ],
                 ),
               ),
-              QuantityInput(
+              WeightInput(
                 title: "Peso en KG",
+                decimalPlaces: 2,
                 onEditingComplete: (v) {
                   setState(() {
                     itemWeight = v.toString();
@@ -314,11 +318,12 @@ class EntryFormState extends ConsumerState<EntryForm> {
                   child: OutlinedButton(
                     onPressed: () {
                       setState(() {
+                        isValid = entryFormKey.currentState!.validate();
                         isLoading = true;
                       });
                       validateRequest();
                       logger.i("form valid $isValid");
-                      if (entryFormKey.currentState!.validate()) {
+                      if (isValid) {
                         if (seriesList.isNotEmpty) {
                           for (String v in seriesList) {
                             if (v.contains(" ")) {
