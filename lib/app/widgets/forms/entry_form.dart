@@ -48,6 +48,23 @@ class EntryFormState extends ConsumerState<EntryForm> {
       TextEditingController();
   late final TextEditingController seriesQuantityController =
       TextEditingController(text: "1");
+  
+  //project state values
+  String selectedPerson = " ";
+  String selectedWarehouse = " ";
+
+  String selectedDate = " ";
+
+  String expirationDate = " ";
+  bool isChecked = false;
+  String seriesLength = "0";
+  DimensionsDto dimensions = DimensionsDto(height: "0", width: "0", long: "0");
+  bool isBadStateItem = false;
+  bool isSeries = false;
+  bool isValid = false;
+  bool isLoading = false;
+
+  List<String> seriesList = [];
 
   @override
   void initState() {
@@ -91,8 +108,6 @@ class EntryFormState extends ConsumerState<EntryForm> {
   Widget build(BuildContext context) {
     final customersData = ref.watch(getCustomersProvider);
     final warehouseData = ref.watch(getWarehousesProvider);
-    final viewState = ref.watch(entryFormViewProvider);
-    final readState = ref.read(entryFormViewProvider.notifier);
     final entryLogicProvider = ref.read(addEntryProvider.notifier);
     var size = MediaQuery.of(context).size;
     return Form(
@@ -123,9 +138,11 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     const Text("Es Serie"),
                     Checkbox(
                         semanticLabel: "Es Serie",
-                        value: viewState.isSeries,
+                        value: isSeries,
                         onChanged: (newBool) {
-                          readState.setIsSeries(newBool!);
+                          setState(() {
+                            isSeries = newBool!;
+                          });
                         }),
                   ],
                 ),
@@ -136,16 +153,20 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 // enable: isSeries,
                 onEditingComplete: (v) {
                   logger.f("Tamaño de series $v");
-                  readState.setSeriesLength(v.toInt().toString());
-                                },
+                  setState(() {
+                    seriesLength = v.toInt().toString();
+                  });
+                  },
               ),
               SeriesInput(
                 initialValue: const [],
-                seriesList: viewState.seriesList,
-                maxChips: int.parse(viewState.seriesLength),
-                enable: viewState.isSeries,
+                seriesList: seriesList,
+                maxChips: int.parse(seriesLength),
+                enable: isSeries,
                 onSelectParam: (value) {
-                  readState.setSeriesList(value);
+                  setState(() {
+                    seriesList = value;
+                  });
                 },
               ),
               customersData.when(
@@ -155,7 +176,9 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     return ClientsDropdownButton(
                       key: const Key("2"),
                       onSelectParam: (value) {
-                        readState.setSelectedPerson(value);
+                        setState(() {
+                          selectedPerson = value;
+                        });
                       },
                       title: "clientes",
                       values: data.body,
@@ -174,7 +197,9 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     return WarehousesDropdownButton(
                       key: const Key("1"),
                       onSelectParam: (value) {
-                        readState.setSelectedWarehouse(value);
+                        setState(() {
+                          selectedWarehouse = value;
+                        });
                       },
                       title: "Bodegas",
                       values: data.body,
@@ -213,16 +238,20 @@ class EntryFormState extends ConsumerState<EntryForm> {
               DateInput(
                 title: 'Fecha de Llegada',
                 onSelectParam: (value) {
-                  readState.setSelectedDate(value.toString());
+                  setState(() {
+                    selectedDate = value.toString();
+                  });
                 },
-                // selectedDate: DateTime.parse(viewState.selectedDate),
+                // selectedDate: DateTime.parse(selectedDate),
               ),
               DateInput(
                 onSelectParam: (value) {
-                  readState.setExpirationDate(value.toString());
+                  setState(() {
+                    expirationDate = value.toString();
+                  });
                 },
                 title: 'Fecha de Caducidad',
-                // selectedDate: DateTime.parse(viewState.expirationDate),
+                // selectedDate: DateTime.parse(expirationDate),
               ),
               Container(
                 width: size.width * 0.40,
@@ -237,9 +266,11 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     const Text("Dañado"),
                     Checkbox(
                         semanticLabel: "Dañado",
-                        value: viewState.isBadStateItem,
+                        value: isBadStateItem,
                         onChanged: (newBool) {
-                          readState.setBadStateItem(newBool!);
+                          setState(() {
+                            isBadStateItem = newBool!;
+                          });
                         }),
                   ],
                 ),
@@ -252,12 +283,12 @@ class EntryFormState extends ConsumerState<EntryForm> {
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: DimensionsInput(dimensions: viewState.dimensions),
+            child: DimensionsInput(dimensions: dimensions),
           ),
           SizedBox(
             height: MediaQuery.of(context).viewInsets.bottom,
           ),
-          viewState.isLoading
+          isLoading
               ? Container(
                   margin: const EdgeInsets.all(10.0),
                   child: const Center(
@@ -268,14 +299,16 @@ class EntryFormState extends ConsumerState<EntryForm> {
                   margin: const EdgeInsets.all(10.0),
                   child: OutlinedButton(
                     onPressed: () {
-                      readState.setIsLoading(true);
+                      setState(() {
+                        isLoading = true;
+                      });
                       validateRequest();
-                      logger.i("form valid ${viewState.isValid}");
+                      logger.i("form valid ${isValid}");
                       if (entryFormKey.currentState!.validate()) {
-                        if (viewState.seriesList.isNotEmpty) {
-                          for (String v in viewState.seriesList) {
+                        if (seriesList.isNotEmpty) {
+                          for (String v in seriesList) {
                             if (v.contains(" ")) {
-                              viewState.seriesList
+                              seriesList
                                   .addAll(cleanListUtil.cleanList(v));
                             }
                           }
@@ -287,18 +320,18 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             asset: assetsController.text,
                             user: "user",
                             cartonId: lpnController.text,
-                            customer: viewState.selectedPerson,
-                            warehouse: viewState.selectedWarehouse,
+                            customer: selectedPerson,
+                            warehouse: selectedWarehouse,
                             location: locationController.text,
                             batch: batchController.text,
-                            series: SeriesDto(series: viewState.seriesList),
-                            expiryAt: viewState.expirationDate.toString(),
-                            condition: "${viewState.isBadStateItem}",
-                            quantity: viewState.seriesLength,
-                            entryAt: viewState.selectedDate.toString(),
+                            series: SeriesDto(series: seriesList),
+                            expiryAt: expirationDate.toString(),
+                            condition: "${isBadStateItem}",
+                            quantity: seriesLength,
+                            entryAt: selectedDate.toString(),
                             remarks: "observación",
-                            dimensions: viewState.dimensions,
-                            isseries: viewState.isSeries.toString(),
+                            dimensions: dimensions,
+                            isseries: isSeries.toString(),
                             container: containerNumberController.text);
 
                         // ScaffoldMessenger.of(context).showSnackBar(
@@ -308,19 +341,6 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         entryLogicProvider.addEntry(request).then((value) {
                           var code = value?.status?.code;
                           if (code! >= 200 && code < 300) {
-                            readState.setSelectedWarehouse("");
-                            readState.setSelectedPerson("");
-                            readState.setSelectedDate("");
-                            readState.setExpirationDate("");
-                            readState.setIsChecked(false);
-                            readState.setSeriesLength("0");
-                            readState.setDimensions(DimensionsDto(
-                                height: "0", width: "0", long: "0"));
-                            readState.setBadStateItem(false);
-                            readState.setIsSeries(false);
-                            readState.setIsValid(false);
-                            readState.setIsLoading(false);
-                            readState.setSeriesList(const []);
                             showSuccessToast("Agregado Correctamente");
                             entryFormKey.currentState?.reset();
                             context.goNamed(EntryPage.routeName);
@@ -329,12 +349,16 @@ class EntryFormState extends ConsumerState<EntryForm> {
                           }
                         }).whenComplete(() {
                           logger.i("finished Entry");
-                          readState.setIsLoading(false);
+                          setState(() {
+                            isLoading = false;
+                          });
                         }).catchError((error) {
                           showErrorToast("Error en el envio de datos!");
                         });
                       } else {
-                        readState.setIsLoading(false);
+                        setState(() {
+                          isLoading = false;
+                        });
                       }
                     },
                     child: Text("Guardar",
