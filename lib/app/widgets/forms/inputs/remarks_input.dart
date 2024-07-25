@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 07/24/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 07/24/24
 
 class RemarksInput extends ConsumerStatefulWidget {
   final String title;

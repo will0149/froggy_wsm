@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 07/24/24
- */
-
-import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 

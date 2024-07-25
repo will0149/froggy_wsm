@@ -317,7 +317,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         isLoading = true;
                       });
                       validateRequest();
-                      logger.i("form valid ${isValid}");
+                      logger.i("form valid $isValid");
                       if (entryFormKey.currentState!.validate()) {
                         if (seriesList.isNotEmpty) {
                           for (String v in seriesList) {
