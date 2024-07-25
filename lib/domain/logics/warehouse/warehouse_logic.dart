@@ -6,11 +6,9 @@ import '../../../data/entities/base_response_entity.dart';
 import '../../../data/entities/warehouses/warehouse_entity.dart';
 import '../../../device/utils/logger_config.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 07/22/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 07/22/24
 
 class WarehouseLogic extends ChangeNotifier {
   late final WarehouseRepository repository;
@@ -32,7 +30,7 @@ class WarehouseLogic extends ChangeNotifier {
         }).toList();
         responseEntity = BaseResponseEntity<List<WarehouseEntity>>.fromJson(
             serviceResponse, (json) => warehouses);
-        logger.i("clients ${responseEntity}");
+        logger.i("clients $responseEntity");
 
         if (serviceResponse["body"].isEmpty) {
           responseEntity.status?.code = 404;

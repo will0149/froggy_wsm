@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_input_chips/flutter_input_chips.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/19/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/19/24
 
 class SeriesInput extends ConsumerStatefulWidget {
   bool enable;

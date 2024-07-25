@@ -1,14 +1,10 @@
-import 'package:cct_management/data/entities/clients/customer_entity.dart';
 import 'package:cct_management/data/entities/warehouses/warehouse_entity.dart';
-import 'package:cct_management/device/utils/logger_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 07/17/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 07/17/24
 
 class WarehousesDropdownButton extends ConsumerStatefulWidget {
   String title;

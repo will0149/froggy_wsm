@@ -13,15 +13,12 @@ import '../../flavors.dart';
 import '../widgets/buttons/section_button.dart';
 import '../widgets/scaffolds/kill_pop_scope.dart';
 import '../widgets/scaffolds/safe_scaffold.dart';
-import 'auth/login_page.dart';
 import 'entry/entry_page.dart';
 import 'maintainance/connectivity_page.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/09/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/09/24
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -145,6 +142,6 @@ class _MainPageState extends State<MainPage> {
             ),
           ),),
     )
-    : ConnectivityPage();
+    : const ConnectivityPage();
   }
 }

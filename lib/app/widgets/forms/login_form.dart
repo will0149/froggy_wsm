@@ -5,11 +5,9 @@ import 'package:go_router/go_router.dart';
 import '../../constants.dart';
 import '../../pages/main_page.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 07/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 07/11/24
 
 class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({super.key});
@@ -52,7 +50,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
             decoration: InputDecoration(
               labelText: 'Password',
               hintText: "********",
-              icon: Icon(Icons.security),
+              icon: const Icon(Icons.security),
               suffixIcon: IconButton(
                   icon: Icon(
                       _isObscure ? Icons.visibility : Icons.visibility_off),
@@ -69,7 +67,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
           ),
           Container(
             width: size.width,
-            margin: EdgeInsets.all(10.0),
+            margin: const EdgeInsets.all(10.0),
             child: OutlinedButton(
               child: Text("Iniciar Sesión",
                   style: Theme.of(context).textTheme.headlineSmall),

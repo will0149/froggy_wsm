@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../device/utils/logger_config.dart';
 
 /**
  * Made for cctmanagement.

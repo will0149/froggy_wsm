@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/09/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/09/24
 
 class SectionButton extends StatefulWidget {
   final String imagePath;
@@ -28,7 +26,7 @@ class _SectionButtonState extends State<SectionButton> {
         splashColor: Colors.black26,
         onTap: widget.onPressed,
         child: Container(
-          margin: EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(10.0),
           child: Column(
             children: [
               Expanded(

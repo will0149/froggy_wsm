@@ -4,11 +4,9 @@ import 'package:input_quantity/input_quantity.dart';
 
 import '../../../../device/utils/logger_config.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/19/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/19/24
 
 class QuantityInput extends ConsumerStatefulWidget {
   final String title;

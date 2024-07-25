@@ -1,9 +1,5 @@
-import 'package:cct_management/data/entities/clients/customer_entity.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../data/entities/base_data_entity.dart';
-import '../../../data/entities/base_response_entity.dart';
 import '../../../data/entities/clients/client_base_entity.dart';
 import '../../logics/clients/customer_logic.dart';
 

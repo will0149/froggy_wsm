@@ -4,11 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/19/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/19/24
 
 class DimensionsInput extends ConsumerStatefulWidget {
   final DimensionsDto? dimensions;
@@ -18,15 +16,15 @@ class DimensionsInput extends ConsumerStatefulWidget {
   const DimensionsInput( {super.key, required this.dimensions, this.allowNull = true});
 
   set width(String width) {
-    this.dimensions?.width = width;
+    dimensions?.width = width;
   }
 
   set height(String height) {
-    this.dimensions?.height = height;
+    dimensions?.height = height;
   }
 
   set long(String long) {
-    this.dimensions?.long = long;
+    dimensions?.long = long;
   }
 
   @override

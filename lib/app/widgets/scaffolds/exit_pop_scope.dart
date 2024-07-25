@@ -1,11 +1,9 @@
 import 'package:cct_management/device/utils/logger_config.dart';
 import 'package:flutter/material.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/21/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/21/24
 
 class ExitPopScope extends StatefulWidget {
   final Widget child;

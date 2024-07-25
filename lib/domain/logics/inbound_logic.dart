@@ -8,11 +8,9 @@ import '../../device/utils/logger_config.dart';
 import '../dtos/inbound_dto.dart';
 import '../interfaces/inbound_logic.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/11/24
 
 class InboundLogicImpl extends ChangeNotifier implements InboundLogic {
   late final OperationRepository repository;

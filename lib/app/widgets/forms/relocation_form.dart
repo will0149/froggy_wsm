@@ -12,18 +12,15 @@ import '../../../domain/utils/clean_list_util.dart';
 import '../../constants.dart';
 import '../toasts/build_toasts.dart';
 import 'inputs/assets_input.dart';
-import 'inputs/dropdown_button_input.dart';
 import 'inputs/location_input.dart';
 import 'inputs/lpn_input.dart';
 import 'inputs/quantity_input.dart';
 import 'inputs/series_input.dart';
 import 'inputs/warehouses_dropdown_button.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/11/24
 
 class RelocationForm extends ConsumerStatefulWidget {
   const RelocationForm({super.key});
@@ -46,7 +43,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
   late final TextEditingController assetsController = TextEditingController(text: "");
   late final TextEditingController remarksController = TextEditingController(text: "");
 
-  late final Key seriesKey = Key("series");
+  late final Key seriesKey = const Key("series");
 
   late final TextEditingController quantityController =
       TextEditingController(text: "0");
@@ -152,18 +149,14 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                   controller: quantityController,
                   onEditingComplete: (v){
                     logger.f("Tamaño de series $v");
-                    if (v != null) {
-                      setState(() {
-                        seriesLength = v.toInt().toString();
-                      });
-                    }else{
-                      seriesLength = "0";
-                    }
-                  },
+                    setState(() {
+                      seriesLength = v.toInt().toString();
+                    });
+                                    },
                 ),
                 SeriesInput(
                   key: seriesKey,
-                  initialValue: [],
+                  initialValue: const [],
                   seriesList: _seriesList,
                   maxChips: int.parse(seriesLength),
                   enable: isSeries,
@@ -208,7 +201,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                   );
                 },
                 error: (err, s) {
-                  logger.e("error ${s}");
+                  logger.e("error $s");
                   return Text(err.toString());
                 },
                 loading: () => const  LinearProgressIndicator(),),
@@ -230,7 +223,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                 );
               },
               error: (err, s) {
-                logger.e("error ${s}");
+                logger.e("error $s");
                 return Text(err.toString());
               },
               loading: () => const  LinearProgressIndicator(),),

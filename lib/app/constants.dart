@@ -2,11 +2,9 @@
 
 import 'dart:ui';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/11/24
 
 const double wrapVerticalSpacing = 20.0;
 const double wrapHorizontalSpacing = 10.0;

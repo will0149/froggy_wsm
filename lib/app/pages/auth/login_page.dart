@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,11 +9,9 @@ import '../../widgets/forms/login_form.dart';
 import '../../widgets/scaffolds/kill_pop_scope.dart';
 import '../../widgets/scaffolds/safe_scaffold.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 07/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 07/11/24
 
 class LoginPage extends ConsumerStatefulWidget {
   static String get routeName => 'login';
@@ -53,12 +50,12 @@ class LoginPageState extends ConsumerState<LoginPage> {
               child: Container(
                 height: size.height * 0.25,
                 width: size.width * 1,
-                padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 0),
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 0),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black12),
                   color: backGroundColor,
                   borderRadius:
-                      BorderRadius.only(bottomRight: Radius.circular(200.0), bottomLeft:  Radius.circular(200.0)),
+                      const BorderRadius.only(bottomRight: Radius.circular(200.0), bottomLeft:  Radius.circular(200.0)),
                 ),
                 child: Center(
                   child: Wrap(

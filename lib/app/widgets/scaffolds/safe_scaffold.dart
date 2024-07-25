@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/13/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/13/24
 
 class SafeScaffold extends StatelessWidget {
   final AppBar? appBar;

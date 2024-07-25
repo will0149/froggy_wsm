@@ -6,11 +6,9 @@ import '../../../device/utils/logger_config.dart';
 import '../../../flavors.dart';
 import '../../api_paths_enums.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/16/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/16/24
 
 class WarehouseRepository {
 

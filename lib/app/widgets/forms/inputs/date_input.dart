@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/19/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/19/24
 
 class DateInput extends ConsumerStatefulWidget {
   final String? title;

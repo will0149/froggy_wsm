@@ -4,11 +4,9 @@ import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/12/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/12/24
 
 @JsonSerializable(
   genericArgumentFactories: true,
@@ -68,55 +66,55 @@ class EntryDataEntity {
         String? updatedAt,
         String? createdAt}) {
     if (deleted != null) {
-      this._deleted = deleted;
+      _deleted = deleted;
     }
     if (deletedAt != null) {
-      this._deletedAt = deletedAt;
+      _deletedAt = deletedAt;
     }
     if (id != null) {
-      this._id = id;
+      _id = id;
     }
     if (docnum != null) {
-      this._docnum = docnum;
+      _docnum = docnum;
     }
     if (lpn != null) {
-      this._lpn = lpn;
+      _lpn = lpn;
     }
     if (customer != null) {
-      this._customer = customer;
+      _customer = customer;
     }
     if (warehouse != null) {
-      this._warehouse = warehouse;
+      _warehouse = warehouse;
     }
     if (location != null) {
-      this._location = location;
+      _location = location;
     }
     if (batch != null) {
-      this._batch = batch;
+      _batch = batch;
     }
     if (serie != null) {
-      this._serie = serie;
+      _serie = serie;
     }
     if (expiryAt != null) {
-      this._expiryAt = expiryAt;
+      _expiryAt = expiryAt;
     }
     if (condition != null) {
-      this._condition = condition;
+      _condition = condition;
     }
     if (quantity != null) {
-      this._quantity = quantity;
+      _quantity = quantity;
     }
     if (entryAt != null) {
-      this._entryAt = entryAt;
+      _entryAt = entryAt;
     }
     if (remarks != null) {
-      this._remarks = remarks;
+      _remarks = remarks;
     }
     if (updatedAt != null) {
-      this._updatedAt = updatedAt;
+      _updatedAt = updatedAt;
     }
     if (createdAt != null) {
-      this._createdAt = createdAt;
+      _createdAt = createdAt;
     }
   }
 
@@ -176,24 +174,24 @@ class EntryDataEntity {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['deleted'] = this._deleted;
-    data['deleted_at'] = this._deletedAt;
-    data['id'] = this._id;
-    data['docnum'] = this._docnum;
-    data['lpn'] = this._lpn;
-    data['customer'] = this._customer;
-    data['warehouse'] = this._warehouse;
-    data['location'] = this._location;
-    data['batch'] = this._batch;
-    data['serie'] = this._serie;
-    data['expiry_at'] = this._expiryAt;
-    data['condition'] = this._condition;
-    data['quantity'] = this._quantity;
-    data['entry_at'] = this._entryAt;
-    data['remarks'] = this._remarks;
-    data['updated_at'] = this._updatedAt;
-    data['created_at'] = this._createdAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['deleted'] = _deleted;
+    data['deleted_at'] = _deletedAt;
+    data['id'] = _id;
+    data['docnum'] = _docnum;
+    data['lpn'] = _lpn;
+    data['customer'] = _customer;
+    data['warehouse'] = _warehouse;
+    data['location'] = _location;
+    data['batch'] = _batch;
+    data['serie'] = _serie;
+    data['expiry_at'] = _expiryAt;
+    data['condition'] = _condition;
+    data['quantity'] = _quantity;
+    data['entry_at'] = _entryAt;
+    data['remarks'] = _remarks;
+    data['updated_at'] = _updatedAt;
+    data['created_at'] = _createdAt;
     return data;
   }
 }

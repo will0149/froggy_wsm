@@ -19,18 +19,15 @@ import 'inputs/batch_input.dart';
 import 'inputs/clients_dropdown_button.dart';
 import 'inputs/date_input.dart';
 import 'inputs/dimensions_input.dart';
-import 'inputs/dropdown_button_input.dart';
 import 'inputs/location_input.dart';
 import 'inputs/lpn_input.dart';
 import 'inputs/quantity_input.dart';
 import 'inputs/series_input.dart';
 import 'inputs/warehouses_dropdown_button.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/09/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/09/24
 
 class EntryForm extends ConsumerStatefulWidget {
   const EntryForm({super.key});
@@ -139,15 +136,11 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 // enable: isSeries,
                 onEditingComplete: (v) {
                   logger.f("Tamaño de series $v");
-                  if (v != null) {
-                    readState.setSeriesLength(v.toInt().toString());
-                  } else {
-                    readState.setSeriesLength(v.toInt().toString());
-                  }
-                },
+                  readState.setSeriesLength(v.toInt().toString());
+                                },
               ),
               SeriesInput(
-                initialValue: [],
+                initialValue: const [],
                 seriesList: viewState.seriesList,
                 maxChips: int.parse(viewState.seriesLength),
                 enable: viewState.isSeries,
@@ -160,7 +153,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     // readState.setComponentsLoading(false);
                     logger.i("incoming data ${data.toString()}");
                     return ClientsDropdownButton(
-                      key: Key("2"),
+                      key: const Key("2"),
                       onSelectParam: (value) {
                         readState.setSelectedPerson(value);
                       },
@@ -170,7 +163,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     );
                   },
                   error: (err, s) {
-                    logger.e("error ${s}");
+                    logger.e("error $s");
                     return Text(err.toString());
                   },
                   loading: () => const  LinearProgressIndicator()),
@@ -179,7 +172,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     // readState.setComponentsLoading(false);
                     logger.i("incoming data ${data.toString()}");
                     return WarehousesDropdownButton(
-                      key: Key("1"),
+                      key: const Key("1"),
                       onSelectParam: (value) {
                         readState.setSelectedWarehouse(value);
                       },
@@ -189,7 +182,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     );
                   },
                   error: (err, s) {
-                    logger.e("error ${s}");
+                    logger.e("error $s");
                     return Text(err.toString());
                   },
                   loading: () => const  LinearProgressIndicator(),
@@ -254,7 +247,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
             ],
           ),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(10),
@@ -266,13 +259,13 @@ class EntryFormState extends ConsumerState<EntryForm> {
           ),
           viewState.isLoading
               ? Container(
-                  margin: EdgeInsets.all(10.0),
+                  margin: const EdgeInsets.all(10.0),
                   child: const Center(
                     child: CircularProgressIndicator(),
                   ))
               : Container(
                   width: size.width,
-                  margin: EdgeInsets.all(10.0),
+                  margin: const EdgeInsets.all(10.0),
                   child: OutlinedButton(
                     onPressed: () {
                       readState.setIsLoading(true);

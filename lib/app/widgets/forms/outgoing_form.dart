@@ -12,20 +12,16 @@ import '../../constants.dart';
 import '../../pages/outgoing/outgoing_page.dart';
 import '../toasts/build_toasts.dart';
 import 'inputs/assets_input.dart';
-import 'inputs/batch_input.dart';
 import 'inputs/date_input.dart';
-import 'inputs/dropdown_button_input.dart';
 import 'inputs/location_input.dart';
 import 'inputs/lpn_input.dart';
 import 'inputs/quantity_input.dart';
 import 'inputs/series_input.dart';
 import 'inputs/warehouses_dropdown_button.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/11/24
 
 class OutgoingForm extends ConsumerStatefulWidget {
   const OutgoingForm({super.key});
@@ -138,17 +134,13 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
             // enable: isSeries,
             onEditingComplete: (v) {
               logger.f("Tamaño de series $v");
-              if (v != null) {
-                setState(() {
-                  seriesLength = v.toInt().toString();
-                });
-              } else {
-                seriesLength = "0";
-              }
-            },
+              setState(() {
+                seriesLength = v.toInt().toString();
+              });
+                        },
           ),
           SeriesInput(
-            initialValue: [],
+            initialValue: const [],
             seriesList: _seriesList,
             maxChips: int.parse(seriesLength),
             enable: isSeries,
@@ -174,7 +166,7 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
               // readState.setComponentsLoading(false);
               logger.i("incoming data ${data.toString()}");
               return WarehousesDropdownButton(
-                key: Key("1"),
+                key: const Key("1"),
                 onSelectParam: (value) {
                   setState(() {
                     selectedWarehouse = value;
@@ -186,7 +178,7 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
               );
             },
             error: (err, s) {
-              logger.e("error ${s}");
+              logger.e("error $s");
               return Text(err.toString());
             },
             loading: () => const  LinearProgressIndicator(),
@@ -212,13 +204,13 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
           ),
           isLoading
               ? Container(
-                  margin: EdgeInsets.all(10.0),
-                  child: Center(
+                  margin: const EdgeInsets.all(10.0),
+                  child: const Center(
                     child: CircularProgressIndicator(),
                   ))
               : Container(
                   width: size.width,
-                  margin: EdgeInsets.all(10.0),
+                  margin: const EdgeInsets.all(10.0),
                   child: OutlinedButton(
                     onPressed: () {
                       setState(() {

@@ -1,21 +1,15 @@
-import 'dart:convert';
 
-import 'package:cct_management/data/entities/base_response_entity.dart';
 import 'package:cct_management/data/entities/clients/customer_entity.dart';
-import 'package:cct_management/data/entities/status_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../data/entities/base_data_entity.dart';
 import '../../../data/entities/clients/client_base_entity.dart';
 import '../../../data/repositories/clients/client_repository.dart';
 import '../../../device/utils/logger_config.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/16/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/16/24
 
 class CustomerLogic extends ChangeNotifier {
   late final ClientRepository repository;

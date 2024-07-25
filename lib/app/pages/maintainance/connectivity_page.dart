@@ -1,14 +1,10 @@
-import 'package:cct_management/app/widgets/forms/base_form_decorator.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../constants.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 07/23/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 07/23/24
 class ConnectivityPage extends StatefulWidget {
   const ConnectivityPage({super.key});
 

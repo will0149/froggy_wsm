@@ -1,14 +1,11 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 
 import '../../../device/utils/logger_config.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 07/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 07/11/24
 
 class KillPopScope extends StatefulWidget {
   final Widget child;

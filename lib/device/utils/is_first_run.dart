@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'logger_config.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 07/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 07/11/24
 class IsFirstRun {
   static const _firstRunSettingsKey = 'is_first_run';
   static const _firstCallSettingsKey = 'is_first_call';

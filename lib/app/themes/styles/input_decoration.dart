@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/10/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/10/24
 
 var inputDecorationTheme = InputDecorationTheme(
   labelStyle: const TextStyle(color: Colors.black),

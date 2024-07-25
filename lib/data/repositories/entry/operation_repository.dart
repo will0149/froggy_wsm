@@ -9,13 +9,10 @@ import '../../../domain/dtos/relocation_dto.dart';
 import '../../../domain/dtos/tally_count_dto.dart';
 import '../../../flavors.dart';
 import '../../api_paths_enums.dart';
-import '../../entities/relocation_entity.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/11/24
 // String baseUrl = FlavorConfig.instance.variables["baseUrl"];
 class OperationRepository {
   Future<Map<String, dynamic>> entryAdd(InboundDto request) async {

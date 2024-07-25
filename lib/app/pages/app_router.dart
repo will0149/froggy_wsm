@@ -10,11 +10,9 @@ import 'auth/login_page.dart';
 import 'entry/entry_page.dart';
 import 'main_page.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/09/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/09/24
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');

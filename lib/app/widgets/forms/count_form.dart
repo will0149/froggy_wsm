@@ -7,23 +7,19 @@ import '../../../domain/dtos/series_dto.dart';
 import '../../../domain/dtos/tally_count_dto.dart';
 import '../../../domain/providers/tally_count_provider.dart';
 import '../../../domain/providers/warehouses/get_warehouses_provider.dart';
-import '../../../domain/states/entry_form_view_notifier.dart';
 import '../../constants.dart';
 import '../../pages/count/count_page.dart';
 import '../toasts/build_toasts.dart';
 import 'inputs/assets_input.dart';
-import 'inputs/dropdown_button_input.dart';
 import 'inputs/location_input.dart';
 import 'inputs/lpn_input.dart';
 import 'inputs/quantity_input.dart';
 import 'inputs/series_input.dart';
 import 'inputs/warehouses_dropdown_button.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/11/24
 
 class CountForm extends ConsumerStatefulWidget {
   const CountForm({super.key});
@@ -139,17 +135,13 @@ class CountFormState extends ConsumerState<CountForm> {
                 // enable: isSeries,
                 onEditingComplete: (v) {
                   logger.f("Tamaño de series $v");
-                  if (v != null) {
-                    setState(() {
-                      seriesLength = v.toInt().toString();
-                    });
-                  } else {
-                    seriesLength = "0";
-                  }
-                },
+                  setState(() {
+                    seriesLength = v.toInt().toString();
+                  });
+                                },
               ),
               SeriesInput(
-                initialValue: [],
+                initialValue: const [],
                 seriesList: _seriesList,
                 maxChips: int.parse(seriesLength),
                 enable: isSeries,
@@ -171,7 +163,7 @@ class CountFormState extends ConsumerState<CountForm> {
                   // readState.setComponentsLoading(false);
                   logger.i("incoming data ${data.toString()}");
                   return WarehousesDropdownButton(
-                    key: Key("1"),
+                    key: const Key("1"),
                     onSelectParam: (value) {
                       setState(() {
                         selectedWarehouse = value;
@@ -183,7 +175,7 @@ class CountFormState extends ConsumerState<CountForm> {
                   );
                 },
                 error: (err, s) {
-                  logger.e("error ${s}");
+                  logger.e("error $s");
                   return Text(err.toString());
                 },
                 loading: () => const  LinearProgressIndicator(),
@@ -204,7 +196,7 @@ class CountFormState extends ConsumerState<CountForm> {
                   ))
               : Container(
                   width: size.width,
-                  margin: EdgeInsets.all(10.0),
+                  margin: const EdgeInsets.all(10.0),
                   child: dataValidate
                       ? OutlinedButton(
                           onPressed: () {

@@ -1,10 +1,9 @@
 
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/12/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/12/24
+library;
 
 enum ApiPathsEnums {
 

@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import '../../widgets/forms/base_form_decorator.dart';
 import '../../widgets/forms/count_form.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/11/24
 
 class CountPage extends StatefulWidget {
   const CountPage({super.key});

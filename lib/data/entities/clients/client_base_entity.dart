@@ -1,5 +1,4 @@
 import 'package:cct_management/data/entities/status_entity.dart';
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'customer_entity.dart';

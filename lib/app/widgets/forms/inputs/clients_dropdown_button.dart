@@ -3,11 +3,9 @@ import 'package:cct_management/device/utils/logger_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 07/17/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 07/17/24
 
 class ClientsDropdownButton extends ConsumerStatefulWidget {
   String title;
