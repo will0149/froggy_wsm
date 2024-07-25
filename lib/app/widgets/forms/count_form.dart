@@ -32,8 +32,6 @@ class CountFormState extends ConsumerState<CountForm> {
   late final GlobalKey<FormState> countFormKey = GlobalKey<FormState>();
 
   late final TextEditingController locationController = TextEditingController();
-  late final TextEditingController seriesQuantityController =
-      TextEditingController();
   late final TextEditingController lpnController = TextEditingController();
   late final TextEditingController assetsController = TextEditingController();
 
@@ -83,7 +81,6 @@ class CountFormState extends ConsumerState<CountForm> {
     // Clean up the controller when the widget is disposed.
     locationController.dispose();
     lpnController.dispose();
-    seriesQuantityController.dispose();
     assetsController.dispose();
     super.dispose();
   }
@@ -130,7 +127,6 @@ class CountFormState extends ConsumerState<CountForm> {
                 ),
               ),
               QuantityInput(
-                controller: seriesQuantityController,
                 title: "Cantidad de series",
                 // enable: isSeries,
                 onEditingComplete: (v) {

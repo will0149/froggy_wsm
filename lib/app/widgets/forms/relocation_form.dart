@@ -45,9 +45,6 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
 
   late final Key seriesKey = const Key("series");
 
-  late final TextEditingController quantityController =
-      TextEditingController(text: "0");
-
   String seriesLength = "0";
 
   List<String> _seriesList = [];
@@ -94,7 +91,6 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
     locationToController.dispose();
     assetsController.dispose();
     remarksController.dispose();
-    quantityController.dispose();
     lpnFromController.dispose();
     lpnToController.dispose();
     super.dispose();
@@ -146,7 +142,6 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                 ),
                 QuantityInput(
                   title: "Cantidad de Series",
-                  controller: quantityController,
                   onEditingComplete: (v){
                     logger.f("Tamaño de series $v");
                     setState(() {

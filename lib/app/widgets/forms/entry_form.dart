@@ -19,9 +19,11 @@ import 'inputs/batch_input.dart';
 import 'inputs/clients_dropdown_button.dart';
 import 'inputs/date_input.dart';
 import 'inputs/dimensions_input.dart';
+import 'inputs/generic_input.dart';
 import 'inputs/location_input.dart';
 import 'inputs/lpn_input.dart';
 import 'inputs/quantity_input.dart';
+import 'inputs/remarks_input.dart';
 import 'inputs/series_input.dart';
 import 'inputs/warehouses_dropdown_button.dart';
 
@@ -46,9 +48,9 @@ class EntryFormState extends ConsumerState<EntryForm> {
   late final TextEditingController lpnController = TextEditingController();
   late final TextEditingController containerNumberController =
       TextEditingController();
-  late final TextEditingController seriesQuantityController =
-      TextEditingController(text: "1");
-  
+  late final TextEditingController remarksController =
+  TextEditingController();
+
   //project state values
   String selectedPerson = " ";
   String selectedWarehouse = " ";
@@ -58,6 +60,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
   String expirationDate = " ";
   bool isChecked = false;
   String seriesLength = "0";
+  String itemWeight = "0";
   DimensionsDto dimensions = DimensionsDto(height: "0", width: "0", long: "0");
   bool isBadStateItem = false;
   bool isSeries = false;
@@ -100,7 +103,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
     batchController.dispose();
     lpnController.dispose();
     containerNumberController.dispose();
-    seriesQuantityController.dispose();
+    remarksController.dispose();
     super.dispose();
   }
 
@@ -148,7 +151,6 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 ),
               ),
               QuantityInput(
-                controller: seriesQuantityController,
                 title: "Cantidad de series",
                 // enable: isSeries,
                 onEditingComplete: (v) {
@@ -156,7 +158,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                   setState(() {
                     seriesLength = v.toInt().toString();
                   });
-                  },
+                },
               ),
               SeriesInput(
                 initialValue: const [],
@@ -189,34 +191,34 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     logger.e("error $s");
                     return Text(err.toString());
                   },
-                  loading: () => const  LinearProgressIndicator()),
+                  loading: () => const LinearProgressIndicator()),
               warehouseData.when(
-                  data: (data) {
-                    // readState.setComponentsLoading(false);
-                    logger.i("incoming data ${data.toString()}");
-                    return WarehousesDropdownButton(
-                      key: const Key("1"),
-                      onSelectParam: (value) {
-                        setState(() {
-                          selectedWarehouse = value;
-                        });
-                      },
-                      title: "Bodegas",
-                      values: data.body,
-                      icon: Icons.arrow_drop_down_circle_outlined,
-                    );
-                  },
-                  error: (err, s) {
-                    logger.e("error $s");
-                    return Text(err.toString());
-                  },
-                  loading: () => const  LinearProgressIndicator(),
+                data: (data) {
+                  // readState.setComponentsLoading(false);
+                  logger.i("incoming data ${data.toString()}");
+                  return WarehousesDropdownButton(
+                    key: const Key("1"),
+                    onSelectParam: (value) {
+                      setState(() {
+                        selectedWarehouse = value;
+                      });
+                    },
+                    title: "Bodegas",
+                    values: data.body,
+                    icon: Icons.arrow_drop_down_circle_outlined,
+                  );
+                },
+                error: (err, s) {
+                  logger.e("error $s");
+                  return Text(err.toString());
+                },
+                loading: () => const LinearProgressIndicator(),
               ),
               LpnInput(
                 controller: lpnController,
                 title: 'carton ID',
               ),
-              LpnInput(
+              GenericInput(
                 controller: containerNumberController,
                 title: 'Numero de Contenedor',
               ),
@@ -275,6 +277,14 @@ class EntryFormState extends ConsumerState<EntryForm> {
                   ],
                 ),
               ),
+              QuantityInput(
+                title: "Peso en KG",
+                onEditingComplete: (v) {
+                  setState(() {
+                    itemWeight = v.toString();
+                  });
+                },
+              ),
             ],
           ),
           Container(
@@ -284,6 +294,10 @@ class EntryFormState extends ConsumerState<EntryForm> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: DimensionsInput(dimensions: dimensions),
+          ),
+          RemarksInput(
+            controller: remarksController,
+            title: "Observación",
           ),
           SizedBox(
             height: MediaQuery.of(context).viewInsets.bottom,
@@ -308,15 +322,14 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         if (seriesList.isNotEmpty) {
                           for (String v in seriesList) {
                             if (v.contains(" ")) {
-                              seriesList
-                                  .addAll(cleanListUtil.cleanList(v));
+                              seriesList.addAll(cleanListUtil.cleanList(v));
                             }
                           }
                         }
                         var request = InboundDto(
                             docnum: "0001",
                             device: "deviceImei",
-                            branch: "branch",
+                            branch: "1",
                             asset: assetsController.text,
                             user: "user",
                             cartonId: lpnController.text,
@@ -326,13 +339,14 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             batch: batchController.text,
                             series: SeriesDto(series: seriesList),
                             expiryAt: expirationDate.toString(),
-                            condition: "${isBadStateItem}",
+                            condition: "$isBadStateItem",
                             quantity: seriesLength,
                             entryAt: selectedDate.toString(),
-                            remarks: "observación",
+                            remarks: remarksController.text,
                             dimensions: dimensions,
                             isseries: isSeries.toString(),
-                            container: containerNumberController.text);
+                            container: containerNumberController.text,
+                            weight: itemWeight);
 
                         // ScaffoldMessenger.of(context).showSnackBar(
                         //   const SnackBar(content: Text("Procesando peticion")),
@@ -344,8 +358,9 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             showSuccessToast("Agregado Correctamente");
                             entryFormKey.currentState?.reset();
                             context.goNamed(EntryPage.routeName);
-                          }else {
-                            showErrorToast("Ha fallado el envio con status $code!");
+                          } else {
+                            showErrorToast(
+                                "Ha fallado el envio con status $code!");
                           }
                         }).whenComplete(() {
                           logger.i("finished Entry");

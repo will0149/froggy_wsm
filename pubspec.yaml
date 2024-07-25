@@ -38,7 +38,7 @@ dependencies:
   device_imei: ^0.0.4+2
   permission_handler: ^11.3.1
   fluttertoast: ^8.2.6
-  input_quantity: ^2.3.2
+  input_quantity: ^2.3.4
   flutter_flavorizr: ^2.2.3
   connectivity_plus: ^6.0.3
 
@@ -80,6 +80,7 @@ flutter:
     - assets/warehouse.png
     - assets/logo.png
     - assets/maintainance/no_internet.json
+    - assets/maintainance/maintenance.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
