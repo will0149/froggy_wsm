@@ -38,7 +38,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
       TextEditingController();
   late final TextEditingController locationToController =
       TextEditingController();
-  late final TextEditingController lpnFromController = TextEditingController(text: "");
+  late final TextEditingController cartonIdFromController = TextEditingController(text: "");
   late final TextEditingController lpnToController = TextEditingController(text: "");
   late final TextEditingController assetsController = TextEditingController(text: "");
   late final TextEditingController remarksController = TextEditingController(text: "");
@@ -91,7 +91,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
     locationToController.dispose();
     assetsController.dispose();
     remarksController.dispose();
-    lpnFromController.dispose();
+    cartonIdFromController.dispose();
     lpnToController.dispose();
     super.dispose();
   }
@@ -162,7 +162,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                   },
                 ),
                 LpnInput(
-                  controller: lpnFromController,
+                  controller: cartonIdFromController,
                   title: 'CartonId origen',
                 ),
                 LpnInput(
@@ -263,7 +263,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                                 isseries: "$isSeries",
                                 series: SeriesDto(series: _seriesList),
                                 branch: "1",
-                                fromCartonId: lpnFromController.text,
+                                fromCartonId: cartonIdFromController.text,
                                 fromwarehouse: selectedWarehouseFrom,
                                 fromlocation: locationFromController.text,
                                 towardsCartonId: lpnToController.text,

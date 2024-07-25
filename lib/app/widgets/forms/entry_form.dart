@@ -46,7 +46,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
   late final TextEditingController locationController = TextEditingController();
   late final TextEditingController assetsController = TextEditingController();
   late final TextEditingController batchController = TextEditingController();
-  late final TextEditingController lpnController = TextEditingController();
+  late final TextEditingController cartonIdController = TextEditingController();
   late final TextEditingController containerNumberController =
       TextEditingController();
   late final TextEditingController remarksController =
@@ -72,6 +72,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
 
   @override
   void initState() {
+    entryFormKey.currentState?.reset;
     super.initState();
   }
 
@@ -104,7 +105,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
     locationController.dispose();
     assetsController.dispose();
     batchController.dispose();
-    lpnController.dispose();
+    cartonIdController.dispose();
     containerNumberController.dispose();
     remarksController.dispose();
     super.dispose();
@@ -185,7 +186,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                           selectedPerson = value;
                         });
                       },
-                      title: "clientes",
+                      title: "Clientes",
                       values: data.body,
                       icon: Icons.arrow_drop_down_circle_outlined,
                     );
@@ -218,8 +219,8 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 loading: () => const LinearProgressIndicator(),
               ),
               LpnInput(
-                controller: lpnController,
-                title: 'carton ID',
+                controller: cartonIdController,
+                title: 'Carton ID',
               ),
               GenericInput(
                 controller: containerNumberController,
@@ -337,7 +338,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             branch: "1",
                             asset: assetsController.text,
                             user: "user",
-                            cartonId: lpnController.text,
+                            cartonId: cartonIdController.text,
                             customer: selectedPerson,
                             warehouse: selectedWarehouse,
                             location: locationController.text,
@@ -361,7 +362,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                           var code = value?.status?.code;
                           if (code! >= 200 && code < 300) {
                             showSuccessToast("Agregado Correctamente");
-                            entryFormKey.currentState?.reset();
+                            entryFormKey.currentState?.reset;
                             context.goNamed(EntryPage.routeName);
                           } else {
                             showErrorToast(

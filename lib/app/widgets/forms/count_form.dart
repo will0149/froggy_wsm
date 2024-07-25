@@ -149,7 +149,7 @@ class CountFormState extends ConsumerState<CountForm> {
               ),
               LpnInput(
                 controller: lpnController,
-                title: 'carton ID',
+                title: 'Carton ID',
               ),
               AssetsInput(
                 controller: assetsController,

@@ -152,7 +152,7 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
           //       selectedPerson = value;
           //     });
           //   },
-          //   title: "clientes",
+          //   title: "Clientes",
           //   values: clients,
           //   icon: Icons.arrow_drop_down_circle_outlined,
           // ),
@@ -181,7 +181,7 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
           ),
           LpnInput(
             controller: lpnController,
-            title: 'carton ID',
+            title: 'Carton ID',
           ),
           LocationInput(
             controller: locationController,
