@@ -94,6 +94,7 @@ class _MainPageState extends State<MainPage> {
               children: [
                 Container(
                   // color: Colors.red,
+                  margin: EdgeInsets.only(top: 10.0),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.0), // Adjust the values as needed
@@ -102,7 +103,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                     color: Colors.blue,
                   ),
-                  child: Image.asset("assets/froggy_banner.jpeg", fit: BoxFit.fill,),
+                  child: Image.asset("assets/logos/cct_logo.png", fit: BoxFit.fill,),
                 ),
                 Wrap(
                   children: [

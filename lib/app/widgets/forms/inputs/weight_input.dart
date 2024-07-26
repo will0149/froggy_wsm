@@ -43,7 +43,7 @@ class WeightInputState extends ConsumerState<WeightInput> {
             )),
         Center(
           child: InputQty(
-            maxVal: 1000,
+            maxVal: 10000,
             initVal: 0.0,
             minVal: 0.0,
             steps: 1.0,

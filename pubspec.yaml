@@ -82,6 +82,8 @@ flutter:
     - assets/logo.png
     - assets/maintainance/no_internet.json
     - assets/maintainance/maintenance.json
+    - assets/logos/
+    - assets/logos/cct_logo.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
