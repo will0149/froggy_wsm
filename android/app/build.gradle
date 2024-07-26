@@ -32,19 +32,19 @@ android {
         development {
             dimension "flavor-type"
             applicationId "com.cct.cct_management"
-            resValue "string", "app_name", "Development App"
+            resValue "string", "app_name", "Froggy Dev"
             resValue "string", "base_url", "https//cct-api-dev.froggysoft.app"
         }
         stage {
             dimension "flavor-type"
             applicationId "com.cct.cct_management"
-            resValue "string", "app_name", "Stage App"
+            resValue "string", "app_name", "Froggy Stg"
             resValue "string", "base_url", "https//cct-api-stg.froggysoft.app"
         }
         production {
             dimension "flavor-type"
             applicationId "com.cct.cct_management"
-            resValue "string", "app_name", "Production App"
+            resValue "string", "app_name", "Froggy"
             resValue "string", "base_url", "https//cct-api-dev.froggysoft.app"
         }
     }

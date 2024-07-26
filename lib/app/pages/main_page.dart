@@ -103,7 +103,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                     color: Colors.blue,
                   ),
-                  child: Image.asset("assets/logos/cct_logo.png", fit: BoxFit.fill,),
+                  child: Image.asset("assets/froggy_banner.jpeg", fit: BoxFit.fill,),
                 ),
                 Wrap(
                   children: [
