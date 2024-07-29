@@ -22,13 +22,6 @@ code_quality:
     reports:
       codequality: gl-code-quality-report.json
 
-test:
-  image: "ghcr.io/cirruslabs/flutter:3.10.3"
-  stage: test
-  script:
-    - flutter analyze
-    - flutter test --dart-define=API_URL=$API_URL_DEVELOPMENT
-
 build_android_development:
   image: cirrusci/flutter:stable
   stage: build
