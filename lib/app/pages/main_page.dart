@@ -84,17 +84,17 @@ class _MainPageState extends State<MainPage> {
         ?
     KillPopScope(
       child: SafeScaffold(
-          appBar: AppBar(
-            title: Text("Bienvenido a ${F.name}",
-                style: Theme.of(context).textTheme.titleLarge),
-            centerTitle: true,
-          ),
+          // appBar: AppBar(
+          //   title: Text("Bienvenido!",
+          //       style: Theme.of(context).textTheme.titleLarge),
+          //   centerTitle: true,
+          // ),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Container(
                   // color: Colors.red,
-                  margin: EdgeInsets.only(top: 10.0),
+                  margin: const EdgeInsets.only(top: 10.0),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.0), // Adjust the values as needed

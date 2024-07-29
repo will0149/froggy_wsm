@@ -49,8 +49,8 @@ class EntryFormState extends ConsumerState<EntryForm> {
   late final TextEditingController cartonIdController = TextEditingController();
   late final TextEditingController containerNumberController =
       TextEditingController();
-  late final TextEditingController remarksController =
-  TextEditingController();
+  late final TextEditingController remarksController = TextEditingController();
+  late final TextEditingController dmcController = TextEditingController();
 
   //project state values
   String selectedPerson = " ";
@@ -77,8 +77,8 @@ class EntryFormState extends ConsumerState<EntryForm> {
   }
 
   void validateRequest() {
-    logger.d(
-        "validating seriesLength ${seriesLength} list ${seriesList.length}");
+    logger
+        .d("validating seriesLength ${seriesLength} list ${seriesList.length}");
     if (isSeries) {
       if (int.parse(seriesLength) != seriesList.length) {
         setState(() {
@@ -108,6 +108,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
     cartonIdController.dispose();
     containerNumberController.dispose();
     remarksController.dispose();
+    dmcController.dispose();
     super.dispose();
   }
 
@@ -225,6 +226,10 @@ class EntryFormState extends ConsumerState<EntryForm> {
               GenericInput(
                 controller: containerNumberController,
                 title: 'Numero de Contenedor',
+              ),
+              GenericInput(
+                controller: dmcController,
+                title: 'DMC',
               ),
               LocationInput(
                 controller: locationController,
@@ -352,7 +357,8 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             dimensions: dimensions,
                             isseries: isSeries.toString(),
                             container: containerNumberController.text,
-                            weight: itemWeight);
+                            weight: itemWeight,
+                            dmc: dmcController.text);
 
                         // ScaffoldMessenger.of(context).showSnackBar(
                         //   const SnackBar(content: Text("Procesando peticion")),

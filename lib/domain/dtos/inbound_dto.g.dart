@@ -31,6 +31,7 @@ InboundDto _$InboundDtoFromJson(Map<String, dynamic> json) => InboundDto(
       isseries: json['isseries'] as String?,
       container: json['container'] as String?,
       weight: json['weight'] as String?,
+      dmc: json['dmc'] as String?,
     );
 
 Map<String, dynamic> _$InboundDtoToJson(InboundDto instance) =>
@@ -55,4 +56,5 @@ Map<String, dynamic> _$InboundDtoToJson(InboundDto instance) =>
       'isseries': instance.isseries,
       'container': instance.container,
       'weight': instance.weight,
+      'dmc': instance.dmc,
     };
