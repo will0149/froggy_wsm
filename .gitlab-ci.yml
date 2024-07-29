@@ -24,21 +24,9 @@ code_quality:
 
 test:
   stage: test
-  image: "ghcr.io/cirruslabs/flutter:3.10.3"
-  before_script:
-    - flutter pub global activate junitreport
-    - export PATH="$PATH:$HOME/.pub-cache/bin"
   script:
-    - flutter test --machine --coverage | tojunit -o report.xml
-    - lcov --summary coverage/lcov.info
-    - genhtml coverage/lcov.info --output=coverage
-  coverage: '/lines\.*: \d+\.\d+\%/'
-  artifacts:
-    name: coverage
-    paths:
-      - $CI_PROJECT_DIR/coverage
-    reports:
-      junit: report.xml
+    - flutter analyze
+    - flutter test --dart-define=API_URL=$API_URL_DEVELOPMENT
 
 build_android_development:
   stage: build
