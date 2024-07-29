@@ -23,24 +23,28 @@ code_quality:
       codequality: gl-code-quality-report.json
 
 test:
+  image: cirrusci/flutter:stable
   stage: test
   script:
     - flutter analyze
     - flutter test --dart-define=API_URL=$API_URL_DEVELOPMENT
 
 build_android_development:
+  image: cirrusci/flutter:stable
   stage: build
   script: echo "Define your dev eployment!"
     - flutter build apk --release --split-per-abi --dart-define=API_URL=$API_URL_DEVELOPMENT
   environment: development
 
 build_android_staging:
+  image: cirrusci/flutter:stable
   stage: build
   script: echo "Define your stg deployment!"
     - flutter build apk --release --split-per-abi --dart-define=API_URL=$API_URL_STAGING
   environment: staging
 
 build_android_production:
+  image: cirrusci/flutter:stable
   stage: build
   script: echo "Define your production deployment!"
     - flutter build apk --release --split-per-abi --dart-define=API_URL=$API_URL_PRODUCTION
