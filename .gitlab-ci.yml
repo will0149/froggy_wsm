@@ -1,0 +1,59 @@
+stages:
+  - linting
+  - security
+  - test
+  - build
+
+variables:
+  SECRET_KEY_DEVELOPMENT: $SECRET_KEY
+  API_URL_DEVELOPMENT: "https://cct-api-dev.froggysoft.app"
+  API_URL_STAGING: "https://cct-api-stg.froggysoft.app"
+  API_URL_PRODUCTION: "https://cct-api.froggysoft.app"  
+
+code_quality:
+  stage: test
+  image: "ghcr.io/cirruslabs/flutter:3.10.3"
+  before_script:
+    - flutter pub global activate dart_code_metrics
+    - export PATH="$PATH:$HOME/.pub-cache/bin"
+  script:
+    - metrics lib -r codeclimate  > gl-code-quality-report.json
+  artifacts:
+    reports:
+      codequality: gl-code-quality-report.json
+
+test:
+  stage: test
+  image: "ghcr.io/cirruslabs/flutter:3.10.3"
+  before_script:
+    - flutter pub global activate junitreport
+    - export PATH="$PATH:$HOME/.pub-cache/bin"
+  script:
+    - flutter test --machine --coverage | tojunit -o report.xml
+    - lcov --summary coverage/lcov.info
+    - genhtml coverage/lcov.info --output=coverage
+  coverage: '/lines\.*: \d+\.\d+\%/'
+  artifacts:
+    name: coverage
+    paths:
+      - $CI_PROJECT_DIR/coverage
+    reports:
+      junit: report.xml
+
+build_android_development:
+  stage: build
+  script: echo "Define your dev eployment!"
+    - flutter build apk --release --split-per-abi --dart-define=API_URL=$API_URL_DEVELOPMENT
+  environment: development
+
+build_android_staging:
+  stage: build
+  script: echo "Define your stg deployment!"
+    - flutter build apk --release --split-per-abi --dart-define=API_URL=$API_URL_STAGING
+  environment: staging
+
+build_android_production:
+  stage: build
+  script: echo "Define your production deployment!"
+    - flutter build apk --release --split-per-abi --dart-define=API_URL=$API_URL_PRODUCTION
+  environment: production
