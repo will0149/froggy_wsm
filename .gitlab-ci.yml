@@ -23,7 +23,7 @@ code_quality:
       codequality: gl-code-quality-report.json
 
 test:
-  image: cirrusci/flutter:stable
+  image: cirrusci/flutter:3.4.0
   stage: test
   script:
     - flutter analyze
