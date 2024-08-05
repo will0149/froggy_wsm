@@ -1,4 +1,5 @@
 import 'package:cct_management/app/pages/count/count_page.dart';
+import 'package:cct_management/app/pages/maintainance/settings_page.dart';
 import 'package:cct_management/app/pages/outgoing/outgoing_page.dart';
 import 'package:cct_management/app/pages/relocation/relocation_page.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,13 @@ final routerProvider = Provider<GoRouter>((ref) {
           path: OutgoingPage.routeLocation,
           builder: (BuildContext context, GoRouterState state) {
             return const OutgoingPage();
+          },
+        ),
+        GoRoute(
+          name: SettingsPage.routeName,
+          path: SettingsPage.routeLocation,
+          builder: (BuildContext context, GoRouterState state) {
+            return const SettingsPage();
           },
         ),
       ],
