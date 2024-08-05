@@ -2,6 +2,7 @@ import 'package:cct_management/app/pages/count/count_page.dart';
 import 'package:cct_management/app/pages/maintainance/settings_page.dart';
 import 'package:cct_management/app/pages/outgoing/outgoing_page.dart';
 import 'package:cct_management/app/pages/relocation/relocation_page.dart';
+import 'package:cct_management/app/pages/warehouse/search_table_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -74,6 +75,13 @@ final routerProvider = Provider<GoRouter>((ref) {
           path: SettingsPage.routeLocation,
           builder: (BuildContext context, GoRouterState state) {
             return const SettingsPage();
+          },
+        ),
+        GoRoute(
+          name: SearchTablePage.routeName,
+          path: SearchTablePage.routeLocation,
+          builder: (BuildContext context, GoRouterState state) {
+            return const SearchTablePage();
           },
         ),
       ],

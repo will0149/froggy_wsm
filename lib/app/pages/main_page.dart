@@ -1,22 +1,16 @@
-import 'dart:async';
-
 import 'package:cct_management/app/pages/count/count_page.dart';
 import 'package:cct_management/app/pages/maintainance/settings_page.dart';
 import 'package:cct_management/app/pages/outgoing/outgoing_page.dart';
 import 'package:cct_management/app/pages/relocation/relocation_page.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:cct_management/app/pages/warehouse/search_table_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../device/utils/logger_config.dart';
-import '../../flavors.dart';
 import '../constants.dart';
 import '../widgets/buttons/section_button.dart';
 import '../widgets/scaffolds/kill_pop_scope.dart';
 import '../widgets/scaffolds/safe_scaffold.dart';
 import 'entry/entry_page.dart';
-import 'maintainance/connectivity_page.dart';
 
 /// Made for cct_management.
 /// By User: josedominguez
@@ -32,59 +26,21 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<ConnectivityResult> _connectionStatus = [ConnectivityResult.none];
-  final Connectivity _connectivity = Connectivity();
-  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
 
   @override
   void initState() {
     super.initState();
-    initConnectivity();
-
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
   @override
   void dispose() {
-    _connectivitySubscription.cancel();
     super.dispose();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initConnectivity() async {
-    late List<ConnectivityResult> result;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      result = await _connectivity.checkConnectivity();
-    } on PlatformException catch (e) {
-      logger.e('Couldn\'t check connectivity status', error: e);
-      return;
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) {
-      return Future.value(null);
-    }
-
-    return _updateConnectionStatus(result);
-  }
-
-  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
-    setState(() {
-      _connectionStatus = result;
-    });
-    // ignore: avoid_print
-    print('Connectivity changed: $_connectionStatus');
-  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return !_connectionStatus.first.name.contains(ConnectivityResult.none.name)
-        ?
-    KillPopScope(
+    return KillPopScope(
       context: context,
       child: SafeScaffold(
           // appBar: AppBar(
@@ -175,6 +131,11 @@ class _MainPageState extends State<MainPage> {
                       onPressed: () => context.pushNamed(OutgoingPage.routeName),
                     ),
                     SectionButton(
+                      imagePath: "assets/search.png",
+                      title: "Búsqueda",
+                      onPressed: () => context.pushNamed(SearchTablePage.routeName),
+                    ),
+                    SectionButton(
                       imagePath: "assets/maintainance/settings.png",
                       title: "Ajustes",
                       onPressed: () => context.pushNamed(SettingsPage.routeName),
@@ -185,7 +146,6 @@ class _MainPageState extends State<MainPage> {
             ],
           ),
       ),
-    )
-    : const ConnectivityPage();
+    );
   }
 }
