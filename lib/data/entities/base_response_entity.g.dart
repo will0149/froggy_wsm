@@ -24,7 +24,7 @@ Map<String, dynamic> _$BaseResponseEntityToJson<T>(
 ) =>
     <String, dynamic>{
       'body': _$nullableGenericToJson(instance.body, toJsonT),
-      'status': instance.status,
+      'status': instance.status?.toJson(),
       'insertedCount': instance.insertedCount,
     };
 

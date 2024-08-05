@@ -4,28 +4,26 @@ import 'package:input_quantity/input_quantity.dart';
 
 import '../../../../device/utils/logger_config.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/19/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/19/24
 
 class QuantityInput extends ConsumerStatefulWidget {
   final String title;
   final String hintText;
-  final TextEditingController controller;
   final bool enable;
   final bool allowNull;
-  final Function(double) onEditingComplete;
+  final Function(int) onEditingComplete;
+  final int decimalPlaces;
 
   const QuantityInput(
       {super.key,
       this.title = 'Mensaje',
       this.hintText = '',
       this.enable = true,
-      required this.controller,
       this.allowNull = false,
-      required this.onEditingComplete});
+      required this.onEditingComplete,
+      this.decimalPlaces = 0});
 
   @override
   QuantityInputState createState() => QuantityInputState();
@@ -46,12 +44,15 @@ class QuantityInputState extends ConsumerState<QuantityInput> {
         Center(
           child: InputQty(
             maxVal: 1000,
-            initVal: 0.0,
-            minVal: 0.0,
+            initVal: 0,
+            minVal: 0,
             steps: 1,
+            decimalPlaces: widget.decimalPlaces,
             onQtyChanged: (val) {
-              logger.i("quantity value $val");
-              widget.onEditingComplete(val);
+              var castValue = double.parse(val.toString());
+              int v = castValue.toInt();
+              logger.i("quantity value $val castValue $v");
+              widget.onEditingComplete(v);
             },
             isIntrinsicWidth: false,
             qtyFormProps: QtyFormProps(
@@ -60,6 +61,38 @@ class QuantityInputState extends ConsumerState<QuantityInput> {
             ),
             decoration: QtyDecorationProps(
               fillColor: Colors.white,
+              minusBtn: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.black12,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(18.0),
+                    // Adjust the values as needed
+                    bottomLeft:
+                        Radius.circular(18.0), // Adjust the values as needed
+                  ),
+                ),
+                width: 100,
+                child: const Icon(
+                  Icons.remove,
+                  // color: Colors.redAccent,
+                ),
+              ),
+              plusBtn: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.black12,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(18.0),
+                    // Adjust the values as needed
+                    bottomRight:
+                    Radius.circular(18.0), // Adjust the values as needed
+                  ),
+                ),
+                width: 100,
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.green,
+                ),
+              ),
               plusButtonConstrains: const BoxConstraints(minHeight: 60),
               minusButtonConstrains: const BoxConstraints(minHeight: 60),
               contentPadding: const EdgeInsets.all(10),
@@ -90,30 +123,5 @@ class QuantityInputState extends ConsumerState<QuantityInput> {
         ),
       ],
     );
-    //
-    // TextFormField(
-    //   enabled: widget.enable,
-    //   controller: widget.controller,
-    //   keyboardType: TextInputType.number,
-    //   decoration:  InputDecoration(
-    //     labelStyle: widget.enable ? TextStyle() : TextStyle(color: Colors.black12),
-    //     hintText: '1',
-    //     labelText: widget.title,
-    //     prefixIcon: const Icon(Icons.numbers_sharp),
-    //   ),
-    //   onChanged: (v){
-    //     widget.onEditingComplete(v);
-    //   },
-    //   validator: (value) {
-    //     if (!widget.allowNull) {
-    //       if (value!.isEmpty) {
-    //         return 'Debe ingresar un valor igual o mayo a 0';
-    //       } else {
-    //         return null;
-    //       }
-    //     }
-    //     return null;
-    //   },
-    // );
   }
 }

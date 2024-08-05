@@ -6,11 +6,9 @@ import '../../widgets/forms/base_form_decorator.dart';
 import '../../widgets/forms/entry_form.dart';
 import '../../widgets/scaffolds/safe_scaffold.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/09/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/09/24
 
 class EntryPage extends ConsumerStatefulWidget {
   const EntryPage({super.key});
@@ -27,7 +25,7 @@ class _EntryPageState extends ConsumerState<EntryPage> {
     return ExitPopScope(
       child: SafeScaffold(
         appBar: AppBar(
-          title: Text("Entradas", ),
+          title: const Text("Entradas", ),
           centerTitle: true,
         ),
         child: const SingleChildScrollView(

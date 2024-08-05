@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/28/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/28/24
 
 class BranchInput extends ConsumerStatefulWidget {
   final String title;

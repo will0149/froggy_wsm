@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../device/utils/is_first_run.dart';
+import 'auth/login_page.dart';
 import 'entry/entry_page.dart';
 import 'main_page.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/09/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/09/24
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -24,8 +24,15 @@ final routerProvider = Provider<GoRouter>((ref) {
   final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
       debugLogDiagnostics: true,
-      initialLocation: "/main",
+      initialLocation: "/login",
       routes: <RouteBase>[
+        GoRoute(
+          name: LoginPage.routeName,
+          path: LoginPage.routeLocation,
+          builder: (BuildContext context, GoRouterState state) {
+            return const LoginPage();
+          },
+        ),
         GoRoute(
           name: MainPage.routeName,
           path: MainPage.routeLocation,
@@ -61,6 +68,17 @@ final routerProvider = Provider<GoRouter>((ref) {
             return const OutgoingPage();
           },
         ),
-      ]);
+      ],
+      redirect: (context, state) async {
+        var firstRun = IsFirstRun();
+        bool firstCall = await firstRun.isFirstRun();
+        if (firstCall) {
+          return LoginPage.routeLocation;
+        }
+        if (state.matchedLocation != LoginPage.routeLocation) {
+          return state.matchedLocation;
+        }
+        return null;
+      });
   return router;
 });

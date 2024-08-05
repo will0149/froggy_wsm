@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/24/23
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 07/24/23
 AppColors colors(context) => Theme.of(context).extension<AppColors>()!;
 
 @immutable

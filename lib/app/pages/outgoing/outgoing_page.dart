@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import '../../widgets/forms/base_form_decorator.dart';
 import '../../widgets/forms/outgoing_form.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/11/24
 
 class OutgoingPage extends StatefulWidget {
   const OutgoingPage({super.key});
@@ -29,12 +27,12 @@ class _OutgoingPageState extends State<OutgoingPage> {
           title: const Text("Salida de Mercancia"),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
+        body: const SingleChildScrollView(
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: double.infinity,
-                child: const BaseFormDecorator(
+                child: BaseFormDecorator(
                   body: OutgoingForm(),
                 ),
               ),

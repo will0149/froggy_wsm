@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 
 import 'colors/app_colors.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/10/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/10/24
 
 ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
   return ThemeData(

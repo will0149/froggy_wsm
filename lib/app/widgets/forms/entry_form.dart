@@ -1,6 +1,7 @@
 import 'package:cct_management/app/pages/entry/entry_page.dart';
 import 'package:cct_management/domain/dtos/inbound_dto.dart';
 import 'package:cct_management/domain/dtos/series_dto.dart';
+import 'package:cct_management/domain/providers/warehouses/get_warehouses_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,24 +9,28 @@ import 'package:go_router/go_router.dart';
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/dimensions_dto.dart';
 import '../../../domain/providers/add_entry_provider.dart';
+import '../../../domain/providers/clients/customer_provider.dart';
+import '../../../domain/states/entry_form_view_notifier.dart';
 import '../../../domain/utils/clean_list_util.dart';
 import '../../constants.dart';
 import '../toasts/build_toasts.dart';
 import 'inputs/assets_input.dart';
 import 'inputs/batch_input.dart';
+import 'inputs/clients_dropdown_button.dart';
 import 'inputs/date_input.dart';
 import 'inputs/dimensions_input.dart';
-import 'inputs/dropdown_button_input.dart';
+import 'inputs/generic_input.dart';
 import 'inputs/location_input.dart';
 import 'inputs/lpn_input.dart';
 import 'inputs/quantity_input.dart';
+import 'inputs/remarks_input.dart';
 import 'inputs/series_input.dart';
+import 'inputs/warehouses_dropdown_button.dart';
+import 'inputs/weight_input.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/09/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/09/24
 
 class EntryForm extends ConsumerStatefulWidget {
   const EntryForm({super.key});
@@ -41,41 +46,43 @@ class EntryFormState extends ConsumerState<EntryForm> {
   late final TextEditingController locationController = TextEditingController();
   late final TextEditingController assetsController = TextEditingController();
   late final TextEditingController batchController = TextEditingController();
-  late final TextEditingController lpnController = TextEditingController();
+  late final TextEditingController cartonIdController = TextEditingController();
   late final TextEditingController containerNumberController =
       TextEditingController();
-  late final TextEditingController seriesQuantityController =
-      TextEditingController(text: "1");
+  late final TextEditingController remarksController = TextEditingController();
+  late final TextEditingController dmcController = TextEditingController();
 
-  // late List<ClientEntity>? clientsData = clients;
+  //project state values
+  String selectedPerson = " ";
+  String selectedWarehouse = " ";
 
-  String? selectedPerson = " ";
-  String? selectedWarehouse = " ";
-  DateTime? selectedDate;
-  DateTime? expirationDate;
-  bool? isChecked = false;
+  String selectedDate = " ";
+
+  String expirationDate = " ";
+  bool isChecked = false;
   String seriesLength = "0";
-  DimensionsDto? dimensions = DimensionsDto(height: "0", width: "0", long: "0");
-
+  String itemWeight = "0";
+  DimensionsDto dimensions = DimensionsDto(height: "0", width: "0", long: "0");
+  bool isBadStateItem = false;
   bool isSeries = false;
-  bool _valid = false;
+  bool isValid = false;
   bool isLoading = false;
 
-  List<String> _seriesList = [];
+  List<String> seriesList = [];
 
   @override
   void initState() {
-    // TODO: implement initState
-    // ref.listenManual(addEntryProvider, (previous, next) {});
+    entryFormKey.currentState?.reset;
     super.initState();
   }
 
   void validateRequest() {
-    logger.d("validating seriesLength $seriesLength");
+    logger
+        .d("validating seriesLength ${seriesLength} list ${seriesList.length}");
     if (isSeries) {
-      if (int.parse(seriesLength) != _seriesList.length) {
+      if (int.parse(seriesLength) != seriesList.length) {
         setState(() {
-          _valid = false;
+          isValid = false;
           isLoading = false;
         });
         showWarningToast(
@@ -84,7 +91,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
     } else {
       if (int.parse(seriesLength) <= 0) {
         setState(() {
-          _valid = false;
+          isValid = false;
           isLoading = false;
         });
         showWarningToast("La cantidad no puede ser 0");
@@ -98,16 +105,18 @@ class EntryFormState extends ConsumerState<EntryForm> {
     locationController.dispose();
     assetsController.dispose();
     batchController.dispose();
-    lpnController.dispose();
+    cartonIdController.dispose();
     containerNumberController.dispose();
-    seriesQuantityController.dispose();
+    remarksController.dispose();
+    dmcController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // var clientLogic = ref.watch(clientsProvider);
-    final provider = ref.read(addEntryProvider.notifier);
+    final customersData = ref.watch(getCustomersProvider);
+    final warehouseData = ref.watch(getWarehousesProvider);
+    final entryLogicProvider = ref.read(addEntryProvider.notifier);
     var size = MediaQuery.of(context).size;
     return Form(
       key: entryFormKey,
@@ -147,58 +156,80 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 ),
               ),
               QuantityInput(
-                controller: seriesQuantityController,
                 title: "Cantidad de series",
                 // enable: isSeries,
                 onEditingComplete: (v) {
                   logger.f("Tamaño de series $v");
-                  if (v != null) {
-                    setState(() {
-                      seriesLength = v.toInt().toString();
-                    });
-                  }else{
-                    seriesLength = "0.0";
-                  }
+                  setState(() {
+                    seriesLength = v.toInt().toString();
+                  });
                 },
               ),
               SeriesInput(
-                initialValue: [],
-                seriesList: _seriesList,
+                initialValue: const [],
+                seriesList: seriesList,
                 maxChips: int.parse(seriesLength),
                 enable: isSeries,
                 onSelectParam: (value) {
                   setState(() {
-                    _seriesList = value;
+                    seriesList = value;
                   });
                 },
               ),
-              DropdownButtonInput(
-                onSelectParam: (value) {
-                  setState(() {
-                    selectedPerson = value;
-                  });
+              customersData.when(
+                  data: (data) {
+                    // readState.setComponentsLoading(false);
+                    logger.i("incoming data ${data.toString()}");
+                    return ClientsDropdownButton(
+                      key: const Key("2"),
+                      onSelectParam: (value) {
+                        setState(() {
+                          selectedPerson = value;
+                        });
+                      },
+                      title: "Clientes",
+                      values: data.body,
+                      icon: Icons.arrow_drop_down_circle_outlined,
+                    );
+                  },
+                  error: (err, s) {
+                    logger.e("error $s");
+                    return Text(err.toString());
+                  },
+                  loading: () => const LinearProgressIndicator()),
+              warehouseData.when(
+                data: (data) {
+                  // readState.setComponentsLoading(false);
+                  logger.i("incoming data ${data.toString()}");
+                  return WarehousesDropdownButton(
+                    key: const Key("1"),
+                    onSelectParam: (value) {
+                      setState(() {
+                        selectedWarehouse = value;
+                      });
+                    },
+                    title: "Bodegas",
+                    values: data.body,
+                    icon: Icons.arrow_drop_down_circle_outlined,
+                  );
                 },
-                title: "clientes",
-                values: clients,
-                icon: Icons.arrow_drop_down_circle_outlined,
-              ),
-              DropdownButtonInput(
-                title: "Bodegas",
-                values: bodegas,
-                onSelectParam: (value) {
-                  setState(() {
-                    selectedWarehouse = value;
-                  });
+                error: (err, s) {
+                  logger.e("error $s");
+                  return Text(err.toString());
                 },
-                icon: Icons.arrow_drop_down_circle_outlined,
+                loading: () => const LinearProgressIndicator(),
               ),
               LpnInput(
-                controller: lpnController,
-                title: 'CARTONID',
+                controller: cartonIdController,
+                title: 'Carton ID',
               ),
-              LpnInput(
+              GenericInput(
                 controller: containerNumberController,
                 title: 'Numero de Contenedor',
+              ),
+              GenericInput(
+                controller: dmcController,
+                title: 'DMC',
               ),
               LocationInput(
                 controller: locationController,
@@ -219,19 +250,19 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 title: 'Fecha de Llegada',
                 onSelectParam: (value) {
                   setState(() {
-                    selectedDate = value;
+                    selectedDate = value.toString();
                   });
                 },
-                selectedDate: selectedDate,
+                // selectedDate: DateTime.parse(selectedDate),
               ),
               DateInput(
                 onSelectParam: (value) {
                   setState(() {
-                    expirationDate = value;
+                    expirationDate = value.toString();
                   });
                 },
                 title: 'Fecha de Caducidad',
-                selectedDate: expirationDate,
+                // selectedDate: DateTime.parse(expirationDate),
               ),
               Container(
                 width: size.width * 0.40,
@@ -246,105 +277,116 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     const Text("Dañado"),
                     Checkbox(
                         semanticLabel: "Dañado",
-                        value: isChecked,
+                        value: isBadStateItem,
                         onChanged: (newBool) {
                           setState(() {
-                            isChecked = newBool;
+                            isBadStateItem = newBool!;
                           });
                         }),
                   ],
                 ),
               ),
+              WeightInput(
+                title: "Peso en KG",
+                decimalPlaces: 2,
+                onEditingComplete: (v) {
+                  setState(() {
+                    itemWeight = v.toString();
+                  });
+                },
+              ),
             ],
           ),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(10),
             ),
             child: DimensionsInput(dimensions: dimensions),
           ),
+          RemarksInput(
+            controller: remarksController,
+            title: "Observación",
+          ),
           SizedBox(
             height: MediaQuery.of(context).viewInsets.bottom,
           ),
           isLoading
               ? Container(
-                  margin: EdgeInsets.all(10.0),
+                  margin: const EdgeInsets.all(10.0),
                   child: const Center(
                     child: CircularProgressIndicator(),
                   ))
               : Container(
                   width: size.width,
-                  margin: EdgeInsets.all(10.0),
+                  margin: const EdgeInsets.all(10.0),
                   child: OutlinedButton(
                     onPressed: () {
                       setState(() {
-                        _valid = entryFormKey.currentState!.validate();
+                        isValid = entryFormKey.currentState!.validate();
                         isLoading = true;
                       });
-
                       validateRequest();
-
-                      if (_valid) {
-                        if (_seriesList.isNotEmpty && _seriesList.length <= 2) {
-                          for (String v in _seriesList) {
+                      logger.i("form valid $isValid");
+                      if (isValid) {
+                        if (seriesList.isNotEmpty) {
+                          for (String v in seriesList) {
                             if (v.contains(" ")) {
-                              _seriesList.addAll(cleanListUtil.cleanList(v));
+                              seriesList.addAll(cleanListUtil.cleanList(v));
                             }
                           }
                         }
                         var request = InboundDto(
                             docnum: "0001",
                             device: "deviceImei",
-                            branch: "branch",
+                            branch: "1",
                             asset: assetsController.text,
                             user: "user",
-                            cartonId: lpnController.text,
-                            //TODO: cambiar por carton_id
+                            cartonId: cartonIdController.text,
                             customer: selectedPerson,
                             warehouse: selectedWarehouse,
                             location: locationController.text,
                             batch: batchController.text,
-                            series: SeriesDto(series: _seriesList),
+                            series: SeriesDto(series: seriesList),
                             expiryAt: expirationDate.toString(),
-                            condition: "$isChecked",
-                            quantity: seriesQuantityController.text,
+                            condition: "$isBadStateItem",
+                            quantity: seriesLength,
                             entryAt: selectedDate.toString(),
-                            remarks: "observación",
-                            dimensions: dimensions?.toJson().toString());
+                            remarks: remarksController.text,
+                            dimensions: dimensions,
+                            isseries: isSeries.toString(),
+                            container: containerNumberController.text,
+                            weight: itemWeight,
+                            dmc: dmcController.text);
 
                         // ScaffoldMessenger.of(context).showSnackBar(
                         //   const SnackBar(content: Text("Procesando peticion")),
                         // );
 
-                        provider.addEntry(request).then((value) {
-                          setState(() {
-                            isLoading = true;
-                          });
+                        entryLogicProvider.addEntry(request).then((value) {
                           var code = value?.status?.code;
-
                           if (code! >= 200 && code < 300) {
                             showSuccessToast("Agregado Correctamente");
-                            entryFormKey.currentState?.reset();
+                            entryFormKey.currentState?.reset;
                             context.goNamed(EntryPage.routeName);
+                          } else {
+                            showErrorToast(
+                                "Ha fallado el envio con status $code!");
                           }
-                          logger.i("Adding Entry $code");
                         }).whenComplete(() {
                           logger.i("finished Entry");
                           setState(() {
                             isLoading = false;
                           });
                         }).catchError((error) {
-                          setState(() {
-                            isLoading = false;
-                          });
-                          showErrorToast("Algo fallo!");
+                          showErrorToast("Error en el envio de datos!");
+                        });
+                      } else {
+                        setState(() {
+                          isLoading = false;
                         });
                       }
-                      setState(() {
-                        isLoading = false;
-                      });
                     },
                     child: Text("Guardar",
                         style: Theme.of(context).textTheme.headlineMedium),

@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../device/utils/logger_config.dart';
 
 /**
  * Made for cct_management.
@@ -11,15 +10,16 @@ import '../../device/utils/logger_config.dart';
 part 'base_data_entity.g.dart';
 
 @JsonSerializable(
-  genericArgumentFactories: true,
+  genericArgumentFactories: true, explicitToJson: true,
+    constructor: '_'
 )
 class BaseDataEntity<T> {
   @JsonKey(name: 'data')
   T? data;
 
-  BaseDataEntity({this.data}){
-    logger.d(this.data);
-  }
+  BaseDataEntity({this.data});
+
+  BaseDataEntity._(this.data);
 
   factory BaseDataEntity.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
       _$BaseDataEntityFromJson(json, fromJsonT);

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 07/03/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 07/03/24
 
 class GenericInput extends ConsumerStatefulWidget {
   final String title;

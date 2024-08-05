@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 07/05/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 07/05/24
 
 void showSuccessToast(String message){
   Fluttertoast.showToast(

@@ -2,11 +2,9 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/12/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/12/24
 
 @JsonSerializable(
   genericArgumentFactories: true,
@@ -31,28 +29,28 @@ class RelocationDataEntity {
       String? updatedAt,
       String? createdAt}) {
     if (deleted != null) {
-      this._deleted = deleted;
+      _deleted = deleted;
     }
     if (deletedAt != null) {
-      this._deletedAt = deletedAt;
+      _deletedAt = deletedAt;
     }
     if (id != null) {
-      this._id = id;
+      _id = id;
     }
     if (lpn != null) {
-      this._lpn = lpn;
+      _lpn = lpn;
     }
     if (serie != null) {
-      this._serie = serie;
+      _serie = serie;
     }
     if (quantity != null) {
-      this._quantity = quantity;
+      _quantity = quantity;
     }
     if (updatedAt != null) {
-      this._updatedAt = updatedAt;
+      _updatedAt = updatedAt;
     }
     if (createdAt != null) {
-      this._createdAt = createdAt;
+      _createdAt = createdAt;
     }
   }
 
@@ -85,15 +83,15 @@ class RelocationDataEntity {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['deleted'] = this._deleted;
-    data['deleted_at'] = this._deletedAt;
-    data['id'] = this._id;
-    data['lpn'] = this._lpn;
-    data['serie'] = this._serie;
-    data['quantity'] = this._quantity;
-    data['updated_at'] = this._updatedAt;
-    data['created_at'] = this._createdAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['deleted'] = _deleted;
+    data['deleted_at'] = _deletedAt;
+    data['id'] = _id;
+    data['lpn'] = _lpn;
+    data['serie'] = _serie;
+    data['quantity'] = _quantity;
+    data['updated_at'] = _updatedAt;
+    data['created_at'] = _createdAt;
     return data;
   }
 }

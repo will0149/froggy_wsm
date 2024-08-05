@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'client_entity.dart';
+part of 'warehouse_entity.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ClientEntity _$ClientEntityFromJson(Map<String, dynamic> json) => ClientEntity(
-      id: (json['id'] as num?)?.toInt(),
+WarehouseEntity _$WarehouseEntityFromJson(Map<String, dynamic> json) =>
+    WarehouseEntity(
       name: json['name'] as String?,
       description: json['description'] as String?,
       barcode: json['barcode'] as String?,
@@ -15,9 +15,9 @@ ClientEntity _$ClientEntityFromJson(Map<String, dynamic> json) => ClientEntity(
       deletedAt: json['deleted_at'] as String?,
       createdAt: json['created_at'] as String?,
       updatedAt: json['updated_at'] as String?,
-    );
+    )..id = (json['id'] as num?)?.toInt();
 
-Map<String, dynamic> _$ClientEntityToJson(ClientEntity instance) =>
+Map<String, dynamic> _$WarehouseEntityToJson(WarehouseEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/19/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/19/24
 
 class DropdownButtonInput extends ConsumerStatefulWidget {
   String title;
@@ -28,6 +26,7 @@ class DropdownButtonInputState extends ConsumerState<DropdownButtonInput> {
       decoration:  InputDecoration(
         hintText: 'titulo',
         labelText: widget.title,
+        labelStyle: Theme.of(context).textTheme.bodyLarge,
       ),
       icon: Icon(widget.icon),
       alignment: AlignmentDirectional.center,
@@ -46,8 +45,8 @@ class DropdownButtonInputState extends ConsumerState<DropdownButtonInput> {
       },
       items: widget.values.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
-          value: "$value",
-          child: Text("$value"),
+          value: value,
+          child: Text(value),
         );
       }).toList(),
     );

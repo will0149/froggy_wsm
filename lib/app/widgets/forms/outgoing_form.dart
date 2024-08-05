@@ -1,39 +1,52 @@
-import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/outgoing_dto.dart';
+import '../../../domain/dtos/series_dto.dart';
 import '../../../domain/providers/add_outgoing_provider.dart';
+import '../../../domain/providers/warehouses/get_warehouses_provider.dart';
 import '../../constants.dart';
+import '../../pages/outgoing/outgoing_page.dart';
+import '../toasts/build_toasts.dart';
+import 'inputs/assets_input.dart';
+import 'inputs/date_input.dart';
+import 'inputs/location_input.dart';
+import 'inputs/lpn_input.dart';
+import 'inputs/quantity_input.dart';
+import 'inputs/series_input.dart';
+import 'inputs/warehouses_dropdown_button.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/11/24
 
 class OutgoingForm extends ConsumerStatefulWidget {
   const OutgoingForm({super.key});
 
   @override
-  _OutgoingFormState createState() => _OutgoingFormState();
+  OutgoingFormState createState() => OutgoingFormState();
 }
 
-class _OutgoingFormState extends ConsumerState<OutgoingForm> {
+class OutgoingFormState extends ConsumerState<OutgoingForm> {
   late final GlobalKey<FormState> outgoingFormKey = GlobalKey<FormState>();
 
   late final TextEditingController locationController = TextEditingController();
-  late final TextEditingController batchController = TextEditingController();
-  late final TextEditingController seriesController = TextEditingController();
-  late final TextEditingController quantityController = TextEditingController();
+  late final TextEditingController lpnController = TextEditingController();
+  late final TextEditingController assetsController = TextEditingController();
 
   String? selectedPerson;
   String? selectedWarehouse;
   DateTime? selectedDate;
+  String seriesLength = "0";
+  bool isSeries = false;
+
   bool _valid = false;
   bool isLoading = false;
+
+  List<String> _seriesList = [];
 
   @override
   void initState() {
@@ -42,8 +55,40 @@ class _OutgoingFormState extends ConsumerState<OutgoingForm> {
     super.initState();
   }
 
+  void validateRequest() {
+    logger.d("validating seriesLength $seriesLength");
+    if (isSeries) {
+      if (int.parse(seriesLength) != _seriesList.length) {
+        setState(() {
+          _valid = false;
+          isLoading = false;
+        });
+        showWarningToast(
+            "La series deben coincidir con la cantidad introducida");
+      }
+    } else {
+      if (int.parse(seriesLength) <= 0) {
+        setState(() {
+          _valid = false;
+          isLoading = false;
+        });
+        showWarningToast("La cantidad no puede ser 0");
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    locationController.dispose();
+    lpnController.dispose();
+    assetsController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final warehouseData = ref.watch(getWarehousesProvider);
     var outgoing = ref.watch(addOutgoingProvider);
     var size = MediaQuery.of(context).size;
     return Form(
@@ -58,213 +103,159 @@ class _OutgoingFormState extends ConsumerState<OutgoingForm> {
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
-          Wrap(
-            spacing: 30.0, //espacio horizontal
-            // runSpacing: 10.0, //espacio vertical
-            children: [
-              Column(
-                children: [
-                  Container(
-                    // color: Colors.lightBlueAccent,
-                    width: size.width * 0.40,
-                    child: DropdownButtonFormField<String>(
-                      value: selectedPerson,
-                      hint: Text(
-                        'Cliente',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      icon: const Icon(Icons.person),
-                      alignment: AlignmentDirectional.center,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedPerson = newValue;
-                        });
-                      },
-                      validator: (String? value) {
-                        if (value == null) {
-                          return 'Please select an option';
-                        }
-                        return null;
-                      },
-                      items:
-                      clients.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Container(
-                    width: size.width * 0.40,
-                    child: DropdownButtonFormField<String>(
-                      value: selectedWarehouse,
-                      icon: const Icon(Icons.warehouse),
-                      alignment: AlignmentDirectional.center,
-                      hint: Text(
-                        'Bodega',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedWarehouse = newValue;
-                        });
-                      },
-                      validator: (String? value) {
-                        if (value == null) {
-                          return 'Please select an option';
-                        }
-                        return null;
-                      },
-                      items:
-                      bodegas.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
-              )
-            ],
+          Container(
+            width: size.width * 0.40,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Es Serie"),
+                Checkbox(
+                    semanticLabel: "Es Serie",
+                    value: isSeries,
+                    onChanged: (newBool) {
+                      setState(() {
+                        isSeries = newBool!;
+                      });
+                    }),
+              ],
+            ),
           ),
-          Wrap(
-            runSpacing: wrapVerticalSpacing,
-            children: [
-              TextFormField(
-                controller: locationController,
-                decoration: const InputDecoration(
-                  hintText: 'Colón',
-                  labelText: 'Ubicación',
-                  prefixIcon: Icon(Icons.location_on_outlined),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'El campo no puede estar vacío';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-              TextFormField(
-                controller: batchController,
-                decoration: const InputDecoration(
-                  hintText: '45',
-                  labelText: 'Lote',
-                  // prefixIcon: Icon(Icons.),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'El campo no puede estar vacío';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-              TextFormField(
-                controller: seriesController,
-                decoration: const InputDecoration(
-                  hintText: 'N2J3N1K2N2',
-                  labelText: 'Serie',
-                  // prefixIcon: Icon(Icons.location_on_outlined),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'El campo no puede estar vacío';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-            ],
+          QuantityInput(
+            title: "Cantidad de series",
+            // enable: isSeries,
+            onEditingComplete: (v) {
+              logger.f("Tamaño de series $v");
+              setState(() {
+                seriesLength = v.toInt().toString();
+              });
+                        },
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                width: size.width * 0.80,
-                child: DateTimeFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Fecha de salida',
-                  ),
-                  initialPickerDateTime:
-                  DateTime.now().add(const Duration(days: 20)),
-                  mode: DateTimeFieldPickerMode.date,
-                  onChanged: (DateTime? value) {
-                    selectedDate = value;
-                  },
-                ),
-              ),
-            ],
+          SeriesInput(
+            initialValue: const [],
+            seriesList: _seriesList,
+            maxChips: int.parse(seriesLength),
+            enable: isSeries,
+            onSelectParam: (value) {
+              setState(() {
+                _seriesList = value;
+              });
+            },
           ),
-          Wrap(
-            children: [
-              TextFormField(
-                controller: quantityController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  hintText: '1',
-                  labelText: 'Cantidad',
-                  prefixIcon: Icon(Icons.numbers_sharp),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'El campo no puede estar vacío';
-                  } else {
-                    return null;
-                  }
+          // DropdownButtonInput(
+          //   onSelectParam: (value) {
+          //     setState(() {
+          //       selectedPerson = value;
+          //     });
+          //   },
+          //   title: "Clientes",
+          //   values: clients,
+          //   icon: Icons.arrow_drop_down_circle_outlined,
+          // ),
+
+          warehouseData.when(
+            data: (data) {
+              // readState.setComponentsLoading(false);
+              logger.i("incoming data ${data.toString()}");
+              return WarehousesDropdownButton(
+                key: const Key("1"),
+                onSelectParam: (value) {
+                  setState(() {
+                    selectedWarehouse = value;
+                  });
                 },
-              ),
-            ],
+                title: "Bodegas",
+                values: data.body,
+                icon: Icons.arrow_drop_down_circle_outlined,
+              );
+            },
+            error: (err, s) {
+              logger.e("error $s");
+              return Text(err.toString());
+            },
+            loading: () => const  LinearProgressIndicator(),
+          ),
+          LpnInput(
+            controller: lpnController,
+            title: 'Carton ID',
+          ),
+          LocationInput(
+            controller: locationController,
+          ),
+          AssetsInput(
+            controller: assetsController,
+          ),
+          DateInput(
+            title: 'Fecha de Salida',
+            onSelectParam: (value) {
+              setState(() {
+                selectedDate = value;
+              });
+            },
+            // selectedDate: selectedDate,
           ),
           isLoading
               ? Container(
-              margin: EdgeInsets.all(10.0),
-              child: Center(
-                child: CircularProgressIndicator(),
-              ))
+                  margin: const EdgeInsets.all(10.0),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ))
               : Container(
-            width: size.width,
-            margin: EdgeInsets.all(10.0),
-            child: OutlinedButton(
-              onPressed: () {
-                setState(() {
-                  _valid = outgoingFormKey.currentState!.validate();
-                  isLoading = true;
-                });
-                if (_valid) {
-                  var request = OutgoingDto(
-                      docnum: "",
-                      lpn: "",
-                      customer: selectedPerson,
-                      warehouse: selectedWarehouse,
-                      location: locationController.text,
-                      batch: batchController.text,
-                      serie: seriesController.text,
-                      quantity: quantityController.text,
-                      exitAt: selectedDate.toString(),
-                      remarks: "");
+                  width: size.width,
+                  margin: const EdgeInsets.all(10.0),
+                  child: OutlinedButton(
+                    onPressed: () {
+                      setState(() {
+                        _valid = outgoingFormKey.currentState!.validate();
+                        isLoading = true;
+                      });
+                      if (_valid) {
+                        var request = OutgoingDto(
+                            docnum: "sadas",
+                            warehouse: selectedWarehouse,
+                            device: "movil",
+                            location: locationController.text,
+                            isSeries: isSeries.toString(),
+                            series: SeriesDto(series: _seriesList),
+                            cartonId: lpnController.text,
+                            asset: assetsController.text,
+                            quantity: seriesLength);
 
-                  logger.d(request.toJson());
-                  var response = outgoing.addOutgoing(request);
-                  response.whenComplete(() {
-                    setState(() {
-                      isLoading = false;
-                    });
-                    // context.goNamed(MainPage.routeName);
-                  });
-                  logger.i(response);
-                }
-              },
-              child: Text("Guardar",
-                  style: Theme.of(context).textTheme.headlineMedium),
-            ),
-          ),
+                        logger.d(request.toJson());
+                        var response =
+                            outgoing.addOutgoing(request).then((value) {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          var code = value?.status?.code;
+
+                          if (code! >= 200 && code < 300) {
+                            showSuccessToast("Agregado Correctamente");
+                            outgoingFormKey.currentState?.reset();
+                            context.goNamed(OutgoingPage.routeName);
+                          }
+                          logger.i("Adding Entry $code");
+                        }).whenComplete(() {
+                          logger.i("finished Entry");
+                          setState(() {
+                            isLoading = false;
+                          });
+                        }).catchError((error) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          showErrorToast("Algo fallo!");
+                        });
+                      }
+                    },
+                    child: Text("Guardar",
+                        style: Theme.of(context).textTheme.headlineMedium),
+                  ),
+                ),
         ],
       ),
     );

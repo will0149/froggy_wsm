@@ -7,21 +7,20 @@ import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/relocation_dto.dart';
 import '../../../domain/dtos/series_dto.dart';
 import '../../../domain/providers/relocate_provider.dart';
+import '../../../domain/providers/warehouses/get_warehouses_provider.dart';
 import '../../../domain/utils/clean_list_util.dart';
 import '../../constants.dart';
 import '../toasts/build_toasts.dart';
 import 'inputs/assets_input.dart';
-import 'inputs/dropdown_button_input.dart';
 import 'inputs/location_input.dart';
 import 'inputs/lpn_input.dart';
 import 'inputs/quantity_input.dart';
 import 'inputs/series_input.dart';
+import 'inputs/warehouses_dropdown_button.dart';
 
-/**
- * Made for cct_management.
- * By User: josedominguez
- * Date: 06/11/24
- */
+/// Made for cct_management.
+/// By User: josedominguez
+/// Date: 06/11/24
 
 class RelocationForm extends ConsumerStatefulWidget {
   const RelocationForm({super.key});
@@ -39,15 +38,12 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
       TextEditingController();
   late final TextEditingController locationToController =
       TextEditingController();
-  late final TextEditingController lpnFromController = TextEditingController(text: "");
+  late final TextEditingController cartonIdFromController = TextEditingController(text: "");
   late final TextEditingController lpnToController = TextEditingController(text: "");
   late final TextEditingController assetsController = TextEditingController(text: "");
   late final TextEditingController remarksController = TextEditingController(text: "");
 
-  late final Key seriesKey = Key("series");
-
-  late final TextEditingController quantityController =
-      TextEditingController(text: "0");
+  late final Key seriesKey = const Key("series");
 
   String seriesLength = "0";
 
@@ -95,14 +91,14 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
     locationToController.dispose();
     assetsController.dispose();
     remarksController.dispose();
-    quantityController.dispose();
-    lpnFromController.dispose();
+    cartonIdFromController.dispose();
     lpnToController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final warehouseData = ref.watch(getWarehousesProvider);
     var relocateItems = ref.watch(relocateProvider);
     var size = MediaQuery.of(context).size;
     return Form(
@@ -146,21 +142,16 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                 ),
                 QuantityInput(
                   title: "Cantidad de Series",
-                  controller: quantityController,
                   onEditingComplete: (v){
                     logger.f("Tamaño de series $v");
-                    if (v != null) {
-                      setState(() {
-                        seriesLength = v.toInt().toString();
-                      });
-                    }else{
-                      seriesLength = "0.0";
-                    }
-                  },
+                    setState(() {
+                      seriesLength = v.toInt().toString();
+                    });
+                                    },
                 ),
                 SeriesInput(
                   key: seriesKey,
-                  initialValue: [],
+                  initialValue: const [],
                   seriesList: _seriesList,
                   maxChips: int.parse(seriesLength),
                   enable: isSeries,
@@ -171,7 +162,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                   },
                 ),
                 LpnInput(
-                  controller: lpnFromController,
+                  controller: cartonIdFromController,
                   title: 'CartonId origen',
                 ),
                 LpnInput(
@@ -188,26 +179,50 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                 ),
               ],
             ),
-            DropdownButtonInput(
-              title: 'Bodega Origen',
-              values: bodegas,
-              onSelectParam: (value) {
-                setState(() {
-                  selectedWarehouseFrom = value;
-                });
+            warehouseData.when(
+                data: (data) {
+                  // readState.setComponentsLoading(false);
+                  logger.i("incoming data ${data.toString()}");
+                  return WarehousesDropdownButton(
+                    key: const Key("1"),
+                    onSelectParam: (value) {
+                      setState(() {
+                        selectedWarehouseFrom = value;
+                      });
+                    },
+                    title: "Bodega Origen",
+                    values: data.body,
+                    icon: Icons.arrow_drop_down_circle_outlined,
+                  );
+                },
+                error: (err, s) {
+                  logger.e("error $s");
+                  return Text(err.toString());
+                },
+                loading: () => const  LinearProgressIndicator(),),
+
+            warehouseData.when(
+              data: (data) {
+                // readState.setComponentsLoading(false);
+                logger.i("incoming data ${data.toString()}");
+                return WarehousesDropdownButton(
+                  key: const Key("2"),
+                  onSelectParam: (value) {
+                    setState(() {
+                      selectedWarehouseTo = value;
+                    });
+                  },
+                  title: "Bodega Destino",
+                  values: data.body,
+                  icon: Icons.arrow_drop_down_circle_outlined,
+                );
               },
-              icon: Icons.arrow_drop_down_circle_outlined,
-            ),
-            DropdownButtonInput(
-              title: 'Bodega Destino',
-              values: bodegas,
-              onSelectParam: (value) {
-                setState(() {
-                  selectedWarehouseTo = value;
-                });
+              error: (err, s) {
+                logger.e("error $s");
+                return Text(err.toString());
               },
-              icon: Icons.arrow_drop_down_circle_outlined,
-            ),
+              loading: () => const  LinearProgressIndicator(),),
+
             SizedBox(
               height: MediaQuery.of(context).viewInsets.bottom,
             ),
@@ -216,8 +231,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                     margin: const EdgeInsets.all(10.0),
                     child: const Center(
                       child: CircularProgressIndicator(),
-                    ),
-            )
+                    ))
                 : Container(
                     width: size.width,
                     margin: const EdgeInsets.all(10.0),
@@ -231,10 +245,9 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                         validateRequest();
 
                         if (_valid) {
-                          if (_seriesList.isNotEmpty &&
-                              _seriesList.length <= 2) {
+                          if (_seriesList.isNotEmpty) {
                             for (String v in _seriesList) {
-                              if(v.contains(" ")){
+                              if (v.contains(" ")) {
                                 _seriesList.addAll(cleanListUtil.cleanList(v));
                               }
                             }
@@ -246,18 +259,17 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                           //     selectedWarehouseFrom!, selectedWarehouseTo!
                           // )){
                             var request = RelocationDto(
-                                user: "",
                                 asset: assetsController.text,
                                 isseries: "$isSeries",
                                 series: SeriesDto(series: _seriesList),
                                 branch: "1",
-                                fromCartonId: lpnFromController.text,
+                                fromCartonId: cartonIdFromController.text,
                                 fromwarehouse: selectedWarehouseFrom,
                                 fromlocation: locationFromController.text,
                                 towardsCartonId: lpnToController.text,
                                 towardswarehouse: selectedWarehouseTo,
                                 towardslocation: locationToController.text,
-                                quantity: quantityController.text,
+                                quantity: seriesLength,
                                 remarks: "qwe");
 
                             logger.d(request.toJson());
@@ -270,14 +282,6 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                               if (code! >= 200 && code < 300) {
                                 showSuccessToast("Agregado Correctamente");
                                 relocationFormKey.currentState?.reset();
-                                _seriesList = <String>[];
-                                assetsController.text = "";
-                                lpnToController.text = "";
-                                lpnFromController.text = "";
-                                locationFromController.text = "";
-                                locationToController.text = "";
-                                quantityController.text = "0";
-                                isSeries = false;
                                 context.goNamed(RelocationPage.routeName);
                               }
                               logger.i("Adding Entry $code");
@@ -294,9 +298,6 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                             });
 
                         }
-                        setState(() {
-                          isLoading = false;
-                        });
                       },
                       child: Text("Guardar",
                           style: Theme.of(context).textTheme.headlineMedium),
