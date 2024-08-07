@@ -15,7 +15,7 @@ import '../../constants.dart';
 class SettingsPage extends ConsumerStatefulWidget {
   static String get routeName => 'settings';
 
-  static String get routeLocation => '/$routeName';
+  static String get routeLocation => routeName;
   const SettingsPage({super.key});
 
   @override

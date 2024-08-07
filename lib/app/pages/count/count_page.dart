@@ -15,7 +15,7 @@ class CountPage extends StatefulWidget {
   @override
   State<CountPage> createState() => _CountPageState();
   static String get routeName => 'count';
-  static String get routeLocation => '/$routeName';
+  static String get routeLocation => routeName;
 }
 
 class _CountPageState extends State<CountPage> {

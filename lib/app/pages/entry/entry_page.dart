@@ -16,7 +16,7 @@ class EntryPage extends ConsumerStatefulWidget {
   @override
   _EntryPageState createState() => _EntryPageState();
   static String get routeName => 'entry/add';
-  static String get routeLocation => '/$routeName';
+  static String get routeLocation => routeName;
 }
 
 class _EntryPageState extends ConsumerState<EntryPage> {

@@ -41,48 +41,50 @@ final routerProvider = Provider<GoRouter>((ref) {
           builder: (BuildContext context, GoRouterState state) {
             return const MainPage();
           },
-        ),
-        GoRoute(
-          name: EntryPage.routeName,
-          path: EntryPage.routeLocation,
-          builder: (BuildContext context, GoRouterState state) {
-            return const EntryPage();
-          },
-        ),
-        GoRoute(
-          name: RelocationPage.routeName,
-          path: RelocationPage.routeLocation,
-          builder: (BuildContext context, GoRouterState state) {
-            return const RelocationPage();
-          },
-        ),
-        GoRoute(
-          name: CountPage.routeName,
-          path: CountPage.routeLocation,
-          builder: (BuildContext context, GoRouterState state) {
-            return const CountPage();
-          },
-        ),
-        GoRoute(
-          name: OutgoingPage.routeName,
-          path: OutgoingPage.routeLocation,
-          builder: (BuildContext context, GoRouterState state) {
-            return const OutgoingPage();
-          },
-        ),
-        GoRoute(
-          name: SettingsPage.routeName,
-          path: SettingsPage.routeLocation,
-          builder: (BuildContext context, GoRouterState state) {
-            return const SettingsPage();
-          },
-        ),
-        GoRoute(
-          name: SearchTablePage.routeName,
-          path: SearchTablePage.routeLocation,
-          builder: (BuildContext context, GoRouterState state) {
-            return const SearchTablePage();
-          },
+            routes: <RouteBase>[
+              GoRoute(
+                name: EntryPage.routeName,
+                path: EntryPage.routeLocation,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const EntryPage();
+                },
+              ),
+              GoRoute(
+                name: RelocationPage.routeName,
+                path: RelocationPage.routeLocation,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const RelocationPage();
+                },
+              ),
+              GoRoute(
+                name: CountPage.routeName,
+                path: CountPage.routeLocation,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const CountPage();
+                },
+              ),
+              GoRoute(
+                name: OutgoingPage.routeName,
+                path: OutgoingPage.routeLocation,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const OutgoingPage();
+                },
+              ),
+              GoRoute(
+                name: SettingsPage.routeName,
+                path: SettingsPage.routeLocation,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const SettingsPage();
+                },
+              ),
+              GoRoute(
+                name: SearchTablePage.routeName,
+                path: SearchTablePage.routeLocation,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const SearchTablePage();
+                },
+              ),
+            ]
         ),
       ],
       redirect: (context, state) async {

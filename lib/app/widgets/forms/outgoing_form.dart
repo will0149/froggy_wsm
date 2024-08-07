@@ -37,8 +37,8 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
   late final TextEditingController lpnController = TextEditingController();
   late final TextEditingController assetsController = TextEditingController();
 
-  String? selectedPerson;
-  String? selectedWarehouse;
+  String selectedPerson = " ";
+  String selectedWarehouse = " ";
   DateTime? selectedDate;
   String seriesLength = "0";
   bool isSeries = false;
@@ -51,7 +51,7 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
   @override
   void initState() {
     // TODO: implement initState
-    initializeDateFormatting();
+    outgoingFormKey.currentState?.reset;
     super.initState();
   }
 
@@ -165,7 +165,7 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
                 key: const Key("1"),
                 onSelectParam: (value) {
                   setState(() {
-                    selectedWarehouse = value;
+                    selectedWarehouse = value!;
                   });
                 },
                 title: "Bodegas",
@@ -235,22 +235,25 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
 
                           if (code! >= 200 && code < 300) {
                             showSuccessToast("Agregado Correctamente");
-                            outgoingFormKey.currentState?.reset();
+                            // outgoingFormKey.currentState?.reset();
                             context.goNamed(OutgoingPage.routeName);
                           }
-                          logger.i("Adding Entry $code");
+                          logger.i("Adding Outbound");
                         }).whenComplete(() {
-                          logger.i("finished Entry");
+                          logger.i("finished Outbound");
                           setState(() {
                             isLoading = false;
                           });
-                        }).catchError((error) {
+                        }).catchError((error, stacktrace) {
+                          logger.e(error);
+                          logger.e(stacktrace.toString());
                           setState(() {
                             isLoading = false;
                           });
                           showErrorToast("Algo fallo!");
                         });
                       }
+
                     },
                     child: Text("Guardar",
                         style: Theme.of(context).textTheme.headlineMedium),

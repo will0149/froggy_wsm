@@ -6,8 +6,6 @@
 library;
 
 enum ApiPathsEnums {
-
-  host(path: 'cct-api.froggysoft.app'),
   v1(path: '/api/v1'),
   inbound(path: '/api/v1/inbound'),
   outgoing(path: '/api/v1/outbound'),

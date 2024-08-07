@@ -11,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SearchTablePage extends ConsumerStatefulWidget {
   static String get routeName => 'search/items';
-  static String get routeLocation => '/$routeName';
+  static String get routeLocation => routeName;
   const SearchTablePage({super.key});
 
   @override

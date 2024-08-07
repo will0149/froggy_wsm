@@ -14,7 +14,7 @@ class OutgoingPage extends StatefulWidget {
   @override
   State<OutgoingPage> createState() => _OutgoingPageState();
   static String get routeName => 'outgoing';
-  static String get routeLocation => '/$routeName';
+  static String get routeLocation => routeName;
 }
 
 class _OutgoingPageState extends State<OutgoingPage> {

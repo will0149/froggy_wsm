@@ -39,7 +39,7 @@ class OperationRepository {
     var client = http.Client();
     try {
       var bodyEncoded = jsonEncode(request);
-      var uri = Uri.https(ApiPathsEnums.host.path, ApiPathsEnums.outgoing.path);
+      var uri = Uri.https(F.baseUrl, ApiPathsEnums.outgoing.path);
       logger.t(uri);
       logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
@@ -58,7 +58,7 @@ class OperationRepository {
 
       var bodyEncoded = jsonEncode(request);
       var uri =
-          Uri.https(ApiPathsEnums.host.path, ApiPathsEnums.relocation.path);
+          Uri.https(F.baseUrl, ApiPathsEnums.relocation.path);
       logger.t(uri);
       logger.i(request.toJson());
       final response = await client.post(
@@ -78,7 +78,7 @@ class OperationRepository {
     var client = http.Client();
     try{
       var bodyEncoded = jsonEncode(request);
-      var uri = Uri.https(ApiPathsEnums.host.path, ApiPathsEnums.countValidate.path);
+      var uri = Uri.https(F.baseUrl, ApiPathsEnums.countValidate.path);
       logger.t(uri);
       logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
@@ -95,7 +95,7 @@ class OperationRepository {
     var client = http.Client();
     try{
       var bodyEncoded = jsonEncode(request);
-      var uri = Uri.https(ApiPathsEnums.host.path, ApiPathsEnums.count.path);
+      var uri = Uri.https(F.baseUrl, ApiPathsEnums.count.path);
       logger.t(uri);
       logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
