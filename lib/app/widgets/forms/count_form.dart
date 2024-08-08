@@ -203,7 +203,7 @@ class CountFormState extends ConsumerState<CountForm> {
                               tallyCount.count(data).then((value) {
                                 var code = value?.status?.code;
                                 if (code! >= 200 && code < 300) {
-                                  showSuccessToast("Agregado Correctamente");
+                                  showSuccessToast("Coteo Exitoso");
                                   // countFormKey.currentState?.reset;
                                   context.goNamed(CountPage.routeName);
                                 }else {

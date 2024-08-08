@@ -9,12 +9,12 @@ import '../../widgets/forms/outgoing_form.dart';
 /// Date: 06/11/24
 
 class OutgoingPage extends StatefulWidget {
+  static String get routeName => 'outgoing';
+  static String get routeLocation => routeName;
   const OutgoingPage({super.key});
 
   @override
   State<OutgoingPage> createState() => _OutgoingPageState();
-  static String get routeName => 'outgoing';
-  static String get routeLocation => routeName;
 }
 
 class _OutgoingPageState extends State<OutgoingPage> {

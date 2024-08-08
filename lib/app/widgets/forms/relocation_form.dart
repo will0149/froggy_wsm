@@ -265,7 +265,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                             relocateItems.relocate(request).then((value) {
                               var code = value?.status?.code;
                               if (code! >= 200 && code < 300) {
-                                showSuccessToast("Agregado Correctamente");
+                                showSuccessToast("Reubicación Exitosa");
                                 // relocationFormKey.currentState?.reset();
                                 context.goNamed(RelocationPage.routeLocation);
                               }else {

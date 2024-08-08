@@ -51,7 +51,6 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
   @override
   void initState() {
     // TODO: implement initState
-    outgoingFormKey.currentState?.reset;
     super.initState();
   }
 
@@ -225,17 +224,13 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
                             asset: assetsController.text,
                             quantity: seriesLength);
 
-                        logger.d(request.toJson());
-                        var response =
-                            outgoing.addOutgoing(request).then((value) {
+                        outgoing.addOutgoing(request).then((value) {
                           setState(() {
                             isLoading = true;
                           });
                           var code = value?.status?.code;
-
                           if (code! >= 200 && code < 300) {
-                            showSuccessToast("Agregado Correctamente");
-                            // outgoingFormKey.currentState?.reset();
+                            showSuccessToast("Salida Exitosa");
                             context.goNamed(OutgoingPage.routeName);
                           }
                           logger.i("Adding Outbound");

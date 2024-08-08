@@ -308,6 +308,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
           RemarksInput(
             controller: remarksController,
             title: "Observación",
+            allowNull: false,
           ),
           SizedBox(
             height: MediaQuery.of(context).viewInsets.bottom,
@@ -367,7 +368,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         entryLogicProvider.addEntry(request).then((value) {
                           var code = value?.status?.code;
                           if (code! >= 200 && code < 300) {
-                            showSuccessToast("Agregado Correctamente");
+                            showSuccessToast("Entrada Exitosa");
                             entryFormKey.currentState?.reset;
                             context.goNamed(EntryPage.routeName);
                           } else {
