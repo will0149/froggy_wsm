@@ -2,7 +2,7 @@ import 'package:cct_management/app/pages/count/count_page.dart';
 import 'package:cct_management/app/pages/maintainance/settings_page.dart';
 import 'package:cct_management/app/pages/outgoing/outgoing_page.dart';
 import 'package:cct_management/app/pages/relocation/relocation_page.dart';
-import 'package:cct_management/app/pages/warehouse/search_table_page.dart';
+import 'package:cct_management/app/pages/warehouse/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -133,7 +133,7 @@ class _MainPageState extends State<MainPage> {
                     SectionButton(
                       imagePath: "assets/search.png",
                       title: "Búsqueda",
-                      onPressed: () => context.pushNamed(SearchTablePage.routeName),
+                      onPressed: () => context.pushNamed(SearchPage.routeName),
                     ),
                     SectionButton(
                       imagePath: "assets/maintainance/settings.png",
