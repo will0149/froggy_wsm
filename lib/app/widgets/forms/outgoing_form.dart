@@ -232,6 +232,9 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
                           if (code! >= 200 && code < 300) {
                             showSuccessToast("Salida Exitosa");
                             context.goNamed(OutgoingPage.routeName);
+                          }else {
+                            showErrorToast(
+                                "Ha fallado el envio con status ${value?.status?.msg}");
                           }
                           logger.i("Adding Outbound");
                         }).whenComplete(() {
@@ -245,7 +248,7 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
                           setState(() {
                             isLoading = false;
                           });
-                          showErrorToast("Algo fallo!");
+                          showErrorToast("Algo fallo ${error.toString()}!");
                         });
                       }
 

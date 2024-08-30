@@ -271,7 +271,7 @@ class CountFormState extends ConsumerState<CountForm> {
                                   });
                                 } else {
                                   showErrorToast(
-                                      "Ha fallado el envio con status $code");
+                                      "Ha fallado el envio con status ${value?.status?.msg}");
                                 }
                               }).whenComplete(() {
                                 logger.i("finished Count");
@@ -283,7 +283,7 @@ class CountFormState extends ConsumerState<CountForm> {
                                 setState(() {
                                   isLoading = false;
                                 });
-                                showErrorToast("Algo fallo!");
+                                showErrorToast("Algo fallo ${error.toString()}!");
                               });
                             }else {
                               setState(() {

@@ -270,7 +270,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                                 context.goNamed(RelocationPage.routeLocation);
                               }else {
                                 showErrorToast(
-                                    "Ha fallado el envio con status");
+                                    "Ha fallado el envio con status ${value?.status?.msg}");
                               }
                             }).whenComplete(() {
                               logger.i("finished Count");
@@ -283,7 +283,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                               setState(() {
                                 isLoading = false;
                               });
-                              showErrorToast("Error en el envio de datos!");
+                              showErrorToast("Algo fallo ${error.toString()}!");
                             });
 
                         }
