@@ -103,7 +103,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
           // ),
           const Align(
               alignment: Alignment.bottomCenter,
-              child: Text("Version: 1.0.7",)
+              child: Text("Version: 1.0.8",)
             ,)
         ],
       ),
