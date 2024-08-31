@@ -4,7 +4,7 @@ description: "App for logistic management"
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.4+1
+version: 1.0.8+1
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -83,6 +83,8 @@ flutter:
     - assets/maintainance/maintenance.json
     - assets/logos/
     - assets/logos/cct_logo.png
+    - assets/logos/atheneox.png
+    - assets/maintainance/settings.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

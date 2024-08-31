@@ -1,0 +1,57 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../data/entities/base_response_entity.dart';
+import '../../../data/entities/stocks/body_stocks_entity.dart';
+import '../../../data/entities/stocks/stock_list_entity.dart';
+import '../../../data/repositories/stocks/stocks_repository.dart';
+import '../../../device/utils/logger_config.dart';
+import '../../dtos/series_dto.dart';
+
+/**
+ * Made for cct_management.
+ * By User: josedominguez
+ * Date: 08/13/24
+ */
+
+class StocksLogic extends ChangeNotifier {
+  late final StocksRepository repository;
+
+  StocksLogic() {
+    repository = StocksRepository();
+  }
+
+  Future<BaseResponseEntity<StockListEntity>> getStocksBySeries(SeriesDto? series) async {
+    var serviceResponse = <String, dynamic>{};
+    BaseResponseEntity<StockListEntity> responseEntity =
+    BaseResponseEntity<StockListEntity>();
+    try {
+      serviceResponse = await repository.getStockBySeries(series);
+      StockListEntity stocks = StockListEntity(series: []);
+      if ("${serviceResponse['status']['code']}" == "200") {
+        serviceResponse["body"]['series'].map((i) {
+          stocks.series?.add(BodyStocksEntity.fromJson(i));
+        }).toList();
+        responseEntity = BaseResponseEntity<StockListEntity>.fromJson(
+            serviceResponse, (json) => stocks);
+        logger.i("stocks $responseEntity");
+
+        if (serviceResponse["body"].isEmpty) {
+          responseEntity.status?.code = 404;
+          responseEntity.status?.msg = "No se han encontrado clientes";
+        }
+      }
+      notifyListeners();
+    } on Exception catch (e, stack_trace) {
+      logger.e(e.toString());
+      logger.e(stack_trace);
+      responseEntity.status?.code = 500;
+      responseEntity.status?.msg = "Internal Error";
+      notifyListeners();
+    }
+    logger.i(serviceResponse);
+    return responseEntity;
+  }
+}
+
+final stocksLogicProvider = Provider<StocksLogic>((ref) => StocksLogic(),);

@@ -31,12 +31,11 @@ class CountForm extends ConsumerStatefulWidget {
 class CountFormState extends ConsumerState<CountForm> {
   late final GlobalKey<FormState> countFormKey = GlobalKey<FormState>();
 
-  late final TextEditingController locationController = TextEditingController();
-  late final TextEditingController lpnController = TextEditingController();
-  late final TextEditingController assetsController = TextEditingController();
+  late final TextEditingController locationController = TextEditingController(text: "");
+  late final TextEditingController lpnController = TextEditingController(text: "");
+  late final TextEditingController assetsController = TextEditingController(text: "");
 
-  String? selectedWarehouse = " ";
-  bool? isChecked = false;
+  String selectedWarehouse = " ";
   String seriesLength = "0";
   List<String> _seriesList = [];
 
@@ -50,7 +49,7 @@ class CountFormState extends ConsumerState<CountForm> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    countFormKey.currentState?.reset;
     super.initState();
   }
 
@@ -201,29 +200,31 @@ class CountFormState extends ConsumerState<CountForm> {
                               isLoading = true;
                             });
                             if (_valid) {
-                              logger.d('save ${data.toJson()}');
                               tallyCount.count(data).then((value) {
-                                setState(() {
-                                  isLoading = true;
-                                });
                                 var code = value?.status?.code;
-
                                 if (code! >= 200 && code < 300) {
-                                  showSuccessToast("Agregado Correctamente");
-                                  countFormKey.currentState?.reset();
+                                  showSuccessToast("Coteo Exitoso");
+                                  // countFormKey.currentState?.reset;
                                   context.goNamed(CountPage.routeName);
+                                }else {
+                                  showErrorToast(
+                                      "Ha fallado el envio con status ");
                                 }
-                                logger.i("Adding Entry $code");
                               }).whenComplete(() {
-                                logger.i("finished Entry");
+                                logger.i("finished Count");
                                 setState(() {
                                   isLoading = false;
                                 });
                               }).catchError((error) {
+                                logger.e("bruja ${error}");
                                 setState(() {
                                   isLoading = false;
                                 });
                                 showErrorToast("Algo fallo!");
+                              });
+                            } else {
+                              setState(() {
+                                isLoading = false;
                               });
                             }
                           },
@@ -259,13 +260,9 @@ class CountFormState extends ConsumerState<CountForm> {
                                   remark: "sfafafas");
                             });
                             if (_valid) {
-                              logger.d('validate ${data.toJson()}');
                               tallyCount.countValidate(data).then((value) {
-                                setState(() {
-                                  isLoading = true;
-                                });
                                 var code = value?.status?.code;
-                                logger.e("code in form $code");
+                                logger.i("code in form $code");
                                 if (code! >= 200 && code < 300) {
                                   showSuccessToast("Datos validados");
                                   setState(() {
@@ -273,20 +270,24 @@ class CountFormState extends ConsumerState<CountForm> {
                                     isLoading = false;
                                   });
                                 } else {
-                                  showAlert(value?.status!.toJson().toString());
+                                  showErrorToast(
+                                      "Ha fallado el envio con status ${value?.status?.msg}");
                                 }
-                                logger.i("Adding Entry $code");
                               }).whenComplete(() {
-                                logger.i("finished Entry");
+                                logger.i("finished Count");
                                 setState(() {
                                   isLoading = false;
                                 });
                               }).catchError((error) {
-                                logger.e(error.toString());
+                                logger.e("bruja ${error.toString()}");
                                 setState(() {
                                   isLoading = false;
                                 });
-                                showErrorToast("Algo fallo!");
+                                showErrorToast("Algo fallo ${error.toString()}!");
+                              });
+                            }else {
+                              setState(() {
+                                isLoading = false;
                               });
                             }
                           },

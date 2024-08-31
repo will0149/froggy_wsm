@@ -42,6 +42,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return KillPopScope(
+      context: context,
       child: SafeScaffold(
         appBar: AppBar(
           title: Text("Froggy Soft"),
@@ -63,29 +64,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
                       bottomRight: Radius.circular(200.0),
                       bottomLeft: Radius.circular(200.0)),
                 ),
-                child: Center(
-                  child: Wrap(
-                    direction: Axis.vertical,
-                    runAlignment: WrapAlignment.center,
-                    children: [
-                      Text(
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(color: Colors.white),
-                        "Hola!",
-                      ),
-                      Text(
-                        "Bienvenido",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(color: Colors.white),
-                      ),
-                      // Image.asset("assets/logo.png")
-                    ],
-                  ),
-                ),
+                child: null,
               ),
             ),
             const Align(

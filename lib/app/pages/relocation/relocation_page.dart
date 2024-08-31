@@ -15,7 +15,7 @@ class RelocationPage extends ConsumerStatefulWidget {
   @override
   _RelocationPageState createState() => _RelocationPageState();
   static String get routeName => 'relocation';
-  static String get routeLocation => '/$routeName';
+  static String get routeLocation => routeName;
 }
 
 class _RelocationPageState extends ConsumerState<RelocationPage> {

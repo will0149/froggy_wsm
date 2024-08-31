@@ -2,6 +2,8 @@ import 'package:cct_management/data/entities/warehouses/warehouse_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../device/utils/logger_config.dart';
+
 /// Made for cct_management.
 /// By User: josedominguez
 /// Date: 07/17/24
@@ -31,7 +33,7 @@ class ObjetDropdownButtonState extends ConsumerState<WarehousesDropdownButton> {
   @override
   Widget build(BuildContext context) {
     List<WarehouseEntity>? warehouses =  widget.values;
-    String? selectedValue = null;
+    String? selectedValue;
     return DropdownButtonFormField<String>(
       validator: (value){
         if (value == null) {
@@ -48,6 +50,7 @@ class ObjetDropdownButtonState extends ConsumerState<WarehousesDropdownButton> {
       icon: Icon(widget.icon),
       alignment: AlignmentDirectional.center,
       onChanged: (newValue) {
+        logger.w("$newValue");
         widget.onSelectParam(newValue!);
         setState(() {
           selectedValue = newValue;

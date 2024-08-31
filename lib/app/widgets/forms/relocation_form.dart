@@ -49,15 +49,15 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
 
   List<String> _seriesList = [];
 
-  String? selectedWarehouseFrom = " ";
-  String? selectedWarehouseTo = " ";
+  String selectedWarehouseFrom = " ";
+  String selectedWarehouseTo = " ";
   bool isSeries = false;
   bool _valid = false;
   bool isLoading = false;
 
   @override
   void initState() {
-    // TODO: implement initState
+    relocationFormKey.currentState?.reset();
     // ref.listenManual(addEntryProvider, (previous, next) {});
     super.initState();
   }
@@ -150,7 +150,6 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                                     },
                 ),
                 SeriesInput(
-                  key: seriesKey,
                   initialValue: const [],
                   seriesList: _seriesList,
                   maxChips: int.parse(seriesLength),
@@ -182,9 +181,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
             warehouseData.when(
                 data: (data) {
                   // readState.setComponentsLoading(false);
-                  logger.i("incoming data ${data.toString()}");
                   return WarehousesDropdownButton(
-                    key: const Key("1"),
                     onSelectParam: (value) {
                       setState(() {
                         selectedWarehouseFrom = value;
@@ -204,9 +201,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
             warehouseData.when(
               data: (data) {
                 // readState.setComponentsLoading(false);
-                logger.i("incoming data ${data.toString()}");
                 return WarehousesDropdownButton(
-                  key: const Key("2"),
                   onSelectParam: (value) {
                     setState(() {
                       selectedWarehouseTo = value;
@@ -252,12 +247,6 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                               }
                             }
                           }
-                          // esta validacion es para que lo origenes no sean igual al destino
-                          // if(validateFromTo(
-                          //   lpnFromController.text, lpnToController.text,
-                          //   locationFromController.text, locationToController.text,
-                          //     selectedWarehouseFrom!, selectedWarehouseTo!
-                          // )){
                             var request = RelocationDto(
                                 asset: assetsController.text,
                                 isseries: "$isSeries",
@@ -274,27 +263,27 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
 
                             logger.d(request.toJson());
                             relocateItems.relocate(request).then((value) {
-                              setState(() {
-                                isLoading = true;
-                              });
                               var code = value?.status?.code;
-
                               if (code! >= 200 && code < 300) {
-                                showSuccessToast("Agregado Correctamente");
-                                relocationFormKey.currentState?.reset();
-                                context.goNamed(RelocationPage.routeName);
+                                showSuccessToast("Reubicación Exitosa");
+                                // relocationFormKey.currentState?.reset();
+                                context.goNamed(RelocationPage.routeLocation);
+                              }else {
+                                showErrorToast(
+                                    "Ha fallado el envio con status ${value?.status?.msg}");
                               }
-                              logger.i("Adding Entry $code");
                             }).whenComplete(() {
-                              logger.i("finished Entry");
+                              logger.i("finished Count");
                               setState(() {
                                 isLoading = false;
                               });
-                            }).catchError((error) {
+                            }).catchError((error, stacktrace) {
+                              logger.e(error);
+                              logger.e(stacktrace.toString());
                               setState(() {
                                 isLoading = false;
                               });
-                              showErrorToast("Algo fallo!");
+                              showErrorToast("Algo fallo ${error.toString()}!");
                             });
 
                         }

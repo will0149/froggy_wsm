@@ -26,11 +26,8 @@ class CountLogic extends ChangeNotifier {
     BaseResponseEntity<BaseDataEntity<Object>>? responseEntity;
     try {
       result = await repository.count(request);
-      if (result.containsKey('code')) {
-        code = result['code'];
-      } else {
-        code = result['status']['code'];
-      }
+      code = result['status']['code'];
+
       if (code >= 200 && code < 300) {
         responseEntity = BaseResponseEntity<BaseDataEntity<Object>>.fromJson(
             result,
@@ -57,10 +54,8 @@ class CountLogic extends ChangeNotifier {
       } else {
         responseEntity?.status = StatusEntity.fromJson(result['status']);
       }
-      notifyListeners();
     }
-    logger.d(
-        "relocate responseEntity ${responseEntity?.toJson((json) => json.toJson((json) => {}))}");
+    notifyListeners();
     return responseEntity;
   }
 

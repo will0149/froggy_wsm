@@ -308,6 +308,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
           RemarksInput(
             controller: remarksController,
             title: "Observación",
+            allowNull: false,
           ),
           SizedBox(
             height: MediaQuery.of(context).viewInsets.bottom,
@@ -367,12 +368,12 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         entryLogicProvider.addEntry(request).then((value) {
                           var code = value?.status?.code;
                           if (code! >= 200 && code < 300) {
-                            showSuccessToast("Agregado Correctamente");
+                            showSuccessToast("Entrada Exitosa");
                             entryFormKey.currentState?.reset;
                             context.goNamed(EntryPage.routeName);
                           } else {
                             showErrorToast(
-                                "Ha fallado el envio con status $code!");
+                                "Ha fallado el envio con status ${value?.status?.msg}");
                           }
                         }).whenComplete(() {
                           logger.i("finished Entry");
@@ -380,7 +381,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             isLoading = false;
                           });
                         }).catchError((error) {
-                          showErrorToast("Error en el envio de datos!");
+                          showErrorToast("Error en el envio de datos  ${error.toString()} !");
                         });
                       } else {
                         setState(() {

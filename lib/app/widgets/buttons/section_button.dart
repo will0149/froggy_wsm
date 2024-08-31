@@ -33,7 +33,7 @@ class _SectionButtonState extends State<SectionButton> {
                 flex: 3,
                 child: Ink.image(
                   height: size.height * 0.10,
-                  width: size.width * 0.25,
+                  width: size.width * 0.27,
                   image: AssetImage(widget.imagePath),
                   fit: BoxFit.cover,
                 ),

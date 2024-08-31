@@ -9,8 +9,9 @@ import '../../../device/utils/logger_config.dart';
 
 class KillPopScope extends StatefulWidget {
   final Widget child;
+  final BuildContext context;
 
-  const KillPopScope({super.key, required this.child});
+  const KillPopScope({super.key, required this.child, required this.context});
 
   @override
   State<KillPopScope> createState() => _KillPopScopeState();
@@ -19,7 +20,7 @@ class KillPopScope extends StatefulWidget {
 class _KillPopScopeState extends State<KillPopScope> {
   Future<bool?> _showBackDialog() {
     return showDialog<bool>(
-      context: context,
+      context: widget.context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Quieres Salir?'),
