@@ -41,7 +41,8 @@ class LoginFormState extends ConsumerState<LoginForm> {
             decoration: const InputDecoration(
                 labelText: 'Email',
                 hintText: "user@example.com",
-                icon: Icon(Icons.email)),
+                icon: Icon(Icons.email, color: Colors.orange,),
+            ),
             controller: emailInputController,
             keyboardType: TextInputType.emailAddress,
           ),
@@ -50,10 +51,10 @@ class LoginFormState extends ConsumerState<LoginForm> {
             decoration: InputDecoration(
               labelText: 'Password',
               hintText: "********",
-              icon: const Icon(Icons.security),
+              icon: const Icon(Icons.security, color: Colors.orange),
               suffixIcon: IconButton(
                   icon: Icon(
-                      _isObscure ? Icons.visibility : Icons.visibility_off),
+                      _isObscure ? Icons.visibility : Icons.visibility_off, color: Colors.orange),
                   onPressed: () {
                     setState(() {
                       _isObscure = !_isObscure;

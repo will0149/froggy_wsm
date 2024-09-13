@@ -1,3 +1,4 @@
+import 'package:cct_management/app/constants.dart';
 import 'package:cct_management/app/themes/styles/input_decoration.dart';
 import 'package:cct_management/app/themes/styles/submit_button_style.dart';
 import 'package:cct_management/app/themes/styles/text_theme.dart';
@@ -45,5 +46,8 @@ ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
         side: const BorderSide(width: 1.2),
       ),
     ),
+    iconTheme: IconThemeData(
+      color: backGroundColor
+    )
   );
 }

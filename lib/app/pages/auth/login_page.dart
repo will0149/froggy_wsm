@@ -1,3 +1,4 @@
+import 'package:cct_management/app/paints/middle_wave_white.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -43,28 +44,15 @@ class LoginPageState extends ConsumerState<LoginPage> {
     var size = MediaQuery.of(context).size;
     return KillPopScope(
       context: context,
-      child: SafeScaffold(
-        appBar: AppBar(
-          title: Text("Froggy Soft"),
-          centerTitle: true,
-        ),
-        child: Stack(
+      child: Scaffold(
+        body: Stack(
           fit: StackFit.expand,
           children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                height: size.height * 0.25,
-                width: size.width * 1,
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black12),
-                  color: backGroundColor,
-                  borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(200.0),
-                      bottomLeft: Radius.circular(200.0)),
-                ),
-                child: null,
+            SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: CustomPaint(
+                painter: MiddleWaveWhite(),
               ),
             ),
             const Align(
