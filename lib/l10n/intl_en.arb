@@ -1,0 +1,76 @@
+{
+  "devStudio": "Atheneox Studios",
+  "appName": "Froggy",
+  "appFullName": "Froggy Soft",
+  "dontHaveAnAccountYet": "Dont't have an account yet?",
+  "entryMenuName": "Entry",
+  "relocationMenuName": "Relocations",
+  "countMenuName": "Counts",
+  "outgoingMenuName": "Outgoings",
+  "searchMenuName": "Searches",
+  "settingsMenuName": "Settings",
+
+  "emailInput": "Email",
+  "passwordInput": "Password",
+  "isSeriesInput": "Is Series?",
+  "countSeriesInput": "Series Quantity",
+  "addSeriesInput": "Add Series",
+  "customersListInput": "Customers",
+  "warehouseListInput": "Warehouses",
+  "warehouseOriginListInput": "Origin warehouse",
+  "warehouseDestinyListInput": "Destiny warehouse",
+  "cartonIdInput": "Carton ID",
+  "cartonIdOriginInput": "Origin Carton ID",
+  "cartonIdDestinyInput": "Destiny Carton ID",
+  "containerInput": "Container number",
+  "dmcInput": "DMC",
+  "locationInput": "Location",
+  "locationOriginInput": "Origin location",
+  "locationDestinyInput": "Destiny location",
+  "batchInput": "Batch",
+  "assetInput": "Assets",
+  "incomingDateInput": "Entry date",
+  "outgoingDateInput": "Outgoing date",
+  "weightInput": "Weight in KG",
+  "dimensionInput": "Dimensions",
+  "heightInput": "Height",
+  "widthInput": "Width",
+  "longInput": "Long",
+  "remarksInput": "Remarks",
+  "searchInput": "Stock search",
+  "damaged": "Damaged",
+
+  "entryPageTitle": "Entry",
+  "relocationPageTitle": "Relocation",
+  "countPageTitle": "Counts",
+  "outgoingPageTitle": "Outgoings",
+  "searchPageTitle": "Search",
+  "settingsPageTitle": "Settings",
+
+
+  "entryFormTitle": "Add Entry",
+  "relocationFormTitle": "Relocate items",
+  "countPageFormTitle": "Count items",
+  "outgoingFormTitle": "Outgoing items",
+  "searchFormTitle": "",
+  "settingsFormTitle": "Search items",
+
+  "environment": "Environment",
+  "version": "Version",
+
+  "loginButton": "Sign In",
+
+  "inches": "Inches",
+
+  "fieldCantBeEmpty": "Field can't be empty",
+
+  "successToast": "Successful",
+  "failedToast": "Something Failed",
+
+  "saveButton": "Save",
+
+  "wantToExit": "Exit?",
+  "sureWantToExit": "Are you sure want to exit?",
+  "cancel": "Cancel",
+  "exit": "Exit"
+}

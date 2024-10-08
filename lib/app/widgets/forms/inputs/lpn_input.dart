@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../generated/l10n.dart';
+
 /// Made for cct_management.
 /// By User: josedominguez
 /// Date: 06/20/24
@@ -29,7 +31,7 @@ class LpnInputState extends ConsumerState<LpnInput> {
       validator: (value) {
         if (!widget.allowNull) {
           if (value!.isEmpty) {
-            return 'El campo no puede estar vacío';
+            return S.of(context).fieldCantBeEmpty;
           } else {
             return null;
           }

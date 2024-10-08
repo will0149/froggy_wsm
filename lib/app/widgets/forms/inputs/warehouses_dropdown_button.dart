@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../device/utils/logger_config.dart';
+import '../../../../generated/l10n.dart';
 
 /// Made for cct_management.
 /// By User: josedominguez
@@ -37,7 +38,7 @@ class ObjetDropdownButtonState extends ConsumerState<WarehousesDropdownButton> {
     return DropdownButtonFormField<String>(
       validator: (value){
         if (value == null) {
-          return 'El campo no puede estar vacío';
+          return S.of(context).fieldCantBeEmpty;
         } else {
           return null;
         }

@@ -3,6 +3,7 @@ import 'package:cct_management/app/pages/maintainance/settings_page.dart';
 import 'package:cct_management/app/pages/outgoing/outgoing_page.dart';
 import 'package:cct_management/app/pages/relocation/relocation_page.dart';
 import 'package:cct_management/app/pages/warehouse/search_page.dart';
+import 'package:cct_management/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -111,33 +112,33 @@ class _MainPageState extends State<MainPage> {
                   children: [
                     SectionButton(
                       imagePath: "assets/warehouse.png",
-                      title: "Entrada",
+                      title: S.of(context).entryMenuName,
                       onPressed: () => context.pushNamed(EntryPage.routeName),
                     ),
                     SectionButton(
                       imagePath: "assets/forklift.png",
-                      title: "Reubicacion",
+                      title: S.of(context).relocationMenuName,
                       onPressed: () =>
                           context.pushNamed(RelocationPage.routeName),
                     ),
                     SectionButton(
                       imagePath: "assets/material-management.png",
-                      title: "Conteo",
+                      title: S.of(context).countMenuName,
                       onPressed: () => context.pushNamed(CountPage.routeName),
                     ),
                     SectionButton(
                       imagePath: "assets/truck.png",
-                      title: "Salida",
+                      title: S.of(context).outgoingMenuName,
                       onPressed: () => context.pushNamed(OutgoingPage.routeName),
                     ),
                     SectionButton(
                       imagePath: "assets/search.png",
-                      title: "Búsqueda",
+                      title: S.of(context).searchMenuName,
                       onPressed: () => context.pushNamed(SearchPage.routeName),
                     ),
                     SectionButton(
                       imagePath: "assets/maintainance/settings.png",
-                      title: "Ajustes",
+                      title: S.of(context).settingsMenuName,
                       onPressed: () => context.pushNamed(SettingsPage.routeName),
                     ),
                   ],

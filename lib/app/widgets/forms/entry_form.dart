@@ -2,6 +2,7 @@ import 'package:cct_management/app/pages/entry/entry_page.dart';
 import 'package:cct_management/domain/dtos/inbound_dto.dart';
 import 'package:cct_management/domain/dtos/series_dto.dart';
 import 'package:cct_management/domain/providers/warehouses/get_warehouses_provider.dart';
+import 'package:cct_management/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -126,7 +127,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
         children: [
           Center(
             child: Text(
-              "Registrar Entrada",
+              S.of(context).entryFormTitle,
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
@@ -143,9 +144,9 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Es Serie"),
+                    Text(S.of(context).isSeriesInput),
                     Checkbox(
-                        semanticLabel: "Es Serie",
+                        semanticLabel: S.of(context).isSeriesInput,
                         value: isSeries,
                         onChanged: (newBool) {
                           setState(() {
@@ -156,7 +157,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 ),
               ),
               QuantityInput(
-                title: "Cantidad de series",
+                title: S.of(context).countSeriesInput,
                 // enable: isSeries,
                 onEditingComplete: (v) {
                   logger.f("Tamaño de series $v");
@@ -187,7 +188,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                           selectedPerson = value;
                         });
                       },
-                      title: "Clientes",
+                      title: S.of(context).customersListInput,
                       values: data.body,
                       icon: Icons.arrow_drop_down_circle_outlined,
                     );
@@ -208,7 +209,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         selectedWarehouse = value;
                       });
                     },
-                    title: "Bodegas",
+                    title: S.of(context).warehouseListInput,
                     values: data.body,
                     icon: Icons.arrow_drop_down_circle_outlined,
                   );
@@ -221,17 +222,18 @@ class EntryFormState extends ConsumerState<EntryForm> {
               ),
               LpnInput(
                 controller: cartonIdController,
-                title: 'Carton ID',
+                title: S.of(context).cartonIdInput,
               ),
               GenericInput(
                 controller: containerNumberController,
-                title: 'Numero de Contenedor',
+                title: S.of(context).containerInput,
               ),
               GenericInput(
                 controller: dmcController,
-                title: 'DMC',
+                title: S.of(context).dmcInput,
               ),
               LocationInput(
+                title: S.of(context).locationInput,
                 controller: locationController,
               ),
               BatchInput(
@@ -247,7 +249,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
             runSpacing: wrapVerticalSpacing,
             children: [
               DateInput(
-                title: 'Fecha de Llegada',
+                title: S.of(context).incomingDateInput,
                 onSelectParam: (value) {
                   setState(() {
                     selectedDate = value.toString();
@@ -261,7 +263,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     expirationDate = value.toString();
                   });
                 },
-                title: 'Fecha de Caducidad',
+                title: S.of(context).outgoingDateInput,
                 // selectedDate: DateTime.parse(expirationDate),
               ),
               Container(
@@ -274,9 +276,9 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Dañado"),
+                    Text(S.of(context).damaged),
                     Checkbox(
-                        semanticLabel: "Dañado",
+                        semanticLabel: S.of(context).damaged,
                         value: isBadStateItem,
                         onChanged: (newBool) {
                           setState(() {
@@ -287,7 +289,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 ),
               ),
               WeightInput(
-                title: "Peso en KG",
+                title: S.of(context).weightInput,
                 decimalPlaces: 2,
                 onEditingComplete: (v) {
                   setState(() {
@@ -307,7 +309,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
           ),
           RemarksInput(
             controller: remarksController,
-            title: "Observación",
+            title: S.of(context).remarksInput,
             allowNull: false,
           ),
           SizedBox(
@@ -368,12 +370,12 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         entryLogicProvider.addEntry(request).then((value) {
                           var code = value?.status?.code;
                           if (code! >= 200 && code < 300) {
-                            showSuccessToast("Entrada Exitosa");
+                            showSuccessToast(S.of(context).successToast);
                             entryFormKey.currentState?.reset;
                             context.goNamed(EntryPage.routeName);
                           } else {
                             showErrorToast(
-                                "Ha fallado el envio con status ${value?.status?.msg}");
+                                "${S.of(context).failedToast} ${value?.status?.msg}");
                           }
                         }).whenComplete(() {
                           logger.i("finished Entry");
@@ -381,7 +383,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                             isLoading = false;
                           });
                         }).catchError((error) {
-                          showErrorToast("Error en el envio de datos  ${error.toString()} !");
+                          showErrorToast("${S.of(context).failedToast}  ${error.toString()} !");
                         });
                       } else {
                         setState(() {
@@ -389,7 +391,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         });
                       }
                     },
-                    child: Text("Guardar",
+                    child: Text(S.of(context).saveButton,
                         style: Theme.of(context).textTheme.headlineMedium),
                   ),
                 ),

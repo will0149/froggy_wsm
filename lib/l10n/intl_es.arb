@@ -1,0 +1,76 @@
+{
+  "devStudio": "Atheneox Studios",
+  "appName": "Froggy",
+  "appFullName": "Froggy Soft",
+  "dontHaveAnAccountYet": "No tienes una cuenta todavia?",
+  "entryMenuName": "Entrada",
+  "relocationMenuName": "Reubicación",
+  "countMenuName": "Conteo",
+  "outgoingMenuName": "Salida",
+  "searchMenuName": "Búsqueda",
+  "settingsMenuName": "Ajustes",
+
+  "emailInput": "Correo Electrónico",
+  "passwordInput": "Contraseña",
+  "isSeriesInput": "Es Serie?",
+  "countSeriesInput": "Cantidad de series",
+  "addSeriesInput": "Agregar Series",
+  "customersListInput": "Clientes",
+  "warehouseListInput": "Bodegas",
+  "warehouseOriginListInput": "Bodega Origen",
+  "warehouseDestinyListInput": "Bodega Destino",
+  "cartonIdInput": "Carton ID",
+  "cartonIdOriginInput": "Carton ID origen",
+  "cartonIdDestinyInput": "Carton ID destino",
+  "containerInput": "Número de contenedor",
+  "dmcInput": "DMC",
+  "locationInput": "Ubicación",
+  "locationOriginInput": "Ubicación origen",
+  "locationDestinyInput": "Ubicación destino",
+  "batchInput": "Lote",
+  "assetInput": "Activo",
+  "incomingDateInput": "Fecha de llegada",
+  "outgoingDateInput": "Fecha de salida",
+  "weightInput": "Peso en KG",
+  "dimensionInput": "Dimensiones",
+  "heightInput": "Altura",
+  "widthInput": "Anchura",
+  "longInput": "LArgo",
+  "remarksInput": "Observaciones",
+  "searchInput": "Búsqueda de Stocks",
+  "damaged": "Dañado",
+
+  "entryPageTitle": "Entradas",
+  "relocationPageTitle": "Reubicaciones",
+  "countPageTitle": "Conteos",
+  "outgoingPageTitle": "Salidas",
+  "searchPageTitle": "Búsquedas",
+  "settingsPageTitle": "Ajustes",
+
+
+  "entryFormTitle": "Agregar Entrada",
+  "relocationFormTitle": "Reubicar mercancía",
+  "countPageFormTitle": "Conteo de mercancía",
+  "outgoingFormTitle": "Salida de mercancía",
+  "searchFormTitle": "",
+  "settingsFormTitle": "Buscar mercancía",
+
+  "environment": "Entorno",
+  "version": "versión",
+
+  "loginButton": "Iniciar Sesión",
+
+  "inches": "Pulgadas",
+
+  "fieldCantBeEmpty": "El campo no puede estar vacío",
+
+  "successToast": "Realizado Exitosamente",
+  "failedToast": "Algo a Fallado",
+
+  "saveButton": "Guardar",
+
+  "wantToExit": "Quieres Salir?",
+  "sureWantToExit": "Estas seguro que quieres abandonar esta pagina?",
+  "cancel": "Cancelar",
+  "exit": "Salir"
+}

@@ -1,4 +1,5 @@
 import 'package:cct_management/app/paints/middle_wave_white.dart';
+import 'package:cct_management/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -95,7 +96,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
                                   color: Colors.black87,
                                   fontFamily: "GothicA1-Bold",
                           ),
-                          "Atheneox Studios",
+                          S.of(context).devStudio,
                         ),
                         onTap: () => launchUrlString('https://atheneox.com'),
                       ),

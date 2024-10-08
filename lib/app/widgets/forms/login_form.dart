@@ -1,3 +1,4 @@
+import 'package:cct_management/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -38,10 +39,10 @@ class LoginFormState extends ConsumerState<LoginForm> {
         runSpacing: wrapVerticalSpacing,
         children: [
           TextFormField(
-            decoration: const InputDecoration(
-                labelText: 'Email',
+            decoration: InputDecoration(
+                labelText: S.of(context).emailInput,
                 hintText: "user@example.com",
-                icon: Icon(Icons.email, color: Colors.orange,),
+                icon: const Icon(Icons.email, color: Colors.orange,),
             ),
             controller: emailInputController,
             keyboardType: TextInputType.emailAddress,
@@ -49,7 +50,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
           TextFormField(
             obscureText: _isObscure,
             decoration: InputDecoration(
-              labelText: 'Password',
+              labelText: S.of(context).passwordInput,
               hintText: "********",
               icon: const Icon(Icons.security, color: Colors.orange),
               suffixIcon: IconButton(
@@ -70,7 +71,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
             width: size.width,
             margin: const EdgeInsets.all(10.0),
             child: OutlinedButton(
-              child: Text("Iniciar Sesión",
+              child: Text(S.of(context).loginButton,
                   style: Theme.of(context).textTheme.headlineSmall),
               onPressed: () {
                 context.goNamed(MainPage.routeName);
@@ -78,7 +79,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
             ),
           ),
           Center(
-              child: Text("Don't have an account yet?",
+              child: Text(S.of(context).dontHaveAnAccountYet,
                   style: Theme.of(context).textTheme.bodyLarge),
           ),
         ],

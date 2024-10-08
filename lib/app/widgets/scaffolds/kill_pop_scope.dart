@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../device/utils/logger_config.dart';
+import '../../../generated/l10n.dart';
 
 /// Made for cct_management.
 /// By User: josedominguez
@@ -23,16 +24,16 @@ class _KillPopScopeState extends State<KillPopScope> {
       context: widget.context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Quieres Salir?'),
-          content: const Text(
-            'Estas seguro que quieres salir de la aplicación?',
+          title: Text(S.of(context).wantToExit),
+          content: Text(
+            S.of(context).sureWantToExit,
           ),
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Cancelar'),
+              child: Text(S.of(context).cancel),
               onPressed: () {
                 Navigator.pop(context, false);
               },
@@ -41,7 +42,7 @@ class _KillPopScopeState extends State<KillPopScope> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Salir'),
+              child: Text(S.of(context).exit),
               onPressed: () {
                 Navigator.pop(context, true);
               },

@@ -29,7 +29,7 @@ class BranchInputState extends ConsumerState<BranchInput> {
       validator: (value) {
         if(!widget.allowNull){
           if (value!.isEmpty) {
-            return 'El campo no puede estar vacío';
+            return S.of(context).fieldCantBeEmpty;
           } else {
             return null;
           }

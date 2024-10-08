@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../generated/l10n.dart';
+
 /// Made for cct_management.
 /// By User: josedominguez
 /// Date: 07/03/24
@@ -31,7 +33,7 @@ class GenericInputState extends ConsumerState<GenericInput> {
       validator: (value) {
         if (!widget.allowNull) {
           if (value!.isEmpty) {
-            return 'El campo no puede estar vacío';
+            return S.of(context).fieldCantBeEmpty;
           } else {
             return null;
           }

@@ -1,6 +1,8 @@
+import 'package:cct_management/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'app/pages/app_router.dart';
 import 'app/themes/app_theme.dart';
@@ -22,12 +24,13 @@ class App extends ConsumerWidget {
       debugShowCheckedModeBanner: true,
       title: F.title,
       theme: getAppTheme(context, false),
-      // localizationsDelegates: const [
-      //   GlobalMaterialLocalizations.delegate,
-      //   GlobalWidgetsLocalizations.delegate,
-      //   GlobalCupertinoLocalizations.delegate,
-      //   S.delegate
-      // ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        S.delegate
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       builder: (context, child) {
         // Obtain the current media query information.
         final mediaQueryData = MediaQuery.of(context);

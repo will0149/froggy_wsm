@@ -1,4 +1,5 @@
 import 'package:cct_management/app/widgets/scaffolds/exit_pop_scope.dart';
+import 'package:cct_management/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,7 +26,7 @@ class _EntryPageState extends ConsumerState<EntryPage> {
     return ExitPopScope(
       child: SafeScaffold(
         appBar: AppBar(
-          title: const Text("Entradas", ),
+          title: Text(S.of(context).entryPageTitle, ),
           centerTitle: true,
         ),
         child: const SingleChildScrollView(

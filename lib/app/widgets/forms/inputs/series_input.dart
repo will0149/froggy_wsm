@@ -1,3 +1,4 @@
+import 'package:cct_management/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_input_chips/flutter_input_chips.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,7 +36,7 @@ class SeriesInputState extends ConsumerState<SeriesInput> {
         borderRadius: BorderRadius.circular(10),
       ),
       inputDecoration: InputDecoration(
-        labelText: "Agregar Series",
+        labelText: S.of(context).addSeriesInput,
         hintText: "N2J3N1K2N2",
         suffix: widget.enable ? Text("${widget.seriesList.length}/${widget.maxChips}", style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: seriesAfford ? Colors.green : Colors.red),) : null,
         labelStyle: widget.enable ? const TextStyle() : const TextStyle(color: Colors.black12),

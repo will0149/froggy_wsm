@@ -1,4 +1,5 @@
 import 'package:cct_management/domain/dtos/dimensions_dto.dart';
+import 'package:cct_management/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -38,21 +39,21 @@ class DimensionsInputState extends ConsumerState<DimensionsInput> {
     return Wrap(
       runSpacing: wrapVerticalSpacing,
       children: [
-        const Center(child: Text("Dimensiones")),
+        Center(child: Text(S.of(context).dimensionInput)),
         TextFormField(
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             // prefix: Text("Inch "),
-            suffix: Text("Inches"),
+            suffix: Text(S.of(context).inches),
             // helper: Text("pl "),
             hintText: '12',
-            labelText: 'Altura',
+            labelText: S.of(context).heightInput,
             prefixIcon: Icon(Icons.height),
           ),
           validator: (value) {
             if (!widget.allowNull) {
               if (value!.isEmpty) {
-                return 'El campo no puede estar vacío';
+                return S.of(context).fieldCantBeEmpty;
               } else {
                 return null;
               }
@@ -67,16 +68,16 @@ class DimensionsInputState extends ConsumerState<DimensionsInput> {
         ),
         TextFormField(
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             hintText: '12',
-            labelText: 'Anchura',
-            suffix: Text("Inches"),
+            labelText: S.of(context).widthInput,
+            suffix: Text(S.of(context).inches),
             prefixIcon: Icon(Icons.width_normal),
           ),
           validator: (value) {
             if (!widget.allowNull) {
               if (value!.isEmpty) {
-                return 'El campo no puede estar vacío';
+                return S.of(context).fieldCantBeEmpty;
               } else {
                 return null;
               }
@@ -91,16 +92,16 @@ class DimensionsInputState extends ConsumerState<DimensionsInput> {
         ),
         TextFormField(
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             hintText: '12',
-            labelText: 'Largo',
-            suffix: Text("Inches"),
+            labelText: S.of(context).longInput,
+            suffix: Text(S.of(context).inches),
             prefixIcon: Icon(Icons.arrow_forward_sharp),
           ),
           validator: (value) {
             if (!widget.allowNull) {
               if (value!.isEmpty) {
-                return 'El campo no puede estar vacío';
+                return S.of(context).fieldCantBeEmpty;
               } else {
                 return null;
               }

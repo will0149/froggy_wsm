@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../generated/l10n.dart';
+
 /// Made for cct_management.
 /// By User: josedominguez
 /// Date: 06/19/24
@@ -20,15 +22,15 @@ class AssetsInputState extends ConsumerState<AssetsInput> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      decoration: const InputDecoration(
-        hintText: 'Asset',
-        labelText: 'Activo',
+      decoration: InputDecoration(
+        hintText: S.of(context).assetInput,
+        labelText: S.of(context).assetInput,
         // prefixIcon: Icon(Icons.location_on_outlined),
       ),
       validator: (value) {
         if (!widget.allowNull) {
           if (value!.isEmpty) {
-            return 'El campo no puede estar vacío';
+            return S.of(context).fieldCantBeEmpty;
           } else {
             return null;
           }

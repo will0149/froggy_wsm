@@ -7,6 +7,7 @@ import '../../../domain/dtos/series_dto.dart';
 import '../../../domain/dtos/tally_count_dto.dart';
 import '../../../domain/providers/tally_count_provider.dart';
 import '../../../domain/providers/warehouses/get_warehouses_provider.dart';
+import '../../../generated/l10n.dart';
 import '../../constants.dart';
 import '../../pages/count/count_page.dart';
 import '../toasts/build_toasts.dart';
@@ -228,7 +229,7 @@ class CountFormState extends ConsumerState<CountForm> {
                               });
                             }
                           },
-                          child: Text("Guardar",
+                          child: Text(S.of(context).saveButton,
                               style:
                                   Theme.of(context).textTheme.headlineMedium),
                         )

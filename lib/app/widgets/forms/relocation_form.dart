@@ -9,6 +9,7 @@ import '../../../domain/dtos/series_dto.dart';
 import '../../../domain/providers/relocate_provider.dart';
 import '../../../domain/providers/warehouses/get_warehouses_provider.dart';
 import '../../../domain/utils/clean_list_util.dart';
+import '../../../generated/l10n.dart';
 import '../../constants.dart';
 import '../toasts/build_toasts.dart';
 import 'inputs/assets_input.dart';
@@ -288,7 +289,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
 
                         }
                       },
-                      child: Text("Guardar",
+                      child: Text(S.of(context).saveButton,
                           style: Theme.of(context).textTheme.headlineMedium),
                     ),
                   ),
