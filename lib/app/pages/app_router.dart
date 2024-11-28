@@ -6,10 +6,13 @@ import 'package:cct_management/app/pages/warehouse/search_page.dart';
 import 'package:cct_management/app/pages/warehouse/stocks_table_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../device/utils/is_first_run.dart';
+import '../../device/utils/logger_config.dart';
 import '../../domain/dtos/series_dto.dart';
+import '../../domain/utils/impl/build_headers_utils_impl.dart';
 import 'auth/login_page.dart';
 import 'entry/entry_page.dart';
 import 'main_page.dart';
@@ -105,9 +108,16 @@ final routerProvider = Provider<GoRouter>((ref) {
       redirect: (context, state) async {
         var firstRun = IsFirstRun();
         bool firstCall = await firstRun.isFirstRun();
+        final storageUtils = BuildHeadersUtilsImpl();
+        bool hasStorage = await storageUtils.validateStorage();
         if (firstCall) {
           return LoginPage.routeLocation;
         }
+        logger.i('match location ${state.matchedLocation}');
+        if(hasStorage && state.matchedLocation == LoginPage.routeLocation){
+          return MainPage.routeLocation;
+        }
+
         if (state.matchedLocation != LoginPage.routeLocation) {
           return state.matchedLocation;
         }

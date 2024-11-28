@@ -7,6 +7,8 @@ library;
 
 enum ApiPathsEnums {
   v1(path: '/api/v1'),
+  signIn(path: '/api/v1/auth/login'),
+  refreshToken(path: '/api/v1/auth/refresh-token'),
   inbound(path: '/api/v1/inbound'),
   outgoing(path: '/api/v1/outbound'),
   count(path: '/api/v1/tally'),

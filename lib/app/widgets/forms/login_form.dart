@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../device/utils/logger_config.dart';
+import '../../../domain/dtos/auth/login_dto.dart';
+import '../../../domain/logics/clients/auth_logic.dart';
 import '../../constants.dart';
 import '../../pages/main_page.dart';
+import '../toasts/build_toasts.dart';
 
 /// Made for cct_management.
 /// By User: josedominguez
@@ -23,6 +27,8 @@ class LoginFormState extends ConsumerState<LoginForm> {
   TextEditingController pwdInputController = TextEditingController();
 
   bool _isObscure = true;
+  bool _valid = false;
+  bool isLoading = false;
 
   @override
   initState() {
@@ -30,8 +36,17 @@ class LoginFormState extends ConsumerState<LoginForm> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    emailInputController.dispose();
+    pwdInputController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var auth_handler = ref.watch(authLogicProvider);
     return Form(
       key: _loginFormKey,
       child: Wrap(
@@ -40,9 +55,12 @@ class LoginFormState extends ConsumerState<LoginForm> {
         children: [
           TextFormField(
             decoration: InputDecoration(
-                labelText: S.of(context).emailInput,
-                hintText: "user@example.com",
-                icon: const Icon(Icons.email, color: Colors.orange,),
+              labelText: S.of(context).emailInput,
+              hintText: "user@example.com",
+              icon: const Icon(
+                Icons.email,
+                color: Colors.orange,
+              ),
             ),
             controller: emailInputController,
             keyboardType: TextInputType.emailAddress,
@@ -55,7 +73,8 @@ class LoginFormState extends ConsumerState<LoginForm> {
               icon: const Icon(Icons.security, color: Colors.orange),
               suffixIcon: IconButton(
                   icon: Icon(
-                      _isObscure ? Icons.visibility : Icons.visibility_off, color: Colors.orange),
+                      _isObscure ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.orange),
                   onPressed: () {
                     setState(() {
                       _isObscure = !_isObscure;
@@ -67,20 +86,66 @@ class LoginFormState extends ConsumerState<LoginForm> {
           SizedBox(
             height: MediaQuery.of(context).viewInsets.bottom,
           ),
-          Container(
+          isLoading
+              ? Container(
+              margin: const EdgeInsets.all(10.0),
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ))
+              : Container(
             width: size.width,
             margin: const EdgeInsets.all(10.0),
             child: OutlinedButton(
               child: Text(S.of(context).loginButton,
                   style: Theme.of(context).textTheme.headlineSmall),
               onPressed: () {
-                context.goNamed(MainPage.routeName);
+                setState(() {
+                  _valid = _loginFormKey.currentState!.validate();
+                  isLoading = true;
+                });
+
+                if (_valid) {
+                  var data = LoginDTO(
+                    email: emailInputController.text,
+                    password: pwdInputController.text
+                  );
+                  auth_handler.signIn(data).then((value) {
+                    var code = value?.status?.code;
+                    logger.i("code in form $code");
+                    if (code! >= 200 && code < 300) {
+                      showSuccessToast("Datos validados");
+                      setState(() {
+                        isLoading = false;
+                      });
+                      context.goNamed(MainPage.routeName);
+                    } else {
+                      showErrorToast(
+                          "Ha fallado el envio con status ${value?.status?.msg}");
+                    }
+                  }).whenComplete(() {
+                    logger.i("finished sign in");
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }).catchError((error) {
+                    logger.e("bruja ${error.toString()}");
+                    setState(() {
+                      isLoading = false;
+                    });
+                    showErrorToast("Algo fallo ${error.toString()}!");
+                  });
+
+                }else {
+                  setState(() {
+                    isLoading = false;
+                  });
+                }
               },
             ),
           ),
           Center(
-              child: Text(S.of(context).dontHaveAnAccountYet,
-                  style: Theme.of(context).textTheme.bodyLarge),
+            child: Text(S.of(context).dontHaveAnAccountYet,
+                style: Theme.of(context).textTheme.bodyLarge),
           ),
         ],
       ),

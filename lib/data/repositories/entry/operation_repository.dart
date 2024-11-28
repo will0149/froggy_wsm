@@ -7,6 +7,8 @@ import '../../../domain/dtos/inbound_dto.dart';
 import '../../../domain/dtos/outgoing_dto.dart';
 import '../../../domain/dtos/relocation_dto.dart';
 import '../../../domain/dtos/tally_count_dto.dart';
+import '../../../domain/utils/build_headers_utils.dart';
+import '../../../domain/utils/impl/build_headers_utils_impl.dart';
 import '../../../flavors.dart';
 import '../../api_paths_enums.dart';
 
@@ -15,6 +17,11 @@ import '../../api_paths_enums.dart';
 /// Date: 06/11/24
 // String baseUrl = FlavorConfig.instance.variables["baseUrl"];
 class OperationRepository {
+  late final BuildHeadersUtils headersUtils;
+
+  OperationRepository(){
+    headersUtils = BuildHeadersUtilsImpl();
+  }
   Future<Map<String, dynamic>> entryAdd(InboundDto request) async {
     var client = http.Client();
     try {
@@ -25,7 +32,7 @@ class OperationRepository {
       final response = await client.post(
         uri,
         body: bodyEncoded,
-        headers: {"Content-Type": "application/json"},
+        headers: headersUtils.headers(),
       );
       final json = jsonDecode(response.body);
       logger.w(json);

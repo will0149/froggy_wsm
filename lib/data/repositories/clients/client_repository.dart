@@ -4,12 +4,19 @@ import 'package:cct_management/flavors.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../device/utils/logger_config.dart';
+import '../../../domain/utils/build_headers_utils.dart';
+import '../../../domain/utils/impl/build_headers_utils_impl.dart';
 import '../../api_paths_enums.dart';
 /// Made for cct_management.
 /// By User: josedominguez
 /// Date: 06/16/24
 
 class ClientRepository {
+  late final BuildHeadersUtils headersUtils;
+
+  ClientRepository(){
+    headersUtils = BuildHeadersUtilsImpl();
+  }
 
   Future<Map<String, dynamic>> getCustomers() async {
     var client = http.Client();
@@ -18,7 +25,7 @@ class ClientRepository {
       logger.t(uri);
       final response = await client.get(
         uri,
-        headers: {"Content-Type": "application/json"},
+        headers: headersUtils.headers(),
       );
       final json = jsonDecode(response.body);
       logger.w(json);

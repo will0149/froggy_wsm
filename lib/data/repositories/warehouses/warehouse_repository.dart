@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../../device/utils/logger_config.dart';
+import '../../../domain/utils/build_headers_utils.dart';
+import '../../../domain/utils/impl/build_headers_utils_impl.dart';
 import '../../../flavors.dart';
 import '../../api_paths_enums.dart';
 
@@ -11,6 +13,11 @@ import '../../api_paths_enums.dart';
 /// Date: 06/16/24
 
 class WarehouseRepository {
+  late final BuildHeadersUtils headersUtils;
+
+  WarehouseRepository() {
+    headersUtils = BuildHeadersUtilsImpl();
+  }
 
   Future<Map<String, dynamic>> getCustomers() async {
     var client = http.Client();
@@ -19,7 +26,7 @@ class WarehouseRepository {
       logger.t(uri);
       final response = await client.get(
         uri,
-        headers: {"Content-Type": "application/json"},
+        headers: headersUtils.headers(),
       );
       final json = jsonDecode(response.body);
       logger.w(json);
