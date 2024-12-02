@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../generated/l10n.dart';
+
 /// Made for cct_management.
 /// By User: josedominguez
 /// Date: 06/28/24
