@@ -162,31 +162,9 @@ class MainPageState extends ConsumerState<MainPage> {
                     imagePath: "assets/logout.png",
                     title: S.of(context).logoutButton,
                     onPressed: () {
-                      authHandlerP.logOut().then((value) {
-                        final code = value?.status?.code;
-                        logger.i("code in form $value");
-                        if (code! >= 200 && code < 300) {
-                          showSuccessToast("Logout!!");
-                          setState(() {
-                            isLoading = false;
-                          });
-                          context.goNamed(LoginPage.routeName);
-                        } else {
-                          showErrorToast(
-                              "Datos Inválidos ${value?.status?.msg}");
-                        }
-                      }).whenComplete(() {
-                        logger.i("finished logout");
-                        setState(() {
-                          isLoading = false;
-                        });
-                      }).catchError((error) {
-                        logger.e("bruja ${error.toString()}");
-                        setState(() {
-                          isLoading = false;
-                        });
-                        showErrorToast("Algo fallo ${error.toString()}");
-                      });
+                      authHandlerP.logOut();
+                      showWarningToast("Logout!!");
+                      context.goNamed(LoginPage.routeName);
                     },
                   ),
                 ],
