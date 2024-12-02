@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../../../app/widgets/toasts/build_toasts.dart';
 import '../../../device/utils/logger_config.dart';
 import '../build_headers_utils.dart';
 
@@ -10,26 +11,28 @@ import '../build_headers_utils.dart';
  */
 
 class BuildHeadersUtilsImpl implements BuildHeadersUtils {
-  final storage = FlutterSecureStorage(aOptions: AndroidOptions(
+  final storage = const FlutterSecureStorage(aOptions: AndroidOptions(
     encryptedSharedPreferences: true,
   ),);
 
   @override
-  Map<String, String> headers() {
-    Map<String, String> headers;
-    String? accessToken = "";
-    getToken().then((value) => {accessToken = value});
-    headers = {
-      "Content-Type": "application/json",
-      "Authorization": "$accessToken"
-    };
-    logger.i(headers);
+  Future<Map<String, String>> headers() async {
+    Map<String, String> headers = {};
+    await getToken().then((value) {
+      headers = {
+        "Content-Type": "application/json",
+        "Authorization": "$value"
+      };
+    });
     return headers;
   }
 
   @override
   Future<String?> getToken() async {
-    return await storage.read(key: 'access_token');
+    final accessToken = await storage.read(key: 'access_token', aOptions: const AndroidOptions(
+      encryptedSharedPreferences: true,
+    ));
+    return accessToken;
   }
 
   @override
@@ -54,15 +57,19 @@ class BuildHeadersUtilsImpl implements BuildHeadersUtils {
       final token = await getToken();
       final expireTime = await getExpiration();
       final today = DateTime.now();
-      logger.i('today is $today');
-      logger.i('expireTime is $expireTime');
       valid = token!.isNotEmpty && today.day == DateTime.parse(expireTime!).day;
       if(!valid){
+        showWarningToast("La sesión a expirado!");
         storage.deleteAll();
       }
     }
     logger.i('valid session $valid');
     return valid;
+  }
+
+  @override
+  void dropTemporalMemory() {
+    storage.deleteAll();
   }
 
 }

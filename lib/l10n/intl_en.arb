@@ -59,6 +59,7 @@
   "version": "Version",
 
   "loginButton": "Sign In",
+  "logoutButton": "Logout",
 
   "inches": "Inches",
 

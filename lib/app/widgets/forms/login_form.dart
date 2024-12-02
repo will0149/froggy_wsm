@@ -46,7 +46,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var auth_handler = ref.watch(authLogicProvider);
+    var authHandlerP = ref.watch(authLogicProvider);
     return Form(
       key: _loginFormKey,
       child: Wrap(
@@ -109,18 +109,18 @@ class LoginFormState extends ConsumerState<LoginForm> {
                     email: emailInputController.text,
                     password: pwdInputController.text
                   );
-                  auth_handler.signIn(data).then((value) {
+                  authHandlerP.signIn(data).then((value) {
                     var code = value?.status?.code;
                     logger.i("code in form $code");
                     if (code! >= 200 && code < 300) {
-                      showSuccessToast("Datos validados");
+                      showSuccessToast("Login Success!!");
                       setState(() {
                         isLoading = false;
                       });
                       context.goNamed(MainPage.routeName);
                     } else {
                       showErrorToast(
-                          "Ha fallado el envio con status ${value?.status?.msg}");
+                          "Datos Inválidos ${value?.status?.msg}");
                     }
                   }).whenComplete(() {
                     logger.i("finished sign in");

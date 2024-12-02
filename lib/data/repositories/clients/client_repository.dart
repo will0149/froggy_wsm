@@ -21,11 +21,12 @@ class ClientRepository {
   Future<Map<String, dynamic>> getCustomers() async {
     var client = http.Client();
     try {
+      var headers = await headersUtils.headers();
       var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.clients.path);
       logger.t(uri);
       final response = await client.get(
         uri,
-        headers: headersUtils.headers(),
+        headers: headers
       );
       final json = jsonDecode(response.body);
       logger.w(json);

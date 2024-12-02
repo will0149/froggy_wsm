@@ -590,6 +590,16 @@ class S {
     );
   }
 
+  /// `Cerrar Sesión`
+  String get logoutButton {
+    return Intl.message(
+      'Cerrar Sesión',
+      name: 'logoutButton',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Pulgadas`
   String get inches {
     return Intl.message(

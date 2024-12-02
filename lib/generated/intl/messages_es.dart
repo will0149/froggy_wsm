@@ -71,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "locationOriginInput":
             MessageLookupByLibrary.simpleMessage("Ubicación origen"),
         "loginButton": MessageLookupByLibrary.simpleMessage("Iniciar Sesión"),
+        "logoutButton": MessageLookupByLibrary.simpleMessage("Cerrar Sesión"),
         "longInput": MessageLookupByLibrary.simpleMessage("LArgo"),
         "outgoingDateInput":
             MessageLookupByLibrary.simpleMessage("Fecha de salida"),

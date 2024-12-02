@@ -7,9 +7,10 @@ import 'package:flutter/material.dart';
  */
 
 abstract class BuildHeadersUtils {
-  Map<String, String> headers();
+  Future<Map<String, String>> headers();
   Future<String?> getToken();
   Future<String?> getExpiration();
   void saveTokenInStorage(String? token);
   Future<bool> validateStorage();
+  void dropTemporalMemory();
 }

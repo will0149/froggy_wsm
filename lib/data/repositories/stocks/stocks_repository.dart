@@ -26,13 +26,14 @@ class StocksRepository {
   Future<Map<String, dynamic>> getStockBySeries(SeriesDto? series) async {
     var client = http.Client();
     try {
+      var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(SeriesSeriesDto(series: series));
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.getStocksBySeries.path);
       logger.t(uri);
       logger.i(series?.toJson());
       final response = await client.post(
         uri,
-        headers: headersUtils.headers(),
+        headers: headers,
         body: bodyEncoded
       );
       final json = jsonDecode(response.body);

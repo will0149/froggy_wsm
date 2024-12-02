@@ -25,6 +25,7 @@ class AssetRepository {
   Future<Map<String, dynamic>> assignAsset(AssetRequestDto request) async {
     var client = http.Client();
     try {
+      var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.addAssets.path);
       logger.t(uri);
@@ -32,7 +33,7 @@ class AssetRepository {
       final response = await client.post(
         uri,
         body: bodyEncoded,
-        headers: headersUtils.headers(),
+        headers: headers
       );
       final json = jsonDecode(response.body);
       logger.w(json);

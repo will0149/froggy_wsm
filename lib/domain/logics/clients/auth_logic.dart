@@ -50,14 +50,16 @@ class AuthLogic extends ChangeNotifier {
       } else {
         if (result.containsKey('code')) {
           var status = {
-            'status': {'code': result['code'], 'msg': 'Algo fallo'}
+            'status': {'code': result['status']['code'], 'msg': result['status']['msg']}
           };
           responseEntity =
           BaseResponseEntity<AuthResponseEntity>.fromJson(
               status,
                   (json) => AuthResponseEntity());
         } else {
-          responseEntity?.status = StatusEntity.fromJson(result['status']);
+          responseEntity =
+          BaseResponseEntity<AuthResponseEntity>.fromJson(
+              result, (json) => AuthResponseEntity.fromJson(json as Map<String, dynamic>));
         }
       }
       notifyListeners();
@@ -105,6 +107,53 @@ class AuthLogic extends ChangeNotifier {
           BaseResponseEntity<BaseDataEntity<Object>>.fromJson(
               status,
                   (json) => BaseDataEntity<Object>());
+        } else {
+          responseEntity?.status = StatusEntity.fromJson(result['status']);
+        }
+      }
+      notifyListeners();
+    } on Exception catch (e) {
+      logger.e(e.toString());
+      if (result.containsKey('code')) {
+        var status = {'code': result['code'], 'msg': 'Algo fallo'};
+        result.addAll(status);
+        responseEntity?.status = StatusEntity.fromJson(result['status']);
+      } else {
+        responseEntity?.status = StatusEntity.fromJson(result['status']);
+      }
+      notifyListeners();
+    }
+    logger.d("relocate responseEntity ${responseEntity?.status?.toJson()}");
+    return responseEntity;
+  }
+
+  Future<BaseResponseEntity<Object>?> logOut() async {
+    var result = <String, dynamic>{};
+    BaseResponseEntity<Object>? responseEntity;
+    try {
+      result = await repository.logOut();
+      if (result.containsKey('code')) {
+        code = result['code'];
+      } else {
+        code = result['status']['code'];
+      }
+      if (code >= 200 && code < 300) {
+        var status = {
+          'status': {'code': result['code'], 'msg': result['msg']}
+        };
+        responseEntity =
+        BaseResponseEntity<Object>.fromJson(
+            status,
+            (json) => Object);
+        headersUtils.dropTemporalMemory();
+      } else {
+        if (result.containsKey('code')) {
+          var status = {
+            'status': {'code': result['code'], 'msg': 'Algo fallo'}
+          };
+          responseEntity = BaseResponseEntity<Object>.fromJson(
+              result,
+                  (json) => Object);
         } else {
           responseEntity?.status = StatusEntity.fromJson(result['status']);
         }

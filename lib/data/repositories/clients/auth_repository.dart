@@ -32,7 +32,7 @@ class AuthRepository {
       final response = await client.post(
         uri,
         body: bodyEncoded,
-        headers: headersUtils.headers(),
+        headers: {"Content-Type": "application/json",},
       );
       final json = jsonDecode(response.body);
       logger.w(json);
@@ -45,11 +45,31 @@ class AuthRepository {
   Future<Map<String, dynamic>> refreshToken() async {
     var client = http.Client();
     try {
+      var headers = await headersUtils.headers();
       var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.refreshToken.path);
       logger.t(uri);
       final response = await client.post(
         uri,
-        headers: {"Content-Type": "application/json"},
+        headers: headers,
+      );
+      final json = jsonDecode(response.body);
+      logger.w(json);
+      return json;
+    }finally {
+      client.close();
+    }
+  }
+
+  Future<Map<String, dynamic>> logOut() async {
+    var client = http.Client();
+    try {
+      var headers = await headersUtils.headers();
+      logger.w('sesion headers $headers');
+      var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.logout.path);
+      logger.t(uri);
+      final response = await client.post(
+        uri,
+        headers: headers,
       );
       final json = jsonDecode(response.body);
       logger.w(json);

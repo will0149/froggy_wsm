@@ -25,6 +25,7 @@ class OperationRepository {
   Future<Map<String, dynamic>> entryAdd(InboundDto request) async {
     var client = http.Client();
     try {
+      var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.inbound.path);
       logger.t(uri);
@@ -32,7 +33,7 @@ class OperationRepository {
       final response = await client.post(
         uri,
         body: bodyEncoded,
-        headers: headersUtils.headers(),
+        headers: headers
       );
       final json = jsonDecode(response.body);
       logger.w(json);
@@ -45,12 +46,13 @@ class OperationRepository {
   Future<Map<String, dynamic>> addOutgoing(OutgoingDto request) async {
     var client = http.Client();
     try {
+      var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.outgoing.path);
       logger.t(uri);
       logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
-        headers: {"Content-Type": "application/json"},);
+        headers: headers,);
       final json = jsonDecode(response.body);
       logger.w(json);
       return json;
@@ -62,7 +64,7 @@ class OperationRepository {
   Future<Map<String, dynamic>> relocate(RelocationDto request) async {
     var client = http.Client();
     try {
-
+      var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
       var uri =
           Uri.https(F.baseUrl, ApiPathsEnums.relocation.path);
@@ -71,7 +73,7 @@ class OperationRepository {
       final response = await client.post(
         uri,
         body: bodyEncoded,
-        headers: {"Content-Type": "application/json"},
+        headers: headers,
       );
       final json = jsonDecode(response.body);
       logger.w(json);
@@ -84,12 +86,13 @@ class OperationRepository {
   Future<Map<String, dynamic>> countValidate(TallyCountDto request) async {
     var client = http.Client();
     try{
+      var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.countValidate.path);
       logger.t(uri);
       logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
-        headers: {"Content-Type": "application/json"},);
+        headers: headers,);
       final json = jsonDecode(response.body);
       logger.w(json);
       return json;
@@ -101,12 +104,13 @@ class OperationRepository {
   Future<Map<String, dynamic>> count(TallyCountDto request) async {
     var client = http.Client();
     try{
+      var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.count.path);
       logger.t(uri);
       logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
-        headers: {"Content-Type": "application/json"},);
+        headers: headers,);
       final json = jsonDecode(response.body);
       logger.w(json);
       return json;

@@ -59,6 +59,7 @@
   "version": "versión",
 
   "loginButton": "Iniciar Sesión",
+  "logoutButton": "Cerrar Sesión",
 
   "inches": "Pulgadas",
 
