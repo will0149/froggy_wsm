@@ -21,7 +21,7 @@ class BuildHeadersUtilsImpl implements BuildHeadersUtils {
     await getToken().then((value) {
       headers = {
         "Content-Type": "application/json",
-        "Authorization": "$value"
+        "Authorization": "Bearer $value"
       };
     });
     return headers;
