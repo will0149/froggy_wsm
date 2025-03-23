@@ -39,9 +39,6 @@ dependencies:
   input_quantity: ^2.3.4
   flutter_flavorizr: ^2.2.3 # use for app flavors
   connectivity_plus: ^6.0.3 #validate internet connection
-
-
-
   intl: any
   stack_trace: any
   logger: any
@@ -49,6 +46,8 @@ dependencies:
   url_launcher: ^6.3.0 #use for launch hyperlinks
   flutter_localization: ^0.2.2
   flutter_secure_storage: ^9.2.2
+  sqflite: ^2.0.0+4 # For SQLite database operations
+#  path: ^1.9.1       # For handling file paths
 dev_dependencies:
   flutter_test:
     sdk: flutter

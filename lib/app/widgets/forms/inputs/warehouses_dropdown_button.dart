@@ -60,7 +60,7 @@ class ObjetDropdownButtonState extends ConsumerState<WarehousesDropdownButton> {
       value: selectedValue,
       items: warehouses?.map((WarehouseEntity value) {
         return DropdownMenuItem(
-          value: "${value.description}",
+          value: "${value.id}",
           child: Text("${value.description}"),
         );
       }).toList(),
