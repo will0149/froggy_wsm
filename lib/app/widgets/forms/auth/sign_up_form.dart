@@ -82,13 +82,20 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
         spacing: 15.0,
         runSpacing: 20.0,
         children: [
-          TextField(
+          TextFormField(
             controller: userNameController,
             decoration: InputDecoration(
               hintText: 'fulano',
               labelText: S.of(context).name,
               prefixIcon: const Icon(Icons.person),
             ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Most has a value';
+              } else {
+                return null;
+              }
+            },
           ),
           SelectFormField(
             //controller: provinceController,
@@ -105,14 +112,28 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
             items: _provinces,
             onChanged: (val) => print(val),
             onSaved: (val) => print(val),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Most select a value';
+              } else {
+                return null;
+              }
+            },
           ),
-          TextField(
+          TextFormField(
             controller: emailController,
             decoration: InputDecoration(
               hintText: 'example@example.com',
               labelText: S.of(context).email,
               prefixIcon: const Icon(Icons.email),
             ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Most has a value';
+              } else {
+                return null;
+              }
+            },
           ),
           TextFormField(
             controller: passwordController,
@@ -190,6 +211,9 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                             });
                           }
                         }
+                        setState(() {
+                          _isLoading = false;
+                        });
                       },
                       child: Text(
                         S.of(context).signUp,

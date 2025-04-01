@@ -50,13 +50,20 @@ class SignInFormState extends ConsumerState<SignInForm> {
               fontSize: 28,
             ),
           ),
-          TextField(
+          TextFormField(
             controller: emailController,
             decoration: InputDecoration(
               hintText: 'example@example.com',
               labelText: S.of(context).email,
               prefixIcon: const Icon(Icons.email),
             ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Email most has a value';
+              } else {
+                return null;
+              }
+            },
           ),
           TextFormField(
             controller: passwordController,
@@ -130,6 +137,9 @@ class SignInFormState extends ConsumerState<SignInForm> {
                      });
                    }
                  }
+                 setState(() {
+                   isLoading = false;
+                 });
                },
                child: Text(
                  S.of(context).login,

@@ -10,6 +10,6 @@ import '../../device/utils/is_first_run.dart';
 part 'first_run_provider.g.dart';
 
 @riverpod
-Future<bool> getFirstRun(GetFirstRunRef ref){
+Future<bool> getFirstRun(Ref ref){
   return ref.read(firstInstanceProvider).isFirstRun();
 }
