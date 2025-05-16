@@ -41,8 +41,8 @@ class StocksTablePageState extends ConsumerState<StocksTablePage> {
         child: providerData.when(
             data: (item) {
               List<DataRow> stocks = [];
-              var code = item.status?.code;
-              if (code! >= 200 && code < 300) {
+              var code = item.status?.code ?? 500;
+              if (code >= 200 && code < 300) {
                 item.body?.series?.map((stock) {
                   stocks.add(
                     DataRow(cells: [
@@ -71,6 +71,10 @@ class StocksTablePageState extends ConsumerState<StocksTablePage> {
                     ]),
                   );
                 }).toList();
+              }else {
+                return const Center(
+                  child: Text("No Results"),
+                );
               }
               return SizedBox(
                 width: size.width * 1,

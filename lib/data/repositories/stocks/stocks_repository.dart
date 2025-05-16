@@ -23,22 +23,31 @@ class StocksRepository {
     headersUtils = BuildHeadersUtilsImpl();
   }
 
-  Future<Map<String, dynamic>> getStockBySeries(SeriesDto? series) async {
+  Future getStockBySeries(SeriesDto? series) async {
     var client = http.Client();
+    var response = http.Response(jsonEncode({"status": {"code": 408}}), 408);
     try {
       var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(SeriesSeriesDto(series: series));
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.getStocksBySeries.path);
       logger.t(uri);
       logger.i(series?.toJson());
-      final response = await client.post(
+      response = await client.post(
         uri,
         headers: headers,
         body: bodyEncoded
+      ).timeout(
+        const Duration(seconds: 3),
+        onTimeout: () {
+          // Time has run out, do what you wanted to do.
+          return response; // Request Timeout response status code
+        },
       );
       final json = jsonDecode(response.body);
       logger.w(json);
       return json;
+    }catch(e){
+      return response;
     }finally {
       client.close();
     }

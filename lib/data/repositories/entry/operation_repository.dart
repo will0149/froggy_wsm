@@ -34,6 +34,12 @@ class OperationRepository {
         uri,
         body: bodyEncoded,
         headers: headers
+      ).timeout(
+        const Duration(seconds: 3),
+        onTimeout: () {
+          // Time has run out, do what you wanted to do.
+          return http.Response(jsonEncode({"status": {"code": 408}}), 408); // Request Timeout response status code
+        },
       );
       final json = jsonDecode(response.body);
       logger.w(json);
@@ -52,7 +58,14 @@ class OperationRepository {
       logger.t(uri);
       logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
-        headers: headers,);
+        headers: headers,
+      ).timeout(
+        const Duration(seconds: 3),
+        onTimeout: () {
+          // Time has run out, do what you wanted to do.
+          return http.Response(jsonEncode({"status": {"code": 408}}), 408); // Request Timeout response status code
+        },
+      );
       final json = jsonDecode(response.body);
       logger.w(json);
       return json;
@@ -74,6 +87,12 @@ class OperationRepository {
         uri,
         body: bodyEncoded,
         headers: headers,
+      ).timeout(
+        const Duration(seconds: 3),
+        onTimeout: () {
+          // Time has run out, do what you wanted to do.
+          return http.Response(jsonEncode({"status": {"code": 408}}), 408); // Request Timeout response status code
+        },
       );
       final json = jsonDecode(response.body);
       logger.w(json);
@@ -92,7 +111,14 @@ class OperationRepository {
       logger.t(uri);
       logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
-        headers: headers,);
+        headers: headers,
+      ).timeout(
+        const Duration(seconds: 3),
+        onTimeout: () {
+          // Time has run out, do what you wanted to do.
+          return http.Response(jsonEncode({"status": {"code": 408}}), 408); // Request Timeout response status code
+        },
+      );
       final json = jsonDecode(response.body);
       logger.w(json);
       return json;
@@ -110,7 +136,14 @@ class OperationRepository {
       logger.t(uri);
       logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
-        headers: headers,);
+        headers: headers,
+      ).timeout(
+        const Duration(seconds: 3),
+        onTimeout: () {
+          // Time has run out, do what you wanted to do.
+          return http.Response(jsonEncode({"status": {"code": 408}}), 408); // Request Timeout response status code
+        },
+      );
       final json = jsonDecode(response.body);
       logger.w(json);
       return json;
