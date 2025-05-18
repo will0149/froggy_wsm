@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cct_management/data/repositories/constants.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../device/utils/logger_config.dart';
@@ -31,13 +32,13 @@ class StocksRepository {
       var bodyEncoded = jsonEncode(SeriesSeriesDto(series: series));
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.getStocksBySeries.path);
       logger.t(uri);
-      logger.i(series?.toJson());
+      logger.i(bodyEncoded);
       response = await client.post(
         uri,
         headers: headers,
         body: bodyEncoded
       ).timeout(
-        const Duration(seconds: 3),
+        const Duration(seconds: timeOutSecs),
         onTimeout: () {
           // Time has run out, do what you wanted to do.
           return response; // Request Timeout response status code

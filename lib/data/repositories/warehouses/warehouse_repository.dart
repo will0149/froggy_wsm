@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cct_management/data/repositories/constants.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../device/utils/logger_config.dart';
@@ -29,7 +30,7 @@ class WarehouseRepository {
         uri,
         headers: headers
       ).timeout(
-        const Duration(seconds: 3),
+        const Duration(seconds: timeOutSecs),
         onTimeout: () {
           // Time has run out, do what you wanted to do.
           return http.Response(jsonEncode({"status": {"code": 408}}), 408); // Request Timeout response status code
