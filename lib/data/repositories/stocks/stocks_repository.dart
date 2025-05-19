@@ -26,7 +26,7 @@ class StocksRepository {
 
   Future getStockBySeries(SeriesDto? series) async {
     var client = http.Client();
-    var response = http.Response(jsonEncode({"status": {"code": 408}}), 408);
+    var response = http.Response(jsonEncode(defaultTimeOutResponse), 408);
     try {
       var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(SeriesSeriesDto(series: series));
@@ -46,6 +46,33 @@ class StocksRepository {
       );
       final json = jsonDecode(response.body);
       logger.w(json);
+      return json;
+    }catch(e){
+      return response;
+    }finally {
+      client.close();
+    }
+  }
+
+  Future getStockByColumnName(Map<String, String>? request) async {
+    var client = http.Client();
+    var response = http.Response(jsonEncode(defaultTimeOutResponse), 408);
+    try {
+      var headers = await headersUtils.headers();
+      var uri = Uri.https(F.baseUrl, ApiPathsEnums.getStocksByCartonId.path, request);
+      logger.t(uri);
+      response = await client.get(
+          uri,
+          headers: headers,
+      ).timeout(
+        const Duration(seconds: timeOutSecs),
+        onTimeout: () {
+          // Time has run out, do what you wanted to do.
+          return response; // Request Timeout response status code
+        },
+      );
+      final json = jsonDecode(response.body);
+      // logger.w(json);
       return json;
     }catch(e){
       return response;

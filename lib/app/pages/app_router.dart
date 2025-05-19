@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:cct_management/app/pages/count/count_page.dart';
 import 'package:cct_management/app/pages/maintainance/settings_page.dart';
 import 'package:cct_management/app/pages/outgoing/outgoing_page.dart';
@@ -93,9 +95,9 @@ final routerProvider = Provider<GoRouter>((ref) {
                     name: StocksTablePage.routeName,
                     path: StocksTablePage.routeLocation,
                     builder: (BuildContext context, GoRouterState state) {
-                      SeriesDto seriesRequest = state.extra as SeriesDto;
+                      Map<String, String>? request = state.extra as Map<String, String>?;
                       return StocksTablePage(
-                        seriesRequest: seriesRequest,
+                        request: request,
                       );
                     },
 

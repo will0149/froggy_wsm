@@ -1,3 +1,4 @@
+import 'package:cct_management/data/entities/stocks/stock_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -50,6 +51,41 @@ class StocksLogic extends ChangeNotifier {
       notifyListeners();
     }
     logger.i(serviceResponse);
+    return responseEntity;
+  }
+
+  Future<BaseResponseEntity<List<StockEntity>>> getStocksByColumnName(Map<String, String>? request) async {
+    var serviceResponse = <String, dynamic>{};
+    BaseResponseEntity<List<StockEntity>> responseEntity =
+    BaseResponseEntity<List<StockEntity>>(body: []);
+    try {
+      serviceResponse = await repository.getStockByColumnName(request);
+      if ("${serviceResponse['status']['code']}" == "200") {
+        // logger.i("serviceResponse $serviceResponse");
+        if (serviceResponse["body"].isEmpty) {
+          responseEntity.status?.code = 404;
+          responseEntity.status?.msg = "No se han encontrado clientes";
+          return responseEntity;
+        }
+        List<StockEntity> stocks = [];
+        serviceResponse["body"].map((i) {
+          stocks.add(
+              StockEntity.fromJson(i));
+        }).toList();
+
+        responseEntity = BaseResponseEntity<List<StockEntity>>.fromJson(
+            serviceResponse, (json) => stocks);
+        logger.i("responseEntity $responseEntity");
+      }
+      notifyListeners();
+    } on Exception catch (e, stack_trace) {
+      logger.e(e.toString());
+      logger.e(stack_trace);
+      responseEntity.status?.code = 500;
+      responseEntity.status?.msg = "Internal Error";
+      notifyListeners();
+    }
+    // logger.i(serviceResponse);
     return responseEntity;
   }
 }

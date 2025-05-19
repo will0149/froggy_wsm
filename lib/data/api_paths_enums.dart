@@ -17,7 +17,8 @@ enum ApiPathsEnums {
   relocation(path: '/api/v1/relocation'),
   clients(path: '/api/v1/customers'),
   warehouses(path: '/api/v1/warehouses'),
-  getStocksBySeries(path: '/api/v1/stocks/series');
+  getStocksBySeries(path: '/api/v1/stocks/series'),
+  getStocksByCartonId(path: '/api/v1/stocks');
 
   const ApiPathsEnums({required this.path});
 

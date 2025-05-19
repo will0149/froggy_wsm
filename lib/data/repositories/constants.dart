@@ -7,3 +7,5 @@ import 'package:flutter/material.dart';
  */
 
 const timeOutSecs = 8;
+
+const defaultTimeOutResponse = {"status": {"code": 408}};

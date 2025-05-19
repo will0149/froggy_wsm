@@ -1,4 +1,6 @@
 import 'package:cct_management/app/widgets/scaffolds/safe_scaffold.dart';
+import 'package:cct_management/device/utils/logger_config.dart';
+import 'package:cct_management/domain/providers/stocks/get_stocks_by_column_name_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,8 +14,8 @@ import '../../../domain/providers/stocks/get_stocks_provider.dart';
  */
 
 class StocksTablePage extends ConsumerStatefulWidget {
-  SeriesDto? seriesRequest;
-  StocksTablePage({super.key, this.seriesRequest});
+  final Map<String, String>? request;
+  const StocksTablePage({super.key, this.request});
   static String get routeName => 'stocks';
   static String get routeLocation => routeName;
   @override
@@ -23,7 +25,7 @@ class StocksTablePage extends ConsumerStatefulWidget {
 class StocksTablePageState extends ConsumerState<StocksTablePage> {
   @override
   Widget build(BuildContext context) {
-    final providerData = ref.watch(getStocksProvider(widget.seriesRequest));
+    final providerData = ref.watch(getStocksByColumNameProvider(widget.request));
     var size = MediaQuery.of(context).size;
     return SafeScaffold(
       appBar: AppBar(
@@ -43,27 +45,27 @@ class StocksTablePageState extends ConsumerState<StocksTablePage> {
               List<DataRow> stocks = [];
               var code = item.status?.code ?? 500;
               if (code >= 200 && code < 300) {
-                item.body?.series?.map((stock) {
+                item.body?.map((stock) {
                   stocks.add(
                     DataRow(cells: [
                       DataCell(Text("${stock.cartonid}")),
-                      DataCell(Text("${stock.location}")),
-                      DataCell(Text("${stock.warehouse}")),
-                      DataCell(Text("${stock.serie}")),
+                      DataCell(Text("${stock.location?.name}")),
+                      DataCell(Text("${stock.warehouse?.name}")),
+                      DataCell(Text("${stock.series?.series?.series?.toList()}")),
                       DataCell(PopupMenuButton(
                         itemBuilder: (BuildContext bc) {
                           return const [
                             PopupMenuItem(
-                              child: Text("Detalle"),
                               value: '/hello',
+                              child: Text("Detalle"),
                             ),
                             PopupMenuItem(
-                              child: Text("Reubicar"),
                               value: '/about',
+                              child: Text("Reubicar"),
                             ),
                             PopupMenuItem(
-                              child: Text("Enviar a Salida"),
                               value: '/contact',
+                              child: Text("Enviar a Salida"),
                             )
                           ];
                         },
