@@ -28,13 +28,19 @@ StockEntity _$StockEntityFromJson(Map<String, dynamic> json) => StockEntity(
       deletedAt: json['deleted_at'] as String?,
       createdAt: json['created_at'] as String?,
       updatedAt: json['updated_at'] as String?,
-      branch: json['branch'] as String?,
-      container: json['container'] as String?,
-      asset: json['asset'] as String?,
-      customer: json['customer'] as String?,
-      warehouse: json['warehouse'] as String?,
-      location: json['location'] as String?,
-    );
+      branch: _$JsonConverterFromJson<Map<String, dynamic>, CommonType>(
+          json['Branch'], const CommonTypeConverter().fromJson),
+      container: _$JsonConverterFromJson<Map<String, dynamic>, CommonType>(
+          json['Container'], const CommonTypeConverter().fromJson),
+      asset: _$JsonConverterFromJson<Map<String, dynamic>, CommonType>(
+          json['Asset'], const CommonTypeConverter().fromJson),
+      customer: _$JsonConverterFromJson<Map<String, dynamic>, CommonType>(
+          json['Customer'], const CommonTypeConverter().fromJson),
+      warehouse: _$JsonConverterFromJson<Map<String, dynamic>, CommonType>(
+          json['Warehouse'], const CommonTypeConverter().fromJson),
+      location: _$JsonConverterFromJson<Map<String, dynamic>, CommonType>(
+          json['Location'], const CommonTypeConverter().fromJson),
+    )..user = json['user'];
 
 Map<String, dynamic> _$StockEntityToJson(StockEntity instance) =>
     <String, dynamic>{
@@ -56,12 +62,19 @@ Map<String, dynamic> _$StockEntityToJson(StockEntity instance) =>
       'deleted_at': instance.deletedAt,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
-      'branch': instance.branch,
-      'container': instance.container,
-      'asset': instance.asset,
-      'customer': instance.customer,
-      'warehouse': instance.warehouse,
-      'location': instance.location,
+      'Branch': _$JsonConverterToJson<Map<String, dynamic>, CommonType>(
+          instance.branch, const CommonTypeConverter().toJson),
+      'Container': _$JsonConverterToJson<Map<String, dynamic>, CommonType>(
+          instance.container, const CommonTypeConverter().toJson),
+      'Asset': _$JsonConverterToJson<Map<String, dynamic>, CommonType>(
+          instance.asset, const CommonTypeConverter().toJson),
+      'user': instance.user,
+      'Customer': _$JsonConverterToJson<Map<String, dynamic>, CommonType>(
+          instance.customer, const CommonTypeConverter().toJson),
+      'Warehouse': _$JsonConverterToJson<Map<String, dynamic>, CommonType>(
+          instance.warehouse, const CommonTypeConverter().toJson),
+      'Location': _$JsonConverterToJson<Map<String, dynamic>, CommonType>(
+          instance.location, const CommonTypeConverter().toJson),
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(

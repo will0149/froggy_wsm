@@ -50,8 +50,8 @@ class StocksTablePageState extends ConsumerState<StocksTablePage> {
                   stocks.add(
                     DataRow(cells: [
                       DataCell(Text("${stock.cartonid}")),
-                      DataCell(Text("${stock.location}")),
-                      DataCell(Text("${stock.warehouse}")),
+                      DataCell(Text("${stock.location?.name}")),
+                      DataCell(Text("${stock.warehouse?.name}")),
                       DataCell(
                           Text("${stock.series?.series?.series?.toList()}")),
                       DataCell(
@@ -70,7 +70,7 @@ class StocksTablePageState extends ConsumerState<StocksTablePage> {
                               PopupMenuItem(
                                 value: '/contact',
                                 child: Text("Enviar a Salida"),
-                              )
+                              ),
                             ];
                           },
                         ),

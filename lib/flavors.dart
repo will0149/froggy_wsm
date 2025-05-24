@@ -24,7 +24,7 @@ class F {
   static String get baseUrl {
     switch (appFlavor) {
       case Flavor.development:
-        return "htpp://190.32.245.116:3000";
+        return "cct-api-dev.froggysoft.app"; //"htpp://190.32.245.116:3000";
       case Flavor.stage:
         return "cct-api-stg.froggysoft.app";
       case Flavor.production:

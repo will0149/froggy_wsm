@@ -51,31 +51,25 @@ class StockEntity {
   String? createdAt;
   @JsonKey(name: 'updated_at')
   String? updatedAt;
-  // @CommonTypeConverter()
-  // @JsonKey(name: 'Branch')
-  // CommonType? branch;
-  String? branch;
-  // @CommonTypeConverter()
-  // @JsonKey(name: 'Container')
-  // CommonType? container;
-  String? container;
-  // @CommonTypeConverter()
-  // @JsonKey(name: 'Asset')
-  // CommonType? asset;
-  String? asset;
-  // Object? user;
-  // @CommonTypeConverter()
-  // @JsonKey(name: 'Customer')
-  // CommonType? customer;
-  String? customer;
-  // @CommonTypeConverter()
-  // @JsonKey(name: 'Warehouse')
-  // CommonType? warehouse;
-  String? warehouse;
-  // @CommonTypeConverter()
-  // @JsonKey(name: 'Location')
-  // CommonType? location;
-  String? location;
+  @CommonTypeConverter()
+  @JsonKey(name: 'Branch')
+  CommonType? branch;
+  @CommonTypeConverter()
+  @JsonKey(name: 'Container')
+  CommonType? container;
+  @CommonTypeConverter()
+  @JsonKey(name: 'Asset')
+  CommonType? asset;
+  Object? user;
+  @CommonTypeConverter()
+  @JsonKey(name: 'Customer')
+  CommonType? customer;
+  @CommonTypeConverter()
+  @JsonKey(name: 'Warehouse')
+  CommonType? warehouse;
+  @CommonTypeConverter()
+  @JsonKey(name: 'Location')
+  CommonType? location;
 
 
   StockEntity(
