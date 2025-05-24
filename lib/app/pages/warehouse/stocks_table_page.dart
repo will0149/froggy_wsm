@@ -1,11 +1,7 @@
 import 'package:cct_management/app/widgets/scaffolds/safe_scaffold.dart';
-import 'package:cct_management/device/utils/logger_config.dart';
 import 'package:cct_management/domain/providers/stocks/get_stocks_by_column_name_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../domain/dtos/series_dto.dart';
-import '../../../domain/providers/stocks/get_stocks_provider.dart';
 
 /**
  * Made for cct_management.
@@ -15,9 +11,13 @@ import '../../../domain/providers/stocks/get_stocks_provider.dart';
 
 class StocksTablePage extends ConsumerStatefulWidget {
   final Map<String, String>? request;
+
   const StocksTablePage({super.key, this.request});
+
   static String get routeName => 'stocks';
+
   static String get routeLocation => routeName;
+
   @override
   StocksTablePageState createState() => StocksTablePageState();
 }
@@ -25,7 +25,8 @@ class StocksTablePage extends ConsumerStatefulWidget {
 class StocksTablePageState extends ConsumerState<StocksTablePage> {
   @override
   Widget build(BuildContext context) {
-    final providerData = ref.watch(getStocksByColumNameProvider(widget.request));
+    final providerData =
+        ref.watch(getStocksByColumNameProvider(widget.request));
     var size = MediaQuery.of(context).size;
     return SafeScaffold(
       appBar: AppBar(
@@ -49,31 +50,35 @@ class StocksTablePageState extends ConsumerState<StocksTablePage> {
                   stocks.add(
                     DataRow(cells: [
                       DataCell(Text("${stock.cartonid}")),
-                      DataCell(Text("${stock.location?.name}")),
-                      DataCell(Text("${stock.warehouse?.name}")),
-                      DataCell(Text("${stock.series?.series?.series?.toList()}")),
-                      DataCell(PopupMenuButton(
-                        itemBuilder: (BuildContext bc) {
-                          return const [
-                            PopupMenuItem(
-                              value: '/hello',
-                              child: Text("Detalle"),
-                            ),
-                            PopupMenuItem(
-                              value: '/about',
-                              child: Text("Reubicar"),
-                            ),
-                            PopupMenuItem(
-                              value: '/contact',
-                              child: Text("Enviar a Salida"),
-                            )
-                          ];
-                        },
-                      )),
+                      DataCell(Text("${stock.location}")),
+                      DataCell(Text("${stock.warehouse}")),
+                      DataCell(
+                          Text("${stock.series?.series?.series?.toList()}")),
+                      DataCell(
+                        PopupMenuButton(
+                          enabled: false,
+                          itemBuilder: (BuildContext bc) {
+                            return const [
+                              PopupMenuItem(
+                                value: '/hello',
+                                child: Text("Detalle"),
+                              ),
+                              PopupMenuItem(
+                                value: '/about',
+                                child: Text("Reubicar"),
+                              ),
+                              PopupMenuItem(
+                                value: '/contact',
+                                child: Text("Enviar a Salida"),
+                              )
+                            ];
+                          },
+                        ),
+                      ),
                     ]),
                   );
                 }).toList();
-              }else {
+              } else {
                 return const Center(
                   child: Text("No Results"),
                 );
@@ -90,7 +95,7 @@ class StocksTablePageState extends ConsumerState<StocksTablePage> {
                         DataColumn(label: Text("Carton ID")),
                         DataColumn(label: Text("Location")),
                         DataColumn(label: Text("Warehouse")),
-                        DataColumn(label: Text("Serie")),
+                        DataColumn(label: Text("Lista de Series")),
                         DataColumn(
                           label: Text("Opciones"),
                         ),
@@ -100,10 +105,11 @@ class StocksTablePageState extends ConsumerState<StocksTablePage> {
                       // dataRowHeight: 80,
                       showBottomBorder: true,
                       headingTextStyle: const TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
                       ),
                       headingRowColor: WidgetStateProperty.resolveWith(
-                          (states) => Colors.orange,
+                        (states) => Colors.orange,
                       ),
                       border: TableBorder.all(),
                     ),

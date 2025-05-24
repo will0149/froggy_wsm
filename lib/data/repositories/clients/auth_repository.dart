@@ -28,8 +28,8 @@ class AuthRepository {
     try {
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.signIn.path);
-      logger.t(uri);
-      logger.i(request);
+      logger.t("url $uri");
+      logger.i(request.toJson());
       final response = await client.post(
         uri,
         body: bodyEncoded,
@@ -42,7 +42,7 @@ class AuthRepository {
         },
       );
       final json = jsonDecode(response.body);
-      logger.w(json);
+      logger.w("response $json");
       return json;
     }finally {
       client.close();

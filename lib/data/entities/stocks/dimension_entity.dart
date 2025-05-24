@@ -1,3 +1,4 @@
+import 'package:cct_management/domain/convertes/IntConverter.dart';
 import 'package:json_annotation/json_annotation.dart';
 /**
  * Made for cct_management.
@@ -9,10 +10,13 @@ part 'dimension_entity.g.dart';
 
 @JsonSerializable()
 class DimensionEntity {
+  @IntConverter()
   @JsonKey(name: 'height')
   int? height;
+  @IntConverter()
   @JsonKey(name: 'width')
   int? width;
+  @IntConverter()
   @JsonKey(name: 'long')
   int? long;
 

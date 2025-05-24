@@ -35,6 +35,7 @@ class AuthLogic extends ChangeNotifier {
     BaseResponseEntity<AuthResponseEntity>? responseEntity;
     try {
       result = await repository.signIn(request);
+      logger.w("result $result");
       if (result.containsKey('code')) {
         code = result['code'];
       } else {

@@ -72,7 +72,7 @@ class StocksRepository {
         },
       );
       final json = jsonDecode(response.body);
-      // logger.w(json);
+      logger.w(json);
       return json;
     }catch(e){
       return response;
