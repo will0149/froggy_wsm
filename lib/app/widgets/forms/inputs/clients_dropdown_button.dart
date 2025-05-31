@@ -10,13 +10,13 @@ import '../../../../generated/l10n.dart';
 /// Date: 07/17/24
 
 class ClientsDropdownButton extends ConsumerStatefulWidget {
-  String title;
-  List<CustomerEntity>? values;
-  Function(String) onSelectParam;
-  IconData? icon;
+  final String title;
+  final List<CustomerEntity>? values;
+  final Function(String) onSelectParam;
+  final IconData? icon;
   // List<DropdownMenuItem<dynamic>>? items;
 
-  ClientsDropdownButton({super.key, this.title = "", required this.values, required this.onSelectParam, this.icon});
+  const ClientsDropdownButton({super.key, this.title = "", required this.values, required this.onSelectParam, this.icon});
 
   @override
   ObjetDropdownButtonState createState() => ObjetDropdownButtonState();
@@ -36,6 +36,8 @@ class ObjetDropdownButtonState extends ConsumerState<ClientsDropdownButton> {
     List<CustomerEntity>? clients =  widget.values;
     String? selectedValue = null;
     return DropdownButtonFormField<String>(
+      isDense: true,
+      isExpanded: true,
       validator: (value){
         if (value == null) {
           return S.of(context).fieldCantBeEmpty;
@@ -49,7 +51,7 @@ class ObjetDropdownButtonState extends ConsumerState<ClientsDropdownButton> {
         labelStyle: Theme.of(context).textTheme.bodyLarge,
       ),
       icon: Icon(widget.icon),
-      alignment: AlignmentDirectional.center,
+      // alignment: AlignmentDirectional.center,
       onChanged: (newValue) {
         widget.onSelectParam(newValue!);
         setState(() {
@@ -61,7 +63,10 @@ class ObjetDropdownButtonState extends ConsumerState<ClientsDropdownButton> {
         logger.i("${value.toJson()}");
         return DropdownMenuItem(
           value: "${value.id}",
-          child: Text("${value.name}"),
+          child: Text(
+            "${value.name}",
+            softWrap: true,
+            overflow: TextOverflow.ellipsis,),
         );
       }).toList(),
     );

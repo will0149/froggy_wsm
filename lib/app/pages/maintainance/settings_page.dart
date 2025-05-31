@@ -2,6 +2,7 @@ import 'package:cct_management/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../flavors.dart';
@@ -23,6 +24,28 @@ class SettingsPage extends ConsumerStatefulWidget {
 }
 
 class SettingsPageState extends ConsumerState<SettingsPage> {
+  String appName = '';
+  String packageName = '';
+  String version = '';
+  String buildNumber = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _initPackageInfo();
+  }
+
+  Future<void> _initPackageInfo() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      appName = packageInfo.appName;
+      packageName = packageInfo.packageName;
+      version = packageInfo.version; // e.g. 1.0.0
+      buildNumber = packageInfo.buildNumber; // e.g. 1
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -41,13 +64,22 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                 children: [
                   Wrap(
                     children: [
-                      CircleAvatar(
-                        backgroundColor: backGroundColor,
-                        radius: 52,
-                        child:  const CircleAvatar(
+                      SizedBox(
+                        width: size.width / 3,
+                        height: size.width / 3,
+                        child: const CircleAvatar(
                           backgroundColor: Colors.white,
                           radius: 50,
                           backgroundImage: AssetImage("assets/logos/froggy_logo.png"),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width / 3,
+                        height: size.width / 3,
+                        child: const CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 50,
+                          backgroundImage: AssetImage("assets/logos/atheneox.png"),
                         ),
                       ),
                     ],
@@ -56,7 +88,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                     direction: Axis.vertical,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                          Text("Froggy Soft",
+                          Text(appName,
                       style: Theme.of(context).textTheme.displayMedium,
                           ),
                       RichText(
@@ -97,13 +129,9 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
               ),
             ),
           ),
-          // Align(
-          //   alignment: Alignment.centerLeft,
-          //   child:
-          // ),
-          const Align(
+          Align(
               alignment: Alignment.bottomCenter,
-              child: Text("Version: 1.0.8",)
+              child: Text("Version: $version",)
             ,)
         ],
       ),

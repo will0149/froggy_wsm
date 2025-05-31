@@ -22,6 +22,7 @@ class BranchInputState extends ConsumerState<BranchInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: TextInputType.number,
       controller: widget.controller,
       decoration: InputDecoration(
         hintText: '45',

@@ -10,13 +10,13 @@ import '../../../../generated/l10n.dart';
 /// Date: 07/17/24
 
 class WarehousesDropdownButton extends ConsumerStatefulWidget {
-  String title;
-  List<WarehouseEntity>? values;
-  Function(String) onSelectParam;
-  IconData? icon;
+  final String title;
+  final List<WarehouseEntity>? values;
+  final Function(String) onSelectParam;
+  final IconData? icon;
   // List<DropdownMenuItem<dynamic>>? items;
 
-  WarehousesDropdownButton({super.key, this.title = "", required this.values, required this.onSelectParam, this.icon});
+  const WarehousesDropdownButton({super.key, this.title = "", required this.values, required this.onSelectParam, this.icon});
 
   @override
   ObjetDropdownButtonState createState() => ObjetDropdownButtonState();
@@ -36,6 +36,8 @@ class ObjetDropdownButtonState extends ConsumerState<WarehousesDropdownButton> {
     List<WarehouseEntity>? warehouses =  widget.values;
     String? selectedValue;
     return DropdownButtonFormField<String>(
+      isDense: true,
+      isExpanded: true,
       validator: (value){
         if (value == null) {
           return S.of(context).fieldCantBeEmpty;
@@ -49,7 +51,7 @@ class ObjetDropdownButtonState extends ConsumerState<WarehousesDropdownButton> {
         labelStyle: Theme.of(context).textTheme.bodyLarge,
       ),
       icon: Icon(widget.icon),
-      alignment: AlignmentDirectional.center,
+      // alignment: AlignmentDirectional.center,
       onChanged: (newValue) {
         logger.w("$newValue");
         widget.onSelectParam(newValue!);
@@ -61,7 +63,11 @@ class ObjetDropdownButtonState extends ConsumerState<WarehousesDropdownButton> {
       items: warehouses?.map((WarehouseEntity value) {
         return DropdownMenuItem(
           value: "${value.id}",
-          child: Text("${value.description}"),
+          child: Text(
+            "${value.description}",
+            softWrap: true,
+            overflow: TextOverflow.ellipsis,
+          ),
         );
       }).toList(),
     );

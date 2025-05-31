@@ -21,6 +21,7 @@ class AssetsInputState extends ConsumerState<AssetsInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: TextInputType.number,
       controller: widget.controller,
       decoration: InputDecoration(
         hintText: S.of(context).assetInput,

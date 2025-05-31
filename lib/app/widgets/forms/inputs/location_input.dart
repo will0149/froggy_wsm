@@ -23,6 +23,7 @@ class LocationInputState extends ConsumerState<LocationInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: TextInputType.number,
       controller: widget.controller,
       decoration: InputDecoration(
         hintText: 'Colón',

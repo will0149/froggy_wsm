@@ -22,6 +22,7 @@ class LpnInputState extends ConsumerState<LpnInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: TextInputType.number,
       controller: widget.controller,
       decoration:  InputDecoration(
         hintText: 'XSKMCN',

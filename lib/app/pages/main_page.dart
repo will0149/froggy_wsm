@@ -66,45 +66,36 @@ class MainPageState extends ConsumerState<MainPage> {
               child: Wrap(
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(top: 10.0),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        // Adjust the values as needed
-                        topRight: Radius.circular(
-                            20.0), // Adjust the values as needed
-                      ),
-                    ),
+                    margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                     child: Wrap(
                       spacing: 20,
                       children: [
-                        // CircleAvatar(
-                        //   backgroundColor: backGroundColor,
-                        //   radius: 52,
-                        //   child: const CircleAvatar(
-                        //     backgroundColor: Colors.white,
-                        //     radius: 50,
-                        //     backgroundImage: AssetImage("assets/logos/atheneox.png"),
-                        //   ),
-                        // ),
-                        CircleAvatar(
-                          backgroundColor: backGroundColor,
-                          radius: 52,
-                          child: const CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 50,
-                            backgroundImage:
-                                AssetImage("assets/logos/cct_logo.png"),
+                        SizedBox(
+                          width: size.width / 4,
+                          height: size.width / 4,
+                          child: CircleAvatar(
+                            backgroundColor: backGroundColor,
+                            radius: 52,
+                            child: const CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 50,
+                              backgroundImage:
+                                  AssetImage("assets/logos/cct_logo.png"),
+                            ),
                           ),
                         ),
-                        CircleAvatar(
-                          backgroundColor: backGroundColor,
-                          radius: 52,
-                          child: const CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 50,
-                            backgroundImage:
-                                AssetImage("assets/logos/froggy_logo.png"),
+                        SizedBox(
+                          width: size.width / 4,
+                          height: size.width / 4,
+                          child: CircleAvatar(
+                            backgroundColor: backGroundColor,
+                            radius: 52,
+                            child: const CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 50,
+                              backgroundImage:
+                                  AssetImage("assets/logos/froggy_logo.png"),
+                            ),
                           ),
                         ),
                       ],

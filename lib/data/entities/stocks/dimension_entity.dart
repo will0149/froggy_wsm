@@ -10,13 +10,13 @@ part 'dimension_entity.g.dart';
 
 @JsonSerializable()
 class DimensionEntity {
-  // @IntConverter()
+  @IntConverter()
   @JsonKey(name: 'height')
   int? height;
-  // @IntConverter()
+  @IntConverter()
   @JsonKey(name: 'width')
   int? width;
-  // @IntConverter()
+  @IntConverter()
   @JsonKey(name: 'long')
   int? long;
 

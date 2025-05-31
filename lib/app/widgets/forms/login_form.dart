@@ -57,10 +57,10 @@ class LoginFormState extends ConsumerState<LoginForm> {
             decoration: InputDecoration(
               labelText: S.of(context).emailInput,
               hintText: "user@example.com",
-              icon: const Icon(
-                Icons.email,
-                color: Colors.orange,
-              ),
+              // icon: const Icon(
+              //   Icons.email,
+              //   color: Colors.orange,
+              // ),
             ),
             controller: emailInputController,
             keyboardType: TextInputType.emailAddress,
@@ -70,7 +70,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
             decoration: InputDecoration(
               labelText: S.of(context).passwordInput,
               hintText: "********",
-              icon: const Icon(Icons.security, color: Colors.orange),
+              // icon: const Icon(Icons.security, color: Colors.orange),
               suffixIcon: IconButton(
                   icon: Icon(
                       _isObscure ? Icons.visibility : Icons.visibility_off,
@@ -88,64 +88,67 @@ class LoginFormState extends ConsumerState<LoginForm> {
           ),
           isLoading
               ? Container(
-              margin: const EdgeInsets.all(10.0),
-              child: const Center(
-                child: CircularProgressIndicator(),
-              ))
-              : Container(
-            width: size.width,
-            margin: const EdgeInsets.all(10.0),
-            child: OutlinedButton(
-              child: Text(S.of(context).loginButton,
-                  style: Theme.of(context).textTheme.headlineSmall),
-              onPressed: () {
-                setState(() {
-                  _valid = _loginFormKey.currentState!.validate();
-                  isLoading = true;
-                });
-
-                if (_valid) {
-                  var data = LoginDTO(
-                    email: emailInputController.text,
-                    password: pwdInputController.text
-                  );
-                  authHandlerP.signIn(data).then((value) {
-                    var code = value?.status?.code;
-                    logger.i("code in form $code");
-                    if (code! >= 200 && code < 300) {
-                      showSuccessToast("Login Success!!");
+                  margin: const EdgeInsets.all(10.0),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+          )
+              : SizedBox(
+                  width: size.width,
+                  child: ElevatedButton(
+                    onPressed: () {
                       setState(() {
-                        isLoading = false;
+                        _valid = _loginFormKey.currentState!.validate();
+                        isLoading = true;
                       });
-                      context.goNamed(MainPage.routeName);
-                    } else {
-                      showErrorToast(
-                          "Datos Inválidos ${value?.status?.msg}");
-                    }
-                  }).whenComplete(() {
-                    logger.i("finished sign in");
-                    setState(() {
-                      isLoading = false;
-                    });
-                  }).catchError((error) {
-                    logger.e("bruja ${error.toString()}");
-                    setState(() {
-                      isLoading = false;
-                    });
-                    showErrorToast("Algo fallo ${error.toString()}!");
-                  });
 
-                }else {
-                  setState(() {
-                    isLoading = false;
-                  });
-                }
-              },
-            ),
-          ),
+                      if (_valid) {
+                        var data = LoginDTO(
+                            email: emailInputController.text,
+                            password: pwdInputController.text);
+                        authHandlerP.signIn(data).then((value) {
+                          var code = value?.status?.code;
+                          logger.i("code in form $code");
+                          if (code! >= 200 && code < 300) {
+                            showSuccessToast("Login Success!!");
+                            setState(() {
+                              isLoading = false;
+                            });
+                            context.goNamed(MainPage.routeName);
+                          } else {
+                            showErrorToast(
+                                "Datos Inválidos ${value?.status?.msg}");
+                          }
+                        }).whenComplete(() {
+                          logger.i("finished sign in");
+                          setState(() {
+                            isLoading = false;
+                          });
+                        }).catchError((error) {
+                          logger.e("bruja ${error.toString()}");
+                          setState(() {
+                            isLoading = false;
+                          });
+                          showErrorToast("Algo fallo ${error.toString()}!");
+                        });
+                      } else {
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
+                    },
+                    child: Text(
+                      S.of(context).loginButton,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                  ),
+                ),
           Center(
-            child: Text(S.of(context).dontHaveAnAccountYet,
-                style: Theme.of(context).textTheme.bodyLarge),
+            child: Text(
+              S.of(context).dontHaveAnAccountYet,
+              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),

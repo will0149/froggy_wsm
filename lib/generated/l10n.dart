@@ -18,8 +18,10 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
@@ -41,8 +43,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -62,22 +66,12 @@ class S {
 
   /// `Froggy`
   String get appName {
-    return Intl.message(
-      'Froggy',
-      name: 'appName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Froggy', name: 'appName', desc: '', args: []);
   }
 
   /// `Froggy Soft`
   String get appFullName {
-    return Intl.message(
-      'Froggy Soft',
-      name: 'appFullName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Froggy Soft', name: 'appFullName', desc: '', args: []);
   }
 
   /// `No tienes una cuenta todavia?`
@@ -92,12 +86,7 @@ class S {
 
   /// `Entrada`
   String get entryMenuName {
-    return Intl.message(
-      'Entrada',
-      name: 'entryMenuName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Entrada', name: 'entryMenuName', desc: '', args: []);
   }
 
   /// `Reubicación`
@@ -112,32 +101,17 @@ class S {
 
   /// `Conteo`
   String get countMenuName {
-    return Intl.message(
-      'Conteo',
-      name: 'countMenuName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Conteo', name: 'countMenuName', desc: '', args: []);
   }
 
   /// `Salida`
   String get outgoingMenuName {
-    return Intl.message(
-      'Salida',
-      name: 'outgoingMenuName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Salida', name: 'outgoingMenuName', desc: '', args: []);
   }
 
   /// `Búsqueda`
   String get searchMenuName {
-    return Intl.message(
-      'Búsqueda',
-      name: 'searchMenuName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Búsqueda', name: 'searchMenuName', desc: '', args: []);
   }
 
   /// `Ajustes`
@@ -172,12 +146,7 @@ class S {
 
   /// `Es Serie?`
   String get isSeriesInput {
-    return Intl.message(
-      'Es Serie?',
-      name: 'isSeriesInput',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Es Serie?', name: 'isSeriesInput', desc: '', args: []);
   }
 
   /// `Cantidad de series`
@@ -242,12 +211,7 @@ class S {
 
   /// `Carton ID`
   String get cartonIdInput {
-    return Intl.message(
-      'Carton ID',
-      name: 'cartonIdInput',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Carton ID', name: 'cartonIdInput', desc: '', args: []);
   }
 
   /// `Carton ID origen`
@@ -282,22 +246,12 @@ class S {
 
   /// `DMC`
   String get dmcInput {
-    return Intl.message(
-      'DMC',
-      name: 'dmcInput',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('DMC', name: 'dmcInput', desc: '', args: []);
   }
 
   /// `Ubicación`
   String get locationInput {
-    return Intl.message(
-      'Ubicación',
-      name: 'locationInput',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ubicación', name: 'locationInput', desc: '', args: []);
   }
 
   /// `Ubicación origen`
@@ -322,22 +276,12 @@ class S {
 
   /// `Lote`
   String get batchInput {
-    return Intl.message(
-      'Lote',
-      name: 'batchInput',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Lote', name: 'batchInput', desc: '', args: []);
   }
 
   /// `Activo`
   String get assetInput {
-    return Intl.message(
-      'Activo',
-      name: 'assetInput',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Activo', name: 'assetInput', desc: '', args: []);
   }
 
   /// `Fecha de llegada`
@@ -362,12 +306,7 @@ class S {
 
   /// `Peso en KG`
   String get weightInput {
-    return Intl.message(
-      'Peso en KG',
-      name: 'weightInput',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Peso en KG', name: 'weightInput', desc: '', args: []);
   }
 
   /// `Dimensiones`
@@ -382,32 +321,17 @@ class S {
 
   /// `Altura`
   String get heightInput {
-    return Intl.message(
-      'Altura',
-      name: 'heightInput',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Altura', name: 'heightInput', desc: '', args: []);
   }
 
   /// `Anchura`
   String get widthInput {
-    return Intl.message(
-      'Anchura',
-      name: 'widthInput',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Anchura', name: 'widthInput', desc: '', args: []);
   }
 
   /// `LArgo`
   String get longInput {
-    return Intl.message(
-      'LArgo',
-      name: 'longInput',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('LArgo', name: 'longInput', desc: '', args: []);
   }
 
   /// `Observaciones`
@@ -432,22 +356,12 @@ class S {
 
   /// `Dañado`
   String get damaged {
-    return Intl.message(
-      'Dañado',
-      name: 'damaged',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Dañado', name: 'damaged', desc: '', args: []);
   }
 
   /// `Entradas`
   String get entryPageTitle {
-    return Intl.message(
-      'Entradas',
-      name: 'entryPageTitle',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Entradas', name: 'entryPageTitle', desc: '', args: []);
   }
 
   /// `Reubicaciones`
@@ -462,12 +376,7 @@ class S {
 
   /// `Conteos`
   String get countPageTitle {
-    return Intl.message(
-      'Conteos',
-      name: 'countPageTitle',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Conteos', name: 'countPageTitle', desc: '', args: []);
   }
 
   /// `Salidas`
@@ -542,12 +451,7 @@ class S {
 
   /// ``
   String get searchFormTitle {
-    return Intl.message(
-      '',
-      name: 'searchFormTitle',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('', name: 'searchFormTitle', desc: '', args: []);
   }
 
   /// `Buscar mercancía`
@@ -562,22 +466,12 @@ class S {
 
   /// `Entorno`
   String get environment {
-    return Intl.message(
-      'Entorno',
-      name: 'environment',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Entorno', name: 'environment', desc: '', args: []);
   }
 
   /// `versión`
   String get version {
-    return Intl.message(
-      'versión',
-      name: 'version',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('versión', name: 'version', desc: '', args: []);
   }
 
   /// `Iniciar Sesión`
@@ -602,12 +496,7 @@ class S {
 
   /// `Pulgadas`
   String get inches {
-    return Intl.message(
-      'Pulgadas',
-      name: 'inches',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Pulgadas', name: 'inches', desc: '', args: []);
   }
 
   /// `El campo no puede estar vacío`
@@ -642,12 +531,7 @@ class S {
 
   /// `Guardar`
   String get saveButton {
-    return Intl.message(
-      'Guardar',
-      name: 'saveButton',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Guardar', name: 'saveButton', desc: '', args: []);
   }
 
   /// `Quieres Salir?`
@@ -672,22 +556,12 @@ class S {
 
   /// `Cancelar`
   String get cancel {
-    return Intl.message(
-      'Cancelar',
-      name: 'cancel',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Cancelar', name: 'cancel', desc: '', args: []);
   }
 
   /// `Salir`
   String get exit {
-    return Intl.message(
-      'Salir',
-      name: 'exit',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Salir', name: 'exit', desc: '', args: []);
   }
 }
 

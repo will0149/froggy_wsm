@@ -7,7 +7,7 @@ part of 'get_stocks_by_column_name_provider.dart';
 // **************************************************************************
 
 String _$getStocksByColumNameHash() =>
-    r'bd2e2f87b2c717f0f217875cf9ed7c2ec63ec9a3';
+    r'f4cc9de15ba9738ecb5f014be9983cf44ca29210';
 
 /// Copied from Dart SDK
 class _SystemHash {

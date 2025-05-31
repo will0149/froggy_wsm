@@ -20,6 +20,7 @@ class BatchInputState extends ConsumerState<BatchInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: TextInputType.number,
       controller: widget.controller,
       decoration: const InputDecoration(
         hintText: '45',

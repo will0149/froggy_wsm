@@ -109,6 +109,7 @@ class SearchTableState extends ConsumerState<SearchPage> {
                           controller: searchValueController,
                           title:
                               'Valor a buscar', //S.of(context).containerInput,
+                          isNumber: false,
                         ),
                       ),
                     ),

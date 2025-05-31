@@ -50,7 +50,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
   late final TextEditingController cartonIdController = TextEditingController();
   late final TextEditingController containerNumberController =
       TextEditingController();
-  late final TextEditingController remarksController = TextEditingController();
+  late final TextEditingController remarksController = TextEditingController(text: "Sin Comentarios");
   late final TextEditingController dmcController = TextEditingController();
 
   //project state values
@@ -310,7 +310,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
           RemarksInput(
             controller: remarksController,
             title: S.of(context).remarksInput,
-            allowNull: false,
+            allowNull: true,
           ),
           SizedBox(
             height: MediaQuery.of(context).viewInsets.bottom,

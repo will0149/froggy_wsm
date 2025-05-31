@@ -13,7 +13,8 @@ class GenericInput extends ConsumerStatefulWidget {
   final TextEditingController controller;
   final bool enable;
   final bool allowNull;
-  const GenericInput({super.key, this.title = 'Mensaje', this.hintText = '', this.enable = true, required this.controller, this.allowNull = true});
+  final bool isNumber;
+  const GenericInput({super.key, this.title = 'Mensaje', this.hintText = '', this.enable = true, required this.controller, this.allowNull = true, this.isNumber = true});
 
   @override
   GenericInputState createState() => GenericInputState();
@@ -23,6 +24,7 @@ class GenericInputState extends ConsumerState<GenericInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.isNumber ? TextInputType.number : TextInputType.text,
       controller: widget.controller,
       enabled: widget.enable,
       decoration:  InputDecoration(
