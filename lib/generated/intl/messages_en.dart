@@ -84,8 +84,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "relocationPageTitle": MessageLookupByLibrary.simpleMessage("Relocation"),
     "remarksInput": MessageLookupByLibrary.simpleMessage("Remarks"),
     "saveButton": MessageLookupByLibrary.simpleMessage("Save"),
+    "searchFilterTitle": MessageLookupByLibrary.simpleMessage("Search Filter"),
     "searchFormTitle": MessageLookupByLibrary.simpleMessage(""),
-    "searchInput": MessageLookupByLibrary.simpleMessage("Stock search"),
+    "searchInput": MessageLookupByLibrary.simpleMessage("Search Value"),
     "searchMenuName": MessageLookupByLibrary.simpleMessage("Searches"),
     "searchPageTitle": MessageLookupByLibrary.simpleMessage("Search"),
     "settingsFormTitle": MessageLookupByLibrary.simpleMessage("Search items"),
@@ -105,6 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Origin warehouse",
     ),
     "weightInput": MessageLookupByLibrary.simpleMessage("Weight in KG"),
+    "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
     "widthInput": MessageLookupByLibrary.simpleMessage("Width"),
   };
 }

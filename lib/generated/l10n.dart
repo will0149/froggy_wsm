@@ -329,9 +329,9 @@ class S {
     return Intl.message('Anchura', name: 'widthInput', desc: '', args: []);
   }
 
-  /// `LArgo`
+  /// `Largo`
   String get longInput {
-    return Intl.message('LArgo', name: 'longInput', desc: '', args: []);
+    return Intl.message('Largo', name: 'longInput', desc: '', args: []);
   }
 
   /// `Observaciones`
@@ -344,10 +344,10 @@ class S {
     );
   }
 
-  /// `Búsqueda de Stocks`
+  /// `'Valor a buscar`
   String get searchInput {
     return Intl.message(
-      'Búsqueda de Stocks',
+      '\'Valor a buscar',
       name: 'searchInput',
       desc: '',
       args: [],
@@ -562,6 +562,21 @@ class S {
   /// `Salir`
   String get exit {
     return Intl.message('Salir', name: 'exit', desc: '', args: []);
+  }
+
+  /// `Bienvenido`
+  String get welcome {
+    return Intl.message('Bienvenido', name: 'welcome', desc: '', args: []);
+  }
+
+  /// `Filtro de Búsqueda`
+  String get searchFilterTitle {
+    return Intl.message(
+      'Filtro de Búsqueda',
+      name: 'searchFilterTitle',
+      desc: '',
+      args: [],
+    );
   }
 }
 

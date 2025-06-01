@@ -35,9 +35,9 @@
   "dimensionInput": "Dimensiones",
   "heightInput": "Altura",
   "widthInput": "Anchura",
-  "longInput": "LArgo",
+  "longInput": "Largo",
   "remarksInput": "Observaciones",
-  "searchInput": "Búsqueda de Stocks",
+  "searchInput": "'Valor a buscar",
   "damaged": "Dañado",
 
   "entryPageTitle": "Entradas",
@@ -73,5 +73,8 @@
   "wantToExit": "Quieres Salir?",
   "sureWantToExit": "Estas seguro que quieres abandonar esta pagina?",
   "cancel": "Cancelar",
-  "exit": "Salir"
+  "exit": "Salir",
+  "welcome": "Bienvenido",
+
+  "searchFilterTitle": "Filtro de Búsqueda"
 }

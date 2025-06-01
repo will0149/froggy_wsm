@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/series_dto.dart';
+import '../../../generated/l10n.dart';
 import '../../widgets/toasts/build_toasts.dart';
 
 /**
@@ -67,7 +68,7 @@ class SearchTableState extends ConsumerState<SearchPage> {
     return SafeScaffold(
       appBar: AppBar(
         title: Text(
-          "Búscar en inventario",
+          S.of(context).searchPageTitle,
           style: Theme.of(context)
               .textTheme
               .titleLarge
@@ -108,7 +109,7 @@ class SearchTableState extends ConsumerState<SearchPage> {
                         child: GenericInput(
                           controller: searchValueController,
                           title:
-                              'Valor a buscar', //S.of(context).containerInput,
+                              S.of(context).searchInput, //S.of(context).containerInput,
                           isNumber: false,
                         ),
                       ),
@@ -152,7 +153,7 @@ class SearchTableState extends ConsumerState<SearchPage> {
                                   });
                                 } else {
                                   showErrorToast(
-                                      "No puede enviar un request vacío");
+                                      S.of(context).fieldCantBeEmpty);
                                 }
                                 setState(() {
                                   isLoading = false;

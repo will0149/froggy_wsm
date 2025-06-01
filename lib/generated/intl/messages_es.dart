@@ -79,7 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "loginButton": MessageLookupByLibrary.simpleMessage("Iniciar Sesión"),
     "logoutButton": MessageLookupByLibrary.simpleMessage("Cerrar Sesión"),
-    "longInput": MessageLookupByLibrary.simpleMessage("LArgo"),
+    "longInput": MessageLookupByLibrary.simpleMessage("Largo"),
     "outgoingDateInput": MessageLookupByLibrary.simpleMessage(
       "Fecha de salida",
     ),
@@ -98,8 +98,11 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "remarksInput": MessageLookupByLibrary.simpleMessage("Observaciones"),
     "saveButton": MessageLookupByLibrary.simpleMessage("Guardar"),
+    "searchFilterTitle": MessageLookupByLibrary.simpleMessage(
+      "Filtro de Búsqueda",
+    ),
     "searchFormTitle": MessageLookupByLibrary.simpleMessage(""),
-    "searchInput": MessageLookupByLibrary.simpleMessage("Búsqueda de Stocks"),
+    "searchInput": MessageLookupByLibrary.simpleMessage("\'Valor a buscar"),
     "searchMenuName": MessageLookupByLibrary.simpleMessage("Búsqueda"),
     "searchPageTitle": MessageLookupByLibrary.simpleMessage("Búsquedas"),
     "settingsFormTitle": MessageLookupByLibrary.simpleMessage(
@@ -123,6 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Bodega Origen",
     ),
     "weightInput": MessageLookupByLibrary.simpleMessage("Peso en KG"),
+    "welcome": MessageLookupByLibrary.simpleMessage("Bienvenido"),
     "widthInput": MessageLookupByLibrary.simpleMessage("Anchura"),
   };
 }

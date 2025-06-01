@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../data/entities/base_response_entity.dart';
@@ -14,6 +15,6 @@ import '../../logics/inventory/stocks_logic.dart';
 part 'get_stocks_provider.g.dart';
 
 @riverpod
-Future<BaseResponseEntity<StockListEntity>> getStocks(GetStocksRef ref, SeriesDto? series) async {
+Future<BaseResponseEntity<StockListEntity>> getStocks(Ref ref, SeriesDto? series) async {
   return ref.read(stocksLogicProvider).getStocksBySeries(series);
 }

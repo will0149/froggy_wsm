@@ -2,6 +2,8 @@ import 'package:cct_management/device/utils/logger_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../generated/l10n.dart';
+
 /**
  * Made for cct_management.
  * By User: josedominguez
@@ -57,7 +59,7 @@ class HorizontalFilterListState extends ConsumerState<HorizontalFilterList> {
               left: widget.itemLeftPadding,
               right: widget.itemRightPadding,
             ),
-            child: Text("Filtro de Búsqueda", style: Theme.of(context)
+            child: Text(S.of(context).searchFilterTitle, style: Theme.of(context)
                 .textTheme
                 .titleMedium
                 ?.copyWith(fontWeight: FontWeight.bold),),

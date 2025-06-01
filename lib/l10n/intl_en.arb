@@ -37,7 +37,7 @@
   "widthInput": "Width",
   "longInput": "Long",
   "remarksInput": "Remarks",
-  "searchInput": "Stock search",
+  "searchInput": "Search Value",
   "damaged": "Damaged",
 
   "entryPageTitle": "Entry",
@@ -73,5 +73,8 @@
   "wantToExit": "Exit?",
   "sureWantToExit": "Are you sure want to exit?",
   "cancel": "Cancel",
-  "exit": "Exit"
+  "exit": "Exit",
+  "welcome": "Welcome",
+
+  "searchFilterTitle": "Search Filter"
 }

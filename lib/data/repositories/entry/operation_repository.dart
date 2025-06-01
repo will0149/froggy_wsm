@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cct_management/data/repositories/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/retry.dart';
 
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/inbound_dto.dart';
@@ -24,7 +25,7 @@ class OperationRepository {
     headersUtils = BuildHeadersUtilsImpl();
   }
   Future<Map<String, dynamic>> entryAdd(InboundDto request) async {
-    var client = http.Client();
+    var client = RetryClient(http.Client());
     try {
       var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
@@ -51,7 +52,7 @@ class OperationRepository {
   }
 
   Future<Map<String, dynamic>> addOutgoing(OutgoingDto request) async {
-    var client = http.Client();
+    var client = RetryClient(http.Client());
     try {
       var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
@@ -76,7 +77,7 @@ class OperationRepository {
   }
 
   Future<Map<String, dynamic>> relocate(RelocationDto request) async {
-    var client = http.Client();
+    var client = RetryClient(http.Client());
     try {
       var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
@@ -104,7 +105,7 @@ class OperationRepository {
   }
 
   Future<Map<String, dynamic>> countValidate(TallyCountDto request) async {
-    var client = http.Client();
+    var client = RetryClient(http.Client());
     try{
       var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
@@ -129,7 +130,7 @@ class OperationRepository {
   }
 
   Future<Map<String, dynamic>> count(TallyCountDto request) async {
-    var client = http.Client();
+    var client = RetryClient(http.Client());
     try{
       var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cct_management/data/repositories/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/retry.dart';
 
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/series_dto.dart';
@@ -25,7 +26,7 @@ class StocksRepository {
   }
 
   Future getStockBySeries(SeriesDto? series) async {
-    var client = http.Client();
+    var client = RetryClient(http.Client());
     var response = http.Response(jsonEncode(defaultTimeOutResponse), 408);
     try {
       var headers = await headersUtils.headers();
@@ -55,7 +56,7 @@ class StocksRepository {
   }
 
   Future getStockByColumnName(Map<String, String>? request) async {
-    var client = http.Client();
+    var client = RetryClient(http.Client());
     var response = http.Response(jsonEncode(defaultTimeOutResponse), 408);
     try {
       var headers = await headersUtils.headers();

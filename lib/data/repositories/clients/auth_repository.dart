@@ -4,6 +4,7 @@ import 'package:cct_management/data/repositories/constants.dart';
 import 'package:cct_management/domain/utils/impl/build_headers_utils_impl.dart';
 import 'package:cct_management/flavors.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/retry.dart';
 
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/auth/login_dto.dart';
@@ -24,7 +25,7 @@ class AuthRepository {
   }
 
   Future<Map<String, dynamic>> signIn(LoginDTO request) async {
-    var client = http.Client();
+    var client = RetryClient(http.Client());
     try {
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.signIn.path);
@@ -50,7 +51,7 @@ class AuthRepository {
   }
 
   Future<Map<String, dynamic>> refreshToken() async {
-    var client = http.Client();
+    var client = RetryClient(http.Client());
     try {
       var headers = await headersUtils.headers();
       var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.refreshToken.path);
@@ -74,7 +75,7 @@ class AuthRepository {
   }
 
   Future<Map<String, dynamic>> logOut() async {
-    var client = http.Client();
+    var client = RetryClient(http.Client());
     try {
       var headers = await headersUtils.headers();
       logger.w('sesion headers $headers');

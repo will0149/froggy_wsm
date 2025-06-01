@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cct_management/data/repositories/constants.dart';
 import 'package:cct_management/flavors.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/retry.dart';
 
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/utils/build_headers_utils.dart';
@@ -20,7 +21,7 @@ class ClientRepository {
   }
 
   Future<Map<String, dynamic>> getCustomers() async {
-    var client = http.Client();
+    var client = RetryClient(http.Client());
     try {
       var headers = await headersUtils.headers();
       var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.clients.path);

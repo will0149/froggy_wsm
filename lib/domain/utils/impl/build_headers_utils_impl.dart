@@ -17,12 +17,13 @@ class BuildHeadersUtilsImpl implements BuildHeadersUtils {
 
   @override
   Future<Map<String, String>> headers() async {
-    Map<String, String> headers = {};
+    Map<String, String> headers = {
+      "Content-Type": "application/json",
+    };
     await getToken().then((value) {
-      headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $value"
-      };
+      if(value!.isNotEmpty) {
+        headers["Authorization"] = "Bearer $value";
+      }
     });
     return headers;
   }
