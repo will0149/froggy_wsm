@@ -157,15 +157,6 @@ class EventFeedCard extends StatelessWidget {
               ],
             ),
           ),
-          const Positioned(
-            top: 15,
-            right: 20,
-            child: Icon(
-              Icons.favorite_rounded,
-              color: Colors.red,
-              size: 30.0,
-            ),
-          )
         ],
       ),
     );

@@ -97,57 +97,57 @@ class SignInFormState extends ConsumerState<SignInForm> {
             spacing: 10.0,
             runSpacing: 10.0,
             children: [
-             isLoading ? const CircularProgressIndicator() : ElevatedButton(
-               style: ElevatedButton.styleFrom(
-                 backgroundColor: parkeaBlueAccent,
-                 fixedSize: const Size(120, 43),
-                 shape: RoundedRectangleBorder(
-                   borderRadius: BorderRadius.circular(10.0),
-                   side:
-                   const BorderSide(color: parkeaBlueAccent, width: 1.2),
-                 ),
-               ),
-               onPressed: () async {
-                 setState(() {
-                   _valid = widget.formKey.currentState!.validate();
-                   isLoading = true;
-                 });
-                 if (_valid) {
-                   //set user session data
-                   authState.signInUsingEmailPassword(
-                     email: emailController.value.text,
-                     password: passwordController.value.text,
-                     context: context,
-                   ).catchError((error) {
-                     logger.e(error);
-                     setState(() {
-                       isLoading = false;
-                     });
-                   });
+              isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: parkeaBlueAccent,
+                        fixedSize: const Size(130, 43),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: const BorderSide(
+                              color: parkeaBlueAccent, width: 1.2),
+                        ),
+                      ),
+                      onPressed: () async {
+                        setState(() {
+                          _valid = widget.formKey.currentState!.validate();
+                          isLoading = true;
+                        });
+                        if (_valid) {
+                          //set user session data
+                          authState
+                              .signInUsingEmailPassword(
+                            email: emailController.value.text,
+                            password: passwordController.value.text,
+                            context: context,
+                          )
+                              .catchError((error) {
+                            logger.e(error);
+                          });
 
-                   if(authState.isLoggedIn){
-                     logger.d("Process Complete and logging");
-                     setState(() {
-                       isLoading = false;
-                     });
-                     context.goNamed(HomeFeedPage.routeName);
-                   }else{
-                     setState(() {
-                       isLoading = false;
-                     });
-                   }
-                 }
-                 setState(() {
-                   isLoading = false;
-                 });
-               },
-               child: Text(
-                 S.of(context).login,
-                 style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.white, fontSize: 12),
-               ),
-             ),
+                          if (authState.isLoggedIn) {
+                            logger.d("Process Complete and logging");
+                            setState(() {
+                              isLoading = false;
+                            });
+                            context.goNamed(HomeFeedPage.routeName);
+                          }
+                        }
+                        setState(() {
+                          isLoading = false;
+                        });
+                      },
+                      child: Text(
+                        S.of(context).login,
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(color: Colors.white),
+                      ),
+                    ),
               GestureDetector(
-               onTap: () => context.pushNamed(PasswordResetPage.routeName),
+                onTap: () => context.pushNamed(PasswordResetPage.routeName),
                 child: Text.rich(
                   TextSpan(
                     text: S.of(context).forgotPassword,
@@ -159,7 +159,6 @@ class SignInFormState extends ConsumerState<SignInForm> {
                     // recognizer: TapGestureRecognizer()
                     //   ..onTap = () => Navigator.pushNamed(context, "/main"),
                   ),
-
                 ),
               ),
             ],

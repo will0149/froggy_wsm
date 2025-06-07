@@ -22,42 +22,42 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "authenticate": MessageLookupByLibrary.simpleMessage("Autenticar"),
-        "buyTicket": MessageLookupByLibrary.simpleMessage("Comprar bilhete"),
-        "dataAndPrivacy":
-            MessageLookupByLibrary.simpleMessage("Dados e privacidade"),
-        "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
-        "email": MessageLookupByLibrary.simpleMessage("Correio eletrônico"),
-        "eventsForAll":
-            MessageLookupByLibrary.simpleMessage("Eventos para todos"),
-        "forgotPassword":
-            MessageLookupByLibrary.simpleMessage("Esqueci minha senha"),
-        "getHelp": MessageLookupByLibrary.simpleMessage("Ajuda"),
-        "information": MessageLookupByLibrary.simpleMessage("Informação"),
-        "joinOurUniverse":
-            MessageLookupByLibrary.simpleMessage("Junte-se ao nosso universo"),
-        "login": MessageLookupByLibrary.simpleMessage("Iniciar sessão"),
-        "logout": MessageLookupByLibrary.simpleMessage("Fechar Sessão"),
-        "myEvents": MessageLookupByLibrary.simpleMessage("Eventos"),
-        "myEventsPaid": MessageLookupByLibrary.simpleMessage("Pago"),
-        "myEventsSaved": MessageLookupByLibrary.simpleMessage("Salvou"),
-        "name": MessageLookupByLibrary.simpleMessage("Nome"),
-        "parkeaAndShare":
-            MessageLookupByLibrary.simpleMessage("Parkea & Comparte"),
-        "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
-        "password": MessageLookupByLibrary.simpleMessage("Senha"),
-        "popularEvents":
-            MessageLookupByLibrary.simpleMessage("Eventos Populares"),
-        "province": MessageLookupByLibrary.simpleMessage("Província"),
-        "register": MessageLookupByLibrary.simpleMessage("Inscrever-se"),
-        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
-        "saveEvent": MessageLookupByLibrary.simpleMessage("Salvar Evento"),
-        "seeEvent": MessageLookupByLibrary.simpleMessage("ver evento"),
-        "settings": MessageLookupByLibrary.simpleMessage("Definições"),
-        "signUp": MessageLookupByLibrary.simpleMessage("Inscrever-se"),
-        "similarEvents":
-            MessageLookupByLibrary.simpleMessage("Eventos Semelhantes"),
-        "welcomeAgain":
-            MessageLookupByLibrary.simpleMessage("¡Bem vindo de novo!")
-      };
+    "authenticate": MessageLookupByLibrary.simpleMessage("Autenticar"),
+    "buyTicket": MessageLookupByLibrary.simpleMessage("Comprar bilhete"),
+    "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
+      "Dados e privacidade",
+    ),
+    "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
+    "email": MessageLookupByLibrary.simpleMessage("Correio eletrônico"),
+    "eventsForAll": MessageLookupByLibrary.simpleMessage("Eventos para todos"),
+    "forgotPassword": MessageLookupByLibrary.simpleMessage(
+      "Esqueci minha senha",
+    ),
+    "getHelp": MessageLookupByLibrary.simpleMessage("Ajuda"),
+    "information": MessageLookupByLibrary.simpleMessage("Informação"),
+    "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
+      "Junte-se ao nosso universo",
+    ),
+    "login": MessageLookupByLibrary.simpleMessage("Iniciar sessão"),
+    "logout": MessageLookupByLibrary.simpleMessage("Fechar Sessão"),
+    "myEvents": MessageLookupByLibrary.simpleMessage("Eventos"),
+    "myEventsPaid": MessageLookupByLibrary.simpleMessage("Pago"),
+    "myEventsSaved": MessageLookupByLibrary.simpleMessage("Salvou"),
+    "name": MessageLookupByLibrary.simpleMessage("Nome"),
+    "parkeaAndShare": MessageLookupByLibrary.simpleMessage("Parkea & Comparte"),
+    "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
+    "password": MessageLookupByLibrary.simpleMessage("Senha"),
+    "popularEvents": MessageLookupByLibrary.simpleMessage("Eventos Populares"),
+    "province": MessageLookupByLibrary.simpleMessage("Província"),
+    "register": MessageLookupByLibrary.simpleMessage("Inscrever-se"),
+    "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+    "saveEvent": MessageLookupByLibrary.simpleMessage("Salvar Evento"),
+    "seeEvent": MessageLookupByLibrary.simpleMessage("ver evento"),
+    "settings": MessageLookupByLibrary.simpleMessage("Definições"),
+    "signUp": MessageLookupByLibrary.simpleMessage("Inscrever-se"),
+    "similarEvents": MessageLookupByLibrary.simpleMessage(
+      "Eventos Semelhantes",
+    ),
+    "welcomeAgain": MessageLookupByLibrary.simpleMessage("¡Bem vindo de novo!"),
+  };
 }

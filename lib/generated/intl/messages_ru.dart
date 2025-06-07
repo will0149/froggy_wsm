@@ -22,43 +22,46 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "authenticate":
-            MessageLookupByLibrary.simpleMessage("Аутентифицировать"),
-        "buyTicket": MessageLookupByLibrary.simpleMessage("Купи билет"),
-        "dataAndPrivacy":
-            MessageLookupByLibrary.simpleMessage("Данные и конфиденциальность"),
-        "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
-        "email": MessageLookupByLibrary.simpleMessage("Эл. адрес"),
-        "eventsForAll":
-            MessageLookupByLibrary.simpleMessage("События для всех"),
-        "forgotPassword":
-            MessageLookupByLibrary.simpleMessage("Я забыл мой пароль"),
-        "getHelp": MessageLookupByLibrary.simpleMessage("Помощь"),
-        "information": MessageLookupByLibrary.simpleMessage("Информация"),
-        "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
-            "Присоединяйтесь к нашей вселенной"),
-        "login": MessageLookupByLibrary.simpleMessage("Войти в систему"),
-        "logout": MessageLookupByLibrary.simpleMessage("Выход"),
-        "myEvents": MessageLookupByLibrary.simpleMessage("Мероприятия"),
-        "myEventsPaid": MessageLookupByLibrary.simpleMessage("Оплаченный"),
-        "myEventsSaved": MessageLookupByLibrary.simpleMessage("Сохранено"),
-        "name": MessageLookupByLibrary.simpleMessage("Имя"),
-        "parkeaAndShare":
-            MessageLookupByLibrary.simpleMessage("Parkea и поделиться!"),
-        "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
-        "password": MessageLookupByLibrary.simpleMessage("Пароль"),
-        "popularEvents":
-            MessageLookupByLibrary.simpleMessage("Популярные события"),
-        "province": MessageLookupByLibrary.simpleMessage("Провинция"),
-        "register": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
-        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
-        "saveEvent": MessageLookupByLibrary.simpleMessage("сохранить событие"),
-        "seeEvent": MessageLookupByLibrary.simpleMessage("Показать событие"),
-        "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
-        "signUp": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
-        "similarEvents":
-            MessageLookupByLibrary.simpleMessage("Подобные мероприятия"),
-        "welcomeAgain":
-            MessageLookupByLibrary.simpleMessage("¡Добро пожаловать обратно!")
-      };
+    "authenticate": MessageLookupByLibrary.simpleMessage("Аутентифицировать"),
+    "buyTicket": MessageLookupByLibrary.simpleMessage("Купи билет"),
+    "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
+      "Данные и конфиденциальность",
+    ),
+    "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
+    "email": MessageLookupByLibrary.simpleMessage("Эл. адрес"),
+    "eventsForAll": MessageLookupByLibrary.simpleMessage("События для всех"),
+    "forgotPassword": MessageLookupByLibrary.simpleMessage(
+      "Я забыл мой пароль",
+    ),
+    "getHelp": MessageLookupByLibrary.simpleMessage("Помощь"),
+    "information": MessageLookupByLibrary.simpleMessage("Информация"),
+    "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
+      "Присоединяйтесь к нашей вселенной",
+    ),
+    "login": MessageLookupByLibrary.simpleMessage("Войти в систему"),
+    "logout": MessageLookupByLibrary.simpleMessage("Выход"),
+    "myEvents": MessageLookupByLibrary.simpleMessage("Мероприятия"),
+    "myEventsPaid": MessageLookupByLibrary.simpleMessage("Оплаченный"),
+    "myEventsSaved": MessageLookupByLibrary.simpleMessage("Сохранено"),
+    "name": MessageLookupByLibrary.simpleMessage("Имя"),
+    "parkeaAndShare": MessageLookupByLibrary.simpleMessage(
+      "Parkea и поделиться!",
+    ),
+    "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
+    "password": MessageLookupByLibrary.simpleMessage("Пароль"),
+    "popularEvents": MessageLookupByLibrary.simpleMessage("Популярные события"),
+    "province": MessageLookupByLibrary.simpleMessage("Провинция"),
+    "register": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+    "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+    "saveEvent": MessageLookupByLibrary.simpleMessage("сохранить событие"),
+    "seeEvent": MessageLookupByLibrary.simpleMessage("Показать событие"),
+    "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
+    "signUp": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+    "similarEvents": MessageLookupByLibrary.simpleMessage(
+      "Подобные мероприятия",
+    ),
+    "welcomeAgain": MessageLookupByLibrary.simpleMessage(
+      "¡Добро пожаловать обратно!",
+    ),
+  };
 }

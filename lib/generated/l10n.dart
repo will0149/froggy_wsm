@@ -18,8 +18,10 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
@@ -41,8 +43,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -62,12 +66,7 @@ class S {
 
   /// `Parkea!`
   String get parkeaAppName {
-    return Intl.message(
-      'Parkea!',
-      name: 'parkeaAppName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Parkea!', name: 'parkeaAppName', desc: '', args: []);
   }
 
   /// `Parkea & Comparte`
@@ -102,12 +101,7 @@ class S {
 
   /// `Autenticar`
   String get authenticate {
-    return Intl.message(
-      'Autenticar',
-      name: 'authenticate',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Autenticar', name: 'authenticate', desc: '', args: []);
   }
 
   /// `¡Bienvenido de nuevo!`
@@ -122,22 +116,12 @@ class S {
 
   /// `Iniciar Sesión`
   String get login {
-    return Intl.message(
-      'Iniciar Sesión',
-      name: 'login',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Iniciar Sesión', name: 'login', desc: '', args: []);
   }
 
   /// `Regístrate`
   String get signUp {
-    return Intl.message(
-      'Regístrate',
-      name: 'signUp',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Regístrate', name: 'signUp', desc: '', args: []);
   }
 
   /// `Reestablecer Contraseña`
@@ -162,12 +146,7 @@ class S {
 
   /// `Contraseña`
   String get password {
-    return Intl.message(
-      'Contraseña',
-      name: 'password',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Contraseña', name: 'password', desc: '', args: []);
   }
 
   /// `Olvide mi Contraseña`
@@ -182,22 +161,12 @@ class S {
 
   /// `Nombre`
   String get name {
-    return Intl.message(
-      'Nombre',
-      name: 'name',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Nombre', name: 'name', desc: '', args: []);
   }
 
   /// `Provincia`
   String get province {
-    return Intl.message(
-      'Provincia',
-      name: 'province',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Provincia', name: 'province', desc: '', args: []);
   }
 
   /// `Eventos Populares`
@@ -212,12 +181,7 @@ class S {
 
   /// `Ir al Evento`
   String get seeEvent {
-    return Intl.message(
-      'Ir al Evento',
-      name: 'seeEvent',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ir al Evento', name: 'seeEvent', desc: '', args: []);
   }
 
   /// `Comprar Entrada`
@@ -242,52 +206,27 @@ class S {
 
   /// `Registro`
   String get register {
-    return Intl.message(
-      'Registro',
-      name: 'register',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Registro', name: 'register', desc: '', args: []);
   }
 
   /// `Eventos`
   String get myEvents {
-    return Intl.message(
-      'Eventos',
-      name: 'myEvents',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Eventos', name: 'myEvents', desc: '', args: []);
   }
 
   /// `Pagos`
   String get myEventsPaid {
-    return Intl.message(
-      'Pagos',
-      name: 'myEventsPaid',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Pagos', name: 'myEventsPaid', desc: '', args: []);
   }
 
   /// `Gardados`
   String get myEventsSaved {
-    return Intl.message(
-      'Gardados',
-      name: 'myEventsSaved',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Gardados', name: 'myEventsSaved', desc: '', args: []);
   }
 
   /// `Información`
   String get information {
-    return Intl.message(
-      'Información',
-      name: 'information',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Información', name: 'information', desc: '', args: []);
   }
 
   /// `Eventos Similares`
@@ -302,32 +241,17 @@ class S {
 
   /// `Configuración`
   String get settings {
-    return Intl.message(
-      'Configuración',
-      name: 'settings',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Configuración', name: 'settings', desc: '', args: []);
   }
 
   /// `Cerrar Sesión`
   String get logout {
-    return Intl.message(
-      'Cerrar Sesión',
-      name: 'logout',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Cerrar Sesión', name: 'logout', desc: '', args: []);
   }
 
   /// `Ayuda`
   String get getHelp {
-    return Intl.message(
-      'Ayuda',
-      name: 'getHelp',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ayuda', name: 'getHelp', desc: '', args: []);
   }
 
   /// `Datos & Privacidad`
