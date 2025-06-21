@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/widgets/user/user_empty_image_avatar.dart';
 
 import '../../../domain/dtos/user_dto.dart';

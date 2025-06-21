@@ -30,7 +30,7 @@ class HomeFeedPage extends ConsumerStatefulWidget {
 }
 
 class OnboardingPageState extends ConsumerState<HomeFeedPage> {
-  final titles = ["All", "Panamá", "Colón", "Panamá Oeste", "Bocas del Toro"];
+  final titles = ["All", "Música", "Camping", "Aventura", "Talleres"];
   late final FetchEventsUC useCase = FetchEventsUC();
   final ScrollController _controller = ScrollController();
 
@@ -41,14 +41,15 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
 
   Future<void> _refresh() async {
     ref.refresh(getEventsProvider.future);
-    ref.refresh(getUserDetailProvider.future);
+    // comment user detail provider while implementing REST APIs
+    // ref.refresh(getUserDetailProvider.future);
   }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     final eventsData = ref.watch(getEventsProvider);
-    final userData = ref.watch(getUserDetailProvider);
+    // final userData = ref.watch(getUserDetailProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -70,10 +71,11 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(
+          top: 10.0,
           right: 10.0,
           left: 10.0,
         ),
-        child: Stack(
+        child: Column(
           children: [
             Wrap(
               children: [
@@ -82,29 +84,28 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                   activeColor: parkeaBlueAccent,
                   inactiveColor: parkeaBlack,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      S.of(context).popularEvents,
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    IconButton(
-                      //onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SearchPage())),
-                      onPressed: () {},
-                      icon: const Icon(Icons.search),
-                    )
-                  ],
-                ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 100),
+            Expanded(
               child: RefreshIndicator(
                 onRefresh: _refresh,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            S.of(context).popularEvents,
+                            style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          IconButton(
+                            //onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SearchPage())),
+                            onPressed: () {},
+                            icon: const Icon(Icons.search),
+                          )
+                        ],
+                      ),
                       Container(
                         child: eventsData.when(
                           data: (eventsData) {

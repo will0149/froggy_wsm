@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "authenticate": MessageLookupByLibrary.simpleMessage("进行身份验证"),
     "buyTicket": MessageLookupByLibrary.simpleMessage("买车票"),
+    "categories": MessageLookupByLibrary.simpleMessage("Categories"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage("數據和隱私"),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
     "email": MessageLookupByLibrary.simpleMessage("電子郵件"),

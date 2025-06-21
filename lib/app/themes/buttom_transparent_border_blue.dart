@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import '../../app/colors.dart';
 
 ButtonStyle buttonTransparentBlue = ButtonStyle(
-  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
     RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(22.0),
       side: const BorderSide(color: parkeaBlueAccent, width: 1.2),
     ),
   ),
-  padding: MaterialStateProperty.all<EdgeInsets>(
+  padding: WidgetStateProperty.all<EdgeInsets>(
     const EdgeInsets.all(10),
   ),
-  foregroundColor: MaterialStateProperty.all<Color>(
+  foregroundColor: WidgetStateProperty.all<Color>(
     Colors.blueAccent.withOpacity(1.0),
   ),
-  backgroundColor: MaterialStateProperty.all<Color>(
+  backgroundColor: WidgetStateProperty.all<Color>(
     Colors.white.withOpacity(0.70),
   ),
-  overlayColor: MaterialStateProperty.all<Color>(
+  overlayColor: WidgetStateProperty.all<Color>(
       parkeaOrange.withOpacity(0.2),
   ),
 );

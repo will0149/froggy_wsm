@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../domain/dtos/event_dto.dart';
@@ -84,7 +84,26 @@ class ProfileContentTabBarState extends ConsumerState<ProfileContentTabBar> {
           body: TabBarView(
             children: [
               _getFirstPage(subscribeEventsData, size),
-              const Icon(Icons.directions_transit, size: 350),
+              Container(
+                margin: const EdgeInsets.all(100.0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.resolveWith((state) {
+                      if(state.contains(WidgetState.pressed)){
+                        return Colors.blueAccent;
+                      } else if(state.contains(WidgetState.focused)) {
+                        return Colors.redAccent;
+                      }
+                      return Colors.lightGreenAccent;
+                    },
+                    ),// backgroundColor: Colors.orangeAccent,
+                    elevation: WidgetStatePropertyAll(2.0),// elevation: 2.0,
+                    maximumSize: WidgetStateProperty.all(Size(88, 50))
+                  ),
+                  onPressed: (){},
+                  child: Text("Material State Property"),
+                ),
+              ),
               const Icon(Icons.directions_car, size: 350),
             ],
           ),

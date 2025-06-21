@@ -27,5 +27,6 @@
   "settings": "Configuración",
   "logout": "Cerrar Sesión",
   "getHelp": "Ayuda",
-  "dataAndPrivacy": "Datos & Privacidad"
+  "dataAndPrivacy": "Datos & Privacidad",
+  "categories": "Categorias"
 }

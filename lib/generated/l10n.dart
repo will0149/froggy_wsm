@@ -263,6 +263,11 @@ class S {
       args: [],
     );
   }
+
+  /// `Categorias`
+  String get categories {
+    return Intl.message('Categorias', name: 'categories', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

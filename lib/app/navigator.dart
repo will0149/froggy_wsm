@@ -4,7 +4,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/utils/hex_color.dart';
 import 'package:parkea/app/utils/svg_icons_states.dart';
 import 'package:parkea/app/widgets/exit_pop_scope.dart';

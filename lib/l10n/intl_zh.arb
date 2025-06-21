@@ -27,5 +27,6 @@
   "settings": "設置",
   "logout": "登出",
   "getHelp": "救命",
-  "dataAndPrivacy": "數據和隱私"
+  "dataAndPrivacy": "數據和隱私",
+  "categories": "Categories"
 }

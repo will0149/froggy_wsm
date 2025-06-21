@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/colors.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:parkea/generated/l10n.dart';

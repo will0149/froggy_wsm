@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/colors.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
 
-import '../../../domain/providers/app_theme_provider.dart';
+import '../../../generated/l10n.dart';
 
 class HorizontalFilterList extends ConsumerStatefulWidget {
   final List<String> filterListItems;
@@ -26,7 +26,7 @@ class HorizontalFilterList extends ConsumerStatefulWidget {
       this.itemLeftPadding = 10,
       this.itemRightPadding = 10,
       this.itemTopPadding = 0,
-      this.itemBottomPadding= 10});
+      this.itemBottomPadding = 10});
 
   @override
   HorizontalFilterListState createState() => HorizontalFilterListState();
@@ -42,10 +42,25 @@ class HorizontalFilterListState extends ConsumerState<HorizontalFilterList> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topCenter,
-      height: 60,
-      child: horizontalCategoryListView(widget.filterListItems),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            S.of(context).categories,
+            textAlign: TextAlign.left,
+            style: Theme.of(context)
+                .textTheme
+                .labelLarge
+                ?.copyWith(fontWeight: FontWeight.bold),
+          ),
+        ),
+        SizedBox(
+          height: 60,
+          child: horizontalCategoryListView(widget.filterListItems),
+        ),
+      ],
     );
   }
 
@@ -55,18 +70,21 @@ class HorizontalFilterListState extends ConsumerState<HorizontalFilterList> {
       shrinkWrap: widget.shrinkWrap,
       children: <Widget>[
         for (var item in titles)
-          InkWell(
-            splashColor: Colors.blueGrey,
-            highlightColor: Colors.blue,
-            onTap: () {
-              setState(() {
-                selectedIndex = titles.indexOf(item);
-              });
-              logger.w("selected index $selectedIndex");
-            },
-            child: _buildCategoryListItemIndicator(
-              item,
-              identical(titles.indexOf(item), selectedIndex),
+          Container(
+            color: identical(titles.indexOf(item), selectedIndex) ? Colors.black12 : Colors.transparent,
+            child: InkWell(
+              splashColor: Colors.blueGrey,
+              highlightColor: Colors.blue,
+              onTap: () {
+                setState(() {
+                  selectedIndex = titles.indexOf(item);
+                });
+                logger.w("selected index $selectedIndex");
+              },
+              child: _buildCategoryListItemIndicator(
+                item,
+                identical(titles.indexOf(item), selectedIndex),
+              ),
             ),
           ),
       ],

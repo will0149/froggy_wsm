@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/pages/auth/auth_page.dart';
 import 'package:parkea/app/pages/auth/login_page.dart';
 import 'package:parkea/app/pages/auth/password_reset_page.dart';
@@ -15,7 +15,7 @@ import '../../app/pages/event/saved_event_page.dart';
 import '../../app/pages/home/home_feed_page.dart';
 import '../../app/pages/user/profile_page.dart';
 import '../../device/utils/is_first_run.dart';
-import '../providers/auth/auth_session_provider.dart';
+import '../utils/impl/build_headers_utils_impl.dart';
 
 /**
  * Made for parkea.
@@ -32,8 +32,8 @@ final GlobalKey<NavigatorState> _sectionANavigatorKey =
 //
 //   Provider<GoRouter> routerProvider(){
 //     return
-final routerProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(authSessionProvider);
+final routerProvider = Provider<GoRouter>((Ref ref) {
+  // final authState = ref.watch(authSessionProviderProvider);
   final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
       debugLogDiagnostics: true,
@@ -168,43 +168,22 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
       ],
       redirect: (context, state) async {
-        // If our async state is loading, don't perform redirects, yet
-        if (authState.isLoading || authState.hasError) return null;
-        // Here we guarantee that hasData == true, i.e. we have a readable value
         var firstRun = IsFirstRun();
         bool firstCall = await firstRun.isFirstRun();
+        final isSplash = state.matchedLocation == "/auth/splash";
+        final storageUtils = BuildHeadersUtilsImpl();
+        bool hasStorage = await storageUtils.validateStorage();
         if (firstCall) {
           return WelcomeSlidePage.routeLocation;
         }
-        // This has to do with how the FirebaseAuth SDK handles the "log-in" state
-        // Returning `null` means "we are not authorized"
-        final isAuth = authState.valueOrNull != null;
-
-        /// [state.fullPath] will give current  route Path
-        final isSplash = state.matchedLocation == "/auth/splash";
         //hasta aqui
         if (isSplash) {
-          return isAuth ? HomeFeedPage.routeLocation : AuthPage.routeLocation;
+          return hasStorage ? HomeFeedPage.routeLocation : AuthPage.routeLocation;
         }
-        // if(!isAuth){
-        //   return AuthPage.routeLocation;
-        // }
         if (state.matchedLocation != AuthPage.routeLocation &&
             state.matchedLocation != "/auth/splash") {
           return state.matchedLocation;
         }
-        // final isAuthPage = state.path == AuthPage.routeLocation;
-        // logger.i("default: $isAuthPage");
-        // if (isAuthPage) {
-        //   return state.path;
-        // }
-        //
-        // final isLoggingIn = state.path == LoginPage.routeLocation;
-        // logger.i("is login: $isLoggingIn");
-        //
-        // if (isLoggingIn) return isAuth ? OnboardingPage.routeLocation : null;
-
-        // return isAuth ? null : AuthPage.routeLocation;
       });
   return router;
 });

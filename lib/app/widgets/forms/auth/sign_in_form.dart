@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:parkea/app/colors.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:parkea/generated/l10n.dart';
 
-import '../../../../domain/usecases/auth/fire_base_auth_uc.dart';
+import '../../../../data/entities/login_dto.dart';
+import '../../../../domain/usecases/auth/rest_auth_uc.dart';
 import '../../../pages/auth/password_reset_page.dart';
 import '../../../pages/home/home_feed_page.dart';
 
@@ -25,6 +26,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
   bool _valid = false;
   bool _isObscure = true;
   bool isLoading = false;
+  bool isSignIn = false;
 
   @override
   void initState() {
@@ -34,7 +36,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(fireBaseAuthApiProvider);
+    var authState = ref.watch(authLogicProvider);
     return Form(
       key: widget.formKey,
       child: Wrap(
@@ -117,26 +119,38 @@ class SignInFormState extends ConsumerState<SignInForm> {
                         if (_valid) {
                           //set user session data
                           authState
-                              .signInUsingEmailPassword(
+                              .signIn(LoginDTO(
                             email: emailController.value.text,
                             password: passwordController.value.text,
-                            context: context,
-                          )
-                              .catchError((error) {
-                            logger.e(error);
+                          ))
+                              .then((value) {
+                            var code = value?.status?.code;
+                            if (code! >= 200 && code < 300) {
+                              // showSuccessToast("Login Success!!");
+                              setState(() {
+                                isLoading = false;
+                                isSignIn = true;
+                              });
+                            }
+                          }).onError((Exception e, stackTrace) {
+                            logger.e("Error on sign in: $e");
+                            setState(() {
+                              isLoading = false;
+                            });
+                            // showErrorToast("Login Failed!!");
                           });
-
-                          if (authState.isLoggedIn) {
+                          if (isSignIn) {
                             logger.d("Process Complete and logging");
                             setState(() {
                               isLoading = false;
                             });
                             context.goNamed(HomeFeedPage.routeName);
+                          } else {
+                            setState(() {
+                              isLoading = false;
+                            });
                           }
                         }
-                        setState(() {
-                          isLoading = false;
-                        });
                       },
                       child: Text(
                         S.of(context).login,

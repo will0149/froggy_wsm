@@ -27,5 +27,6 @@
   "settings": "Paramètre",
   "logout": "Se déconnecter",
   "getHelp": "Aider",
-  "dataAndPrivacy": "Données et Confidentialité"
+  "dataAndPrivacy": "Données et Confidentialité",
+  "categories": "Categories"
 }

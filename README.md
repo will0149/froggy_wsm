@@ -42,4 +42,6 @@ y en las dev con build_runner, riverpod_generator
 despues de instalar correr
 **flutter pub run build_runner watch** para observar cambios en la generacion de providers
 dart run build_runner watch
+**Reemplazar por
+dart run build_runner build --delete-conflicting-outputs
 ```

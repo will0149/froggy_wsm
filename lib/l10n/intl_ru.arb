@@ -27,5 +27,6 @@
   "settings": "Настройки",
   "logout": "Выход",
   "getHelp": "Помощь",
-  "dataAndPrivacy": "Данные и конфиденциальность"
+  "dataAndPrivacy": "Данные и конфиденциальность",
+  "categories": "Categories"
 }

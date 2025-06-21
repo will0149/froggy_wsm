@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "authenticate": MessageLookupByLibrary.simpleMessage("Аутентифицировать"),
     "buyTicket": MessageLookupByLibrary.simpleMessage("Купи билет"),
+    "categories": MessageLookupByLibrary.simpleMessage("Categories"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
       "Данные и конфиденциальность",
     ),
