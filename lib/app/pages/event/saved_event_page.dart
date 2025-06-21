@@ -19,7 +19,7 @@ class _SavedEventPageState extends State<SavedEventPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("Save Event Page"),
+      child: Text("Agregar nuevo evento"),
     );
   }
 }

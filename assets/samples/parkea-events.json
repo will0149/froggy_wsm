@@ -95,7 +95,7 @@
                 "shortDescription": "Inauguracion",
                 "description": "Evento por premier del app",
                 "date": "2022-07-12 13:27:00.123456789z",
-                "eventType": "FREE",
+                "eventType": "BY RESERVATION",
                 "amount": {
                     "price": "0.00",
                     "currency": "PAB"
