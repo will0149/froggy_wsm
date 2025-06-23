@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 
 enum ApiPathsEnums {
   v1(path: '/'),
-  registerUser(path: '/register/'),
-  signIn(path: '/login/'),
-  logout(path: '/logout/'),
-  refreshToken(path: '/token/refresh/'),
-  tokenVerify(path: '/token/verify/'),
-  profile(path: '/profile/'),
-  profileImage(path: '/profile/image/'),
-  profileUpdate(path: '/profile/update/'),
+  registerUser(path: '/user/register/'),
+  signIn(path: '/user/login/'),
+  logout(path: '/user/logout/'),
+  refreshToken(path: '/user/token/refresh/'),
+  tokenVerify(path: '/user/token/verify/'),
+  profile(path: '/user/profile/'),
+  profileImage(path: '/user/profile/image/'),
+  profileUpdate(path: '/user/profile/update/'),
   eventDetails(path: '/event/details/'),
   events(path: '/events/all');
 

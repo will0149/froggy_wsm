@@ -11,6 +11,7 @@ import '../../colors.dart';
 
 class DetailImageBanner extends ConsumerStatefulWidget {
   final String url;
+
   const DetailImageBanner(this.url, {super.key});
 
   @override
@@ -21,47 +22,44 @@ class DetailImageBannerState extends ConsumerState<DetailImageBanner> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return ShaderMask(
-      shaderCallback: (rect) {
-        return const LinearGradient(
-          begin: Alignment.center,
-          end: Alignment.bottomCenter,
-          colors: [Colors.black, Colors.transparent],
-        ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-      },
-      blendMode: BlendMode.dstIn,
-      child: Stack(
-        children:[
-          Container(
-          height: size.height * 0.55,
-          width: double.infinity,
-          decoration: BoxDecoration(
+    return Stack(
+      children: [
+        ShaderMask(
+          shaderCallback: (rect) {
+            return const LinearGradient(
+              begin: Alignment.center,
+              end: Alignment.bottomCenter,
+              colors: [Colors.black, Colors.transparent],
+            ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+          },
+          blendMode: BlendMode.dstIn,
+          child: Container(
+            height: size.height * 0.35,
+            width: double.infinity,
+            decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
                   widget.url,
                 ),
                 fit: BoxFit.cover,
               ),
+            ),
           ),
         ),
-          Positioned(
-            top: 35,
-            right: 20,
-            child: Container(
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: parkeaLightGrey,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(
-                Icons.favorite_rounded,
-                color: Colors.red,
-                size: 40.0,
-              ),
-            )
-          )
-      ]
-      ),
+        Positioned(
+          top: 40,
+          right: 40,
+          child: CircleAvatar(
+            radius: 25,
+            backgroundColor: Colors.black45,
+            child: Icon(
+              Icons.favorite_rounded,
+              color: Colors.red,
+              size: 40.0,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

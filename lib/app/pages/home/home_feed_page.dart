@@ -114,7 +114,8 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                               shrinkWrap: true,
                               children: [
                                 ...eventsData.map(
-                                  (e) => EventFeedCard(
+                                  (e) =>
+                                      EventFeedCard(
                                     event: e,
                                     width: double.infinity,
                                     height: size.height * 0.30,

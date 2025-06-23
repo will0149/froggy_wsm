@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -22,16 +24,23 @@ class SignInForm extends ConsumerStatefulWidget {
 class SignInFormState extends ConsumerState<SignInForm> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  bool _savePassword = false;
   bool _valid = false;
   bool _isObscure = true;
   bool isLoading = false;
-  bool isSignIn = false;
+  bool isLogin = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -116,41 +125,39 @@ class SignInFormState extends ConsumerState<SignInForm> {
                           _valid = widget.formKey.currentState!.validate();
                           isLoading = true;
                         });
-                        if (_valid) {
-                          //set user session data
-                          authState
-                              .signIn(LoginDTO(
-                            email: emailController.value.text,
-                            password: passwordController.value.text,
-                          ))
-                              .then((value) {
-                            var code = value?.status?.code;
-                            if (code! >= 200 && code < 300) {
-                              // showSuccessToast("Login Success!!");
+                        logger.i("loading $isLoading");
+                        Timer(Duration(seconds: 3), () { //TODO: remove when login is complete
+                          if (_valid) {
+                            logger.i("step 1");
+                            authState
+                                .signIn(LoginDTO(
+                              email: emailController.value.text,
+                              password: passwordController.value.text,
+                            ))
+                                .then((value) {
+                              logger.i("step 2");
+                              var code = value?.status?.code;
+                              logger.d("Value $code");
+                              if (code! >= 200 && code < 300) {
+                                // showSuccessToast("Login Success!!");
+                                logger.i("step 3");
+                                logger.d("Process Complete and logging");
+                                context.goNamed(HomeFeedPage.routeName);
+                              }
+                            }).catchError((error) {
+                              logger.i("step 5");
+                              logger.e("bruja ${error.toString()}");
                               setState(() {
                                 isLoading = false;
-                                isSignIn = true;
                               });
-                            }
-                          }).onError((Exception e, stackTrace) {
-                            logger.e("Error on sign in: $e");
-                            setState(() {
-                              isLoading = false;
+                              // showErrorToast("Algo fallo ${error.toString()}!");
                             });
-                            // showErrorToast("Login Failed!!");
-                          });
-                          if (isSignIn) {
-                            logger.d("Process Complete and logging");
-                            setState(() {
-                              isLoading = false;
-                            });
-                            context.goNamed(HomeFeedPage.routeName);
                           } else {
                             setState(() {
                               isLoading = false;
                             });
                           }
-                        }
+                        });
                       },
                       child: Text(
                         S.of(context).login,

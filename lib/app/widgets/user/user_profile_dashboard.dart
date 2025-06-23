@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parkea/app/colors.dart';
 import 'package:parkea/app/widgets/user/user_empty_image_avatar.dart';
 
+import '../../../data/entities/user/user_profile_dto.dart';
 import '../../../domain/dtos/user_dto.dart';
 
 /**
@@ -11,7 +13,7 @@ import '../../../domain/dtos/user_dto.dart';
  */
 
 class UserProfileDashboard extends ConsumerStatefulWidget {
-  final UserDTO userData;
+  final UserProfileDTO? userData;
   final Size size;
 
   const UserProfileDashboard(this.userData, this.size, {super.key});
@@ -23,10 +25,10 @@ class UserProfileDashboard extends ConsumerStatefulWidget {
 class UserProfileDashboardState extends ConsumerState<UserProfileDashboard> {
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
-        // background image and bottom contents
         Column(
           children: <Widget>[
             SizedBox(
@@ -35,57 +37,83 @@ class UserProfileDashboardState extends ConsumerState<UserProfileDashboard> {
               child: Wrap(
                 alignment: WrapAlignment.center,
                 children: [
-                  Image.network(
-                      "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2022/09/dragon-ball-z-crunchyroll.jpg?fit=1280%2C720&quality=80&ssl=1",
-                      loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      );
-                    }
-                  }),
                   Container(
-                    height: 80,
+                    height: size.height * 0.28,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: Image.network(
+                            "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2022/09/dragon-ball-z-crunchyroll.jpg?fit=1280%2C720&quality=80&ssl=1",
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator.adaptive(),
+                                );
+                              }
+                            }).image,
+                        fit: BoxFit.fill,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(25.0),
+                        bottomRight: Radius.circular(25.0),
+                      ),
+                    ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Column(
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${widget.userData?.firstName} ${widget.userData?.lastName}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(color: Colors.black87),
+                        ),
+                        Text(
+                          "${widget.userData?.bio}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: Colors.black87),
+                        ),
+                        ElevatedButton(
+                          onPressed: (){}, 
+                          child: Text("Editar"),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
           ],
         ),
         Positioned(
-          left: 10.0,
-          bottom: 40.0,
+          left: size.width * 0.02,
+          bottom: size.height * 0.20,
           child: Hero(
             tag: 'profile_pic1',
             createRectTween: (begin, end) {
 // Create and return your custom rect
               return MaterialRectArcTween(begin: begin, end: end);
             },
-            child: widget.userData.profileImage.toString().isNotEmpty
+            child: widget.userData!.avatar.toString().isNotEmpty
                 ? CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 50,
+                    backgroundColor: parkeaLightOrange,
+                    radius: 52,
                     child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 45,
+                      backgroundColor: parkeaLightGrey,
+                      radius: 50,
                       backgroundImage:
-                          NetworkImage(widget.userData.profileImage.toString()),
+                          NetworkImage(widget.userData!.avatar.toString()),
                     ), //CircleAvatar
                   )
                 : const UserEmptyImageAvatar(),
-          ),
-        ),
-        Positioned(
-          bottom: 0.0,
-          left: 10.0,
-          child: Text(
-            widget.userData.firstName,
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall
-                ?.copyWith(color: Colors.black87),
           ),
         ),
       ],

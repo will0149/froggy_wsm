@@ -117,33 +117,6 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
               ],
             ),
 
-            // The route branch for the second tab of the bottom navigation bar.
-            StatefulShellBranch(
-              // It's not necessary to provide a navigatorKey if it isn't also
-              // needed elsewhere. If not provided, a default key will be used.
-              routes: <RouteBase>[
-                GoRoute(
-                  // The screen to display as the root in the second tab of the
-                  // bottom navigation bar.
-                  name: SavedEventPage.routeName,
-                  path: SavedEventPage.routeLocation,
-                  builder: (BuildContext context, GoRouterState state) =>
-                      SavedEventPage(
-                        key: UniqueKey(),
-                      ),
-                  routes: <RouteBase>[
-                    // GoRoute(
-                    //   name: EventDetailPage.routeName,
-                    //   path: EventDetailPage.routeLocation,
-                    //   builder: (context, state) => EventDetailPage(
-                    //     eventId: int.parse(state.pathParameters['eventId']!),
-                    //   ),
-                    // ),
-                  ],
-                ),
-              ],
-            ),
-
             // The route branch for the third tab of the bottom navigation bar.
             StatefulShellBranch(
               routes: <RouteBase>[

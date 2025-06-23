@@ -5,6 +5,7 @@ import 'package:parkea/app/colors.dart';
 import 'package:parkea/app/utils/svg_icons_states.dart';
 import 'package:parkea/app/widgets/banners/detail_image_banner.dart';
 
+import '../../../domain/dtos/event_dto.dart';
 import '../../../domain/providers/event_detail_provider.dart';
 import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../domain/providers/onboarding_provider.dart';
@@ -20,7 +21,9 @@ class EventDetailPage extends ConsumerStatefulWidget {
   final int eventId;
 
   const EventDetailPage({super.key, required this.eventId});
+
   static String get routeName => 'eventDetail';
+
   static String get routeLocation => '$routeName/:id';
 
   @override
@@ -48,17 +51,10 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
               return Column(
                 children: [
                   DetailImageBanner(eventDetail.bannerImageUrl.toString()),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: _eventDescription(
-                        size,
-                        eventDetail.eventName,
-                        eventDetail.date,
-                        eventDetail.location.place,
-                        eventDetail.amount.price,
-                        eventDetail.description,
-                        context),
-                  ),
+                  _eventDescription(
+                      size,
+                      eventDetail,
+                      context),
                 ],
               );
             },
@@ -72,133 +68,174 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
     );
   }
 
-  Widget _eventDescription(Size size, String eventName, String date,
-      String place, String amount, String description, BuildContext context) {
+  Widget _eventDescription(Size size, EventDTO event, BuildContext context) {
     Locale myLocale = Localizations.localeOf(context);
-    final likeButton =  ref.watch(svgIconProvider);
+    final likeButton = ref.watch(svgIconProvider);
     return Column(
       children: [
-        Container(
-          width: double.infinity,
-          margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                softWrap: true,
-                maxLines: 1,
-                eventName,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.share_outlined),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          // height: size.height * 0.20,
-          margin: const EdgeInsets.only(
-            top: 5.0,
-          ),
-          child: Wrap(
-            spacing: 20.0,
-            direction: Axis.vertical,
-            children: [
-              Text(
-                  DateFormat.yMMMMEEEEd(myLocale.languageCode)
-                      .format(DateTime.parse(date)),
-                  style: Theme.of(context).textTheme.bodyMedium),
-              Text(
-                place,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
-        const Divider(
-          thickness: 1,
-          // thickness of the line
-          // indent: 20,
-          // empty space to the leading edge of divider.
-          // endIndent: 20,
-          // empty space to the trailing edge of the divider.
-          color: parkeaBlueAccent,
-          height: 10, // The divider's height extent.
-        ),
-        Container(
-          height: size.height * 0.12,
-          width: double.infinity,
-          margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-          padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+        Card(
+          elevation: 2.0,
+          color: Colors.white,
           child: Wrap(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      description,
-                      style: Theme.of(context).textTheme.titleMedium,
-                      softWrap: true,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: GestureDetector(
-                      onTap: () {
-                        var like = ref.watch(svgIconProvider);
-                        like = like ? false : true;
-                        ref.read(svgIconProvider.notifier).setActive(like);
-                      },
-                      child: AnimatedContainer(
-                        duration: const Duration(seconds: 10000),
-                        child: SvgIconsStates(
-                          isActive: likeButton,
-                          activeImg: "assets/svgs/icons/heart-on.svg",
-                          inactiveImg: "assets/svgs/icons/heart-off.svg",
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.all(5.0),
+                child: Wrap(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          softWrap: true,
+                          maxLines: 1,
+                          event.eventName,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.share_outlined),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                // height: size.height * 0.20,
+                margin: const EdgeInsets.all(5.0),
+                child: Wrap(
+                  spacing: 20.0,
+                  direction: Axis.vertical,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.date_range_outlined),
+                        Text(
+                            DateFormat.yMMMMEEEEd(myLocale.languageCode)
+                                .format(DateTime.parse(event.date)),
+                            style: Theme.of(context).textTheme.bodyMedium),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                            Icons.place
+                        ),
+                        Text(
+                          event.location.place,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(
+                thickness: 1,
+                color: parkeaBlueAccent,
+                height: 10,
+              ),
+              Container(
+                margin: const EdgeInsets.all(5.0),
+                child: Center(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "Hosted by: ${event.eventOwner}",
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 25,
+                            backgroundColor: parkeaOrange,
+                            child: CircleAvatar(
+                              radius: 23,
+                              backgroundImage: NetworkImage(
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9snMhaTRYJnyI4GxfDBFckcAwrOPlo4G7lQ&s'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                height: size.height * 0.12,
+                width: double.infinity,
+                margin: const EdgeInsets.all(5.0),
+                child: Wrap(
+                  children: [
+                    Text(
+                      "Description",
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      child: Text(
+                        event.description,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        softWrap: true,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: parkeaOrange,
-                      // fixedSize: const Size(140, 43),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(color: parkeaOrange, width: 1.2),
-                      ),
-                    ),
-                    child: Text(
-                      maxLines: 1,
-                      "${S.of(context).buyTicket} \$$amount",
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge
-                          ?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   crossAxisAlignment: CrossAxisAlignment.end,
+                    //   children: [
+                    //     SizedBox(
+                    //       height: 50,
+                    //       width: 50,
+                    //       child: GestureDetector(
+                    //         onTap: () {
+                    //           var like = ref.watch(svgIconProvider);
+                    //           like = like ? false : true;
+                    //           ref.read(svgIconProvider.notifier).setActive(like);
+                    //         },
+                    //         child: AnimatedContainer(
+                    //           duration: const Duration(seconds: 10000),
+                    //           child: SvgIconsStates(
+                    //             isActive: likeButton,
+                    //             activeImg: "assets/svgs/icons/heart-on.svg",
+                    //             inactiveImg: "assets/svgs/icons/heart-off.svg",
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     ElevatedButton(
+                    //       onPressed: () {},
+                    //       style: ElevatedButton.styleFrom(
+                    //         backgroundColor: parkeaOrange,
+                    //         // fixedSize: const Size(140, 43),
+                    //         shape: RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(18.0),
+                    //           side: const BorderSide(color: parkeaOrange, width: 1.2),
+                    //         ),
+                    //       ),
+                    //       child: Text(
+                    //         maxLines: 1,
+                    //         "${S.of(context).buyTicket} \$${event.amount.price}",
+                    //         style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    //             color: Colors.white, fontWeight: FontWeight.bold),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                  ],
+                ),
               ),
             ],
           ),

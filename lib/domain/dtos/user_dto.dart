@@ -6,7 +6,7 @@
  * Date: 11/03/22
  */
 
-class UserDTO {
+class UserDTO {//TODO: eliminar se reemplaza por entity
   final int userId;
   final String firstName;
   final String? lastName;

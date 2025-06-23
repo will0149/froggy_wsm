@@ -20,7 +20,9 @@ class ProfilePage extends ConsumerStatefulWidget {
   final bool showBackButton;
 
   const ProfilePage({super.key, this.showBackButton = false});
+
   static String get routeName => 'profile';
+
   static String get routeLocation => '/$routeName';
 
   @override
@@ -62,30 +64,36 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
         duration: const Duration(microseconds: 500),
         child: Skeletonizer(
           enabled: userData.isLoading,
-          child: CustomScrollView(
-            key: UniqueKey(),
-            controller: _controller,
-            slivers: userData.when(
-              data: (userData) {
-                return [
-                  SliverToBoxAdapter(
-                      child: UserProfileDashboard(userData, size)),
-                  SliverFillRemaining(
-                    hasScrollBody: true,
-                    child: ProfileContentTabBar(
-                      key: UniqueKey(),
-                    ),
-                  ),
-                ];
+          child: userData.when(
+              data: (response) {
+                var code = response.status?.code ?? 500;
+                if (code >= 200 && code < 300) {
+                  return CustomScrollView(
+                    physics: BouncingScrollPhysics(),
+                    key: UniqueKey(),
+                    controller: _controller,
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: size.height * 0.5,
+                            child: UserProfileDashboard(response.body, size),
+                        ),
+                      ),
+                      SliverFillRemaining(
+                        hasScrollBody: true,
+                        child: ProfileContentTabBar(
+                          key: UniqueKey(),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return Text("Nothing to show");
               },
-              error: (err, s) => [Text(err.toString())],
-              loading: () => [
-                const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                )
-              ],
-            ),
-          ),
+              error: (err, s) => Text("Nothing to show"),
+              loading: () => const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  )),
         ),
       ),
     );

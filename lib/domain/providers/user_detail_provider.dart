@@ -1,3 +1,7 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parkea/data/entities/common/base_response_entity.dart';
+import 'package:parkea/data/entities/user/user_profile_dto.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../device/utils/loggerConfig.dart';
@@ -13,11 +17,6 @@ import 'fire_base_auth_provider.dart';
 part 'user_detail_provider.g.dart';
 
 @riverpod
-Future<UserDTO> getUserDetail(GetUserDetailRef ref) async {
-  final userInstance = ref.watch(userInstanceProvider);
-  String? email = userInstance.value?.email;
-  ref.onDispose(() {
-    logger.w('userProvider has been disposed');
-  });
-  return ref.read(userApiProvider).getUserDataByEmail(email);
+Future<BaseResponseEntity<UserProfileDTO>> getUserDetail(Ref ref) {
+  return UsersUC().getUserProfile();
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/colors.dart';
+import 'package:parkea/app/pages/auth/login_page.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
 
 import '../../../domain/providers/app_theme_provider.dart';
@@ -28,9 +29,9 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
   // late final SettingsController controller;
   late bool _loading = false;
 
-  final MaterialStateProperty<Color?> trackColor =
-      MaterialStateProperty.resolveWith<Color?>(
-    (Set<MaterialState> states) {
+  final WidgetStateProperty<Color?> trackColor =
+      WidgetStateProperty.resolveWith<Color?>(
+    (Set<WidgetState> states) {
       // Track color when the switch is selected.
       if (states.contains(MaterialState.selected)) {
         return Colors.amber;
@@ -41,9 +42,9 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
       return null;
     },
   );
-  final MaterialStateProperty<Color?> overlayColor =
-      MaterialStateProperty.resolveWith<Color?>(
-    (Set<MaterialState> states) {
+  final WidgetStateProperty<Color?> overlayColor =
+      WidgetStateProperty.resolveWith<Color?>(
+    (Set<WidgetState> states) {
       // Material color when switch is selected.
       if (states.contains(MaterialState.selected)) {
         return Colors.amber.withOpacity(0.54);
@@ -153,8 +154,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
                   setState(() {
                     _loading = true;
                   });
-                  await FirebaseAuth.instance.signOut();
-                  context.goNamed(SignUpPage.routeName);
+                  context.goNamed(LoginPage.routeName);
                 },
               ),
             ),

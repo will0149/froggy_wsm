@@ -131,7 +131,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 flutter_intl:
-  enabled: true # TODO: poner en false cuando no se agreguen nuevos textos
+  enabled: false # TODO: poner en false cuando no se agreguen nuevos textos
   main_locale: es
   class_name: S # TODO: puede llamarse app_localization
     #arb_dir: lib/l10n
