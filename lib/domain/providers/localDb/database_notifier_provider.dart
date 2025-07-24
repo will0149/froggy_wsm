@@ -1,0 +1,19 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../logics/localDb/handle_create_database.dart';
+
+/**
+ * Made for cct_management.
+ * By User: josedominguez
+ * Date: 07/05/25
+ */
+
+part 'database_notifier_provider.g.dart';
+
+@riverpod
+Future<HandleCreateDatabase> databaseNotifier(Ref ref) async {
+  return ref.read(handleCreateDatabaseProvider);
+}

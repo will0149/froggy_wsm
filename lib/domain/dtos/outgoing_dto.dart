@@ -15,7 +15,7 @@ class OutgoingDto {
   @JsonKey(name: 'docnum')
   String? docnum;
   @JsonKey(name: 'device')
-  String? device;
+  String? device = 'device';
   @JsonKey(name: 'asset')
   String? asset;
   @JsonKey(name: 'cartonid')

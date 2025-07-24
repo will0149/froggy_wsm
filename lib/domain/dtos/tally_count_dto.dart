@@ -14,7 +14,7 @@ part 'tally_count_dto.g.dart';
 @JsonSerializable(explicitToJson: true)
 class TallyCountDto {
   @JsonKey(name: 'device')
-  String? device;
+  String? device = 'device';
   @JsonKey(name: 'branch')
   String? branch;
   @JsonKey(name: 'asset')

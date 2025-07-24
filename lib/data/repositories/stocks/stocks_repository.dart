@@ -81,4 +81,7 @@ class StocksRepository {
       client.close();
     }
   }
+  Future getTransactionalData() async {
+
+  }
 }

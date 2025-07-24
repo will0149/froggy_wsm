@@ -13,6 +13,8 @@ part 'relocation_dto.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class RelocationDto {
+  @JsonKey(name: 'device')
+  String? device = 'device';
   @JsonKey(name: 'asset')
   String? asset;
   @JsonKey(name: 'series')

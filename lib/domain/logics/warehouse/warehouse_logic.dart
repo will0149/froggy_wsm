@@ -37,14 +37,13 @@ class WarehouseLogic extends ChangeNotifier {
           responseEntity.status?.msg = "No se han encontrado clientes";
         }
       }
-      notifyListeners();
     } on Exception catch (e) {
       logger.e(e.toString());
       responseEntity.status?.code = 500;
       responseEntity.status?.msg = "Internal Error";
       notifyListeners();
     }
-
+    notifyListeners();
     return responseEntity;
   }
 }

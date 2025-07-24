@@ -18,7 +18,7 @@ import '../../api_paths_enums.dart';
 /// By User: josedominguez
 /// Date: 06/11/24
 // String baseUrl = FlavorConfig.instance.variables["baseUrl"];
-class OperationRepository {
+class OperationRepository {//TODO: separar logica para cada operacion
   late final BuildHeadersUtils headersUtils;
 
   OperationRepository(){

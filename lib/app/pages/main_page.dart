@@ -4,6 +4,7 @@ import 'package:cct_management/app/pages/maintainance/settings_page.dart';
 import 'package:cct_management/app/pages/outgoing/outgoing_page.dart';
 import 'package:cct_management/app/pages/relocation/relocation_page.dart';
 import 'package:cct_management/app/pages/warehouse/search_page.dart';
+import 'package:cct_management/domain/providers/localDb/database_notifier_provider.dart';
 import 'package:cct_management/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,6 +49,21 @@ class MainPageState extends ConsumerState<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final dbHandler = ref.watch(databaseNotifierProvider);
+    dbHandler.when(
+      error: (err, s) {
+        logger.e("error $s");
+        return Text(err.toString());
+      },
+      loading: () => const CircularProgressIndicator(),
+      data: (data) {
+       logger.i(
+              "data.isReady ${data.isReady} data.isFirstLoad ${data.isFirstLoad}");
+          if (data.isReady && data.isFirstLoad) {
+            logger.i("successfully initialize");
+          }
+      },
+    );
     var size = MediaQuery.of(context).size;
     var authHandlerP = ref.watch(authLogicProvider);
     return KillPopScope(
@@ -104,63 +120,69 @@ class MainPageState extends ConsumerState<MainPage> {
                 ],
               ),
             ),
-            isLoading ? Container(
-                margin: const EdgeInsets.all(10.0),
-                child: const Center(
-                  child: CircularProgressIndicator(),
-                ))
+            dbHandler.isLoading
+                ? Container(
+                    margin: const EdgeInsets.all(10.0),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ))
                 : Padding(
-              padding: const EdgeInsets.only(top: 100),
-              child: GridView.count(
-                padding: const EdgeInsets.all(10.0),
-                mainAxisSpacing: 10.0,
-                crossAxisSpacing: 10.0,
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                children: [
-                  SectionButton(
-                    imagePath: "assets/warehouse.png",
-                    title: S.of(context).entryMenuName,
-                    onPressed: () => context.pushNamed(EntryPage.routeName),
+                    padding: const EdgeInsets.only(top: 100),
+                    child: GridView.count(
+                      padding: const EdgeInsets.all(10.0),
+                      mainAxisSpacing: 10.0,
+                      crossAxisSpacing: 10.0,
+                      shrinkWrap: true,
+                      crossAxisCount: 2,
+                      children: [
+                        SectionButton(
+                          imagePath: "assets/warehouse.png",
+                          title: S.of(context).entryMenuName,
+                          onPressed: () =>
+                              context.pushNamed(EntryPage.routeName),
+                        ),
+                        SectionButton(
+                          imagePath: "assets/forklift.png",
+                          title: S.of(context).relocationMenuName,
+                          onPressed: () =>
+                              context.pushNamed(RelocationPage.routeName),
+                        ),
+                        SectionButton(
+                          imagePath: "assets/material-management.png",
+                          title: S.of(context).countMenuName,
+                          onPressed: () =>
+                              context.pushNamed(CountPage.routeName),
+                        ),
+                        SectionButton(
+                          imagePath: "assets/truck.png",
+                          title: S.of(context).outgoingMenuName,
+                          onPressed: () =>
+                              context.pushNamed(OutgoingPage.routeName),
+                        ),
+                        SectionButton(
+                          imagePath: "assets/search.png",
+                          title: S.of(context).searchMenuName,
+                          onPressed: () =>
+                              context.pushNamed(SearchPage.routeName),
+                        ),
+                        SectionButton(
+                          imagePath: "assets/maintainance/settings.png",
+                          title: S.of(context).settingsMenuName,
+                          onPressed: () =>
+                              context.pushNamed(SettingsPage.routeName),
+                        ),
+                        SectionButton(
+                          imagePath: "assets/logout.png",
+                          title: S.of(context).logoutButton,
+                          onPressed: () {
+                            authHandlerP.logOut();
+                            showWarningToast("Logout!!");
+                            context.goNamed(LoginPage.routeName);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                  SectionButton(
-                    imagePath: "assets/forklift.png",
-                    title: S.of(context).relocationMenuName,
-                    onPressed: () =>
-                        context.pushNamed(RelocationPage.routeName),
-                  ),
-                  SectionButton(
-                    imagePath: "assets/material-management.png",
-                    title: S.of(context).countMenuName,
-                    onPressed: () => context.pushNamed(CountPage.routeName),
-                  ),
-                  SectionButton(
-                    imagePath: "assets/truck.png",
-                    title: S.of(context).outgoingMenuName,
-                    onPressed: () => context.pushNamed(OutgoingPage.routeName),
-                  ),
-                  SectionButton(
-                    imagePath: "assets/search.png",
-                    title: S.of(context).searchMenuName,
-                    onPressed: () => context.pushNamed(SearchPage.routeName),
-                  ),
-                  SectionButton(
-                    imagePath: "assets/maintainance/settings.png",
-                    title: S.of(context).settingsMenuName,
-                    onPressed: () => context.pushNamed(SettingsPage.routeName),
-                  ),
-                  SectionButton(
-                    imagePath: "assets/logout.png",
-                    title: S.of(context).logoutButton,
-                    onPressed: () {
-                      authHandlerP.logOut();
-                      showWarningToast("Logout!!");
-                      context.goNamed(LoginPage.routeName);
-                    },
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),

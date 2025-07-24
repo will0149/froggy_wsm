@@ -1,5 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+
+import '../schemas/local_tables.dart';
 /**
  * Made for cct_management.
  * By User: josedominguez
@@ -33,19 +35,15 @@ class DatabaseHelper {
 
   Future<void> _onCreate(Database db, int version) async {
     // Create tables here
-    await db.execute('''
-      CREATE TABLE users(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        email TEXT
-      )
-    ''');
+    await db.execute(warehousesTable);
+    await db.execute(customersTable);
+    await db.execute(assetsTable);
   }
 
   // Example CRUD operations
-  Future<void> insertUser(Map<String, dynamic> user) async {
+  Future<void> insertUser(String schema, Map<String, dynamic> data) async {
     final db = await database;
-    await db.insert('users', user, conflictAlgorithm: ConflictAlgorithm.replace);
+    await db.insert(schema, data, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<List<Map<String, dynamic>>> getUsers() async {
@@ -53,22 +51,30 @@ class DatabaseHelper {
     return await db.query('users');
   }
 
-  Future<void> updateUser(Map<String, dynamic> user) async {
+  Future<void> updateUser(String schema, Map<String, dynamic> data) async {
     final db = await database;
     await db.update(
-      'users',
-      user,
+      schema,
+      data,
       where: 'id = ?',
-      whereArgs: [user['id']],
+      whereArgs: [data['id']],
     );
   }
 
-  Future<void> deleteUser(int id) async {
+  Future<void> deleteUser(String schema, int id) async {
     final db = await database;
     await db.delete(
-      'users',
+      schema,
       where: 'id = ?',
       whereArgs: [id],
     );
+  }
+
+  Future<bool> tableHasData(Database db, String tableName) async {
+    final db = await database;
+    final result = await db.rawQuery('SELECT COUNT(*) as count FROM $tableName');
+
+    final count = Sqflite.firstIntValue(result); // returns int?
+    return (count ?? 0) > 0;
   }
 }

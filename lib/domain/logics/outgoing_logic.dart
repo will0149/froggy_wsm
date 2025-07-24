@@ -24,40 +24,18 @@ class OutgoingLogic extends ChangeNotifier {
     BaseResponseEntity<BaseDataEntity<Object>>? responseEntity;
     try{
       result = await repository.addOutgoing(request);
-      if(result.containsKey('code')){
-        code = result['code'];
-      }else{
-        code = result['status']['code'];
-      }
-      if(code >= 200 && code < 300){
-        responseEntity =
+      code = result['status']['code'];
+      responseEntity =
         BaseResponseEntity<BaseDataEntity<Object>>.fromJson(
             result,
                 (json) => BaseDataEntity<Object>.fromJson(
                 json as Map<String, dynamic>,
                     (json) =>
                 Object));
-      } else {
-        if(result.containsKey('code')){
-          var status = {'status': {'code': result['code'], 'msg': 'Algo fallo' }};
-          responseEntity =
-          BaseResponseEntity<BaseDataEntity<Object>>.fromJson(
-              status,
-                  (json) => BaseDataEntity<Object>());
-        }else {
-          responseEntity?.status = StatusEntity.fromJson(result['status']);
-        }
-      }
       notifyListeners();
     } on Exception catch(e){
       logger.e(e.toString());
-      if(result.containsKey('code')){
-        var status = {'code': result['code'], 'msg': 'Algo fallo' };
-        result.addAll(status);
-        responseEntity?.status = StatusEntity.fromJson(result['status']);
-      }else {
-        responseEntity?.status = StatusEntity.fromJson(result['status']);
-      }
+      notifyListeners();
       notifyListeners();
     }
     logger.d("relocate responseEntity ${responseEntity?.status?.toJson()}");

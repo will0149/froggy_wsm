@@ -16,7 +16,7 @@ class InboundDto {
   @JsonKey(name: 'docnum')
   String? docnum;
   @JsonKey(name: 'device')
-  String? device;
+  String? device = 'device';
   @JsonKey(name: 'branch')
   String? branch;
   @JsonKey(name: 'asset')

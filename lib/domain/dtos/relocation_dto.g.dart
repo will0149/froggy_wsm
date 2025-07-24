@@ -22,10 +22,11 @@ RelocationDto _$RelocationDtoFromJson(Map<String, dynamic> json) =>
       quantity: json['quantity'] as String?,
       remarks: json['remarks'] as String?,
       isseries: json['isseries'] as String?,
-    );
+    )..device = json['device'] as String?;
 
 Map<String, dynamic> _$RelocationDtoToJson(RelocationDto instance) =>
     <String, dynamic>{
+      'device': instance.device,
       'asset': instance.asset,
       'series': instance.series?.toJson(),
       'branch': instance.branch,
