@@ -1,6 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../app/widgets/toasts/build_toasts.dart';
+import '../../../data/configs/database_helper.dart';
 import '../../../device/utils/logger_config.dart';
 import '../build_headers_utils.dart';
 
@@ -11,6 +12,7 @@ import '../build_headers_utils.dart';
  */
 
 class BuildHeadersUtilsImpl implements BuildHeadersUtils {
+  DatabaseHelper _databaseHelper = DatabaseHelper();
   final storage = const FlutterSecureStorage(aOptions: AndroidOptions(
     encryptedSharedPreferences: true,
   ),);
@@ -61,7 +63,7 @@ class BuildHeadersUtilsImpl implements BuildHeadersUtils {
       valid = token!.isNotEmpty && today.day == DateTime.parse(expireTime!).day;
       if(!valid){
         showWarningToast("La sesión a expirado!");
-        storage.deleteAll();
+        dropTemporalMemory();
       }
     }
     logger.i('valid session $valid');
@@ -70,7 +72,15 @@ class BuildHeadersUtilsImpl implements BuildHeadersUtils {
 
   @override
   void dropTemporalMemory() {
-    storage.deleteAll();
+    Future.microtask(() async {
+      try {
+        _databaseHelper.clearDatabase();
+        storage.deleteAll();
+        logger.w("Limipieza de memoria exitosa!");
+      } catch (e) {
+        logger.e("Error borrando la memoria: $e");
+      }
+    });
   }
 
 }

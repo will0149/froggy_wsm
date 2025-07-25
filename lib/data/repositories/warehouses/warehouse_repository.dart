@@ -21,7 +21,7 @@ class WarehouseRepository {
     headersUtils = BuildHeadersUtilsImpl();
   }
 
-  Future<Map<String, dynamic>> getCustomers() async {
+  Future<Map<String, dynamic>> getWarehouses() async {
     var client = RetryClient(http.Client());
     try {
       var headers = await headersUtils.headers();
@@ -44,5 +44,4 @@ class WarehouseRepository {
       client.close();
     }
   }
-
 }

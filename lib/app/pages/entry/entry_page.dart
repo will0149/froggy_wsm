@@ -15,12 +15,12 @@ class EntryPage extends ConsumerStatefulWidget {
   const EntryPage({super.key});
 
   @override
-  _EntryPageState createState() => _EntryPageState();
+  EntryPageState createState() => EntryPageState();
   static String get routeName => 'entry/add';
   static String get routeLocation => routeName;
 }
 
-class _EntryPageState extends ConsumerState<EntryPage> {
+class EntryPageState extends ConsumerState<EntryPage> {
   @override
   Widget build(BuildContext context) {
     return ExitPopScope(

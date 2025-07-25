@@ -12,7 +12,7 @@ CREATE TABLE warehouses(
         name TEXT,
         description TEXT,
         barcode TEXT,
-        deleted INTEGER,
+        deleted TEXT,
         deleted_at TEXT,
         created_at TEXT,
         updated_at TEXT
@@ -25,7 +25,7 @@ CREATE TABLE customers(
         name TEXT,
         description TEXT,
         barcode TEXT,
-        deleted INTEGER,
+        deleted TEXT,
         deleted_at TEXT,
         created_at TEXT,
         updated_at TEXT
@@ -43,9 +43,24 @@ CREATE TABLE assets(
         type TEXT,
         branch INTEGER,
         price REAL,
-        deleted INTEGER,
+        deleted TEXT,
         deleted_at TEXT,
         created_at TEXT,
         updated_at TEXT
       )
 ''';
+
+//TODO: validate supported data types
+// INTEGER
+// SQLite type: INTEGER
+// Dart type: int
+// Supported values: from -2^63 to 2^63 - 1
+// REAL
+// SQLite type: REAL
+// Dart type: num
+// TEXT
+// SQLite type: TEXT
+// Dart type: String
+// BLOB
+// SQLite typ: BLOB
+// Dart type: Uint8List

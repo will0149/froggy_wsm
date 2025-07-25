@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../domain/convertes/bool_converter.dart';
+
 
 /**
  * Made for cctmanagement.
@@ -22,6 +24,7 @@ class CustomerEntity {
   String? description;
   @JsonKey(name: 'barcode')
   String? barcode;
+  @BoolConverter()
   @JsonKey(name: 'deleted')
   bool? deleted;
   @JsonKey(name: 'deleted_at')

@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import '../schemas/local_tables.dart';
+import '../repositories/schemas/local_tables.dart';
 /**
  * Made for cct_management.
  * By User: josedominguez
@@ -76,5 +76,20 @@ class DatabaseHelper {
 
     final count = Sqflite.firstIntValue(result); // returns int?
     return (count ?? 0) > 0;
+  }
+
+  Future<void> clearDatabase() async {
+    final db = await database;
+    
+    // Get all table names
+    final List<Map<String, dynamic>> tables = await db.rawQuery(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"
+    );
+    
+    // Delete all records from each table
+    for (final table in tables) {
+      final tableName = table['name'] as String;
+      await db.delete(tableName);
+    }
   }
 }

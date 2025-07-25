@@ -11,7 +11,7 @@ WarehouseEntity _$WarehouseEntityFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       description: json['description'] as String?,
       barcode: json['barcode'] as String?,
-      deleted: json['deleted'] as bool?,
+      deleted: const BoolConverter().fromJson(json['deleted']),
       deletedAt: json['deleted_at'] as String?,
       createdAt: json['created_at'] as String?,
       updatedAt: json['updated_at'] as String?,
@@ -23,8 +23,15 @@ Map<String, dynamic> _$WarehouseEntityToJson(WarehouseEntity instance) =>
       'name': instance.name,
       'description': instance.description,
       'barcode': instance.barcode,
-      'deleted': instance.deleted,
+      'deleted': _$JsonConverterToJson<dynamic, bool>(
+          instance.deleted, const BoolConverter().toJson),
       'deleted_at': instance.deletedAt,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
     };
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
