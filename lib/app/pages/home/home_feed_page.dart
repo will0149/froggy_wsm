@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/colors.dart';
-import 'package:parkea/app/pages/user/profile_page.dart';
+import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../device/utils/loggerConfig.dart';
 import '../../../domain/providers/onboarding_provider.dart';
-import '../../../domain/providers/user_detail_provider.dart';
 import '../../../domain/usecases/fetch_events_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../widgets/cards/event_feed_card.dart';
-import '../../widgets/exit_pop_scope.dart';
-import '../../widgets/filters/horizontal_filter_list.dart';
-import '../../widgets/user/user_empty_image_avatar.dart';
+import 'package:horizontal_scroll_item/horizontal_scroll_item.dart';
 
 /**
  * Made for parkea.
@@ -80,9 +76,21 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
             Wrap(
               children: [
                 HorizontalFilterList(
+                  key: PageStorageKey<String>('categoryListKey'),
                   filterListItems: titles,
                   activeColor: parkeaBlueAccent,
                   inactiveColor: parkeaBlack,
+                  searchFilterTitle: S.of(context).categories,
+                  onTextChange: (v) {
+                    logger.i("Selected item $v");
+                  },
+                  titleTextStyle: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                  itemsTextStyle: Theme.of(context)
+                      .textTheme
+                      .bodyLarge,
                 ),
               ],
             ),

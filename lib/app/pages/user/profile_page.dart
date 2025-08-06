@@ -75,7 +75,7 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
                     slivers: [
                       SliverToBoxAdapter(
                         child: SizedBox(
-                          height: size.height * 0.5,
+                          height: size.height * 0.52,
                             child: UserProfileDashboard(response.body, size),
                         ),
                       ),

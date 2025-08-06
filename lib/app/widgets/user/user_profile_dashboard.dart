@@ -4,7 +4,6 @@ import 'package:parkea/app/colors.dart';
 import 'package:parkea/app/widgets/user/user_empty_image_avatar.dart';
 
 import '../../../data/entities/user/user_profile_dto.dart';
-import '../../../domain/dtos/user_dto.dart';
 
 /**
  * Made for parkea.
@@ -23,6 +22,7 @@ class UserProfileDashboard extends ConsumerStatefulWidget {
 }
 
 class UserProfileDashboardState extends ConsumerState<UserProfileDashboard> {
+  final titles = ["IG", "FB", "WEB", "TKTK"];
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -32,7 +32,7 @@ class UserProfileDashboardState extends ConsumerState<UserProfileDashboard> {
         Column(
           children: <Widget>[
             SizedBox(
-              width: double.infinity,
+              width: double.maxFinite,
               height: widget.size.height * 0.35,
               child: Wrap(
                 alignment: WrapAlignment.center,
@@ -84,6 +84,18 @@ class UserProfileDashboardState extends ConsumerState<UserProfileDashboard> {
                         ElevatedButton(
                           onPressed: (){}, 
                           child: Text("Editar"),
+                        ),
+                        SizedBox(
+                          height: 50,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 3,
+                            prototypeItem: Icon(Icons.facebook),
+                            itemBuilder: (context, index){
+                              return ListTile(title: Icon(Icons.facebook, size: 80,));
+                            },
+                          ),
                         ),
                       ],
                     ),

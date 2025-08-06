@@ -65,6 +65,8 @@ dependencies:
 #  animated_svg: ^2.0.0
   # dependencia para objetos deserializables DTOs
   json_annotation: ^4.9.0
+  horizontal_scroll_item:
+    path: ../horizontal_scroll_item
 
 dev_dependencies:
   flutter_test:
