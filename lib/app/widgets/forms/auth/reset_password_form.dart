@@ -6,7 +6,7 @@ import 'package:parkea/app/pages/auth/login_page.dart';
 import '../../../../device/utils/loggerConfig.dart';
 import '../../../../domain/usecases/auth/fire_base_auth_uc.dart';
 import '../../../../generated/l10n.dart';
-import '../../../colors.dart';
+import '../../../themes/colors/colors.dart';
 
 /**
  * Made for parkea.

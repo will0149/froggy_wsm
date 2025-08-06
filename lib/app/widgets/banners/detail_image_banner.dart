@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../colors.dart';
+import '../../themes/colors/colors.dart';
 
 /**
  * Made for parkea.
@@ -43,19 +43,6 @@ class DetailImageBannerState extends ConsumerState<DetailImageBanner> {
                 ),
                 fit: BoxFit.cover,
               ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 40,
-          right: 40,
-          child: CircleAvatar(
-            radius: 25,
-            backgroundColor: Colors.black45,
-            child: Icon(
-              Icons.favorite_rounded,
-              color: Colors.red,
-              size: 40.0,
             ),
           ),
         ),

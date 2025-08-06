@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../app/colors.dart';
+import 'colors/colors.dart';
 
 ButtonStyle buttonTransparentBlue = ButtonStyle(
   shape: WidgetStateProperty.all<RoundedRectangleBorder>(

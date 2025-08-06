@@ -10,7 +10,7 @@ import 'package:parkea/app/utils/svg_icons_states.dart';
 import 'package:parkea/app/widgets/exit_pop_scope.dart';
 
 import '../domain/providers/app_theme_provider.dart';
-import 'colors.dart';
+import 'themes/colors/colors.dart';
 /*
 * Bottom navigation bar for Pentacle app
 *
@@ -75,8 +75,8 @@ class NavigatorBarState extends ConsumerState<NavigatorBar>
         extendBody: true,
         body: widget.navigationShell,
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.deepOrangeAccent,
-          splashColor: Colors.orangeAccent,
+          backgroundColor: parkeaOrange,
+          splashColor: parkeaLightOrange,
           onPressed: () {},
           child: SvgIconsStates(
               isActive: true,

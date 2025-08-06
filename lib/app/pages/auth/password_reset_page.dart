@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parkea/app/colors.dart';
+import 'package:parkea/app/themes/colors/colors.dart';
 
 import '../../../generated/l10n.dart';
 import '../../widgets/forms/auth/reset_password_form.dart';

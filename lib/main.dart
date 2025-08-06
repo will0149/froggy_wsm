@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
-import 'app/themes/custom_theme.dart';
+import 'app/themes/light_theme.dart';
 import 'domain/providers/app_theme_provider.dart';
 import 'domain/routers/app_router.dart';
 import 'generated/l10n.dart';

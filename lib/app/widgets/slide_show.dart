@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:parkea/app/colors.dart';
+import 'package:parkea/app/themes/colors/colors.dart';
 
 import '../../domain/models/slider_model.dart';
 import '../pages/auth/auth_page.dart';

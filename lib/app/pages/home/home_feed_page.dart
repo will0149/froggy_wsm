@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:parkea/app/colors.dart';
+import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
-import 'package:skeletonizer/skeletonizer.dart';
-
 import '../../../domain/providers/onboarding_provider.dart';
 import '../../../domain/usecases/fetch_events_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../widgets/cards/event_feed_card.dart';
-import 'package:horizontal_scroll_item/horizontal_scroll_item.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/02/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 07/02/22
 
 class HomeFeedPage extends ConsumerStatefulWidget {
   const HomeFeedPage({super.key});
@@ -26,9 +21,10 @@ class HomeFeedPage extends ConsumerStatefulWidget {
 }
 
 class OnboardingPageState extends ConsumerState<HomeFeedPage> {
-  final titles = ["All", "Música", "Camping", "Aventura", "Talleres"];
+  final categories = ["All", "Music", "Sports", "Food", "Art", "Tech", "Outdoor"];
   late final FetchEventsUC useCase = FetchEventsUC();
   final ScrollController _controller = ScrollController();
+  String selectedCategory = "All";
 
   @override
   void initState() {
@@ -36,115 +32,442 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
   }
 
   Future<void> _refresh() async {
-    ref.refresh(getEventsProvider.future);
-    // comment user detail provider while implementing REST APIs
-    // ref.refresh(getUserDetailProvider.future);
+    ref.invalidate(getEventsProvider);
+    // comment user detail provider while implementing REST APIs  
+    // ref.invalidate(getUserDetailProvider);
   }
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
     final eventsData = ref.watch(getEventsProvider);
-    // final userData = ref.watch(getUserDetailProvider);
+    
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: Container(
-          margin: const EdgeInsets.only(top: 5, bottom: 5),
-          padding: const EdgeInsets.only(
-            left: 20.0,
+      backgroundColor: theme.scaffoldBackgroundColor,
+      body: CustomScrollView(
+        controller: _controller,
+        slivers: [
+          _buildAppBar(theme),
+          SliverToBoxAdapter(
+            child: _buildWelcomeSection(theme),
           ),
-          child: Image.asset("assets/logo/Parkea (1).png"),
-        ),
-        title: Text(
-          S.of(context).parkeaAppName,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
+          SliverToBoxAdapter(
+            child: _buildSearchBar(theme),
           ),
-        ),
-        centerTitle: true,
+          SliverToBoxAdapter(
+            child: _buildCategoriesSection(theme),
+          ),
+          SliverToBoxAdapter(
+            child: _buildQuickActionsSection(theme),
+          ),
+          _buildEventsSection(eventsData, theme),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 100), // Bottom padding
+          ),
+        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 10.0,
-          right: 10.0,
-          left: 10.0,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Navigate to create event
+        },
+        backgroundColor: parkeaOrange,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
         ),
-        child: Column(
+      ),
+    );
+  }
+
+  Widget _buildAppBar(ThemeData theme) {
+    return SliverAppBar(
+      expandedHeight: 120,
+      floating: true,
+      pinned: true,
+      backgroundColor: theme.primaryColor,
+      elevation: 0,
+      automaticallyImplyLeading: false,
+      flexibleSpace: FlexibleSpaceBar(
+        titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
+        title: Row(
           children: [
-            Wrap(
-              children: [
-                HorizontalFilterList(
-                  key: PageStorageKey<String>('categoryListKey'),
-                  filterListItems: titles,
-                  activeColor: parkeaBlueAccent,
-                  inactiveColor: parkeaBlack,
-                  searchFilterTitle: S.of(context).categories,
-                  onTextChange: (v) {
-                    logger.i("Selected item $v");
+            Container(
+              width: 32,
+              height: 32,
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Image.asset(
+                "assets/logo/Parkea (1).png",
+                fit: BoxFit.contain,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              S.of(context).parkeaAppName,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.notifications_outlined, color: Colors.white),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: const Icon(Icons.person_outline, color: Colors.white),
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWelcomeSection(ThemeData theme) {
+    final hour = DateTime.now().hour;
+    String greeting = 'Good morning';
+    if (hour >= 12 && hour < 17) greeting = 'Good afternoon';
+    if (hour >= 17) greeting = 'Good evening';
+
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$greeting!',
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Discover amazing events happening around you',
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: Colors.grey[600],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSearchBar(ThemeData theme) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: 'Search for events, places, or categories...',
+          hintStyle: theme.textTheme.bodyMedium?.copyWith(
+            color: Colors.grey[500],
+          ),
+          prefixIcon: Icon(Icons.search, color: Colors.grey[500]),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.tune, color: Colors.grey[500]),
+            onPressed: () {
+              // Open filter/advanced search options
+            },
+          ),
+          filled: true,
+          fillColor: Colors.grey[100],
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.grey[200]!),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.grey[200]!),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: parkeaOrange, width: 2),
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 12,
+          ),
+        ),
+        onChanged: (value) {
+          // Handle search input
+          logger.i("Search query: $value");
+        },
+        onSubmitted: (value) {
+          // Handle search submission
+          logger.i("Search submitted: $value");
+        },
+      ),
+    );
+  }
+
+  Widget _buildCategoriesSection(ThemeData theme) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          child: Text(
+            'Categories',
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 40,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            itemCount: categories.length,
+            itemBuilder: (context, index) {
+              final category = categories[index];
+              final isSelected = selectedCategory == category;
+              return Container(
+                margin: const EdgeInsets.only(right: 8),
+                child: FilterChip(
+                  label: Text(category),
+                  selected: isSelected,
+                  onSelected: (selected) {
+                    setState(() {
+                      selectedCategory = category;
+                    });
+                    logger.i("Selected category: $category");
                   },
-                  titleTextStyle: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                  itemsTextStyle: Theme.of(context)
-                      .textTheme
-                      .bodyLarge,
+                  backgroundColor: Colors.grey[100],
+                  selectedColor: parkeaOrange.withValues(alpha: 0.2),
+                  labelStyle: TextStyle(
+                    color: isSelected ? parkeaOrange : Colors.grey[700],
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  ),
+                  side: BorderSide(
+                    color: isSelected ? parkeaOrange : Colors.grey[300]!,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildQuickActionsSection(ThemeData theme) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Quick Actions',
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: _buildQuickActionCard(
+                  icon: Icons.event_available,
+                  title: 'My Events',
+                  subtitle: '3 upcoming',
+                  color: parkeaBlueAccent,
+                  theme: theme,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _buildQuickActionCard(
+                  icon: Icons.bookmark,
+                  title: 'Saved',
+                  subtitle: '12 events',
+                  color: parkeaOrange,
+                  theme: theme,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuickActionCard({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required Color color,
+    required ThemeData theme,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: color, size: 24),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            style: theme.textTheme.titleSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+          Text(
+            subtitle,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: Colors.grey[600],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEventsSection(AsyncValue eventsData, ThemeData theme) {
+    return SliverToBoxAdapter(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  S.of(context).popularEvents,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'See all',
+                    style: TextStyle(color: parkeaOrange),
+                  ),
                 ),
               ],
             ),
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: _refresh,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).popularEvents,
-                            style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          IconButton(
-                            //onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SearchPage())),
-                            onPressed: () {},
-                            icon: const Icon(Icons.search),
-                          )
-                        ],
-                      ),
-                      Container(
-                        child: eventsData.when(
-                          data: (eventsData) {
-                            return ListView(
-                              controller: _controller,
-                              shrinkWrap: true,
-                              children: [
-                                ...eventsData.map(
-                                  (e) =>
-                                      EventFeedCard(
-                                    event: e,
-                                    width: double.infinity,
-                                    height: size.height * 0.30,
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                          error: (err, s) => Text(err.toString()),
-                          loading: () => const Center(
-                            child: CircularProgressIndicator.adaptive(),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            )
+            const SizedBox(height: 8),
+            eventsData.when(
+              data: (events) {
+                if (events.isEmpty) {
+                  return _buildEmptyState(theme);
+                }
+                return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: events.length,
+                  separatorBuilder: (context, index) => const SizedBox(height: 16),
+                  itemBuilder: (context, index) {
+                    return EventFeedCard(
+                      event: events[index],
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * 0.25,
+                    );
+                  },
+                );
+              },
+              error: (error, stack) => _buildErrorState(error.toString(), theme),
+              loading: () => _buildLoadingState(theme),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildLoadingState(ThemeData theme) {
+    return Column(
+      children: List.generate(
+        3,
+        (index) => Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          height: 200,
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: const Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildErrorState(String error, ThemeData theme) {
+    return Container(
+      padding: const EdgeInsets.all(32),
+      child: Column(
+        children: [
+          Icon(
+            Icons.error_outline,
+            size: 64,
+            color: Colors.grey[400],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Something went wrong',
+            style: theme.textTheme.titleMedium?.copyWith(
+              color: Colors.grey[600],
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            error,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: Colors.grey[500],
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: _refresh,
+            child: const Text('Retry'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(ThemeData theme) {
+    return Container(
+      padding: const EdgeInsets.all(32),
+      child: Column(
+        children: [
+          Icon(
+            Icons.event_busy,
+            size: 64,
+            color: Colors.grey[400],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'No events found',
+            style: theme.textTheme.titleMedium?.copyWith(
+              color: Colors.grey[600],
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Try adjusting your filters or check back later',
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: Colors.grey[500],
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
