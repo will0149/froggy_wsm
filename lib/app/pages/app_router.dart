@@ -108,22 +108,23 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
       ],
       redirect: (context, state) async {
-        var firstRun = IsFirstRun();
-        bool firstCall = await firstRun.isFirstRun();
-        final storageUtils = BuildHeadersUtilsImpl();
-        bool hasStorage = await storageUtils.validateStorage();
-        if (firstCall) {
-          return LoginPage.routeLocation;
-        }
-        logger.i('match location ${state.matchedLocation}');
-        if(hasStorage && state.matchedLocation == LoginPage.routeLocation){
-          return MainPage.routeLocation;
-        }
-
-        if (state.matchedLocation != LoginPage.routeLocation) {
-          return state.matchedLocation;
-        }
-        return null;
+        return state.matchedLocation;
+        // var firstRun = IsFirstRun();
+        // bool firstCall = await firstRun.isFirstRun();
+        // final storageUtils = BuildHeadersUtilsImpl();
+        // bool hasStorage = await storageUtils.validateStorage();
+        // if (firstCall) {
+        //   return LoginPage.routeLocation;
+        // }
+        // logger.i('match location ${state.matchedLocation}');
+        // if(hasStorage && state.matchedLocation == LoginPage.routeLocation){
+        //   return MainPage.routeLocation;
+        // }
+        //
+        // if (state.matchedLocation != LoginPage.routeLocation) {
+        //   return state.matchedLocation;
+        // }
+        // return null;
       });
   return router;
 });

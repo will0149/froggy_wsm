@@ -6,6 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../flavors.dart';
+import '../../../generated/l10n.dart';
 import '../../constants.dart';
 
 /**
@@ -116,7 +117,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                           children: [
                             Row(
                               children: [
-                                Text("Entorno: ${F.title}", style: Theme.of(context).textTheme.headlineMedium,)
+                                Text("${S.of(context).environment}: ${F.title}", style: Theme.of(context).textTheme.headlineMedium,)
                               ],
                             ),
 

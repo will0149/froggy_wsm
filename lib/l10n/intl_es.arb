@@ -37,11 +37,12 @@
   "widthInput": "Anchura",
   "longInput": "Largo",
   "remarksInput": "Observaciones",
+  "remarksEmptyValue": "Sin Comentarios",
   "searchInput": "'Valor a buscar",
   "damaged": "Dañado",
 
   "entryPageTitle": "Entradas",
-  "relocationPageTitle": "Reubicaciones",
+  "relocationPageTitle": "Reubicar",
   "countPageTitle": "Conteos",
   "outgoingPageTitle": "Salidas",
   "searchPageTitle": "Búsquedas",
@@ -76,5 +77,7 @@
   "exit": "Salir",
   "welcome": "Bienvenido",
 
-  "searchFilterTitle": "Filtro de Búsqueda"
+  "searchFilterTitle": "Filtro de Búsqueda",
+
+  "selectAnOption": "Seleccion una opción"
 }

@@ -46,7 +46,7 @@ class ObjetDropdownButtonState extends ConsumerState<WarehousesDropdownButton> {
         }
       },
       decoration:  InputDecoration(
-        hintText: 'titulo',
+        hintText: S.of(context).selectAnOption,
         labelText: widget.title,
         labelStyle: Theme.of(context).textTheme.bodyLarge,
       ),

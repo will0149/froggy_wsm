@@ -109,7 +109,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
           children: [
             Center(
               child: Text(
-                "Reubicar Mercancia",
+                S.of(context).relocationFormTitle,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -129,9 +129,9 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Es Serie"),
+                      Text(S.of(context).isSeriesInput),
                       Checkbox(
-                          semanticLabel: "Es Serie",
+                          semanticLabel: S.of(context).isSeriesInput,
                           value: isSeries,
                           onChanged: (newBool) {
                             setState(() {
@@ -142,7 +142,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                   ),
                 ),
                 QuantityInput(
-                  title: "Cantidad de Series",
+                  title: S.of(context).countSeriesInput,
                   onEditingComplete: (v){
                     logger.f("Tamaño de series $v");
                     setState(() {
@@ -163,19 +163,19 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                 ),
                 LpnInput(
                   controller: cartonIdFromController,
-                  title: 'CartonId origen',
+                  title: S.of(context).cartonIdOriginInput,
                 ),
                 LpnInput(
                   controller: lpnToController,
-                  title: 'CartonId destino',
+                  title: S.of(context).cartonIdDestinyInput,
                 ),
                 LocationInput(
                   controller: locationFromController,
-                  title: 'Ubicación Origen',
+                  title: S.of(context).locationOriginInput,
                 ),
                 LocationInput(
                   controller: locationToController,
-                  title: 'Ubicación Destino',
+                  title: S.of(context).locationDestinyInput,
                 ),
               ],
             ),
@@ -188,7 +188,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                         selectedWarehouseFrom = value;
                       });
                     },
-                    title: "Bodega Origen",
+                    title: S.of(context).warehouseOriginListInput,
                     values: data.body,
                     icon: Icons.arrow_drop_down_circle_outlined,
                   );
@@ -208,7 +208,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                       selectedWarehouseTo = value;
                     });
                   },
-                  title: "Bodega Destino",
+                  title: S.of(context).warehouseDestinyListInput,
                   values: data.body,
                   icon: Icons.arrow_drop_down_circle_outlined,
                 );

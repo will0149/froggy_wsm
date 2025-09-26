@@ -93,8 +93,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Reubicar mercancía",
     ),
     "relocationMenuName": MessageLookupByLibrary.simpleMessage("Reubicación"),
-    "relocationPageTitle": MessageLookupByLibrary.simpleMessage(
-      "Reubicaciones",
+    "relocationPageTitle": MessageLookupByLibrary.simpleMessage("Reubicar"),
+    "remarksEmptyValue": MessageLookupByLibrary.simpleMessage(
+      "Sin Comentarios",
     ),
     "remarksInput": MessageLookupByLibrary.simpleMessage("Observaciones"),
     "saveButton": MessageLookupByLibrary.simpleMessage("Guardar"),
@@ -105,6 +106,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "searchInput": MessageLookupByLibrary.simpleMessage("\'Valor a buscar"),
     "searchMenuName": MessageLookupByLibrary.simpleMessage("Búsqueda"),
     "searchPageTitle": MessageLookupByLibrary.simpleMessage("Búsquedas"),
+    "selectAnOption": MessageLookupByLibrary.simpleMessage(
+      "Seleccion una opción",
+    ),
     "settingsFormTitle": MessageLookupByLibrary.simpleMessage(
       "Buscar mercancía",
     ),

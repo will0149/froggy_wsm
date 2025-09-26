@@ -37,11 +37,12 @@
   "widthInput": "Width",
   "longInput": "Long",
   "remarksInput": "Remarks",
+  "remarksEmptyValue": "No Comments",
   "searchInput": "Search Value",
   "damaged": "Damaged",
 
   "entryPageTitle": "Entry",
-  "relocationPageTitle": "Relocation",
+  "relocationPageTitle": "Relocate",
   "countPageTitle": "Counts",
   "outgoingPageTitle": "Outgoings",
   "searchPageTitle": "Search",
@@ -76,5 +77,7 @@
   "exit": "Exit",
   "welcome": "Welcome",
 
-  "searchFilterTitle": "Search Filter"
+  "searchFilterTitle": "Search Filter",
+
+  "selectAnOption": "Select an option"
 }

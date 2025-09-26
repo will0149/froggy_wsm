@@ -344,6 +344,16 @@ class S {
     );
   }
 
+  /// `Sin Comentarios`
+  String get remarksEmptyValue {
+    return Intl.message(
+      'Sin Comentarios',
+      name: 'remarksEmptyValue',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `'Valor a buscar`
   String get searchInput {
     return Intl.message(
@@ -364,10 +374,10 @@ class S {
     return Intl.message('Entradas', name: 'entryPageTitle', desc: '', args: []);
   }
 
-  /// `Reubicaciones`
+  /// `Reubicar`
   String get relocationPageTitle {
     return Intl.message(
-      'Reubicaciones',
+      'Reubicar',
       name: 'relocationPageTitle',
       desc: '',
       args: [],
@@ -574,6 +584,16 @@ class S {
     return Intl.message(
       'Filtro de Búsqueda',
       name: 'searchFilterTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seleccion una opción`
+  String get selectAnOption {
+    return Intl.message(
+      'Seleccion una opción',
+      name: 'selectAnOption',
       desc: '',
       args: [],
     );

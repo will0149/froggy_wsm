@@ -3,6 +3,7 @@ import 'package:cct_management/app/widgets/scaffolds/exit_pop_scope.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../generated/l10n.dart';
 import '../../widgets/forms/base_form_decorator.dart';
 
 /// Made for cct_management.
@@ -25,7 +26,7 @@ class _RelocationPageState extends ConsumerState<RelocationPage> {
     return ExitPopScope(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Reubicar"),
+          title: Text(S.of(context).relocationPageTitle),
           centerTitle: true,
         ),
         body: const SingleChildScrollView(
