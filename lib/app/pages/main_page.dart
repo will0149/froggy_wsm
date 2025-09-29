@@ -87,28 +87,14 @@ class MainPageState extends ConsumerState<MainPage> {
                       spacing: 20,
                       children: [
                         SizedBox(
-                          width: size.width / 4,
-                          height: size.width / 4,
+                          width: size.width / 3,
+                          height: size.width / 3,
                           child: CircleAvatar(
                             backgroundColor: backGroundColor,
                             radius: 52,
                             child: const CircleAvatar(
                               backgroundColor: Colors.white,
-                              radius: 50,
-                              backgroundImage:
-                                  AssetImage("assets/logos/cct_logo.png"),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width / 4,
-                          height: size.width / 4,
-                          child: CircleAvatar(
-                            backgroundColor: backGroundColor,
-                            radius: 52,
-                            child: const CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 50,
+                              radius: 60,
                               backgroundImage:
                                   AssetImage("assets/logos/froggy_logo.png"),
                             ),
@@ -127,7 +113,7 @@ class MainPageState extends ConsumerState<MainPage> {
                       child: CircularProgressIndicator(),
                     ))
                 : Padding(
-                    padding: const EdgeInsets.only(top: 100),
+                    padding: const EdgeInsets.only(top: 125),
                     child: GridView.count(
                       padding: const EdgeInsets.all(10.0),
                       mainAxisSpacing: 10.0,
@@ -135,36 +121,36 @@ class MainPageState extends ConsumerState<MainPage> {
                       shrinkWrap: true,
                       crossAxisCount: 2,
                       children: [
-                        SectionButton(
-                          imagePath: "assets/warehouse.png",
-                          title: S.of(context).entryMenuName,
-                          onPressed: () =>
-                              context.pushNamed(EntryPage.routeName),
-                        ),
-                        SectionButton(
-                          imagePath: "assets/forklift.png",
-                          title: S.of(context).relocationMenuName,
-                          onPressed: () =>
-                              context.pushNamed(RelocationPage.routeName),
-                        ),
+                        // SectionButton(
+                        //   imagePath: "assets/warehouse.png",
+                        //   title: S.of(context).entryMenuName,
+                        //   onPressed: () =>
+                        //       context.pushNamed(EntryPage.routeName),
+                        // ),
+                        // SectionButton(
+                        //   imagePath: "assets/forklift.png",
+                        //   title: S.of(context).relocationMenuName,
+                        //   onPressed: () =>
+                        //       context.pushNamed(RelocationPage.routeName),
+                        // ),
                         SectionButton(
                           imagePath: "assets/material-management.png",
                           title: S.of(context).countMenuName,
                           onPressed: () =>
                               context.pushNamed(CountPage.routeName),
                         ),
-                        SectionButton(
-                          imagePath: "assets/truck.png",
-                          title: S.of(context).outgoingMenuName,
-                          onPressed: () =>
-                              context.pushNamed(OutgoingPage.routeName),
-                        ),
-                        SectionButton(
-                          imagePath: "assets/search.png",
-                          title: S.of(context).searchMenuName,
-                          onPressed: () =>
-                              context.pushNamed(SearchPage.routeName),
-                        ),
+                        // SectionButton(
+                        //   imagePath: "assets/truck.png",
+                        //   title: S.of(context).outgoingMenuName,
+                        //   onPressed: () =>
+                        //       context.pushNamed(OutgoingPage.routeName),
+                        // ),
+                        // SectionButton(
+                        //   imagePath: "assets/search.png",
+                        //   title: S.of(context).searchMenuName,
+                        //   onPressed: () =>
+                        //       context.pushNamed(SearchPage.routeName),
+                        // ),
                         SectionButton(
                           imagePath: "assets/maintainance/settings.png",
                           title: S.of(context).settingsMenuName,

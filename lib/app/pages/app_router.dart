@@ -16,13 +16,14 @@ import '../../device/utils/logger_config.dart';
 import '../../domain/dtos/series_dto.dart';
 import '../../domain/utils/impl/build_headers_utils_impl.dart';
 import 'auth/login_page.dart';
+import 'count/alegra/alegra_count_page.dart';
 import 'entry/entry_page.dart';
 import 'main_page.dart';
 
 /// Made for cct_management.
 /// By User: josedominguez
 /// Date: 06/09/24
-
+var loginEnable = false;
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _sectionANavigatorKey =
@@ -33,7 +34,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
       debugLogDiagnostics: true,
-      initialLocation: "/login",
+      initialLocation: loginEnable ? "/login" : "/main",
       routes: <RouteBase>[
         GoRoute(
           name: LoginPage.routeName,
@@ -63,11 +64,18 @@ final routerProvider = Provider<GoRouter>((ref) {
                   return const RelocationPage();
                 },
               ),
+              // GoRoute(
+              //   name: CountPage.routeName,
+              //   path: CountPage.routeLocation,
+              //   builder: (BuildContext context, GoRouterState state) {
+              //     return const CountPage();
+              //   },
+              // ),
               GoRoute(
-                name: CountPage.routeName,
-                path: CountPage.routeLocation,
+                name: AlegraCountPage.routeName,
+                path: AlegraCountPage.routeLocation,
                 builder: (BuildContext context, GoRouterState state) {
-                  return const CountPage();
+                  return const AlegraCountPage();
                 },
               ),
               GoRoute(
