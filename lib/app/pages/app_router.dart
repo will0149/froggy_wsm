@@ -116,7 +116,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
       ],
       redirect: (context, state) async {
-        return state.matchedLocation;
+        logger.w("matchedLocation ${state.matchedLocation}");
         // var firstRun = IsFirstRun();
         // bool firstCall = await firstRun.isFirstRun();
         // final storageUtils = BuildHeadersUtilsImpl();
@@ -133,6 +133,10 @@ final routerProvider = Provider<GoRouter>((ref) {
         //   return state.matchedLocation;
         // }
         // return null;
+        if (state.matchedLocation != LoginPage.routeLocation) {
+          return state.matchedLocation;
+        }
+        return null;
       });
   return router;
 });

@@ -1,9 +1,6 @@
 import 'package:cct_management/app/pages/auth/login_page.dart';
 import 'package:cct_management/app/pages/count/count_page.dart';
 import 'package:cct_management/app/pages/maintainance/settings_page.dart';
-import 'package:cct_management/app/pages/outgoing/outgoing_page.dart';
-import 'package:cct_management/app/pages/relocation/relocation_page.dart';
-import 'package:cct_management/app/pages/warehouse/search_page.dart';
 import 'package:cct_management/domain/providers/localDb/database_notifier_provider.dart';
 import 'package:cct_management/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +14,6 @@ import '../widgets/buttons/section_button.dart';
 import '../widgets/scaffolds/kill_pop_scope.dart';
 import '../widgets/scaffolds/safe_scaffold.dart';
 import '../widgets/toasts/build_toasts.dart';
-import 'entry/entry_page.dart';
 
 /// Made for cct_management.
 /// By User: josedominguez
@@ -47,33 +43,66 @@ class MainPageState extends ConsumerState<MainPage> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final dbHandler = ref.watch(databaseNotifierProvider);
+  void loadDatabase() {
+    showWarningToast("Recuerde actualizar los registros");
+    final dbHandler = ref.read(databaseNotifierProvider);
     dbHandler.when(
       error: (err, s) {
         logger.e("error $s");
-        return Text(err.toString());
+        // return Text(err.toString());
       },
-      loading: () => const CircularProgressIndicator(),
+      loading: () => setState(() {
+        isLoading = true;
+      }),
       data: (data) {
-       logger.i(
-              "data.isReady ${data.isReady} data.isFirstLoad ${data.isFirstLoad}");
-          if (data.isReady && data.isFirstLoad) {
-            logger.i("successfully initialize");
-          }
+        logger.i(
+            "data.isReady ${data.isReady} data.isFirstLoad ${data.isFirstLoad}");
+        if (data.isReady && data.isFirstLoad) {
+          logger.i("successfully initialize");
+          setState(() {
+            isLoading = false;
+          });
+        }
       },
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var authHandlerP = ref.watch(authLogicProvider);
     return KillPopScope(
       context: context,
       child: SafeScaffold(
-        // appBar: AppBar(
-        //   title: Text("Bienvenido!",
-        //       style: Theme.of(context).textTheme.titleLarge),
-        //   centerTitle: true,
-        // ),
+        appBar: AppBar(
+          backgroundColor: Colors.deepOrangeAccent,
+          title: Text("Recuerda Sincronizar! ->",
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700
+              )),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              color: Colors.tealAccent,
+              splashColor: Colors.red,
+              padding: EdgeInsetsGeometry.only(right: 30),
+              icon: isLoading ? CircularProgressIndicator() : Icon(Icons.sync),
+              onPressed: (){
+                logger.i("Syncing");
+                showWarningToast("Inicio de sincronizacion de maestro");
+                setState(() {
+                  isLoading = true;
+                });
+                Future.delayed(Duration(seconds: 5), (){
+                  setState(() {
+                    isLoading = false;
+                  });
+                  showSuccessToast("Registros Actualizados");
+                });
+              },
+            ),
+          ],
+        ),
         child: Stack(
           fit: StackFit.expand,
           children: [
@@ -106,12 +135,13 @@ class MainPageState extends ConsumerState<MainPage> {
                 ],
               ),
             ),
-            dbHandler.isLoading
+            isLoading
                 ? Container(
                     margin: const EdgeInsets.all(10.0),
                     child: const Center(
                       child: CircularProgressIndicator(),
-                    ))
+                    ),
+                  )
                 : Padding(
                     padding: const EdgeInsets.only(top: 125),
                     child: GridView.count(

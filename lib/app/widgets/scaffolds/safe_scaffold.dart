@@ -1,14 +1,9 @@
-import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../device/provider/get_connectivity_provider.dart';
-import '../../../device/utils/logger_config.dart';
 import '../../pages/maintainance/connectivity_page.dart';
-
 
 /// Made for cct_management.
 /// By User: josedominguez
@@ -17,6 +12,7 @@ import '../../pages/maintainance/connectivity_page.dart';
 class SafeScaffold extends ConsumerStatefulWidget {
   final AppBar? appBar;
   final Widget child;
+
   const SafeScaffold({super.key, required this.child, this.appBar});
 
   @override
@@ -24,7 +20,6 @@ class SafeScaffold extends ConsumerStatefulWidget {
 }
 
 class SafeScaffoldState extends ConsumerState<SafeScaffold> {
-
   @override
   void initState() {
     super.initState();
@@ -35,26 +30,42 @@ class SafeScaffoldState extends ConsumerState<SafeScaffold> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final connectivity = ref.watch(getConnectivityProviderProvider);
-    return connectivity.when(data: (status){
-      if(ConnectivityResult.none == status.first){
-        return const ConnectivityPage();
-      }
-      return Scaffold(
-        resizeToAvoidBottomInset: true, //When textformfield is at bottom of screen and we cannot able to see what we are typing
-        appBar: widget.appBar,
-        body: SafeArea(
-          top: true,
-          bottom: true,
-          child: widget.child,
-        ),
-      );
-    },
-      error: (err, st) => Text(err.toString()),
-      loading: () => const LinearProgressIndicator(),
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      //When textformfield is at bottom of screen and we cannot able to see what we are typing
+      appBar: widget.appBar,
+      body: SafeArea(
+        top: true,
+        bottom: true,
+        child: widget.child,
+      ),
     );
   }
 }
+
+//Disable connectivity validation cause failing when authentication is disable
+
+// Widget build(BuildContext context) {
+//   final connectivity = ref.watch(getConnectivityProviderProvider);
+//   return connectivity.when(
+//     data: (status) {
+//       if (ConnectivityResult.none == status.first) {
+//         return const ConnectivityPage();
+//       }
+//       return Scaffold(
+//         resizeToAvoidBottomInset: true,
+//         //When textformfield is at bottom of screen and we cannot able to see what we are typing
+//         appBar: widget.appBar,
+//         body: SafeArea(
+//           top: true,
+//           bottom: true,
+//           child: widget.child,
+//         ),
+//       );
+//     },
+//     error: (err, st) => Text(err.toString()),
+//     loading: () => const LinearProgressIndicator(),
+//   );
+// }
