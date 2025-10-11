@@ -35,9 +35,10 @@ class DatabaseHelper {
 
   Future<void> _onCreate(Database db, int version) async {
     // Create tables here
-    await db.execute(warehousesTable);
-    await db.execute(customersTable);
-    await db.execute(assetsTable);
+    // await db.execute(warehousesTable);
+    // await db.execute(customersTable);
+    // await db.execute(assetsTable);
+    await db.execute(itemsMasterTable);
   }
 
   // Example CRUD operations

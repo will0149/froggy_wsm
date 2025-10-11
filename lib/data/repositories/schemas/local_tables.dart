@@ -50,6 +50,18 @@ CREATE TABLE assets(
       )
 ''';
 
+const String itemsMasterTable = '''
+CREATE TABLE items(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        sku TEXT,
+        quantity INTEGER,
+        qty_difference INTEGER,
+        last_compare TEXT,
+        created_at TEXT,
+        updated_at TEXT
+      )
+''';
+
 //TODO: validate supported data types
 // INTEGER
 // SQLite type: INTEGER
