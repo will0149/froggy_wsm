@@ -1,12 +1,12 @@
-import 'package:cct_management/app/constants.dart';
-import 'package:cct_management/app/themes/styles/input_decoration.dart';
-import 'package:cct_management/app/themes/styles/submit_button_style.dart';
-import 'package:cct_management/app/themes/styles/text_theme.dart';
+import 'package:froggy_soft/app/constants.dart';
+import 'package:froggy_soft/app/themes/styles/input_decoration.dart';
+import 'package:froggy_soft/app/themes/styles/submit_button_style.dart';
+import 'package:froggy_soft/app/themes/styles/text_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'colors/app_colors.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/10/24
 

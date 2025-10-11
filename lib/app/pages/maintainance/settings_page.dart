@@ -1,4 +1,4 @@
-import 'package:cct_management/app/widgets/scaffolds/safe_scaffold.dart';
+import 'package:froggy_soft/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +10,7 @@ import '../../../generated/l10n.dart';
 import '../../constants.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 08/04/24
  */

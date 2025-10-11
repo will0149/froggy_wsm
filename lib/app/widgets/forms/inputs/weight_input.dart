@@ -4,7 +4,7 @@ import 'package:input_quantity/input_quantity.dart';
 
 import '../../../../device/utils/logger_config.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/19/24
 

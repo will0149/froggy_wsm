@@ -1,6 +1,6 @@
 {
-    "name": "cct_management",
-    "short_name": "cct_management",
+    "name": "froggysoft",
+    "short_name": "froggysoft",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

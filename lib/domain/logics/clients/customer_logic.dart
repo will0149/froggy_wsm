@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cct_management/data/entities/clients/customer_entity.dart';
+import 'package:froggy_soft/data/entities/clients/customer_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,7 +11,7 @@ import '../../../data/repositories/clients/client_repository.dart';
 import '../../../data/repositories/localdb/Local_client_repository.dart';
 import '../../../device/utils/logger_config.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/16/24
 

@@ -1,11 +1,11 @@
-import 'package:cct_management/data/entities/warehouses/warehouse_entity.dart';
+import 'package:froggy_soft/data/entities/warehouses/warehouse_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../device/utils/logger_config.dart';
 import '../../../../generated/l10n.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 07/17/24
 

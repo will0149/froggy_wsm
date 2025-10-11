@@ -1,10 +1,10 @@
-import 'package:cct_management/device/utils/logger_config.dart';
+import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/19/24
 

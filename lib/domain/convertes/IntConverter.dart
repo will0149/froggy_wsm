@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 05/24/25
  */

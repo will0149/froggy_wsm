@@ -4,7 +4,7 @@ import '../../device/utils/logger_config.dart';
 import '../dtos/dimensions_dto.dart';
 import '../models/entry_form_view_state.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 07/05/24
 

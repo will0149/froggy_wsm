@@ -1,13 +1,13 @@
 
-import 'package:cct_management/data/entities/commons/common_type.dart';
-import 'package:cct_management/data/entities/stocks/dimension_entity.dart';
-import 'package:cct_management/domain/convertes/common_type_converter.dart';
-import 'package:cct_management/domain/convertes/list_series_converter.dart';
-import 'package:cct_management/domain/dtos/series_series_dto.dart';
+import 'package:froggy_soft/data/entities/commons/common_type.dart';
+import 'package:froggy_soft/data/entities/stocks/dimension_entity.dart';
+import 'package:froggy_soft/domain/convertes/common_type_converter.dart';
+import 'package:froggy_soft/domain/convertes/list_series_converter.dart';
+import 'package:froggy_soft/domain/dtos/series_series_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 05/18/25
  */

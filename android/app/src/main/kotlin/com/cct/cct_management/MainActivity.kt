@@ -1,4 +1,4 @@
-package com.cct.cct_management
+package com.atheneox.froggysoftt
 
 import io.flutter.embedding.android.FlutterActivity
 

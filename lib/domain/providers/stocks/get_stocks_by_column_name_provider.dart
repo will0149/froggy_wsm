@@ -1,10 +1,10 @@
-import 'package:cct_management/data/entities/base_response_entity.dart';
-import 'package:cct_management/data/entities/stocks/stock_entity.dart';
-import 'package:cct_management/domain/logics/inventory/stocks_logic.dart';
+import 'package:froggy_soft/data/entities/base_response_entity.dart';
+import 'package:froggy_soft/data/entities/stocks/stock_entity.dart';
+import 'package:froggy_soft/domain/logics/inventory/stocks_logic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 05/18/25
  */

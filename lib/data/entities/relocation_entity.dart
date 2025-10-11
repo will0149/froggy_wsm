@@ -1,7 +1,7 @@
-import 'package:cct_management/data/entities/relocation_data_entity.dart';
+import 'package:froggy_soft/data/entities/relocation_data_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/12/24
 

@@ -1,4 +1,4 @@
-import 'package:cct_management/data/entities/stocks/stock_entity.dart';
+import 'package:froggy_soft/data/entities/stocks/stock_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,7 +10,7 @@ import '../../../device/utils/logger_config.dart';
 import '../../dtos/series_dto.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 08/13/24
  */

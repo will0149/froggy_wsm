@@ -1,11 +1,11 @@
-import 'package:cct_management/device/utils/logger_config.dart';
-import 'package:cct_management/domain/dtos/series_dto.dart';
-import 'package:cct_management/domain/dtos/series_series_dto.dart';
+import 'package:froggy_soft/device/utils/logger_config.dart';
+import 'package:froggy_soft/domain/dtos/series_dto.dart';
+import 'package:froggy_soft/domain/dtos/series_series_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 05/18/25
  */

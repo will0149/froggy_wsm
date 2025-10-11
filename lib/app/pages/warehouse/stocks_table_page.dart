@@ -1,10 +1,10 @@
-import 'package:cct_management/app/widgets/scaffolds/safe_scaffold.dart';
-import 'package:cct_management/domain/providers/stocks/get_stocks_by_column_name_provider.dart';
+import 'package:froggy_soft/app/widgets/scaffolds/safe_scaffold.dart';
+import 'package:froggy_soft/domain/providers/stocks/get_stocks_by_column_name_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 08/14/24
  */

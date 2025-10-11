@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:cct_management/data/repositories/constants.dart';
-import 'package:cct_management/domain/utils/impl/build_headers_utils_impl.dart';
-import 'package:cct_management/flavors.dart';
+import 'package:froggy_soft/data/repositories/constants.dart';
+import 'package:froggy_soft/domain/utils/impl/build_headers_utils_impl.dart';
+import 'package:froggy_soft/flavors.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 
@@ -12,7 +12,7 @@ import '../../../domain/utils/build_headers_utils.dart';
 import '../../api_paths_enums.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 11/13/24
  */

@@ -7,7 +7,7 @@ import '../../../data/entities/clients/customer_entity.dart';
 import '../../logics/clients/customer_logic.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 06/16/24
  */

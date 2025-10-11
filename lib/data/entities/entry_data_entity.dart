@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/12/24
 

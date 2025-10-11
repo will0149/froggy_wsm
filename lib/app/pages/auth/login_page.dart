@@ -1,5 +1,5 @@
-import 'package:cct_management/app/paints/middle_wave_white.dart';
-import 'package:cct_management/generated/l10n.dart';
+import 'package:froggy_soft/app/paints/middle_wave_white.dart';
+import 'package:froggy_soft/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -13,7 +13,7 @@ import '../../widgets/forms/login_form.dart';
 import '../../widgets/scaffolds/kill_pop_scope.dart';
 import '../../widgets/scaffolds/safe_scaffold.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 07/11/24
 

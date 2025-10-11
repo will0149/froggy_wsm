@@ -1,9 +1,9 @@
-import 'package:cct_management/data/entities/base_response_entity.dart';
-import 'package:cct_management/data/entities/status_entity.dart';
-import 'package:cct_management/data/repositories/clients/auth_repository.dart';
-import 'package:cct_management/device/utils/logger_config.dart';
-import 'package:cct_management/domain/dtos/relocation_dto.dart';
-import 'package:cct_management/domain/utils/impl/build_headers_utils_impl.dart';
+import 'package:froggy_soft/data/entities/base_response_entity.dart';
+import 'package:froggy_soft/data/entities/status_entity.dart';
+import 'package:froggy_soft/data/repositories/clients/auth_repository.dart';
+import 'package:froggy_soft/device/utils/logger_config.dart';
+import 'package:froggy_soft/domain/dtos/relocation_dto.dart';
+import 'package:froggy_soft/domain/utils/impl/build_headers_utils_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -14,7 +14,7 @@ import '../../dtos/auth/login_dto.dart';
 import '../../utils/build_headers_utils.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 11/13/24
  */

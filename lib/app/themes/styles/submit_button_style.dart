@@ -1,7 +1,7 @@
-import 'package:cct_management/app/themes/styles/text_theme.dart';
+import 'package:froggy_soft/app/themes/styles/text_theme.dart';
 import 'package:flutter/material.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/10/24
 

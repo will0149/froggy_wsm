@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../series_dto.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 05/16/25
  */

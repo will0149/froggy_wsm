@@ -1,11 +1,11 @@
 import 'dart:collection';
 
-import 'package:cct_management/app/pages/count/count_page.dart';
-import 'package:cct_management/app/pages/maintainance/settings_page.dart';
-import 'package:cct_management/app/pages/outgoing/outgoing_page.dart';
-import 'package:cct_management/app/pages/relocation/relocation_page.dart';
-import 'package:cct_management/app/pages/warehouse/search_page.dart';
-import 'package:cct_management/app/pages/warehouse/stocks_table_page.dart';
+import 'package:froggy_soft/app/pages/count/count_page.dart';
+import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
+import 'package:froggy_soft/app/pages/outgoing/outgoing_page.dart';
+import 'package:froggy_soft/app/pages/relocation/relocation_page.dart';
+import 'package:froggy_soft/app/pages/warehouse/search_page.dart';
+import 'package:froggy_soft/app/pages/warehouse/stocks_table_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -20,7 +20,7 @@ import 'count/alegra/alegra_count_page.dart';
 import 'entry/entry_page.dart';
 import 'main_page.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/09/24
 var loginEnable = false;

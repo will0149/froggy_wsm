@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../../domain/convertes/bool_converter.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 07/22/24
  */

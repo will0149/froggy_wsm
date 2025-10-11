@@ -1,9 +1,9 @@
-import 'package:cct_management/device/utils/logger_config.dart';
+import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:flutter/material.dart';
 
 import '../../../generated/l10n.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/21/24
 

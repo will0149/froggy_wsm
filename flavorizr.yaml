@@ -5,7 +5,7 @@ flavors:
       name: "Development App"
 
     android:
-      applicationId: "com.cct.cct_management"
+      applicationId: "com.atheneox.froggysoftt"
       resValues:
         base_url:
           type: "string"
@@ -21,7 +21,7 @@ flavors:
       name: "Stage App"
 
     android:
-      applicationId: "com.cct.cct_management"
+      applicationId: "com.atheneox.froggysoftt"
       resValues:
         base_url:
           type: "string"
@@ -37,7 +37,7 @@ flavors:
       name: "Production App"
 
     android:
-      applicationId: "com.cct.cct_management"
+      applicationId: "com.atheneox.froggysoftt"
       resValues:
         base_url:
           type: "string"

@@ -1,8 +1,8 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:cct_management/data/entities/status_entity.dart';
-import 'package:cct_management/data/repositories/warehouses/warehouse_repository.dart';
+import 'package:froggy_soft/data/entities/status_entity.dart';
+import 'package:froggy_soft/data/repositories/warehouses/warehouse_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,7 +11,7 @@ import '../../../data/entities/warehouses/warehouse_entity.dart';
 import '../../../data/repositories/localdb/local_warehouse_repository.dart';
 import '../../../device/utils/logger_config.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 07/22/24
 

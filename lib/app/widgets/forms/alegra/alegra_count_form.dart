@@ -1,4 +1,4 @@
-import 'package:cct_management/domain/logics/count_logic.dart';
+import 'package:froggy_soft/domain/logics/count_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +21,7 @@ import '../inputs/series_input.dart';
 import '../inputs/warehouses_dropdown_button.dart';
 
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/11/24
 

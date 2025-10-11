@@ -9,7 +9,7 @@ import '../../dtos/auth/login_dto.dart';
 import '../../logics/clients/auth_logic.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 11/26/24
  */

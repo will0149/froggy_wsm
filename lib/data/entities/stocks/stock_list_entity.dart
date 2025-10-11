@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'body_stocks_entity.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 08/13/24
  */

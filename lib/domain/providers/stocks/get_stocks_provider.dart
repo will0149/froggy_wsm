@@ -7,7 +7,7 @@ import '../../dtos/series_dto.dart';
 import '../../logics/inventory/stocks_logic.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 08/13/24
  */

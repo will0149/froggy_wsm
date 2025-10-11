@@ -1,9 +1,9 @@
-import 'package:cct_management/data/entities/commons/common_type.dart';
-import 'package:cct_management/device/utils/logger_config.dart';
+import 'package:froggy_soft/data/entities/commons/common_type.dart';
+import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 05/18/25
  */

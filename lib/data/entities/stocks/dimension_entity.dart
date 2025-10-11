@@ -1,7 +1,7 @@
-import 'package:cct_management/domain/convertes/IntConverter.dart';
+import 'package:froggy_soft/domain/convertes/IntConverter.dart';
 import 'package:json_annotation/json_annotation.dart';
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 05/18/25
  */

@@ -1,4 +1,4 @@
-import 'package:cct_management/data/entities/base_response_entity.dart';
+import 'package:froggy_soft/data/entities/base_response_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/entities/base_data_entity.dart';
@@ -8,7 +8,7 @@ import '../../device/utils/logger_config.dart';
 import '../dtos/inbound_dto.dart';
 import '../interfaces/inbound_logic.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/11/24
 

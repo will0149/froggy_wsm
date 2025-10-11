@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../device/utils/logger_config.dart';
 import '../../../generated/l10n.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 07/11/24
 

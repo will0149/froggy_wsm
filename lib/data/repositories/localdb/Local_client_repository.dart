@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../configs/database_helper.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 07/24/25
  */

@@ -1,8 +1,8 @@
-import 'package:cct_management/app/pages/auth/login_page.dart';
-import 'package:cct_management/app/pages/count/count_page.dart';
-import 'package:cct_management/app/pages/maintainance/settings_page.dart';
-import 'package:cct_management/domain/providers/localDb/database_notifier_provider.dart';
-import 'package:cct_management/generated/l10n.dart';
+import 'package:froggy_soft/app/pages/auth/login_page.dart';
+import 'package:froggy_soft/app/pages/count/count_page.dart';
+import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
+import 'package:froggy_soft/domain/providers/localDb/database_notifier_provider.dart';
+import 'package:froggy_soft/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +15,7 @@ import '../widgets/scaffolds/kill_pop_scope.dart';
 import '../widgets/scaffolds/safe_scaffold.dart';
 import '../widgets/toasts/build_toasts.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/09/24
 

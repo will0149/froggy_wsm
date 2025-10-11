@@ -5,7 +5,7 @@ import '../../../data/entities/warehouses/warehouse_entity.dart';
 import '../../logics/warehouse/warehouse_logic.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 07/22/24
  */

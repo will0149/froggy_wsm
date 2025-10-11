@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * type: sample class to use database helper class
  * Date: 03/23/25

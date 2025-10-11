@@ -5,7 +5,7 @@ import '../../configs/database_helper.dart';
 import 'interfaces/local_db_repository.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 10/08/25
  */

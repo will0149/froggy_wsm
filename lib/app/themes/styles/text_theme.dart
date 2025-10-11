@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/10/24
 

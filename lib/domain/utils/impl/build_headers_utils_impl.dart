@@ -6,7 +6,7 @@ import '../../../device/utils/logger_config.dart';
 import '../build_headers_utils.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 11/28/24
  */

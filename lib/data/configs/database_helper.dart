@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 
 import '../repositories/schemas/local_tables.dart';
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 03/23/25
  */

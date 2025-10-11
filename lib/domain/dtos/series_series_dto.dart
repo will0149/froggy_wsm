@@ -1,9 +1,9 @@
-import 'package:cct_management/domain/dtos/series_dto.dart';
+import 'package:froggy_soft/domain/dtos/series_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 08/13/24
  */

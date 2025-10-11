@@ -1,8 +1,8 @@
-import 'package:cct_management/data/entities/status_entity.dart';
+import 'package:froggy_soft/data/entities/status_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 06/12/24
  */

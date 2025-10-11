@@ -1,7 +1,7 @@
-import 'package:cct_management/app/pages/warehouse/stocks_table_page.dart';
-import 'package:cct_management/app/widgets/filters/horizontal_filter_list.dart';
-import 'package:cct_management/app/widgets/forms/inputs/generic_input.dart';
-import 'package:cct_management/app/widgets/scaffolds/safe_scaffold.dart';
+import 'package:froggy_soft/app/pages/warehouse/stocks_table_page.dart';
+import 'package:froggy_soft/app/widgets/filters/horizontal_filter_list.dart';
+import 'package:froggy_soft/app/widgets/forms/inputs/generic_input.dart';
+import 'package:froggy_soft/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +12,7 @@ import '../../../generated/l10n.dart';
 import '../../widgets/toasts/build_toasts.dart';
 
 /**
- * Made for cct_management.
+ * Made for froggysoft.
  * By User: josedominguez
  * Date: 08/04/24
  */

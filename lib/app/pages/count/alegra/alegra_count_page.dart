@@ -1,11 +1,11 @@
-import 'package:cct_management/app/widgets/scaffolds/exit_pop_scope.dart';
-import 'package:cct_management/app/widgets/scaffolds/safe_scaffold.dart';
+import 'package:froggy_soft/app/widgets/scaffolds/exit_pop_scope.dart';
+import 'package:froggy_soft/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../../widgets/forms/alegra/alegra_count_form.dart';
 import '../../../widgets/forms/base_form_decorator.dart';
 
-/// Made for cct_management.
+/// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/11/24
 
