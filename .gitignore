@@ -42,3 +42,9 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 *.g.dart
+
+/lib/data/entities/alegra/*.g.dart
+/lib/data/entities/*.g.dart
+/lib/domain/providers/*/*.g.dart
+/lib/domain/dtos/*/*.g.dart
+/lib/domain/dtos/*.g.dart
