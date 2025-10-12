@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../configs/database_helper.dart';
-import 'interfaces/local_db_repository.dart';
+import '../../../configs/database_helper.dart';
+import '../interfaces/local_db_repository.dart';
 
 /**
  * Made for froggysoft.
@@ -38,11 +38,11 @@ class AlegraItemsRepository implements LocalDbRepository {
     return result.isNotEmpty ? result.first : null;
   }
 
-  Future<List<Map<String, dynamic>>> getByBarcode(String barcode) async {
+  Future<List<Map<String, dynamic>>> getBySku(String barcode) async {
     final db = await _dbHelper.database;
     return await db.query(
       _tableName,
-      where: 'barcode = ? AND deleted = ?',
+      where: 'sku = ? AND deleted = ?',
       whereArgs: [barcode, 0],
     );
   }

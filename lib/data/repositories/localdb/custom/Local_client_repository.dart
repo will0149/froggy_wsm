@@ -1,4 +1,6 @@
-import '../../configs/database_helper.dart';
+import 'package:flutter/material.dart';
+
+import '../../../configs/database_helper.dart';
 
 /**
  * Made for froggysoft.
@@ -6,9 +8,9 @@ import '../../configs/database_helper.dart';
  * Date: 07/24/25
  */
 
-class LocalWarehouseRepository {
+class LocalClientRepository {
   final DatabaseHelper _dbHelper = DatabaseHelper();
-  final String _tableName = 'warehouses';
+  final String _tableName = 'customers';
 
   Future<int> insert(Map<String, dynamic> warehouse) async {
     final db = await _dbHelper.database;

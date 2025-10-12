@@ -1,6 +1,6 @@
 import 'package:froggy_soft/data/entities/base_response_entity.dart';
 import 'package:froggy_soft/data/entities/status_entity.dart';
-import 'package:froggy_soft/data/repositories/clients/auth_repository.dart';
+import 'package:froggy_soft/data/repositories/apis/clients/auth_repository.dart';
 import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:froggy_soft/domain/dtos/relocation_dto.dart';
 import 'package:froggy_soft/domain/utils/impl/build_headers_utils_impl.dart';

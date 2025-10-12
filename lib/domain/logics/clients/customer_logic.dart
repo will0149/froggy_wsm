@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../data/entities/base_response_entity.dart';
-import '../../../data/entities/clients/client_base_entity.dart';
 import '../../../data/entities/status_entity.dart';
-import '../../../data/repositories/clients/client_repository.dart';
-import '../../../data/repositories/localdb/Local_client_repository.dart';
+import '../../../data/repositories/apis/clients/client_repository.dart';
+import '../../../data/repositories/localdb/custom/Local_client_repository.dart';
 import '../../../device/utils/logger_config.dart';
 
 /// Made for froggysoft.

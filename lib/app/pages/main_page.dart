@@ -1,6 +1,7 @@
 import 'package:froggy_soft/app/pages/auth/login_page.dart';
 import 'package:froggy_soft/app/pages/count/count_page.dart';
 import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
+import 'package:froggy_soft/domain/logics/alegra/impl/items_logic_impl.dart';
 import 'package:froggy_soft/domain/providers/localDb/database_notifier_provider.dart';
 import 'package:froggy_soft/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -87,12 +88,14 @@ class MainPageState extends ConsumerState<MainPage> {
               splashColor: Colors.red,
               padding: EdgeInsetsGeometry.only(right: 30),
               icon: isLoading ? CircularProgressIndicator() : Icon(Icons.sync),
-              onPressed: (){
+              onPressed: () async {
                 logger.i("Syncing");
                 showWarningToast("Inicio de sincronizacion de maestro");
                 setState(() {
                   isLoading = true;
                 });
+                ItemsLogicImpl service = ItemsLogicImpl();
+                await service.populateLocalDataBase();
                 Future.delayed(Duration(seconds: 5), (){
                   setState(() {
                     isLoading = false;

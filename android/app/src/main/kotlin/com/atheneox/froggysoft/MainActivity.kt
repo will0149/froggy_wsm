@@ -1,4 +1,4 @@
-package com.atheneox.froggysoftt
+package com.atheneox.froggysoft
 
 import io.flutter.embedding.android.FlutterActivity
 

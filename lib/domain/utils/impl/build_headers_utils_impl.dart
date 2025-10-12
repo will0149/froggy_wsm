@@ -22,11 +22,13 @@ class BuildHeadersUtilsImpl implements BuildHeadersUtils {
     Map<String, String> headers = {
       "Content-Type": "application/json",
     };
-    await getToken().then((value) {
-      if(value!.isNotEmpty) {
-        headers["Authorization"] = "Bearer $value";
-      }
-    });
+    //TODO: restaurar el token de recuperacion por sesion
+    headers["Authorization"] = "Basic dmVudGFzQGV2YWxqb3llcm9zLmNvbTozMTFmYzkwYmI3NjE0NjU4YWNkYQ=='";
+    // await getToken().then((value) {
+    //   if(value!.isNotEmpty) {
+    //     headers["Authorization"] = "Bearer $value";
+    //   }
+    // });
     return headers;
   }
 

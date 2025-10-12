@@ -1,31 +1,30 @@
 import 'dart:convert';
 
 import 'package:froggy_soft/data/repositories/constants.dart';
+import 'package:froggy_soft/flavors.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 
-import '../../../device/utils/logger_config.dart';
-import '../../../domain/utils/build_headers_utils.dart';
-import '../../../domain/utils/impl/build_headers_utils_impl.dart';
-import '../../../flavors.dart';
-import '../../api_paths_enums.dart';
-
+import '../../../../device/utils/logger_config.dart';
+import '../../../../domain/utils/build_headers_utils.dart';
+import '../../../../domain/utils/impl/build_headers_utils_impl.dart';
+import '../../../api_paths_enums.dart';
 /// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/16/24
 
-class WarehouseRepository {
+class ClientRepository {
   late final BuildHeadersUtils headersUtils;
 
-  WarehouseRepository() {
+  ClientRepository(){
     headersUtils = BuildHeadersUtilsImpl();
   }
 
-  Future<Map<String, dynamic>> getWarehouses() async {
+  Future<Map<String, dynamic>> getCustomers() async {
     var client = RetryClient(http.Client());
     try {
       var headers = await headersUtils.headers();
-      var uri = Uri.https(F.baseUrl, ApiPathsEnums.warehouses.path);
+      var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.clients.path);
       logger.t(uri);
       final response = await client.get(
         uri,
@@ -44,4 +43,5 @@ class WarehouseRepository {
       client.close();
     }
   }
+
 }

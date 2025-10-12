@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/entities/base_response_entity.dart';
 import '../../../data/entities/stocks/body_stocks_entity.dart';
 import '../../../data/entities/stocks/stock_list_entity.dart';
-import '../../../data/repositories/stocks/stocks_repository.dart';
+import '../../../data/repositories/apis/stocks/stocks_repository.dart';
 import '../../../device/utils/logger_config.dart';
 import '../../dtos/series_dto.dart';
 

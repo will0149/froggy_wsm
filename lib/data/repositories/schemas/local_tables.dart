@@ -53,7 +53,8 @@ CREATE TABLE assets(
 const String itemsMasterTable = '''
 CREATE TABLE items(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        sku TEXT,
+        name TEXT,
+        reference TEXT,
         quantity INTEGER,
         qty_difference INTEGER,
         last_compare TEXT,

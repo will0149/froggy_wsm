@@ -6,10 +6,10 @@ import 'package:froggy_soft/flavors.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 
-import '../../../device/utils/logger_config.dart';
-import '../../../domain/dtos/auth/login_dto.dart';
-import '../../../domain/utils/build_headers_utils.dart';
-import '../../api_paths_enums.dart';
+import '../../../../device/utils/logger_config.dart';
+import '../../../../domain/dtos/auth/login_dto.dart';
+import '../../../../domain/utils/build_headers_utils.dart';
+import '../../../api_paths_enums.dart';
 
 /**
  * Made for froggysoft.

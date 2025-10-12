@@ -2,13 +2,13 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:froggy_soft/data/entities/status_entity.dart';
-import 'package:froggy_soft/data/repositories/warehouses/warehouse_repository.dart';
+import 'package:froggy_soft/data/repositories/apis/warehouses/warehouse_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../data/entities/base_response_entity.dart';
 import '../../../data/entities/warehouses/warehouse_entity.dart';
-import '../../../data/repositories/localdb/local_warehouse_repository.dart';
+import '../../../data/repositories/localdb/custom/local_warehouse_repository.dart';
 import '../../../device/utils/logger_config.dart';
 
 /// Made for froggysoft.

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/entities/base_data_entity.dart';
 import '../../data/entities/base_response_entity.dart';
-import '../../data/entities/status_entity.dart';
-import '../../data/repositories/entry/operation_repository.dart';
+import '../../data/repositories/apis/entry/operation_repository.dart';
 import '../../device/utils/logger_config.dart';
 import '../dtos/relocation_dto.dart';
 
