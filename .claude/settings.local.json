@@ -3,7 +3,9 @@
     "allow": [
       "Bash(cp:*)",
       "Bash(rm:*)",
-      "Bash(flutter analyze:*)"
+      "Bash(flutter analyze:*)",
+      "Bash(sqlite3:*)",
+      "Bash(dart run build_runner:*)"
     ],
     "deny": []
   }
