@@ -1,20 +1,14 @@
-import 'dart:collection';
-
-import 'package:froggy_soft/app/pages/count/count_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
 import 'package:froggy_soft/app/pages/outgoing/outgoing_page.dart';
 import 'package:froggy_soft/app/pages/relocation/relocation_page.dart';
+import 'package:froggy_soft/app/pages/warehouse/alegra_inventory_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/search_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/stocks_table_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../device/utils/is_first_run.dart';
 import '../../device/utils/logger_config.dart';
-import '../../domain/dtos/series_dto.dart';
-import '../../domain/utils/impl/build_headers_utils_impl.dart';
 import 'auth/login_page.dart';
 import 'count/alegra/alegra_count_page.dart';
 import 'entry/entry_page.dart';
@@ -49,70 +43,77 @@ final routerProvider = Provider<GoRouter>((ref) {
           builder: (BuildContext context, GoRouterState state) {
             return const MainPage();
           },
-            routes: <RouteBase>[
-              GoRoute(
-                name: EntryPage.routeName,
-                path: EntryPage.routeLocation,
-                builder: (BuildContext context, GoRouterState state) {
-                  return const EntryPage();
-                },
-              ),
-              GoRoute(
-                name: RelocationPage.routeName,
-                path: RelocationPage.routeLocation,
-                builder: (BuildContext context, GoRouterState state) {
-                  return const RelocationPage();
-                },
-              ),
-              // GoRoute(
-              //   name: CountPage.routeName,
-              //   path: CountPage.routeLocation,
-              //   builder: (BuildContext context, GoRouterState state) {
-              //     return const CountPage();
-              //   },
-              // ),
-              GoRoute(
-                name: AlegraCountPage.routeName,
-                path: AlegraCountPage.routeLocation,
-                builder: (BuildContext context, GoRouterState state) {
-                  return const AlegraCountPage();
-                },
-              ),
-              GoRoute(
-                name: OutgoingPage.routeName,
-                path: OutgoingPage.routeLocation,
-                builder: (BuildContext context, GoRouterState state) {
-                  return const OutgoingPage();
-                },
-              ),
-              GoRoute(
-                name: SettingsPage.routeName,
-                path: SettingsPage.routeLocation,
-                builder: (BuildContext context, GoRouterState state) {
-                  return const SettingsPage();
-                },
-              ),
-              GoRoute(
-                name: SearchPage.routeName,
-                path: SearchPage.routeLocation,
-                builder: (BuildContext context, GoRouterState state) {
-                  return const SearchPage();
-                },
-                routes: <RouteBase>[
-                  GoRoute(
-                    name: StocksTablePage.routeName,
-                    path: StocksTablePage.routeLocation,
-                    builder: (BuildContext context, GoRouterState state) {
-                      Map<String, String>? request = state.extra as Map<String, String>?;
-                      return StocksTablePage(
-                        request: request,
-                      );
-                    },
-
-              )
-                ]
-              ),
-            ]
+          routes: <RouteBase>[
+            GoRoute(
+              name: EntryPage.routeName,
+              path: EntryPage.routeLocation,
+              builder: (BuildContext context, GoRouterState state) {
+                return const EntryPage();
+              },
+            ),
+            GoRoute(
+              name: RelocationPage.routeName,
+              path: RelocationPage.routeLocation,
+              builder: (BuildContext context, GoRouterState state) {
+                return const RelocationPage();
+              },
+            ),
+            // GoRoute(
+            //   name: CountPage.routeName,
+            //   path: CountPage.routeLocation,
+            //   builder: (BuildContext context, GoRouterState state) {
+            //     return const CountPage();
+            //   },
+            // ),
+            GoRoute(
+              name: AlegraCountPage.routeName,
+              path: AlegraCountPage.routeLocation,
+              builder: (BuildContext context, GoRouterState state) {
+                return const AlegraCountPage();
+              },
+            ),
+            GoRoute(
+              name: OutgoingPage.routeName,
+              path: OutgoingPage.routeLocation,
+              builder: (BuildContext context, GoRouterState state) {
+                return const OutgoingPage();
+              },
+            ),
+            GoRoute(
+              name: SettingsPage.routeName,
+              path: SettingsPage.routeLocation,
+              builder: (BuildContext context, GoRouterState state) {
+                return const SettingsPage();
+              },
+            ),
+            GoRoute(
+              name: AlegraInventoryPage.routeName,
+              path: AlegraInventoryPage.routeLocation,
+              builder: (BuildContext context, GoRouterState state) {
+                return const AlegraInventoryPage();
+              },
+            ),
+            GoRoute(
+              name: SearchPage.routeName,
+              path: SearchPage.routeLocation,
+              builder: (BuildContext context, GoRouterState state) {
+                return const SearchPage();
+              },
+              routes: <RouteBase>[
+                GoRoute(
+                  name: StocksTablePage.routeName,
+                  path: StocksTablePage.routeLocation,
+                  builder: (BuildContext context, GoRouterState state) {
+                    Map<String, String>? request =
+                        state.extra as Map<String, String>?;
+                    return StocksTablePage(
+                      request: request,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ],
       redirect: (context, state) async {

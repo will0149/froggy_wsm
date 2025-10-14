@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/pages/auth/login_page.dart';
 import 'package:froggy_soft/app/pages/count/count_page.dart';
 import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
+import 'package:froggy_soft/app/pages/warehouse/alegra_inventory_page.dart';
+import 'package:froggy_soft/app/pages/warehouse/search_page.dart';
 import 'package:froggy_soft/domain/logics/alegra/impl/items_logic_impl.dart';
 import 'package:froggy_soft/domain/providers/localDb/database_notifier_provider.dart';
 import 'package:froggy_soft/generated/l10n.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../device/utils/logger_config.dart';
@@ -78,9 +80,10 @@ class MainPageState extends ConsumerState<MainPage> {
         appBar: AppBar(
           backgroundColor: Colors.deepOrangeAccent,
           title: Text("Recuerda Sincronizar! ->",
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w700
-              )),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(fontWeight: FontWeight.w700)),
           centerTitle: true,
           actions: [
             IconButton(
@@ -96,7 +99,7 @@ class MainPageState extends ConsumerState<MainPage> {
                 });
                 ItemsLogicImpl service = ItemsLogicImpl();
                 await service.populateLocalDataBase();
-                Future.delayed(Duration(seconds: 5), (){
+                Future.delayed(Duration(seconds: 5), () {
                   setState(() {
                     isLoading = false;
                   });
@@ -185,6 +188,12 @@ class MainPageState extends ConsumerState<MainPage> {
                         //       context.pushNamed(SearchPage.routeName),
                         // ),
                         SectionButton(
+                          imagePath: "assets/inventory.png",
+                          title: 'Inventario',
+                          onPressed: () =>
+                              context.pushNamed(AlegraInventoryPage.routeName),
+                        ),
+                        SectionButton(
                           imagePath: "assets/maintainance/settings.png",
                           title: S.of(context).settingsMenuName,
                           onPressed: () =>
@@ -202,6 +211,19 @@ class MainPageState extends ConsumerState<MainPage> {
                       ],
                     ),
                   ),
+            GestureDetector(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  S.of(context).devStudio,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: Colors.black87, fontFamily: "GothicA1-Bold"),
+                ),
+              ),
+              onTap: () {
+                // context.goNamed(WelcomeSlidePage.routeName);
+              },
+            ),
           ],
         ),
       ),
