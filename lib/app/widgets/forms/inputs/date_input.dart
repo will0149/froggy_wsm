@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class DateInputState extends ConsumerState<DateInput> {
       DateTime.now().add(const Duration(days: 20)),
       mode: DateTimeFieldPickerMode.date,
       onChanged: (DateTime? value) {
-        logger.i("selected date $value");
+        if (kDebugMode) logger.i("selected date $value");
         setState(() {
           widget.onSelectParam(value!);
         });

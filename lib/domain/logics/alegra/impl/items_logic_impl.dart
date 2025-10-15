@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/entities/alegra/items_list_response_entity.dart';
 import 'package:froggy_soft/data/entities/base_response_entity.dart';
 import 'package:froggy_soft/data/entities/status_entity.dart';
@@ -37,7 +37,7 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
     try {
       var queryParams = {"metadata": 'true', "start": '$startIndex'};
       var mapResponse = await invoke(queryParams);
-      logger.log(
+      if (kDebugMode) logger.log(
           Level.debug, "Status code on populate ${mapResponse.status?.code}");
       if(mapResponse.status?.code == 200){
         var data = mapResponse.body?.data;
@@ -60,8 +60,8 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
         if(startIndex > total || counter > (total/30)){
           break;
         }
-        logger.w("start from $startIndex");
-        logger.w("fetch counts $counter");
+        if (kDebugMode) logger.w("start from $startIndex");
+        if (kDebugMode) logger.w("fetch counts $counter");
         if(cycleResponse.status?.code == 200){
           var data = cycleResponse.body?.data;
           if(data != null && data.isNotEmpty){
@@ -71,7 +71,7 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
       } while (code == 200);
       notifyListeners();
     } on Exception catch (e) {
-      logger.e(e);
+      if (kDebugMode) logger.e(e);
       notifyListeners();
     }
   }
@@ -83,7 +83,7 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
     var itemsListResponse = ItemsListResponseEntity();
     try {
       serviceResponse = await restService.fetchItems(queryParameters);
-      logger.i("From API serviceResponse ${serviceResponse["body"]["data"]}");
+      if (kDebugMode) logger.i("From API serviceResponse ${serviceResponse["body"]["data"]}");
       if (serviceResponse["body"]["data"]?.isEmpty) {
         responseEntity.status = StatusEntity();
         responseEntity.status?.code = 204;
@@ -103,12 +103,12 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
             StatusEntity.fromJson(serviceResponse['status']);
       }
     } on Exception catch (e) {
-      logger.e(e.toString());
+      if (kDebugMode) logger.e(e.toString());
       responseEntity.status = StatusEntity();
       responseEntity.status?.code = 500;
       responseEntity.status?.msg = "Internal Error";
     }
-    logger.i("mapResponse ${responseEntity.toJson((json) => json.toJson())}");
+    if (kDebugMode) logger.i("mapResponse ${responseEntity.toJson((json) => json.toJson())}");
     return responseEntity;
   }
 
@@ -128,9 +128,9 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
         };
         await repository.insert(object);
       }
-      logger.i("Successfully populated ${data.length} customers in background");
+      if (kDebugMode) logger.i("Successfully populated ${data.length} customers in background");
     } catch (e) {
-      logger.e("Error populating customer table: $e");
+      if (kDebugMode) logger.e("Error populating customer table: $e");
     }
     // });
   }

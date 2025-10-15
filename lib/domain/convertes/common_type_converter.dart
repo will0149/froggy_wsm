@@ -14,8 +14,8 @@ class CommonTypeConverter
 
   @override
   CommonType fromJson(Map<String, dynamic> json) {
-    // logger.i("*****************");
-    // logger.w(json);
+    // if (kDebugMode) logger.i("*****************");
+    // if (kDebugMode) logger.w(json);
     int id = 0;
     String name = "", description = "";
     if (json['id'] != null) {

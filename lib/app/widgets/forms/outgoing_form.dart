@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -56,7 +57,7 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
   }
 
   void validateRequest() {
-    logger.d("validating seriesLength $seriesLength");
+    if (kDebugMode) logger.d("validating seriesLength $seriesLength");
     if (isSeries) {
       if (int.parse(seriesLength) != _seriesList.length) {
         setState(() {
@@ -129,7 +130,7 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
             title: "Cantidad de series",
             // enable: isSeries,
             onEditingComplete: (v) {
-              logger.f("Tamaño de series $v");
+              if (kDebugMode) logger.f("Tamaño de series $v");
               setState(() {
                 seriesLength = v.toInt().toString();
               });
@@ -160,7 +161,7 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
           warehouseData.when(
             data: (data) {
               // readState.setComponentsLoading(false);
-              logger.i("incoming data ${data.toString()}");
+              if (kDebugMode) logger.i("incoming data ${data.toString()}");
               return WarehousesDropdownButton(
                 key: const Key("1"),
                 onSelectParam: (value) {
@@ -174,7 +175,7 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
               );
             },
             error: (err, s) {
-              logger.e("error $s");
+              if (kDebugMode) logger.e("error $s");
               return Text(err.toString());
             },
             loading: () => const  LinearProgressIndicator(),
@@ -237,15 +238,15 @@ class OutgoingFormState extends ConsumerState<OutgoingForm> {
                             showErrorToast(
                                 "Ha fallado el envio con status ${value?.status?.msg}");
                           }
-                          logger.i("Adding Outbound");
+                          if (kDebugMode) logger.i("Adding Outbound");
                         }).whenComplete(() {
-                          logger.i("finished Outbound");
+                          if (kDebugMode) logger.i("finished Outbound");
                           setState(() {
                             isLoading = false;
                           });
                         }).catchError((error, stacktrace) {
-                          logger.e(error);
-                          logger.e(stacktrace.toString());
+                          if (kDebugMode) logger.e(error);
+                          if (kDebugMode) logger.e(stacktrace.toString());
                           setState(() {
                             isLoading = false;
                           });

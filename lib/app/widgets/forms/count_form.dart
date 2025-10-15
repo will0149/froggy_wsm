@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -55,7 +56,7 @@ class CountFormState extends ConsumerState<CountForm> {
   }
 
   void validateRequest() {
-    logger.d("validating seriesLength $seriesLength");
+    if (kDebugMode) logger.d("validating seriesLength $seriesLength");
     if (isSeries) {
       if (int.parse(seriesLength) != _seriesList.length) {
         setState(() {
@@ -130,7 +131,7 @@ class CountFormState extends ConsumerState<CountForm> {
                 title: "Cantidad de series",
                 // enable: isSeries,
                 onEditingComplete: (v) {
-                  logger.f("Tamaño de series $v");
+                  if (kDebugMode) logger.f("Tamaño de series $v");
                   setState(() {
                     seriesLength = v.toInt().toString();
                   });
@@ -157,7 +158,7 @@ class CountFormState extends ConsumerState<CountForm> {
               warehouseData.when(
                 data: (data) {
                   // readState.setComponentsLoading(false);
-                  logger.i("incoming data ${data.toString()}");
+                  if (kDebugMode) logger.i("incoming data ${data.toString()}");
                   return WarehousesDropdownButton(
                     key: const Key("1"),
                     onSelectParam: (value) {
@@ -171,7 +172,7 @@ class CountFormState extends ConsumerState<CountForm> {
                   );
                 },
                 error: (err, s) {
-                  logger.e("error $s");
+                  if (kDebugMode) logger.e("error $s");
                   return Text(err.toString());
                 },
                 loading: () => const  LinearProgressIndicator(),
@@ -212,12 +213,12 @@ class CountFormState extends ConsumerState<CountForm> {
                                       "Ha fallado el envio con status ");
                                 }
                               }).whenComplete(() {
-                                logger.i("finished Count");
+                                if (kDebugMode) logger.i("finished Count");
                                 setState(() {
                                   isLoading = false;
                                 });
                               }).catchError((error) {
-                                logger.e("bruja ${error}");
+                                if (kDebugMode) logger.e("bruja ${error}");
                                 setState(() {
                                   isLoading = false;
                                 });
@@ -263,7 +264,7 @@ class CountFormState extends ConsumerState<CountForm> {
                             if (_valid) {
                               tallyCount.countValidate(data).then((value) {
                                 var code = value?.status?.code;
-                                logger.i("code in form $code");
+                                if (kDebugMode) logger.i("code in form $code");
                                 if (code! >= 200 && code < 300) {
                                   showSuccessToast("Datos validados");
                                   setState(() {
@@ -275,12 +276,12 @@ class CountFormState extends ConsumerState<CountForm> {
                                       "Ha fallado el envio con status ${value?.status?.msg}");
                                 }
                               }).whenComplete(() {
-                                logger.i("finished Count");
+                                if (kDebugMode) logger.i("finished Count");
                                 setState(() {
                                   isLoading = false;
                                 });
                               }).catchError((error) {
-                                logger.e("bruja ${error.toString()}");
+                                if (kDebugMode) logger.e("bruja ${error.toString()}");
                                 setState(() {
                                   isLoading = false;
                                 });

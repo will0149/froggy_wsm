@@ -138,7 +138,7 @@ class SearchTableState extends ConsumerState<SearchPage> {
                                     searchFilter = filters.first;
                                   });
                                 }
-                                // logger.i("form valid $isValid");
+                                // if (kDebugMode) logger.i("form valid $isValid");
                                 if (isValid &&
                                     searchValueController.text.isNotEmpty) {
                                   Map<String, String>? request = {

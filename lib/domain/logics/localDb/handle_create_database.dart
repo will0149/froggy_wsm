@@ -26,16 +26,16 @@ class HandleCreateDatabase extends ChangeNotifier {
       await isCreatedDone().then((value) {
         // ✅ Do something when data arrives
         Future.microtask(() {
-          logger.d("valor $value");
+          if (kDebugMode) logger.d("valor $value");
           bool check = value == null ? false : true;
           if(!check) {
-            logger.d("1");
+            if (kDebugMode) logger.d("1");
             _dbHelper.database;
             _isReady = true;
             _isFirstLoad = true;
             storage.write(key: 'database_created', value: "true");
           }
-          logger.d("2");
+          if (kDebugMode) logger.d("2");
           _isReady = true;
           _isFirstLoad = false;
         });
@@ -43,15 +43,15 @@ class HandleCreateDatabase extends ChangeNotifier {
         notifyListeners();
       });
     }  on Exception catch (e) {
-      logger.d("3");
-      logger.e(e.toString());
+      if (kDebugMode) logger.d("3");
+      if (kDebugMode) logger.e(e.toString());
     }
-    logger.d("4");
+    if (kDebugMode) logger.d("4");
   }
 
   Future<String?> isCreatedDone() async {
     final isCreated = await storage.read(key: 'database_created');
-    logger.d("isCreated $isCreated");
+    if (kDebugMode) logger.d("isCreated $isCreated");
     return isCreated;
   }
 }

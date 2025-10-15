@@ -1,4 +1,5 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../device/utils/logger_config.dart';
@@ -58,7 +59,7 @@ class _KillPopScopeState extends State<KillPopScope> {
     return PopScope(
       canPop: false,
       onPopInvoked: (isPop) async {
-        logger.i("isPop $isPop");
+        if (kDebugMode) logger.i("isPop $isPop");
         if (isPop) {
           return;
         }

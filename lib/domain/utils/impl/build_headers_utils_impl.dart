@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../app/widgets/toasts/build_toasts.dart';
@@ -47,7 +48,7 @@ class BuildHeadersUtilsImpl implements BuildHeadersUtils {
 
   @override
   void saveTokenInStorage(String? token) async {
-    logger.i(token);
+    if (kDebugMode) logger.i(token);
     await storage.write(key: 'access_token', value: token);
     await storage.write(key: 'expire_time', value: '${DateTime.now()}');
     //
@@ -68,7 +69,7 @@ class BuildHeadersUtilsImpl implements BuildHeadersUtils {
         dropTemporalMemory();
       }
     }
-    logger.i('valid session $valid');
+    if (kDebugMode) logger.i('valid session $valid');
     return valid;
   }
 
@@ -78,9 +79,9 @@ class BuildHeadersUtilsImpl implements BuildHeadersUtils {
       try {
         _databaseHelper.clearDatabase();
         storage.deleteAll();
-        logger.w("Limipieza de memoria exitosa!");
+        if (kDebugMode) logger.w("Limipieza de memoria exitosa!");
       } catch (e) {
-        logger.e("Error borrando la memoria: $e");
+        if (kDebugMode) logger.e("Error borrando la memoria: $e");
       }
     });
   }

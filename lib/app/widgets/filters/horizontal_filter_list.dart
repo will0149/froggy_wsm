@@ -87,7 +87,7 @@ class HorizontalFilterListState extends ConsumerState<HorizontalFilterList> {
                 selectedIndex = titles.indexOf(item);
               });
               widget.onTextChange(item);
-              // logger.w("selected index $selectedIndex");
+              // if (kDebugMode) logger.w("selected index $selectedIndex");
             },
             child: _buildCategoryListItemIndicator(
               item,

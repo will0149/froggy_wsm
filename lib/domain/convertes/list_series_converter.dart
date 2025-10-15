@@ -15,8 +15,8 @@ class ListSeriesConverter implements JsonConverter<SeriesSeriesDto, Map<String, 
 
   @override
   SeriesSeriesDto fromJson(Map<String, dynamic> json) {
-    // logger.i("*****************");
-    // logger.w(json);
+    // if (kDebugMode) logger.i("*****************");
+    // if (kDebugMode) logger.w(json);
     List<String> series = [];
     json['series'].map((i) {
       series.add(i);

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/repositories/constants.dart';
 import 'package:froggy_soft/flavors.dart';
 import 'package:http/http.dart' as http;
@@ -25,7 +26,7 @@ class ClientRepository {
     try {
       var headers = await headersUtils.headers();
       var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.clients.path);
-      logger.t(uri);
+      if (kDebugMode) logger.t(uri);
       final response = await client.get(
         uri,
         headers: headers
@@ -37,7 +38,7 @@ class ClientRepository {
         },
       );
       final json = jsonDecode(response.body);
-      logger.w(json);
+      if (kDebugMode) logger.w(json);
       return json;
     }finally {
       client.close();

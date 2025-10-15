@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:flutter/material.dart';
 
@@ -56,7 +57,7 @@ class _ExitPopScopeState extends State<ExitPopScope> {
     return PopScope(
       canPop: false,
       onPopInvoked: (isPop) async {
-        logger.i("isPop $isPop");
+        if (kDebugMode) logger.i("isPop $isPop");
         if (isPop) {
           return;
         }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -108,7 +109,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
                             password: pwdInputController.text);
                         authHandlerP.signIn(data).then((value) {
                           var code = value?.status?.code;
-                          logger.i("code in form $code");
+                          if (kDebugMode) logger.i("code in form $code");
                           if (code! >= 200 && code < 300) {
                             showSuccessToast("Login Success!!");
                             setState(() {
@@ -120,12 +121,12 @@ class LoginFormState extends ConsumerState<LoginForm> {
                                 "Datos Inválidos ${value?.status?.msg}");
                           }
                         }).whenComplete(() {
-                          logger.i("finished sign in");
+                          if (kDebugMode) logger.i("finished sign in");
                           setState(() {
                             isLoading = false;
                           });
                         }).catchError((error) {
-                          logger.e("bruja ${error.toString()}");
+                          if (kDebugMode) logger.e("bruja ${error.toString()}");
                           setState(() {
                             isLoading = false;
                           });

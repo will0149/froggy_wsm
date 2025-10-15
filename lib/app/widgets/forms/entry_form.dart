@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/app/pages/entry/entry_page.dart';
 import 'package:froggy_soft/domain/dtos/inbound_dto.dart';
 import 'package:froggy_soft/domain/dtos/series_dto.dart';
@@ -160,7 +161,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                 title: S.of(context).countSeriesInput,
                 // enable: isSeries,
                 onEditingComplete: (v) {
-                  logger.f("Tamaño de series $v");
+                  if (kDebugMode) logger.f("Tamaño de series $v");
                   setState(() {
                     seriesLength = v.toInt().toString();
                   });
@@ -180,7 +181,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
               customersData.when(
                   data: (data) {
                     // readState.setComponentsLoading(false);
-                    logger.i("incoming data ${data.toString()}");
+                    if (kDebugMode) logger.i("incoming data ${data.toString()}");
                     return ClientsDropdownButton(
                       key: const Key("2"),
                       onSelectParam: (value) {
@@ -194,14 +195,14 @@ class EntryFormState extends ConsumerState<EntryForm> {
                     );
                   },
                   error: (err, s) {
-                    logger.e("error $s");
+                    if (kDebugMode) logger.e("error $s");
                     return Text(err.toString());
                   },
                   loading: () => const LinearProgressIndicator()),
               warehouseData.when(
                 data: (data) {
                   // readState.setComponentsLoading(false);
-                  logger.i("incoming data ${data.toString()}");
+                  if (kDebugMode) logger.i("incoming data ${data.toString()}");
                   return WarehousesDropdownButton(
                     key: const Key("1"),
                     onSelectParam: (value) {
@@ -215,7 +216,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                   );
                 },
                 error: (err, s) {
-                  logger.e("error $s");
+                  if (kDebugMode) logger.e("error $s");
                   return Text(err.toString());
                 },
                 loading: () => const LinearProgressIndicator(),
@@ -331,7 +332,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                         isLoading = true;
                       });
                       validateRequest();
-                      logger.i("form valid $isValid");
+                      if (kDebugMode) logger.i("form valid $isValid");
                       if (isValid) {
                         if (seriesList.isNotEmpty) {
                           for (String v in seriesList) {
@@ -378,7 +379,7 @@ class EntryFormState extends ConsumerState<EntryForm> {
                                 "${S.of(context).failedToast} ${value?.status?.msg}");
                           }
                         }).whenComplete(() {
-                          logger.i("finished Entry");
+                          if (kDebugMode) logger.i("finished Entry");
                           setState(() {
                             isLoading = false;
                           });

@@ -28,7 +28,7 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
   @override
   Widget build(BuildContext context) {
     final itemsAsync = ref.watch(alegraItemsProvider);
-    final countAsync = ref.watch(alegraItemsCountProvider);
+    // final countAsync = ref.watch(alegraItemsCountProvider);
 
     return SafeScaffold(
       appBar: AppBar(

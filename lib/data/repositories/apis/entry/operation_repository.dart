@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/repositories/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
@@ -30,8 +31,8 @@ class OperationRepository {//TODO: separar logica para cada operacion
       var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.inbound.path);
-      logger.t(uri);
-      logger.i(request.toJson());
+      if (kDebugMode) logger.t(uri);
+      if (kDebugMode) logger.i(request.toJson());
       final response = await client.post(
         uri,
         body: bodyEncoded,
@@ -44,7 +45,7 @@ class OperationRepository {//TODO: separar logica para cada operacion
         },
       );
       final json = jsonDecode(response.body);
-      logger.w(json);
+      if (kDebugMode) logger.w(json);
       return json;
     }finally {
       client.close();
@@ -57,8 +58,8 @@ class OperationRepository {//TODO: separar logica para cada operacion
       var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.outgoing.path);
-      logger.t(uri);
-      logger.i(request.toJson());
+      if (kDebugMode) logger.t(uri);
+      if (kDebugMode) logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
         headers: headers,
       ).timeout(
@@ -69,7 +70,7 @@ class OperationRepository {//TODO: separar logica para cada operacion
         },
       );
       final json = jsonDecode(response.body);
-      logger.w(json);
+      if (kDebugMode) logger.w(json);
       return json;
     }finally {
       client.close();
@@ -83,8 +84,8 @@ class OperationRepository {//TODO: separar logica para cada operacion
       var bodyEncoded = jsonEncode(request);
       var uri =
           Uri.https(F.baseUrl, ApiPathsEnums.relocation.path);
-      logger.t(uri);
-      logger.i(request.toJson());
+      if (kDebugMode) logger.t(uri);
+      if (kDebugMode) logger.i(request.toJson());
       final response = await client.post(
         uri,
         body: bodyEncoded,
@@ -97,7 +98,7 @@ class OperationRepository {//TODO: separar logica para cada operacion
         },
       );
       final json = jsonDecode(response.body);
-      logger.w(json);
+      if (kDebugMode) logger.w(json);
       return json;
     } finally {
       client.close();
@@ -110,8 +111,8 @@ class OperationRepository {//TODO: separar logica para cada operacion
       var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.countValidate.path);
-      logger.t(uri);
-      logger.i(request.toJson());
+      if (kDebugMode) logger.t(uri);
+      if (kDebugMode) logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
         headers: headers,
       ).timeout(
@@ -122,7 +123,7 @@ class OperationRepository {//TODO: separar logica para cada operacion
         },
       );
       final json = jsonDecode(response.body);
-      logger.w(json);
+      if (kDebugMode) logger.w(json);
       return json;
     }finally {
       client.close();
@@ -135,8 +136,8 @@ class OperationRepository {//TODO: separar logica para cada operacion
       var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.count.path);
-      logger.t(uri);
-      logger.i(request.toJson());
+      if (kDebugMode) logger.t(uri);
+      if (kDebugMode) logger.i(request.toJson());
       final response = await client.post(uri, body: bodyEncoded,
         headers: headers,
       ).timeout(
@@ -147,7 +148,7 @@ class OperationRepository {//TODO: separar logica para cada operacion
         },
       );
       final json = jsonDecode(response.body);
-      logger.w(json);
+      if (kDebugMode) logger.w(json);
       return json;
     }finally {
       client.close();

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/entities/base_data_entity.dart';
@@ -33,11 +34,11 @@ class OutgoingLogic extends ChangeNotifier {
                 Object));
       notifyListeners();
     } on Exception catch(e){
-      logger.e(e.toString());
+      if (kDebugMode) logger.e(e.toString());
       notifyListeners();
       notifyListeners();
     }
-    logger.d("relocate responseEntity ${responseEntity?.status?.toJson()}");
+    if (kDebugMode) logger.d("relocate responseEntity ${responseEntity?.status?.toJson()}");
     return responseEntity;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/entities/base_response_entity.dart';
 import 'package:froggy_soft/data/entities/status_entity.dart';
 import 'package:froggy_soft/data/repositories/apis/clients/auth_repository.dart';
@@ -35,7 +36,7 @@ class AuthLogic extends ChangeNotifier {
     BaseResponseEntity<AuthResponseEntity>? responseEntity;
     try {
       result = await repository.signIn(request);
-      logger.w("result $result");
+      if (kDebugMode) logger.w("result $result");
       if (result.containsKey('code')) {
         code = result['code'];
       } else {
@@ -65,7 +66,7 @@ class AuthLogic extends ChangeNotifier {
       }
       notifyListeners();
     } on Exception catch (e) {
-      logger.e(e.toString());
+      if (kDebugMode) logger.e(e.toString());
       if (result.containsKey('code')) {
         var status = {'code': result['code'], 'msg': 'Algo fallo'};
         result.addAll(status);
@@ -75,7 +76,7 @@ class AuthLogic extends ChangeNotifier {
       }
       notifyListeners();
     }
-    logger.d("relocate responseEntity ${responseEntity?.status?.toJson()}");
+    if (kDebugMode) logger.d("relocate responseEntity ${responseEntity?.status?.toJson()}");
     return responseEntity;
   }
 
@@ -114,7 +115,7 @@ class AuthLogic extends ChangeNotifier {
       }
       notifyListeners();
     } on Exception catch (e) {
-      logger.e(e.toString());
+      if (kDebugMode) logger.e(e.toString());
       if (result.containsKey('code')) {
         var status = {'code': result['code'], 'msg': 'Algo fallo'};
         result.addAll(status);
@@ -124,7 +125,7 @@ class AuthLogic extends ChangeNotifier {
       }
       notifyListeners();
     }
-    logger.d("relocate responseEntity ${responseEntity?.status?.toJson()}");
+    if (kDebugMode) logger.d("relocate responseEntity ${responseEntity?.status?.toJson()}");
     return responseEntity;
   }
 

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/entities/base_response_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -47,8 +48,8 @@ class InboundLogicImpl extends ChangeNotifier implements InboundLogic {
                   json as Map<String, dynamic>,
                   (json) =>
                       EntryDataEntity.fromJson(json as Map<String, dynamic>)));
-      // logger.i("Response in logic");
-      // logger.i(
+      // if (kDebugMode) logger.i("Response in logic");
+      // if (kDebugMode) logger.i(
       //     responseEntity
       //     .toJson(
       //             (json) => json.toJson(
@@ -58,7 +59,7 @@ class InboundLogicImpl extends ChangeNotifier implements InboundLogic {
       // );
       notifyListeners();
     } on Exception catch (e) {
-      logger.e(e.toString());
+      if (kDebugMode) logger.e(e.toString());
       notifyListeners();
       return responseEntity;
     }

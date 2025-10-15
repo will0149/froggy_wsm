@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/repositories/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
@@ -26,7 +27,7 @@ class WarehouseRepository {
     try {
       var headers = await headersUtils.headers();
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.warehouses.path);
-      logger.t(uri);
+      if (kDebugMode) logger.t(uri);
       final response = await client.get(
         uri,
         headers: headers
@@ -38,7 +39,7 @@ class WarehouseRepository {
         },
       );
       final json = jsonDecode(response.body);
-      logger.w(json);
+      if (kDebugMode) logger.w(json);
       return json;
     }finally {
       client.close();

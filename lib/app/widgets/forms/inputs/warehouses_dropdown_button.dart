@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/entities/warehouses/warehouse_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,7 +54,7 @@ class ObjetDropdownButtonState extends ConsumerState<WarehousesDropdownButton> {
       icon: Icon(widget.icon),
       // alignment: AlignmentDirectional.center,
       onChanged: (newValue) {
-        logger.w("$newValue");
+        if (kDebugMode) logger.w("$newValue");
         widget.onSelectParam(newValue!);
         setState(() {
           selectedValue = newValue;

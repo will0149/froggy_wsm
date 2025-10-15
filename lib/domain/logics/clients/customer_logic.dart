@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/entities/clients/customer_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,12 +29,12 @@ class CustomerLogic extends ChangeNotifier {
     BaseResponseEntity<List<CustomerEntity>> responseEntity = BaseResponseEntity<List<CustomerEntity>>();
     try {
       var localData = await getLocalData();
-      logger.i("localData ${localData.status?.toJson()}");
+      if (kDebugMode) logger.i("localData ${localData.status?.toJson()}");
       if(localData.status?.code == 200){
-        logger.i("From storage");
+        if (kDebugMode) logger.i("From storage");
         return localData;
       }
-      logger.i("From API");
+      if (kDebugMode) logger.i("From API");
       serviceResponse = await repository.getCustomers();
       List<CustomerEntity> clients = [];
       if("${serviceResponse['status']['code']}" == "200"){
@@ -52,7 +53,7 @@ class CustomerLogic extends ChangeNotifier {
       }
       notifyListeners();
     } on Exception catch (e) {
-      logger.e(e.toString());
+      if (kDebugMode) logger.e(e.toString());
       responseEntity.status?.code = 500;
       responseEntity.status?.msg = "Internal Error";
       notifyListeners();
@@ -73,7 +74,7 @@ class CustomerLogic extends ChangeNotifier {
       response.body = customerEntities;
       response.status = StatusEntity(code: 200, msg: "Success");
     }
-    logger.i("getLocalData ${response.body?.map((json) => json.toJson())}");
+    if (kDebugMode) logger.i("getLocalData ${response.body?.map((json) => json.toJson())}");
     return response;
   }
 
@@ -83,9 +84,9 @@ class CustomerLogic extends ChangeNotifier {
         for (var value in data) {
           await localClientRepository.insert(value);
         }
-        logger.i("Successfully populated ${data.length} customers in background");
+        if (kDebugMode) logger.i("Successfully populated ${data.length} customers in background");
       } catch (e) {
-        logger.e("Error populating customer table: $e");
+        if (kDebugMode) logger.e("Error populating customer table: $e");
       }
     });
   }

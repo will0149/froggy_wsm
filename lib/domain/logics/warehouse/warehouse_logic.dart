@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/entities/status_entity.dart';
 import 'package:froggy_soft/data/repositories/apis/warehouses/warehouse_repository.dart';
 import 'package:flutter/material.dart';
@@ -32,12 +33,12 @@ class WarehouseLogic extends ChangeNotifier {
         BaseResponseEntity<List<WarehouseEntity>>();
     try {
       var localData = await getLocalData();
-      logger.i("localData ${localData.status?.toJson()}");
+      if (kDebugMode) logger.i("localData ${localData.status?.toJson()}");
       if(localData.status?.code == 200){
-        logger.i("From storage");
+        if (kDebugMode) logger.i("From storage");
         return localData;
       }
-      logger.i("From API");
+      if (kDebugMode) logger.i("From API");
       serviceResponse = await repository.getWarehouses();
       List<WarehouseEntity> warehouses = [];
       if ("${serviceResponse['status']['code']}" == "200") {
@@ -46,7 +47,7 @@ class WarehouseLogic extends ChangeNotifier {
         }).toList();
         responseEntity = BaseResponseEntity<List<WarehouseEntity>>.fromJson(
             serviceResponse, (json) => warehouses);
-        // logger.i("clients $responseEntity");
+        // if (kDebugMode) logger.i("clients $responseEntity");
 
         if (serviceResponse["body"].isEmpty) {
           responseEntity.status?.code = 404;
@@ -57,7 +58,7 @@ class WarehouseLogic extends ChangeNotifier {
 
       }
     } on Exception catch (e) {
-      logger.e(e.toString());
+      if (kDebugMode) logger.e(e.toString());
       responseEntity.status?.code = 500;
       responseEntity.status?.msg = "Internal Error";
       notifyListeners();
@@ -78,7 +79,7 @@ class WarehouseLogic extends ChangeNotifier {
       response.body = warehouseEntities;
       response.status = StatusEntity(code: 200, msg: "Success");
     }
-    logger.i("getLocalData ${response.body?.map((json) => json.toJson())}");
+    if (kDebugMode) logger.i("getLocalData ${response.body?.map((json) => json.toJson())}");
     return response;
   }
 
@@ -88,9 +89,9 @@ class WarehouseLogic extends ChangeNotifier {
         for (var value in data) {
           await localWarehouseRepository.insert(value);
         }
-        logger.i("Successfully populated ${data.length} warehouses in background");
+        if (kDebugMode) logger.i("Successfully populated ${data.length} warehouses in background");
       } catch (e) {
-        logger.e("Error populating warehouse table: $e");
+        if (kDebugMode) logger.e("Error populating warehouse table: $e");
       }
     });
   }

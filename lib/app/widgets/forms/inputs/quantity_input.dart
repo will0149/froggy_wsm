@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:input_quantity/input_quantity.dart';
@@ -51,7 +52,7 @@ class QuantityInputState extends ConsumerState<QuantityInput> {
             onQtyChanged: (val) {
               var castValue = double.parse(val.toString());
               int v = castValue.toInt();
-              logger.i("quantity value $val castValue $v");
+              if (kDebugMode) logger.i("quantity value $val castValue $v");
               widget.onEditingComplete(v);
             },
             isIntrinsicWidth: false,

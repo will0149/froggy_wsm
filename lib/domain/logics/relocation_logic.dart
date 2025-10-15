@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/entities/base_data_entity.dart';
@@ -32,7 +33,7 @@ class RelocationLogic extends ChangeNotifier {
                   (json) =>
               Object));
     } on Exception catch(e){
-      logger.e(e.toString());
+      if (kDebugMode) logger.e(e.toString());
       notifyListeners();
       return responseEntity;
     }

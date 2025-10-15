@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'logger_config.dart';
@@ -38,7 +39,7 @@ class IsFirstRun {
   /// while [IsFirstRun.isFirstCall()] returns true only on the first call after installing the app.
   Future<bool> isFirstRun() async {
     if (_isFirstRun != null) {
-      logger.i("Validating if its firs run $_isFirstRun");
+      if (kDebugMode) logger.i("Validating if its firs run $_isFirstRun");
       return _isFirstRun!;
     } else {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -50,7 +51,7 @@ class IsFirstRun {
       }
       await prefs.setBool(_firstRunSettingsKey, false);
       _isFirstRun ??= isFirstRun;
-      logger.i("Validating if its firs run $_isFirstRun");
+      if (kDebugMode) logger.i("Validating if its firs run $_isFirstRun");
       return isFirstRun;
     }
   }

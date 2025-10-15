@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/app/pages/relocation/relocation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -64,7 +65,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
   }
 
   void validateRequest() {
-    logger.d("validating seriesLength $seriesLength");
+    if (kDebugMode) logger.d("validating seriesLength $seriesLength");
     if (isSeries) {
       if (int.parse(seriesLength) != _seriesList.length) {
         setState(() {
@@ -144,7 +145,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                 QuantityInput(
                   title: S.of(context).countSeriesInput,
                   onEditingComplete: (v){
-                    logger.f("Tamaño de series $v");
+                    if (kDebugMode) logger.f("Tamaño de series $v");
                     setState(() {
                       seriesLength = v.toInt().toString();
                     });
@@ -194,7 +195,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                   );
                 },
                 error: (err, s) {
-                  logger.e("error $s");
+                  if (kDebugMode) logger.e("error $s");
                   return Text(err.toString());
                 },
                 loading: () => const  LinearProgressIndicator(),),
@@ -214,7 +215,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                 );
               },
               error: (err, s) {
-                logger.e("error $s");
+                if (kDebugMode) logger.e("error $s");
                 return Text(err.toString());
               },
               loading: () => const  LinearProgressIndicator(),),
@@ -262,7 +263,7 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                                 quantity: seriesLength,
                                 remarks: "qwe");
 
-                            logger.d(request.toJson());
+                            if (kDebugMode) logger.d(request.toJson());
                             relocateItems.relocate(request).then((value) {
                               var code = value?.status?.code;
                               if (code! >= 200 && code < 300) {
@@ -274,13 +275,13 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
                                     "Ha fallado el envio con status ${value?.status?.msg}");
                               }
                             }).whenComplete(() {
-                              logger.i("finished Count");
+                              if (kDebugMode) logger.i("finished Count");
                               setState(() {
                                 isLoading = false;
                               });
                             }).catchError((error, stacktrace) {
-                              logger.e(error);
-                              logger.e(stacktrace.toString());
+                              if (kDebugMode) logger.e(error);
+                              if (kDebugMode) logger.e(stacktrace.toString());
                               setState(() {
                                 isLoading = false;
                               });
@@ -304,18 +305,18 @@ class _RelocationFormState extends ConsumerState<RelocationForm> {
     bool warehouseValid = true;
 
     if(lpnFrom.isNotEmpty & lpnTo.isNotEmpty){
-      logger.d("lpnFrom $lpnFrom lpnTo $lpnTo");
+      if (kDebugMode) logger.d("lpnFrom $lpnFrom lpnTo $lpnTo");
       lpnValid = lpnFrom.compareTo(lpnTo) == -1;
     }
     if(locationFrom.isNotEmpty & locationTo.isNotEmpty){
-      logger.d("locationFrom $locationFrom locationTo $locationTo");
+      if (kDebugMode) logger.d("locationFrom $locationFrom locationTo $locationTo");
       locationValid = locationFrom.compareTo(locationTo) == -1;
     }
     if(warehouseFrom.isNotEmpty & warehouseTo.isNotEmpty){
-      logger.d("warehouseFrom $warehouseFrom warehouseTo $warehouseTo");
+      if (kDebugMode) logger.d("warehouseFrom $warehouseFrom warehouseTo $warehouseTo");
       warehouseValid = warehouseFrom.compareTo(warehouseTo) == -1;
     }
-    logger.i("lpnValid $lpnValid locationValid $locationValid warehouseValid $warehouseValid");
+    if (kDebugMode) logger.i("lpnValid $lpnValid locationValid $locationValid warehouseValid $warehouseValid");
     pass = (lpnValid == (locationValid == warehouseValid));
     return pass;
   }

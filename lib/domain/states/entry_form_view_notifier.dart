@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../device/utils/logger_config.dart';
@@ -100,7 +101,7 @@ class EntryFormViewNotifier extends AutoDisposeNotifier<EntryFormViewState> {
   }
 
   void setState() {
-    logger.d("current value valid ${state.isValid}");
+    if (kDebugMode) logger.d("current value valid ${state.isValid}");
     state = EntryFormViewState(
         selectedPerson: selectedPerson,
         selectedWarehouse: selectedWarehouse,

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
@@ -117,7 +118,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
       ],
       redirect: (context, state) async {
-        logger.w("matchedLocation ${state.matchedLocation}");
+        if (kDebugMode) logger.w("matchedLocation ${state.matchedLocation}");
         // var firstRun = IsFirstRun();
         // bool firstCall = await firstRun.isFirstRun();
         // final storageUtils = BuildHeadersUtilsImpl();
@@ -125,7 +126,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         // if (firstCall) {
         //   return LoginPage.routeLocation;
         // }
-        // logger.i('match location ${state.matchedLocation}');
+        // if (kDebugMode) logger.i('match location ${state.matchedLocation}');
         // if(hasStorage && state.matchedLocation == LoginPage.routeLocation){
         //   return MainPage.routeLocation;
         // }

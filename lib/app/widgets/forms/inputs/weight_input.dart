@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:input_quantity/input_quantity.dart';
@@ -50,7 +51,7 @@ class WeightInputState extends ConsumerState<WeightInput> {
             decimalPlaces: widget.decimalPlaces,
             onQtyChanged: (val) {
               var castValue = double.parse(val.toString());
-              logger.i("Weight value $val castValue $castValue");
+              if (kDebugMode) logger.i("Weight value $val castValue $castValue");
               widget.onEditingComplete(castValue);
             },
             isIntrinsicWidth: false,

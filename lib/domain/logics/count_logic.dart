@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/entities/base_data_entity.dart';
@@ -33,7 +34,7 @@ class CountLogic extends ChangeNotifier {
 
       notifyListeners();
     } on Exception catch (e) {
-      logger.e(e.toString());
+      if (kDebugMode) logger.e(e.toString());
       notifyListeners();
       return responseEntity;
     }
@@ -52,7 +53,7 @@ class CountLogic extends ChangeNotifier {
           (json) => BaseDataEntity<Object>.fromJson(
               json as Map<String, dynamic>, (json) => Object));
     } on Exception catch (e) {
-      logger.e(e.toString());
+      if (kDebugMode) logger.e(e.toString());
       notifyListeners();
       return responseEntity;
     }

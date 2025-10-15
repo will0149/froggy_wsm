@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/pages/auth/login_page.dart';
@@ -51,17 +52,17 @@ class MainPageState extends ConsumerState<MainPage> {
     final dbHandler = ref.read(databaseNotifierProvider);
     dbHandler.when(
       error: (err, s) {
-        logger.e("error $s");
+        if (kDebugMode) logger.e("error $s");
         // return Text(err.toString());
       },
       loading: () => setState(() {
         isLoading = true;
       }),
       data: (data) {
-        logger.i(
+        if (kDebugMode) logger.i(
             "data.isReady ${data.isReady} data.isFirstLoad ${data.isFirstLoad}");
         if (data.isReady && data.isFirstLoad) {
-          logger.i("successfully initialize");
+          if (kDebugMode) logger.i("successfully initialize");
           setState(() {
             isLoading = false;
           });
@@ -92,7 +93,7 @@ class MainPageState extends ConsumerState<MainPage> {
               padding: EdgeInsetsGeometry.only(right: 30),
               icon: isLoading ? CircularProgressIndicator() : Icon(Icons.sync),
               onPressed: () async {
-                logger.i("Syncing");
+                if (kDebugMode) logger.i("Syncing");
                 showWarningToast("Inicio de sincronizacion de maestro");
                 setState(() {
                   isLoading = true;
@@ -109,7 +110,7 @@ class MainPageState extends ConsumerState<MainPage> {
                   showSuccessToast("Registros Actualizados");
                 } catch (e) {
                   // Manejar errores
-                  logger.e("Error durante la sincronizacion: $e");
+                  if (kDebugMode) logger.e("Error durante la sincronizacion: $e");
                   setState(() {
                     isLoading = false;
                   });

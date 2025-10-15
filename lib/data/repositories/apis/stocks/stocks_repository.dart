@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/repositories/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
@@ -32,8 +33,8 @@ class StocksRepository {
       var headers = await headersUtils.headers();
       var bodyEncoded = jsonEncode(SeriesSeriesDto(series: series));
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.getStocksBySeries.path);
-      logger.t(uri);
-      logger.i(bodyEncoded);
+      if (kDebugMode) logger.t(uri);
+      if (kDebugMode) logger.i(bodyEncoded);
       response = await client.post(
         uri,
         headers: headers,
@@ -46,7 +47,7 @@ class StocksRepository {
         },
       );
       final json = jsonDecode(response.body);
-      logger.w(json);
+      if (kDebugMode) logger.w(json);
       return json;
     }catch(e){
       return response;
@@ -61,7 +62,7 @@ class StocksRepository {
     try {
       var headers = await headersUtils.headers();
       var uri = Uri.https(F.baseUrl, ApiPathsEnums.getStocksByCartonId.path, request);
-      logger.t(uri);
+      if (kDebugMode) logger.t(uri);
       response = await client.get(
           uri,
           headers: headers,
@@ -73,7 +74,7 @@ class StocksRepository {
         },
       );
       final json = jsonDecode(response.body);
-      logger.w(json);
+      if (kDebugMode) logger.w(json);
       return json;
     }catch(e){
       return response;

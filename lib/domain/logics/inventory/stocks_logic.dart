@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/entities/stocks/stock_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,7 +36,7 @@ class StocksLogic extends ChangeNotifier {
         }).toList();
         responseEntity = BaseResponseEntity<StockListEntity>.fromJson(
             serviceResponse, (json) => stocks);
-        logger.i("stocks $responseEntity");
+        if (kDebugMode) logger.i("stocks $responseEntity");
 
         if (serviceResponse["body"].isEmpty) {
           responseEntity.status?.code = 404;
@@ -44,13 +45,13 @@ class StocksLogic extends ChangeNotifier {
       }
       notifyListeners();
     } on Exception catch (e, stack_trace) {
-      logger.e(e.toString());
-      logger.e(stack_trace);
+      if (kDebugMode) logger.e(e.toString());
+      if (kDebugMode) logger.e(stack_trace);
       responseEntity.status?.code = 500;
       responseEntity.status?.msg = "Internal Error";
       notifyListeners();
     }
-    logger.i(serviceResponse);
+    if (kDebugMode) logger.i(serviceResponse);
     return responseEntity;
   }
 
@@ -61,7 +62,7 @@ class StocksLogic extends ChangeNotifier {
     try {
       serviceResponse = await repository.getStockByColumnName(request);
       if ("${serviceResponse['status']['code']}" == "200") {
-        // logger.i("serviceResponse $serviceResponse");
+        // if (kDebugMode) logger.i("serviceResponse $serviceResponse");
         if (serviceResponse["body"].isEmpty) {
           responseEntity.status?.code = 404;
           responseEntity.status?.msg = "No se han encontrado clientes";
@@ -75,17 +76,17 @@ class StocksLogic extends ChangeNotifier {
 
         responseEntity = BaseResponseEntity<List<StockEntity>>.fromJson(
             serviceResponse, (json) => stocks);
-        logger.i("responseEntity $responseEntity");
+        if (kDebugMode) logger.i("responseEntity $responseEntity");
       }
       notifyListeners();
     } on Exception catch (e, stack_trace) {
-      logger.e(e.toString());
-      logger.e(stack_trace);
+      if (kDebugMode) logger.e(e.toString());
+      if (kDebugMode) logger.e(stack_trace);
       responseEntity.status?.code = 500;
       responseEntity.status?.msg = "Internal Error";
       notifyListeners();
     }
-    // logger.i(serviceResponse);
+    // if (kDebugMode) logger.i(serviceResponse);
     return responseEntity;
   }
 }

@@ -60,7 +60,7 @@ class ObjetDropdownButtonState extends ConsumerState<ClientsDropdownButton> {
       },
       value: selectedValue,
       items: clients?.map((CustomerEntity value) {
-        // logger.i("${value.toJson()}");
+        // if (kDebugMode) logger.i("${value.toJson()}");
         return DropdownMenuItem(
           value: "${value.id}",
           child: Text(

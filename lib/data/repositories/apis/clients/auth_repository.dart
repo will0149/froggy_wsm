@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/repositories/constants.dart';
 import 'package:froggy_soft/domain/utils/impl/build_headers_utils_impl.dart';
 import 'package:froggy_soft/flavors.dart';
@@ -29,8 +30,8 @@ class AuthRepository {
     try {
       // var bodyEncoded = jsonEncode(request);
       // var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.signIn.path);
-      // logger.t("url $uri");
-      // logger.i(request.toJson());
+      // if (kDebugMode) logger.t("url $uri");
+      // if (kDebugMode) logger.i(request.toJson());
       // final response = await client.post(
       //   uri,
       //   body: bodyEncoded,
@@ -43,7 +44,7 @@ class AuthRepository {
       //   },
       // );
       // final json = jsonDecode(response.body);
-      // logger.w("response $json");
+      // if (kDebugMode) logger.w("response $json");
       // return json;
       final json = {
         "status": {
@@ -55,7 +56,7 @@ class AuthRepository {
           "refresh_token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1MDczNDA5NywiaWF0IjoxNzUwMTI5Mjk3LCJqdGkiOiIzZWE4ZGE0OGNkNDc0NzM5OTRmN2EwNzZhMzhiNzI4ZiIsInVzZXJfaWQiOjF9.df82c7P54XCwa19R3-yMIXmwMaIQvSMTYyxvt0WzwWmQyhC9GmEuj_5pi0tt5PqrwHg42wwes-MhHLoNGRN4hQ"
         }
       };
-      logger.w("response $json");
+      if (kDebugMode) logger.w("response $json");
       return Future.value(json);
     }finally {
       client.close();
@@ -67,7 +68,7 @@ class AuthRepository {
     try {
       var headers = await headersUtils.headers();
       var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.refreshToken.path);
-      logger.t(uri);
+      if (kDebugMode) logger.t(uri);
       final response = await client.post(
         uri,
         headers: headers,
@@ -79,7 +80,7 @@ class AuthRepository {
         },
       );
       final json = jsonDecode(response.body);
-      logger.w(json);
+      if (kDebugMode) logger.w(json);
       return json;
     }finally {
       client.close();
@@ -90,9 +91,9 @@ class AuthRepository {
     var client = RetryClient(http.Client());
     try {
       var headers = await headersUtils.headers();
-      logger.w('sesion headers $headers');
+      if (kDebugMode) logger.w('sesion headers $headers');
       var uri = Uri.https(F.baseUrl.toString(), ApiPathsEnums.logout.path);
-      logger.t(uri);
+      if (kDebugMode) logger.t(uri);
       final response = await client.post(
         uri,
         headers: headers,
@@ -104,7 +105,7 @@ class AuthRepository {
         },
       );
       final json = jsonDecode(response.body);
-      logger.w(json);
+      if (kDebugMode) logger.w(json);
       return json;
     }finally {
       client.close();

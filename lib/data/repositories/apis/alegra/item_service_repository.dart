@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/domain/utils/build_headers_utils.dart';
 import 'package:froggy_soft/domain/utils/impl/build_headers_utils_impl.dart';
 import 'package:http/http.dart' as http;
@@ -28,7 +29,7 @@ class ItemsServiceRepository {
       var headers = await headersUtils.headers();
       //TODO: desde el 591 hacia atras no tiene inventory availableQuantity
       var uri = Uri.https('api.alegra.com', '/api/v1/items', queryParameters);
-      logger.t("url api $uri");
+      if (kDebugMode) logger.t("url api $uri");
       final response = await httpClient.get(uri, headers: headers).timeout(
         const Duration(seconds: timeOutSecs),
         onTimeout: () {
@@ -41,7 +42,7 @@ class ItemsServiceRepository {
         },
       );
       final json = jsonDecode(response.body);
-      // logger.w(json);
+      // if (kDebugMode) logger.w(json);
       return {
         "body": json,
         "status": {"code": 200}
