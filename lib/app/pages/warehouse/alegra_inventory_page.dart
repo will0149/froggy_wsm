@@ -51,6 +51,7 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
           final totalPages = (items.length / _rowsPerPage).ceil();
 
           return Column(
+            spacing: 10,
             children: [
               Expanded(
                 child: RefreshIndicator(
@@ -68,10 +69,10 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
                             child: DataTable(
                               columns: const [
                                 DataColumn(label: Text('ID')),
-                                DataColumn(label: Text('Nombre')),
                                 DataColumn(label: Text('Referencia')),
                                 DataColumn(label: Text('Cantidad')),
                                 DataColumn(label: Text('Diferencia')),
+                                DataColumn(label: Text('Nombre')),
                                 DataColumn(label: Text('Última Comparación')),
                                 DataColumn(label: Text('Creado')),
                                 DataColumn(label: Text('Actualizado')),
@@ -80,11 +81,11 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
                                 return DataRow(
                                   cells: [
                                     DataCell(Text(item.id?.toString() ?? '-')),
-                                    DataCell(Text(item.name ?? '-')),
                                     DataCell(Text(item.reference ?? '-')),
                                     DataCell(Text(item.quantity?.toString() ?? '0')),
                                     DataCell(
                                         Text(item.qtyDifference?.toString() ?? '0')),
+                                    DataCell(Text(item.name ?? '-')),
                                     DataCell(Text(item.lastCompare ?? '-')),
                                     DataCell(Text(item.createdAt ?? '-')),
                                     DataCell(Text(item.updatedAt ?? '-')),
@@ -120,12 +121,10 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
                                 }
                               : null,
                         ),
-                        const SizedBox(width: 8),
                         Text(
                           'Mostrando ${startIndex + 1}-$endIndex de ${items.length}',
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
-                        const SizedBox(width: 8),
                         IconButton(
                           icon: const Icon(Icons.chevron_right),
                           onPressed: _currentPage < totalPages - 1
@@ -147,15 +146,14 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(
           child: Column(
+            spacing: 10,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(Icons.error_outline, size: 48, color: Colors.red),
-              const SizedBox(height: 16),
               Text(
                 'Error al cargar los datos',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              const SizedBox(height: 8),
               Text(
                 error.toString(),
                 style: Theme.of(context).textTheme.bodySmall,

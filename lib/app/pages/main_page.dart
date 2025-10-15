@@ -5,7 +5,7 @@ import 'package:froggy_soft/app/pages/count/count_page.dart';
 import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/alegra_inventory_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/search_page.dart';
-import 'package:froggy_soft/domain/logics/alegra/impl/items_logic_impl.dart';
+import 'package:froggy_soft/domain/providers/alegra/load_items_provider.dart';
 import 'package:froggy_soft/domain/providers/localDb/database_notifier_provider.dart';
 import 'package:froggy_soft/generated/l10n.dart';
 import 'package:go_router/go_router.dart';
@@ -97,14 +97,24 @@ class MainPageState extends ConsumerState<MainPage> {
                 setState(() {
                   isLoading = true;
                 });
-                ItemsLogicImpl service = ItemsLogicImpl();
-                await service.populateLocalDataBase();
-                Future.delayed(Duration(seconds: 5), () {
+
+                try {
+                  // Ejecutar el proceso de carga
+                  await ref.read(loadItemsProcessProvider.future);
+
+                  // Proceso completado exitosamente
                   setState(() {
                     isLoading = false;
                   });
                   showSuccessToast("Registros Actualizados");
-                });
+                } catch (e) {
+                  // Manejar errores
+                  logger.e("Error durante la sincronizacion: $e");
+                  setState(() {
+                    isLoading = false;
+                  });
+                  showErrorToast("Error al actualizar registros");
+                }
               },
             ),
           ],

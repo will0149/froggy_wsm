@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/data/entities/alegra/items_list_response_entity.dart';
 import 'package:froggy_soft/data/entities/base_response_entity.dart';
 import 'package:froggy_soft/data/entities/status_entity.dart';
@@ -16,7 +18,7 @@ import '../items_logic.dart';
  * Date: 10/11/25
  */
 
-class ItemsLogicImpl implements ItemsLogic {
+class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
   late final AlegraItemsRepository repository;
   late final ItemsServiceRepository restService;
 
@@ -27,29 +29,50 @@ class ItemsLogicImpl implements ItemsLogic {
 
   @override
   Future<void> populateLocalDataBase() async {
-    batchProcess();
+    await batchProcess();
   }
 
-  void batchProcess() async {
-    final int startIndex = 0;//1383;
+  Future<void> batchProcess() async {
+    int startIndex = 0; //1383;
     try {
       var queryParams = {"metadata": 'true', "start": '$startIndex'};
       var mapResponse = await invoke(queryParams);
       logger.log(
           Level.debug, "Status code on populate ${mapResponse.status?.code}");
-      if(mapResponse.status?.code == 200){ //TODO: reemplazar por el do while cuando se complete la funcionalidad
+      if(mapResponse.status?.code == 200){
         var data = mapResponse.body?.data;
         if(data != null && data.isNotEmpty){
-          populateTable(data);
+          await populateTable(data);
         }
       }
-      // int? code = 0;
-      // do {
-      //   var mapResponse = await invoke(queryParams);
-      //   code = mapResponse.status?.code;
-      // } while(mapResponse.status?.code == 200);
+      int? code = 0;
+      int counter = 0;
+      if(mapResponse.status?.code != 200){
+        return;
+      }
+      do {
+        var cycleResponse = await invoke(queryParams);
+        code = cycleResponse.status?.code;
+        int total = cycleResponse.body?.metadata?.total ?? 0;
+        counter++;
+        startIndex += 31;
+        queryParams['start'] = "$startIndex";
+        if(startIndex > total || counter > (total/30)){
+          break;
+        }
+        logger.w("start from $startIndex");
+        logger.w("fetch counts $counter");
+        if(cycleResponse.status?.code == 200){
+          var data = cycleResponse.body?.data;
+          if(data != null && data.isNotEmpty){
+            await populateTable(data);
+          }
+        }
+      } while (code == 200);
+      notifyListeners();
     } on Exception catch (e) {
-      throw UnimplementedError();
+      logger.e(e);
+      notifyListeners();
     }
   }
 
@@ -76,7 +99,8 @@ class ItemsLogicImpl implements ItemsLogic {
             MetadataEntity.fromJson(serviceResponse["body"]["metadata"]);
         itemsListResponse.data = items;
         responseEntity.body = itemsListResponse;
-        responseEntity.status = StatusEntity.fromJson(serviceResponse['status']);
+        responseEntity.status =
+            StatusEntity.fromJson(serviceResponse['status']);
       }
     } on Exception catch (e) {
       logger.e(e.toString());
@@ -88,7 +112,7 @@ class ItemsLogicImpl implements ItemsLogic {
     return responseEntity;
   }
 
-  void populateTable(List<ItemEntity> data) async {
+  Future<void> populateTable(List<ItemEntity> data) async {
     // Future.microtask(() async {
     try {
       for (ItemEntity item in data) {
@@ -110,6 +134,4 @@ class ItemsLogicImpl implements ItemsLogic {
     }
     // });
   }
-
-
 }
