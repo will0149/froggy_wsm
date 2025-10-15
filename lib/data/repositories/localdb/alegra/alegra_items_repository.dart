@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../configs/database_helper.dart';
@@ -23,7 +25,7 @@ class AlegraItemsRepository implements LocalDbRepository {
   @override
   Future<List<Map<String, dynamic>>> getAll() async {
     final db = await _dbHelper.database;
-    return await db.query(_tableName, orderBy: "name DESC");
+    return await db.query(_tableName, orderBy: "id ASC");
   }
 
   @override
@@ -45,6 +47,60 @@ class AlegraItemsRepository implements LocalDbRepository {
       where: 'sku = ? AND deleted = ?',
       whereArgs: [barcode, 0],
     );
+  }
+
+  /// Obtiene un item por su reference (SKU)
+  Future<Map<String, dynamic>?> getByReference(String reference) async {
+    final db = await _dbHelper.database;
+    final result = await db.query(
+      _tableName,
+      where: 'reference = ?',
+      whereArgs: [reference],
+      limit: 1,
+    );
+    return result.isNotEmpty ? result.first : null;
+  }
+
+  /// Actualiza o inserta un item basado en el reference (SKU)
+  /// Si el item existe, actualiza la cantidad y qty_difference
+  /// Si no existe, lo inserta como nuevo
+  Future<int> upsertByReference(String reference, int newQuantity) async {
+    final db = await _dbHelper.database;
+    final existing = await getByReference(reference);
+    if (kDebugMode) logger.w("Exist $existing");
+    if (existing != null) {
+      // El item existe, actualizar
+      final currentQuantity = existing['quantity'] as int? ?? 0;
+      final qtyDifference = currentQuantity - newQuantity;
+
+      return await db.update(
+        _tableName,
+        {
+          // 'quantity': newQuantity,
+          'qty_difference': qtyDifference,
+          'count_qty': newQuantity,
+          'last_compare': DateTime.now().toIso8601String(),
+          'updated_at': DateTime.now().toIso8601String(),
+        },
+        where: 'reference = ?',
+        whereArgs: [reference],
+      );
+    } else {
+      // El item no existe, insertar como nuevo
+      return await db.insert(
+        _tableName,
+        {
+          'name': 'Item $reference', // Nombre por defecto
+          'reference': reference,
+          'quantity': 0,
+          'qty_difference': 0, // La diferencia es la cantidad inicial
+          'last_compare': DateTime.now().toIso8601String(),
+          'created_at': DateTime.now().toIso8601String(),
+          'updated_at': DateTime.now().toIso8601String(),
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
   }
 
   @override

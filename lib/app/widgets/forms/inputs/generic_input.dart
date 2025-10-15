@@ -14,7 +14,8 @@ class GenericInput extends ConsumerStatefulWidget {
   final bool enable;
   final bool allowNull;
   final bool isNumber;
-  const GenericInput({super.key, this.title = 'Mensaje', this.hintText = '', this.enable = true, required this.controller, this.allowNull = true, this.isNumber = true});
+  final TextCapitalization? textCapitalization;
+  const GenericInput({super.key, this.title = 'Mensaje', this.hintText = '', this.enable = true, required this.controller, this.allowNull = true, this.isNumber = true, this.textCapitalization});
 
   @override
   GenericInputState createState() => GenericInputState();
@@ -27,6 +28,7 @@ class GenericInputState extends ConsumerState<GenericInput> {
       keyboardType: widget.isNumber ? TextInputType.number : TextInputType.text,
       controller: widget.controller,
       enabled: widget.enable,
+      textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
       decoration:  InputDecoration(
         hintText: widget.hintText,
         labelText: widget.title,

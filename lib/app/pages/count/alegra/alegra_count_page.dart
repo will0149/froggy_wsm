@@ -1,9 +1,11 @@
 import 'package:froggy_soft/app/widgets/scaffolds/exit_pop_scope.dart';
 import 'package:froggy_soft/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:froggy_soft/data/repositories/localdb/alegra/alegra_items_repository.dart';
 
 import '../../../widgets/forms/alegra/alegra_count_form.dart';
 import '../../../widgets/forms/base_form_decorator.dart';
+import '../../../widgets/toasts/build_toasts.dart';
 
 /// Made for froggysoft.
 /// By User: josedominguez
@@ -20,6 +22,7 @@ class AlegraCountPage extends StatefulWidget {
 
 class _AlegraCountPageState extends State<AlegraCountPage> {
   List<Map<String, String>> addedItems = [];
+  final AlegraItemsRepository _repository = AlegraItemsRepository();
 
   void addItem(String sku, String cantidad) {
     // Check if SKU already exists
@@ -42,6 +45,56 @@ class _AlegraCountPageState extends State<AlegraCountPage> {
     });
   }
 
+  /// Valida y actualiza los datos en la base de datos
+  /// Actualiza items existentes o inserta nuevos basados en el SKU (reference)
+  Future<void> validateAndUpdateData() async {
+    if (addedItems.isEmpty) {
+      showWarningToast("No hay datos para validar");
+      return;
+    }
+
+    try {
+      int updatedCount = 0;
+      int insertedCount = 0;
+
+      for (var item in addedItems) {
+        final sku = item['sku'] ?? '';
+        final cantidad = int.tryParse(item['cantidad'] ?? '0') ?? 0;
+
+        // Verificar si el item existe
+        final existingItem = await _repository.getByReference(sku);
+
+        // Actualizar o insertar
+        await _repository.upsertByReference(sku, cantidad);
+
+        if (existingItem != null) {
+          updatedCount++;
+        } else {
+          insertedCount++;
+        }
+      }
+
+      // Mostrar resultado
+      String message = '';
+      if (updatedCount > 0 && insertedCount > 0) {
+        message = 'Actualizados: $updatedCount, Nuevos: $insertedCount';
+      } else if (updatedCount > 0) {
+        message = 'Actualizados: $updatedCount items';
+      } else if (insertedCount > 0) {
+        message = 'Insertados: $insertedCount items nuevos';
+      }
+
+      showSuccessToast(message);
+
+      // Limpiar la lista después de validar
+      setState(() {
+        addedItems.clear();
+      });
+    } catch (e) {
+      showErrorToast("Error al validar datos: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ExitPopScope(
@@ -54,11 +107,14 @@ class _AlegraCountPageState extends State<AlegraCountPage> {
           child: SizedBox(
             width: double.infinity,
             child: Column(
+              spacing: 8,
               children: [
                 BaseFormDecorator(
-                  body: AlegraCountForm(onAddItem: addItem),
+                  body: AlegraCountForm(
+                    onAddItem: addItem,
+                    onValidateData: validateAndUpdateData,
+                  ),
                 ),
-                const SizedBox(height: 16),
                 Container(
                   margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(

@@ -37,8 +37,10 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
     try {
       var queryParams = {"metadata": 'true', "start": '$startIndex'};
       var mapResponse = await invoke(queryParams);
-      if (kDebugMode) logger.log(
+      if (kDebugMode) {
+        logger.log(
           Level.debug, "Status code on populate ${mapResponse.status?.code}");
+      }
       if(mapResponse.status?.code == 200){
         var data = mapResponse.body?.data;
         if(data != null && data.isNotEmpty){
@@ -115,13 +117,15 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
   Future<void> populateTable(List<ItemEntity> data) async {
     // Future.microtask(() async {
     try {
+
       for (ItemEntity item in data) {
         var object = {
           "id": "${item.id}",
           "name": "${item.name}",
-          "reference": "${item.reference}",
+          "reference": item.reference ?? "SIN REFERENCIA",
           "quantity": "${item.inventory?.availableQuantity ?? 0}",
           "qty_difference": "0",
+          "count_qty": "0",
           "last_compare": null,
           "created_at": "${DateTime.now()}",
           "updated_at": "${DateTime.now()}"

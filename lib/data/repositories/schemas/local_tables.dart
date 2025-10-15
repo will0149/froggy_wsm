@@ -56,6 +56,7 @@ CREATE TABLE items(
         name TEXT,
         reference TEXT,
         quantity INTEGER,
+        count_qty INTEGER,
         qty_difference INTEGER,
         last_compare TEXT,
         created_at TEXT,

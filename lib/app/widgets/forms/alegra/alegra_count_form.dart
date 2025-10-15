@@ -1,25 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/domain/logics/count_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../device/utils/logger_config.dart';
-import '../../../../domain/dtos/series_dto.dart';
-import '../../../../domain/dtos/tally_count_dto.dart';
 import '../../../../domain/providers/tally_count_provider.dart';
-import '../../../../domain/providers/warehouses/get_warehouses_provider.dart';
 import '../../../../generated/l10n.dart';
 import '../../../constants.dart';
-import '../../../pages/count/count_page.dart';
-import '../../toasts/build_toasts.dart';
-import '../inputs/assets_input.dart';
 import '../inputs/generic_input.dart';
-import '../inputs/location_input.dart';
-import '../inputs/lpn_input.dart';
-import '../inputs/quantity_input.dart';
-import '../inputs/series_input.dart';
-import '../inputs/warehouses_dropdown_button.dart';
 
 
 /// Made for froggysoft.
@@ -28,8 +14,9 @@ import '../inputs/warehouses_dropdown_button.dart';
 
 class AlegraCountForm extends ConsumerStatefulWidget {
   final Function(String sku, String cantidad)? onAddItem;
+  final Future<void> Function()? onValidateData;
 
-  const AlegraCountForm({super.key, this.onAddItem});
+  const AlegraCountForm({super.key, this.onAddItem, this.onValidateData});
 
   @override
   CountFormState createState() => CountFormState();
@@ -44,15 +31,8 @@ class CountFormState extends ConsumerState<AlegraCountForm> {
   late final TextEditingController skuController = TextEditingController(text: "");
   late final TextEditingController quantityController = TextEditingController(text: "");
 
-  String selectedWarehouse = " ";
-  String seriesLength = "0";
-  List<String> _seriesList = [];
-
-  bool isSeries = false;
   bool _valid = false;
   bool isLoading = false;
-
-  TallyCountDto data = TallyCountDto();
 
   bool dataValidate = false;
   bool isFinalized = false;
@@ -63,32 +43,9 @@ class CountFormState extends ConsumerState<AlegraCountForm> {
     super.initState();
   }
 
-  void validateRequest() {
-    if (kDebugMode) logger.d("validating seriesLength $seriesLength");
-    if (isSeries) {
-      if (int.parse(seriesLength) != _seriesList.length) {
-        setState(() {
-          _valid = false;
-          isLoading = false;
-        });
-        showWarningToast(
-            "La series deben coincidir con la cantidad introducida");
-      }
-    } else {
-      if (int.parse(seriesLength) <= 0) {
-        setState(() {
-          _valid = false;
-          isLoading = false;
-        });
-        showWarningToast("La cantidad no puede ser 0");
-      }
-    }
-  }
-
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    locationController.dispose();
     skuController.dispose();
     quantityController.dispose();
     super.dispose();
@@ -105,7 +62,7 @@ class CountFormState extends ConsumerState<AlegraCountForm> {
         children: [
           Center(
             child: Text(
-              "Reconteo Cíclico",
+              "Conteo de inventario",
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
@@ -115,6 +72,7 @@ class CountFormState extends ConsumerState<AlegraCountForm> {
               GenericInput(
                 controller: skuController,
                 isNumber: false,
+                textCapitalization: TextCapitalization.characters,
                 title: 'SKU de producto',
               ),
               GenericInput(
@@ -208,21 +166,16 @@ class CountFormState extends ConsumerState<AlegraCountForm> {
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
-                          onPressed: isFinalized ? () {
+                          onPressed: isFinalized ? () async {
                             setState(() {
-                              _valid = countFormKey.currentState!.validate();
                               isLoading = true;
-                              data = TallyCountDto(
-                                  device: "phone",
-                                  branch: "1",
-                                  warehouse: selectedWarehouse,
-                                  location: locationController.text,
-                                  cartonid: skuController.text,
-                                  asset: quantityController.text,
-                                  isSeries: isSeries.toString(),
-                                  series: SeriesDto(series: _seriesList),
-                                  quantity: seriesLength,
-                                  remark: "sfafafas");
+                            });
+
+                            // Llamar a la función de validación
+                            await widget.onValidateData?.call();
+
+                            setState(() {
+                              isLoading = false;
                             });
                           } : null,
                           child: Text("Validar datos",
@@ -267,31 +220,31 @@ class CountFormState extends ConsumerState<AlegraCountForm> {
 
   void sendData(CountLogic tallyCount){
     if (_valid) {
-      tallyCount.countValidate(data).then((value) {
-        var code = value?.status?.code;
-        if (kDebugMode) logger.i("code in form $code");
-        if (code! >= 200 && code < 300) {
-          showSuccessToast("Datos validados");
-          setState(() {
-            dataValidate = true;
-            isLoading = false;
-          });
-        } else {
-          showErrorToast(
-              "Ha fallado el envio con status ${value?.status?.msg}");
-        }
-      }).whenComplete(() {
-        if (kDebugMode) logger.i("finished Count");
-        setState(() {
-          isLoading = false;
-        });
-      }).catchError((error) {
-        if (kDebugMode) logger.e("bruja ${error.toString()}");
-        setState(() {
-          isLoading = false;
-        });
-        showErrorToast("Algo fallo ${error.toString()}!");
-      });
+      // tallyCount.countValidate(data).then((value) {
+      //   var code = value?.status?.code;
+      //   if (kDebugMode) logger.i("code in form $code");
+      //   if (code! >= 200 && code < 300) {
+      //     showSuccessToast("Datos validados");
+      //     setState(() {
+      //       dataValidate = true;
+      //       isLoading = false;
+      //     });
+      //   } else {
+      //     showErrorToast(
+      //         "Ha fallado el envio con status ${value?.status?.msg}");
+      //   }
+      // }).whenComplete(() {
+      //   if (kDebugMode) logger.i("finished Count");
+      //   setState(() {
+      //     isLoading = false;
+      //   });
+      // }).catchError((error) {
+      //   if (kDebugMode) logger.e("bruja ${error.toString()}");
+      //   setState(() {
+      //     isLoading = false;
+      //   });
+      //   showErrorToast("Algo fallo ${error.toString()}!");
+      // });
     }else {
       setState(() {
         isLoading = false;
