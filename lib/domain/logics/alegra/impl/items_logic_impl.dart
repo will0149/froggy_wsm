@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/entities/alegra/items_list_response_entity.dart';
 import 'package:froggy_soft/data/entities/base_response_entity.dart';
@@ -24,7 +23,9 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
   late int _fetchCount = 0;
   late int _totalItems = 0;
 
+  @override
   int get fetchCount => _fetchCount;
+  @override
   int get totalItems => _totalItems;
 
   ItemsLogicImpl() {

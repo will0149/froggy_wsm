@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
  * Date: 10/11/25
  */
 
-abstract class ItemsLogic {
+abstract class ItemsLogic extends ChangeNotifier {
   Future<void> populateLocalDataBase();
+  int get fetchCount;
+  int get totalItems;
 }

@@ -5,7 +5,6 @@ import 'package:froggy_soft/app/pages/auth/login_page.dart';
 import 'package:froggy_soft/app/pages/count/count_page.dart';
 import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/alegra_inventory_page.dart';
-import 'package:froggy_soft/app/pages/warehouse/search_page.dart';
 import 'package:froggy_soft/domain/providers/alegra/load_items_provider.dart';
 import 'package:froggy_soft/domain/providers/localDb/database_notifier_provider.dart';
 import 'package:froggy_soft/generated/l10n.dart';
@@ -75,12 +74,13 @@ class MainPageState extends ConsumerState<MainPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var authHandlerP = ref.watch(authLogicProvider);
+    var itemsLogic = ref.watch(itemsLogicProvider);
     return KillPopScope(
       context: context,
       child: SafeScaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepOrangeAccent,
-          title: Text("Recuerda Sincronizar! ->",
+          title: Text(isLoading ? "Cargando ${itemsLogic.fetchCount}/${itemsLogic.totalItems}" : "Recuerda Sincronizar! ->",
               style: Theme.of(context)
                   .textTheme
                   .titleLarge

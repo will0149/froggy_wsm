@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:froggy_soft/domain/logics/alegra/items_logic.dart';
 import 'package:froggy_soft/domain/logics/alegra/impl/items_logic_impl.dart';
 
 /**
@@ -11,16 +10,15 @@ import 'package:froggy_soft/domain/logics/alegra/impl/items_logic_impl.dart';
 part 'load_items_provider.g.dart';
 
 /// Provider para la lógica de items de Alegra
-/// Retorna una instancia singleton de ItemsLogic
-@Riverpod(keepAlive: true)
-ItemsLogic itemsLogic(Ref ref) {
+/// Retorna una instancia singleton de ItemsLogic que extiende ChangeNotifier
+final itemsLogicProvider = ChangeNotifierProvider<ItemsLogicImpl>((ref) {
   return ItemsLogicImpl();
-}
+});
 
 /// Provider para iniciar el proceso de carga de items
 @riverpod
 Future<void> loadItemsProcess(Ref ref) async {
-  final logic = ref.watch(itemsLogicProvider);
+  final logic = ref.read(itemsLogicProvider);
   await logic.populateLocalDataBase();
 }
 
