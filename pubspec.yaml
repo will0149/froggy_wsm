@@ -4,7 +4,7 @@ description: "App for logistic management"
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.0.5+1
+version: 2.1.0+1
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -37,7 +37,6 @@ dependencies:
   flutter_input_chips: ^1.1.0
   fluttertoast: ^8.2.12
   input_quantity: ^2.5.1
-  flutter_flavorizr: ^2.4.1 # use for app flavors
   connectivity_plus: ^6.1.4 #validate internet connection
   intl: ^0.20.2
   stack_trace: ^1.12.1
@@ -61,6 +60,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   build_runner: ^2.4.15
+  flutter_flavorizr: ^2.4.1 # use for app flavors
   riverpod_generator: ^2.6.5
   # dependencia dev para objetos deserializables DTOs
   json_serializable: ^6.9.5

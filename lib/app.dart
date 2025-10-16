@@ -39,10 +39,11 @@ class App extends ConsumerWidget {
           // Set the default textScaleFactor to 1.0 for
           // the whole subtree.
           data:
-              mediaQueryData.copyWith(textScaler: const TextScaler.linear(1.0)),
+          mediaQueryData.copyWith(textScaler: const TextScaler.linear(1.0)),
           child: child!,
         );
       },
     );
   }
 }
+

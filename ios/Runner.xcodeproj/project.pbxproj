@@ -411,7 +411,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggysoft;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggy_soft;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -483,7 +483,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggysoft;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggy_soft;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -566,6 +566,22 @@
 			};
 			name = Profile;
 		};
+		25EE51A19DB8750B91E241EA /* Release-production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 128A8F92E09F13B21F2C7210 /* productionRelease.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Release-production";
+		};
+		2E81073B3BD585C921D6DD03 /* Debug-stage */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 841D5AC0D6DF9633666A594F /* stageDebug.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Debug-stage";
+		};
 		32DCCBD3813010528BC7DD6B /* Debug-stage */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 841D5AC0D6DF9633666A594F /* stageDebug.xcconfig */;
@@ -633,7 +649,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggysoft;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggy_soft;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -748,7 +764,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggysoft;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggy_soft;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -759,6 +775,14 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Release-development";
+		};
+		3B7AECC6E98AC9DBDD222A61 /* Profile-production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 449B2DA719958DF8031AFBAD /* productionProfile.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Profile-production";
 		};
 		4ACF5CCB309C303D3943961F /* Release-production */ = {
 			isa = XCBuildConfiguration;
@@ -820,7 +844,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggysoft;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggy_soft;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -831,6 +855,14 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Release-production";
+		};
+		53EBF2EEEDA0D4289471A289 /* Debug-development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5CE78DE7A7B5A47792D6E8B6 /* developmentDebug.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Debug-development";
 		};
 		77AF3A7DF0163FCE6124745E /* Profile-stage */ = {
 			isa = XCBuildConfiguration;
@@ -892,7 +924,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggysoft;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggy_soft;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -901,6 +933,14 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Profile-stage";
+		};
+		838B9310A81D7013490B466F /* Release-stage */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7E3D2BEAF2C0071894B4594 /* stageRelease.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Release-stage";
 		};
 		97C147031CF9000F007C117D /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1123,7 +1163,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggysoft;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggy_soft;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1191,7 +1231,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggysoft;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggy_soft;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -1268,13 +1308,45 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggysoft;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atheneox.froggy_soft;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Debug-development";
+		};
+		D186739E5D6C117E05AE76F9 /* Release-development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB88D01DEB55D4057F17C76B /* developmentRelease.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Release-development";
+		};
+		D35911A8A13C613D4B203DBB /* Debug-production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1EC690BDD7CB2981B97EA09 /* productionDebug.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Debug-production";
+		};
+		FB826796903EB0B99726C510 /* Profile-development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F753DEF351046E1BD252DDE9 /* developmentProfile.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Profile-development";
+		};
+		FC94EFBE82309E94C7C35F07 /* Profile-stage */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 26913C1725C35C4E53DBA070 /* stageProfile.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Profile-stage";
 		};
 /* End XCBuildConfiguration section */
 
@@ -1314,6 +1386,15 @@
 				97C147061CF9000F007C117D /* Debug */,
 				97C147071CF9000F007C117D /* Release */,
 				249021D4217E4FDB00AE95B9 /* Profile */,
+				53EBF2EEEDA0D4289471A289 /* Debug-development */,
+				FB826796903EB0B99726C510 /* Profile-development */,
+				D186739E5D6C117E05AE76F9 /* Release-development */,
+				2E81073B3BD585C921D6DD03 /* Debug-stage */,
+				FC94EFBE82309E94C7C35F07 /* Profile-stage */,
+				838B9310A81D7013490B466F /* Release-stage */,
+				D35911A8A13C613D4B203DBB /* Debug-production */,
+				3B7AECC6E98AC9DBDD222A61 /* Profile-production */,
+				25EE51A19DB8750B91E241EA /* Release-production */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

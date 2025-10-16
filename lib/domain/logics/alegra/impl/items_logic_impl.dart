@@ -21,6 +21,11 @@ import '../items_logic.dart';
 class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
   late final AlegraItemsRepository repository;
   late final ItemsServiceRepository restService;
+  late int _fetchCount = 0;
+  late int _totalItems = 0;
+
+  int get fetchCount => _fetchCount;
+  int get totalItems => _totalItems;
 
   ItemsLogicImpl() {
     repository = AlegraItemsRepository();
@@ -42,6 +47,7 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
           Level.debug, "Status code on populate ${mapResponse.status?.code}");
       }
       if(mapResponse.status?.code == 200){
+        setTotalItems(mapResponse.body?.metadata?.total ?? 0);
         var data = mapResponse.body?.data;
         if(data != null && data.isNotEmpty){
           await populateTable(data);
@@ -59,6 +65,7 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
         counter++;
         startIndex += 31;
         queryParams['start'] = "$startIndex";
+        setFetchCount(startIndex);
         if(startIndex > total || counter > (total/30)){
           break;
         }
@@ -137,5 +144,15 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
       if (kDebugMode) logger.e("Error populating customer table: $e");
     }
     // });
+  }
+
+  void setFetchCount(int value){
+    _fetchCount = value;
+    notifyListeners();
+  }
+
+  void setTotalItems(int value){
+    _totalItems = value;
+    notifyListeners();
   }
 }

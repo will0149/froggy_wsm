@@ -11,7 +11,7 @@ flavors:
           type: "string"
           value: "https//cct-api-dev.froggysoft.app"
     ios:
-      bundleId: "com.cct.cctManagement"
+      bundleId: "com.atheneox.froggy_soft"
       resValues:
         base_url:
           type: "string"
@@ -27,7 +27,7 @@ flavors:
           type: "string"
           value: "https//cct-api-stg.froggysoft.app"
     ios:
-      bundleId: "com.cct.cctManagement"
+      bundleId: "com.atheneox.froggy_soft"
       resValues:
         base_url:
           type: "string"
@@ -43,7 +43,7 @@ flavors:
           type: "string"
           value: "https//cct-api-dev.froggysoft.app"
     ios:
-      bundleId: "com.cct.cctManagement"
+      bundleId: "com.atheneox.froggy_soft"
       resValues:
         base_url:
           type: "string"
