@@ -92,7 +92,34 @@ class MainPageState extends ConsumerState<MainPage> {
               splashColor: Colors.red,
               padding: EdgeInsetsGeometry.only(right: 30),
               icon: isLoading ? CircularProgressIndicator() : Icon(Icons.sync),
-              onPressed: () async {
+              onPressed: isLoading ? null : () async {
+                // Mostrar modal de confirmación
+                final shouldSync = await showDialog<bool>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Sincronizar datos'),
+                      content: const Text(
+                        '¿Desea cargar los datos desde el servidor?\n\nEsto actualizará el inventario local con la información más reciente.',
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: const Text('Cancelar'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: const Text('Cargar datos'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+
+                // Si el usuario canceló o cerró el diálogo, no hacer nada
+                if (shouldSync != true) return;
+
+                // Proceder con la sincronización
                 if (kDebugMode) logger.i("Syncing");
                 showWarningToast("Inicio de sincronizacion de maestro");
                 setState(() {
