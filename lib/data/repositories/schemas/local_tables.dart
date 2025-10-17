@@ -64,6 +64,14 @@ CREATE TABLE items(
       )
 ''';
 
+const String recountTableTable = '''
+CREATE TABLE recount_items(
+        reference TEXT PRIMARY KEY,
+        quantity INTEGER,
+        created_at TEXT
+      )
+''';
+
 //TODO: validate supported data types
 // INTEGER
 // SQLite type: INTEGER

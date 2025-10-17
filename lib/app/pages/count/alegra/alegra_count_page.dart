@@ -1,28 +1,30 @@
 import 'package:froggy_soft/app/widgets/scaffolds/exit_pop_scope.dart';
 import 'package:froggy_soft/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:froggy_soft/data/repositories/localdb/alegra/alegra_items_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:froggy_soft/domain/providers/alegra_recount_provider.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../widgets/forms/alegra/alegra_count_form.dart';
 import '../../../widgets/forms/base_form_decorator.dart';
 import '../../../widgets/toasts/build_toasts.dart';
+import '../../warehouse/alegra_comparison_table_page.dart';
 
 /// Made for froggysoft.
 /// By User: josedominguez
 /// Date: 06/11/24
 
-class AlegraCountPage extends StatefulWidget {
+class AlegraCountPage extends ConsumerStatefulWidget {
   const AlegraCountPage({super.key});
 
   @override
-  State<AlegraCountPage> createState() => _AlegraCountPageState();
+  ConsumerState<AlegraCountPage> createState() => _AlegraCountPageState();
   static String get routeName => 'count';
   static String get routeLocation => routeName;
 }
 
-class _AlegraCountPageState extends State<AlegraCountPage> {
+class _AlegraCountPageState extends ConsumerState<AlegraCountPage> {
   List<Map<String, String>> addedItems = [];
-  final AlegraItemsRepository _repository = AlegraItemsRepository();
 
   void addItem(String sku, String cantidad) {
     // Check if SKU already exists
@@ -45,8 +47,8 @@ class _AlegraCountPageState extends State<AlegraCountPage> {
     });
   }
 
-  /// Valida y actualiza los datos en la base de datos
-  /// Actualiza items existentes o inserta nuevos basados en el SKU (reference)
+  /// Valida e inserta los datos en la tabla de reconteo
+  /// Luego redirige a la página de comparación
   Future<void> validateAndUpdateData() async {
     if (addedItems.isEmpty) {
       showWarningToast("No hay datos para validar");
@@ -54,44 +56,25 @@ class _AlegraCountPageState extends State<AlegraCountPage> {
     }
 
     try {
-      int updatedCount = 0;
-      int insertedCount = 0;
+      // Obtener la función de inserción del provider
+      final insertItems = ref.read(insertRecountItemsProvider);
 
-      for (var item in addedItems) {
-        final sku = item['sku'] ?? '';
-        final cantidad = int.tryParse(item['cantidad'] ?? '0') ?? 0;
+      // Insertar los items en la tabla recount_items
+      await insertItems(addedItems.cast<Map<String, dynamic>>());
 
-        // Verificar si el item existe
-        final existingItem = await _repository.getByReference(sku);
-
-        // Actualizar o insertar
-        await _repository.upsertByReference(sku, cantidad);
-
-        if (existingItem != null) {
-          updatedCount++;
-        } else {
-          insertedCount++;
-        }
-      }
-
-      // Mostrar resultado
-      String message = '';
-      if (updatedCount > 0 && insertedCount > 0) {
-        message = 'Actualizados: $updatedCount, Nuevos: $insertedCount';
-      } else if (updatedCount > 0) {
-        message = 'Actualizados: $updatedCount items';
-      } else if (insertedCount > 0) {
-        message = 'Insertados: $insertedCount items nuevos';
-      }
-
-      showSuccessToast(message);
+      showSuccessToast("${addedItems.length} items guardados exitosamente");
 
       // Limpiar la lista después de validar
       setState(() {
         addedItems.clear();
       });
+
+      // Redirigir a la página de comparación
+      if (mounted) {
+        context.pushNamed(AlegraComparisonTablePage.routeName);
+      }
     } catch (e) {
-      showErrorToast("Error al validar datos: $e");
+      showErrorToast("Error al guardar datos: $e");
     }
   }
 

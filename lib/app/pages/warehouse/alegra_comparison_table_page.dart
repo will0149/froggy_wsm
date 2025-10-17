@@ -1,50 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:froggy_soft/app/widgets/scaffolds/safe_scaffold.dart';
-import 'package:froggy_soft/domain/providers/alegra_items_provider.dart';
-import 'package:froggy_soft/domain/dtos/alegra_item_dto.dart';
+import 'package:froggy_soft/domain/providers/alegra_recount_provider.dart';
+
+import '../../widgets/scaffolds/safe_scaffold.dart';
 
 /**
  * Made for froggy_soft.
  * By User: josedominguez
- * Date: 10/13/25
+ * Date: 10/15/25
  */
 
-class AlegraInventoryPage extends ConsumerStatefulWidget {
-  static String get routeName => 'inventory';
-
+class AlegraComparisonTablePage extends ConsumerStatefulWidget {
+  static String get routeName => 'alegra/stocks';
   static String get routeLocation => routeName;
 
-  const AlegraInventoryPage({super.key});
+  const AlegraComparisonTablePage({super.key});
 
   @override
-  AlegraInventoryPageState createState() => AlegraInventoryPageState();
+  AlegraComparisonTablePageState createState() =>
+      AlegraComparisonTablePageState();
 }
 
-class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
+class AlegraComparisonTablePageState
+    extends ConsumerState<AlegraComparisonTablePage> {
   int _currentPage = 0;
   final int _rowsPerPage = 10;
 
   @override
-  void initState() {
-    super.initState();
-    // Espera a que el widget se renderice completamente antes de invalidar el provider
-    // Esto es necesario porque no se pueden modificar providers durante initState
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Invalida el provider para forzar una recarga de datos cada vez que se inicia la pantalla
-      ref.invalidate(alegraItemsProvider);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final itemsAsync = ref.watch(alegraItemsProvider);
-    // final countAsync = ref.watch(alegraItemsCountProvider);
+    final comparisonAsync = ref.watch(recountComparisonProvider);
 
     return SafeScaffold(
       appBar: AppBar(
         title: Text(
-          "Inventario",
+          "Comparación de Reconteo",
           style: Theme.of(context)
               .textTheme
               .titleLarge
@@ -52,8 +41,30 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
         ),
         centerTitle: true,
       ),
-      child: itemsAsync.when(
+      child: comparisonAsync.when(
         data: (items) {
+          if (items.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.inbox_outlined, size: 64, color: Colors.grey),
+                  const SizedBox(height: 16),
+                  Text(
+                    'No hay datos de comparación',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Agregue items al reconteo para ver la comparación',
+                    style: Theme.of(context).textTheme.bodySmall,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            );
+          }
+
           final startIndex = _currentPage * _rowsPerPage;
           final endIndex = (startIndex + _rowsPerPage > items.length)
               ? items.length
@@ -62,11 +73,10 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
           final totalPages = (items.length / _rowsPerPage).ceil();
 
           return Column(
-            spacing: 10,
             children: [
               Expanded(
                 child: RefreshIndicator(
-                  onRefresh: () async => ref.refresh(alegraItemsProvider.future),
+                  onRefresh: () async => ref.refresh(recountComparisonProvider.future),
                   child: LayoutBuilder(
                     builder: (context, constraints) {
                       return SingleChildScrollView(
@@ -81,23 +91,39 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
                               padding: const EdgeInsets.all(10.0),
                               child: DataTable(
                                 columns: const [
-                                  DataColumn(label: Text('ID')),
                                   DataColumn(label: Text('Referencia')),
-                                  DataColumn(label: Text('Cantidad')),
-                                  DataColumn(label: Text('Nombre')),
-                                  DataColumn(label: Text('Cargado')),
+                                  DataColumn(label: Text('Contado')),
+                                  DataColumn(label: Text('Inventario')),
+                                  DataColumn(label: Text('Diferencia')),
                                 ],
                                 rows: paginatedItems.map((item) {
+                                  final difference = item.difference ?? 0;
+                                  final differenceColor = difference == 0
+                                      ? Colors.green
+                                      : difference > 0
+                                          ? Colors.green
+                                          : Colors.red;
+
                                   return DataRow(
                                     cells: [
-                                      DataCell(Text(item.id?.toString() ?? '-')),
                                       DataCell(Text(item.reference ?? '-')),
-                                      DataCell(Text(item.quantity?.toString() ?? '0')),
-                                      DataCell(Text(item.name ?? '-')),
-                                      DataCell(Text(item.createdAt ?? '-')),
+                                      DataCell(Text(item.countQty?.toString() ?? '0')),
+                                      DataCell(Text(item.serviceQty?.toString() ?? '0')),
+                                      DataCell(
+                                        Text(
+                                          difference.toString(),
+                                          style: TextStyle(
+                                            color: differenceColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   );
                                 }).toList(),
+                                // dividerThickness: 1,
+                                // dataRowHeight: 80,
+                                // showBottomBorder: true,
                                 headingTextStyle: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black87,
@@ -106,7 +132,7 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
                                       (states) => Colors.white12,
                                 ),
                                 border: TableBorder.all(
-                                    borderRadius: BorderRadius.circular(18)
+                                  borderRadius: BorderRadius.circular(18)
                                 ),
                               ),
                             ),
@@ -163,14 +189,15 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(
           child: Column(
-            spacing: 10,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(Icons.error_outline, size: 48, color: Colors.red),
+              const SizedBox(height: 16),
               Text(
                 'Error al cargar los datos',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
+              const SizedBox(height: 8),
               Text(
                 error.toString(),
                 style: Theme.of(context).textTheme.bodySmall,

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
 import 'package:froggy_soft/app/pages/outgoing/outgoing_page.dart';
 import 'package:froggy_soft/app/pages/relocation/relocation_page.dart';
+import 'package:froggy_soft/app/pages/warehouse/alegra_comparison_table_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/alegra_inventory_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/search_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/stocks_table_page.dart';
@@ -72,6 +73,15 @@ final routerProvider = Provider<GoRouter>((ref) {
               builder: (BuildContext context, GoRouterState state) {
                 return const AlegraCountPage();
               },
+              routes: <RouteBase> [
+                GoRoute(
+                  name: AlegraComparisonTablePage.routeName,
+                  path: AlegraComparisonTablePage.routeLocation,
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const AlegraComparisonTablePage();
+                  },
+                ),
+              ]
             ),
             GoRoute(
               name: OutgoingPage.routeName,

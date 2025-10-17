@@ -25,7 +25,7 @@ class AlegraItemsRepository implements LocalDbRepository {
   @override
   Future<List<Map<String, dynamic>>> getAll() async {
     final db = await _dbHelper.database;
-    return await db.query(_tableName, orderBy: "id ASC");
+    return await db.query(_tableName, orderBy: "id DESC");
   }
 
   @override

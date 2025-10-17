@@ -39,6 +39,7 @@ class DatabaseHelper {
     // await db.execute(customersTable);
     // await db.execute(assetsTable);
     await db.execute(itemsMasterTable);
+    await db.execute(recountTableTable);
   }
 
   // Example CRUD operations
