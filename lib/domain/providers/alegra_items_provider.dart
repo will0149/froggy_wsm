@@ -22,3 +22,8 @@ final alegraItemsCountProvider = FutureProvider<int>((ref) async {
   final repository = ref.watch(alegraItemsRepositoryProvider);
   return await repository.count();
 });
+
+final alegraItemsDropProvider = FutureProvider<void>((ref) async {
+  final repository = ref.watch(alegraItemsRepositoryProvider);
+  return await repository.deleteTable();
+});

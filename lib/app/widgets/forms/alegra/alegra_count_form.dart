@@ -15,8 +15,14 @@ import '../inputs/generic_input.dart';
 class AlegraCountForm extends ConsumerStatefulWidget {
   final Function(String sku, String cantidad)? onAddItem;
   final Future<void> Function()? onValidateData;
+  final bool hasItems;
 
-  const AlegraCountForm({super.key, this.onAddItem, this.onValidateData});
+  const AlegraCountForm({
+    super.key,
+    this.onAddItem,
+    this.onValidateData,
+    this.hasItems = false,
+  });
 
   @override
   CountFormState createState() => CountFormState();
@@ -130,13 +136,18 @@ class CountFormState extends ConsumerState<AlegraCountForm> {
                       SizedBox(
                         width: size.width,
                         child: CheckboxListTile(
-                          title: const Text("Finalizar entrada de datos"),
+                          title: Text(
+                            "Finalizar entrada de datos",
+                            style: TextStyle(
+                              color: widget.hasItems ? null : Colors.grey,
+                            ),
+                          ),
                           value: isFinalized,
-                          onChanged: (bool? value) {
+                          onChanged: widget.hasItems ? (bool? value) {
                             setState(() {
                               isFinalized = value ?? false;
                             });
-                          },
+                          } : null,
                           controlAffinity: ListTileControlAffinity.leading,
                         ),
                       ),

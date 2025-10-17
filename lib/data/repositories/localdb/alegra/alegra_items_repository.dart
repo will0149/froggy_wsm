@@ -194,4 +194,9 @@ class AlegraItemsRepository implements LocalDbRepository {
     final count = Sqflite.firstIntValue(result); // returns int?
     return (count ?? 0) > 0;
   }
+
+  Future<void> deleteTable() async {
+    final db = await _dbHelper.database;
+    await db.delete(_tableName);
+  }
 }

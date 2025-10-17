@@ -96,6 +96,7 @@ class _AlegraCountPageState extends ConsumerState<AlegraCountPage> {
                   body: AlegraCountForm(
                     onAddItem: addItem,
                     onValidateData: validateAndUpdateData,
+                    hasItems: addedItems.isNotEmpty,
                   ),
                 ),
                 Container(

@@ -26,17 +26,6 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
   final int _rowsPerPage = 10;
 
   @override
-  void initState() {
-    super.initState();
-    // Espera a que el widget se renderice completamente antes de invalidar el provider
-    // Esto es necesario porque no se pueden modificar providers durante initState
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Invalida el provider para forzar una recarga de datos cada vez que se inicia la pantalla
-      ref.invalidate(alegraItemsProvider);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final itemsAsync = ref.watch(alegraItemsProvider);
     // final countAsync = ref.watch(alegraItemsCountProvider);
