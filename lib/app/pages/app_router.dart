@@ -10,11 +10,13 @@ import 'package:froggy_soft/app/pages/warehouse/search_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/stocks_table_page.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../data/repositories/firestore/firestore_config.dart';
 import '../../device/utils/logger_config.dart';
 import 'auth/login_page.dart';
 import 'count/alegra/alegra_count_page.dart';
 import 'entry/entry_page.dart';
 import 'main_page.dart';
+import 'maintainance/maintain_page.dart';
 
 /// Made for froggysoft.
 /// By User: josedominguez
@@ -37,6 +39,13 @@ final routerProvider = Provider<GoRouter>((ref) {
           path: LoginPage.routeLocation,
           builder: (BuildContext context, GoRouterState state) {
             return const LoginPage();
+          },
+        ),
+        GoRoute(
+          name: MaintainPage.routeName,
+          path: MaintainPage.routeLocation,
+          builder: (BuildContext context, GoRouterState state) {
+            return const MaintainPage();
           },
         ),
         GoRoute(
@@ -128,6 +137,10 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
       ],
       redirect: (context, state) async {
+        var activate = await FireStoreConfig().getActivateFlag();
+        if(!activate){
+          return MaintainPage.routeLocation;
+        }
         if (kDebugMode) logger.w("matchedLocation ${state.matchedLocation}");
         // var firstRun = IsFirstRun();
         // bool firstCall = await firstRun.isFirstRun();

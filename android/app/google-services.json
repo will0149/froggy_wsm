@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "168515352097",
+    "project_id": "froggy-auth-d239c",
+    "storage_bucket": "froggy-auth-d239c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168515352097:android:c61d82fdc081ade2d89560",
+        "android_client_info": {
+          "package_name": "com.atheneox.froggy_soft"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApXqJm-mKiM6ea7YHTUdZuycJsHf04ydY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

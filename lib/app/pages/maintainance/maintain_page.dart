@@ -7,6 +7,9 @@ import 'package:lottie/lottie.dart';
 /// By User: josedominguez
 /// Date: 07/23/24
 class MaintainPage extends StatefulWidget {
+  static String get routeName => 'maintain';
+
+  static String get routeLocation => '/$routeName';
   const MaintainPage({super.key});
 
   @override
