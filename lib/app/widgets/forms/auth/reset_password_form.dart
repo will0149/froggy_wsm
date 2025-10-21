@@ -4,15 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/pages/auth/login_page.dart';
 
 import '../../../../device/utils/loggerConfig.dart';
-import '../../../../domain/usecases/auth/fire_base_auth_uc.dart';
+import '../../../../domain/providers/auth/firebase_auth_provider.dart';
 import '../../../../generated/l10n.dart';
 import '../../../themes/colors/colors.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 11/16/23
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 11/16/23
 
 class ResetPasswordForm extends ConsumerStatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -25,7 +23,7 @@ class ResetPasswordForm extends ConsumerStatefulWidget {
 class ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
   var emailController = TextEditingController();
   bool _valid = false;
-  bool _isObscure = true;
+  final bool _isObscure = true;
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {

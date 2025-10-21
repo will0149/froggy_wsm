@@ -1,18 +1,19 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 10/11/22
- */
+part 'slider_model.g.dart';
 
-class SliderModel extends StateNotifier<double> {
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 10/11/22
 
-  SliderModel(super.state);
+@riverpod
+class SliderModel extends _$SliderModel {
+  @override
+  double build() {
+    return 0;
+  }
 
-  void setCurrentPage(double currentPage) => state = currentPage;
+  void setCurrentPage(double currentPage) {
+    state = currentPage;
+  }
 }
-
-final sliderModelProvider = StateNotifierProvider<SliderModel, double>((ref) {
-  return SliderModel(0);
-});

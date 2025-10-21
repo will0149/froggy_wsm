@@ -6,13 +6,13 @@ import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:parkea/generated/l10n.dart';
 import 'package:select_form_field/select_form_field.dart';
 
-import '../../../../domain/usecases/auth/fire_base_auth_uc.dart';
+import '../../../../domain/providers/auth/firebase_auth_provider.dart';
 import '../../../pages/home/home_feed_page.dart';
 
 class SignUpForm extends ConsumerStatefulWidget {
   final GlobalKey<FormState> formKey;
 
-  const SignUpForm({Key? key, required this.formKey}) : super(key: key);
+  const SignUpForm({super.key, required this.formKey});
 
   @override
   SignUpFormState createState() => SignUpFormState();

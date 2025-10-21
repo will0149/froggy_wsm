@@ -1,19 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 01/16/24
- */
+part 'svg_icon_model.g.dart';
 
-class SvgIconModel extends StateNotifier<bool> {
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 01/16/24
 
-  SvgIconModel(super.state);
+@riverpod
+class SvgIconModel extends _$SvgIconModel {
+  @override
+  bool build() {
+    return false;
+  }
 
-  void setActive(bool isActive) => state = isActive;
+  void setActive(bool isActive) {
+    state = isActive;
+  }
 }
-
-final svgIconModelProvider = StateNotifierProvider<SvgIconModel, bool>((ref) {
-  return SvgIconModel(false);
-});

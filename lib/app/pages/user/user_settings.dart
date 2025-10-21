@@ -153,9 +153,9 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
                 trailing: Switch(
                   value: isDarkMode,
                   onChanged: (value) {
-                    ref.read(appThemeProvider.notifier).state = value;
+                    ref.read(appThemeProvider.notifier).setTheme(value);
                   },
-                  activeColor: parkeaOrange,
+                  activeThumbColor: parkeaOrange,
                 ),
                 theme: theme,
               ),

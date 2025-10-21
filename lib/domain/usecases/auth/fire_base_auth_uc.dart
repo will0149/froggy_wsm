@@ -1,16 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../device/utils/loggerConfig.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 06/26/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 06/26/22
 
-class FireBaseAuthUC extends ChangeNotifier {
+class FireBaseAuthUC {
   bool isLoggedIn = false;
   bool isLoading = false;
   late FirebaseAuth auth;
@@ -33,7 +30,6 @@ class FireBaseAuthUC extends ChangeNotifier {
         password: password,
       );
       user = userCredential.user;
-      notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         logger.e('No user found for that email.');
@@ -57,7 +53,6 @@ class FireBaseAuthUC extends ChangeNotifier {
       await user!.updateDisplayName(name);
       await user?.reload();
       user = auth.currentUser;
-      notifyListeners();
     } on FirebaseAuthException catch (e) {
       logger.e(e);
       if (e.code == 'weak-password') {
@@ -77,11 +72,9 @@ class FireBaseAuthUC extends ChangeNotifier {
       if (user == null) {
         logger.w('User is currently signed out!');
         isLoggedIn = false;
-        notifyListeners();
       } else {
         logger.d('User is signed in!');
         isLoggedIn = true;
-        notifyListeners();
       }
     });
   }
@@ -91,6 +84,3 @@ class FireBaseAuthUC extends ChangeNotifier {
     return user;
   }
 }
-
-final fireBaseAuthApiProvider =
-    ChangeNotifierProvider<FireBaseAuthUC>((ref) => FireBaseAuthUC());
