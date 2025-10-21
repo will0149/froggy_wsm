@@ -11,11 +11,9 @@ import '../../../device/utils/loggerConfig.dart';
 import '../../utils/build_header_utils.dart';
 import '../../utils/impl/build_headers_utils_impl.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 06/14/25
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 06/14/25
 
 class RestAuthUC extends ChangeNotifier {
   bool isLoggedIn = false;

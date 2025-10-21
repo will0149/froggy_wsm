@@ -7,11 +7,9 @@ import '../../device/utils/loggerConfig.dart';
 import '../../domain/utils/build_header_utils.dart';
 import '../../domain/utils/impl/build_headers_utils_impl.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 11/03/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 11/03/22
 
 class UserRepository {
   late final BuildHeadersUtils headersUtils;

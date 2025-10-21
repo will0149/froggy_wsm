@@ -1,10 +1,8 @@
 
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/01/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 07/01/22
 
 class AmountDTO {
   String price;

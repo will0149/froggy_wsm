@@ -6,21 +6,44 @@ part of 'onboarding_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getEventsHash() => r'040dd5b9598c79bef238100e0805697b7cc9519e';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [getEvents].
 @ProviderFor(getEvents)
-final getEventsProvider = AutoDisposeFutureProvider<List<EventDTO>>.internal(
-  getEvents,
-  name: r'getEventsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$getEventsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const getEventsProvider = GetEventsProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef GetEventsRef = AutoDisposeFutureProviderRef<List<EventDTO>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class GetEventsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<EventDTO>>,
+          List<EventDTO>,
+          FutureOr<List<EventDTO>>
+        >
+    with $FutureModifier<List<EventDTO>>, $FutureProvider<List<EventDTO>> {
+  const GetEventsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'getEventsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$getEventsHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<EventDTO>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<EventDTO>> create(Ref ref) {
+    return getEvents(ref);
+  }
+}
+
+String _$getEventsHash() => r'040dd5b9598c79bef238100e0805697b7cc9519e';

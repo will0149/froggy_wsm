@@ -17,11 +17,9 @@ import '../../app/pages/user/profile_page.dart';
 import '../../device/utils/is_first_run.dart';
 import '../utils/impl/build_headers_utils_impl.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 11/02/23
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 11/02/23
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -157,6 +155,7 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
             state.matchedLocation != "/auth/splash") {
           return state.matchedLocation;
         }
+        return null;
       });
   return router;
 });

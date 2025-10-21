@@ -5,11 +5,9 @@ import '../../themes/colors/colors.dart';
 import '../paints/bottom_left_curve_orange.dart';
 import '../paints/sign_in_up_white_shape.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 11/16/23
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 11/16/23
 class AuthScaffold extends StatefulWidget {
   final Color color;
   final String bannerText;

@@ -1,10 +1,8 @@
 
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 11/03/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 11/03/22
 
 class UserDTO {//TODO: eliminar se reemplaza por entity
   final int userId;

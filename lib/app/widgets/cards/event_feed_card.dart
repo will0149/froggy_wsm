@@ -7,11 +7,9 @@ import '../../../domain/dtos/event_dto.dart';
 import '../../themes/colors/colors.dart';
 import '../../pages/event/event_detail_page.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/30/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 07/30/22
 
 class EventFeedCard extends StatefulWidget {
   final EventDTO event;

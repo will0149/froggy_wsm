@@ -3,11 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../themes/colors/colors.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 01/06/24
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 01/06/24
 
 class DetailImageBanner extends ConsumerStatefulWidget {
   final String url;

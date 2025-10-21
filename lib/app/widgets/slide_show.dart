@@ -6,11 +6,9 @@ import 'package:parkea/app/themes/colors/colors.dart';
 import '../../domain/models/slider_model.dart';
 import '../pages/auth/auth_page.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 10/11/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 10/11/22
 
 class Slideshow extends ConsumerWidget {
   final List<Widget> slides;
@@ -47,7 +45,7 @@ class Slideshow extends ConsumerWidget {
 class _Dots extends StatelessWidget {
   final int totalSlides;
 
-  const _Dots({Key? key, required this.totalSlides}) : super(key: key);
+  const _Dots({super.key, required this.totalSlides});
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +102,7 @@ class _Dots extends StatelessWidget {
 class _Dot extends ConsumerWidget {
   final int index;
 
-  const _Dot({Key? key, required this.index}) : super(key: key);
+  const _Dot({super.key, required this.index});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -127,7 +125,7 @@ class _Dot extends ConsumerWidget {
 class _Slides extends ConsumerStatefulWidget {
   final List<Widget> slides;
 
-  const _Slides({Key? key, required this.slides}) : super(key: key);
+  const _Slides({super.key, required this.slides});
 
   @override
   _SlidesState createState() => _SlidesState();
@@ -173,7 +171,7 @@ class _SlidesState extends ConsumerState<_Slides> {
 class _Slide extends StatelessWidget {
   final Widget slide;
 
-  const _Slide({Key? key, required this.slide}) : super(key: key);
+  const _Slide({super.key, required this.slide});
 
   @override
   Widget build(BuildContext context) {

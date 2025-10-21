@@ -3,11 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/02/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 07/02/22
 
 class ExitPopScope extends StatefulWidget {
   final Widget child;

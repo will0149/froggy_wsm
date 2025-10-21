@@ -11,6 +11,6 @@ import '../usecases/get_event_by_id_uc.dart';
 part 'event_detail_provider.g.dart';
 
 @riverpod
-Future<EventDTO> getEventDetail(GetEventDetailRef ref, int id){
+Future<EventDTO> getEventDetail(Ref ref, int id){
   return ref.read(eventApiProvider).getEventByID(id);
 }

@@ -2,11 +2,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'loggerConfig.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 10/13/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 10/13/22
 
 class IsFirstRun {
   static const _firstRunSettingsKey = 'is_first_run';

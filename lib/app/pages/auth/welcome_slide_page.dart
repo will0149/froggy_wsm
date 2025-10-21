@@ -5,13 +5,11 @@ import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 import '../../../device/utils/is_first_run.dart';
 import '../../widgets/slide_show.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 10/11/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 10/11/22
 class WelcomeSlidePage extends StatefulWidget {
-  const WelcomeSlidePage({Key? key}) : super(key: key);
+  const WelcomeSlidePage({super.key});
   static String get routeName => 'welcome';
   static String get routeLocation => '/$routeName';
 

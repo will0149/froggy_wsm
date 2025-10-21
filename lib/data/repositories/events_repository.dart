@@ -5,11 +5,9 @@ import 'package:http/http.dart' as http;
 
 import '../constants.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/01/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 07/01/22
 
 class EventRepository {
   Future<Map<String, dynamic>> fetchEventsList() async {

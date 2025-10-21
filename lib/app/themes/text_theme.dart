@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'colors/colors.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 08/01/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 08/01/22
 
 TextTheme getTextTheme(bool isDarkTheme) {
   return TextTheme(

@@ -8,7 +8,7 @@ class ColorLoader extends StatefulWidget {
   final Color color2;
   final Color color3;
 
-  const ColorLoader({Key? key, this.color1 = Colors.deepOrangeAccent, this.color2 = Colors.yellow, this.color3 = Colors.lightGreen}) : super(key: key);
+  const ColorLoader({super.key, this.color1 = Colors.deepOrangeAccent, this.color2 = Colors.yellow, this.color3 = Colors.lightGreen});
 
   @override
   _ColorLoaderState createState() => _ColorLoaderState();
@@ -71,7 +71,7 @@ class _ColorLoaderState extends State<ColorLoader> with TickerProviderStateMixin
           turns: animation1,
           child: CustomPaint(
             painter: Arc1Painter(widget.color1),
-            child: Container(
+            child: SizedBox(
               width: 50.0,
               height: 50.0,
             ),
@@ -80,7 +80,7 @@ class _ColorLoaderState extends State<ColorLoader> with TickerProviderStateMixin
           turns: animation2,
           child: CustomPaint(
             painter: Arc2Painter(widget.color2),
-            child: Container(
+            child: SizedBox(
               width: 50.0,
               height: 50.0,
             ),
@@ -89,7 +89,7 @@ class _ColorLoaderState extends State<ColorLoader> with TickerProviderStateMixin
           turns: animation3,
           child: CustomPaint(
             painter: Arc3Painter(widget.color3),
-            child: Container(
+            child: SizedBox(
               width: 50.0,
               height: 50.0,
             ),

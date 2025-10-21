@@ -66,16 +66,6 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navigate to create event
-        },
-        backgroundColor: parkeaOrange,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ),
     );
   }
 

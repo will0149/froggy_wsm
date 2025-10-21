@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 09/02/23
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 09/02/23
 
 class SearchEventPage extends StatefulWidget {
   const SearchEventPage({super.key});

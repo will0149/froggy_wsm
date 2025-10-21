@@ -7,11 +7,9 @@ import '../../../../device/utils/loggerConfig.dart';
 import '../../../constants.dart';
 import '../http_common_utils.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 06/14/25
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 06/14/25
 
 class HttpCommonUtilsImpl implements HttpCommonUtils {
   var client = RetryClient(http.Client());

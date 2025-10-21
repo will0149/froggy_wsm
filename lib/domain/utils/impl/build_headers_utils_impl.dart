@@ -4,11 +4,9 @@ import '../../../device/utils/loggerConfig.dart';
 import '../build_header_utils.dart';
 
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 06/14/25
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 06/14/25
 
 class BuildHeadersUtilsImpl implements BuildHeadersUtils {
   final storage = const FlutterSecureStorage(aOptions: AndroidOptions(

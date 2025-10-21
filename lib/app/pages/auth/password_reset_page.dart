@@ -5,15 +5,13 @@ import '../../../generated/l10n.dart';
 import '../../widgets/forms/auth/reset_password_form.dart';
 import '../../widgets/scaffolds/AuthScaffold.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 11/16/23
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 11/16/23
 
 class PasswordResetPage extends StatefulWidget {
   static String get routeName => 'resetPassword';
-  static String get routeLocation => '$routeName';
+  static String get routeLocation => routeName;
 
   const PasswordResetPage({super.key});
 

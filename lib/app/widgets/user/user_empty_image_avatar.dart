@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 11/16/23
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 11/16/23
 
 class UserEmptyImageAvatar extends StatelessWidget {
   const UserEmptyImageAvatar({super.key});

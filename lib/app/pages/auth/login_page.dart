@@ -8,7 +8,7 @@ import '../../widgets/scaffolds/AuthScaffold.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
   static String get routeName => 'login';
-  static String get routeLocation => '$routeName';
+  static String get routeLocation => routeName;
 
   @override
   State<LoginPage> createState() => _LoginPageState();

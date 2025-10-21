@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SafeScaffold extends StatelessWidget {
   final AppBar? appBar;
   final Widget child;
-  const SafeScaffold({Key? key, required this.child, this.appBar}) : super(key: key);
+  const SafeScaffold({super.key, required this.child, this.appBar});
 
   @override
   Widget build(BuildContext context) {

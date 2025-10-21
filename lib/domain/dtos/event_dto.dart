@@ -1,11 +1,9 @@
 import 'amount_dto.dart';
 import 'location_dto.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/01/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 07/01/22
 
 class EventDTO {
   final int id;

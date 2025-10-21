@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 06/14/25
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 06/14/25
 
 abstract class BuildHeadersUtils {
   Future<Map<String, String>> headers();

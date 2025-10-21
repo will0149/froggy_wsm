@@ -4,11 +4,9 @@ import 'package:parkea/domain/dtos/event_dto.dart';
 
 import '../repositories/fetch_events_type.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/01/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 07/01/22
 
 class FetchEventsUC implements FetchEventsType {
   late final EventRepository repository;

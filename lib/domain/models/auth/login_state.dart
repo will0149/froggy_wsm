@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../data/entities/auth/auth_response_entity.dart';
 import '../../../data/entities/common/base_response_entity.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 06/17/25
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 06/17/25
 
 class LoginState {
   final bool isLoading;

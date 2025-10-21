@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/29/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 07/29/22
 
 class FeedAppBar extends StatefulWidget {
-  const FeedAppBar({Key? key}) : super(key: key);
+  const FeedAppBar({super.key});
 
   @override
   State<FeedAppBar> createState() => _FeedAppBarState();

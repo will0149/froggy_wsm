@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/widgets/color_loader.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/16/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 07/16/22
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
   static String get routeName => 'splash';
-  static String get routeLocation => '$routeName';
+  static String get routeLocation => routeName;
 
   @override
   StartState createState() => StartState();

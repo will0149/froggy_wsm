@@ -12,11 +12,9 @@ import '../../entities/login_dto.dart';
 import '../utils/http_common_utils.dart';
 import '../utils/impl/http_commons_utils_impl.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 06/14/25
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 06/14/25
 
 class AuthRepository {
   late final BuildHeadersUtils headersUtils;

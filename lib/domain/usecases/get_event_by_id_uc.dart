@@ -3,11 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/repositories/events_repository.dart';
 import '../dtos/event_dto.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/30/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 07/30/22
 
 class GetEventByIDUC {
   late final EventRepository repository = EventRepository();

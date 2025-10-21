@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 06/14/25
- **/
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 06/14/25
+///
 
 enum ApiPathsEnums {
   v1(path: '/'),
