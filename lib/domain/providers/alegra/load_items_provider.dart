@@ -1,19 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:froggy_soft/domain/logics/alegra/impl/items_logic_impl.dart';
-import 'package:froggy_soft/device/utils/logger_config.dart';
 
 /// Made for froggy_soft.
 /// By User: josedominguez
 /// Date: 10/14/25
 part 'load_items_provider.g.dart';
-
-/// Variable estática para mantener la instancia singleton
-ItemsLogicImpl? _itemsLogicInstance;
-
-/// Versión clave para forzar actualización del provider
-int _updateCounter = 0;
 
 /// Provider para la lógica de items de Alegra
 ///
@@ -21,17 +13,6 @@ int _updateCounter = 0;
 /// [ChangeNotifier], permitiendo que los widgets escuchen cambios en:
 /// - [fetchCount]: Número de items descargados actualmente
 /// - [totalItems]: Total de items disponibles en el servidor
-///
-/// **SOLUCIÓN FINAL CON HOOKS_RIVERPOD:**
-/// Usamos un Provider con `select` que observa un counter que se
-/// incrementa cuando el ChangeNotifier emite cambios.
-///
-/// Cuando [ItemsLogicImpl.setFetchCount()] o [setTotalItems()] son llamados:
-/// 1. Llaman a [notifyListeners()]
-/// 2. El listener detecta el cambio
-/// 3. Incrementa _updateCounter para marcar el provider como modificado
-/// 4. Los widgets que usan ref.watch(itemsLogicProvider) se notifican
-/// 5. El AppBar muestra los valores actualizados de fetchCount/totalItems
 ///
 /// **Patrón de uso:**
 /// ```dart
@@ -41,33 +22,7 @@ int _updateCounter = 0;
 ///
 /// Ver también: [ItemsLogicImpl]
 final itemsLogicProvider = Provider<ItemsLogicImpl>((ref) {
-  // Observar counter para forzar actualizaciones
-  ref.watch(itemsLogicUpdateProvider);
-
-  // Obtener o crear instancia singleton
-  if (_itemsLogicInstance == null) {
-    if (kDebugMode) logger.i("Creating new ItemsLogicImpl instance");
-    _itemsLogicInstance = ItemsLogicImpl();
-
-    // Registrar listener que fuerza actualización del provider
-    _itemsLogicInstance?.addListener(() {
-      if (kDebugMode) {
-        logger.d("ItemsLogicImpl notified: fetchCount=${_itemsLogicInstance?.fetchCount}, totalItems=${_itemsLogicInstance?.totalItems}");
-      }
-      // Incrementar counter para marcar provider como modificado
-      _updateCounter++;
-    });
-  } else {
-    if (kDebugMode) logger.i("Reusing existing ItemsLogicImpl instance");
-  }
-
-  return _itemsLogicInstance!;
-});
-
-/// Provider que se actualiza cuando el ChangeNotifier emite cambios
-/// Se usa para observar cambios en el _updateCounter
-final itemsLogicUpdateProvider = Provider<int>((ref) {
-  return _updateCounter;
+  return ItemsLogicImpl();
 });
 
 /// Provider para iniciar el proceso de carga de items
