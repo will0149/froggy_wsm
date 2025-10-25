@@ -1,9 +1,5 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../device/provider/get_connectivity_provider.dart';
-import '../../pages/maintainance/connectivity_page.dart';
 
 /// Made for froggysoft.
 /// By User: josedominguez

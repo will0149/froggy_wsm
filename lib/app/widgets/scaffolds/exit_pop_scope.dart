@@ -56,9 +56,9 @@ class _ExitPopScopeState extends State<ExitPopScope> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (isPop) async {
-        if (kDebugMode) logger.i("isPop $isPop");
-        if (isPop) {
+      onPopInvokedWithResult: (didPop, result) async {
+        if (kDebugMode) logger.i("didPop $didPop");
+        if (didPop) {
           return;
         }
         final bool shouldPop = await _showBackDialog() ?? false;

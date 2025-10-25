@@ -1,5 +1,4 @@
 import 'package:froggy_soft/data/entities/clients/customer_entity.dart';
-import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -34,7 +33,7 @@ class ObjetDropdownButtonState extends ConsumerState<ClientsDropdownButton> {
   @override
   Widget build(BuildContext context) {
     List<CustomerEntity>? clients =  widget.values;
-    String? selectedValue = null;
+    String? selectedValue;
     return DropdownButtonFormField<String>(
       isDense: true,
       isExpanded: true,
@@ -58,7 +57,7 @@ class ObjetDropdownButtonState extends ConsumerState<ClientsDropdownButton> {
           selectedValue = newValue;
         });
       },
-      value: selectedValue,
+      initialValue: selectedValue,
       items: clients?.map((CustomerEntity value) {
         // if (kDebugMode) logger.i("${value.toJson()}");
         return DropdownMenuItem(
