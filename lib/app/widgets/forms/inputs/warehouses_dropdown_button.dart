@@ -60,7 +60,7 @@ class ObjetDropdownButtonState extends ConsumerState<WarehousesDropdownButton> {
           selectedValue = newValue;
         });
       },
-      value: selectedValue,
+      initialValue: selectedValue,
       items: warehouses?.map((WarehouseEntity value) {
         return DropdownMenuItem(
           value: "${value.id}",

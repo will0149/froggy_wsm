@@ -38,7 +38,7 @@ class DropdownButtonInputState extends ConsumerState<DropdownButtonInput> {
           selectedValue = newValue;
         });
       },
-      value: selectedValue,
+      initialValue: selectedValue,
       validator: (String? value) {
         if (value == null) {
           return 'Please select an option';

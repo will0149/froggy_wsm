@@ -12,7 +12,7 @@ var inputDecorationTheme = InputDecorationTheme(
   prefixStyle: const TextStyle(color: Colors.black),
   floatingLabelStyle: const TextStyle(color: Colors.black),
   filled: true,
-  fillColor: Colors.white.withOpacity(0.70),
+  fillColor: Colors.white.withValues(alpha: 0.70),
   errorStyle: const TextStyle(color: Colors.red),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.circular(18),
