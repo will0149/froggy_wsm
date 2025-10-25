@@ -12,6 +12,9 @@ part 'load_items_provider.g.dart';
 /// Variable estática para mantener la instancia singleton
 ItemsLogicImpl? _itemsLogicInstance;
 
+/// Versión clave para forzar actualización del provider
+int _updateCounter = 0;
+
 /// Provider para la lógica de items de Alegra
 ///
 /// Mantiene una instancia singleton de [ItemsLogicImpl] que extiende
@@ -19,17 +22,16 @@ ItemsLogicImpl? _itemsLogicInstance;
 /// - [fetchCount]: Número de items descargados actualmente
 /// - [totalItems]: Total de items disponibles en el servidor
 ///
-/// **SOLUCIÓN FINAL - NotifierProvider con re-invalidación:**
-/// Como Riverpod 3.x removió ChangeNotifierProvider, usamos NotifierProvider
-/// con un listener que invalida el provider cuando notifyListeners() es llamado.
+/// **SOLUCIÓN FINAL CON HOOKS_RIVERPOD:**
+/// Usamos un Provider con `select` que observa un counter que se
+/// incrementa cuando el ChangeNotifier emite cambios.
 ///
 /// Cuando [ItemsLogicImpl.setFetchCount()] o [setTotalItems()] son llamados:
 /// 1. Llaman a [notifyListeners()]
-/// 2. El listener en build() detecta el cambio
-/// 3. Hace ref.invalidate(itemsLogicProvider) para marcar el provider como "dirty"
+/// 2. El listener detecta el cambio
+/// 3. Incrementa _updateCounter para marcar el provider como modificado
 /// 4. Los widgets que usan ref.watch(itemsLogicProvider) se notifican
-/// 5. El build() se vuelve a ejecutar, retornando la misma instancia (actualizada)
-/// 6. El AppBar muestra los valores actualizados de fetchCount/totalItems
+/// 5. El AppBar muestra los valores actualizados de fetchCount/totalItems
 ///
 /// **Patrón de uso:**
 /// ```dart
@@ -37,45 +39,36 @@ ItemsLogicImpl? _itemsLogicInstance;
 /// Text('Cargando ${logic.fetchCount}/${logic.totalItems}')
 /// ```
 ///
-/// Ver también: [ItemsLogicImpl], [_ItemsLogicNotifier]
-final itemsLogicProvider = NotifierProvider<_ItemsLogicNotifier, ItemsLogicImpl>(
-  _ItemsLogicNotifier.new,
-);
+/// Ver también: [ItemsLogicImpl]
+final itemsLogicProvider = Provider<ItemsLogicImpl>((ref) {
+  // Observar counter para forzar actualizaciones
+  ref.watch(itemsLogicUpdateProvider);
 
-/// Notifier para mantener singleton de ItemsLogicImpl con invalidación automática
-class _ItemsLogicNotifier extends Notifier<ItemsLogicImpl> {
-  /// Referencia al provider para poder invalidar desde el listener
-  // Nota: No usar type parameter en Ref - usar solo Ref sin <>
-  late Ref _ref;
+  // Obtener o crear instancia singleton
+  if (_itemsLogicInstance == null) {
+    if (kDebugMode) logger.i("Creating new ItemsLogicImpl instance");
+    _itemsLogicInstance = ItemsLogicImpl();
 
-  @override
-  ItemsLogicImpl build() {
-    _ref = ref;
-
-    // Crear instancia singleton una sola vez
-    if (_itemsLogicInstance == null) {
-      if (kDebugMode) logger.i("Creating new ItemsLogicImpl instance");
-      _itemsLogicInstance = ItemsLogicImpl();
-
-      // Escuchar cambios del ChangeNotifier y marcar el provider como "dirty"
-      _itemsLogicInstance?.addListener(_onItemsLogicChanged);
-    } else {
-      if (kDebugMode) logger.i("Reusing existing ItemsLogicImpl instance");
-    }
-
-    return _itemsLogicInstance!;
+    // Registrar listener que fuerza actualización del provider
+    _itemsLogicInstance?.addListener(() {
+      if (kDebugMode) {
+        logger.d("ItemsLogicImpl notified: fetchCount=${_itemsLogicInstance?.fetchCount}, totalItems=${_itemsLogicInstance?.totalItems}");
+      }
+      // Incrementar counter para marcar provider como modificado
+      _updateCounter++;
+    });
+  } else {
+    if (kDebugMode) logger.i("Reusing existing ItemsLogicImpl instance");
   }
 
-  /// Callback ejecutado cuando ItemsLogicImpl emite cambios via notifyListeners()
-  void _onItemsLogicChanged() {
-    if (kDebugMode) {
-      logger.d("ItemsLogicImpl changed: fetchCount=${_itemsLogicInstance?.fetchCount}, totalItems=${_itemsLogicInstance?.totalItems}");
-    }
-    // Invalidar el provider para que se reconstruya (sin cambiar la instancia)
-    // Esto causa que ref.watch() notifique a los widgets
-    _ref.invalidateSelf();
-  }
-}
+  return _itemsLogicInstance!;
+});
+
+/// Provider que se actualiza cuando el ChangeNotifier emite cambios
+/// Se usa para observar cambios en el _updateCounter
+final itemsLogicUpdateProvider = Provider<int>((ref) {
+  return _updateCounter;
+});
 
 /// Provider para iniciar el proceso de carga de items
 ///

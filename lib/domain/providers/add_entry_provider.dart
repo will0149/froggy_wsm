@@ -11,11 +11,13 @@ import '../../device/utils/logger_config.dart';
 /// Variable estática para mantener la instancia singleton
 InboundLogicImpl? _inboundLogicInstance;
 
+/// Versión clave para forzar actualización del provider
+int _updateCounter = 0;
+
 /// Provider para la lógica de entrada de mercancía
 ///
-/// Mantiene singleton de [InboundLogicImpl] con reactividad usando
-/// [NotifierProvider]. Cuando [notifyListeners()] es llamado,
-/// el listener invalida el provider para que se reconstruya.
+/// Mantiene singleton de [InboundLogicImpl] con reactividad observando
+/// un counter que se incrementa cuando el ChangeNotifier emite cambios.
 ///
 /// **Patrón de uso:**
 /// ```dart
@@ -24,45 +26,39 @@ InboundLogicImpl? _inboundLogicInstance;
 /// ```
 ///
 /// **Cómo funciona:**
-/// 1. NotifierProvider crea y mantiene singleton de InboundLogicImpl
-/// 2. Cuando InboundLogicImpl.notifyListeners() es llamado, el listener lo detecta
-/// 3. El listener llama a ref.invalidateSelf() para marcar el provider como "dirty"
-/// 4. Todos los widgets que usan ref.watch(addEntryProvider) se reconstruyen
-/// 5. Los cambios se propagan en tiempo real
-final addEntryProvider = NotifierProvider<_AddEntryNotifier, InboundLogicImpl>(
-  _AddEntryNotifier.new,
-);
+/// 1. Provider crea y mantiene singleton de InboundLogicImpl
+/// 2. Observa addEntryUpdateProvider para detectar cambios
+/// 3. Cuando InboundLogicImpl.notifyListeners() es llamado, el listener lo detecta
+/// 4. El listener incrementa _updateCounter
+/// 5. addEntryUpdateProvider se notifica y fuerza actualización del provider
+/// 6. Todos los widgets que usan ref.watch(addEntryProvider) se reconstruyen
+/// 7. Los cambios se propagan en tiempo real
+final addEntryProvider = Provider<InboundLogicImpl>((ref) {
+  // Observar counter para forzar actualizaciones
+  ref.watch(addEntryUpdateProvider);
 
-/// Notifier para mantener singleton de InboundLogicImpl con invalidación automática
-class _AddEntryNotifier extends Notifier<InboundLogicImpl> {
-  /// Referencia al provider para poder invalidar desde el listener
-  // Nota: No usar type parameter en Ref - usar solo Ref sin <>
-  late Ref _ref;
+  // Obtener o crear instancia singleton
+  if (_inboundLogicInstance == null) {
+    if (kDebugMode) logger.i("Creating new InboundLogicImpl instance");
+    _inboundLogicInstance = InboundLogicImpl();
 
-  @override
-  InboundLogicImpl build() {
-    _ref = ref;
-
-    // Crear instancia singleton una sola vez
-    if (_inboundLogicInstance == null) {
-      if (kDebugMode) logger.i("Creating new InboundLogicImpl instance");
-      _inboundLogicInstance = InboundLogicImpl();
-
-      // Escuchar cambios del ChangeNotifier y marcar el provider como "dirty"
-      _inboundLogicInstance?.addListener(_onInboundLogicChanged);
-    } else {
-      if (kDebugMode) logger.i("Reusing existing InboundLogicImpl instance");
-    }
-
-    return _inboundLogicInstance!;
+    // Registrar listener que fuerza actualización del provider
+    _inboundLogicInstance?.addListener(() {
+      if (kDebugMode) {
+        logger.d("InboundLogicImpl notified");
+      }
+      // Incrementar counter para marcar provider como modificado
+      _updateCounter++;
+    });
+  } else {
+    if (kDebugMode) logger.i("Reusing existing InboundLogicImpl instance");
   }
 
-  /// Callback ejecutado cuando InboundLogicImpl emite cambios via notifyListeners()
-  void _onInboundLogicChanged() {
-    if (kDebugMode) {
-      logger.d("InboundLogicImpl changed");
-    }
-    // Invalidar el provider para que se reconstruya
-    _ref.invalidateSelf();
-  }
-}
+  return _inboundLogicInstance!;
+});
+
+/// Provider que se actualiza cuando el ChangeNotifier emite cambios
+/// Se usa para observar cambios en el _updateCounter
+final addEntryUpdateProvider = Provider<int>((ref) {
+  return _updateCounter;
+});
