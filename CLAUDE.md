@@ -56,6 +56,35 @@ flutter test
 - Providers are defined in `lib/domain/providers/` and follow the pattern `[feature]_provider.dart`
 - Code generation with `riverpod_annotation` and `riverpod_generator`
 
+#### ChangeNotifier Integration with Riverpod
+For business logic classes that extend `ChangeNotifier` (e.g., `ItemsLogicImpl`, `InboundLogicImpl`), use `NotifierProvider` with an explicit listener pattern:
+
+```dart
+final itemsLogicProvider = NotifierProvider<_ItemsLogicNotifier, ItemsLogicImpl>(_ItemsLogicNotifier.new);
+
+class _ItemsLogicNotifier extends Notifier<ItemsLogicImpl> {
+  static ItemsLogicImpl? _instance;
+
+  @override
+  ItemsLogicImpl build() {
+    _instance ??= ItemsLogicImpl();
+
+    // Listen to ChangeNotifier changes and update Riverpod state
+    _instance?.addListener(() {
+      state = _instance!; // Force Riverpod to notify listeners
+    });
+
+    return _instance!;
+  }
+}
+```
+
+This pattern ensures:
+1. Singleton instance persists across widget rebuilds
+2. When `ItemsLogicImpl.notifyListeners()` is called, the listener updates Riverpod state
+3. Widgets using `ref.watch(itemsLogicProvider)` rebuild automatically
+4. Real-time UI updates during async operations (e.g., `fetchCount`/`totalItems` progress)
+
 ### Database
 - **SQLite** via `sqflite` for local data storage
 - Database schema definitions in `lib/data/repositories/schemas/local_tables.dart`
