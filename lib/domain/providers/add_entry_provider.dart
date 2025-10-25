@@ -8,60 +8,61 @@ import '../../device/utils/logger_config.dart';
 /// By User: josedominguez
 /// Date: 06/11/24
 
+/// Variable estática para mantener la instancia singleton
+InboundLogicImpl? _inboundLogicInstance;
+
 /// Provider para la lógica de entrada de mercancía
 ///
-/// Mantiene singleton de [InboundLogicImpl] con reactividad.
-/// Implementa [NotifierProvider] con listener a [ChangeNotifier] para
-/// asegurar que los widgets se reconstruyan cuando la lógica emita cambios.
+/// Mantiene singleton de [InboundLogicImpl] con reactividad usando
+/// [NotifierProvider]. Cuando [notifyListeners()] es llamado,
+/// el listener invalida el provider para que se reconstruya.
 ///
 /// **Patrón de uso:**
 /// ```dart
 /// final logic = ref.watch(addEntryProvider);
 /// // Acceder a propiedades reactivas de InboundLogicImpl
 /// ```
-final addEntryProvider =
-    NotifierProvider<_AddEntryNotifier, InboundLogicImpl>(
-        _AddEntryNotifier.new);
+///
+/// **Cómo funciona:**
+/// 1. NotifierProvider crea y mantiene singleton de InboundLogicImpl
+/// 2. Cuando InboundLogicImpl.notifyListeners() es llamado, el listener lo detecta
+/// 3. El listener llama a ref.invalidateSelf() para marcar el provider como "dirty"
+/// 4. Todos los widgets que usan ref.watch(addEntryProvider) se reconstruyen
+/// 5. Los cambios se propagan en tiempo real
+final addEntryProvider = NotifierProvider<_AddEntryNotifier, InboundLogicImpl>(
+  _AddEntryNotifier.new,
+);
 
-/// Notifier para mantener singleton de InboundLogicImpl
-///
-/// Implementa el patrón singleton con [NotifierProvider] y agrega listener
-/// a [InboundLogicImpl] (que extiende [ChangeNotifier]) para integración
-/// perfecta con Riverpod.
-///
-/// Cuando [InboundLogicImpl.notifyListeners()] es llamado:
-/// 1. El listener registrado en build() detecta el cambio
-/// 2. El callback se ejecuta dentro de Future.microtask()
-/// 3. Se actualiza state = _instance! para que Riverpod notifique
-/// 4. Los widgets que usan ref.watch(addEntryProvider) se reconstruyen
-///
-/// **Importante:** Se usa removeListener antes de addListener para evitar
-/// registrar múltiples listeners. Future.microtask() previene race conditions.
+/// Notifier para mantener singleton de InboundLogicImpl con invalidación automática
 class _AddEntryNotifier extends Notifier<InboundLogicImpl> {
-  /// Instancia estática singleton de InboundLogicImpl
-  static InboundLogicImpl? _instance;
+  /// Referencia al provider para poder invalidar desde el listener
+  // Nota: No usar type parameter en Ref - usar solo Ref sin <>
+  late Ref _ref;
 
   @override
   InboundLogicImpl build() {
-    // Patrón singleton: crear solo si no existe
-    _instance ??= InboundLogicImpl();
+    _ref = ref;
 
-    // Remover listener anterior si existe, y registrar uno nuevo
-    // Esto previene listeners duplicados y asegura que siempre hay uno activo
-    _instance?.removeListener(_onInstanceChanged);
-    _instance?.addListener(_onInstanceChanged);
+    // Crear instancia singleton una sola vez
+    if (_inboundLogicInstance == null) {
+      if (kDebugMode) logger.i("Creating new InboundLogicImpl instance");
+      _inboundLogicInstance = InboundLogicImpl();
 
-    return _instance!;
+      // Escuchar cambios del ChangeNotifier y marcar el provider como "dirty"
+      _inboundLogicInstance?.addListener(_onInboundLogicChanged);
+    } else {
+      if (kDebugMode) logger.i("Reusing existing InboundLogicImpl instance");
+    }
+
+    return _inboundLogicInstance!;
   }
 
   /// Callback ejecutado cuando InboundLogicImpl emite cambios via notifyListeners()
-  void _onInstanceChanged() {
+  void _onInboundLogicChanged() {
     if (kDebugMode) {
       logger.d("InboundLogicImpl changed");
     }
-    // Usar Future.microtask para diferir la actualización y evitar race conditions
-    Future.microtask(() {
-      state = _instance!;
-    });
+    // Invalidar el provider para que se reconstruya
+    _ref.invalidateSelf();
   }
 }

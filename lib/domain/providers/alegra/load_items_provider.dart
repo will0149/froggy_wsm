@@ -9,6 +9,9 @@ import 'package:froggy_soft/device/utils/logger_config.dart';
 /// Date: 10/14/25
 part 'load_items_provider.g.dart';
 
+/// Variable estática para mantener la instancia singleton
+ItemsLogicImpl? _itemsLogicInstance;
+
 /// Provider para la lógica de items de Alegra
 ///
 /// Mantiene una instancia singleton de [ItemsLogicImpl] que extiende
@@ -16,16 +19,17 @@ part 'load_items_provider.g.dart';
 /// - [fetchCount]: Número de items descargados actualmente
 /// - [totalItems]: Total de items disponibles en el servidor
 ///
-/// **IMPORTANTE:** Este provider usa [NotifierProvider] con singleton pattern.
-/// Para mantener la reactividad con ChangeNotifier, ItemsLogicImpl notifica
-/// cambios de dos formas:
+/// **SOLUCIÓN FINAL - NotifierProvider con re-invalidación:**
+/// Como Riverpod 3.x removió ChangeNotifierProvider, usamos NotifierProvider
+/// con un listener que invalida el provider cuando notifyListeners() es llamado.
 ///
-/// 1. Via [notifyListeners()] que se propaga a través del ChangeNotifier
-/// 2. Via [state] mutations que Riverpod detecta automáticamente
-///
-/// Los widgets se reconstruyen cuando:
-/// - [ItemsLogicImpl.setFetchCount()] es llamado (notifyListeners + state update)
-/// - [ItemsLogicImpl.setTotalItems()] es llamado (notifyListeners + state update)
+/// Cuando [ItemsLogicImpl.setFetchCount()] o [setTotalItems()] son llamados:
+/// 1. Llaman a [notifyListeners()]
+/// 2. El listener en build() detecta el cambio
+/// 3. Hace ref.invalidate(itemsLogicProvider) para marcar el provider como "dirty"
+/// 4. Los widgets que usan ref.watch(itemsLogicProvider) se notifican
+/// 5. El build() se vuelve a ejecutar, retornando la misma instancia (actualizada)
+/// 6. El AppBar muestra los valores actualizados de fetchCount/totalItems
 ///
 /// **Patrón de uso:**
 /// ```dart
@@ -33,75 +37,43 @@ part 'load_items_provider.g.dart';
 /// Text('Cargando ${logic.fetchCount}/${logic.totalItems}')
 /// ```
 ///
-/// Ver también: [_ItemsLogicNotifier], [ItemsLogicImpl]
-final itemsLogicProvider =
-    NotifierProvider<_ItemsLogicNotifier, ItemsLogicImpl>(
-        _ItemsLogicNotifier.new);
+/// Ver también: [ItemsLogicImpl], [_ItemsLogicNotifier]
+final itemsLogicProvider = NotifierProvider<_ItemsLogicNotifier, ItemsLogicImpl>(
+  _ItemsLogicNotifier.new,
+);
 
-/// Notifier para mantener singleton de ItemsLogicImpl
-///
-/// Implementa el patrón singleton usando null-coalescing (??=) para
-/// garantizar que solo existe una instancia de [ItemsLogicImpl] durante
-/// la vida de la aplicación.
-///
-/// **Cómo funciona la reactividad:**
-/// 1. [ItemsLogicImpl] extiende [ChangeNotifier]
-/// 2. Quando [setFetchCount()] o [setTotalItems()] son llamados:
-///    - Se actualiza el estado interno de ItemsLogicImpl
-///    - Se llama a [notifyListeners()] para notificar a ChangeNotifier listeners
-/// 3. Riverpod se suscribe a _instance como Listenable en build()
-/// 4. Cuando notifyListeners() se dispara, Riverpod detecta el cambio
-/// 5. Riverpod notifica a widgets que usan ref.watch(itemsLogicProvider)
-///
-/// **IMPORTANTE - Listenable Integration:**
-/// En lugar de agregar un listener manualmente, Riverpod proporciona una forma
-/// automática de monitorear ChangeNotifier via la API de Listenable.
-/// Esto se logra retornando la instancia directamente de build(),
-/// y Riverpod automáticamente se suscribe si es Listenable.
-///
-/// La clave está en que cuando build() retorna un ChangeNotifier,
-/// Riverpod lo monitorea automáticamente y se reconstruye en notifyListeners().
-///
-/// Esto es crucial porque:
-/// 1. Mantiene el estado consistente entre widgets
-/// 2. Evita pérdida de datos durante la sincronización
-/// 3. Permite que el notifier siga siendo reactivo a cambios
-/// 4. Solo existe una instancia que preserva estado entre navegaciones
+/// Notifier para mantener singleton de ItemsLogicImpl con invalidación automática
 class _ItemsLogicNotifier extends Notifier<ItemsLogicImpl> {
-  /// Instancia estática singleton de ItemsLogicImpl
-  static ItemsLogicImpl? _instance;
+  /// Referencia al provider para poder invalidar desde el listener
+  // Nota: No usar type parameter en Ref - usar solo Ref sin <>
+  late Ref _ref;
 
   @override
   ItemsLogicImpl build() {
-    // Patrón singleton: crear solo si no existe
-    // ??= es el operador null-coalescing assignment que:
-    // - Si _instance es null, crea nueva instancia
-    // - Si _instance existe, mantiene la actual
-    _instance ??= ItemsLogicImpl();
+    _ref = ref;
 
-    // Log para debug
-    if (kDebugMode) {
-      logger.i("ItemsLogicNotifier.build() called with fetchCount=${_instance?.fetchCount}, totalItems=${_instance?.totalItems}");
+    // Crear instancia singleton una sola vez
+    if (_itemsLogicInstance == null) {
+      if (kDebugMode) logger.i("Creating new ItemsLogicImpl instance");
+      _itemsLogicInstance = ItemsLogicImpl();
+
+      // Escuchar cambios del ChangeNotifier y marcar el provider como "dirty"
+      _itemsLogicInstance?.addListener(_onItemsLogicChanged);
+    } else {
+      if (kDebugMode) logger.i("Reusing existing ItemsLogicImpl instance");
     }
 
-    // Registrar listener usando Future.microtask para evitar race conditions
-    // Solo registrar UNA VEZ
-    _instance?.removeListener(_onInstanceChanged);
-    _instance?.addListener(_onInstanceChanged);
-
-    return _instance!;
+    return _itemsLogicInstance!;
   }
 
   /// Callback ejecutado cuando ItemsLogicImpl emite cambios via notifyListeners()
-  void _onInstanceChanged() {
+  void _onItemsLogicChanged() {
     if (kDebugMode) {
-      logger.d("ItemsLogicImpl changed: fetchCount=${_instance?.fetchCount}, totalItems=${_instance?.totalItems}");
+      logger.d("ItemsLogicImpl changed: fetchCount=${_itemsLogicInstance?.fetchCount}, totalItems=${_itemsLogicInstance?.totalItems}");
     }
-    // Usar Future.microtask para diferir la actualización y evitar race conditions
-    // durante el ciclo de notifyListeners() de ChangeNotifier
-    Future.microtask(() {
-      state = _instance!;
-    });
+    // Invalidar el provider para que se reconstruya (sin cambiar la instancia)
+    // Esto causa que ref.watch() notifique a los widgets
+    _ref.invalidateSelf();
   }
 }
 
