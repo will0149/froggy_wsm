@@ -47,8 +47,15 @@ final itemsLogicProvider =
 /// 2. Cuando [setFetchCount()] o [setTotalItems()] son llamados:
 ///    - Se actualiza el estado interno de ItemsLogicImpl
 ///    - Se llama a [notifyListeners()] para notificar a ChangeNotifier listeners
-///    - Riverpod detecta estos cambios vía su sistema de listening
-/// 3. El widget que ejecuta [ref.watch(itemsLogicProvider)] se reconstruye
+///    - El listener registrado en build() detecta el cambio
+/// 3. El listener ejecuta: state = _instance! para forzar update en Riverpod
+/// 4. Riverpod notifica a widgets que usan ref.watch(itemsLogicProvider)
+/// 5. El widget se reconstruye con los nuevos valores
+///
+/// **Nota importante sobre listeners:**
+/// El listener solo se registra UNA VEZ en el constructor. Si build() es llamado
+/// múltiples veces, el listener ya existe de la primera inicialización.
+/// Por eso usamos _listenerRegistered para evitar registrar duplicados.
 ///
 /// Esto es crucial porque:
 /// 1. Mantiene el estado consistente entre widgets
@@ -59,6 +66,9 @@ class _ItemsLogicNotifier extends Notifier<ItemsLogicImpl> {
   /// Instancia estática singleton de ItemsLogicImpl
   static ItemsLogicImpl? _instance;
 
+  /// Flag para evitar registrar el listener múltiples veces
+  static bool _listenerRegistered = false;
+
   @override
   ItemsLogicImpl build() {
     // Patrón singleton: crear solo si no existe
@@ -67,13 +77,18 @@ class _ItemsLogicNotifier extends Notifier<ItemsLogicImpl> {
     // - Si _instance existe, mantiene la actual
     _instance ??= ItemsLogicImpl();
 
-    // Escuchar cambios del ChangeNotifier
-    // Cuando ItemsLogicImpl llama a notifyListeners(),
-    // actualizamos el estado de Riverpod
-    _instance?.addListener(() {
-      // Forzar actualización del estado en Riverpod
-      state = _instance!;
-    });
+    // Registrar listener SOLO UNA VEZ
+    // Esto evita listeners duplicados que causarían múltiples actualizaciones
+    if (!_listenerRegistered) {
+      _listenerRegistered = true;
+      _instance?.addListener(() {
+        // Forzar actualización del estado en Riverpod
+        // Cuando ItemsLogicImpl llama a notifyListeners(), este callback se ejecuta
+        // y actualiza state, lo que dispara notificación a todos los widgets que
+        // usan ref.watch(itemsLogicProvider)
+        state = _instance!;
+      });
+    }
 
     return _instance!;
   }

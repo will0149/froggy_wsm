@@ -27,6 +27,9 @@ final addEntryProvider =
 /// a [InboundLogicImpl] (que extiende [ChangeNotifier]) para integración
 /// perfecta con Riverpod.
 ///
+/// **Importante:** El listener solo se registra UNA VEZ para evitar duplicados
+/// que causarían múltiples actualizaciones innecesarias.
+///
 /// Cuando [InboundLogicImpl.notifyListeners()] es llamado:
 /// 1. El listener registrado en build() detecta el cambio
 /// 2. Se actualiza state = _instance! para que Riverpod notifique
@@ -35,18 +38,24 @@ class _AddEntryNotifier extends Notifier<InboundLogicImpl> {
   /// Instancia estática singleton de InboundLogicImpl
   static InboundLogicImpl? _instance;
 
+  /// Flag para evitar registrar el listener múltiples veces
+  static bool _listenerRegistered = false;
+
   @override
   InboundLogicImpl build() {
     // Patrón singleton: crear solo si no existe
     _instance ??= InboundLogicImpl();
 
-    // Escuchar cambios del ChangeNotifier
-    // Cuando InboundLogicImpl llama a notifyListeners(),
-    // actualizamos el estado de Riverpod
-    _instance?.addListener(() {
-      // Forzar actualización del estado en Riverpod
-      state = _instance!;
-    });
+    // Registrar listener SOLO UNA VEZ
+    // Esto evita listeners duplicados
+    if (!_listenerRegistered) {
+      _listenerRegistered = true;
+      _instance?.addListener(() {
+        // Forzar actualización del estado en Riverpod
+        // Cuando InboundLogicImpl llama a notifyListeners(), este callback se ejecuta
+        state = _instance!;
+      });
+    }
 
     return _instance!;
   }
