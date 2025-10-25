@@ -14,8 +14,16 @@ part 'load_items_provider.g.dart';
 /// - [fetchCount]: Número de items descargados actualmente
 /// - [totalItems]: Total de items disponibles en el servidor
 ///
-/// Usa [NotifierProvider] para mantener la reactividad con [ChangeNotifier]
-/// porque [Provider] no notifica cambios cuando se llama a [notifyListeners].
+/// **IMPORTANTE:** Este provider usa [NotifierProvider] con singleton pattern.
+/// Para mantener la reactividad con ChangeNotifier, ItemsLogicImpl notifica
+/// cambios de dos formas:
+///
+/// 1. Via [notifyListeners()] que se propaga a través del ChangeNotifier
+/// 2. Via [state] mutations que Riverpod detecta automáticamente
+///
+/// Los widgets se reconstruyen cuando:
+/// - [ItemsLogicImpl.setFetchCount()] es llamado (notifyListeners + state update)
+/// - [ItemsLogicImpl.setTotalItems()] es llamado (notifyListeners + state update)
 ///
 /// **Patrón de uso:**
 /// ```dart
@@ -34,10 +42,19 @@ final itemsLogicProvider =
 /// garantizar que solo existe una instancia de [ItemsLogicImpl] durante
 /// la vida de la aplicación.
 ///
+/// **Cómo funciona la reactividad:**
+/// 1. [ItemsLogicImpl] extiende [ChangeNotifier]
+/// 2. Cuando [setFetchCount()] o [setTotalItems()] son llamados:
+///    - Se actualiza el estado interno de ItemsLogicImpl
+///    - Se llama a [notifyListeners()] para notificar a ChangeNotifier listeners
+///    - Riverpod detecta estos cambios vía su sistema de listening
+/// 3. El widget que ejecuta [ref.watch(itemsLogicProvider)] se reconstruye
+///
 /// Esto es crucial porque:
 /// 1. Mantiene el estado consistente entre widgets
 /// 2. Evita pérdida de datos durante la sincronización
 /// 3. Permite que el notifier siga siendo reactivo a cambios
+/// 4. Solo existe una instancia que preserva estado entre navegaciones
 class _ItemsLogicNotifier extends Notifier<ItemsLogicImpl> {
   /// Instancia estática singleton de ItemsLogicImpl
   static ItemsLogicImpl? _instance;
@@ -49,6 +66,15 @@ class _ItemsLogicNotifier extends Notifier<ItemsLogicImpl> {
     // - Si _instance es null, crea nueva instancia
     // - Si _instance existe, mantiene la actual
     _instance ??= ItemsLogicImpl();
+
+    // Escuchar cambios del ChangeNotifier
+    // Cuando ItemsLogicImpl llama a notifyListeners(),
+    // actualizamos el estado de Riverpod
+    _instance?.addListener(() {
+      // Forzar actualización del estado en Riverpod
+      state = _instance!;
+    });
+
     return _instance!;
   }
 }
