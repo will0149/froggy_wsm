@@ -13,6 +13,6 @@ import '../../logics/warehouse/warehouse_logic.dart';
 part 'get_warehouses_provider.g.dart';
 
 @riverpod
-Future<BaseResponseEntity<List<WarehouseEntity>>> getWarehouses(GetWarehousesRef ref) async {
+Future<BaseResponseEntity<List<WarehouseEntity>>> getWarehouses(Ref ref) async {
   return ref.read(warehouseLogicProvider).getWarehouses();
 }

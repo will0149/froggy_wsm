@@ -9,9 +9,7 @@ import '../models/entry_form_view_state.dart';
 /// By User: josedominguez
 /// Date: 07/05/24
 
-//TODO: Use Notifier or AsyncNotifier in favor of StateNotifier/ChangeNotifier.
-
-class EntryFormViewNotifier extends AutoDisposeNotifier<EntryFormViewState> {
+class EntryFormViewNotifier {
   String selectedPerson = " ";
   String selectedWarehouse = " ";
 
@@ -30,9 +28,11 @@ class EntryFormViewNotifier extends AutoDisposeNotifier<EntryFormViewState> {
 
   bool componentsLoading = true;
 
-  @override
-  EntryFormViewState build() {
-    return EntryFormViewState();
+  EntryFormViewState _state = EntryFormViewState();
+
+  EntryFormViewState get state => _state;
+  set state(EntryFormViewState newState) {
+    _state = newState;
   }
 
   void setSelectedWarehouse(String value) {
@@ -120,6 +120,6 @@ class EntryFormViewNotifier extends AutoDisposeNotifier<EntryFormViewState> {
 }
 
 final entryFormViewProvider =
-    AutoDisposeNotifierProvider<EntryFormViewNotifier, EntryFormViewState>(() {
+    Provider.autoDispose<EntryFormViewNotifier>((ref) {
   return EntryFormViewNotifier();
 });

@@ -49,31 +49,15 @@ class MainPageState extends ConsumerState<MainPage> {
 
   void loadDatabase() {
     showWarningToast("Recuerde actualizar los registros");
-    final dbHandler = ref.read(databaseNotifierProvider);
-    dbHandler.when(
-      error: (err, s) {
-        if (kDebugMode) logger.e("error $s");
-        // return Text(err.toString());
-      },
-      loading: () => setState(() {
-        isLoading = true;
-      }),
-      data: (data) {
-        if (kDebugMode) logger.i(
-            "data.isReady ${data.isReady} data.isFirstLoad ${data.isFirstLoad}");
-        if (data.isReady && data.isFirstLoad) {
-          if (kDebugMode) logger.i("successfully initialize");
-          setState(() {
-            isLoading = false;
-          });
-        }
-      },
-    );
+    final dbHandler = ref.read(databaseProvider.future);
+    dbHandler.whenComplete(() {
+      if (kDebugMode) logger.i("Database loading complete");
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     var authHandlerP = ref.watch(authLogicProvider);
     var itemsLogic = ref.watch(itemsLogicProvider);
     return KillPopScope(

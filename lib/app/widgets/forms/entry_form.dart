@@ -12,7 +12,6 @@ import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/dimensions_dto.dart';
 import '../../../domain/providers/add_entry_provider.dart';
 import '../../../domain/providers/clients/customer_provider.dart';
-import '../../../domain/states/entry_form_view_notifier.dart';
 import '../../../domain/utils/clean_list_util.dart';
 import '../../constants.dart';
 import '../toasts/build_toasts.dart';
@@ -118,8 +117,8 @@ class EntryFormState extends ConsumerState<EntryForm> {
   Widget build(BuildContext context) {
     final customersData = ref.watch(getCustomersProvider);
     final warehouseData = ref.watch(getWarehousesProvider);
-    final entryLogicProvider = ref.read(addEntryProvider.notifier);
-    var size = MediaQuery.of(context).size;
+    final entryLogicProvider = ref.read(addEntryProvider);
+    final size = MediaQuery.of(context).size;
     return Form(
       key: entryFormKey,
       child: Wrap(

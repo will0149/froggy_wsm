@@ -11,7 +11,7 @@ part 'load_items_provider.g.dart';
 
 /// Provider para la lógica de items de Alegra
 /// Retorna una instancia singleton de ItemsLogic que extiende ChangeNotifier
-final itemsLogicProvider = ChangeNotifierProvider<ItemsLogicImpl>((ref) {
+final itemsLogicProvider = Provider<ItemsLogicImpl>((ref) {
   return ItemsLogicImpl();
 });
 

@@ -6,4 +6,4 @@ import '../logics/inbound_logic.dart';
 /// By User: josedominguez
 /// Date: 06/11/24
 
-final addEntryProvider = ChangeNotifierProvider<InboundLogicImpl>((ref) => InboundLogicImpl(),);
+final addEntryProvider = Provider<InboundLogicImpl>((ref) => InboundLogicImpl(),);
