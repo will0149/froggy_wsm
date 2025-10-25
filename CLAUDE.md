@@ -102,9 +102,62 @@ flutter test
 - Input validation utilities in `lib/domain/utils/`
 - Reusable input components for consistent UX
 
+## Code Documentation Standards
+
+### Comment Guidelines
+Always include comments and documentation when:
+1. **Implementing complex logic** - Explain the "why" and algorithm approach
+2. **Making architectural decisions** - Document why this pattern was chosen
+3. **Creating public APIs** - Use doc comments (///) for all public classes, methods, and functions
+4. **Adding workarounds or hacks** - Mark with FIXME, WORKAROUND, or NOTE comments
+5. **Making changes affecting multiple components** - Note dependencies and affected areas
+
+### Documentation Format
+- **Doc Comments**: Use `///` for public APIs with descriptions, parameters, return values, and examples
+- **Line Comments**: Use `//` for explaining complex logic or non-obvious decisions
+- **Block Comments**: Use for large sections or explaining architectural patterns
+- **Special Tags**: TODO, FIXME, NOTE, DEPRECATED for maintenance markers
+
+For detailed guidelines, see: `CODE_COMMENTS_GUIDE.md`
+
+### Example
+```dart
+/// Processes items in batches to manage memory efficiently
+///
+/// Divides the list into chunks of [batchSize] and processes
+/// sequentially to prevent memory overload with large datasets.
+///
+/// Returns: Number of items successfully processed
+Future<int> processBatch(List<Item> items, {int batchSize = 50}) async {
+  int processedCount = 0;
+
+  // Process items in chunks to manage memory
+  for (int i = 0; i < items.length; i += batchSize) {
+    final batch = items.sublist(i, min(i + batchSize, items.length));
+
+    try {
+      for (final item in batch) {
+        await _processItem(item);
+        processedCount++;
+      }
+      // Free resources between batches
+      await Future.delayed(Duration.zero);
+    } catch (e) {
+      logger.e('Error processing batch: $e');
+    }
+  }
+
+  return processedCount;
+}
+```
+
+## Development Workflow
+
 When working with this codebase:
 1. Always run code generation after modifying DTOs or entities
 2. Use existing repository patterns for new data sources
 3. Follow the established provider naming conventions
 4. Test with different flavors when making environment-specific changes
 5. Ensure proper error handling with the base response entity pattern
+6. **Add meaningful comments explaining complex logic and decisions**
+7. Document public APIs with doc comments (///)
