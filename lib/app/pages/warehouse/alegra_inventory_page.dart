@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:froggy_soft/domain/providers/alegra_items_provider.dart';
-import 'package:froggy_soft/domain/dtos/alegra_item_dto.dart';
 
 /**
  * Made for froggy_soft.

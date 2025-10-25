@@ -6,12 +6,10 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../device/utils/device_info.dart';
 import '../../../device/utils/is_first_run.dart';
-import '../../../flavors.dart';
 import '../../constants.dart';
 import '../../widgets/forms/base_form_decorator.dart';
 import '../../widgets/forms/login_form.dart';
 import '../../widgets/scaffolds/kill_pop_scope.dart';
-import '../../widgets/scaffolds/safe_scaffold.dart';
 
 /// Made for froggysoft.
 /// By User: josedominguez
@@ -42,7 +40,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return KillPopScope(
       context: context,
       child: Scaffold(

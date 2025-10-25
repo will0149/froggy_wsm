@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/series_dto.dart';
 import '../../../generated/l10n.dart';
 import '../../widgets/toasts/build_toasts.dart';
@@ -29,7 +28,6 @@ class SearchPage extends ConsumerStatefulWidget {
 }
 
 class SearchTableState extends ConsumerState<SearchPage> {
-  final ScrollController _controller = ScrollController();
   late final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late final TextEditingController searchValueController =
       TextEditingController();
