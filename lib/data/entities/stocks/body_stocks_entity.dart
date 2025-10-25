@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../../domain/dtos/series_dto.dart';
 
 /**
  * Made for froggysoft.

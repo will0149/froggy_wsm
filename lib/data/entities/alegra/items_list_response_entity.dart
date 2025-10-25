@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:froggy_soft/data/entities/alegra/item_entity.dart';
 import 'package:froggy_soft/data/entities/alegra/metadata_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
