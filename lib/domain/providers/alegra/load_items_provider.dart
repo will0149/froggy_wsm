@@ -28,19 +28,9 @@ class _ItemsLogicNotifier extends Notifier<ItemsLogicImpl> {
 }
 
 /// Provider para iniciar el proceso de carga de items
+/// Ejecuta la población de la base de datos local desde la API de Alegra
 @riverpod
 Future<void> loadItemsProcess(Ref ref) async {
-  final logic = ref.read(itemsLogicProvider);
+  final logic = ref.watch(itemsLogicProvider);
   await logic.populateLocalDataBase();
 }
-
-/**
- *  Ventajas de este enfoque:
-
-    1. ✅ keepAlive: true - Mantiene la instancia viva y no se recrea innecesariamente
-    2. ✅ Separación de responsabilidades - Un provider para la lógica, otro para ejecutar el proceso
-    3. ✅ Tipo de interfaz - Expone ItemsLogic (interfaz) en lugar de la implementación
-    4. ✅ Mejor para testing - Puedes sobrescribir el provider fácilmente en tests
-    5. ✅ Consistente con arquitectura - Sigue el patrón establecido en el proyecto
-
- */
