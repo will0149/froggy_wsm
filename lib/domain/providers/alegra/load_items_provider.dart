@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:froggy_soft/domain/logics/alegra/impl/items_logic_impl.dart';
+import 'package:froggy_soft/device/utils/logger_config.dart';
 
 /// Made for froggy_soft.
 /// By User: josedominguez
@@ -44,18 +46,21 @@ final itemsLogicProvider =
 ///
 /// **Cómo funciona la reactividad:**
 /// 1. [ItemsLogicImpl] extiende [ChangeNotifier]
-/// 2. Cuando [setFetchCount()] o [setTotalItems()] son llamados:
+/// 2. Quando [setFetchCount()] o [setTotalItems()] son llamados:
 ///    - Se actualiza el estado interno de ItemsLogicImpl
 ///    - Se llama a [notifyListeners()] para notificar a ChangeNotifier listeners
-///    - El listener registrado en build() detecta el cambio
-/// 3. El listener ejecuta: state = _instance! para forzar update en Riverpod
-/// 4. Riverpod notifica a widgets que usan ref.watch(itemsLogicProvider)
-/// 5. El widget se reconstruye con los nuevos valores
+/// 3. Riverpod se suscribe a _instance como Listenable en build()
+/// 4. Cuando notifyListeners() se dispara, Riverpod detecta el cambio
+/// 5. Riverpod notifica a widgets que usan ref.watch(itemsLogicProvider)
 ///
-/// **Nota importante sobre listeners:**
-/// El listener solo se registra UNA VEZ en el constructor. Si build() es llamado
-/// múltiples veces, el listener ya existe de la primera inicialización.
-/// Por eso usamos _listenerRegistered para evitar registrar duplicados.
+/// **IMPORTANTE - Listenable Integration:**
+/// En lugar de agregar un listener manualmente, Riverpod proporciona una forma
+/// automática de monitorear ChangeNotifier via la API de Listenable.
+/// Esto se logra retornando la instancia directamente de build(),
+/// y Riverpod automáticamente se suscribe si es Listenable.
+///
+/// La clave está en que cuando build() retorna un ChangeNotifier,
+/// Riverpod lo monitorea automáticamente y se reconstruye en notifyListeners().
 ///
 /// Esto es crucial porque:
 /// 1. Mantiene el estado consistente entre widgets
@@ -66,9 +71,6 @@ class _ItemsLogicNotifier extends Notifier<ItemsLogicImpl> {
   /// Instancia estática singleton de ItemsLogicImpl
   static ItemsLogicImpl? _instance;
 
-  /// Flag para evitar registrar el listener múltiples veces
-  static bool _listenerRegistered = false;
-
   @override
   ItemsLogicImpl build() {
     // Patrón singleton: crear solo si no existe
@@ -77,20 +79,29 @@ class _ItemsLogicNotifier extends Notifier<ItemsLogicImpl> {
     // - Si _instance existe, mantiene la actual
     _instance ??= ItemsLogicImpl();
 
-    // Registrar listener SOLO UNA VEZ
-    // Esto evita listeners duplicados que causarían múltiples actualizaciones
-    if (!_listenerRegistered) {
-      _listenerRegistered = true;
-      _instance?.addListener(() {
-        // Forzar actualización del estado en Riverpod
-        // Cuando ItemsLogicImpl llama a notifyListeners(), este callback se ejecuta
-        // y actualiza state, lo que dispara notificación a todos los widgets que
-        // usan ref.watch(itemsLogicProvider)
-        state = _instance!;
-      });
+    // Log para debug
+    if (kDebugMode) {
+      logger.i("ItemsLogicNotifier.build() called with fetchCount=${_instance?.fetchCount}, totalItems=${_instance?.totalItems}");
     }
 
+    // Registrar listener usando Future.microtask para evitar race conditions
+    // Solo registrar UNA VEZ
+    _instance?.removeListener(_onInstanceChanged);
+    _instance?.addListener(_onInstanceChanged);
+
     return _instance!;
+  }
+
+  /// Callback ejecutado cuando ItemsLogicImpl emite cambios via notifyListeners()
+  void _onInstanceChanged() {
+    if (kDebugMode) {
+      logger.d("ItemsLogicImpl changed: fetchCount=${_instance?.fetchCount}, totalItems=${_instance?.totalItems}");
+    }
+    // Usar Future.microtask para diferir la actualización y evitar race conditions
+    // durante el ciclo de notifyListeners() de ChangeNotifier
+    Future.microtask(() {
+      state = _instance!;
+    });
   }
 }
 

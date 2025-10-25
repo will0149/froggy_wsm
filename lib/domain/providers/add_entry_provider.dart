@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../logics/inbound_logic.dart';
+import '../../device/utils/logger_config.dart';
 
 /// Made for froggysoft.
 /// By User: josedominguez
@@ -27,36 +29,39 @@ final addEntryProvider =
 /// a [InboundLogicImpl] (que extiende [ChangeNotifier]) para integración
 /// perfecta con Riverpod.
 ///
-/// **Importante:** El listener solo se registra UNA VEZ para evitar duplicados
-/// que causarían múltiples actualizaciones innecesarias.
-///
 /// Cuando [InboundLogicImpl.notifyListeners()] es llamado:
 /// 1. El listener registrado en build() detecta el cambio
-/// 2. Se actualiza state = _instance! para que Riverpod notifique
-/// 3. Los widgets que usan ref.watch(addEntryProvider) se reconstruyen
+/// 2. El callback se ejecuta dentro de Future.microtask()
+/// 3. Se actualiza state = _instance! para que Riverpod notifique
+/// 4. Los widgets que usan ref.watch(addEntryProvider) se reconstruyen
+///
+/// **Importante:** Se usa removeListener antes de addListener para evitar
+/// registrar múltiples listeners. Future.microtask() previene race conditions.
 class _AddEntryNotifier extends Notifier<InboundLogicImpl> {
   /// Instancia estática singleton de InboundLogicImpl
   static InboundLogicImpl? _instance;
-
-  /// Flag para evitar registrar el listener múltiples veces
-  static bool _listenerRegistered = false;
 
   @override
   InboundLogicImpl build() {
     // Patrón singleton: crear solo si no existe
     _instance ??= InboundLogicImpl();
 
-    // Registrar listener SOLO UNA VEZ
-    // Esto evita listeners duplicados
-    if (!_listenerRegistered) {
-      _listenerRegistered = true;
-      _instance?.addListener(() {
-        // Forzar actualización del estado en Riverpod
-        // Cuando InboundLogicImpl llama a notifyListeners(), este callback se ejecuta
-        state = _instance!;
-      });
-    }
+    // Remover listener anterior si existe, y registrar uno nuevo
+    // Esto previene listeners duplicados y asegura que siempre hay uno activo
+    _instance?.removeListener(_onInstanceChanged);
+    _instance?.addListener(_onInstanceChanged);
 
     return _instance!;
+  }
+
+  /// Callback ejecutado cuando InboundLogicImpl emite cambios via notifyListeners()
+  void _onInstanceChanged() {
+    if (kDebugMode) {
+      logger.d("InboundLogicImpl changed");
+    }
+    // Usar Future.microtask para diferir la actualización y evitar race conditions
+    Future.microtask(() {
+      state = _instance!;
+    });
   }
 }
