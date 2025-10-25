@@ -12,7 +12,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../device/utils/logger_config.dart';
 import '../../domain/logics/clients/auth_logic.dart';
-import '../../domain/providers/alegra_items_provider.dart' show alegraItemsDropProvider;
 import '../constants.dart';
 import '../widgets/buttons/section_button.dart';
 import '../widgets/scaffolds/kill_pop_scope.dart';
@@ -112,12 +111,6 @@ class MainPageState extends ConsumerState<MainPage> {
                 });
 
                 try {
-                  //Vacia la tabla temporal
-                  ref.watch(alegraItemsDropProvider.future).whenComplete((){
-                    if (kDebugMode){
-                      logger.i("Limpieza de tabla realizada");
-                    }
-                  });
                   // Ejecutar el proceso de carga
                   await ref.read(loadItemsProcessProvider.future);
 

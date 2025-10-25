@@ -1,13 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/widgets/scaffolds/safe_scaffold.dart';
+import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:froggy_soft/domain/providers/alegra_items_provider.dart';
 
-/**
- * Made for froggy_soft.
- * By User: josedominguez
- * Date: 10/13/25
- */
+/// Made for froggy_soft.
+/// By User: josedominguez
+/// Date: 10/13/25
 
 class AlegraInventoryPage extends ConsumerStatefulWidget {
   static String get routeName => 'inventory';
@@ -23,6 +23,29 @@ class AlegraInventoryPage extends ConsumerStatefulWidget {
 class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
   int _currentPage = 0;
   final int _rowsPerPage = 10;
+
+  @override
+  void initState() {
+    super.initState();
+    // Vaciar la tabla temporal cada vez que se visualiza la página
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _clearTemporaryTable();
+    });
+  }
+
+  /// Limpia la tabla temporal de items alegra
+  Future<void> _clearTemporaryTable() async {
+    try {
+      await ref.read(alegraItemsDropProvider.future);
+      if (kDebugMode) {
+        logger.i("Limpieza de tabla temporal realizada en AlegraInventoryPage");
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        logger.e("Error al limpiar tabla temporal: $e");
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
