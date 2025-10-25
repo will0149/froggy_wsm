@@ -58,6 +58,9 @@ class MainPageState extends ConsumerState<MainPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     var authHandlerP = ref.watch(authLogicProvider);
+    // Observar cambios en itemsLogic (ChangeNotifier singleton)
+    // Se reconstruye cuando ItemsLogicImpl.notifyListeners() es llamado
+    // durante la sincronización, permitiendo actualizar fetchCount/totalItems
     var itemsLogic = ref.watch(itemsLogicProvider);
     return KillPopScope(
       context: context,
@@ -112,6 +115,12 @@ class MainPageState extends ConsumerState<MainPage> {
 
                 try {
                   // Ejecutar el proceso de carga
+                  // loadItemsProcessProvider.future ejecuta:
+                  // 1. ItemsLogicImpl.populateLocalDataBase()
+                  // 2. Durante el batch processing, llama a setFetchCount() y setTotalItems()
+                  // 3. Cada llamada ejecuta notifyListeners() que dispara el listener del provider
+                  // 4. El listener actualiza state en Riverpod, reconstruyendo el AppBar
+                  // 5. El AppBar muestra "Cargando X/Y" con los valores actualizados
                   await ref.read(loadItemsProcessProvider.future);
 
                   // Proceso completado exitosamente
