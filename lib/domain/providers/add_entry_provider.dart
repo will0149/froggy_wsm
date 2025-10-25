@@ -7,18 +7,47 @@ import '../logics/inbound_logic.dart';
 /// Date: 06/11/24
 
 /// Provider para la lógica de entrada de mercancía
-/// Mantiene singleton de InboundLogicImpl con reactividad
+///
+/// Mantiene singleton de [InboundLogicImpl] con reactividad.
+/// Implementa [NotifierProvider] con listener a [ChangeNotifier] para
+/// asegurar que los widgets se reconstruyan cuando la lógica emita cambios.
+///
+/// **Patrón de uso:**
+/// ```dart
+/// final logic = ref.watch(addEntryProvider);
+/// // Acceder a propiedades reactivas de InboundLogicImpl
+/// ```
 final addEntryProvider =
     NotifierProvider<_AddEntryNotifier, InboundLogicImpl>(
         _AddEntryNotifier.new);
 
 /// Notifier para mantener singleton de InboundLogicImpl
+///
+/// Implementa el patrón singleton con [NotifierProvider] y agrega listener
+/// a [InboundLogicImpl] (que extiende [ChangeNotifier]) para integración
+/// perfecta con Riverpod.
+///
+/// Cuando [InboundLogicImpl.notifyListeners()] es llamado:
+/// 1. El listener registrado en build() detecta el cambio
+/// 2. Se actualiza state = _instance! para que Riverpod notifique
+/// 3. Los widgets que usan ref.watch(addEntryProvider) se reconstruyen
 class _AddEntryNotifier extends Notifier<InboundLogicImpl> {
+  /// Instancia estática singleton de InboundLogicImpl
   static InboundLogicImpl? _instance;
 
   @override
   InboundLogicImpl build() {
+    // Patrón singleton: crear solo si no existe
     _instance ??= InboundLogicImpl();
+
+    // Escuchar cambios del ChangeNotifier
+    // Cuando InboundLogicImpl llama a notifyListeners(),
+    // actualizamos el estado de Riverpod
+    _instance?.addListener(() {
+      // Forzar actualización del estado en Riverpod
+      state = _instance!;
+    });
+
     return _instance!;
   }
 }
