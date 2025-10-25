@@ -33,7 +33,6 @@ class WeightInput extends ConsumerStatefulWidget {
 class WeightInputState extends ConsumerState<WeightInput> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Column(
       children: [
         Padding(

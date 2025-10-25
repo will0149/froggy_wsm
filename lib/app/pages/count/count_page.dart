@@ -21,7 +21,6 @@ class CountPage extends StatefulWidget {
 class _CountPageState extends State<CountPage> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return ExitPopScope(
       child: SafeScaffold(
         appBar: AppBar(

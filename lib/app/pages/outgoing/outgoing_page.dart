@@ -20,7 +20,6 @@ class OutgoingPage extends StatefulWidget {
 class _OutgoingPageState extends State<OutgoingPage> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return ExitPopScope(
       child: Scaffold(
         appBar: AppBar(

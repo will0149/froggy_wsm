@@ -33,7 +33,6 @@ class QuantityInput extends ConsumerStatefulWidget {
 class QuantityInputState extends ConsumerState<QuantityInput> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Column(
       children: [
         Padding(

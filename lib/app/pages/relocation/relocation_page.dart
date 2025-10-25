@@ -13,16 +13,16 @@ import '../../widgets/forms/base_form_decorator.dart';
 class RelocationPage extends ConsumerStatefulWidget {
   const RelocationPage({super.key});
 
-  @override
-  _RelocationPageState createState() => _RelocationPageState();
   static String get routeName => 'relocation';
   static String get routeLocation => routeName;
+
+  @override
+  RelocationPageState createState() => RelocationPageState();
 }
 
-class _RelocationPageState extends ConsumerState<RelocationPage> {
+class RelocationPageState extends ConsumerState<RelocationPage> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return ExitPopScope(
       child: Scaffold(
         appBar: AppBar(
