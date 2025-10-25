@@ -6,25 +6,44 @@ part of 'get_connectivity_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(getConnectivityProvider)
+const getConnectivityProviderProvider = GetConnectivityProviderProvider._();
+
+final class GetConnectivityProviderProvider extends $FunctionalProvider<
+        AsyncValue<List<ConnectivityResult>>,
+        List<ConnectivityResult>,
+        FutureOr<List<ConnectivityResult>>>
+    with
+        $FutureModifier<List<ConnectivityResult>>,
+        $FutureProvider<List<ConnectivityResult>> {
+  const GetConnectivityProviderProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'getConnectivityProviderProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$getConnectivityProviderHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<ConnectivityResult>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<ConnectivityResult>> create(Ref ref) {
+    return getConnectivityProvider(ref);
+  }
+}
+
 String _$getConnectivityProviderHash() =>
     r'38ffa543e2d970f55f64d995d6a6099807fe1dca';
-
-/// See also [getConnectivityProvider].
-@ProviderFor(getConnectivityProvider)
-final getConnectivityProviderProvider =
-    AutoDisposeFutureProvider<List<ConnectivityResult>>.internal(
-  getConnectivityProvider,
-  name: r'getConnectivityProviderProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$getConnectivityProviderHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef GetConnectivityProviderRef
-    = AutoDisposeFutureProviderRef<List<ConnectivityResult>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

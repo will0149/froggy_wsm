@@ -4,7 +4,7 @@ description: "App for logistic management"
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.1.1+1
+version: 2.1.2+1
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -28,9 +28,9 @@ dependencies:
   # to load skeleton loadings
   skeletonizer: ^2.0.1
   # riverpod dependencies
-  flutter_riverpod: ^2.6.1
+  flutter_riverpod: ^3.0.3
+  riverpod_annotation: ^3.0.3
   date_field: ^6.0.3+1
-  riverpod_annotation: ^2.6.1
   http: ^1.4.0
   # dependencia para objetos deserializables DTOs
   json_annotation: ^4.9.0
@@ -63,7 +63,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   build_runner: ^2.4.15
   flutter_flavorizr: ^2.4.1 # use for app flavors
-  riverpod_generator: ^2.6.5
+  riverpod_generator: ^3.0.3
   # dependencia dev para objetos deserializables DTOs
   json_serializable: ^6.9.5
 

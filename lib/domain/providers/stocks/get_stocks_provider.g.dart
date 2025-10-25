@@ -6,160 +6,85 @@ part of 'get_stocks_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getStocksHash() => r'41c3157cda9201dc528d232f98085f862ffe2667';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [getStocks].
 @ProviderFor(getStocks)
-const getStocksProvider = GetStocksFamily();
+const getStocksProvider = GetStocksFamily._();
 
-/// See also [getStocks].
-class GetStocksFamily
-    extends Family<AsyncValue<BaseResponseEntity<StockListEntity>>> {
-  /// See also [getStocks].
-  const GetStocksFamily();
-
-  /// See also [getStocks].
-  GetStocksProvider call(
-    SeriesDto? series,
-  ) {
-    return GetStocksProvider(
-      series,
-    );
-  }
-
-  @override
-  GetStocksProvider getProviderOverride(
-    covariant GetStocksProvider provider,
-  ) {
-    return call(
-      provider.series,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'getStocksProvider';
-}
-
-/// See also [getStocks].
-class GetStocksProvider
-    extends AutoDisposeFutureProvider<BaseResponseEntity<StockListEntity>> {
-  /// See also [getStocks].
-  GetStocksProvider(
-    SeriesDto? series,
-  ) : this._internal(
-          (ref) => getStocks(
-            ref as GetStocksRef,
-            series,
-          ),
-          from: getStocksProvider,
+final class GetStocksProvider extends $FunctionalProvider<
+        AsyncValue<BaseResponseEntity<StockListEntity>>,
+        BaseResponseEntity<StockListEntity>,
+        FutureOr<BaseResponseEntity<StockListEntity>>>
+    with
+        $FutureModifier<BaseResponseEntity<StockListEntity>>,
+        $FutureProvider<BaseResponseEntity<StockListEntity>> {
+  const GetStocksProvider._(
+      {required GetStocksFamily super.from, required SeriesDto? super.argument})
+      : super(
+          retry: null,
           name: r'getStocksProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$getStocksHash,
-          dependencies: GetStocksFamily._dependencies,
-          allTransitiveDependencies: GetStocksFamily._allTransitiveDependencies,
-          series: series,
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
-  GetStocksProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.series,
-  }) : super.internal();
-
-  final SeriesDto? series;
+  @override
+  String debugGetCreateSourceHash() => _$getStocksHash();
 
   @override
-  Override overrideWith(
-    FutureOr<BaseResponseEntity<StockListEntity>> Function(
-            GetStocksRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: GetStocksProvider._internal(
-        (ref) => create(ref as GetStocksRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        series: series,
-      ),
-    );
+  String toString() {
+    return r'getStocksProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<BaseResponseEntity<StockListEntity>>
-      createElement() {
-    return _GetStocksProviderElement(this);
+  $FutureProviderElement<BaseResponseEntity<StockListEntity>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<BaseResponseEntity<StockListEntity>> create(Ref ref) {
+    final argument = this.argument as SeriesDto?;
+    return getStocks(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GetStocksProvider && other.series == series;
+    return other is GetStocksProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, series.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin GetStocksRef
-    on AutoDisposeFutureProviderRef<BaseResponseEntity<StockListEntity>> {
-  /// The parameter `series` of this provider.
-  SeriesDto? get series;
-}
+String _$getStocksHash() => r'41c3157cda9201dc528d232f98085f862ffe2667';
 
-class _GetStocksProviderElement extends AutoDisposeFutureProviderElement<
-    BaseResponseEntity<StockListEntity>> with GetStocksRef {
-  _GetStocksProviderElement(super.provider);
+final class GetStocksFamily extends $Family
+    with
+        $FunctionalFamilyOverride<FutureOr<BaseResponseEntity<StockListEntity>>,
+            SeriesDto?> {
+  const GetStocksFamily._()
+      : super(
+          retry: null,
+          name: r'getStocksProvider',
+          dependencies: null,
+          $allTransitiveDependencies: null,
+          isAutoDispose: true,
+        );
+
+  GetStocksProvider call(
+    SeriesDto? series,
+  ) =>
+      GetStocksProvider._(argument: series, from: this);
 
   @override
-  SeriesDto? get series => (origin as GetStocksProvider).series;
+  String toString() => r'getStocksProvider';
 }
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

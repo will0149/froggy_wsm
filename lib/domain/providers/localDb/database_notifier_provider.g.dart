@@ -6,24 +6,43 @@ part of 'database_notifier_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$databaseNotifierHash() => r'4d4f7bf16f9816599ad43b7e5c55eb858e0d6425';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [databaseNotifier].
 @ProviderFor(databaseNotifier)
-final databaseNotifierProvider =
-    AutoDisposeFutureProvider<HandleCreateDatabase>.internal(
-  databaseNotifier,
-  name: r'databaseNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$databaseNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const databaseProvider = DatabaseNotifierProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef DatabaseNotifierRef
-    = AutoDisposeFutureProviderRef<HandleCreateDatabase>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class DatabaseNotifierProvider extends $FunctionalProvider<
+        AsyncValue<HandleCreateDatabase>,
+        HandleCreateDatabase,
+        FutureOr<HandleCreateDatabase>>
+    with
+        $FutureModifier<HandleCreateDatabase>,
+        $FutureProvider<HandleCreateDatabase> {
+  const DatabaseNotifierProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'databaseProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$databaseNotifierHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<HandleCreateDatabase> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<HandleCreateDatabase> create(Ref ref) {
+    return databaseNotifier(ref);
+  }
+}
+
+String _$databaseNotifierHash() => r'4d4f7bf16f9816599ad43b7e5c55eb858e0d6425';
