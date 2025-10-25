@@ -3,6 +3,8 @@ import 'package:froggy_soft/data/entities/alegra/items_list_response_entity.dart
 import 'package:froggy_soft/data/entities/base_response_entity.dart';
 import 'package:froggy_soft/data/entities/status_entity.dart';
 import 'package:froggy_soft/data/repositories/localdb/alegra/alegra_items_repository.dart';
+import 'package:froggy_soft/domain/models/items_load_state.dart' show ItemsLoadState;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:logger/logger.dart' show Level;
 
 import '../../../../data/entities/alegra/item_entity.dart';
@@ -16,24 +18,22 @@ import '../items_logic.dart';
  * By User: josedominguez
  * Date: 10/11/25
  */
+part 'items_logic_impl.g.dart';
 
-class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
+@riverpod
+class ItemsLogicImpl extends _$ItemsLogicImpl {
   late final AlegraItemsRepository repository;
   late final ItemsServiceRepository restService;
-  late int _fetchCount = 0;
-  late int _totalItems = 0;
 
   @override
-  int get fetchCount => _fetchCount;
-  @override
-  int get totalItems => _totalItems;
-
+  ItemsLoadState build() {
+    return ItemsLoadState();
+  }
   ItemsLogicImpl() {
     repository = AlegraItemsRepository();
     restService = ItemsServiceRepository();
   }
 
-  @override
   Future<void> populateLocalDataBase() async {
     await batchProcess();
   }
@@ -48,7 +48,6 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
           Level.debug, "Status code on populate ${mapResponse.status?.code}");
       }
       if(mapResponse.status?.code == 200){
-        setTotalItems(mapResponse.body?.metadata?.total ?? 0);
         var data = mapResponse.body?.data;
         if(data != null && data.isNotEmpty){
           await populateTable(data);
@@ -66,7 +65,7 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
         counter++;
         startIndex += 31;
         queryParams['start'] = "$startIndex";
-        setFetchCount(startIndex);
+        updateProgressState(startIndex, total);
         if(startIndex > total || counter > (total/30)){
           break;
         }
@@ -79,10 +78,8 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
           }
         }
       } while (code == 200);
-      notifyListeners();
     } on Exception catch (e) {
       if (kDebugMode) logger.e(e);
-      notifyListeners();
     }
   }
 
@@ -147,13 +144,8 @@ class ItemsLogicImpl extends ChangeNotifier implements ItemsLogic {
     // });
   }
 
-  void setFetchCount(int value){
-    _fetchCount = value;
-    notifyListeners();
+  void updateProgressState(int count, int total){
+    state = ItemsLoadState().copyWith(count: count, total: total);
   }
 
-  void setTotalItems(int value){
-    _totalItems = value;
-    notifyListeners();
-  }
 }

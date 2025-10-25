@@ -5,7 +5,7 @@ import 'package:froggy_soft/app/pages/auth/login_page.dart';
 import 'package:froggy_soft/app/pages/count/count_page.dart';
 import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/alegra_inventory_page.dart';
-import 'package:froggy_soft/domain/providers/alegra/load_items_provider.dart';
+import 'package:froggy_soft/domain/logics/alegra/impl/items_logic_impl.dart';
 import 'package:froggy_soft/domain/providers/localDb/database_notifier_provider.dart';
 import 'package:froggy_soft/generated/l10n.dart';
 import 'package:go_router/go_router.dart';
@@ -61,13 +61,14 @@ class MainPageState extends ConsumerState<MainPage> {
     // Observar cambios en itemsLogic (ChangeNotifier singleton)
     // Se reconstruye cuando ItemsLogicImpl.notifyListeners() es llamado
     // durante la sincronización, permitiendo actualizar fetchCount/totalItems
-    var itemsLogic = ref.watch(itemsLogicProvider);
+    // var itemsLogic = ref.watch(itemsLogicProvider);
+    var itemsLogic = ref.watch(itemsLogicImplProvider);
     return KillPopScope(
       context: context,
       child: SafeScaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepOrangeAccent,
-          title: Text(isLoading ? "Cargando ${itemsLogic.fetchCount}/${itemsLogic.totalItems}" : "Recuerda Sincronizar! ->",
+          title: Text(isLoading ? "Cargando ${itemsLogic.fetchCount}/${itemsLogic.total}" : "Recuerda Sincronizar! ->",
               style: Theme.of(context)
                   .textTheme
                   .titleLarge
@@ -121,7 +122,7 @@ class MainPageState extends ConsumerState<MainPage> {
                   // 3. Cada llamada ejecuta notifyListeners() que dispara el listener del provider
                   // 4. El listener actualiza state en Riverpod, reconstruyendo el AppBar
                   // 5. El AppBar muestra "Cargando X/Y" con los valores actualizados
-                  await ref.read(loadItemsProcessProvider.future);
+                  await ref.read(itemsLogicImplProvider.notifier).populateLocalDataBase();
 
                   // Proceso completado exitosamente
                   setState(() {
