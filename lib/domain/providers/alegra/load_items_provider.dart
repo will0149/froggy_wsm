@@ -11,9 +11,21 @@ part 'load_items_provider.g.dart';
 
 /// Provider para la lógica de items de Alegra
 /// Retorna una instancia singleton de ItemsLogic que extiende ChangeNotifier
-final itemsLogicProvider = Provider<ItemsLogicImpl>((ref) {
-  return ItemsLogicImpl();
-});
+/// Usa NotifierProvider para mantener la reactividad con ChangeNotifier
+final itemsLogicProvider =
+    NotifierProvider<_ItemsLogicNotifier, ItemsLogicImpl>(
+        _ItemsLogicNotifier.new);
+
+/// Notifier para mantener singleton de ItemsLogicImpl
+class _ItemsLogicNotifier extends Notifier<ItemsLogicImpl> {
+  static ItemsLogicImpl? _instance;
+
+  @override
+  ItemsLogicImpl build() {
+    _instance ??= ItemsLogicImpl();
+    return _instance!;
+  }
+}
 
 /// Provider para iniciar el proceso de carga de items
 @riverpod
