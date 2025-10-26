@@ -1,8 +1,5 @@
-import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:froggy_soft/device/utils/logger_config.dart';
-import 'package:froggy_soft/domain/providers/alegra_items_provider.dart' show alegraItemsDropProvider;
 import 'package:froggy_soft/domain/providers/alegra_recount_provider.dart';
 
 import '../../widgets/scaffolds/safe_scaffold.dart';
@@ -44,7 +41,16 @@ class AlegraComparisonTablePageState
   Widget build(BuildContext context) {
     final comparisonAsync = ref.watch(recountComparisonProvider);
 
-    return SafeScaffold(
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (didPop, result) {
+        // Cuando se regresa de esta página, invalida el provider
+        // para resetear AlegraCountPage a su estado inicial
+        if (didPop) {
+          ref.invalidate(recountComparisonProvider);
+        }
+      },
+      child: SafeScaffold(
       appBar: AppBar(
         title: Text(
           "Comparación de Reconteo",
@@ -222,6 +228,7 @@ class AlegraComparisonTablePageState
             ],
           ),
         ),
+      ),
       ),
     );
   }
