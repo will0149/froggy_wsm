@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/pages/count/alegra/alegra_count_page.dart';
 import 'package:froggy_soft/domain/providers/alegra_recount_provider.dart';
+import 'package:froggy_soft/domain/utils/csv_export_utils.dart';
+import 'package:froggy_soft/app/widgets/toasts/build_toasts.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../widgets/scaffolds/safe_scaffold.dart';
@@ -39,6 +41,37 @@ class AlegraComparisonTablePageState
     });
   }
 
+  /// Exporta los datos de la tabla a CSV y los comparte
+  Future<void> _exportAndShareData(List<dynamic> items) async {
+    try {
+      // Convertir los items a mapas si es necesario
+      final List<Map<String, dynamic>> itemsMap = items.map((item) {
+        return {
+          'name': item.name ?? '-',
+          'reference': item.reference ?? '-',
+          'countQty': item.countQty ?? 0,
+          'serviceQty': item.serviceQty ?? 0,
+          'difference': item.difference ?? 0,
+        };
+      }).toList();
+
+      // Convertir a CSV
+      final List<List<dynamic>> csvData =
+          CsvExportUtils.convertComparisonDataToCsv(items: itemsMap);
+
+      // Exportar y compartir
+      await CsvExportUtils.exportAndShareCsv(
+        fileName: 'reconteo_${DateTime.now().toString().split(' ')[0]}',
+        headers: ['Nombre', 'Referencia', 'Contado', 'Inventario', 'Diferencia'],
+        rows: csvData,
+      );
+
+      showSuccessToast('Datos exportados exitosamente');
+    } catch (e) {
+      showErrorToast('Error al exportar: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final comparisonAsync = ref.watch(recountComparisonProvider);
@@ -62,6 +95,24 @@ class AlegraComparisonTablePageState
               ?.copyWith(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        actions: [
+          comparisonAsync.when(
+            data: (items) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: items.isEmpty
+                    ? SizedBox.shrink()
+                    : IconButton(
+                        icon: const Icon(Icons.download),
+                        tooltip: 'Exportar Datos',
+                        onPressed: () => _exportAndShareData(items),
+                      ),
+              );
+            },
+            loading: () => const SizedBox.shrink(),
+            error: (_, __) => const SizedBox.shrink(),
+          ),
+        ],
       ),
       child: comparisonAsync.when(
         data: (items) {
