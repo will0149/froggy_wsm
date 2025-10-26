@@ -3,15 +3,15 @@ import 'package:froggy_soft/data/entities/alegra/items_list_response_entity.dart
 import 'package:froggy_soft/data/entities/base_response_entity.dart';
 import 'package:froggy_soft/data/entities/status_entity.dart';
 import 'package:froggy_soft/data/repositories/localdb/alegra/alegra_items_repository.dart';
-import 'package:froggy_soft/domain/models/items_load_state.dart' show ItemsLoadState;
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:froggy_soft/domain/models/items_load_state.dart'
+    show ItemsLoadState;
 import 'package:logger/logger.dart' show Level;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../data/entities/alegra/item_entity.dart';
 import '../../../../data/entities/alegra/metadata_entity.dart';
 import '../../../../data/repositories/apis/alegra/item_service_repository.dart';
 import '../../../../device/utils/logger_config.dart';
-import '../items_logic.dart';
 
 /**
  * Made for froggy_soft.
@@ -29,6 +29,7 @@ class ItemsLogicImpl extends _$ItemsLogicImpl {
   ItemsLoadState build() {
     return ItemsLoadState();
   }
+
   ItemsLogicImpl() {
     repository = AlegraItemsRepository();
     restService = ItemsServiceRepository();
@@ -41,40 +42,53 @@ class ItemsLogicImpl extends _$ItemsLogicImpl {
   Future<void> batchProcess() async {
     int startIndex = 0; //1383;
     try {
-      var queryParams = {"metadata": 'true', "start": '$startIndex', 'status': 'active'};
+      var queryParams = {
+        "metadata": 'true',
+        "start": '$startIndex',
+        'status': 'active',
+        'order_direction': 'ASC',
+        'order_field': 'id'
+      };
       var mapResponse = await invoke(queryParams);
       if (kDebugMode) {
         logger.log(
-          Level.debug, "Status code on populate ${mapResponse.status?.code}");
+            Level.debug, "Status code on populate ${mapResponse.status?.code}");
       }
-      if(mapResponse.status?.code == 200){
+      int total = mapResponse.body?.metadata?.total ?? 0;
+      if (mapResponse.status?.code == 200) {
         var data = mapResponse.body?.data;
-        if(data != null && data.isNotEmpty){
+        if (data != null && data.isNotEmpty) {
           await populateTable(data);
         }
       }
       int? code = 0;
       int counter = 0;
-      if(mapResponse.status?.code != 200){
+      if (mapResponse.status?.code != 200) {
         return;
       }
       do {
         var cycleResponse = await invoke(queryParams);
         code = cycleResponse.status?.code;
-        int total = cycleResponse.body?.metadata?.total ?? 0;
         counter++;
-        startIndex += 31;
-        queryParams['start'] = "$startIndex";
-        updateProgressState(startIndex, total);
-        if(startIndex > total || counter > (total/30)){
-          break;
-        }
         if (kDebugMode) logger.w("start from $startIndex");
         if (kDebugMode) logger.w("fetch counts $counter");
-        if(cycleResponse.status?.code == 200){
+        if (cycleResponse.status?.code == 200) {
           var data = cycleResponse.body?.data;
-          if(data != null && data.isNotEmpty){
-            await populateTable(data);
+          if (data != null) {
+            // Obtener el item completo con el ID mayor
+            startIndex = data
+                .where((item) => item.id != null && item.id!.isNotEmpty)
+                .map((item) => int.tryParse(item.id!) ?? 0)
+                .reduce((a, b) => a > b ? a : b);
+
+            queryParams['start'] = "$startIndex";
+            updateProgressState(startIndex, total);
+            if (startIndex > total || counter > (total / 30)) {
+              break;
+            }
+            if (data.isNotEmpty) {
+              await populateTable(data);
+            }
           }
         }
       } while (code == 200);
@@ -90,7 +104,8 @@ class ItemsLogicImpl extends _$ItemsLogicImpl {
     var itemsListResponse = ItemsListResponseEntity();
     try {
       serviceResponse = await restService.fetchItems(queryParameters);
-      if (kDebugMode) logger.i("From API serviceResponse ${serviceResponse["body"]["data"]}");
+      if (kDebugMode)
+        logger.i("From API serviceResponse ${serviceResponse["body"]["data"]}");
       if (serviceResponse["body"]["data"]?.isEmpty) {
         responseEntity.status = StatusEntity();
         responseEntity.status?.code = 204;
@@ -115,14 +130,14 @@ class ItemsLogicImpl extends _$ItemsLogicImpl {
       responseEntity.status?.code = 500;
       responseEntity.status?.msg = "Internal Error";
     }
-    if (kDebugMode) logger.i("mapResponse ${responseEntity.toJson((json) => json.toJson())}");
+    if (kDebugMode)
+      logger.i("mapResponse ${responseEntity.toJson((json) => json.toJson())}");
     return responseEntity;
   }
 
   Future<void> populateTable(List<ItemEntity> data) async {
     // Future.microtask(() async {
     try {
-
       for (ItemEntity item in data) {
         var object = {
           "id": "${item.id}",
@@ -137,15 +152,17 @@ class ItemsLogicImpl extends _$ItemsLogicImpl {
         };
         await repository.insert(object);
       }
-      if (kDebugMode) logger.i("Successfully populated ${data.length} customers in background");
+      if (kDebugMode) {
+        logger
+            .i("Successfully populated ${data.length} customers in background");
+      }
     } catch (e) {
       if (kDebugMode) logger.e("Error populating customer table: $e");
     }
     // });
   }
 
-  void updateProgressState(int count, int total){
+  void updateProgressState(int count, int total) {
     state = ItemsLoadState().copyWith(count: count, total: total);
   }
-
 }
