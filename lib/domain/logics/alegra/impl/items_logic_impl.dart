@@ -41,7 +41,7 @@ class ItemsLogicImpl extends _$ItemsLogicImpl {
   Future<void> batchProcess() async {
     int startIndex = 0; //1383;
     try {
-      var queryParams = {"metadata": 'true', "start": '$startIndex'};
+      var queryParams = {"metadata": 'true', "start": '$startIndex', 'status': 'active'};
       var mapResponse = await invoke(queryParams);
       if (kDebugMode) {
         logger.log(

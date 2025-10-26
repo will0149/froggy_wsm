@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:froggy_soft/app/pages/count/alegra/alegra_count_page.dart';
 import 'package:froggy_soft/domain/providers/alegra_recount_provider.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../widgets/scaffolds/safe_scaffold.dart';
 
@@ -47,7 +49,7 @@ class AlegraComparisonTablePageState
         // Cuando se regresa de esta página, invalida el provider
         // para resetear AlegraCountPage a su estado inicial
         if (didPop) {
-          ref.invalidate(recountComparisonProvider);
+          context.goNamed(AlegraCountPage.routeName);
         }
       },
       child: SafeScaffold(
