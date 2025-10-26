@@ -37,6 +37,9 @@ class CountFormState extends ConsumerState<AlegraCountForm> {
   late final TextEditingController skuController = TextEditingController(text: "");
   late final TextEditingController quantityController = TextEditingController(text: "");
 
+  /// FocusNode para el campo SKU
+  late final FocusNode skuFocusNode = FocusNode();
+
   bool _valid = false;
   bool isLoading = false;
 
@@ -47,6 +50,11 @@ class CountFormState extends ConsumerState<AlegraCountForm> {
   void initState() {
     countFormKey.currentState?.reset;
     super.initState();
+
+    // Enfocar el campo SKU cuando se inicia la pantalla
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      skuFocusNode.requestFocus();
+    });
   }
 
   @override
@@ -54,6 +62,7 @@ class CountFormState extends ConsumerState<AlegraCountForm> {
     // Clean up the controller when the widget is disposed.
     skuController.dispose();
     quantityController.dispose();
+    skuFocusNode.dispose();
     super.dispose();
   }
 
@@ -77,6 +86,7 @@ class CountFormState extends ConsumerState<AlegraCountForm> {
             children: [
               GenericInput(
                 controller: skuController,
+                focusNode: skuFocusNode,
                 isNumber: false,
                 textCapitalization: TextCapitalization.characters,
                 title: 'SKU de producto',
@@ -123,6 +133,8 @@ class CountFormState extends ConsumerState<AlegraCountForm> {
                               // Clear the fields after adding
                               skuController.clear();
                               quantityController.clear();
+                              // Enfocar el campo SKU después de agregar datos
+                              skuFocusNode.requestFocus();
                             }
                           },
                           child: Text("Agregar datos",
