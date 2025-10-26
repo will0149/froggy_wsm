@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/pages/count/alegra/alegra_count_page.dart';
@@ -6,6 +7,7 @@ import 'package:froggy_soft/domain/utils/csv_export_utils.dart';
 import 'package:froggy_soft/app/widgets/toasts/build_toasts.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../device/utils/logger_config.dart' show logger;
 import '../../widgets/scaffolds/safe_scaffold.dart';
 
 /**
@@ -68,6 +70,9 @@ class AlegraComparisonTablePageState
 
       showSuccessToast('Datos exportados exitosamente');
     } catch (e) {
+      if(kDebugMode){
+        logger.e("Error en $e");
+      }
       showErrorToast('Error al exportar: $e');
     }
   }
