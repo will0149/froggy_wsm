@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:froggy_soft/device/utils/logger_config.dart';
+import 'package:froggy_soft/domain/providers/alegra_items_provider.dart' show alegraItemsDropProvider;
 import 'package:froggy_soft/domain/providers/alegra_recount_provider.dart';
 
 import '../../widgets/scaffolds/safe_scaffold.dart';
@@ -102,6 +105,7 @@ class AlegraComparisonTablePageState
                               padding: const EdgeInsets.all(10.0),
                               child: DataTable(
                                 columns: const [
+                                  DataColumn(label: Text('Nombre')),
                                   DataColumn(label: Text('Referencia')),
                                   DataColumn(label: Text('Contado')),
                                   DataColumn(label: Text('Inventario')),
@@ -117,6 +121,7 @@ class AlegraComparisonTablePageState
 
                                   return DataRow(
                                     cells: [
+                                      DataCell(Text(item.name ?? '-')),
                                       DataCell(Text(item.reference ?? '-')),
                                       DataCell(Text(item.countQty?.toString() ?? '0')),
                                       DataCell(Text(item.serviceQty?.toString() ?? '0')),

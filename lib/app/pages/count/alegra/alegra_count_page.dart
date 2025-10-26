@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:froggy_soft/app/widgets/scaffolds/exit_pop_scope.dart';
 import 'package:froggy_soft/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:froggy_soft/domain/providers/alegra_recount_provider.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,6 +27,32 @@ class AlegraCountPage extends ConsumerStatefulWidget {
 
 class _AlegraCountPageState extends ConsumerState<AlegraCountPage> {
   List<Map<String, String>> addedItems = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Invalida el provider para forzar una recarga de datos cada vez que se inicia la pantalla
+      ref.invalidate(recountComparisonProvider);
+      _clearTemporaryTable();
+    });
+  }
+
+
+  /// Limpia la tabla temporal de items alegra
+  Future<void> _clearTemporaryTable() async {
+    try {
+      await ref.read(alegraDropTemporaryTableProvider.future);
+      if (kDebugMode) {
+        logger.i("Limpieza de tabla temporal realizada en AlegraInventoryPage");
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        logger.e("Error al limpiar tabla temporal: $e");
+      }
+    }
+  }
 
   void addItem(String sku, String cantidad) {
     // Check if SKU already exists

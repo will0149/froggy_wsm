@@ -8,7 +8,10 @@
       "Bash(dart run build_runner:*)",
       "Bash(flutter pub get:*)",
       "Bash(flutter build:*)",
-      "Bash(flutter clean:*)"
+      "Bash(flutter clean:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(dart analyze:*)"
     ],
     "deny": []
   }

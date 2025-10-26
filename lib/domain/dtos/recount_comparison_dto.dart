@@ -19,12 +19,16 @@ class RecountComparisonDto {
   @JsonKey(name: 'serviceQty')
   int? serviceQty;
 
+  @JsonKey(name: 'name')
+  String? name;
+
   int? get difference => (serviceQty ?? 0) - (countQty ?? 0);
 
   RecountComparisonDto({
     this.reference,
     this.countQty,
     this.serviceQty,
+    this.name
   });
 
   factory RecountComparisonDto.fromJson(Map<String, dynamic> json) =>

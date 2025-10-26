@@ -25,29 +25,6 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
   final int _rowsPerPage = 10;
 
   @override
-  void initState() {
-    super.initState();
-    // Vaciar la tabla temporal cada vez que se visualiza la página
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _clearTemporaryTable();
-    });
-  }
-
-  /// Limpia la tabla temporal de items alegra
-  Future<void> _clearTemporaryTable() async {
-    try {
-      await ref.read(alegraItemsDropProvider.future);
-      if (kDebugMode) {
-        logger.i("Limpieza de tabla temporal realizada en AlegraInventoryPage");
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        logger.e("Error al limpiar tabla temporal: $e");
-      }
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     final itemsAsync = ref.watch(alegraItemsProvider);
     // final countAsync = ref.watch(alegraItemsCountProvider);
@@ -102,7 +79,7 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
                                   return DataRow(
                                     cells: [
                                       DataCell(Text(item.id?.toString() ?? '-')),
-                                      DataCell(Text(item.reference ?? '-')),
+                                      DataCell(SelectableText(item.reference ?? '-')),
                                       DataCell(Text(item.quantity?.toString() ?? '0')),
                                       DataCell(Text(item.name ?? '-')),
                                       DataCell(Text(item.createdAt ?? '-')),

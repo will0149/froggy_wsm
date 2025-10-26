@@ -36,4 +36,8 @@ class AlegraDataBaseOpsLogic {
       await insertRecountItem(reference, quantity);
     }
   }
+
+  Future<void> deleteTemporaryTable() async {
+    await _recountRepository.deleteTable();
+  }
 }

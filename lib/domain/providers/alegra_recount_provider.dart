@@ -26,3 +26,8 @@ final insertRecountItemsProvider = Provider<Future<void> Function(List<Map<Strin
   final logic = ref.watch(alegraDbOpsLogicProvider);
   return (items) => logic.insertRecountItems(items);
 });
+
+final alegraDropTemporaryTableProvider = FutureProvider<void>((ref) async {
+  final logic = ref.watch(alegraDbOpsLogicProvider);
+  logic.deleteTemporaryTable();
+});

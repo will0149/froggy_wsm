@@ -40,7 +40,8 @@ class RecountItemsRepository implements LocalDbRepository {
     SELECT 
       recount_items.reference,
       recount_items.quantity AS countQty,
-      items.quantity AS serviceQty
+      items.quantity AS serviceQty,
+      items.name
     FROM recount_items
     LEFT JOIN items
     ON recount_items.reference = items.reference
@@ -75,5 +76,10 @@ class RecountItemsRepository implements LocalDbRepository {
   Future<int> update(int id, Map<String, dynamic> item) {
     // TODO: implement update
     throw UnimplementedError();
+  }
+
+  Future<void> deleteTable() async {
+    final db = await _dbHelper.database;
+    await db.delete(_tableName);
   }
 }

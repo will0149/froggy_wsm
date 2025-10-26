@@ -48,3 +48,4 @@ app.*.map.json
 /lib/domain/providers/*/*.g.dart
 /lib/domain/dtos/*/*.g.dart
 /lib/domain/dtos/*.g.dart
+lib/device/provider/*.g.dart
