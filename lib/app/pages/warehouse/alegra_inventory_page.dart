@@ -50,8 +50,17 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
           final totalPages = (items.length / _rowsPerPage).ceil();
 
           return Column(
-            spacing: 10,
+            spacing: 15,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Página ${_currentPage + 1} de $totalPages',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
+              ),
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () async => ref.refresh(alegraItemsProvider.future),
@@ -78,7 +87,7 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
                                 rows: paginatedItems.map((item) {
                                   return DataRow(
                                     cells: [
-                                      DataCell(Text(item.id?.toString() ?? '-')),
+                                      DataCell(SelectableText(item.id?.toString() ?? '-')),
                                       DataCell(SelectableText(item.reference ?? '-')),
                                       DataCell(Text(item.quantity?.toString() ?? '0')),
                                       DataCell(Text(item.name ?? '-')),
@@ -108,12 +117,8 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Página ${_currentPage + 1} de $totalPages',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
                     Row(
                       children: [
                         IconButton(
@@ -126,9 +131,14 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
                                 }
                               : null,
                         ),
-                        Text(
-                          'Mostrando ${startIndex + 1}-$endIndex de ${items.length}',
-                          style: Theme.of(context).textTheme.bodySmall,
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 200),
+                          child: Text(
+                            'Mostrando ${startIndex + 1}-$endIndex de ${items.length}',
+                            style: Theme.of(context).textTheme.bodySmall,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                         IconButton(
                           icon: const Icon(Icons.chevron_right),

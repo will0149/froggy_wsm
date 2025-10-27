@@ -152,6 +152,15 @@ class AlegraComparisonTablePageState
 
           return Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Página ${_currentPage + 1} de $totalPages',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
+              ),
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () async => ref.refresh(recountComparisonProvider.future),
@@ -185,8 +194,8 @@ class AlegraComparisonTablePageState
 
                                   return DataRow(
                                     cells: [
-                                      DataCell(Text(item.name ?? '-')),
-                                      DataCell(Text(item.reference ?? '-')),
+                                      DataCell(SelectableText(item.name ?? '-')),
+                                      DataCell(SelectableText(item.reference ?? '-')),
                                       DataCell(Text(item.countQty?.toString() ?? '0')),
                                       DataCell(Text(item.serviceQty?.toString() ?? '0')),
                                       DataCell(
@@ -226,12 +235,8 @@ class AlegraComparisonTablePageState
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Página ${_currentPage + 1} de $totalPages',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
                     Row(
                       children: [
                         IconButton(
@@ -244,9 +249,14 @@ class AlegraComparisonTablePageState
                                 }
                               : null,
                         ),
-                        Text(
-                          'Mostrando ${startIndex + 1}-$endIndex de ${items.length}',
-                          style: Theme.of(context).textTheme.bodySmall,
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 200),
+                          child: Text(
+                            'Mostrando ${startIndex + 1}-$endIndex de ${items.length}',
+                            style: Theme.of(context).textTheme.bodySmall,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                         IconButton(
                           icon: const Icon(Icons.chevron_right),
