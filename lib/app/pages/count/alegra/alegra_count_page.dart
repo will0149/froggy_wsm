@@ -35,8 +35,9 @@ class _AlegraCountPageState extends ConsumerState<AlegraCountPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Invalida el provider para forzar una recarga de datos cada vez que se inicia la pantalla
       ref.invalidate(recountComparisonProvider);
-      _clearTemporaryTable();
+      ref.invalidate(alegraDropTemporaryTableProvider);
     });
+    _clearTemporaryTable();
   }
 
 
