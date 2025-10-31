@@ -20,7 +20,7 @@ class CsvExportUtils {
       final List<List<dynamic>> csvData = [headers, ...rows];
 
       // Convertir a CSV
-      final String csv = const ListToCsvConverter().convert(csvData);
+      final String csv = const ListToCsvConverter(fieldDelimiter: ";").convert(csvData);
 
       // Obtener el directorio temporal
       final Directory tempDir = await getTemporaryDirectory();
