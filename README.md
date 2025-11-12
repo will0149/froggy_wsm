@@ -63,9 +63,15 @@ App for logistic management
 - Custom form widgets in `lib/app/widgets/forms/`
 - Input validation utilities in `lib/domain/utils/`
 - Reusable input components for consistent UX
-
+- 
+## Pasos 1 y 2 para compilar apk
+paso 1: Building serializable objects
+```shell
+flutter clean
+flutter pub get
+```
 ## 1.3. Helpers commands
-Building serializable objects
+paso 2: Building serializable and mutable objects
 ```shell
 dart run build_runner build --delete-conflicting-outputs
 ```
