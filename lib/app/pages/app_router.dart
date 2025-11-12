@@ -14,6 +14,7 @@ import '../../data/repositories/firestore/firestore_config.dart';
 import '../../device/utils/logger_config.dart';
 import 'auth/login_page.dart';
 import 'count/alegra/alegra_count_page.dart';
+import 'count/count_page.dart' show CountPage;
 import 'entry/entry_page.dart';
 import 'main_page.dart';
 import 'maintainance/maintain_page.dart';
@@ -69,29 +70,29 @@ final routerProvider = Provider<GoRouter>((ref) {
                 return const RelocationPage();
               },
             ),
-            // GoRoute(
-            //   name: CountPage.routeName,
-            //   path: CountPage.routeLocation,
-            //   builder: (BuildContext context, GoRouterState state) {
-            //     return const CountPage();
-            //   },
-            // ),
             GoRoute(
-              name: AlegraCountPage.routeName,
-              path: AlegraCountPage.routeLocation,
+              name: CountPage.routeName,
+              path: CountPage.routeLocation,
               builder: (BuildContext context, GoRouterState state) {
-                return const AlegraCountPage();
+                return const CountPage();
               },
-              routes: <RouteBase> [
-                GoRoute(
-                  name: AlegraComparisonTablePage.routeName,
-                  path: AlegraComparisonTablePage.routeLocation,
-                  builder: (BuildContext context, GoRouterState state) {
-                    return const AlegraComparisonTablePage();
-                  },
-                ),
-              ]
             ),
+            // GoRoute(
+            //   name: AlegraCountPage.routeName,
+            //   path: AlegraCountPage.routeLocation,
+            //   builder: (BuildContext context, GoRouterState state) {
+            //     return const AlegraCountPage();
+            //   },
+            //   routes: <RouteBase> [
+            //     GoRoute(
+            //       name: AlegraComparisonTablePage.routeName,
+            //       path: AlegraComparisonTablePage.routeLocation,
+            //       builder: (BuildContext context, GoRouterState state) {
+            //         return const AlegraComparisonTablePage();
+            //       },
+            //     ),
+            //   ]
+            // ),
             GoRoute(
               name: OutgoingPage.routeName,
               path: OutgoingPage.routeLocation,
