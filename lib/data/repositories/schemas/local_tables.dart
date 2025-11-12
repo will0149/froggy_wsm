@@ -52,9 +52,9 @@ CREATE TABLE assets(
 
 const String itemsMasterTable = '''
 CREATE TABLE items(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER,
         name TEXT,
-        reference TEXT,
+        reference TEXT PRIMARY KEY,
         quantity INTEGER,
         count_qty INTEGER,
         qty_difference INTEGER,

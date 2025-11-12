@@ -76,14 +76,15 @@ class ItemsLogicImpl extends _$ItemsLogicImpl {
           var data = cycleResponse.body?.data;
           if (data != null) {
             // Obtener el item completo con el ID mayor
-            startIndex = data
-                .where((item) => item.id != null && item.id!.isNotEmpty)
-                .map((item) => int.tryParse(item.id!) ?? 0)
-                .reduce((a, b) => a > b ? a : b);
+            // startIndex = data
+            //     .where((item) => item.id != null && item.id!.isNotEmpty)
+            //     .map((item) => int.tryParse(item.id!) ?? 0)
+            //     .reduce((a, b) => a > b ? a : b);
+            startIndex += 20;
 
             queryParams['start'] = "$startIndex";
             updateProgressState(startIndex, total);
-            if (startIndex > total || counter > (total / 30)) {
+            if (startIndex > total || counter > ((total / 20)+1)) {
               break;
             }
             if (data.isNotEmpty) {

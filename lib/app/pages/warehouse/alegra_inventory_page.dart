@@ -27,7 +27,7 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
   @override
   Widget build(BuildContext context) {
     final itemsAsync = ref.watch(alegraItemsProvider);
-    // final countAsync = ref.watch(alegraItemsCountProvider);
+    final countAsync = ref.watch(alegraItemsCountProvider);
 
     return SafeScaffold(
       appBar: AppBar(
@@ -52,6 +52,37 @@ class AlegraInventoryPageState extends ConsumerState<AlegraInventoryPage> {
           return Column(
             spacing: 15,
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    countAsync.when(
+                      data: (count) => Text(
+                        'Total de registros: $count',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      loading: () => Text(
+                        'Total de registros: -',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      error: (_, __){
+                        logger.e("Error: $_");
+                        return Text(
+                          'Total de registros: Error',
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        );
+                      }
+                    ),
+                  ],
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

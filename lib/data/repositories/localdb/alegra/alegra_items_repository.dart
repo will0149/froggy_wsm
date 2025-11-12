@@ -183,7 +183,7 @@ class AlegraItemsRepository implements LocalDbRepository {
   @override
   Future<int> count() async {
     final db = await _dbHelper.database;
-    final result = await db.rawQuery('SELECT COUNT(*) as count FROM $_tableName WHERE deleted = 0');
+    final result = await db.rawQuery('SELECT COUNT(*) as count FROM $_tableName');
     return result.first['count'] as int;
   }
 
