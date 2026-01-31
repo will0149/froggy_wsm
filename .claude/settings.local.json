@@ -1,15 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find:*)",
-      "Bash(flutter analyze:*)",
-      "Bash(flutter pub:*)",
-      "Bash(flutter build:*)",
-      "Bash(dart run build_runner build --delete-conflicting-outputs)",
-      "Bash(git add lib/domain/providers/icons/svg_icon_provider.dart lib/domain/providers/icons/svg_icon_provider.g.dart lib/domain/providers/app_theme_provider.dart lib/domain/providers/app_theme_provider.g.dart lib/app/pages/user/user_settings.dart lib/domain/providers/auth/firebase_auth_provider.dart lib/domain/providers/auth/firebase_auth_provider.g.dart lib/domain/usecases/auth/fire_base_auth_uc.dart lib/app/widgets/forms/auth/sign_up_form.dart lib/app/widgets/forms/auth/reset_password_form.dart lib/domain/providers/fire_base_auth_provider.dart lib/domain/models/svg_icon_model.dart lib/domain/models/svg_icon_model.g.dart lib/domain/models/slider_model.dart lib/domain/models/slider_model.g.dart)",
-      "Bash(git restore --staged android/)",
-      "Bash(git commit -m \"$(cat <<''EOF''\nrefactor: migrate providers to Riverpod 2.0 annotations\n\nMigrate multiple providers and models from legacy Riverpod syntax to modern @riverpod annotations with code generation for better type safety and maintainability.\n\nChanges:\n- Migrate SvgIconProvider to @riverpod annotation\n- Migrate AppThemeProvider to @riverpod annotation with setTheme() method\n- Migrate FireBaseAuthUC to @riverpod with new provider in domain/providers/auth/\n- Migrate SvgIconModel to @riverpod annotation\n- Migrate SliderModel to @riverpod annotation\n- Remove ChangeNotifier dependency from FireBaseAuthUC\n- Update all imports and references to use new provider locations\n- Generate .g.dart files for all migrated providers\n\nBenefits:\n- Modern Riverpod 2.0+ syntax with code generation\n- Better type safety and IDE support\n- Improved code organization with proper provider placement\n- Removed Flutter-specific dependencies from domain layer\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+      "Bash(flutter clean)",
+      "Bash(flutter doctor -v)",
+      "Bash(flutter run --device-id=4b7acc44)",
+      "Bash(git add android/app/build.gradle.kts android/settings.gradle.kts pubspec.yaml pubspec.lock firebase.json lib/firebase_options.dart ios/Runner/GoogleService-Info.plist macos/Runner/GoogleService-Info.plist)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfix: configure Firebase Android integration and resolve channel-error\n\nFix PlatformException(channel-error) by properly configuring Firebase for Android and updating dependencies.\n\nAndroid Configuration:\n- Add Google Services plugin to settings.gradle.kts and app/build.gradle.kts\n- Add Firebase BoM (34.4.0) for dependency management\n- Add Firebase Analytics and Auth dependencies\n- Enable MultiDex support for Firebase\n- Set minSdk to 23 (required by Firebase)\n\nDependencies:\n- Remove firebase_core_platform_interface override (5.4.0)\n- Update to latest compatible version (6.0.2)\n- Update pubspec.lock with new dependency versions\n\nFirebase Options:\n- Add firebase_options.dart for multi-platform configuration\n- Add GoogleService-Info.plist for iOS and macOS\n- Add firebase.json for Firebase CLI configuration\n\nThis fixes the \"Unable to establish connection on channel\" error that was preventing Firebase initialization on Android.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
     ],
-    "deny": []
+    "deny": [],
+    "ask": []
   }
 }

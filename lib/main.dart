@@ -1,4 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore, Settings;
+import 'package:firebase_core/firebase_core.dart' show Firebase, FirebaseOptions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,6 +14,9 @@ import 'generated/l10n.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseFirestore.instance.settings = const Settings(
+    persistenceEnabled: true,
+  );
   GoRouter.optionURLReflectsImperativeAPIs = true;
   runApp(const ProviderScope(child: MyApp()));
   FlutterError.demangleStackTrace = (StackTrace stack) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 
 import '../../../device/utils/is_first_run.dart';
@@ -61,7 +62,9 @@ class _WelcomeSlidePageState extends State<WelcomeSlidePage> {
         Expanded(
           child: Text(
             "Parkea App",
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.displaySmall?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         Expanded(
@@ -75,12 +78,18 @@ class _WelcomeSlidePageState extends State<WelcomeSlidePage> {
         Expanded(
           child: Text(
             word,
-            style: Theme.of(context).textTheme.titleLarge,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            color: parkeaOrange,
+            ),
           ),
         ),
         Expanded(
           child: Text(description,
-            style: Theme.of(context).textTheme.bodyMedium,),
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+
+            ),),
         )
       ],
     );
