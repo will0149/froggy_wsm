@@ -7,8 +7,8 @@ import 'package:froggy_soft/domain/utils/csv_export_utils.dart';
 import 'package:froggy_soft/app/widgets/toasts/build_toasts.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../device/utils/logger_config.dart' show logger;
-import '../../widgets/scaffolds/safe_scaffold.dart';
+import '../../../../device/utils/logger_config.dart' show logger;
+import '../../../widgets/scaffolds/safe_scaffold.dart';
 
 /**
  * Made for froggy_soft.

@@ -74,7 +74,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
               // icon: const Icon(Icons.security, color: Colors.orange),
               suffixIcon: IconButton(
                   icon: Icon(
-                      _isObscure ? Icons.visibility : Icons.visibility_off,
+                      _isObscure ? Icons.visibility_off : Icons.visibility,
                       color: Colors.orange),
                   onPressed: () {
                     setState(() {

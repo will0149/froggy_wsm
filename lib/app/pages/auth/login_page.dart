@@ -1,7 +1,8 @@
-import 'package:froggy_soft/app/paints/middle_wave_white.dart';
-import 'package:froggy_soft/generated/l10n.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:froggy_soft/app/paints/middle_wave_white.dart';
+import 'package:froggy_soft/generated/l10n.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../device/utils/device_info.dart';
@@ -40,6 +41,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return KillPopScope(
       context: context,
       child: Scaffold(
@@ -85,21 +87,40 @@ class LoginPageState extends ConsumerState<LoginPage> {
                     children: [
                       InkWell(
                         child: Text(
-                  textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge
-                              ?.copyWith(
-                                  color: Colors.black87,
-                                  fontFamily: "GothicA1-Bold",
-                          ),
-                          S.of(context).devStudio,
+                          textAlign: TextAlign.center,
+                          style:
+                              Theme.of(context).textTheme.labelLarge?.copyWith(
+                                    color: Colors.black87,
+                                    fontFamily: "GothicA1-Bold",
+                                  ),
+                          'Jldm Developer'//S.of(context).devStudio,
                         ),
                         onTap: () => launchUrlString('https://atheneox.com'),
                       ),
                     ],
                   ),
                 ],
+              ),
+            ),
+            Positioned(
+              top: 60,
+              left: size.width * 0.05,
+              child: AnimatedTextKit(
+                animatedTexts: [
+                  WavyAnimatedText(
+                    "Froggy Warehouse Manager",
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .headlineMedium /**/
+                        ?.copyWith(
+                          color: Colors.black,
+                        ),
+                  ),
+                ],
+                repeatForever: false,
+                onTap: () {
+                  print("Tap Event");
+                },
               ),
             ),
           ],

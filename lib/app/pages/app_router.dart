@@ -4,16 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
 import 'package:froggy_soft/app/pages/outgoing/outgoing_page.dart';
 import 'package:froggy_soft/app/pages/relocation/relocation_page.dart';
-import 'package:froggy_soft/app/pages/warehouse/alegra_comparison_table_page.dart';
-import 'package:froggy_soft/app/pages/warehouse/alegra_inventory_page.dart';
+import 'package:froggy_soft/app/pages/warehouse/alegra/alegra_inventory_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/search_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/stocks_table_page.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../data/repositories/firestore/firestore_config.dart';
+import '../../device/utils/is_first_run.dart';
 import '../../device/utils/logger_config.dart';
+import '../../domain/utils/impl/build_headers_utils_impl.dart';
 import 'auth/login_page.dart';
-import 'count/alegra/alegra_count_page.dart';
 import 'count/count_page.dart' show CountPage;
 import 'entry/entry_page.dart';
 import 'main_page.dart';
@@ -138,31 +137,51 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
       ],
       redirect: (context, state) async {
-        var activate = await FireStoreConfig().getActivateFlag();
-        if(!activate){
-          return MaintainPage.routeLocation;
-        }
-        if (kDebugMode) logger.w("matchedLocation ${state.matchedLocation}");
-        // var firstRun = IsFirstRun();
-        // bool firstCall = await firstRun.isFirstRun();
-        // final storageUtils = BuildHeadersUtilsImpl();
-        // bool hasStorage = await storageUtils.validateStorage();
-        // if (firstCall) {
-        //   return LoginPage.routeLocation;
+        // var activate = await FireStoreConfig().getActivateFlag();
+        // if(!activate){
+        //   return MaintainPage.routeLocation;
         // }
+        if (kDebugMode) logger.w("matchedLocation ${state.matchedLocation}");
+        var firstRun = IsFirstRun();
+        bool firstCall = await firstRun.isFirstRun();
+        final storageUtils = BuildHeadersUtilsImpl();
+        bool hasStorage = await storageUtils.validateStorage();
+        if (firstCall) {
+          return LoginPage.routeLocation;
+        }
+
+        switch (state.matchedLocation) {
+          case '/login':
+            if (hasStorage) {
+              if (kDebugMode) logger.i('hasCacheToken $hasStorage');
+              return MainPage.routeLocation;
+            }
+            return state.matchedLocation;
+          case '/main':
+            if (hasStorage) {
+              if (kDebugMode) logger.i('main routing $hasStorage');
+              return state.matchedLocation;
+            }
+            return LoginPage.routeLocation;
+          default:
+            if (hasStorage) {
+              if (kDebugMode) logger.i('default routing ${state.matchedLocation}');
+              return state.matchedLocation;
+            }
+            return LoginPage.routeLocation;
+        }
+
         // if (kDebugMode) logger.i('match location ${state.matchedLocation}');
-        // if(hasStorage && state.matchedLocation == LoginPage.routeLocation){
+        // bool hasCacheToken = hasStorage && state.matchedLocation == LoginPage.routeLocation;
+        // if(hasCacheToken){
+        //   if (kDebugMode) logger.i('hasCacheToken $hasCacheToken');
         //   return MainPage.routeLocation;
         // }
-        //
-        // if (state.matchedLocation != LoginPage.routeLocation) {
+        // bool genericRouteValidation = hasStorage && state.matchedLocation != LoginPage.routeLocation;
+        // if (genericRouteValidation) {
+        //   if (kDebugMode) logger.i('genericRouteValidation $genericRouteValidation');
         //   return state.matchedLocation;
         // }
-        // return null;
-        if (state.matchedLocation != LoginPage.routeLocation) {
-          return state.matchedLocation;
-        }
-        return null;
       });
   return router;
 });

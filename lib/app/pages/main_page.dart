@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,7 +7,7 @@ import 'package:froggy_soft/app/pages/count/count_page.dart';
 import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
 import 'package:froggy_soft/app/pages/relocation/relocation_page.dart'
     show RelocationPage;
-import 'package:froggy_soft/app/pages/warehouse/alegra_inventory_page.dart';
+import 'package:froggy_soft/app/pages/warehouse/alegra/alegra_inventory_page.dart';
 import 'package:froggy_soft/app/pages/warehouse/search_page.dart'
     show SearchPage;
 import 'package:froggy_soft/domain/logics/alegra/impl/items_logic_impl.dart';
@@ -83,79 +84,6 @@ class MainPageState extends ConsumerState<MainPage> {
           ),
           centerTitle: true,
         ),
-        // title: Text(isLoading ? "Cargando ${itemsLogic.fetchCount}/${itemsLogic.total}" : "Recuerda Sincronizar! ->",
-        //     style: Theme.of(context)
-        //         .textTheme
-        //         .titleLarge
-        //         ?.copyWith(fontWeight: FontWeight.w700)),
-        // centerTitle: true,
-        // actions: [
-        //   IconButton(
-        //     color: Colors.tealAccent,
-        //     splashColor: Colors.red,
-        //     padding: EdgeInsetsGeometry.only(right: 30),
-        //     icon: isLoading ? CircularProgressIndicator() : Icon(Icons.sync),
-        //     onPressed: isLoading ? null : () async {
-        //       // Mostrar modal de confirmación
-        //       final shouldSync = await showDialog<bool>(
-        //         context: context,
-        //         builder: (BuildContext context) {
-        //           return AlertDialog(
-        //             title: const Text('Sincronizar datos'),
-        //             content: const Text(
-        //               '¿Desea cargar los datos desde el servidor?\n\nEsto actualizará el inventario local con la información más reciente.',
-        //             ),
-        //             actions: [
-        //               TextButton(
-        //                 onPressed: () => Navigator.of(context).pop(false),
-        //                 child: const Text('Cancelar'),
-        //               ),
-        //               ElevatedButton(
-        //                 onPressed: () => Navigator.of(context).pop(true),
-        //                 child: const Text('Cargar datos'),
-        //               ),
-        //             ],
-        //           );
-        //         },
-        //       );
-        //
-        //       // Si el usuario canceló o cerró el diálogo, no hacer nada
-        //       if (shouldSync != true) return;
-        //
-        //       // Proceder con la sincronización
-        //       if (kDebugMode) logger.i("Syncing");
-        //       showWarningToast("Inicio de sincronizacion de maestro");
-        //       setState(() {
-        //         isLoading = true;
-        //       });
-        //
-        //       try {
-        //         // Ejecutar el proceso de carga
-        //         // loadItemsProcessProvider.future ejecuta:
-        //         // 1. ItemsLogicImpl.populateLocalDataBase()
-        //         // 2. Durante el batch processing, llama a setFetchCount() y setTotalItems()
-        //         // 3. Cada llamada ejecuta notifyListeners() que dispara el listener del provider
-        //         // 4. El listener actualiza state en Riverpod, reconstruyendo el AppBar
-        //         // 5. El AppBar muestra "Cargando X/Y" con los valores actualizados
-        //         await ref.read(itemsLogicImplProvider.notifier).populateLocalDataBase();
-        //
-        //         // Proceso completado exitosamente
-        //         setState(() {
-        //           isLoading = false;
-        //         });
-        //         showSuccessToast("Registros Actualizados");
-        //       } catch (e) {
-        //         // Manejar errores
-        //         if (kDebugMode) logger.e("Error durante la sincronizacion: $e");
-        //         setState(() {
-        //           isLoading = false;
-        //         });
-        //         showErrorToast("Error al actualizar registros");
-        //       }
-        //     },
-        //   ),
-        // ],
-        // ),
         child: Stack(
           fit: StackFit.expand,
           children: [
@@ -240,21 +168,6 @@ class MainPageState extends ConsumerState<MainPage> {
                           onPressed: () =>
                               context.pushNamed(AlegraInventoryPage.routeName),
                         ),
-                        // SectionButton(
-                        //   imagePath: "assets/maintainance/settings.png",
-                        //   title: S.of(context).settingsMenuName,
-                        //   onPressed: () =>
-                        //       context.pushNamed(SettingsPage.routeName),
-                        // ),
-                        // SectionButton(
-                        //   imagePath: "assets/logout.png",
-                        //   title: S.of(context).logoutButton,
-                        //   onPressed: () {
-                        //     authHandlerP.logOut();
-                        //     showWarningToast("Logout!!");
-                        //     context.goNamed(LoginPage.routeName);
-                        //   },
-                        // ),
                       ],
                     ),
                   ),

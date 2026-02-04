@@ -54,6 +54,7 @@ dependencies:
     path: ../../horizontal_scroll_item
   cloud_firestore: ^6.0.3 #Dependencia temporal para bloquear y desbloquear el app de forma remota
   firebase_core: ^4.2.0
+  animated_text_kit: ^4.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -69,6 +70,7 @@ dev_dependencies:
   riverpod_generator: ^3.0.3
   # dependencia dev para objetos deserializables DTOs
   json_serializable: ^6.9.5
+  intl_utils: ^2.8.11
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -122,7 +124,7 @@ fonts:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_intl:
-  enabled: true # TODO: poner en false cuando no se agreguen nuevos textos
+  enabled: false # TODO: poner en false cuando no se agreguen nuevos textos
   main_locale: es
   class_name: S # TODO: puede llamarse app_localization
     #arb_dir: lib/l10n

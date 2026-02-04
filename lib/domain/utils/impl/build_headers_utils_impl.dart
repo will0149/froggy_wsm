@@ -24,12 +24,12 @@ class BuildHeadersUtilsImpl implements BuildHeadersUtils {
       "Content-Type": "application/json",
     };
     //TODO: restaurar el token de recuperacion por sesion
-    headers["Authorization"] = "Basic dmVudGFzQGV2YWxqb3llcm9zLmNvbTozMTFmYzkwYmI3NjE0NjU4YWNkYQ=='";
-    // await getToken().then((value) {
-    //   if(value!.isNotEmpty) {
-    //     headers["Authorization"] = "Bearer $value";
-    //   }
-    // });
+    // headers["Authorization"] = "Basic dmVudGFzQGV2YWxqb3llcm9zLmNvbTozMTFmYzkwYmI3NjE0NjU4YWNkYQ=='";
+    await getToken().then((value) {
+      if(value!.isNotEmpty) {
+        headers["Authorization"] = "Bearer $value";
+      }
+    });
     return headers;
   }
 

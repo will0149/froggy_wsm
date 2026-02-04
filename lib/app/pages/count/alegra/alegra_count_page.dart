@@ -10,7 +10,7 @@ import 'package:go_router/go_router.dart';
 import '../../../widgets/forms/alegra/alegra_count_form.dart';
 import '../../../widgets/forms/base_form_decorator.dart';
 import '../../../widgets/toasts/build_toasts.dart';
-import '../../warehouse/alegra_comparison_table_page.dart';
+import '../../warehouse/alegra/alegra_comparison_table_page.dart';
 
 /// Made for froggysoft.
 /// By User: josedominguez
