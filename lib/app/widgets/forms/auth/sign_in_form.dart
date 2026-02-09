@@ -1,10 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
-import 'package:parkea/device/utils/loggerConfig.dart';
+import 'package:parkea/domain/models/auth/auth_state.dart';
 import 'package:parkea/generated/l10n.dart';
 
 import '../../../../data/entities/login_dto.dart';
@@ -24,20 +22,10 @@ class SignInForm extends ConsumerStatefulWidget {
 class SignInFormState extends ConsumerState<SignInForm> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  bool _valid = false;
   bool _isObscure = true;
-  bool isLoading = false;
-  bool isLogin = false;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -45,7 +33,27 @@ class SignInFormState extends ConsumerState<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    var authState = ref.watch(authLogicProvider);
+    final authState = ref.watch(restAuthUCProvider);
+
+    ref.listen<AsyncValue<AuthState>>(restAuthUCProvider, (previous, next) {
+      next.whenOrNull(
+        data: (state) {
+          if (state.isAuthenticated) {
+            context.goNamed(HomeFeedPage.routeName);
+          } else if (state.hasError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.errorMessage ?? 'Error al iniciar sesión')),
+            );
+          }
+        },
+        error: (error, _) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: $error')),
+          );
+        },
+      );
+    });
+
     return Form(
       key: widget.formKey,
       child: Wrap(
@@ -108,7 +116,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
             spacing: 10.0,
             runSpacing: 10.0,
             children: [
-              isLoading
+              authState.isLoading
                   ? const CircularProgressIndicator()
                   : ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -121,43 +129,15 @@ class SignInFormState extends ConsumerState<SignInForm> {
                         ),
                       ),
                       onPressed: () async {
-                        setState(() {
-                          _valid = widget.formKey.currentState!.validate();
-                          isLoading = true;
-                        });
-                        logger.i("loading $isLoading");
-                        Timer(Duration(seconds: 3), () { //TODO: remove when login is complete
-                          if (_valid) {
-                            logger.i("step 1");
-                            authState
-                                .signIn(LoginDTO(
-                              email: emailController.value.text,
-                              password: passwordController.value.text,
-                            ))
-                                .then((value) {
-                              logger.i("step 2");
-                              var code = value?.status?.code;
-                              logger.d("Value $code");
-                              if (code! >= 200 && code < 300) {
-                                // showSuccessToast("Login Success!!");
-                                logger.i("step 3");
-                                logger.d("Process Complete and logging");
-                                context.goNamed(HomeFeedPage.routeName);
-                              }
-                            }).catchError((error) {
-                              logger.i("step 5");
-                              logger.e("bruja ${error.toString()}");
-                              setState(() {
-                                isLoading = false;
-                              });
-                              // showErrorToast("Algo fallo ${error.toString()}!");
-                            });
-                          } else {
-                            setState(() {
-                              isLoading = false;
-                            });
-                          }
-                        });
+                        final isValid = widget.formKey.currentState!.validate();
+                        if (isValid) {
+                          await ref
+                              .read(restAuthUCProvider.notifier)
+                              .signIn(LoginDTO(
+                                email: emailController.value.text,
+                                password: passwordController.value.text,
+                              ));
+                        }
                       },
                       child: Text(
                         S.of(context).login,
