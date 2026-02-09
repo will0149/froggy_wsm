@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/data/entities/auth/register_dto.dart';
-import 'package:parkea/device/utils/loggerConfig.dart';
+import 'package:parkea/domain/models/auth/auth_state.dart';
 import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 import 'package:parkea/generated/l10n.dart';
 import 'package:select_form_field/select_form_field.dart';
@@ -27,7 +27,6 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
   var passwordConfirmationController = TextEditingController();
   bool _isObscure = true;
   bool _isObscure2nd = true;
-  bool _valid = false;
 
   final List<Map<String, dynamic>> _provinces = [
     {
@@ -77,6 +76,26 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(restAuthUCProvider);
+
+    ref.listen<AsyncValue<AuthState>>(restAuthUCProvider, (previous, next) {
+      next.whenOrNull(
+        data: (state) {
+          if (state.isAuthenticated) {
+            context.goNamed(HomeFeedPage.routeName);
+          } else if (state.hasError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.errorMessage ?? 'Error al registrarse')),
+            );
+          }
+        },
+        error: (error, _) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: $error')),
+          );
+        },
+      );
+    });
+
     return Form(
       key: widget.formKey,
       child: Wrap(
@@ -211,21 +230,16 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                         ),
                       ),
                       onPressed: () async {
-                        setState(() {
-                          _valid = widget.formKey.currentState!.validate();
-                        });
-                        if (_valid) {
-                          var request = RegisterDto(
-                              username: userNameController.value.text,
-                              password1: passwordController.value.text,
-                              password2:
-                                  passwordConfirmationController.value.text);
-                          //new rest auto
-                          final authUc = ref.read(restAuthUCProvider.notifier);
-
-                          await authUc.register(request);
-
-                          //context.goNamed(HomeFeedPage.routeName);
+                        final isValid = widget.formKey.currentState!.validate();
+                        if (isValid) {
+                          final request = RegisterDto(
+                            username: userNameController.value.text,
+                            password1: passwordController.value.text,
+                            password2: passwordConfirmationController.value.text,
+                          );
+                          await ref
+                              .read(restAuthUCProvider.notifier)
+                              .register(request);
                         }
                       },
                       child: Text(

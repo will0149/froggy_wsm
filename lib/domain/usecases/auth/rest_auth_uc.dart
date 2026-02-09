@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:parkea/data/entities/user/user_profile_dto.dart';
 import 'package:parkea/domain/models/auth/auth_state.dart' show AuthState;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -6,7 +5,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../data/entities/auth/auth_response_entity.dart';
 import '../../../data/entities/auth/register_dto.dart' show RegisterDto;
 import '../../../data/entities/common/base_response_entity.dart';
-import '../../../data/entities/common/status_entity.dart';
 import '../../../data/entities/login_dto.dart';
 import '../../../data/repositories/auth/auth_repository.dart';
 import '../../../device/utils/loggerConfig.dart';
@@ -21,24 +19,14 @@ part 'rest_auth_uc.g.dart';
 
 @riverpod
 class RestAuthUC extends _$RestAuthUC {
-  bool isLoggedIn = false;
-  bool isLoading = false;
   late final AuthRepository repository;
   late final BuildHeadersUtils headersUtils;
-  int code = 0;
-
-  RestAuthUC() {
-    isLoading = true;
-    isLoggedIn = false;
-    repository = AuthRepository();
-    headersUtils = BuildHeadersUtilsImpl();
-  }
 
   @override
   Future<AuthState> build() async {
-    // Check if user is already authenticated on app start
-    // This sets the initial state properly
-    state = AsyncValue.data(AuthState.loading());
+    repository = AuthRepository();
+    headersUtils = BuildHeadersUtilsImpl();
+
     var user = await getUserProfile();
     if (user.body != null) {
       return AuthState.authenticated(user.body!);
@@ -47,52 +35,46 @@ class RestAuthUC extends _$RestAuthUC {
     }
   }
 
-  Future<BaseResponseEntity<AuthResponseEntity>?> signIn(
-      LoginDTO request) async {
-    var result = <String, dynamic>{};
-    BaseResponseEntity<AuthResponseEntity>? responseEntity;
-    var status = {'code': result['code'], 'msg': 'Algo fallo'};
-    try {
-      result = await repository.signIn(request);
+  Future<void> signIn(LoginDTO request) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      var result = await repository.signIn(request);
       logger.w("result $result");
-      code = result['status']['code'];
-      if (code == 200 && code < 300) {
-        isLoggedIn = true;
+      int code = result['status']['code'];
+      if (code >= 200 && code < 300) {
+        var responseEntity =
+            BaseResponseEntity<AuthResponseEntity>.fromJson(result,
+                (json) => AuthResponseEntity.fromJson(
+                    json as Map<String, dynamic>));
+        headersUtils.saveTokenInStorage(responseEntity.body?.token);
+        var user = await getUserProfile();
+        if (user.body != null) {
+          return AuthState.authenticated(user.body!);
+        }
       }
-      responseEntity = BaseResponseEntity<AuthResponseEntity>.fromJson(result,
-          (json) => AuthResponseEntity.fromJson(json as Map<String, dynamic>));
-      headersUtils.saveTokenInStorage(responseEntity.body?.token);
-    } on Exception catch (e) {
-      logger.e(e.toString());
-      result.addAll(status);
-      responseEntity?.status = StatusEntity.fromJson(result['status']);
-    }
-    logger.d("relocate responseEntity ${responseEntity?.status?.toJson()}");
-    return responseEntity;
+      return AuthState.error('Error al iniciar sesión (código: $code)');
+    });
   }
 
-  Future<BaseResponseEntity<AuthResponseEntity>?> register(
-      RegisterDto request) async {
-    var result = <String, dynamic>{};
-    BaseResponseEntity<AuthResponseEntity>? responseEntity;
-    var status = {'code': result['code'], 'msg': 'Algo fallo'};
-    try {
-      result = await repository.register(request);
+  Future<void> register(RegisterDto request) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      var result = await repository.register(request);
       logger.w("result $result");
-      code = result['status']['code'];
-      if (code == 200 && code < 300) {
-        isLoggedIn = true;
+      int code = result['status']['code'];
+      if (code >= 200 && code < 300) {
+        var responseEntity =
+            BaseResponseEntity<AuthResponseEntity>.fromJson(result,
+                (json) => AuthResponseEntity.fromJson(
+                    json as Map<String, dynamic>));
+        headersUtils.saveTokenInStorage(responseEntity.body?.token);
+        var user = await getUserProfile();
+        if (user.body != null) {
+          return AuthState.authenticated(user.body!);
+        }
       }
-      responseEntity = BaseResponseEntity<AuthResponseEntity>.fromJson(result,
-          (json) => AuthResponseEntity.fromJson(json as Map<String, dynamic>));
-      headersUtils.saveTokenInStorage(responseEntity.body?.token);
-    } on Exception catch (e) {
-      logger.e(e.toString());
-      result.addAll(status);
-      responseEntity?.status = StatusEntity.fromJson(result['status']);
-    }
-    logger.d("relocate responseEntity ${responseEntity?.status?.toJson()}");
-    return responseEntity;
+      return AuthState.error('Error al registrarse (código: $code)');
+    });
   }
 
   // Future<BaseResponseEntity<BaseDataEntity<Object>>?> refreshToken(
