@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/dtos/event_dto.dart';
+import '../../data/dtos/event_dto.dart';
 import '../../domain/providers/onboarding_provider.dart';
 import '../../generated/l10n.dart';
 import 'cards/event_feed_card.dart';

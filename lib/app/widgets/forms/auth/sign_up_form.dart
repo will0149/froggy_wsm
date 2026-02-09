@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
+import 'package:parkea/data/entities/auth/register_dto.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
+import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 import 'package:parkea/generated/l10n.dart';
 import 'package:select_form_field/select_form_field.dart';
 
-import '../../../../domain/providers/auth/firebase_auth_provider.dart';
 import '../../../pages/home/home_feed_page.dart';
 
 class SignUpForm extends ConsumerStatefulWidget {
@@ -23,8 +24,9 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
   var provinceController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  var passwordConfirmationController = TextEditingController();
   bool _isObscure = true;
-  bool _isLoading = false;
+  bool _isObscure2nd = true;
   bool _valid = false;
 
   final List<Map<String, dynamic>> _provinces = [
@@ -74,7 +76,7 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(fireBaseAuthApiProvider);
+    final authState = ref.watch(restAuthUCProvider);
     return Form(
       key: widget.formKey,
       child: Wrap(
@@ -160,6 +162,35 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
               }
             },
           ),
+          TextFormField(
+            controller: passwordConfirmationController,
+            keyboardType: TextInputType.text,
+            obscureText: _isObscure2nd,
+            decoration: InputDecoration(
+              hintText: '******',
+              labelText: S.of(context).password + " Confirmation",
+              prefixIcon: const Icon(Icons.lock),
+              suffixIcon: IconButton(
+                  icon: Icon(
+                    _isObscure2nd ? Icons.visibility : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isObscure2nd = !_isObscure2nd;
+                    });
+                  }),
+            ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Password must be longer than 8 characters';
+              } else {
+                if (value != passwordController.text) {
+                  return 'Password must be the same';
+                }
+                return null;
+              }
+            },
+          ),
           Wrap(
             direction: Axis.vertical,
             alignment: WrapAlignment.center,
@@ -167,7 +198,7 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
             spacing: 10.0,
             runSpacing: 10.0,
             children: [
-              _isLoading
+              authState.isLoading
                   ? const CircularProgressIndicator.adaptive()
                   : ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -182,38 +213,20 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                       onPressed: () async {
                         setState(() {
                           _valid = widget.formKey.currentState!.validate();
-                          _isLoading = true;
                         });
                         if (_valid) {
-                          //set user session data
-                          authState
-                              .registerUsingEmailPassword(
-                            name: userNameController.value.text,
-                            email: emailController.value.text,
-                            password: passwordController.value.text,
-                          )
-                              .catchError((error) {
-                            logger.e(error);
-                            setState(() {
-                              _isLoading = false;
-                            });
-                          });
+                          var request = RegisterDto(
+                              username: userNameController.value.text,
+                              password1: passwordController.value.text,
+                              password2:
+                                  passwordConfirmationController.value.text);
+                          //new rest auto
+                          final authUc = ref.read(restAuthUCProvider.notifier);
 
-                          if (authState.isLoggedIn) {
-                            logger.d("Process Complete and logging");
-                            setState(() {
-                              _isLoading = false;
-                            });
-                            context.goNamed(HomeFeedPage.routeName);
-                          } else {
-                            setState(() {
-                              _isLoading = false;
-                            });
-                          }
+                          await authUc.register(request);
+
+                          //context.goNamed(HomeFeedPage.routeName);
                         }
-                        setState(() {
-                          _isLoading = false;
-                        });
                       },
                       child: Text(
                         S.of(context).signUp,

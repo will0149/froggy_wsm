@@ -1,11 +1,12 @@
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
+import 'package:parkea/data/mocks/mock_data_utils.dart';
 import 'package:parkea/data/repositories/utils/http_common_utils.dart';
 import 'package:parkea/data/repositories/utils/impl/http_commons_utils_impl.dart';
 
 import '../../device/utils/loggerConfig.dart';
-import '../../domain/utils/build_header_utils.dart';
-import '../../domain/utils/impl/build_headers_utils_impl.dart';
+import 'utils/build_header_utils.dart';
+import 'utils/impl/build_headers_utils_impl.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -14,10 +15,12 @@ import '../../domain/utils/impl/build_headers_utils_impl.dart';
 class UserRepository {
   late final BuildHeadersUtils headersUtils;
   late final HttpCommonUtils httpCommonUtils;
+  late final MockDataUtils mockDataUtils;
 
   UserRepository() {
     headersUtils = BuildHeadersUtilsImpl();
     httpCommonUtils = HttpCommonUtilsImpl();
+    mockDataUtils = MockDataUtils();
   }
 
   Future<Map<String, dynamic>> getUserProfile() async {
@@ -33,20 +36,7 @@ class UserRepository {
       //   headers: {"Content-Type": "application/json",},
       // );
       // final json = jsonDecode(response.body);
-      final json = {
-        "status": {"code": 200, "msg": "exitoso!"},
-        "body": {
-          "username": "josedominguez",
-          "email": "will0149@yahoo.com",
-          "first_name": "Jose",
-          "last_name": "Dominguez",
-          "avatar":
-              "https://numwo-media.s3.amazonaws.com/profiles/moneda-antigua-50.jpg",
-          "bio": "Dedicated Entrepreneur",
-          "link": "https://www.example.com.pa/",
-          "user_type": 0
-        }
-      };
+      final json = mockDataUtils.userProfile();
       logger.w("response $json");
       return Future.value(json);
     } finally {

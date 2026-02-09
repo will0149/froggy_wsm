@@ -37,20 +37,20 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  flutter_svg: ^2.2.1
+  flutter_svg: ^2.2.3
   animated_bottom_navigation_bar: ^1.4.0
   flutter_toastr: 1.0.3
   select_form_field: "^2.2.0"
   #firebase dependencies:
-  firebase_auth: ^6.1.1
-  cloud_firestore: ^6.0.3 #Dependencia temporal para bloquear y desbloquear el app de forma remota
-  firebase_core: ^4.2.0
+  firebase_auth: ^6.1.4
+  cloud_firestore: ^6.1.2 #Dependencia temporal para bloquear y desbloquear el app de forma remota
+  firebase_core: ^4.4.0
   #
   animated_text_kit: ^4.3.0
   lottie: ^3.3.2
   # handle secure local storage and data management
-  flutter_secure_storage: ^9.2.4
-  shared_preferences: ^2.5.3
+  flutter_secure_storage: ^10.0.0
+  shared_preferences: ^2.5.4
   #riverpod dependencies:
   flutter_riverpod: ^3.0.3
   riverpod_annotation: ^3.0.3
@@ -58,11 +58,11 @@ dependencies:
 #  hooks_riverpod: ^2.6.1
 #  flutter_hooks: ^0.21.2
   ######################
-  http: ^1.5.0
-  go_router: ^16.3.0
-  skeletonizer: ^2.1.0+1
+  http: ^1.6.0
+  go_router: ^17.1.0
+  skeletonizer: ^2.1.2
   cached_network_image: ^3.4.1
-  intl_utils: ^2.8.11
+  intl_utils: ^2.8.13
 #  animated_svg: ^2.0.0
   # dependencia para objetos deserializables DTOs
   json_annotation: ^4.9.0
@@ -134,7 +134,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 flutter_intl:
-  enabled: false # TODO: poner en false cuando no se agreguen nuevos textos
+  enabled: true # TODO: poner en false cuando no se agreguen nuevos textos
   main_locale: es
   class_name: S # TODO: puede llamarse app_localization
     #arb_dir: lib/l10n

@@ -23,15 +23,15 @@ final class AppThemeProvider extends $NotifierProvider<AppTheme, bool> {
   /// By User: josedominguez
   /// Date: 08/03/23
   const AppThemeProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'appThemeProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'appThemeProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
 
   @override
   String debugGetCreateSourceHash() => _$appThemeHash();
@@ -62,14 +62,8 @@ abstract class _$AppTheme extends $Notifier<bool> {
   void runBuild() {
     final created = build();
     final ref = this.ref as $Ref<bool, bool>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<bool, bool>,
-              bool,
-              Object?,
-              Object?
-            >;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<bool, bool>, bool, Object?, Object?>;
     element.handleValue(ref, created);
   }
 }

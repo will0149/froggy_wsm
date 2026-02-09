@@ -34,28 +34,28 @@ class EventDTO {
 
   factory EventDTO.fromJson(Map<String, dynamic> json) => EventDTO(
         id: json["id"],
-        eventName: json["eventName"],
-        shortDescription: json["shortDescription"],
+        eventName: json["name"],
+        shortDescription: json["short_description"],
         description: json["description"],
-        date: json["date"],
-        eventType: json["eventType"],
-        eventOwner: json["eventOwner"],
+        date: json["event_date"],
+        eventType: json["cost_type"],
+        eventOwner: json["owner"],
         amount: AmountDTO.fromJson(json["amount"]),
-        bannerImageUrl: json["bannerImageUrl"],
+        bannerImageUrl: json["banner_img"],
         privacyType: json["privacyType"],
         location: LocationDTO.fromJson(json["location"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "eventName": eventName,
-        "shortDescription": shortDescription,
+        "name": eventName,
+        "short_description": shortDescription,
         "description": description,
-        "date": date,
-        "eventType": eventType,
-        "eventOwner": eventOwner,
+        "event_date": date,
+        "cost_type": eventType,
+        "owner": eventOwner,
         "amount": amount,
-        "bannerImageUrl": bannerImageUrl,
+        "banner_img": bannerImageUrl,
         "privacyType": privacyType,
         "location": location
       };

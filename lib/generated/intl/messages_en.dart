@@ -42,7 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "myEvents": MessageLookupByLibrary.simpleMessage("Events"),
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Paid"),
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Saved"),
-    "name": MessageLookupByLibrary.simpleMessage("Name"),
+    "name": MessageLookupByLibrary.simpleMessage("User Name"),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage("Parkea & Share"),
     "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-import '../../../domain/dtos/event_dto.dart';
+import '../../../data/dtos/event_dto.dart';
 import '../../themes/colors/colors.dart';
 import '../../pages/event/event_detail_page.dart';
 

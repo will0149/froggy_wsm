@@ -1,6 +1,6 @@
+import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../dtos/event_dto.dart';
 import '../usecases/get_event_by_id_uc.dart';
 
 /**

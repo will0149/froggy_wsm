@@ -23,15 +23,15 @@ final class SvgIconProvider extends $NotifierProvider<SvgIcon, bool> {
   /// By User: josedominguez
   /// Date: 01/16/24
   const SvgIconProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'svgIconProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'svgIconProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
 
   @override
   String debugGetCreateSourceHash() => _$svgIconHash();
@@ -62,14 +62,8 @@ abstract class _$SvgIcon extends $Notifier<bool> {
   void runBuild() {
     final created = build();
     final ref = this.ref as $Ref<bool, bool>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<bool, bool>,
-              bool,
-              Object?,
-              Object?
-            >;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<bool, bool>, bool, Object?, Object?>;
     element.handleValue(ref, created);
   }
 }

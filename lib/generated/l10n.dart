@@ -159,9 +159,9 @@ class S {
     );
   }
 
-  /// `Nombre`
+  /// `Nombre de usuario`
   String get name {
-    return Intl.message('Nombre', name: 'name', desc: '', args: []);
+    return Intl.message('Nombre de usuario', name: 'name', desc: '', args: []);
   }
 
   /// `Provincia`

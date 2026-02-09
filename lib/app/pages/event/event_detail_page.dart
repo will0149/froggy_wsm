@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/banners/detail_image_banner.dart';
+import 'package:parkea/data/dtos/event_dto.dart';
 
-import '../../../domain/dtos/event_dto.dart';
 import '../../../domain/providers/event_detail_provider.dart';
 import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../domain/providers/onboarding_provider.dart';

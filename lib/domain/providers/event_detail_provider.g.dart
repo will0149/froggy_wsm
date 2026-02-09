@@ -12,20 +12,18 @@ part of 'event_detail_provider.dart';
 @ProviderFor(getEventDetail)
 const getEventDetailProvider = GetEventDetailFamily._();
 
-final class GetEventDetailProvider
-    extends
-        $FunctionalProvider<AsyncValue<EventDTO>, EventDTO, FutureOr<EventDTO>>
+final class GetEventDetailProvider extends $FunctionalProvider<
+        AsyncValue<EventDTO>, EventDTO, FutureOr<EventDTO>>
     with $FutureModifier<EventDTO>, $FutureProvider<EventDTO> {
-  const GetEventDetailProvider._({
-    required GetEventDetailFamily super.from,
-    required int super.argument,
-  }) : super(
-         retry: null,
-         name: r'getEventDetailProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
+  const GetEventDetailProvider._(
+      {required GetEventDetailFamily super.from, required int super.argument})
+      : super(
+          retry: null,
+          name: r'getEventDetailProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
 
   @override
   String debugGetCreateSourceHash() => _$getEventDetailHash();
@@ -45,7 +43,10 @@ final class GetEventDetailProvider
   @override
   FutureOr<EventDTO> create(Ref ref) {
     final argument = this.argument as int;
-    return getEventDetail(ref, argument);
+    return getEventDetail(
+      ref,
+      argument,
+    );
   }
 
   @override
@@ -64,15 +65,17 @@ String _$getEventDetailHash() => r'0636240fea7af57d562632967e543ebd8575b6a8';
 final class GetEventDetailFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<EventDTO>, int> {
   const GetEventDetailFamily._()
-    : super(
-        retry: null,
-        name: r'getEventDetailProvider',
-        dependencies: null,
-        $allTransitiveDependencies: null,
-        isAutoDispose: true,
-      );
+      : super(
+          retry: null,
+          name: r'getEventDetailProvider',
+          dependencies: null,
+          $allTransitiveDependencies: null,
+          isAutoDispose: true,
+        );
 
-  GetEventDetailProvider call(int id) =>
+  GetEventDetailProvider call(
+    int id,
+  ) =>
       GetEventDetailProvider._(argument: id, from: this);
 
   @override

@@ -23,15 +23,15 @@ final class SliderModelProvider extends $NotifierProvider<SliderModel, double> {
   /// By User: josedominguez
   /// Date: 10/11/22
   const SliderModelProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'sliderModelProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'sliderModelProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
 
   @override
   String debugGetCreateSourceHash() => _$sliderModelHash();
@@ -62,14 +62,8 @@ abstract class _$SliderModel extends $Notifier<double> {
   void runBuild() {
     final created = build();
     final ref = this.ref as $Ref<double, double>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<double, double>,
-              double,
-              Object?,
-              Object?
-            >;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<double, double>, double, Object?, Object?>;
     element.handleValue(ref, created);
   }
 }

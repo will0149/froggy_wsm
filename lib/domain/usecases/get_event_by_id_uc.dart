@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parkea/data/dtos/event_dto.dart';
 
 import '../../data/repositories/events_repository.dart';
-import '../dtos/event_dto.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -11,7 +11,7 @@ class GetEventByIDUC {
   late final EventRepository repository = EventRepository();
 
   Future<EventDTO> getEventByID(int id) async {
-    Map<String, dynamic> result = await repository.fetchEventsList();
+    Map<String, dynamic> result = await repository.fetchEventsList("sdfgh");
     // print(result["body"]["events"]);
     List<dynamic> jsonResponse = result["body"]["events"];
     List<EventDTO> bodyResponse = [];

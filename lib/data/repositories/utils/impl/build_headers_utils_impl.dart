@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../../../device/utils/loggerConfig.dart';
+import '../../../../device/utils/loggerConfig.dart';
 import '../build_header_utils.dart';
 
 

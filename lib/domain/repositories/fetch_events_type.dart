@@ -1,4 +1,5 @@
-import '../dtos/event_dto.dart';
+
+import 'package:parkea/data/dtos/event_dto.dart';
 
 /// Made for parkea.
 /// By User: josedominguez

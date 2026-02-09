@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../dtos/event_dto.dart';
 import '../usecases/fetch_events_uc.dart';
 
 /**

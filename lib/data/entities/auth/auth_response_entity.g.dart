@@ -7,8 +7,9 @@ part of 'auth_response_entity.dart';
 // **************************************************************************
 
 AuthResponseEntity _$AuthResponseEntityFromJson(Map<String, dynamic> json) =>
-    AuthResponseEntity(token: json['token'] as String?)
-      ..refreshToken = json['refresh_token'] as String?;
+    AuthResponseEntity(
+      token: json['token'] as String?,
+    )..refreshToken = json['refresh_token'] as String?;
 
 Map<String, dynamic> _$AuthResponseEntityToJson(AuthResponseEntity instance) =>
     <String, dynamic>{

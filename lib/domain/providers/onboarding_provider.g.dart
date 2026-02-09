@@ -12,24 +12,19 @@ part of 'onboarding_provider.dart';
 @ProviderFor(getEvents)
 const getEventsProvider = GetEventsProvider._();
 
-final class GetEventsProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<List<EventDTO>>,
-          List<EventDTO>,
-          FutureOr<List<EventDTO>>
-        >
+final class GetEventsProvider extends $FunctionalProvider<
+        AsyncValue<List<EventDTO>>, List<EventDTO>, FutureOr<List<EventDTO>>>
     with $FutureModifier<List<EventDTO>>, $FutureProvider<List<EventDTO>> {
   const GetEventsProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'getEventsProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'getEventsProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
 
   @override
   String debugGetCreateSourceHash() => _$getEventsHash();
@@ -37,8 +32,8 @@ final class GetEventsProvider
   @$internal
   @override
   $FutureProviderElement<List<EventDTO>> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
   FutureOr<List<EventDTO>> create(Ref ref) {

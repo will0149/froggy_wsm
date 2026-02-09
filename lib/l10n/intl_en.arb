@@ -12,7 +12,7 @@
   "password": "Password",
   "resetPassword": "Reset Password",
   "forgotPassword": "I forgot my password",
-  "name": "Name",
+  "name": "User Name",
   "province": "Province",
   "popularEvents": "Popular events",
   "seeEvent": "Show event",

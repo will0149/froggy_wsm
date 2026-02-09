@@ -9,7 +9,7 @@ import '../../data/entities/user/user_profile_dto.dart';
 /// Made for parkea.
 /// By User: josedominguez
 /// Date: 11/03/22
-
+//TODO: profile se movio a user Auth
 class UsersUC extends ChangeNotifier {
   late final UserRepository repository = UserRepository();
 

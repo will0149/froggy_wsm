@@ -15,7 +15,7 @@ import '../../app/pages/event/saved_event_page.dart';
 import '../../app/pages/home/home_feed_page.dart';
 import '../../app/pages/user/profile_page.dart';
 import '../../device/utils/is_first_run.dart';
-import '../utils/impl/build_headers_utils_impl.dart';
+import '../../data/repositories/utils/impl/build_headers_utils_impl.dart';
 
 /// Made for parkea.
 /// By User: josedominguez

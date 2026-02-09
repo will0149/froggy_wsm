@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:horizontal_scroll_item/horizontal_scroll_item.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
-import 'package:parkea/domain/dtos/event_dto.dart';
+import 'package:parkea/data/dtos/event_dto.dart';
 
 import '../../../domain/providers/onboarding_provider.dart';
 import '../../../domain/usecases/fetch_events_uc.dart';
@@ -127,11 +127,11 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                       onTextChange: (v) {
                         logger.i("Selected item $v");
                       },
-                      titleTextStyle: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold),
-                      itemsTextStyle: Theme.of(context).textTheme.bodyLarge,
+                      // titleTextStyle: Theme.of(context)
+                      //     .textTheme
+                      //     .titleMedium
+                      //     ?.copyWith(fontWeight: FontWeight.bold),
+                      // itemsTextStyle: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
                 ),
