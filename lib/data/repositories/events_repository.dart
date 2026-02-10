@@ -52,6 +52,31 @@ class EventRepository {
     }
   }
 
+  Future<Map<String, dynamic>> eventDetails(String request) async {
+    // final String response = await rootBundle.loadString(eventsPath);
+    // final data = await json.decode(response);
+    // return data;
+    var client = RetryClient(http.Client());
+    try {
+      var bodyEncoded = jsonEncode(request);
+      // var uri = Uri.https(
+      //     // F.baseUrl.toString(),
+      //     'http://127.0.0.1:8000/',
+      //     ApiPathsEnums.signIn.path);
+      // final response = await httpCommonUtils.post(
+      //   uri: uri,
+      //   body: bodyEncoded,
+      //   headers: {"Content-Type": "application/json",},
+      // );
+      // final json = jsonDecode(response.body);
+      final json = mockDataUtils.eventDetail();
+      logger.w("response $json");
+      return Future.value(json);
+    }finally {
+      client.close();
+    }
+  }
+
   Future<Map<String, dynamic>> fetchSearchResult(String searchText) async {
     var client = RetryClient(http.Client());
     try {

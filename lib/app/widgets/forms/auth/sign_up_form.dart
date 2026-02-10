@@ -246,7 +246,7 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                         S.of(context).signUp,
                         style: Theme.of(context)
                             .textTheme
-                            .labelMedium
+                            .labelLarge
                             ?.copyWith(color: Colors.white),
                       ),
                     ),

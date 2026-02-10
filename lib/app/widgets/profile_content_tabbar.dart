@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parkea/domain/usecases/fetch_events_uc.dart';
 
 import '../../data/dtos/event_dto.dart';
-import '../../domain/providers/onboarding_provider.dart';
 import '../../generated/l10n.dart';
 import 'cards/event_feed_card.dart';
 
@@ -111,7 +111,7 @@ class ProfileContentTabBarState extends ConsumerState<ProfileContentTabBar> {
             ),
             const SizedBox(height: 16),
             ElevatedButton.icon(
-              onPressed: () => ref.refresh(getEventsProvider),
+              onPressed: () => ref.refresh(fetchEventsUCProvider),
               icon: const Icon(Icons.refresh),
               label: const Text('Retry'),
             ),
@@ -145,7 +145,7 @@ class ProfileContentTabBarState extends ConsumerState<ProfileContentTabBar> {
 
   @override
   Widget build(BuildContext context) {
-    final eventsData = ref.watch(getEventsProvider);
+    final eventsData = ref.watch(fetchEventsUCProvider);
     final theme = Theme.of(context);
     
     return Container(

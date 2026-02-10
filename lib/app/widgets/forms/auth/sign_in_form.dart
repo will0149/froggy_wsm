@@ -143,7 +143,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
                         S.of(context).login,
                         style: Theme.of(context)
                             .textTheme
-                            .labelMedium
+                            .labelLarge
                             ?.copyWith(color: Colors.white),
                       ),
                     ),

@@ -89,7 +89,7 @@ class _EventFeedCardState extends State<EventFeedCard> {
                       children: [
                         Expanded(
                           child: Text(
-                            widget.event.location.place,
+                            widget.event.location?.place ?? "",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
@@ -103,7 +103,7 @@ class _EventFeedCardState extends State<EventFeedCard> {
                       ],
                     ),
                     Text(
-                      widget.event.eventName,
+                      widget.event.eventName ?? "",
                       style: Theme.of(context)
                           .textTheme
                           .titleLarge
@@ -114,7 +114,7 @@ class _EventFeedCardState extends State<EventFeedCard> {
                       children: [
                         Text(
                           DateFormat.yMMMMEEEEd()
-                              .format(DateTime.parse(widget.event.date)),
+                              .format(DateTime.parse(widget.event.date ?? "")),
                           style:
                               Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     fontWeight: FontWeight.w800,
@@ -136,7 +136,7 @@ class _EventFeedCardState extends State<EventFeedCard> {
                       color: Colors.deepOrangeAccent.shade100,
                       borderRadius: BorderRadius.circular(5.0)),
                   child: Text(
-                    widget.event.eventType,
+                    widget.event.eventType ?? "",
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium

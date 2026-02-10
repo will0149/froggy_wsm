@@ -6,7 +6,6 @@ import 'package:parkea/app/widgets/banners/detail_image_banner.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/domain/usecases/fetch_events_uc.dart';
 import '../../../domain/providers/icons/svg_icon_provider.dart';
-import '../../../domain/providers/onboarding_provider.dart';
 import '../../../generated/l10n.dart';
 
 /// Made for parkea.
@@ -415,7 +414,7 @@ class RelationalEvents extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final eventsData = ref.watch(getEventsProvider);
+    final eventsData = ref.watch(fetchEventsUCProvider);
     final theme = Theme.of(context);
     
     return Column(

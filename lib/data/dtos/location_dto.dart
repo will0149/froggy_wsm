@@ -7,8 +7,8 @@
 class LocationDTO {
   final String? latitud;
   final String? longitud;
-  final String city;
-  final String place;
+  final String? city;
+  final String? place;
 
   LocationDTO(
       {this.latitud, this.longitud, required this.city, required this.place});

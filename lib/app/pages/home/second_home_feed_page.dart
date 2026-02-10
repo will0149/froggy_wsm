@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
-import '../../../domain/providers/onboarding_provider.dart';
+import 'package:parkea/domain/usecases/fetch_events_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../widgets/cards/event_feed_card.dart';
 
@@ -30,7 +30,7 @@ class OnboardingPageState extends ConsumerState<SecondHomeFeedPage> {
   }
 
   Future<void> _refresh() async {
-    ref.invalidate(getEventsProvider);
+    ref.invalidate(fetchEventsUCProvider);
     // comment user detail provider while implementing REST APIs  
     // ref.invalidate(getUserDetailProvider);
   }
@@ -38,7 +38,7 @@ class OnboardingPageState extends ConsumerState<SecondHomeFeedPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final eventsData = ref.watch(getEventsProvider);
+    final eventsData = ref.watch(fetchEventsUCProvider);
     
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,

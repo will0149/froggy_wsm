@@ -182,7 +182,7 @@ class AuthPageState extends ConsumerState<AuthPage> {
                 ),
               ),
               onTap: () {
-                context.goNamed(WelcomeSlidePage.routeName);
+                // context.goNamed(WelcomeSlidePage.routeName);
               },
             ),
           ],

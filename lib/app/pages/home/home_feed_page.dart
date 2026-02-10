@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:horizontal_scroll_item/horizontal_scroll_item.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
+import 'package:parkea/domain/usecases/fetch_events_uc.dart';
 
-import '../../../domain/providers/onboarding_provider.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/colors.dart';
 import '../../widgets/cards/event_feed_card.dart';
@@ -37,7 +37,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
   }
 
   Future<void> _refresh() async {
-    ref.refresh(getEventsProvider.future);
+    ref.refresh(fetchEventsUCProvider.future);
     // comment user detail provider while implementing REST APIs
     // ref.refresh(getUserDetailProvider.future);
   }
@@ -45,7 +45,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final eventsData = ref.watch(getEventsProvider);
+    final eventsData = ref.watch(fetchEventsUCProvider);
     // final userData = ref.watch(getUserDetailProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -89,7 +89,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                   spacing: 10.0,
                   children: [
                     Text(
-                      "Buen día Bandido!!",
+                      "Buen día!!",
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     SizedBox(
@@ -134,7 +134,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                   ],
                 ),
                 horizontalScrollItems(
-                    "Próximos eventos!", size, eventsData, size.height * 0.24),
+                    "Eventos Recomendados!", size, eventsData, size.height * 0.24),
                 horizontalScrollItems(S.of(context).popularEvents, size,
                     eventsData, size.height * 0.30),
               ],

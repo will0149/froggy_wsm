@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/pages/auth/login_page.dart';
 
 import '../../../../device/utils/loggerConfig.dart';
-import '../../../../domain/providers/auth/firebase_auth_provider.dart';
 import '../../../../generated/l10n.dart';
 import '../../../themes/colors/colors.dart';
 
@@ -14,6 +13,7 @@ import '../../../themes/colors/colors.dart';
 
 class ResetPasswordForm extends ConsumerStatefulWidget {
   final GlobalKey<FormState> formKey;
+
   const ResetPasswordForm({super.key, required this.formKey});
 
   @override
@@ -25,9 +25,10 @@ class ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
   bool _valid = false;
   final bool _isObscure = true;
   bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(fireBaseAuthApiProvider);
+    // final authState = ref.watch(fireBaseAuthApiProvider);
     return Form(
       key: widget.formKey,
       child: Wrap(
@@ -35,6 +36,14 @@ class ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
         spacing: 15.0,
         runSpacing: 20.0,
         children: [
+          Text(
+            S.of(context).resetPassword,
+            style: const TextStyle(
+              color: parkeaBlueAccent,
+              fontWeight: FontWeight.normal,
+              fontSize: 28,
+            ),
+          ),
           TextField(
             controller: emailController,
             decoration: InputDecoration(
@@ -69,20 +78,19 @@ class ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
                         });
                         if (_valid) {
                           //set user session data
-                          authState.auth
-                              .sendPasswordResetEmail(
-                            email: emailController.value.text,
-                          )
-                              .catchError((error) {
-                            logger.e(error);
-                            setState(() {
-                              isLoading = false;
-                            });
-                          });
+                          // authState.auth
+                          //     .sendPasswordResetEmail(
+                          //   email: emailController.value.text,
+                          // )
+                          //     .catchError((error) {
+                          //   logger.e(error);
+                          //   setState(() {
+                          //     isLoading = false;
+                          //   });
+                          // });
                           setState(() {
                             isLoading = false;
                           });
-
                           context.goNamed(LoginPage.routeName); //
                         }
                       },
@@ -90,8 +98,8 @@ class ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
                         S.of(context).resetPassword,
                         style: Theme.of(context)
                             .textTheme
-                            .labelMedium
-                            ?.copyWith(color: Colors.white, fontSize: 12),
+                            .labelLarge
+                            ?.copyWith(color: Colors.white),
                       ),
                     ),
             ],

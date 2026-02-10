@@ -32,20 +32,54 @@ class MockDataUtils {
       "status": {"code": 200, "msg": "exitoso!"},
       "body": [
         {
-          "id": 1,
+          "id": "1",
           "owner": "john_doe",
           "banner_img":
-              "https://numwo-media.s3.amazonaws.com/events/1/banner.jpg",
+              "https://thehotelfactory.com/wp-content/uploads/2018/09/Camping-portada.jpeg",
           "name": "Summer Music Festival 2025",
           "description":
               "Join us for an amazing outdoor music festival featuring local and international artists. Food trucks, craft beer, and family-friendly activities will be available throughout the day.",
           "short_description":
               "Annual outdoor music festival with live bands and food",
           "event_date": "2025-07-15T18:00:00Z",
-          "cost_type": 1,
+          "cost_type": "PAYED",
+          "privacy_type": "PRIVATE",
           "price": "45.00",
+          "amount": {"price": "45.00", "currency": "USD"},
           "place":
-              "Central Park Amphitheater, 123 Park Avenue, New York, NY 10001"
+              "Central Park Amphitheater, 123 Park Avenue, New York, NY 10001",
+          "location": {
+            "latitud": "",
+            "longitud": "",
+            "country": "Panama",
+            "city": "Panama",
+            "place": "Amador"
+          }
+        },
+        {
+          "id": "2",
+          "owner": "john_doe",
+          "banner_img":
+              "https://revistapanorama.com/storage/2023/01/carnaval-los-santos.jpg",
+          "name": "Summer Music Festival 2025",
+          "description":
+              "Join us for an amazing outdoor music festival featuring local and international artists. Food trucks, craft beer, and family-friendly activities will be available throughout the day.",
+          "short_description":
+              "Annual outdoor music festival with live bands and food",
+          "event_date": "2025-07-15T18:00:00Z",
+          "cost_type": "FREE",
+          "privacy_type": "PUBLIC",
+          "price": "45.00",
+          "amount": {"price": "45.00", "currency": "USD"},
+          "place":
+              "Central Park Amphitheater, 123 Park Avenue, New York, NY 10001",
+          "location": {
+            "latitud": "",
+            "longitud": "",
+            "country": "Panama",
+            "city": "Panama",
+            "place": "Amador"
+          }
         }
       ]
     };
@@ -55,22 +89,20 @@ class MockDataUtils {
     return {
       "status": {"code": 200, "msg": "exitoso!"},
       "body": {
-        "id": 1,
+        "id": "2",
         "owner": "john_doe",
         "banner_img":
-            "https://numwo-media.s3.amazonaws.com/events/1/banner.jpg",
+            "https://revistapanorama.com/storage/2023/01/carnaval-los-santos.jpg",
         "name": "Summer Music Festival 2025",
         "description":
             "Join us for an amazing outdoor music festival featuring local and international artists. Food trucks, craft beer, and family-friendly activities will be available throughout the day.",
         "short_description":
             "Annual outdoor music festival with live bands and food",
         "event_date": "2025-07-15T18:00:00Z",
-        "cost_type": 1,
+        "cost_type": "FREE",
+        "privacy_type": "PUBLIC",
         "price": "45.00",
-        "amount": {
-          "price": "45.00",
-          "currency": "USD"
-        },
+        "amount": {"price": "45.00", "currency": "USD"},
         "place":
             "Central Park Amphitheater, 123 Park Avenue, New York, NY 10001",
         "location": {

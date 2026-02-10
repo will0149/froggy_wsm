@@ -56,7 +56,7 @@ class AuthRepository {
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(
           // F.baseUrl.toString(),
-        ApiPathsEnums.eventCreate.path + ApiPathsEnums.signIn.path);
+        ApiPathsEnums.v1.path + ApiPathsEnums.signIn.path);
       final response = await httpCommonUtils.post(
         uri: uri,
         body: bodyEncoded,
@@ -77,7 +77,28 @@ class AuthRepository {
       var bodyEncoded = jsonEncode(request);
       var uri = Uri.https(
         // F.baseUrl.toString(),
-          ApiPathsEnums.eventCreate.path + ApiPathsEnums.registerUser.path);
+          ApiPathsEnums.v1.path + ApiPathsEnums.registerUser.path);
+      final response = await httpCommonUtils.post(
+        uri: uri,
+        body: bodyEncoded,
+        headers: {"Content-Type": "application/json",},
+      );
+      final json = jsonDecode(response.body);
+      // final json = mockDataUtils.authResponse();
+      logger.w("response $json");
+      return Future.value(json);
+    }finally {
+      client.close();
+    }
+  }
+
+  Future<Map<String, dynamic>> resetPassword(String request) async {
+    var client = RetryClient(http.Client());
+    try {
+      var bodyEncoded = jsonEncode(request);
+      var uri = Uri.https(
+        // F.baseUrl.toString(),
+          ApiPathsEnums.v1.path + ApiPathsEnums.passwordReset.path);
       final response = await httpCommonUtils.post(
         uri: uri,
         body: bodyEncoded,
@@ -98,8 +119,7 @@ class AuthRepository {
       var headers = await headersUtils.headers();
       var uri = Uri.https(
           // F.baseUrl.toString(),
-          'http://127.0.0.1:8000/',
-          ApiPathsEnums.refreshToken.path);
+          ApiPathsEnums.v1.path + ApiPathsEnums.refreshToken.path);
       final response = await httpCommonUtils.post(
         uri: uri,
         body: '',
@@ -120,8 +140,7 @@ class AuthRepository {
 
       var uri = Uri.https(
           // F.baseUrl.toString(),
-          'http://127.0.0.1:8000/',
-          ApiPathsEnums.logout.path);
+          ApiPathsEnums.v1.path + ApiPathsEnums.logout.path);
       final response = await httpCommonUtils.get(
         uri: uri,
         headers: headers,

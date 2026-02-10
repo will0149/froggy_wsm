@@ -11,6 +11,7 @@ import '../../widgets/scaffolds/AuthScaffold.dart';
 
 class PasswordResetPage extends StatefulWidget {
   static String get routeName => 'resetPassword';
+
   static String get routeLocation => routeName;
 
   const PasswordResetPage({super.key});
@@ -21,11 +22,13 @@ class PasswordResetPage extends StatefulWidget {
 
 class _PasswordResetPageState extends State<PasswordResetPage> {
   late final GlobalKey<FormState> resetPasswordFormKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
-        color: parkeaDarkBlueAccent,
-        bannerText: S.of(context).resetPassword,
-        form: ResetPasswordForm(formKey: resetPasswordFormKey));
+      color: parkeaDarkBlueAccent,
+      bannerText: S.of(context).resetPassword,
+      form: ResetPasswordForm(formKey: resetPasswordFormKey),
+    );
   }
 }
