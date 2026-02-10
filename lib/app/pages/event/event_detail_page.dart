@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:parkea/app/pages/event/ticket_purchase_page.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/banners/detail_image_banner.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
@@ -337,7 +339,12 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
         const SizedBox(width: 16),
         Expanded(
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.pushNamed(
+                TicketPurchasePage.routeName,
+                pathParameters: {'id': widget.eventId.toString()},
+              );
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: parkeaOrange,
               foregroundColor: Colors.white,

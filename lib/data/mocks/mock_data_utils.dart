@@ -133,6 +133,23 @@ class MockDataUtils {
     };
   }
 
+  Map<String, dynamic> purchaseTicketResponse() {
+    return {
+      "status": {"code": 200, "msg": "exitoso!"},
+      "body": {
+        "ticket_id": "TKT-20260210-001",
+        "event_id": "2",
+        "quantity": 2,
+        "total_amount": "90.00",
+        "currency": "USD",
+        "customer_name": "Jane Smith",
+        "customer_email": "jane@example.com",
+        "purchase_date": "2026-02-10T14:30:00Z",
+        "status": "confirmed"
+      }
+    };
+  }
+
   Map<String, dynamic> ticketList() {
     return {
       "status": {"code": 200, "msg": "exitoso!"},

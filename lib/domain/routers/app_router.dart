@@ -15,6 +15,7 @@ import '../../app/navigator.dart';
 import '../../app/pages/auth/splash_screen.dart';
 import '../../app/pages/auth/welcome_slide_page.dart';
 import '../../app/pages/event/event_detail_page.dart';
+import '../../app/pages/event/ticket_purchase_page.dart';
 import '../../app/pages/home/home_feed_page.dart';
 import '../../app/pages/user/profile_page.dart';
 import '../../data/repositories/utils/impl/build_headers_utils_impl.dart';
@@ -116,6 +117,15 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
                         builder: (context, state) => EventDetailPage(
                             eventId: int.parse(state.pathParameters['id']!),
                           ),
+                        routes: <RouteBase>[
+                          GoRoute(
+                            name: TicketPurchasePage.routeName,
+                            path: TicketPurchasePage.routeLocation,
+                            builder: (context, state) => TicketPurchasePage(
+                              eventId: int.parse(state.pathParameters['id']!),
+                            ),
+                          ),
+                        ],
                     ),
                   ],
                 ),

@@ -77,6 +77,18 @@ class EventRepository {
     }
   }
 
+  Future<Map<String, dynamic>> purchaseTicket(Object request) async {
+    var client = RetryClient(http.Client());
+    try {
+      var bodyEncoded = jsonEncode(request);
+      final json = mockDataUtils.purchaseTicketResponse();
+      logger.w("response $json");
+      return Future.value(json);
+    } finally {
+      client.close();
+    }
+  }
+
   Future<Map<String, dynamic>> fetchSearchResult(String searchText) async {
     var client = RetryClient(http.Client());
     try {
