@@ -27,6 +27,11 @@ class RestAuthUC extends _$RestAuthUC {
     repository = AuthRepository();
     headersUtils = BuildHeadersUtilsImpl();
 
+    final hasStorage = await headersUtils.validateStorage();
+    if (!hasStorage) {
+      return AuthState.unauthenticated();
+    }
+
     var user = await getUserProfile();
     if (user.body != null) {
       return AuthState.authenticated(user.body!);

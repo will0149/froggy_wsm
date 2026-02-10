@@ -18,7 +18,6 @@ import '../../app/pages/event/event_detail_page.dart';
 import '../../app/pages/event/ticket_purchase_page.dart';
 import '../../app/pages/home/home_feed_page.dart';
 import '../../app/pages/user/profile_page.dart';
-import '../../data/repositories/utils/impl/build_headers_utils_impl.dart';
 import '../../device/utils/is_first_run.dart';
 
 /// Made for parkea.
@@ -37,7 +36,6 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
   });
 
   final firstRun = IsFirstRun();
-  final storageUtils = BuildHeadersUtilsImpl();
 
   return GoRouter(
       navigatorKey: _rootNavigatorKey,
@@ -171,8 +169,6 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
           "isLoginRoute $isLoginRoute isRegisterRoute $isRegisterRoute isAuthRoute $isAuthRoute isLoadingRoute $isLoadingRoute",
         );
 
-        final hasStorage = await storageUtils.validateStorage();
-
         return authNotifier.value.when(
           data: (loginState) {
             if (kDebugMode) {
@@ -183,7 +179,7 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
                 if (kDebugMode) {
                   logger.i("initial ${state.matchedLocation}");
                 }
-                return hasStorage ? SplashScreen.routeLocation : AuthPage.routeLocation;
+                return AuthPage.routeLocation;
               case AuthStatus.loading:
                 return null;
               case AuthStatus.authenticated:

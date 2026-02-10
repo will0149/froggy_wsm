@@ -53,17 +53,17 @@ class AuthRepository {
   Future<Map<String, dynamic>> signIn(LoginDTO request) async {
     var client = RetryClient(http.Client());
     try {
-      var bodyEncoded = jsonEncode(request);
-      var uri = Uri.https(
-          // F.baseUrl.toString(),
-        ApiPathsEnums.v1.path + ApiPathsEnums.signIn.path);
-      final response = await httpCommonUtils.post(
-        uri: uri,
-        body: bodyEncoded,
-        headers: {"Content-Type": "application/json",},
-      );
-      final json = jsonDecode(response.body);
-      // final json = mockDataUtils.authResponse();
+      // var bodyEncoded = jsonEncode(request);
+      // var uri = Uri.https(
+      //     // F.baseUrl.toString(),
+      //   ApiPathsEnums.v1.path + ApiPathsEnums.signIn.path);
+      // final response = await httpCommonUtils.post(
+      //   uri: uri,
+      //   body: bodyEncoded,
+      //   headers: {"Content-Type": "application/json",},
+      // );
+      // final json = jsonDecode(response.body);
+      final json = mockDataUtils.authResponse();
       logger.w("response $json");
       return Future.value(json);
     }finally {
@@ -74,17 +74,17 @@ class AuthRepository {
   Future<Map<String, dynamic>> register(RegisterDto request) async {
     var client = RetryClient(http.Client());
     try {
-      var bodyEncoded = jsonEncode(request);
-      var uri = Uri.https(
-        // F.baseUrl.toString(),
-          ApiPathsEnums.v1.path + ApiPathsEnums.registerUser.path);
-      final response = await httpCommonUtils.post(
-        uri: uri,
-        body: bodyEncoded,
-        headers: {"Content-Type": "application/json",},
-      );
-      final json = jsonDecode(response.body);
-      // final json = mockDataUtils.authResponse();
+      // var bodyEncoded = jsonEncode(request);
+      // var uri = Uri.https(
+      //   // F.baseUrl.toString(),
+      //     ApiPathsEnums.v1.path + ApiPathsEnums.registerUser.path);
+      // final response = await httpCommonUtils.post(
+      //   uri: uri,
+      //   body: bodyEncoded,
+      //   headers: {"Content-Type": "application/json",},
+      // );
+      // final json = jsonDecode(response.body);
+      final json = mockDataUtils.authResponse();
       logger.w("response $json");
       return Future.value(json);
     }finally {
@@ -136,16 +136,17 @@ class AuthRepository {
   Future<Map<String, dynamic>> logOut() async {
     var client = RetryClient(http.Client());
     try {
-      var headers = await headersUtils.headers();
-
-      var uri = Uri.https(
-          // F.baseUrl.toString(),
-          ApiPathsEnums.v1.path + ApiPathsEnums.logout.path);
-      final response = await httpCommonUtils.get(
-        uri: uri,
-        headers: headers,
-      );
-      final json = jsonDecode(response.body);
+      // var headers = await headersUtils.headers();
+      //
+      // var uri = Uri.https(
+      //     // F.baseUrl.toString(),
+      //     ApiPathsEnums.v1.path + ApiPathsEnums.logout.path);
+      // final response = await httpCommonUtils.get(
+      //   uri: uri,
+      //   headers: headers,
+      // );
+      // final json = jsonDecode(response.body);
+      final json = mockDataUtils.logoutResponse();
       logger.w(json);
       return json;
     }finally {
