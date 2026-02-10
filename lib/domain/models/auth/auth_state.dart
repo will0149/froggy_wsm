@@ -1,7 +1,7 @@
 
 import 'package:parkea/data/entities/user/user_profile_dto.dart' show UserProfileDTO;
 
-enum AuthStatus { initial, loading, authenticated, unauthenticated, error }
+enum AuthStatus { initial, firstRun, loading, authenticated, unauthenticated, error }
 
 /// Base class for authentication states
 class AuthState {
@@ -33,6 +33,8 @@ class AuthState {
 
   // Factory constructors for convenience
   factory AuthState.initial() => const AuthState(status: AuthStatus.initial);
+
+  factory AuthState.firstRun() => const AuthState(status: AuthStatus.firstRun);
 
   factory AuthState.loading() => const AuthState(status: AuthStatus.loading);
 

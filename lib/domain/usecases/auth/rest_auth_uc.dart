@@ -7,6 +7,7 @@ import '../../../data/entities/auth/register_dto.dart' show RegisterDto;
 import '../../../data/entities/common/base_response_entity.dart';
 import '../../../data/entities/login_dto.dart';
 import '../../../data/repositories/auth/auth_repository.dart';
+import '../../../device/utils/is_first_run.dart';
 import '../../../device/utils/loggerConfig.dart';
 import '../../../data/repositories/utils/build_header_utils.dart';
 import '../../../data/repositories/utils/impl/build_headers_utils_impl.dart';
@@ -19,13 +20,16 @@ part 'rest_auth_uc.g.dart';
 
 @riverpod
 class RestAuthUC extends _$RestAuthUC {
-  late final AuthRepository repository;
-  late final BuildHeadersUtils headersUtils;
+  final AuthRepository repository = AuthRepository();
+  final BuildHeadersUtils headersUtils = BuildHeadersUtilsImpl();
 
   @override
   Future<AuthState> build() async {
-    repository = AuthRepository();
-    headersUtils = BuildHeadersUtilsImpl();
+
+    final isFirstRun = await IsFirstRun().isFirstRun();
+    if (isFirstRun) {
+      return AuthState.firstRun();
+    }
 
     final hasStorage = await headersUtils.validateStorage();
     if (!hasStorage) {

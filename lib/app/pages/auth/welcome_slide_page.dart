@@ -3,7 +3,6 @@ import 'package:lottie/lottie.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 
-import '../../../device/utils/is_first_run.dart';
 import '../../widgets/slide_show.dart';
 
 /// Made for parkea.
@@ -19,14 +18,6 @@ class WelcomeSlidePage extends StatefulWidget {
 }
 
 class _WelcomeSlidePageState extends State<WelcomeSlidePage> {
-
-  @override
-  void initState() {
-    var firstRun = IsFirstRun();
-    firstRun.setAfterFirstRun();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeScaffold(

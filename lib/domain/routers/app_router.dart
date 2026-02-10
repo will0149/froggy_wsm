@@ -18,7 +18,6 @@ import '../../app/pages/event/event_detail_page.dart';
 import '../../app/pages/event/ticket_purchase_page.dart';
 import '../../app/pages/home/home_feed_page.dart';
 import '../../app/pages/user/profile_page.dart';
-import '../../device/utils/is_first_run.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -34,8 +33,6 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
   ref.listen(restAuthUCProvider, (_, next) {
     authNotifier.value = next;
   });
-
-  final firstRun = IsFirstRun();
 
   return GoRouter(
       navigatorKey: _rootNavigatorKey,
@@ -154,11 +151,6 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
         ),
       ],
       redirect: (context, state) async {
-        bool firstCall = await firstRun.isFirstRun();
-        if (firstCall) {
-          return WelcomeSlidePage.routeLocation;
-        }
-
         logger.i("route ${state.matchedLocation}");
         final isLoginRoute = state.matchedLocation == '/auth/login';
         final isRegisterRoute = state.matchedLocation == '/auth/signup';
@@ -175,6 +167,11 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
               logger.i("loginState ${loginState.status.name}");
             }
             switch (loginState.status) {
+              case AuthStatus.firstRun:
+                if (kDebugMode) {
+                  logger.i("firstRun ${state.matchedLocation}");
+                }
+                return WelcomeSlidePage.routeLocation;
               case AuthStatus.initial:
                 if (kDebugMode) {
                   logger.i("initial ${state.matchedLocation}");

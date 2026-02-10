@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
+import 'package:parkea/device/utils/is_first_run.dart';
+import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 
 import '../../domain/models/slider_model.dart';
-import '../pages/auth/auth_page.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -42,29 +42,19 @@ class Slideshow extends ConsumerWidget {
   }
 }
 
-class _Dots extends StatelessWidget {
+class _Dots extends ConsumerWidget {
   final int totalSlides;
 
   const _Dots({super.key, required this.totalSlides});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     var groupDots = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(totalSlides, (index) => _Dot(index: index)),
     );
     List<Widget> list = [
-      // const Text("Empezar"),
       groupDots,
-      // MaterialButton(
-      //   onPressed: () {},
-      //   child: Text(
-      //     "Empezar",
-      //     style:
-      //         Theme.of(context).textTheme.button?.copyWith(color: Colors.white),
-      //   ),
-      //   color: parkeaBlueAccent,
-      // )
     ];
     return Wrap(
       children: [
@@ -81,7 +71,10 @@ class _Dots extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
           child: Center(
             child: ElevatedButton(
-              onPressed: () => context.goNamed(AuthPage.routeName),
+              onPressed: () {
+                IsFirstRun().setAfterFirstRun();
+                ref.invalidate(restAuthUCProvider);
+              },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(40),
               ),
