@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,16 +7,18 @@ import 'package:parkea/app/pages/auth/login_page.dart';
 import 'package:parkea/app/pages/auth/password_reset_page.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
 import 'package:parkea/app/pages/user/user_settings.dart';
+import 'package:parkea/device/utils/loggerConfig.dart';
+import 'package:parkea/domain/models/auth/auth_state.dart';
+import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 
 import '../../app/navigator.dart';
 import '../../app/pages/auth/splash_screen.dart';
 import '../../app/pages/auth/welcome_slide_page.dart';
 import '../../app/pages/event/event_detail_page.dart';
-import '../../app/pages/event/saved_event_page.dart';
 import '../../app/pages/home/home_feed_page.dart';
 import '../../app/pages/user/profile_page.dart';
-import '../../device/utils/is_first_run.dart';
 import '../../data/repositories/utils/impl/build_headers_utils_impl.dart';
+import '../../device/utils/is_first_run.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -26,16 +29,20 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
 final GlobalKey<NavigatorState> _sectionANavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
 
-// class AppRouter {
-//
-//   Provider<GoRouter> routerProvider(){
-//     return
 final routerProvider = Provider<GoRouter>((Ref ref) {
-  // final authState = ref.watch(authSessionProviderProvider);
-  final router = GoRouter(
+  final authNotifier = ValueNotifier<AsyncValue<AuthState>>(const AsyncValue.loading());
+  ref.listen(restAuthUCProvider, (_, next) {
+    authNotifier.value = next;
+  });
+
+  final firstRun = IsFirstRun();
+  final storageUtils = BuildHeadersUtilsImpl();
+
+  return GoRouter(
       navigatorKey: _rootNavigatorKey,
       debugLogDiagnostics: true,
       initialLocation: "/auth/splash",
+      refreshListenable: authNotifier,
       routes: <RouteBase>[
         GoRoute(
           name: WelcomeSlidePage.routeName,
@@ -139,25 +146,60 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
         ),
       ],
       redirect: (context, state) async {
-        var firstRun = IsFirstRun();
         bool firstCall = await firstRun.isFirstRun();
-        final isSplash = state.matchedLocation == "/auth/splash";
-        final storageUtils = BuildHeadersUtilsImpl();
-        bool hasStorage = await storageUtils.validateStorage();
         if (firstCall) {
           return WelcomeSlidePage.routeLocation;
         }
-        //hasta aqui
-        if (isSplash) {
-          return hasStorage ? HomeFeedPage.routeLocation : AuthPage.routeLocation;
-        }
-        if (state.matchedLocation != AuthPage.routeLocation &&
-            state.matchedLocation != "/auth/splash") {
-          return state.matchedLocation;
-        }
-        return null;
+
+        logger.i("route ${state.matchedLocation}");
+        final isLoginRoute = state.matchedLocation == '/auth/login';
+        final isRegisterRoute = state.matchedLocation == '/auth/signup';
+        final isAuthRoute = state.matchedLocation == '/auth';
+        final isLoadingRoute = state.matchedLocation == SplashScreen.routeLocation;
+        logger.w(
+          "isLoginRoute $isLoginRoute isRegisterRoute $isRegisterRoute isAuthRoute $isAuthRoute isLoadingRoute $isLoadingRoute",
+        );
+
+        final hasStorage = await storageUtils.validateStorage();
+
+        return authNotifier.value.when(
+          data: (loginState) {
+            if (kDebugMode) {
+              logger.i("loginState ${loginState.status.name}");
+            }
+            switch (loginState.status) {
+              case AuthStatus.initial:
+                return hasStorage ? SplashScreen.routeLocation : AuthPage.routeLocation;
+              case AuthStatus.loading:
+                return null;
+              case AuthStatus.authenticated:
+                if (isAuthRoute ||
+                    isLoginRoute ||
+                    isRegisterRoute ||
+                    isLoadingRoute) {
+                  return HomeFeedPage.routeLocation;
+                }
+                return null;
+              case AuthStatus.unauthenticated:
+                if (kDebugMode) {
+                  logger.i("unauthenticated ${state.matchedLocation}");
+                }
+                if (isLoginRoute || isRegisterRoute || isAuthRoute) {
+                  return null;
+                }
+                return AuthPage.routeLocation;
+              case AuthStatus.error:
+                if (kDebugMode) logger.i("error");
+                return LoginPage.routeLocation;
+            }
+          },
+          error: (error, stack) {
+            if (kDebugMode) logger.e("Auth error $error");
+            return AuthPage.routeLocation;
+          },
+          loading: () => null,
+        );
       });
-  return router;
 });
 
 //context.go() es para shell route
