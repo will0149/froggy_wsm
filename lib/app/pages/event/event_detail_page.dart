@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/banners/detail_image_banner.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
-import '../../../domain/providers/event_detail_provider.dart';
+import 'package:parkea/domain/usecases/fetch_events_uc.dart';
 import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../domain/providers/onboarding_provider.dart';
 import '../../../generated/l10n.dart';
@@ -35,7 +35,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final eventDetail = ref.watch(getEventDetailProvider(widget.eventId));
+    final eventDetail = ref.watch(fetchEventDetailUCProvider(widget.eventId));
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -401,7 +401,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () => ref.refresh(getEventDetailProvider(widget.eventId)),
+            onPressed: () => ref.refresh(fetchEventDetailUCProvider(widget.eventId)),
             child: const Text('Retry'),
           ),
         ],
