@@ -155,7 +155,8 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
         final isLoginRoute = state.matchedLocation == '/auth/login';
         final isRegisterRoute = state.matchedLocation == '/auth/signup';
         final isAuthRoute = state.matchedLocation == '/auth';
-        final isLoadingRoute = state.matchedLocation == SplashScreen.routeLocation;
+        final isLoadingRoute = state.matchedLocation == '/auth/splash';
+
         logger.w(
           "isLoginRoute $isLoginRoute isRegisterRoute $isRegisterRoute isAuthRoute $isAuthRoute isLoadingRoute $isLoadingRoute",
         );
@@ -169,10 +170,16 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
             }
             switch (loginState.status) {
               case AuthStatus.initial:
+                if (kDebugMode) {
+                  logger.i("initial ${state.matchedLocation}");
+                }
                 return hasStorage ? SplashScreen.routeLocation : AuthPage.routeLocation;
               case AuthStatus.loading:
                 return null;
               case AuthStatus.authenticated:
+                if (kDebugMode) {
+                  logger.i("authenticated ${state.matchedLocation}");
+                }
                 if (isAuthRoute ||
                     isLoginRoute ||
                     isRegisterRoute ||
