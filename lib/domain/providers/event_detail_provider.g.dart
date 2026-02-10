@@ -60,7 +60,7 @@ final class GetEventDetailProvider extends $FunctionalProvider<
   }
 }
 
-String _$getEventDetailHash() => r'0636240fea7af57d562632967e543ebd8575b6a8';
+String _$getEventDetailHash() => r'dca37b75618d3e53393695bdde5f13ee8c520a67';
 
 final class GetEventDetailFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<EventDTO>, int> {

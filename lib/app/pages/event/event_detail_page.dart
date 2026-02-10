@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/banners/detail_image_banner.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
-
 import '../../../domain/providers/event_detail_provider.dart';
 import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../domain/providers/onboarding_provider.dart';
@@ -143,7 +142,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  event.eventName,
+                  event.eventName ?? "",
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: theme.primaryColor,
@@ -202,7 +201,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
                     ),
                     Text(
                       DateFormat.yMMMMEEEEd(locale.languageCode)
-                          .format(DateTime.parse(event.date)),
+                          .format(DateTime.parse(event.date ?? "")),
                       style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -240,7 +239,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
                       ),
                     ),
                     Text(
-                      event.location.place,
+                      event.location?.place ?? "",
                       style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -281,7 +280,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
                 ),
               ),
               Text(
-                event.eventOwner,
+                event.eventOwner ?? "",
                 style: theme.textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -305,7 +304,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
         ),
         const SizedBox(height: 8),
         Text(
-          event.description,
+          event.description ?? "",
           style: theme.textTheme.bodyMedium?.copyWith(
             height: 1.5,
           ),
@@ -350,7 +349,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
               elevation: 2,
             ),
             child: Text(
-              '${S.of(context).buyTicket} \$${event.amount.price}',
+              '${S.of(context).buyTicket} \$${event.amount?.price}',
               style: theme.textTheme.titleMedium?.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -499,7 +498,7 @@ class RelationalEvents extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    event.eventName,
+                    event.eventName ?? "",
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -508,7 +507,7 @@ class RelationalEvents extends ConsumerWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    event.location.place,
+                    event.location?.place ?? "",
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: Colors.grey[600],
                     ),
@@ -526,7 +525,7 @@ class RelationalEvents extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      '\$${event.amount.price}',
+                      '\$${event.amount?.price}',
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: parkeaOrange,
                         fontWeight: FontWeight.bold,
