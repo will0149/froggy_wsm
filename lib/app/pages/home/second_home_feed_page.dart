@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
 import '../../../domain/providers/onboarding_provider.dart';
-import '../../../domain/usecases/fetch_events_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../widgets/cards/event_feed_card.dart';
 
@@ -22,7 +21,6 @@ class SecondHomeFeedPage extends ConsumerStatefulWidget {
 
 class OnboardingPageState extends ConsumerState<SecondHomeFeedPage> {
   final categories = ["All", "Music", "Sports", "Food", "Art", "Tech", "Outdoor"];
-  late final FetchEventsUC useCase = FetchEventsUC();
   final ScrollController _controller = ScrollController();
   String selectedCategory = "All";
 

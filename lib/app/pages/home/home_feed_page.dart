@@ -5,7 +5,6 @@ import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
 
 import '../../../domain/providers/onboarding_provider.dart';
-import '../../../domain/usecases/fetch_events_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/colors.dart';
 import '../../widgets/cards/event_feed_card.dart';
@@ -29,7 +28,6 @@ class HomeFeedPage extends ConsumerStatefulWidget {
 
 class OnboardingPageState extends ConsumerState<HomeFeedPage> {
   final titles = ["All", "Música", "Camping", "Aventura", "Talleres"];
-  late final FetchEventsUC useCase = FetchEventsUC();
   final ScrollController _controller = ScrollController();
   final TextEditingController searchBarController = TextEditingController();
 

@@ -41,4 +41,4 @@ final class GetEventsProvider extends $FunctionalProvider<
   }
 }
 
-String _$getEventsHash() => r'040dd5b9598c79bef238100e0805697b7cc9519e';
+String _$getEventsHash() => r'c865b82d301441ffa903dae1d005697476b43cdd';

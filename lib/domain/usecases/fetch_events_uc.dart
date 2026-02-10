@@ -1,46 +1,31 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/data/repositories/events_repository.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../repositories/fetch_events_type.dart';
+part 'fetch_events_uc.g.dart';
 
-/// Made for parkea.
-/// By User: josedominguez
-/// Date: 07/01/22
-
-class FetchEventsUC implements FetchEventsType {
+@riverpod
+class FetchEventsUC extends _$FetchEventsUC {
   late final EventRepository repository;
 
-  FetchEventsUC() {
+  @override
+  Future<List<EventDTO>> build() async {
     repository = EventRepository();
+    return _fetchAllEvents();
   }
 
-  @override
-  Future<List<EventDTO>> getAllEvents() async {
-    var request = "sdds";
-    Map<String, dynamic> result = await repository.fetchEventsList(request);
-    // print(result["body"]["events"]);
+  Future<List<EventDTO>> _fetchAllEvents() async {
+    Map<String, dynamic> result = await repository.fetchEventsList("sdds");
     List<dynamic> jsonResponse = result["body"];
-    List<EventDTO> bodyResponse = [];
-    jsonResponse.map((element) {
-      bodyResponse.add(EventDTO.fromJson(element));
-    }).toList();
-    return bodyResponse;
+    return jsonResponse.map((e) => EventDTO.fromJson(e)).toList();
   }
 
-  @override
-  Future<List<EventDTO>?> getSearchResult(String searchText) async {
-    Map<String, dynamic> result = await repository.fetchSearchResult(searchText);
-    // print(result["body"]["events"]);
-    List<dynamic> jsonResponse = result["body"];
-    List<EventDTO> bodyResponse = [];
-    jsonResponse.map((element) {
-      bodyResponse.add(EventDTO.fromJson(element));
-    }).toList();
-    return bodyResponse;
+  Future<void> search(String searchText) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      Map<String, dynamic> result = await repository.fetchSearchResult(searchText);
+      List<dynamic> jsonResponse = result["body"];
+      return jsonResponse.map((e) => EventDTO.fromJson(e)).toList();
+    });
   }
-
-
 }
-
-final eventsApiProvider = Provider<FetchEventsUC>((ref) => FetchEventsUC(),);
