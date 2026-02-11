@@ -156,9 +156,13 @@ class RestAuthUC extends _$RestAuthUC {
     return responseEntity;
   }
 
-  void logOut() async {
-    headersUtils.dropTemporalMemory();
-    await repository.logOut();
+  Future<void> logOut() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      headersUtils.dropTemporalMemory();
+      await repository.logOut();
+      return AuthState.unauthenticated();
+    });
   }
 
   /// Validate email format
