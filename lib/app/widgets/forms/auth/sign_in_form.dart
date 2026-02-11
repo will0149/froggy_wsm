@@ -136,7 +136,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
                               .signIn(LoginDTO(
                                 email: emailController.value.text,
                                 password: passwordController.value.text,
-                              ));
+                              ),);
                         }
                       },
                       child: Text(

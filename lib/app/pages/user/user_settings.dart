@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/pages/auth/login_page.dart';
+import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 
 import '../../../domain/providers/app_theme_provider.dart';
 import '../../../generated/l10n.dart';
@@ -27,6 +28,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDarkMode = ref.watch(appThemeProvider);
+    final restAuthState = ref.watch(restAuthUCProvider);
     
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -55,7 +57,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
             const SizedBox(height: 24),
             _buildSupportSection(theme),
             const SizedBox(height: 24),
-            _buildAccountSection(theme),
+            _buildAccountSection(theme, restAuthState.isLoading),
             const SizedBox(height: 32),
           ],
         ),
@@ -270,7 +272,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
     );
   }
 
-  Widget _buildAccountSection(ThemeData theme) {
+  Widget _buildAccountSection(ThemeData theme, bool loading) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -302,7 +304,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
             title: S.of(context).logout,
             subtitle: 'Sign out of your account',
             titleColor: parkeaOrange,
-            trailing: _isLoggingOut
+            trailing: loading
                 ? const SizedBox(
                     width: 20,
                     height: 20,
@@ -315,7 +317,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
                     Icons.chevron_right,
                     color: Colors.grey[400],
                   ),
-            onTap: _isLoggingOut ? null : _handleLogout,
+            onTap: loading ? null : _handleLogout,
             theme: theme,
           ),
         ),
@@ -404,11 +406,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
 
       try {
         // Sign out from Firebase
-        await FirebaseAuth.instance.signOut();
-        
-        if (mounted) {
-          context.goNamed(LoginPage.routeName);
-        }
+        await ref.read(restAuthUCProvider.notifier).logOut();
       } catch (e) {
         if (mounted) {
           setState(() {

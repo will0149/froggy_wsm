@@ -74,16 +74,16 @@ class NavigatorBarState extends ConsumerState<NavigatorBar>
       child: Scaffold(
         extendBody: true,
         body: widget.navigationShell,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: parkeaOrange,
-          splashColor: parkeaLightOrange,
-          onPressed: () {},
-          child: SvgIconsStates(
-              isActive: true,
-              activeImg: "assets/navbar/calendario_black.svg",
-              inactiveImg: "assets/navbar/calendario.svg"),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // floatingActionButton: FloatingActionButton(
+        //   backgroundColor: parkeaOrange,
+        //   splashColor: parkeaLightOrange,
+        //   onPressed: () {},
+        //   child: SvgIconsStates(
+        //       isActive: true,
+        //       activeImg: "assets/navbar/calendario_black.svg",
+        //       inactiveImg: "assets/navbar/calendario.svg"),
+        // ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: AnimatedBottomNavigationBar.builder(
           itemCount: 2,
           tabBuilder: (int index, bool isActive) {
