@@ -156,6 +156,7 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
         final isRegisterRoute = state.matchedLocation == '/auth/signup';
         final isAuthRoute = state.matchedLocation == '/auth';
         final isLoadingRoute = state.matchedLocation == '/auth/splash';
+        final isResetPasswordRoute = state.matchedLocation == '/auth/resetPassword';
 
         logger.w(
           "isLoginRoute $isLoginRoute isRegisterRoute $isRegisterRoute isAuthRoute $isAuthRoute isLoadingRoute $isLoadingRoute",
@@ -194,7 +195,7 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
                 if (kDebugMode) {
                   logger.i("unauthenticated ${state.matchedLocation}");
                 }
-                if (isLoginRoute || isRegisterRoute || isAuthRoute) {
+                if (isLoginRoute || isRegisterRoute || isAuthRoute || isResetPasswordRoute) {
                   return null;
                 }
                 return AuthPage.routeLocation;

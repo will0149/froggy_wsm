@@ -54,7 +54,7 @@ class _WelcomeSlidePageState extends State<WelcomeSlidePage> {
           child: Text(
             "Parkea App",
             style: Theme.of(context).textTheme.displaySmall?.copyWith(
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w900,
             ),
           ),
         ),
@@ -72,6 +72,7 @@ class _WelcomeSlidePageState extends State<WelcomeSlidePage> {
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
             color: parkeaOrange,
+              fontWeight: FontWeight.w800
             ),
           ),
         ),
@@ -79,7 +80,7 @@ class _WelcomeSlidePageState extends State<WelcomeSlidePage> {
           child: Text(description,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-
+              fontWeight: FontWeight.bold
             ),),
         )
       ],

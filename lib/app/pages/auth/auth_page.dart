@@ -70,27 +70,6 @@ class AuthPageState extends ConsumerState<AuthPage> {
                 color: parkeaBlueAccentOpacity,
               ),
             ),
-            Positioned(
-              top: 40,
-              left: size.width * 0.05,
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  WavyAnimatedText(
-                    S.of(context).parkeaAndShare,
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .headlineMedium /**/
-                        ?.copyWith(
-                          color: Colors.white,
-                        ),
-                  ),
-                ],
-                repeatForever: false,
-                onTap: () {
-                  print("Tap Event");
-                },
-              ),
-            ),
             SizedBox(
               height: double.infinity,
               width: double.infinity,
@@ -122,15 +101,23 @@ class AuthPageState extends ConsumerState<AuthPage> {
                   children: [
                     Text(
                       S.of(context).joinOurUniverse,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(fontFamily: "GothicA1-Bold", shadows: [
-                        const Shadow(
-                            color: Colors.white,
-                            offset: Offset(2, 1),
-                            blurRadius: 1)
-                      ]),
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                              fontFamily: "GothicA1-Bold",
+                              backgroundColor: Colors.white70,
+                              shadows: [
+                                Shadow(
+                                  offset: const Offset(1, 1),
+                                  blurRadius: 2,
+                                  color: Colors.white,
+                                ),
+                                Shadow(
+                                  offset: const Offset(-1, -1),
+                                  blurRadius: 2,
+                                  color: Colors.white,
+                                ),
+                              ],
+                              fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       width: size.width * 0.5,
@@ -168,6 +155,76 @@ class AuthPageState extends ConsumerState<AuthPage> {
                         ),
                       ),
                     ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: 60,
+              left: size.width * 0.05,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Column(
+                  children: [
+                    Text(
+                      "Parkea",
+                      // S.of(context).parkeaAndShare,
+                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(
+                            offset: const Offset(1, 1),
+                            blurRadius: 3,
+                            color: Colors.black,
+                          ),
+                          Shadow(
+                            offset: const Offset(-1, -1),
+                            blurRadius: 3,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      "&",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(
+                            offset: const Offset(1, 1),
+                            blurRadius: 3,
+                            color: Colors.black,
+                          ),
+                          Shadow(
+                            offset: const Offset(-1, -1),
+                            blurRadius: 3,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      "Comparte",
+                      style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(
+                            offset: const Offset(1, 1),
+                            blurRadius: 3,
+                            color: Colors.black,
+                          ),
+                          Shadow(
+                            offset: const Offset(-1, -1),
+                            blurRadius: 3,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),

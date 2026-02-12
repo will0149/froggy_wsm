@@ -22,7 +22,7 @@ class Slideshow extends ConsumerWidget {
       // 2. specify the builder and obtain a WidgetRef
       builder: (_, WidgetRef ref, __) {
         // 3. use ref.watch() to get the value of the provider
-        final value = ref.watch(sliderModelProvider);
+
         return Center(
           child: Column(
             children: [
@@ -49,6 +49,7 @@ class _Dots extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final slidePositionState = ref.watch(sliderModelProvider);
     var groupDots = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(totalSlides, (index) => _Dot(index: index)),
@@ -71,10 +72,12 @@ class _Dots extends ConsumerWidget {
           padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
           child: Center(
             child: ElevatedButton(
-              onPressed: () {
-                IsFirstRun().setAfterFirstRun();
-                ref.invalidate(restAuthUCProvider);
-              },
+              onPressed: slidePositionState.round() == totalSlides - 1
+                  ? () {
+                      IsFirstRun().setAfterFirstRun();
+                      ref.invalidate(restAuthUCProvider);
+                    }
+                  : null,
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(40),
               ),
@@ -82,9 +85,8 @@ class _Dots extends ConsumerWidget {
                 "Empezar",
                 style: Theme.of(context)
                     .textTheme
-                    .titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600
-                ),
+                    .titleMedium
+                    ?.copyWith(fontWeight: FontWeight.w700),
               ),
             ),
           ),
