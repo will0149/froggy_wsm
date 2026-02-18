@@ -12,7 +12,7 @@ Parkea is a Flutter event management application with Firebase authentication an
 ```bash
 flutter pub get                    # Install dependencies
 flutter pub upgrade               # Update dependencies
-dart run build_runner build --delete-conflicting-outputs  # Generate code (DTOs, Providers)
+dart run build_runner build --delete-conflicting-outputs  # Generate code (DTOs, Usecases)
 dart run build_runner watch       # Watch for changes and regenerate code automatically
 ```
 
@@ -40,8 +40,8 @@ flutter run --release             # Run in release mode
   - `utils/` - UI utilities and transitions
   
 - **`lib/domain/`** - Business logic layer (Pure Dart)
-  - `providers/` - Riverpod state management providers
-  - `usecases/` - Business operations (auth, events, users)
+  - `providers/` - ⚠️ **DEPRECATED** - Being replaced by usecases
+  - `usecases/` - Business operations with integrated state management (auth, events, users)
   - `models/` - Domain models and state classes
   - `routers/` - Go Router navigation configuration
   
@@ -62,7 +62,7 @@ flutter run --release             # Run in release mode
 - **Internationalization**: Flutter Intl (Spanish primary, 7 languages supported)
 
 ### State Management Pattern
-Uses Riverpod with code generation. Providers are located in `lib/domain/providers/` and many use `@riverpod` annotation requiring build runner.
+Uses Riverpod with code generation. The project is transitioning from separated providers (`lib/domain/providers/` - deprecated) to integrated usecases (`lib/domain/usecases/`) that handle both business logic and state management with `@riverpod` annotations.
 
 ### Navigation Structure
 Go Router implementation with:
@@ -73,12 +73,12 @@ Go Router implementation with:
 
 ### Code Generation
 The project heavily uses code generation for:
-- Riverpod providers (`.g.dart` files)
+- Riverpod usecases (`.g.dart` files in `domain/usecases/`)
 - JSON serialization for DTOs (`.g.dart` files)
 - Internationalization messages
 
 Always run `dart run build_runner build --delete-conflicting-outputs` after modifying:
-- Files with `@riverpod` annotations
+- Files with `@riverpod` annotations (primarily in usecases)
 - Files with `@JsonSerializable()` annotations
 - ARB files for internationalization
 
