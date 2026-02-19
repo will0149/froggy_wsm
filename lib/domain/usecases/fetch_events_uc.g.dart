@@ -33,7 +33,7 @@ final class FetchEventsUCProvider
   FetchEventsUC create() => FetchEventsUC();
 }
 
-String _$fetchEventsUCHash() => r'9bed5d0c57724b261784b3cb21d3fd65a86d5492';
+String _$fetchEventsUCHash() => r'f195ba1526a55d0de4eec36a457443d1636bf50e';
 
 abstract class _$FetchEventsUC extends $AsyncNotifier<List<EventDTO>> {
   FutureOr<List<EventDTO>> build();
