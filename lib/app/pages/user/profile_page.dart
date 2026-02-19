@@ -4,7 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:parkea/app/pages/user/user_settings.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../domain/providers/user_detail_provider.dart';
+import '../../../domain/models/auth/auth_state.dart';
+import '../../../domain/usecases/auth/rest_auth_uc.dart';
 import '../../themes/colors/colors.dart';
 import '../../widgets/profile_content_tabbar.dart';
 import '../../widgets/user/user_profile_dashboard.dart';
@@ -27,31 +28,23 @@ class ProfilePage extends ConsumerStatefulWidget {
 }
 
 class ProfilePageState extends ConsumerState<ProfilePage> {
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final userData = ref.watch(getUserDetailProvider);
+    final authState = ref.watch(restAuthUCProvider);
     final theme = Theme.of(context);
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      body: userData.when(
-        data: (response) => _buildProfileContent(response, context),
+      body: authState.when(
+        data: (state) => _buildProfileContent(state, context),
         error: (err, s) => _buildErrorState(err.toString(), theme),
         loading: () => _buildLoadingState(theme),
       ),
     );
   }
 
-  Widget _buildProfileContent(dynamic response, BuildContext context) {
-    final code = response.status?.code ?? 500;
-    if (code < 200 || code >= 300) {
+  Widget _buildProfileContent(AuthState authState, BuildContext context) {
+    if (!authState.isAuthenticated || authState.user == null) {
       return _buildErrorState('Failed to load profile', Theme.of(context));
     }
 
@@ -60,7 +53,7 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
       slivers: [
         _buildAppBar(context),
         SliverToBoxAdapter(
-          child: _buildProfileHeader(response.body, context),
+          child: UserProfileDashboard(authState.user),
         ),
         SliverFillRemaining(
           hasScrollBody: true,
@@ -120,10 +113,6 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
         ),
       ],
     );
-  }
-
-  Widget _buildProfileHeader(dynamic userData, BuildContext context) {
-    return UserProfileDashboard(userData, MediaQuery.of(context).size);
   }
 
   Widget _buildLoadingState(ThemeData theme) {
@@ -199,7 +188,7 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
             ),
             const SizedBox(height: 24),
             ElevatedButton.icon(
-              onPressed: () => ref.refresh(getUserDetailProvider),
+              onPressed: () => ref.invalidate(restAuthUCProvider),
               icon: const Icon(Icons.refresh),
               label: const Text('Retry'),
               style: ElevatedButton.styleFrom(
