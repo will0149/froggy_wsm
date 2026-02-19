@@ -13,7 +13,8 @@
       "Bash(git commit -m \"$\\(cat <<''EOF''\nrefactor: use AsyncNotifier state properly in RestAuthUC and SignUpForm\n\nRemove mutable fields \\(isLoggedIn, isLoading, code\\) from RestAuthUC in favor\nof proper state emissions via AsyncValue. Add ref.listen in SignUpForm for\nnavigation on success and SnackBar on error. Fix status code condition to\naccept full 2xx range.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nrefactor: migrate SignInForm to use restAuthUCProvider with proper state management\n\nReplace broken authLogicProvider reference with restAuthUCProvider. Remove\nartificial Timer delay, manual isLoading/isLogin fields, and then/catchError\nchain. Use ref.listen for navigation and error feedback via SnackBar.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nrefactor: use ref.listen + refreshListenable pattern in routerProvider for stable GoRouter instance\n\nReplace ref.watch with ref.listen + ValueNotifier so GoRouter is created once\nand re-evaluates redirects via refreshListenable on auth state changes. Add\nauth-aware redirect logic with storage validation, remove dead code and unused\nvariables.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git status:*)"
     ],
     "deny": [],
     "ask": []

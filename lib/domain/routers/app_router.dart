@@ -17,6 +17,7 @@ import '../../app/pages/auth/welcome_slide_page.dart';
 import '../../app/pages/event/event_detail_page.dart';
 import '../../app/pages/event/ticket_purchase_page.dart';
 import '../../app/pages/home/home_feed_page.dart';
+import '../../app/pages/ticket/tickets_page.dart';
 import '../../app/pages/user/profile_page.dart';
 
 /// Made for parkea.
@@ -122,6 +123,20 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
                           ),
                         ],
                     ),
+                  ],
+                ),
+              ],
+            ),
+
+            StatefulShellBranch(
+              routes: <RouteBase>[
+                GoRoute(
+                  // The screen to display as the root in the third tab of the
+                  // bottom navigation bar.
+                  name: TicketsPage.routeName,
+                  path: TicketsPage.routeLocation,
+                  builder: (BuildContext context, GoRouterState state) => const TicketsPage(),
+                  routes: <RouteBase>[
                   ],
                 ),
               ],

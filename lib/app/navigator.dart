@@ -85,7 +85,7 @@ class NavigatorBarState extends ConsumerState<NavigatorBar>
         // ),
         // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-          itemCount: 2,
+          itemCount: 3,
           tabBuilder: (int index, bool isActive) {
             return navigationBody(index, isActive);
           },
@@ -118,6 +118,11 @@ class NavigatorBarState extends ConsumerState<NavigatorBar>
         isActive: active,
         activeImg: "assets/navbar/hogar_black.svg",
         inactiveImg: "assets/navbar/hogar.svg",
+      ),
+      SvgIconsStates(
+        isActive: active,
+        activeImg: "assets/navbar/ticket_black.svg",
+        inactiveImg: "assets/navbar/ticket.svg",
       ),
       SvgIconsStates(
           isActive: active,
