@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:horizontal_scroll_item/horizontal_scroll_item.dart';
+import 'package:parkea/app/widgets/promotions/promotions_component.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/domain/usecases/fetch_events_uc.dart';
@@ -133,8 +134,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                     ),
                   ],
                 ),
-                horizontalScrollItems(
-                    "Eventos Recomendados!", size, eventsData, size.height * 0.24),
+                PromotionsComponent(),
                 horizontalScrollItems(S.of(context).popularEvents, size,
                     eventsData, size.height * 0.30),
               ],

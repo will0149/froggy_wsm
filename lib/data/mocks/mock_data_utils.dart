@@ -181,4 +181,111 @@ class MockDataUtils {
       ]
     };
   }
+
+  Map<String, dynamic> promotionList() {
+    return {
+      "status": {"code": 200, "msg": "exitoso!"},
+      "body": [
+        {
+          "id": "1",
+          "event_id": "1",
+          "event_name": "Summer Music Festival 2025",
+          "banner_img":
+              "https://content.presspage.com/uploads/685/d68d91ac-fad5-4103-aa04-7f6cf878dfe2/1920_conciertoscdmx.jpg",
+          "code": "SUMMER25",
+          "name": "Early Bird Discount",
+          "description":
+              "Get 25% off on all tickets purchased before June 1st. Limited availability!",
+          "short_description": "25% off early bird tickets",
+          "discount_type": "PERCENTAGE",
+          "discount_value": "25.00",
+          "original_price": "45.00",
+          "final_price": "33.75",
+          "currency": "USD",
+          "start_date": "2025-05-01T00:00:00Z",
+          "end_date": "2025-06-01T23:59:59Z",
+          "max_uses": 100,
+          "current_uses": 45,
+          "is_active": true
+        },
+        {
+          "id": "2",
+          "event_id": "2",
+          "event_name": "Carnaval Los Santos 2025",
+          "banner_img":
+              "https://www.valenfit.com/wp-content/uploads/2020/07/fit-combat-valenfit.jpg",
+          "code": "CARNAVAL10",
+          "name": "Group Discount",
+          "description":
+              "Bring your friends! Get \$10 off per ticket when purchasing 4 or more tickets.",
+          "short_description": "\$10 off for groups of 4+",
+          "discount_type": "FIXED",
+          "discount_value": "10.00",
+          "original_price": "45.00",
+          "final_price": "35.00",
+          "currency": "USD",
+          "start_date": "2025-01-15T00:00:00Z",
+          "end_date": "2025-02-28T23:59:59Z",
+          "max_uses": 200,
+          "current_uses": 78,
+          "is_active": true
+        }
+      ]
+    };
+  }
+
+  Map<String, dynamic> promotionDetail() {
+    return {
+      "status": {"code": 200, "msg": "exitoso!"},
+      "body": {
+        "id": "1",
+        "event_id": "1",
+        "event_name": "Summer Music Festival 2025",
+        "banner_img":
+            "https://content.presspage.com/uploads/685/d68d91ac-fad5-4103-aa04-7f6cf878dfe2/1920_conciertoscdmx.jpg",
+        "code": "SUMMER25",
+        "name": "Early Bird Discount",
+        "description":
+            "Get 25% off on all tickets purchased before June 1st. Limited availability! This exclusive offer is available for our loyal customers who want to secure their spot early.",
+        "short_description": "25% off early bird tickets",
+        "discount_type": "PERCENTAGE",
+        "discount_value": "25.00",
+        "original_price": "45.00",
+        "final_price": "33.75",
+        "currency": "USD",
+        "start_date": "2025-05-01T00:00:00Z",
+        "end_date": "2025-06-01T23:59:59Z",
+        "max_uses": 100,
+        "current_uses": 45,
+        "is_active": true,
+        "terms_conditions":
+            "Valid for new purchases only. Cannot be combined with other offers. Non-transferable.",
+        "event": {
+          "id": "1",
+          "owner": "john_doe",
+          "banner_img":
+              "https://thehotelfactory.com/wp-content/uploads/2018/09/Camping-portada.jpeg",
+          "name": "Summer Music Festival 2025",
+          "description":
+              "Join us for an amazing outdoor music festival featuring local and international artists.",
+          "short_description":
+              "Annual outdoor music festival with live bands and food",
+          "event_date": "2025-07-15T18:00:00Z",
+          "cost_type": "PAYED",
+          "privacy_type": "PRIVATE",
+          "price": "45.00",
+          "amount": {"price": "45.00", "currency": "USD"},
+          "place":
+              "Central Park Amphitheater, 123 Park Avenue, New York, NY 10001",
+          "location": {
+            "latitud": "",
+            "longitud": "",
+            "country": "Panama",
+            "city": "Panama",
+            "place": "Amador"
+          }
+        }
+      }
+    };
+  }
 }
