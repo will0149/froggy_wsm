@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_theme_provider.g.dart';
@@ -7,17 +8,17 @@ part 'app_theme_provider.g.dart';
 /// Date: 08/03/23
 
 @riverpod
-class AppTheme extends _$AppTheme {
+class AppThemeMode extends _$AppThemeMode {
   @override
-  bool build() {
-    return false;
+  ThemeMode build() {
+    return ThemeMode.light;
   }
 
   void toggle() {
-    state = !state;
+    state = state == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
   }
 
   void setTheme(bool isDark) {
-    state = isDark;
+    state = isDark ? ThemeMode.dark : ThemeMode.light;
   }
 }

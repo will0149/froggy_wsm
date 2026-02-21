@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
-import 'app/themes/light_theme.dart';
+import 'app/themes/app_theme.dart';
 import 'domain/providers/app_theme_provider.dart';
 import 'domain/routers/app_router.dart';
 import 'generated/l10n.dart';
@@ -41,7 +41,9 @@ class MyApp extends ConsumerWidget {
       routerConfig: router,
       debugShowCheckedModeBanner: true,
       title: 'Parkea',
-      theme: getAppTheme(context, ref.watch(appThemeProvider)),
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ref.watch(appThemeModeProvider),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
