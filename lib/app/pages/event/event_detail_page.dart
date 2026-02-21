@@ -104,12 +104,13 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
         const SliverToBoxAdapter(
           child: SizedBox(height: 24),
         ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: const RelationalEvents(),
-          ),
-        ),
+        //TODO: se comenta eventos similares
+        // SliverToBoxAdapter(
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        //     child: const RelationalEvents(),
+        //   ),
+        // ),
         const SliverToBoxAdapter(
           child: SizedBox(height: 100), // Bottom padding for FAB
         ),
