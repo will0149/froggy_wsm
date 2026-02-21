@@ -8,11 +8,10 @@ part 'fetch_events_uc.g.dart';
 
 @riverpod
 class FetchEventsUC extends _$FetchEventsUC {
-  late final EventRepository repository;
+  late final EventRepository repository = EventRepository();
 
   @override
   Future<List<EventDTO>> build() async {
-    repository = EventRepository();
     return _fetchAllEvents();
   }
 

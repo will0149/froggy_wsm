@@ -8,11 +8,10 @@ part 'fetch_promotions_uc.g.dart';
 
 @riverpod
 class FetchPromotionsUC extends _$FetchPromotionsUC {
-  late final PromotionsRepository repository;
+  late final PromotionsRepository repository = PromotionsRepository();
 
   @override
   Future<List<PromotionDTO>> build() async {
-    repository = PromotionsRepository();
     return _fetchAllPromotions();
   }
 
