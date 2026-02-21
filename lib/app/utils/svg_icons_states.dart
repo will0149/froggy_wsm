@@ -24,9 +24,11 @@ class SvgIconsStatesState extends ConsumerState<SvgIconsStates> {
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
+      width: 20,
+      height: 20,
       widget.isActive ? widget.activeImg : widget.inactiveImg,
       theme: widget.theme,
-      color: parkeaWhite,
+      colorFilter: ColorFilter.mode(parkeaWhite, BlendMode.color),
     );
   }
 }

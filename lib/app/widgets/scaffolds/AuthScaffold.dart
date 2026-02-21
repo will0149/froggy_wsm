@@ -76,8 +76,8 @@ class _AuthScaffoldState extends State<AuthScaffold> {
                   widget.bannerText,
                   style: Theme.of(context)
                       .textTheme
-                      .displayMedium
-                      ?.copyWith(color: Colors.white, fontSize: 24),
+                      .displaySmall
+                      ?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
