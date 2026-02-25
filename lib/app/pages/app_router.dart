@@ -11,6 +11,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../device/utils/is_first_run.dart';
 import '../../device/utils/logger_config.dart';
+import '../../domain/logics/auth/rest_auth_uc.dart';
+import '../../domain/models/auth/auth_state.dart';
 import '../../domain/utils/impl/build_headers_utils_impl.dart';
 import 'auth/login_page.dart';
 import 'count/count_page.dart' show CountPage;
@@ -28,11 +30,16 @@ final GlobalKey<NavigatorState> _sectionANavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
 
 final routerProvider = Provider<GoRouter>((ref) {
-  // final authState = ref.watch(authSessionProvider);
+  final authNotifier =
+      ValueNotifier<AsyncValue<AuthState>>(const AsyncValue.loading());
+  ref.listen(restAuthUCProvider, (_, next) {
+    authNotifier.value = next;
+  });
   final router = GoRouter(
       navigatorKey: _rootNavigatorKey,
       debugLogDiagnostics: true,
       initialLocation: loginEnable ? "/login" : "/main",
+      refreshListenable: authNotifier,
       routes: <RouteBase>[
         GoRoute(
           name: LoginPage.routeName,
@@ -137,51 +144,60 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
       ],
       redirect: (context, state) async {
-        // var activate = await FireStoreConfig().getActivateFlag();
-        // if(!activate){
-        //   return MaintainPage.routeLocation;
-        // }
-        if (kDebugMode) logger.w("matchedLocation ${state.matchedLocation}");
-        var firstRun = IsFirstRun();
-        bool firstCall = await firstRun.isFirstRun();
-        final storageUtils = BuildHeadersUtilsImpl();
-        bool hasStorage = await storageUtils.validateStorage();
-        if (firstCall) {
-          return LoginPage.routeLocation;
-        }
+        logger.i("route ${state.matchedLocation}");
+        final isLoginRoute = state.matchedLocation == '/auth/login';
+        final isResetPasswordRoute =
+            state.matchedLocation == '/auth/resetPassword';
 
-        switch (state.matchedLocation) {
-          case '/login':
-            if (hasStorage) {
-              if (kDebugMode) logger.i('hasCacheToken $hasStorage');
-              return MainPage.routeLocation;
-            }
-            return state.matchedLocation;
-          case '/main':
-            if (hasStorage) {
-              if (kDebugMode) logger.i('main routing $hasStorage');
-              return state.matchedLocation;
-            }
-            return LoginPage.routeLocation;
-          default:
-            if (hasStorage) {
-              if (kDebugMode) logger.i('default routing ${state.matchedLocation}');
-              return state.matchedLocation;
-            }
-            return LoginPage.routeLocation;
-        }
+        logger.w(
+          "isLoginRoute $isLoginRoute",
+        );
 
-        // if (kDebugMode) logger.i('match location ${state.matchedLocation}');
-        // bool hasCacheToken = hasStorage && state.matchedLocation == LoginPage.routeLocation;
-        // if(hasCacheToken){
-        //   if (kDebugMode) logger.i('hasCacheToken $hasCacheToken');
-        //   return MainPage.routeLocation;
-        // }
-        // bool genericRouteValidation = hasStorage && state.matchedLocation != LoginPage.routeLocation;
-        // if (genericRouteValidation) {
-        //   if (kDebugMode) logger.i('genericRouteValidation $genericRouteValidation');
-        //   return state.matchedLocation;
-        // }
+        return authNotifier.value.when(
+          data: (loginState) {
+            if (kDebugMode) {
+              logger.i("loginState ${loginState.status.name}");
+            }
+            switch (loginState.status) {
+              case AuthStatus.firstRun:
+                if (kDebugMode) {
+                  logger.i("firstRun ${state.matchedLocation}");
+                }
+                return LoginPage.routeLocation;
+              case AuthStatus.initial:
+                if (kDebugMode) {
+                  logger.i("initial ${state.matchedLocation}");
+                }
+                return LoginPage.routeLocation;
+              case AuthStatus.loading:
+                return null;
+              case AuthStatus.authenticated:
+                if (kDebugMode) {
+                  logger.i("authenticated ${state.matchedLocation}");
+                }
+                if (isLoginRoute) {
+                  return MainPage.routeLocation;
+                }
+                return null;
+              case AuthStatus.unauthenticated:
+                if (kDebugMode) {
+                  logger.i("unauthenticated ${state.matchedLocation}");
+                }
+                if (isLoginRoute || isResetPasswordRoute) {
+                  return null;
+                }
+                return LoginPage.routeLocation;
+              case AuthStatus.error:
+                if (kDebugMode) logger.i("error");
+                return LoginPage.routeLocation;
+            }
+          },
+          error: (error, stack) {
+            if (kDebugMode) logger.e("Auth error $error");
+            return LoginPage.routeLocation;
+          },
+          loading: () => null,
+        );
       });
   return router;
 });
