@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:froggy_soft/data/entities/base_response_entity.dart';
-import 'package:flutter/material.dart';
 
 import '../../data/entities/base_data_entity.dart';
 import '../../data/entities/entry_data_entity.dart';

@@ -1,5 +1,4 @@
 import 'package:froggy_soft/data/entities/commons/common_type.dart';
-import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 /**

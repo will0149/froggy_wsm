@@ -1,6 +1,6 @@
-import 'package:froggy_soft/domain/logics/count_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:froggy_soft/domain/logics/count_logic.dart';
 
 import '../../../../domain/providers/tally_count_provider.dart';
 import '../../../../generated/l10n.dart';

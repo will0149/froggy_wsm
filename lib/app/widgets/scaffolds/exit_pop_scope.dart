@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:flutter/material.dart';
+import 'package:froggy_soft/device/utils/logger_config.dart';
 
 import '../../../generated/l10n.dart';
 

@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-
 /**
  * Made for froggysoft.
  * By User: josedominguez

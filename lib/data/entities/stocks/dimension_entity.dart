@@ -1,5 +1,6 @@
 import 'package:froggy_soft/domain/convertes/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 /**
  * Made for froggysoft.
  * By User: josedominguez

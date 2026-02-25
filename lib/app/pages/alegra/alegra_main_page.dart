@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 /**
  * Made for froggy_soft.
  * By User: josedominguez
@@ -7,6 +5,7 @@ import 'package:flutter/material.dart';
  */
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/constants.dart';
 import 'package:froggy_soft/app/pages/auth/login_page.dart';
@@ -19,7 +18,7 @@ import 'package:froggy_soft/app/widgets/scaffolds/safe_scaffold.dart' show SafeS
 import 'package:froggy_soft/app/widgets/toasts/build_toasts.dart' show showWarningToast, showErrorToast, showSuccessToast;
 import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:froggy_soft/domain/logics/alegra/impl/items_logic_impl.dart';
-import 'package:froggy_soft/domain/logics/clients/auth_logic.dart';
+import 'package:froggy_soft/domain/logics/auth/rest_auth_uc.dart';
 import 'package:froggy_soft/domain/providers/localDb/database_notifier_provider.dart';
 import 'package:froggy_soft/generated/l10n.dart';
 import 'package:go_router/go_router.dart';
@@ -59,7 +58,6 @@ class AlegraMainPageState extends ConsumerState<AlegraMainPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    var authHandlerP = ref.watch(authLogicProvider);
     // Observar cambios en itemsLogic (ChangeNotifier singleton)
     // Se reconstruye cuando ItemsLogicImpl.notifyListeners() es llamado
     // durante la sincronización, permitiendo actualizar fetchCount/totalItems
@@ -237,7 +235,7 @@ class AlegraMainPageState extends ConsumerState<AlegraMainPage> {
                     imagePath: "assets/logout.png",
                     title: S.of(context).logoutButton,
                     onPressed: () {
-                      authHandlerP.logOut();
+                      ref.read(restAuthUCProvider.notifier).logOut();
                       showWarningToast("Logout!!");
                       context.goNamed(LoginPage.routeName);
                     },

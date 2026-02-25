@@ -1,11 +1,12 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore, Settings;
-import 'package:firebase_core/firebase_core.dart' show Firebase, FirebaseOptions;
+import 'package:firebase_core/firebase_core.dart' show Firebase;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stack_trace/stack_trace.dart' as stack_trace;
 import 'package:intl/intl_standalone.dart' if (dart.library.html) 'package:intl/intl_browser.dart';
+import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 import 'app.dart';
 

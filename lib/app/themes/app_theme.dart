@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:froggy_soft/app/constants.dart';
 import 'package:froggy_soft/app/themes/styles/input_decoration.dart';
 import 'package:froggy_soft/app/themes/styles/submit_button_style.dart';
 import 'package:froggy_soft/app/themes/styles/text_theme.dart';
-import 'package:flutter/material.dart';
 
 import 'colors/app_colors.dart';
 

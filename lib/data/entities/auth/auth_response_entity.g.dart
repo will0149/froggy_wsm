@@ -8,9 +8,8 @@ part of 'auth_response_entity.dart';
 
 AuthResponseEntity _$AuthResponseEntityFromJson(Map<String, dynamic> json) =>
     AuthResponseEntity(
-      accessToken: json['accessToken'] as String?,
-      id: (json['id'] as num?)?.toInt(),
-      fullName: json['full_name'] as String?,
+      token: json['token'] as String?,
+      refreshToken: json['refresh_token'] as String?,
       roles:
           (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList(),
       permissions: (json['permissions'] as List<dynamic>?)
@@ -20,9 +19,8 @@ AuthResponseEntity _$AuthResponseEntityFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$AuthResponseEntityToJson(AuthResponseEntity instance) =>
     <String, dynamic>{
-      'accessToken': instance.accessToken,
-      'id': instance.id,
-      'full_name': instance.fullName,
+      'token': instance.token,
+      'refresh_token': instance.refreshToken,
       'roles': instance.roles,
       'permissions': instance.permissions,
     };

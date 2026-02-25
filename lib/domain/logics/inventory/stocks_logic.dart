@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:froggy_soft/data/entities/stocks/stock_entity.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:froggy_soft/data/entities/stocks/stock_entity.dart';
 
 import '../../../data/entities/base_response_entity.dart';
 import '../../../data/entities/stocks/body_stocks_entity.dart';

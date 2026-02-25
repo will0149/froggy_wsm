@@ -13,19 +13,17 @@ part 'auth_response_entity.g.dart';
     ignoreUnannotated: true
 )
 class AuthResponseEntity {
-  @JsonKey(name: 'accessToken')
-  String? accessToken;
-  @JsonKey(name: 'id')
-  int? id;
-  @JsonKey(name: 'full_name')
-  String? fullName;
+  @JsonKey(name: 'token')
+  String? token;
+  @JsonKey(name: 'refresh_token')
+  String? refreshToken;
   @JsonKey(name: 'roles')
   List<String>? roles;
   @JsonKey(name: 'permissions')
   List<String>? permissions;
 
   AuthResponseEntity(
-      {this.accessToken, this.id, this.fullName, this.roles, this.permissions});
+      {this.token, this.refreshToken, this.roles, this.permissions});
 
   factory AuthResponseEntity.fromJson(Map<String, dynamic> json) =>
       _$AuthResponseEntityFromJson(json);

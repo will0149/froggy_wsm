@@ -1,8 +1,6 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/paints/middle_wave_white.dart';
-import 'package:froggy_soft/generated/l10n.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../device/utils/device_info.dart';
@@ -105,22 +103,51 @@ class LoginPageState extends ConsumerState<LoginPage> {
             Positioned(
               top: 60,
               left: size.width * 0.05,
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  WavyAnimatedText(
-                    "Froggy Warehouse Manager",
-                    textStyle: Theme.of(context)
+              right: size.width * 0.05,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// Título principal "Froggy"
+                  ShaderMask(
+                    shaderCallback: (bounds) => const LinearGradient(
+                      colors: [
+                        Color(0xFF212121),
+                        Color(0xFF424242),
+                        Colors.orangeAccent,
+                      ],
+                    ).createShader(bounds),
+                    child: Text(
+                      "Froggy",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 2.0,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withValues(alpha: 0.15),
+                            blurRadius: 6,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  /// Subtítulo "Warehouse Manager"
+                  Text(
+                    "Warehouse Manager",
+                    style: Theme.of(context)
                         .textTheme
-                        .headlineMedium /**/
+                        .titleMedium
                         ?.copyWith(
-                          color: Colors.black,
-                        ),
+                      color: const Color(0xFF616161),
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 3.0,
+                    ),
                   ),
                 ],
-                repeatForever: false,
-                onTap: () {
-                  print("Tap Event");
-                },
               ),
             ),
           ],

@@ -1,6 +1,6 @@
-import 'package:froggy_soft/data/entities/clients/customer_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:froggy_soft/data/entities/clients/customer_entity.dart';
 
 import '../../../../generated/l10n.dart';
 

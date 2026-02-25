@@ -1,10 +1,7 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:froggy_soft/app/pages/auth/login_page.dart';
 import 'package:froggy_soft/app/pages/count/count_page.dart';
-import 'package:froggy_soft/app/pages/maintainance/settings_page.dart';
 import 'package:froggy_soft/app/pages/relocation/relocation_page.dart'
     show RelocationPage;
 import 'package:froggy_soft/app/pages/warehouse/alegra/alegra_inventory_page.dart';
@@ -16,7 +13,6 @@ import 'package:froggy_soft/generated/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../device/utils/logger_config.dart';
-import '../../domain/logics/clients/auth_logic.dart';
 import '../constants.dart';
 import '../widgets/buttons/section_button.dart';
 import '../widgets/scaffolds/kill_pop_scope.dart';
@@ -64,7 +60,6 @@ class MainPageState extends ConsumerState<MainPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    var authHandlerP = ref.watch(authLogicProvider);
     // Observar cambios en itemsLogic (ChangeNotifier singleton)
     // Se reconstruye cuando ItemsLogicImpl.notifyListeners() es llamado
     // durante la sincronización, permitiendo actualizar fetchCount/totalItems

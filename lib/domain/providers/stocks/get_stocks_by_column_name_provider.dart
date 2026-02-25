@@ -1,8 +1,8 @@
 import 'package:froggy_soft/data/entities/base_response_entity.dart';
 import 'package:froggy_soft/data/entities/stocks/stock_entity.dart';
 import 'package:froggy_soft/domain/logics/inventory/stocks_logic.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 /**
  * Made for froggysoft.
  * By User: josedominguez

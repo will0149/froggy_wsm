@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 import '../../../device/utils/logger_config.dart';
 import '../../entities/firesstore_entity.dart';

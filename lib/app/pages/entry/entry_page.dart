@@ -1,7 +1,7 @@
-import 'package:froggy_soft/app/widgets/scaffolds/exit_pop_scope.dart';
-import 'package:froggy_soft/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:froggy_soft/app/widgets/scaffolds/exit_pop_scope.dart';
+import 'package:froggy_soft/generated/l10n.dart';
 
 import '../../widgets/forms/base_form_decorator.dart';
 import '../../widgets/forms/entry_form.dart';

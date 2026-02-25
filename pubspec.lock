@@ -544,7 +544,7 @@ packages:
   horizontal_scroll_item:
     dependency: "direct main"
     description:
-      path: "../../horizontal_scroll_item"
+      path: "../horizontal_scroll_item"
       relative: true
     source: path
     version: "0.0.1"

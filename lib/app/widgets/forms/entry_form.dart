@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:froggy_soft/app/pages/entry/entry_page.dart';
 import 'package:froggy_soft/domain/dtos/inbound_dto.dart';
 import 'package:froggy_soft/domain/dtos/series_dto.dart';
 import 'package:froggy_soft/domain/providers/warehouses/get_warehouses_provider.dart';
 import 'package:froggy_soft/generated/l10n.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../device/utils/logger_config.dart';

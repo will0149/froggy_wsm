@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../logics/inbound_logic.dart';
 import '../../device/utils/logger_config.dart';
+import '../logics/inbound_logic.dart';
 
 /// Made for froggysoft.
 /// By User: josedominguez

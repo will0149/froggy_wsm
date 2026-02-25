@@ -6,10 +6,15 @@
 library;
 
 enum ApiPathsEnums {
-  v1(path: '/api/v1'),
-  signIn(path: '/api/v1/auth/login'),
-  refreshToken(path: '/api/v1/auth/refresh-token'),
-  logout(path: '/api/v1/auth/logout'),
+  v1(path: 'http://0.0.0.0:8000/v1/'),
+  //user authentication and enrollment
+  registerUser(path: '/user/register/'),
+  signIn(path: '/user/login/'),
+  logout(path: '/user/logout/'),
+  passwordReset(path: '/user/password/reset/'),
+  passwordResetConfirm(path: '/user/password/reset/confirm'),
+  refreshToken(path: '/user/token/refresh/'),
+  tokenVerify(path: '/user/token/verify/'),
   inbound(path: '/api/v1/inbound'),
   outgoing(path: '/api/v1/outbound'),
   count(path: '/api/v1/tally'),

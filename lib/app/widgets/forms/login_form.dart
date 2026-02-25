@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
-import 'package:froggy_soft/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:froggy_soft/domain/logics/auth/rest_auth_uc.dart';
+import 'package:froggy_soft/domain/models/auth/auth_state.dart';
+import 'package:froggy_soft/generated/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../device/utils/logger_config.dart';
 import '../../../domain/dtos/auth/login_dto.dart';
-import '../../../domain/logics/clients/auth_logic.dart';
 import '../../constants.dart';
 import '../../pages/main_page.dart';
 import '../toasts/build_toasts.dart';
@@ -28,8 +29,6 @@ class LoginFormState extends ConsumerState<LoginForm> {
   TextEditingController pwdInputController = TextEditingController();
 
   bool _isObscure = true;
-  bool _valid = false;
-  bool isLoading = false;
 
   @override
   initState() {
@@ -46,8 +45,27 @@ class LoginFormState extends ConsumerState<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(restAuthUCProvider);
+
+    ref.listen<AsyncValue<AuthState>>(restAuthUCProvider, (previous, next) {
+      next.whenOrNull(
+        data: (state) {
+          if (state.isAuthenticated) {
+            context.goNamed(MainPage.routeName);
+          } else if (state.hasError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.errorMessage ?? 'Error al iniciar sesión')),
+            );
+          }
+        },
+        error: (error, _) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: $error')),
+          );
+        },
+      );
+    });
     var size = MediaQuery.of(context).size;
-    var authHandlerP = ref.watch(authLogicProvider);
     return Form(
       key: _loginFormKey,
       child: Wrap(
@@ -87,7 +105,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
           SizedBox(
             height: MediaQuery.of(context).viewInsets.bottom,
           ),
-          isLoading
+          authState.isLoading
               ? Container(
                   margin: const EdgeInsets.all(10.0),
                   child: const Center(
@@ -97,45 +115,15 @@ class LoginFormState extends ConsumerState<LoginForm> {
               : SizedBox(
                   width: size.width,
                   child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _valid = _loginFormKey.currentState!.validate();
-                        isLoading = true;
-                      });
-
-                      if (_valid) {
-                        var data = LoginDTO(
-                            email: emailInputController.text,
-                            password: pwdInputController.text);
-                        authHandlerP.signIn(data).then((value) {
-                          var code = value?.status?.code;
-                          if (kDebugMode) logger.i("code in form $code");
-                          if (code! >= 200 && code < 300) {
-                            showSuccessToast("Login Success!!");
-                            setState(() {
-                              isLoading = false;
-                            });
-                            context.goNamed(MainPage.routeName);
-                          } else {
-                            showErrorToast(
-                                "Datos Inválidos ${value?.status?.msg}");
-                          }
-                        }).whenComplete(() {
-                          if (kDebugMode) logger.i("finished sign in");
-                          setState(() {
-                            isLoading = false;
-                          });
-                        }).catchError((error) {
-                          if (kDebugMode) logger.e("bruja ${error.toString()}");
-                          setState(() {
-                            isLoading = false;
-                          });
-                          showErrorToast("Algo fallo ${error.toString()}!");
-                        });
-                      } else {
-                        setState(() {
-                          isLoading = false;
-                        });
+                    onPressed: () async {
+                      final isValid = _loginFormKey.currentState!.validate();
+                      if (isValid) {
+                        await ref
+                            .read(restAuthUCProvider.notifier)
+                            .signIn(LoginDTO(
+                          email: emailInputController.value.text,
+                          password: pwdInputController.value.text,
+                        ),);
                       }
                     },
                     child: Text(

@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:froggy_soft/device/utils/logger_config.dart';
 import 'package:sqflite/sqflite.dart';
 

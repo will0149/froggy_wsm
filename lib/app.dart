@@ -1,8 +1,8 @@
-import 'package:froggy_soft/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:froggy_soft/generated/l10n.dart';
 
 import 'app/pages/app_router.dart';
 import 'app/themes/app_theme.dart';
