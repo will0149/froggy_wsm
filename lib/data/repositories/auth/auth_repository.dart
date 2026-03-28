@@ -53,6 +53,7 @@ class AuthRepository {
   Future<Map<String, dynamic>> signIn(LoginDTO request) async {
     var client = RetryClient(http.Client());
     try {
+      Future.delayed(Duration(seconds: 4));
       // var bodyEncoded = jsonEncode(request);
       // var uri = Uri.https(
       //     // F.baseUrl.toString(),

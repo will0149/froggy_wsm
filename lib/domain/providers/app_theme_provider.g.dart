@@ -12,58 +12,59 @@ part of 'app_theme_provider.dart';
 /// By User: josedominguez
 /// Date: 08/03/23
 
-@ProviderFor(AppTheme)
-const appThemeProvider = AppThemeProvider._();
+@ProviderFor(AppThemeMode)
+const appThemeModeProvider = AppThemeModeProvider._();
 
 /// Made for parkea.
 /// By User: josedominguez
 /// Date: 08/03/23
-final class AppThemeProvider extends $NotifierProvider<AppTheme, bool> {
+final class AppThemeModeProvider
+    extends $NotifierProvider<AppThemeMode, ThemeMode> {
   /// Made for parkea.
   /// By User: josedominguez
   /// Date: 08/03/23
-  const AppThemeProvider._()
+  const AppThemeModeProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'appThemeProvider',
+          name: r'appThemeModeProvider',
           isAutoDispose: true,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$appThemeHash();
+  String debugGetCreateSourceHash() => _$appThemeModeHash();
 
   @$internal
   @override
-  AppTheme create() => AppTheme();
+  AppThemeMode create() => AppThemeMode();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(bool value) {
+  Override overrideWithValue(ThemeMode value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<bool>(value),
+      providerOverride: $SyncValueProvider<ThemeMode>(value),
     );
   }
 }
 
-String _$appThemeHash() => r'99070f42cf110ad848faa056fb9f4a69c138c57a';
+String _$appThemeModeHash() => r'be5cbe8976e45734149bcab4fbbd522dc2dc9084';
 
 /// Made for parkea.
 /// By User: josedominguez
 /// Date: 08/03/23
 
-abstract class _$AppTheme extends $Notifier<bool> {
-  bool build();
+abstract class _$AppThemeMode extends $Notifier<ThemeMode> {
+  ThemeMode build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<bool, bool>;
+    final ref = this.ref as $Ref<ThemeMode, ThemeMode>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<bool, bool>, bool, Object?, Object?>;
+        AnyNotifier<ThemeMode, ThemeMode>, ThemeMode, Object?, Object?>;
     element.handleValue(ref, created);
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:parkea/app/pages/payment/yappy_payment_page.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/data/dtos/ticket_purchase_dto.dart';
@@ -43,19 +44,16 @@ class TicketPurchasePageState extends ConsumerState<TicketPurchasePage> {
       next.whenOrNull(
         data: (data) {
           if (data != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Ticket purchased successfully!'),
-                backgroundColor: Colors.green,
-              ),
-            );
-            context.pop();
+            final paymentUrl = data['body']?['payment_url'] as String?;
+            if (paymentUrl != null) {
+              _openYappyPayment(paymentUrl);
+            }
           }
         },
         error: (error, _) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Purchase failed: $error'),
+              content: Text('Error al procesar: $error'),
               backgroundColor: Colors.red,
             ),
           );
@@ -458,6 +456,43 @@ class TicketPurchasePageState extends ConsumerState<TicketPurchasePage> {
         ],
       ),
     );
+  }
+
+  Future<void> _openYappyPayment(String paymentUrl) async {
+    final result = await Navigator.of(context).push<YappyPaymentResult>(
+      MaterialPageRoute(
+        builder: (_) => YappyPaymentPage(paymentUrl: paymentUrl),
+        fullscreenDialog: true,
+      ),
+    );
+
+    if (!mounted) return;
+
+    switch (result) {
+      case YappyPaymentResult.success:
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('¡Pago exitoso! Tu ticket fue confirmado.'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        context.pop();
+      case YappyPaymentResult.cancelled:
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Pago cancelado.'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      case YappyPaymentResult.error:
+      case null:
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Ocurrió un error durante el pago.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+    }
   }
 
   void _onPurchase(EventDTO event, double total) {

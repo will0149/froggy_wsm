@@ -145,7 +145,9 @@ class MockDataUtils {
         "customer_name": "Jane Smith",
         "customer_email": "jane@example.com",
         "purchase_date": "2026-02-10T14:30:00Z",
-        "status": "confirmed"
+        "status": "pending_payment",
+        // URL generada por el backend apuntando al Botón de Pago Yappy
+        "payment_url": "https://pay.yappy.com.pa/yappy/api/boton/v1/?id_sucursal=TEST_MERCHANT&total=90.00&descripcion=Entrada%20Parkea&referencia=TKT-20260210-001",
       }
     };
   }

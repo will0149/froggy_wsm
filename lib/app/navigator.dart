@@ -69,7 +69,7 @@ class NavigatorBarState extends ConsumerState<NavigatorBar>
 
   @override
   Widget build(BuildContext context) {
-    var isDarkMode = ref.watch(appThemeProvider);
+    final isDarkMode = ref.watch(appThemeModeProvider) == ThemeMode.dark;
     return ExitPopScope(
       child: Scaffold(
         extendBody: true,

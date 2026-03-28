@@ -30,7 +30,7 @@ class PromotionsComponentState extends ConsumerState<PromotionsComponent> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Eventos Recomendados!",
+              "Promociones!",
               style: Theme.of(context)
                   .textTheme
                   .titleSmall

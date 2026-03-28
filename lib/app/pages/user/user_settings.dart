@@ -27,7 +27,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDarkMode = ref.watch(appThemeProvider);
+    final isDarkMode = ref.watch(appThemeModeProvider) == ThemeMode.dark;
     final restAuthState = ref.watch(restAuthUCProvider);
     
     return Scaffold(
@@ -155,7 +155,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
                 trailing: Switch(
                   value: isDarkMode,
                   onChanged: (value) {
-                    ref.read(appThemeProvider.notifier).setTheme(value);
+                    ref.read(appThemeModeProvider.notifier).setTheme(value);
                   },
                   activeThumbColor: parkeaOrange,
                 ),

@@ -13,12 +13,12 @@ ButtonStyle buttonTransparentBlue = ButtonStyle(
     const EdgeInsets.all(10),
   ),
   foregroundColor: WidgetStateProperty.all<Color>(
-    Colors.blueAccent.withOpacity(1.0),
+    Colors.blueAccent,
   ),
   backgroundColor: WidgetStateProperty.all<Color>(
-    Colors.white.withOpacity(0.70),
+    Colors.white.withValues(alpha: 0.70),
   ),
   overlayColor: WidgetStateProperty.all<Color>(
-      parkeaOrange.withOpacity(0.2),
+    parkeaOrange.withValues(alpha: 0.2),
   ),
 );

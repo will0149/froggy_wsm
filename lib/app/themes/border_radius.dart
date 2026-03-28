@@ -1,8 +1,6 @@
-
-
-/// Made for parkea.
-/// By User: josedominguez
-/// Date: 09/14/22
+// Made for parkea.
+// By User: josedominguez
+// Date: 09/14/22
 
 class ParkeaBorderRadius {
   static const double button = 22;

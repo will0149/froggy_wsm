@@ -68,6 +68,8 @@ dependencies:
   json_annotation: ^4.9.0
   horizontal_scroll_item:
     path: ../horizontal_scroll_item
+  # WebView para pasarelas de pago web (Yappy Botón de Pago)
+  webview_flutter: ^4.10.0
 
 dev_dependencies:
   flutter_test:

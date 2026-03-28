@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
 import 'package:parkea/app/pages/auth/welcome_slide_page.dart';
-import 'package:parkea/app/themes/buttom_transparent_border_blue.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/exit_pop_scope.dart';
 import 'package:parkea/app/widgets/paints/bottom_left_curve_orange.dart';
@@ -12,6 +11,7 @@ import 'package:parkea/app/widgets/paints/middle_wave_white.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 import 'package:parkea/generated/l10n.dart';
 
+import '../../themes/button_transparent_border_blue.dart';
 import 'login_page.dart';
 
 class AuthPage extends ConsumerStatefulWidget {
