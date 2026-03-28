@@ -63,11 +63,10 @@ class SignInFormState extends ConsumerState<SignInForm> {
         children: [
           Text(
             S.of(context).welcomeAgain,
-            style: const TextStyle(
-              color: parkeaBlueAccent,
-              fontWeight: FontWeight.normal,
-              fontSize: 28,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall
+                ?.copyWith(color: parkeaBlueAccent),
           ),
           TextFormField(
             controller: emailController,

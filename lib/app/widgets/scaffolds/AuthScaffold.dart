@@ -77,7 +77,7 @@ class _AuthScaffoldState extends State<AuthScaffold> {
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium
-                      ?.copyWith(color: Colors.white, fontSize: 24),
+                      ?.copyWith(color: Colors.white),
                 ),
               ),
             ),

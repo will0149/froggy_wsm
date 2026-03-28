@@ -182,6 +182,78 @@ class MockDataUtils {
     };
   }
 
+  Map<String, dynamic> upcomingTickets() {
+    return {
+      "status": {"code": 200, "msg": "exitoso!"},
+      "body": [
+        {
+          "id": 3,
+          "ticket_code": "TKT-20260210-003",
+          "event_name": "Summer Music Festival 2026",
+          "event_date": "2026-04-15T18:00:00Z",
+          "banner_img":
+              "https://thehotelfactory.com/wp-content/uploads/2018/09/Camping-portada.jpeg",
+          "place": "Amador, Panama",
+          "quantity": 2,
+          "total_amount": "90.00",
+          "currency": "USD",
+          "status": "confirmed",
+          "date_purchased": "2026-02-10T14:30:00Z"
+        },
+        {
+          "id": 4,
+          "ticket_code": "TKT-20260215-004",
+          "event_name": "Tech Summit Panama 2026",
+          "event_date": "2026-06-20T09:00:00Z",
+          "banner_img":
+              "https://content.presspage.com/uploads/685/d68d91ac-fad5-4103-aa04-7f6cf878dfe2/1920_conciertoscdmx.jpg",
+          "place": "Ciudad de Panama",
+          "quantity": 1,
+          "total_amount": "75.00",
+          "currency": "USD",
+          "status": "confirmed",
+          "date_purchased": "2026-02-15T11:00:00Z"
+        }
+      ]
+    };
+  }
+
+  Map<String, dynamic> pastTickets() {
+    return {
+      "status": {"code": 200, "msg": "exitoso!"},
+      "body": [
+        {
+          "id": 1,
+          "ticket_code": "TKT-20250610-001",
+          "event_name": "Summer Music Festival 2025",
+          "event_date": "2025-07-15T18:00:00Z",
+          "banner_img":
+              "https://numwo-media.s3.amazonaws.com/events/1/banner.jpg",
+          "place": "Amador, Panama",
+          "quantity": 2,
+          "total_amount": "90.00",
+          "currency": "USD",
+          "status": "used",
+          "date_purchased": "2025-06-10T14:30:00Z"
+        },
+        {
+          "id": 2,
+          "ticket_code": "TKT-20241201-002",
+          "event_name": "Noche de Gala 2024",
+          "event_date": "2024-12-31T20:00:00Z",
+          "banner_img":
+              "https://www.valenfit.com/wp-content/uploads/2020/07/fit-combat-valenfit.jpg",
+          "place": "Hotel Intercontinental, Panama",
+          "quantity": 2,
+          "total_amount": "160.00",
+          "currency": "USD",
+          "status": "used",
+          "date_purchased": "2024-12-01T16:00:00Z"
+        }
+      ]
+    };
+  }
+
   Map<String, dynamic> promotionList() {
     return {
       "status": {"code": 200, "msg": "exitoso!"},
