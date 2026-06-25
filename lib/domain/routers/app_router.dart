@@ -30,203 +30,186 @@ final GlobalKey<NavigatorState> _sectionANavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
 
 final routerProvider = Provider<GoRouter>((Ref ref) {
-  final authNotifier = ValueNotifier<AsyncValue<AuthState>>(const AsyncValue.loading());
+  final authNotifier =
+      ValueNotifier<AsyncValue<AuthState>>(const AsyncValue.loading());
   ref.listen(restAuthUCProvider, (_, next) {
     authNotifier.value = next;
   });
 
-  return GoRouter(
-      navigatorKey: _rootNavigatorKey,
-      debugLogDiagnostics: true,
-      initialLocation: "/auth/splash",
-      refreshListenable: authNotifier,
-      routes: <RouteBase>[
-        GoRoute(
-          name: WelcomeSlidePage.routeName,
-          path: WelcomeSlidePage.routeLocation,
-          builder: (BuildContext context, GoRouterState state) {
-            return const WelcomeSlidePage();
-          },
-        ),
-        GoRoute(
-          name: AuthPage.routeName,
-          path: AuthPage.routeLocation,
-          builder: (BuildContext context, GoRouterState state) {
-            return const AuthPage();
-          },
-          routes: <RouteBase>[
-            GoRoute(
-              name: LoginPage.routeName,
-              path: LoginPage.routeLocation,
-              builder: (BuildContext context, GoRouterState state) {
-                return const LoginPage();
-              },
-            ),
-            GoRoute(
-              name: SignUpPage.routeName,
-              path: SignUpPage.routeLocation,
-              builder: (BuildContext context, GoRouterState state) {
-                return const SignUpPage();
-              },
-            ),
-            GoRoute(
-              name: PasswordResetPage.routeName,
-              path: PasswordResetPage.routeLocation,
-              builder: (BuildContext context, GoRouterState state) {
-                return const PasswordResetPage();
-              },
-            ),
-            GoRoute(
-              name: SplashScreen.routeName,
-              path: SplashScreen.routeLocation,
-              builder: (BuildContext context, GoRouterState state) {
-                return const SplashScreen();
-              },
-            ),
-          ],
-        ),
-        StatefulShellRoute.indexedStack(
-          builder: (BuildContext context, GoRouterState state,
-              StatefulNavigationShell navigationShell) {
-            // Return the widget that implements the custom shell (in this case
-            // using a BottomNavigationBar). The StatefulNavigationShell is passed
-            // to be able access the state of the shell and to navigate to other
-            // branches in a stateful way.
-            return NavigatorBar(navigationShell: navigationShell);
-          },
-          branches: <StatefulShellBranch>[
-            // The route branch for the first tab of the bottom navigation bar.
-            StatefulShellBranch(
-              navigatorKey: _sectionANavigatorKey,
-              routes: <RouteBase>[
-                GoRoute(
-                  // The screen to display as the root in the first tab of the
-                  // bottom navigation bar.
-                  name: HomeFeedPage.routeName,
-                  path: "/",
-                  builder: (BuildContext context, GoRouterState state) =>
-                  const HomeFeedPage(),
-                  routes: <RouteBase>[
-                    GoRoute(
-                        name: EventDetailPage.routeName,
-                        path: EventDetailPage.routeLocation,
-                        builder: (context, state) => EventDetailPage(
-                            eventId: int.parse(state.pathParameters['id']!),
-                          ),
-                        routes: <RouteBase>[
-                          GoRoute(
-                            name: TicketPurchasePage.routeName,
-                            path: TicketPurchasePage.routeLocation,
-                            builder: (context, state) => TicketPurchasePage(
-                              eventId: int.parse(state.pathParameters['id']!),
-                            ),
-                          ),
-                        ],
+  final router = GoRouter(
+    navigatorKey: _rootNavigatorKey,
+    debugLogDiagnostics: kDebugMode,
+    initialLocation: '/auth/splash',
+    refreshListenable: authNotifier,
+    routes: <RouteBase>[
+      GoRoute(
+        name: WelcomeSlidePage.routeName,
+        path: WelcomeSlidePage.routeLocation,
+        builder: (context, state) => const WelcomeSlidePage(),
+      ),
+      GoRoute(
+        name: AuthPage.routeName,
+        path: AuthPage.routeLocation,
+        builder: (context, state) => const AuthPage(),
+        routes: <RouteBase>[
+          GoRoute(
+            name: LoginPage.routeName,
+            path: LoginPage.routeLocation,
+            builder: (context, state) => const LoginPage(),
+          ),
+          GoRoute(
+            name: SignUpPage.routeName,
+            path: SignUpPage.routeLocation,
+            builder: (context, state) => const SignUpPage(),
+          ),
+          GoRoute(
+            name: PasswordResetPage.routeName,
+            path: PasswordResetPage.routeLocation,
+            builder: (context, state) => const PasswordResetPage(),
+          ),
+          GoRoute(
+            name: SplashScreen.routeName,
+            path: SplashScreen.routeLocation,
+            builder: (context, state) => const SplashScreen(),
+          ),
+        ],
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            NavigatorBar(navigationShell: navigationShell),
+        branches: <StatefulShellBranch>[
+          // Tab 1: Home
+          StatefulShellBranch(
+            navigatorKey: _sectionANavigatorKey,
+            routes: <RouteBase>[
+              GoRoute(
+                name: HomeFeedPage.routeName,
+                path: '/',
+                builder: (context, state) => const HomeFeedPage(),
+                routes: <RouteBase>[
+                  GoRoute(
+                    name: EventDetailPage.routeName,
+                    path: EventDetailPage.routeLocation,
+                    builder: (context, state) => EventDetailPage(
+                      eventId: int.parse(state.pathParameters['id']!),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                    routes: <RouteBase>[
+                      GoRoute(
+                        name: TicketPurchasePage.routeName,
+                        path: TicketPurchasePage.routeLocation,
+                        builder: (context, state) => TicketPurchasePage(
+                          eventId: int.parse(state.pathParameters['id']!),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
 
-            StatefulShellBranch(
-              routes: <RouteBase>[
-                GoRoute(
-                  // The screen to display as the root in the third tab of the
-                  // bottom navigation bar.
-                  name: TicketsPage.routeName,
-                  path: TicketsPage.routeLocation,
-                  builder: (BuildContext context, GoRouterState state) => const TicketsPage(),
-                  routes: <RouteBase>[
-                  ],
-                ),
-              ],
-            ),
+          // Tab 2: Tickets
+          StatefulShellBranch(
+            routes: <RouteBase>[
+              GoRoute(
+                name: TicketsPage.routeName,
+                path: TicketsPage.routeLocation,
+                builder: (context, state) => const TicketsPage(),
+              ),
+            ],
+          ),
 
-            // The route branch for the third tab of the bottom navigation bar.
-            StatefulShellBranch(
-              routes: <RouteBase>[
-                GoRoute(
-                  // The screen to display as the root in the third tab of the
-                  // bottom navigation bar.
-                  name: ProfilePage.routeName,
-                  path: ProfilePage.routeLocation,
-                  builder: (BuildContext context, GoRouterState state) => const ProfilePage(),
-                  routes: <RouteBase>[
-                    GoRoute(
-                      name: UserSettingsPage.routeName,
-                      path: UserSettingsPage.routeLocation,
-                      builder: ( context,  state) =>
-                      const UserSettingsPage(),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-      redirect: (context, state) async {
-        logger.i("route ${state.matchedLocation}");
-        final isLoginRoute = state.matchedLocation == '/auth/login';
-        final isRegisterRoute = state.matchedLocation == '/auth/signup';
-        final isAuthRoute = state.matchedLocation == '/auth';
-        final isLoadingRoute = state.matchedLocation == '/auth/splash';
-        final isResetPasswordRoute = state.matchedLocation == '/auth/resetPassword';
+          // Tab 3: Profile
+          StatefulShellBranch(
+            routes: <RouteBase>[
+              GoRoute(
+                name: ProfilePage.routeName,
+                path: ProfilePage.routeLocation,
+                builder: (context, state) => const ProfilePage(),
+                routes: <RouteBase>[
+                  GoRoute(
+                    name: UserSettingsPage.routeName,
+                    path: UserSettingsPage.routeLocation,
+                    builder: (context, state) => const UserSettingsPage(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    ],
+    redirect: (context, state) async {
+      if (kDebugMode) {
+        logger.i('route ${state.matchedLocation}');
+      }
 
-        logger.w(
-          "isLoginRoute $isLoginRoute isRegisterRoute $isRegisterRoute isAuthRoute $isAuthRoute isLoadingRoute $isLoadingRoute",
-        );
+      final authBase = AuthPage.routeLocation;
+      final isLoginRoute =
+          state.matchedLocation == '$authBase/${LoginPage.routeLocation}';
+      final isRegisterRoute =
+          state.matchedLocation == '$authBase/${SignUpPage.routeLocation}';
+      final isAuthRoute = state.matchedLocation == authBase;
+      final isLoadingRoute =
+          state.matchedLocation == '$authBase/${SplashScreen.routeLocation}';
+      final isResetPasswordRoute = state.matchedLocation ==
+          '$authBase/${PasswordResetPage.routeLocation}';
 
-        return authNotifier.value.when(
-          data: (loginState) {
-            if (kDebugMode) {
-              logger.i("loginState ${loginState.status.name}");
-            }
-            switch (loginState.status) {
-              case AuthStatus.firstRun:
-                if (kDebugMode) {
-                  logger.i("firstRun ${state.matchedLocation}");
-                }
-                return WelcomeSlidePage.routeLocation;
-              case AuthStatus.initial:
-                if (kDebugMode) {
-                  logger.i("initial ${state.matchedLocation}");
-                }
-                return AuthPage.routeLocation;
-              case AuthStatus.loading:
+      return authNotifier.value.when(
+        data: (loginState) {
+          if (kDebugMode) {
+            logger.i('loginState ${loginState.status.name}');
+          }
+          switch (loginState.status) {
+            case AuthStatus.firstRun:
+              if (kDebugMode) logger.i('firstRun ${state.matchedLocation}');
+              return WelcomeSlidePage.routeLocation;
+            case AuthStatus.initial:
+              if (kDebugMode) logger.i('initial ${state.matchedLocation}');
+              return AuthPage.routeLocation;
+            case AuthStatus.loading:
+              return null;
+            case AuthStatus.authenticated:
+              if (kDebugMode) {
+                logger.i('authenticated ${state.matchedLocation}');
+              }
+              if (isAuthRoute ||
+                  isLoginRoute ||
+                  isRegisterRoute ||
+                  isLoadingRoute ||
+                  isResetPasswordRoute) {
+                return HomeFeedPage.routeLocation;
+              }
+              return null;
+            case AuthStatus.unauthenticated:
+              if (kDebugMode) {
+                logger.i('unauthenticated ${state.matchedLocation}');
+              }
+              if (isLoginRoute ||
+                  isRegisterRoute ||
+                  isAuthRoute ||
+                  isResetPasswordRoute) {
                 return null;
-              case AuthStatus.authenticated:
-                if (kDebugMode) {
-                  logger.i("authenticated ${state.matchedLocation}");
-                }
-                if (isAuthRoute ||
-                    isLoginRoute ||
-                    isRegisterRoute ||
-                    isLoadingRoute) {
-                  return HomeFeedPage.routeLocation;
-                }
-                return null;
-              case AuthStatus.unauthenticated:
-                if (kDebugMode) {
-                  logger.i("unauthenticated ${state.matchedLocation}");
-                }
-                if (isLoginRoute || isRegisterRoute || isAuthRoute || isResetPasswordRoute) {
-                  return null;
-                }
-                return AuthPage.routeLocation;
-              case AuthStatus.error:
-                if (kDebugMode) logger.i("error");
-                return LoginPage.routeLocation;
-            }
-          },
-          error: (error, stack) {
-            if (kDebugMode) logger.e("Auth error $error");
-            return AuthPage.routeLocation;
-          },
-          loading: () => null,
-        );
-      });
+              }
+              return AuthPage.routeLocation;
+            case AuthStatus.error:
+              if (kDebugMode) logger.i('error');
+              return LoginPage.routeLocation;
+          }
+        },
+        error: (error, stack) {
+          if (kDebugMode) logger.e('Auth error $error');
+          return AuthPage.routeLocation;
+        },
+        loading: () => null,
+      );
+    },
+  );
+
+  ref.onDispose(() {
+    authNotifier.dispose();
+    router.dispose();
+  });
+
+  return router;
 });
-
-//context.go() es para shell route
-//context.pushNamed(EventDetailPage.routeName, pathParameters: {"id": id}); para pasar path params al router
