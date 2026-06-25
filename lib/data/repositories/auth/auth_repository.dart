@@ -32,6 +32,7 @@ class AuthRepository {
   Future<Map<String, dynamic>> getUserProfile() async {
     var client = RetryClient(http.Client());
     try {
+      Future.delayed(Duration(seconds: 30));
       // var uri = Uri.https(
       //     // F.baseUrl.toString(),
       //     'http://127.0.0.1:8000/',

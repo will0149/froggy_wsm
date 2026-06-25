@@ -34,7 +34,7 @@ class TicketsPageState extends ConsumerState<TicketsPage>
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = ref.watch(appThemeProvider);
+    final isDarkMode = ref.watch(appThemeModeProvider) == ThemeMode.dark;
     final theme = Theme.of(context);
 
     final upcoming = ref.watch(fetchUpcomingTicketsUCProvider);

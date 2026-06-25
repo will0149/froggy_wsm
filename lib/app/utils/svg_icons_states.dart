@@ -25,7 +25,6 @@ class SvgIconsStates extends ConsumerStatefulWidget {
 class SvgIconsStatesState extends ConsumerState<SvgIconsStates> {
   @override
   Widget build(BuildContext context) {
-    var isDarkMode = ref.watch(appThemeProvider);
     return SvgPicture.asset(
       widget.isActive ? widget.activeImg : widget.inactiveImg,
       theme: widget.theme,

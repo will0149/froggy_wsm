@@ -1,10 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 06/22/25
- */
 part 'user_profile_dto.g.dart';
 
 @JsonSerializable(explicitToJson: true)
