@@ -70,6 +70,7 @@ dependencies:
     path: ../horizontal_scroll_item
   # WebView para pasarelas de pago web (Yappy Botón de Pago)
   webview_flutter: ^4.10.0
+  stack_trace: ^1.12.1
 
 dev_dependencies:
   flutter_test:
