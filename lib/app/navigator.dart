@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +10,7 @@ import 'package:parkea/app/widgets/exit_pop_scope.dart';
 import '../domain/providers/app_theme_provider.dart';
 import 'themes/colors/colors.dart';
 /*
-* Bottom navigation bar for Pentacle app
+* Bottom navigation bar for Parkea app
 *
 * */
 
@@ -28,12 +26,12 @@ class NavigatorBar extends ConsumerStatefulWidget {
   NavigatorBarState createState() => NavigatorBarState();
 }
 
-class NavigatorBarState extends ConsumerState<NavigatorBar>
-    with TickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> animation;
-  late CurvedAnimation curve;
-  double rotateAngle = 0;
+class NavigatorBarState extends ConsumerState<NavigatorBar> {
+  static const _navItems = [
+    ['assets/navbar/hogar_black.svg', 'assets/navbar/hogar.svg'],
+    ['assets/navbar/ticket_black.svg', 'assets/navbar/ticket.svg'],
+    ['assets/navbar/usuario_black.svg', 'assets/navbar/usuario.svg'],
+  ];
 
   @override
   void initState() {
@@ -43,28 +41,6 @@ class NavigatorBarState extends ConsumerState<NavigatorBar>
       systemNavigationBarIconBrightness: Brightness.light,
     );
     SystemChrome.setSystemUIOverlayStyle(systemTheme);
-
-    _animationController = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    );
-    curve = CurvedAnimation(
-      parent: _animationController,
-      curve: const Interval(
-        0.5,
-        1.0,
-        curve: Curves.fastOutSlowIn,
-      ),
-    );
-    animation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(curve);
-
-    Future.delayed(
-      const Duration(seconds: 1),
-      () => _animationController.forward(),
-    );
   }
 
   @override
@@ -74,18 +50,8 @@ class NavigatorBarState extends ConsumerState<NavigatorBar>
       child: Scaffold(
         extendBody: true,
         body: widget.navigationShell,
-        // floatingActionButton: FloatingActionButton(
-        //   backgroundColor: parkeaOrange,
-        //   splashColor: parkeaLightOrange,
-        //   onPressed: () {},
-        //   child: SvgIconsStates(
-        //       isActive: true,
-        //       activeImg: "assets/navbar/calendario_black.svg",
-        //       inactiveImg: "assets/navbar/calendario.svg"),
-        // ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-          itemCount: 3,
+          itemCount: _navItems.length,
           tabBuilder: (int index, bool isActive) {
             return navigationBody(index, isActive);
           },
@@ -113,23 +79,11 @@ class NavigatorBarState extends ConsumerState<NavigatorBar>
   }
 
   Widget getWidgetByPosition(int index, bool active) {
-    final navOptions = <Widget>[
-      SvgIconsStates(
-        isActive: active,
-        activeImg: "assets/navbar/hogar_black.svg",
-        inactiveImg: "assets/navbar/hogar.svg",
-      ),
-      SvgIconsStates(
-        isActive: active,
-        activeImg: "assets/navbar/ticket_black.svg",
-        inactiveImg: "assets/navbar/ticket.svg",
-      ),
-      SvgIconsStates(
-          isActive: active,
-          activeImg: "assets/navbar/usuario.svg",
-          inactiveImg: "assets/navbar/usuario_black.svg"),
-    ];
-    return navOptions.elementAt(index);
+    return SvgIconsStates(
+      isActive: active,
+      activeImg: _navItems[index][0],
+      inactiveImg: _navItems[index][1],
+    );
   }
 
   void _onTap(BuildContext context, int index) {
