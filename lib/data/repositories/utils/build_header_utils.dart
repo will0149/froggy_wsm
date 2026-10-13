@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 /// Made for parkea.
 /// By User: josedominguez
 /// Date: 06/14/25
@@ -7,8 +5,9 @@ import 'package:flutter/material.dart';
 abstract class BuildHeadersUtils {
   Future<Map<String, String>> headers();
   Future<String?> getToken();
-  Future<String?> getExpiration();
-  void saveTokenInStorage(String? token);
+  Future<String?> getRefreshToken();
+  Future<void> saveTokens({required String access, required String refresh});
+  /// true si hay un refresh token guardado que todavía no ha expirado.
   Future<bool> validateStorage();
-  void dropTemporalMemory();
+  Future<void> dropTemporalMemory();
 }

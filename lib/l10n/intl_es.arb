@@ -11,6 +11,8 @@
   "resetPassword": "Reestablecer Contraseña",
   "email": "Correo Electrónico",
   "password": "Contraseña",
+  "usernameOrEmail": "Usuario o correo",
+  "usernameOrEmailRequired": "Ingresa tu usuario o correo",
   "forgotPassword": "Olvide mi Contraseña",
   "name": "Nombre de usuario",
   "province": "Provincia",

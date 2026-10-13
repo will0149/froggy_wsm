@@ -10,6 +10,8 @@
   "signUp": "Sign Up",
   "email": "Email",
   "password": "Password",
+  "usernameOrEmail": "Username or email",
+  "usernameOrEmailRequired": "Enter your username or email",
   "resetPassword": "Reset Password",
   "forgotPassword": "I forgot my password",
   "name": "User Name",

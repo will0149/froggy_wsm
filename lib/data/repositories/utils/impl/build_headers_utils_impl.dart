@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../../device/utils/loggerConfig.dart';
@@ -9,6 +11,9 @@ import '../build_header_utils.dart';
 /// Date: 06/14/25
 
 class BuildHeadersUtilsImpl implements BuildHeadersUtils {
+  static const _accessKey = 'access_token';
+  static const _refreshKey = 'refresh_token';
+
   final storage = const FlutterSecureStorage(aOptions: AndroidOptions(
     encryptedSharedPreferences: true,
   ),);
@@ -18,57 +23,53 @@ class BuildHeadersUtilsImpl implements BuildHeadersUtils {
     Map<String, String> headers = {
       "Content-Type": "application/json",
     };
-    await getToken().then((value) {
-      if(value!.isNotEmpty) {
-        headers["Authorization"] = "Bearer $value";
-      }
-    });
+    final token = await getToken();
+    if (token != null && token.isNotEmpty) {
+      headers["Authorization"] = "Bearer $token";
+    }
     return headers;
   }
 
   @override
-  Future<String?> getToken() async {
-    final accessToken = await storage.read(key: 'access_token', aOptions: const AndroidOptions(
-      encryptedSharedPreferences: true,
-    ));
-    return accessToken;
-  }
+  Future<String?> getToken() => storage.read(key: _accessKey);
 
   @override
-  Future<String?> getExpiration() async{
-    return await storage.read(key: 'expire_time');
-  }
+  Future<String?> getRefreshToken() => storage.read(key: _refreshKey);
 
   @override
-  void saveTokenInStorage(String? token) async {
-    logger.i(token);
-    await storage.write(key: 'access_token', value: token);
-    await storage.write(key: 'expire_time', value: '${DateTime.now()}');
-    //
+  Future<void> saveTokens(
+      {required String access, required String refresh}) async {
+    await storage.write(key: _accessKey, value: access);
+    await storage.write(key: _refreshKey, value: refresh);
   }
 
   @override
   Future<bool> validateStorage() async {
-    bool valid = false;
-    final expireKey = await storage.containsKey(key: 'expire_time');
-    final tokenKey = await storage.containsKey(key: 'access_token');
-    if(expireKey && tokenKey){
-      final token = await getToken();
-      final expireTime = await getExpiration();
-      final today = DateTime.now();
-      valid = token!.isNotEmpty && today.day == DateTime.parse(expireTime!).day;
-      if(!valid){
-        // showWarningToast("La sesión a expirado!");
-        storage.deleteAll();
-      }
+    final refresh = await getRefreshToken();
+    final expiration = refresh == null ? null : _jwtExpiration(refresh);
+    final valid = expiration != null && expiration.isAfter(DateTime.now());
+    if (!valid) {
+      await storage.deleteAll();
     }
     logger.i('valid session $valid');
     return valid;
   }
 
   @override
-  void dropTemporalMemory() {
-    storage.deleteAll();
-  }
+  Future<void> dropTemporalMemory() => storage.deleteAll();
 
+  /// Lee el claim `exp` del JWT. No valida la firma; eso lo hace el API.
+  DateTime? _jwtExpiration(String token) {
+    try {
+      final parts = token.split('.');
+      if (parts.length != 3) return null;
+      final payload = jsonDecode(
+          utf8.decode(base64Url.decode(base64Url.normalize(parts[1]))));
+      final exp = payload['exp'];
+      if (exp is! int) return null;
+      return DateTime.fromMillisecondsSinceEpoch(exp * 1000);
+    } on FormatException {
+      return null;
+    }
+  }
 }

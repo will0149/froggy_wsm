@@ -69,6 +69,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "similarEvents": MessageLookupByLibrary.simpleMessage(
       "Événements similaires",
     ),
+    "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
+      "Nom d\'utilisateur ou e-mail",
+    ),
+    "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
+      "Saisis ton nom d\'utilisateur ou ton e-mail",
+    ),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage(
       "¡Bienvenue à nouveau!",
     ),

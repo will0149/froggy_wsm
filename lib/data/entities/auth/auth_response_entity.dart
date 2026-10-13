@@ -19,8 +19,7 @@ class AuthResponseEntity {
   @JsonKey(name: 'refresh_token')
   String? refreshToken;
 
-  AuthResponseEntity(
-      {this.token});
+  AuthResponseEntity({this.token, this.refreshToken});
 
   factory AuthResponseEntity.fromJson(Map<String, dynamic> json) =>
       _$AuthResponseEntityFromJson(json);

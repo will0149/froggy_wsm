@@ -11,6 +11,8 @@
   "resetPassword": "Reset Password",
   "email": "E-mail",
   "password": "Mot de passe",
+  "usernameOrEmail": "Nom d'utilisateur ou e-mail",
+  "usernameOrEmailRequired": "Saisis ton nom d'utilisateur ou ton e-mail",
   "forgotPassword": "Vous avez oublié le mot de passe?",
   "name": "Nom",
   "province": "Province",

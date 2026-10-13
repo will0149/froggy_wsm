@@ -61,6 +61,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "similarEvents": MessageLookupByLibrary.simpleMessage(
       "Подобные мероприятия",
     ),
+    "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
+      "Имя пользователя или эл. адрес",
+    ),
+    "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
+      "Введите имя пользователя или эл. адрес",
+    ),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage(
       "¡Добро пожаловать обратно!",
     ),

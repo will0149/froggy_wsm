@@ -20,13 +20,13 @@ class SignInForm extends ConsumerStatefulWidget {
 }
 
 class SignInFormState extends ConsumerState<SignInForm> {
-  var emailController = TextEditingController();
+  var identifierController = TextEditingController();
   var passwordController = TextEditingController();
   bool _isObscure = true;
 
   @override
   void dispose() {
-    emailController.dispose();
+    identifierController.dispose();
     passwordController.dispose();
     super.dispose();
   }
@@ -69,15 +69,16 @@ class SignInFormState extends ConsumerState<SignInForm> {
                 ?.copyWith(color: parkeaBlueAccent),
           ),
           TextFormField(
-            controller: emailController,
+            controller: identifierController,
+            keyboardType: TextInputType.emailAddress,
+            autocorrect: false,
             decoration: InputDecoration(
-              hintText: 'example@example.com',
-              labelText: S.of(context).email,
-              prefixIcon: const Icon(Icons.email),
+              labelText: S.of(context).usernameOrEmail,
+              prefixIcon: const Icon(Icons.person),
             ),
             validator: (value) {
-              if (value!.isEmpty) {
-                return 'Email most has a value';
+              if (value == null || value.trim().isEmpty) {
+                return S.of(context).usernameOrEmailRequired;
               } else {
                 return null;
               }
@@ -132,9 +133,9 @@ class SignInFormState extends ConsumerState<SignInForm> {
                         if (isValid) {
                           await ref
                               .read(restAuthUCProvider.notifier)
-                              .signIn(LoginDTO(
-                                email: emailController.value.text,
-                                password: passwordController.value.text,
+                              .signIn(LoginDTO.fromIdentifier(
+                                identifierController.value.text,
+                                passwordController.value.text,
                               ),);
                         }
                       },

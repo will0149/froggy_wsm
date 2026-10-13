@@ -194,7 +194,9 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
               return AuthPage.routeLocation;
             case AuthStatus.error:
               if (kDebugMode) logger.i('error');
-              return LoginPage.routeLocation;
+              // El formulario muestra el error; se queda en la pantalla actual.
+              if (isLoginRoute || isRegisterRoute) return null;
+              return '$authBase/${LoginPage.routeLocation}';
           }
         },
         error: (error, stack) {

@@ -149,6 +149,26 @@ class S {
     return Intl.message('Contraseña', name: 'password', desc: '', args: []);
   }
 
+  /// `Usuario o correo`
+  String get usernameOrEmail {
+    return Intl.message(
+      'Usuario o correo',
+      name: 'usernameOrEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ingresa tu usuario o correo`
+  String get usernameOrEmailRequired {
+    return Intl.message(
+      'Ingresa tu usuario o correo',
+      name: 'usernameOrEmailRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Olvide mi Contraseña`
   String get forgotPassword {
     return Intl.message(

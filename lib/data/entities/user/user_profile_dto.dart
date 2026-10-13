@@ -18,7 +18,7 @@ class UserProfileDTO {
   String? bio;
   @JsonKey(name: 'link')
   String? link;
-  @JsonKey(name: 'userType')
+  @JsonKey(name: 'user_type')
   int? userType;
 
   UserProfileDTO(

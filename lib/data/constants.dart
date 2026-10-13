@@ -7,7 +7,7 @@
 
 const timeOutSecs = 8;
 
-const defaultTimeOutResponse = {"status": {"code": 408}};
+const defaultTimeOutResponse = {"status": 408, "body": null};
 
 const eventsPath = "assets/samples/parkea-events.json";
 const usersPath = "assets/samples/parkea-users.json";

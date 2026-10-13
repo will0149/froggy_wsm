@@ -51,6 +51,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings": MessageLookupByLibrary.simpleMessage("設置"),
     "signUp": MessageLookupByLibrary.simpleMessage("報名"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("類似事件"),
+    "usernameOrEmail": MessageLookupByLibrary.simpleMessage("使用者名稱或電子郵件"),
+    "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
+      "請輸入使用者名稱或電子郵件",
+    ),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage("¡歡迎回來!"),
   };
 }

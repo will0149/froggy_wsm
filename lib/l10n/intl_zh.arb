@@ -11,6 +11,8 @@
   "resetPassword": "Reset Password",
   "email": "電子郵件",
   "password": "密碼",
+  "usernameOrEmail": "使用者名稱或電子郵件",
+  "usernameOrEmailRequired": "請輸入使用者名稱或電子郵件",
   "forgotPassword": "我忘記了我的密碼",
   "name": "名稱",
   "province": "省",
