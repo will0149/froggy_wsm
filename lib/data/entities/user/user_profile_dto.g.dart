@@ -15,7 +15,7 @@ UserProfileDTO _$UserProfileDTOFromJson(Map<String, dynamic> json) =>
       avatar: json['avatar'] as String?,
       bio: json['bio'] as String?,
       link: json['link'] as String?,
-      userType: (json['user_type'] as num?)?.toInt(),
+      userType: json['user_type'] as String?,
     );
 
 Map<String, dynamic> _$UserProfileDTOToJson(UserProfileDTO instance) =>

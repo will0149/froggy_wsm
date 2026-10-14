@@ -3,14 +3,14 @@ import 'package:parkea/app/utils/event_format.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
 
 void main() {
-  test('formato del API: id int, cost_type int, price y currency', () {
+  test('formato del API: id int, price y currency', () {
     final event = EventDTO.fromJson({
       'id': 4,
       'owner': 'admin',
       'name': 'Summer Music Festival 2025',
       'event_date': '2025-07-15T18:00:00Z',
-      'cost_type': 1,
-      'category': 0,
+      'cost_type': 'PAID',
+      'category': 'MUSIC',
       'price': '45.0000',
       'currency': 'EUR',
       'place': 'Central Park',
@@ -19,7 +19,8 @@ void main() {
     });
 
     expect(event.id, '4');
-    expect(event.eventType, 'PAYED');
+    expect(event.eventType, 'PAID');
+    expect(event.category, 'MUSIC');
     expect(event.amount?.currency, 'EUR');
     expect(event.location?.place, 'Central Park');
     expect(event.availableSpots, 3);

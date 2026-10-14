@@ -12,7 +12,7 @@ EventDTO _$EventDTOFromJson(Map<String, dynamic> json) => EventDTO(
       shortDescription: json['short_description'] as String?,
       description: json['description'] as String?,
       date: json['event_date'] as String?,
-      eventType: EventDTO._costTypeFromJson(json['cost_type']),
+      eventType: json['cost_type'] as String?,
       eventOwner: json['owner'] as String?,
       amount: EventDTO._readAmount(json, 'amount') == null
           ? null
@@ -24,7 +24,7 @@ EventDTO _$EventDTOFromJson(Map<String, dynamic> json) => EventDTO(
           ? null
           : LocationDTO.fromJson(
               EventDTO._readLocation(json, 'location') as Map<String, dynamic>),
-      category: (json['category'] as num?)?.toInt(),
+      category: json['category'] as String?,
       capacity: (json['capacity'] as num?)?.toInt(),
       availableSpots: (json['available_spots'] as num?)?.toInt(),
     );

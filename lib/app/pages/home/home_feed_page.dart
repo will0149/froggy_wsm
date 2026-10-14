@@ -27,11 +27,13 @@ class HomeFeedPage extends ConsumerStatefulWidget {
 }
 
 class OnboardingPageState extends ConsumerState<HomeFeedPage> {
-  /// En el orden de `category` del API (0 Música…); "All" es sin filtro.
   final titles = ["All", "Música", "Camping", "Aventura", "Talleres"];
+
+  /// `category` del API para cada título; "All" (null) es sin filtro.
+  static const _categories = [null, 'MUSIC', 'CAMPING', 'ADVENTURE', 'WORKSHOPS'];
   final TextEditingController searchBarController = TextEditingController();
 
-  int? _category;
+  String? _category;
 
   @override
   void dispose() {
@@ -49,7 +51,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
 
   void _onCategory(String title) {
     final index = titles.indexOf(title);
-    setState(() => _category = index <= 0 ? null : index - 1);
+    setState(() => _category = index < 0 ? null : _categories[index]);
   }
 
   @override

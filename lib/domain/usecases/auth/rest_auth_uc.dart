@@ -138,7 +138,8 @@ class RestAuthUC extends _$RestAuthUC {
       if (result['status'] == 200 && body is Map<String, dynamic>) {
         return UserProfileDTO.fromJson(body);
       }
-    } on Exception catch (e, stackTrace) {
+    } catch (e, stackTrace) {
+      // También errores de parseo: un perfil ilegible equivale a no tenerlo.
       logger.e(e.toString());
       logger.e(stackTrace);
     }

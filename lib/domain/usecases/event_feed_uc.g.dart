@@ -9,19 +9,19 @@ part of 'event_feed_uc.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (0 Música, 1 Camping, 2 Aventura, 3 Talleres; null todas).
+/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas).
 
 @ProviderFor(EventFeedUC)
 const eventFeedUCProvider = EventFeedUCFamily._();
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (0 Música, 1 Camping, 2 Aventura, 3 Talleres; null todas).
+/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas).
 final class EventFeedUCProvider
     extends $AsyncNotifierProvider<EventFeedUC, EventFeedState> {
   /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-  /// por [category] (0 Música, 1 Camping, 2 Aventura, 3 Talleres; null todas).
+  /// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas).
   const EventFeedUCProvider._(
-      {required EventFeedUCFamily super.from, required int? super.argument})
+      {required EventFeedUCFamily super.from, required String? super.argument})
       : super(
           retry: null,
           name: r'eventFeedUCProvider',
@@ -55,15 +55,15 @@ final class EventFeedUCProvider
   }
 }
 
-String _$eventFeedUCHash() => r'ecc3e5418483609d657d41cebbc53381b7b48c41';
+String _$eventFeedUCHash() => r'fb1a94547aee88a7f8c085181aebd207c9a965b3';
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (0 Música, 1 Camping, 2 Aventura, 3 Talleres; null todas).
+/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas).
 
 final class EventFeedUCFamily extends $Family
     with
         $ClassFamilyOverride<EventFeedUC, AsyncValue<EventFeedState>,
-            EventFeedState, FutureOr<EventFeedState>, int?> {
+            EventFeedState, FutureOr<EventFeedState>, String?> {
   const EventFeedUCFamily._()
       : super(
           retry: null,
@@ -74,10 +74,10 @@ final class EventFeedUCFamily extends $Family
         );
 
   /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-  /// por [category] (0 Música, 1 Camping, 2 Aventura, 3 Talleres; null todas).
+  /// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas).
 
   EventFeedUCProvider call(
-    int? category,
+    String? category,
   ) =>
       EventFeedUCProvider._(argument: category, from: this);
 
@@ -86,14 +86,14 @@ final class EventFeedUCFamily extends $Family
 }
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (0 Música, 1 Camping, 2 Aventura, 3 Talleres; null todas).
+/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas).
 
 abstract class _$EventFeedUC extends $AsyncNotifier<EventFeedState> {
-  late final _$args = ref.$arg as int?;
-  int? get category => _$args;
+  late final _$args = ref.$arg as String?;
+  String? get category => _$args;
 
   FutureOr<EventFeedState> build(
-    int? category,
+    String? category,
   );
   @$mustCallSuper
   @override

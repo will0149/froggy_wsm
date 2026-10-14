@@ -46,13 +46,13 @@ class EventFeedState {
 }
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (0 Música, 1 Camping, 2 Aventura, 3 Talleres; null todas).
+/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas).
 @riverpod
 class EventFeedUC extends _$EventFeedUC {
   final EventRepository repository = EventRepository();
 
   @override
-  Future<EventFeedState> build(int? category) async {
+  Future<EventFeedState> build(String? category) async {
     final page = await _fetchPage(1);
     return EventFeedState(events: page.events, nextPage: page.nextPage);
   }

@@ -8,13 +8,10 @@ import 'location_dto.dart';
 /// Date: 07/01/22
 part 'event_dto.g.dart';
 
-/// Acepta el formato del API (`id` int, `cost_type` int, `price`, `place`) y
-/// el de los mocks (`amount`, `location`), que aún usan otras pantallas.
+/// Acepta el formato del API (`id` int, `price`, `currency`, `place`) y el
+/// de los mocks (`amount`, `location`), que aún usan otras pantallas.
 @JsonSerializable(explicitToJson: true)
 class EventDTO {
-  /// Valores de `cost_type` en el API, en orden.
-  static const costTypes = ['FREE', 'PAYED', 'INVITATION', 'PRIVATE'];
-
   @JsonKey(name: 'id', fromJson: _idFromJson)
   final String? id;
   @JsonKey(name: 'name')
@@ -25,8 +22,8 @@ class EventDTO {
   final String? description;
   @JsonKey(name: 'event_date')
   final String? date;
-  /// FREE, PAYED, INVITATION o PRIVATE.
-  @JsonKey(name: 'cost_type', fromJson: _costTypeFromJson)
+  /// FREE, PAID, INVITATION o PRIVATE.
+  @JsonKey(name: 'cost_type')
   final String? eventType;
   @JsonKey(name: 'owner')
   final String? eventOwner;
@@ -39,9 +36,9 @@ class EventDTO {
   @JsonKey(name: 'location', readValue: _readLocation)
   final LocationDTO? location;
 
-  /// 0 MUSIC, 1 CAMPING, 2 ADVENTURE, 3 WORKSHOPS; null en eventos antiguos.
+  /// MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null si no tiene.
   @JsonKey(name: 'category')
-  final int? category;
+  final String? category;
 
   /// null = sin límite de cupo.
   @JsonKey(name: 'capacity')
@@ -70,13 +67,6 @@ class EventDTO {
   Map<String, dynamic> toJson() => _$EventDTOToJson(this);
 
   static String? _idFromJson(Object? value) => value?.toString();
-
-  static String? _costTypeFromJson(Object? value) => switch (value) {
-        int index when index >= 0 && index < costTypes.length =>
-          costTypes[index],
-        null => null,
-        _ => value.toString(),
-      };
 
   /// El API manda `price` ("45.0000") y `currency` (ISO 4217) por separado.
   static Object? _readAmount(Map json, String key) =>

@@ -36,11 +36,11 @@ class EventRepository {
 
   /// Página [page] (desde 1) del feed, más recientes primero. `body`:
   /// `{count, next, previous, results}`; fuera de rango responde 404.
-  Future<Map<String, dynamic>> fetchEventsPage(int page, {int? category}) =>
+  Future<Map<String, dynamic>> fetchEventsPage(int page, {String? category}) =>
       apiClient.getAuthorized(ApiPathsEnums.events.uri.replace(
         queryParameters: {
           'page': '$page',
-          if (category != null) 'category': '$category',
+          if (category != null) 'category': category,
         },
       ));
 

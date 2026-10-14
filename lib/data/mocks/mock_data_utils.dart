@@ -42,7 +42,7 @@ class MockDataUtils {
           "short_description":
               "Annual outdoor music festival with live bands and food",
           "event_date": "2025-07-15T18:00:00Z",
-          "cost_type": "PAYED",
+          "cost_type": "PAID",
           "privacy_type": "PRIVATE",
           "price": "45.00",
           "amount": {"price": "45.00", "currency": "USD"},
@@ -128,7 +128,7 @@ class MockDataUtils {
             "https://numwo-media.s3.amazonaws.com/profiles/moneda-antigua-50.jpg",
         "bio": "Dedicated Entrepreneur",
         "link": "https://www.example.com.pa/",
-        "user_type": 0
+        "user_type": "PERSON"
       }
     };
   }
@@ -345,7 +345,7 @@ class MockDataUtils {
           "short_description":
               "Annual outdoor music festival with live bands and food",
           "event_date": "2025-07-15T18:00:00Z",
-          "cost_type": "PAYED",
+          "cost_type": "PAID",
           "privacy_type": "PRIVATE",
           "price": "45.00",
           "amount": {"price": "45.00", "currency": "USD"},
