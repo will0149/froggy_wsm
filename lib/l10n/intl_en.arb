@@ -60,5 +60,74 @@
         "type": "int"
       }
     }
+  },
+  "navHome": "Home",
+  "navTickets": "Tickets",
+  "navProfile": "Profile",
+  "createEvent": "Create event",
+  "upcomingTicketsCount": "{count} upcoming tickets",
+  "myTickets": "My Tickets",
+  "ticketsUpcoming": "Upcoming",
+  "ticketsPast": "Past",
+  "downloadTicket": "Download ticket",
+  "@upcomingTicketsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "eventName": "Event name",
+  "eventShortDescription": "Short description",
+  "eventDescription": "Description",
+  "eventDateTime": "Date and time",
+  "eventPlace": "Place",
+  "eventCategory": "Category",
+  "categoryNone": "No category",
+  "catMusic": "Music",
+  "catCamping": "Camping",
+  "catAdventure": "Adventure",
+  "catWorkshops": "Workshops",
+  "costType": "Access type",
+  "costPaid": "Paid",
+  "eventPrice": "Price",
+  "eventCurrency": "Currency",
+  "eventCapacity": "Capacity",
+  "capacityHint": "Empty = no limit",
+  "addBanner": "Add image",
+  "changeBanner": "Change image",
+  "publishEvent": "Publish event",
+  "eventCreated": "Event created",
+  "bannerUploadFailed": "The event was created, but the image couldn't be uploaded",
+  "dateMustBeFuture": "The date must be in the future",
+  "pricePositive": "Price must be greater than 0",
+  "invalidCurrency": "Use a 3-letter code, e.g. USD",
+  "invalidNumber": "Invalid number",
+  "myEventsEnrolled": "Enrolled",
+  "noOwnEvents": "You haven't created any events yet",
+  "noEnrolledEvents": "You aren't enrolled in any event",
+  "noUpcomingTickets": "No upcoming tickets",
+  "noPastTickets": "No past tickets",
+  "ticketNumber": "Ticket #{id}",
+  "enrolledOn": "Enrolled on {date}",
+  "viewEvent": "View event",
+  "cancelTicket": "Cancel enrollment",
+  "cancelTicketConfirm": "Are you sure you want to cancel your enrollment?",
+  "keepTicket": "Keep",
+  "ticketCancelled": "Enrollment cancelled",
+  "ticketsLoadError": "Couldn't load tickets",
+  "@ticketNumber": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "@enrolledOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   }
 }

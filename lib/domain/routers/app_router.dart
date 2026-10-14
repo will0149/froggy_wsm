@@ -15,6 +15,7 @@ import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 import '../../app/navigator.dart';
 import '../../app/pages/auth/splash_screen.dart';
 import '../../app/pages/auth/welcome_slide_page.dart';
+import '../../app/pages/event/create_event_page.dart';
 import '../../app/pages/event/event_detail_page.dart';
 import '../../app/pages/event/ticket_purchase_page.dart';
 import '../../app/pages/home/home_feed_page.dart';
@@ -84,6 +85,13 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
             builder: (context, state) => const SplashScreen(),
           ),
         ],
+      ),
+      // A pantalla completa, sin la barra inferior.
+      GoRoute(
+        name: CreateEventPage.routeName,
+        path: CreateEventPage.routeLocation,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const CreateEventPage(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>

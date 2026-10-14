@@ -20,24 +20,69 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'de';
 
-  static String m0(count) => "${count} Plätze frei";
+  static String m0(date) => "Angemeldet am ${date}";
+
+  static String m1(count) => "${count} Plätze frei";
+
+  static String m2(id) => "Ticket #${id}";
+
+  static String m3(count) => "${count} anstehende Tickets";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "addBanner": MessageLookupByLibrary.simpleMessage("Bild hinzufügen"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Authentifizieren"),
+    "bannerUploadFailed": MessageLookupByLibrary.simpleMessage(
+      "Das Event wurde erstellt, aber das Bild konnte nicht hochgeladen werden",
+    ),
     "buyTicket": MessageLookupByLibrary.simpleMessage("kauf ein Ticket"),
+    "cancelTicket": MessageLookupByLibrary.simpleMessage(
+      "Anmeldung stornieren",
+    ),
+    "cancelTicketConfirm": MessageLookupByLibrary.simpleMessage(
+      "Möchtest du deine Anmeldung wirklich stornieren?",
+    ),
+    "capacityHint": MessageLookupByLibrary.simpleMessage("Leer = unbegrenzt"),
+    "catAdventure": MessageLookupByLibrary.simpleMessage("Abenteuer"),
+    "catCamping": MessageLookupByLibrary.simpleMessage("Camping"),
+    "catMusic": MessageLookupByLibrary.simpleMessage("Musik"),
+    "catWorkshops": MessageLookupByLibrary.simpleMessage("Workshops"),
+    "categoryNone": MessageLookupByLibrary.simpleMessage("Keine Kategorie"),
+    "changeBanner": MessageLookupByLibrary.simpleMessage("Bild ändern"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Passwort ändern"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Passwort bestätigen",
     ),
     "costFree": MessageLookupByLibrary.simpleMessage("Kostenlos"),
     "costInvitation": MessageLookupByLibrary.simpleMessage("Mit Einladung"),
+    "costPaid": MessageLookupByLibrary.simpleMessage("Kostenpflichtig"),
     "costPrivate": MessageLookupByLibrary.simpleMessage("Privat"),
+    "costType": MessageLookupByLibrary.simpleMessage("Zugangsart"),
+    "createEvent": MessageLookupByLibrary.simpleMessage("Event erstellen"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
       "Daten und Privatsphäre",
     ),
+    "dateMustBeFuture": MessageLookupByLibrary.simpleMessage(
+      "Das Datum muss in der Zukunft liegen",
+    ),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studien"),
+    "downloadTicket": MessageLookupByLibrary.simpleMessage(
+      "Ticket herunterladen",
+    ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "enrolledOn": m0,
+    "eventCapacity": MessageLookupByLibrary.simpleMessage("Kapazität"),
+    "eventCategory": MessageLookupByLibrary.simpleMessage("Kategorie"),
+    "eventCreated": MessageLookupByLibrary.simpleMessage("Event erstellt"),
+    "eventCurrency": MessageLookupByLibrary.simpleMessage("Währung"),
+    "eventDateTime": MessageLookupByLibrary.simpleMessage("Datum und Uhrzeit"),
+    "eventDescription": MessageLookupByLibrary.simpleMessage("Beschreibung"),
+    "eventName": MessageLookupByLibrary.simpleMessage("Eventname"),
+    "eventPlace": MessageLookupByLibrary.simpleMessage("Ort"),
+    "eventPrice": MessageLookupByLibrary.simpleMessage("Preis"),
+    "eventShortDescription": MessageLookupByLibrary.simpleMessage(
+      "Kurzbeschreibung",
+    ),
     "eventsForAll": MessageLookupByLibrary.simpleMessage(
       "Veranstaltungen für alle",
     ),
@@ -60,19 +105,41 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ich habe bereits einen Link",
     ),
     "information": MessageLookupByLibrary.simpleMessage("Information"),
+    "invalidCurrency": MessageLookupByLibrary.simpleMessage(
+      "Nutze einen 3-Buchstaben-Code, z. B. USD",
+    ),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "Ungültige E-Mail-Adresse",
     ),
+    "invalidNumber": MessageLookupByLibrary.simpleMessage("Ungültige Zahl"),
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
       "Tritt unserem Universum bei",
     ),
+    "keepTicket": MessageLookupByLibrary.simpleMessage("Behalten"),
     "login": MessageLookupByLibrary.simpleMessage("Einloggen"),
     "logout": MessageLookupByLibrary.simpleMessage("Ausloggen"),
     "myEvents": MessageLookupByLibrary.simpleMessage("Veranstaltungen"),
+    "myEventsEnrolled": MessageLookupByLibrary.simpleMessage("Angemeldet"),
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Bezahlt"),
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Gerettet"),
+    "myTickets": MessageLookupByLibrary.simpleMessage("Meine Tickets"),
     "name": MessageLookupByLibrary.simpleMessage("Name"),
+    "navHome": MessageLookupByLibrary.simpleMessage("Start"),
+    "navProfile": MessageLookupByLibrary.simpleMessage("Profil"),
+    "navTickets": MessageLookupByLibrary.simpleMessage("Tickets"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Neues Passwort"),
+    "noEnrolledEvents": MessageLookupByLibrary.simpleMessage(
+      "Du bist für kein Event angemeldet",
+    ),
+    "noOwnEvents": MessageLookupByLibrary.simpleMessage(
+      "Du hast noch keine Events erstellt",
+    ),
+    "noPastTickets": MessageLookupByLibrary.simpleMessage(
+      "Keine vergangenen Tickets",
+    ),
+    "noUpcomingTickets": MessageLookupByLibrary.simpleMessage(
+      "Keine anstehenden Tickets",
+    ),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage(
       "Parkea und teilen!",
     ),
@@ -99,7 +166,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "popularEvents": MessageLookupByLibrary.simpleMessage(
       "beliebte Veranstaltungen",
     ),
+    "pricePositive": MessageLookupByLibrary.simpleMessage(
+      "Der Preis muss größer als 0 sein",
+    ),
     "province": MessageLookupByLibrary.simpleMessage("Provinz"),
+    "publishEvent": MessageLookupByLibrary.simpleMessage(
+      "Event veröffentlichen",
+    ),
     "register": MessageLookupByLibrary.simpleMessage("Anmelden"),
     "resetEmailSent": MessageLookupByLibrary.simpleMessage(
       "Wenn die E-Mail registriert ist, haben wir dir einen Link zum Zurücksetzen des Passworts gesendet",
@@ -116,13 +189,24 @@ class MessageLookup extends MessageLookupByLibrary {
       "ähnliche Veranstaltungen",
     ),
     "soldOut": MessageLookupByLibrary.simpleMessage("Ausverkauft"),
-    "spotsLeft": m0,
+    "spotsLeft": m1,
+    "ticketCancelled": MessageLookupByLibrary.simpleMessage(
+      "Anmeldung storniert",
+    ),
+    "ticketNumber": m2,
+    "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
+      "Tickets konnten nicht geladen werden",
+    ),
+    "ticketsPast": MessageLookupByLibrary.simpleMessage("Vergangen"),
+    "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Anstehend"),
+    "upcomingTicketsCount": m3,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Benutzername oder E-Mail",
     ),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "Gib deinen Benutzernamen oder deine E-Mail ein",
     ),
+    "viewEvent": MessageLookupByLibrary.simpleMessage("Event ansehen"),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage("¡Willkommen zurück!"),
   };
 }

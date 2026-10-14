@@ -47,7 +47,9 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        // La barra inferior se dibuja sobre el body (extendBody).
+        padding: EdgeInsets.fromLTRB(
+            16, 16, 16, 16 + MediaQuery.paddingOf(context).bottom),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

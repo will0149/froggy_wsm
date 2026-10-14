@@ -45,6 +45,8 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Parkea usa tus fotos para la imagen de los eventos que creas.</string>
 	<key>NSAppTransportSecurity</key>
     <dict>
         <key>NSAllowsLocalNetworking</key>

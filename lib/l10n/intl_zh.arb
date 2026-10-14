@@ -60,5 +60,74 @@
         "type": "int"
       }
     }
+  },
+  "navHome": "首頁",
+  "navTickets": "票券",
+  "navProfile": "個人檔案",
+  "createEvent": "建立活動",
+  "upcomingTicketsCount": "{count} 張即將到來的票券",
+  "myTickets": "我的票券",
+  "ticketsUpcoming": "即將到來",
+  "ticketsPast": "已結束",
+  "downloadTicket": "下載票券",
+  "@upcomingTicketsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "eventName": "活動名稱",
+  "eventShortDescription": "簡短描述",
+  "eventDescription": "描述",
+  "eventDateTime": "日期和時間",
+  "eventPlace": "地點",
+  "eventCategory": "類別",
+  "categoryNone": "無類別",
+  "catMusic": "音樂",
+  "catCamping": "露營",
+  "catAdventure": "冒險",
+  "catWorkshops": "工作坊",
+  "costType": "入場方式",
+  "costPaid": "付費",
+  "eventPrice": "價格",
+  "eventCurrency": "貨幣",
+  "eventCapacity": "名額",
+  "capacityHint": "留空 = 不限",
+  "addBanner": "新增圖片",
+  "changeBanner": "更換圖片",
+  "publishEvent": "發布活動",
+  "eventCreated": "活動已建立",
+  "bannerUploadFailed": "活動已建立，但圖片無法上傳",
+  "dateMustBeFuture": "日期必須是未來時間",
+  "pricePositive": "價格必須大於 0",
+  "invalidCurrency": "請使用 3 個字母的代碼，例如 USD",
+  "invalidNumber": "數字無效",
+  "myEventsEnrolled": "已報名",
+  "noOwnEvents": "你還沒有建立任何活動",
+  "noEnrolledEvents": "你沒有報名任何活動",
+  "noUpcomingTickets": "沒有即將到來的票券",
+  "noPastTickets": "沒有過去的票券",
+  "ticketNumber": "票券 #{id}",
+  "enrolledOn": "報名於 {date}",
+  "viewEvent": "查看活動",
+  "cancelTicket": "取消報名",
+  "cancelTicketConfirm": "確定要取消報名嗎？",
+  "keepTicket": "保留",
+  "ticketCancelled": "已取消報名",
+  "ticketsLoadError": "無法載入票券",
+  "@ticketNumber": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "@enrolledOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   }
 }

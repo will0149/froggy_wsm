@@ -20,21 +20,54 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh';
 
-  static String m0(count) => "剩餘 ${count} 個名額";
+  static String m0(date) => "報名於 ${date}";
+
+  static String m1(count) => "剩餘 ${count} 個名額";
+
+  static String m2(id) => "票券 #${id}";
+
+  static String m3(count) => "${count} 張即將到來的票券";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "addBanner": MessageLookupByLibrary.simpleMessage("新增圖片"),
     "authenticate": MessageLookupByLibrary.simpleMessage("进行身份验证"),
+    "bannerUploadFailed": MessageLookupByLibrary.simpleMessage("活動已建立，但圖片無法上傳"),
     "buyTicket": MessageLookupByLibrary.simpleMessage("买车票"),
+    "cancelTicket": MessageLookupByLibrary.simpleMessage("取消報名"),
+    "cancelTicketConfirm": MessageLookupByLibrary.simpleMessage("確定要取消報名嗎？"),
+    "capacityHint": MessageLookupByLibrary.simpleMessage("留空 = 不限"),
+    "catAdventure": MessageLookupByLibrary.simpleMessage("冒險"),
+    "catCamping": MessageLookupByLibrary.simpleMessage("露營"),
+    "catMusic": MessageLookupByLibrary.simpleMessage("音樂"),
+    "catWorkshops": MessageLookupByLibrary.simpleMessage("工作坊"),
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
+    "categoryNone": MessageLookupByLibrary.simpleMessage("無類別"),
+    "changeBanner": MessageLookupByLibrary.simpleMessage("更換圖片"),
     "changePassword": MessageLookupByLibrary.simpleMessage("變更密碼"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("確認密碼"),
     "costFree": MessageLookupByLibrary.simpleMessage("免費"),
     "costInvitation": MessageLookupByLibrary.simpleMessage("受邀參加"),
+    "costPaid": MessageLookupByLibrary.simpleMessage("付費"),
     "costPrivate": MessageLookupByLibrary.simpleMessage("私人"),
+    "costType": MessageLookupByLibrary.simpleMessage("入場方式"),
+    "createEvent": MessageLookupByLibrary.simpleMessage("建立活動"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage("數據和隱私"),
+    "dateMustBeFuture": MessageLookupByLibrary.simpleMessage("日期必須是未來時間"),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
+    "downloadTicket": MessageLookupByLibrary.simpleMessage("下載票券"),
     "email": MessageLookupByLibrary.simpleMessage("電子郵件"),
+    "enrolledOn": m0,
+    "eventCapacity": MessageLookupByLibrary.simpleMessage("名額"),
+    "eventCategory": MessageLookupByLibrary.simpleMessage("類別"),
+    "eventCreated": MessageLookupByLibrary.simpleMessage("活動已建立"),
+    "eventCurrency": MessageLookupByLibrary.simpleMessage("貨幣"),
+    "eventDateTime": MessageLookupByLibrary.simpleMessage("日期和時間"),
+    "eventDescription": MessageLookupByLibrary.simpleMessage("描述"),
+    "eventName": MessageLookupByLibrary.simpleMessage("活動名稱"),
+    "eventPlace": MessageLookupByLibrary.simpleMessage("地點"),
+    "eventPrice": MessageLookupByLibrary.simpleMessage("價格"),
+    "eventShortDescription": MessageLookupByLibrary.simpleMessage("簡短描述"),
     "eventsForAll": MessageLookupByLibrary.simpleMessage("適合所有人的活動"),
     "eventsForYou": MessageLookupByLibrary.simpleMessage("為你推薦的活動"),
     "feedEmpty": MessageLookupByLibrary.simpleMessage("目前還沒有活動"),
@@ -45,15 +78,29 @@ class MessageLookup extends MessageLookupByLibrary {
     "getHelp": MessageLookupByLibrary.simpleMessage("救命"),
     "haveResetLink": MessageLookupByLibrary.simpleMessage("我已經有連結"),
     "information": MessageLookupByLibrary.simpleMessage("信息"),
+    "invalidCurrency": MessageLookupByLibrary.simpleMessage(
+      "請使用 3 個字母的代碼，例如 USD",
+    ),
     "invalidEmail": MessageLookupByLibrary.simpleMessage("電子郵件地址無效"),
+    "invalidNumber": MessageLookupByLibrary.simpleMessage("數字無效"),
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage("加入我們的宇宙"),
+    "keepTicket": MessageLookupByLibrary.simpleMessage("保留"),
     "login": MessageLookupByLibrary.simpleMessage("登錄"),
     "logout": MessageLookupByLibrary.simpleMessage("登出"),
     "myEvents": MessageLookupByLibrary.simpleMessage("事件"),
+    "myEventsEnrolled": MessageLookupByLibrary.simpleMessage("已報名"),
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("有薪酬的"),
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("已保存"),
+    "myTickets": MessageLookupByLibrary.simpleMessage("我的票券"),
     "name": MessageLookupByLibrary.simpleMessage("名稱"),
+    "navHome": MessageLookupByLibrary.simpleMessage("首頁"),
+    "navProfile": MessageLookupByLibrary.simpleMessage("個人檔案"),
+    "navTickets": MessageLookupByLibrary.simpleMessage("票券"),
     "newPassword": MessageLookupByLibrary.simpleMessage("新密碼"),
+    "noEnrolledEvents": MessageLookupByLibrary.simpleMessage("你沒有報名任何活動"),
+    "noOwnEvents": MessageLookupByLibrary.simpleMessage("你還沒有建立任何活動"),
+    "noPastTickets": MessageLookupByLibrary.simpleMessage("沒有過去的票券"),
+    "noUpcomingTickets": MessageLookupByLibrary.simpleMessage("沒有即將到來的票券"),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage("Parkea & Comparte"),
     "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
     "password": MessageLookupByLibrary.simpleMessage("密碼"),
@@ -68,7 +115,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage("密碼不一致"),
     "popularEvents": MessageLookupByLibrary.simpleMessage("流行的事件"),
+    "pricePositive": MessageLookupByLibrary.simpleMessage("價格必須大於 0"),
     "province": MessageLookupByLibrary.simpleMessage("省"),
+    "publishEvent": MessageLookupByLibrary.simpleMessage("發布活動"),
     "register": MessageLookupByLibrary.simpleMessage("報名"),
     "resetEmailSent": MessageLookupByLibrary.simpleMessage(
       "如果此電子郵件已註冊，我們已寄送重設密碼的連結",
@@ -81,11 +130,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "signUp": MessageLookupByLibrary.simpleMessage("報名"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("類似事件"),
     "soldOut": MessageLookupByLibrary.simpleMessage("已額滿"),
-    "spotsLeft": m0,
+    "spotsLeft": m1,
+    "ticketCancelled": MessageLookupByLibrary.simpleMessage("已取消報名"),
+    "ticketNumber": m2,
+    "ticketsLoadError": MessageLookupByLibrary.simpleMessage("無法載入票券"),
+    "ticketsPast": MessageLookupByLibrary.simpleMessage("已結束"),
+    "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("即將到來"),
+    "upcomingTicketsCount": m3,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("使用者名稱或電子郵件"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "請輸入使用者名稱或電子郵件",
     ),
+    "viewEvent": MessageLookupByLibrary.simpleMessage("查看活動"),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage("¡歡迎回來!"),
   };
 }

@@ -239,9 +239,9 @@ class S {
     return Intl.message('Pagos', name: 'myEventsPaid', desc: '', args: []);
   }
 
-  /// `Gardados`
+  /// `Guardados`
   String get myEventsSaved {
-    return Intl.message('Gardados', name: 'myEventsSaved', desc: '', args: []);
+    return Intl.message('Guardados', name: 'myEventsSaved', desc: '', args: []);
   }
 
   /// `Información`
@@ -494,6 +494,396 @@ class S {
     return Intl.message(
       'Ya viste todos los eventos',
       name: 'feedEnd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Inicio`
+  String get navHome {
+    return Intl.message('Inicio', name: 'navHome', desc: '', args: []);
+  }
+
+  /// `Tickets`
+  String get navTickets {
+    return Intl.message('Tickets', name: 'navTickets', desc: '', args: []);
+  }
+
+  /// `Perfil`
+  String get navProfile {
+    return Intl.message('Perfil', name: 'navProfile', desc: '', args: []);
+  }
+
+  /// `Crear evento`
+  String get createEvent {
+    return Intl.message(
+      'Crear evento',
+      name: 'createEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count} tickets próximos`
+  String upcomingTicketsCount(int count) {
+    return Intl.message(
+      '$count tickets próximos',
+      name: 'upcomingTicketsCount',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Mis Tickets`
+  String get myTickets {
+    return Intl.message('Mis Tickets', name: 'myTickets', desc: '', args: []);
+  }
+
+  /// `Próximos`
+  String get ticketsUpcoming {
+    return Intl.message(
+      'Próximos',
+      name: 'ticketsUpcoming',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Anteriores`
+  String get ticketsPast {
+    return Intl.message('Anteriores', name: 'ticketsPast', desc: '', args: []);
+  }
+
+  /// `Descargar ticket`
+  String get downloadTicket {
+    return Intl.message(
+      'Descargar ticket',
+      name: 'downloadTicket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nombre del evento`
+  String get eventName {
+    return Intl.message(
+      'Nombre del evento',
+      name: 'eventName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Descripción corta`
+  String get eventShortDescription {
+    return Intl.message(
+      'Descripción corta',
+      name: 'eventShortDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Descripción`
+  String get eventDescription {
+    return Intl.message(
+      'Descripción',
+      name: 'eventDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fecha y hora`
+  String get eventDateTime {
+    return Intl.message(
+      'Fecha y hora',
+      name: 'eventDateTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lugar`
+  String get eventPlace {
+    return Intl.message('Lugar', name: 'eventPlace', desc: '', args: []);
+  }
+
+  /// `Categoría`
+  String get eventCategory {
+    return Intl.message('Categoría', name: 'eventCategory', desc: '', args: []);
+  }
+
+  /// `Sin categoría`
+  String get categoryNone {
+    return Intl.message(
+      'Sin categoría',
+      name: 'categoryNone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Música`
+  String get catMusic {
+    return Intl.message('Música', name: 'catMusic', desc: '', args: []);
+  }
+
+  /// `Camping`
+  String get catCamping {
+    return Intl.message('Camping', name: 'catCamping', desc: '', args: []);
+  }
+
+  /// `Aventura`
+  String get catAdventure {
+    return Intl.message('Aventura', name: 'catAdventure', desc: '', args: []);
+  }
+
+  /// `Talleres`
+  String get catWorkshops {
+    return Intl.message('Talleres', name: 'catWorkshops', desc: '', args: []);
+  }
+
+  /// `Tipo de acceso`
+  String get costType {
+    return Intl.message('Tipo de acceso', name: 'costType', desc: '', args: []);
+  }
+
+  /// `De pago`
+  String get costPaid {
+    return Intl.message('De pago', name: 'costPaid', desc: '', args: []);
+  }
+
+  /// `Precio`
+  String get eventPrice {
+    return Intl.message('Precio', name: 'eventPrice', desc: '', args: []);
+  }
+
+  /// `Moneda`
+  String get eventCurrency {
+    return Intl.message('Moneda', name: 'eventCurrency', desc: '', args: []);
+  }
+
+  /// `Cupo`
+  String get eventCapacity {
+    return Intl.message('Cupo', name: 'eventCapacity', desc: '', args: []);
+  }
+
+  /// `Vacío = sin límite`
+  String get capacityHint {
+    return Intl.message(
+      'Vacío = sin límite',
+      name: 'capacityHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Agregar imagen`
+  String get addBanner {
+    return Intl.message(
+      'Agregar imagen',
+      name: 'addBanner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cambiar imagen`
+  String get changeBanner {
+    return Intl.message(
+      'Cambiar imagen',
+      name: 'changeBanner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Publicar evento`
+  String get publishEvent {
+    return Intl.message(
+      'Publicar evento',
+      name: 'publishEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Evento creado`
+  String get eventCreated {
+    return Intl.message(
+      'Evento creado',
+      name: 'eventCreated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El evento se creó, pero la imagen no se pudo subir`
+  String get bannerUploadFailed {
+    return Intl.message(
+      'El evento se creó, pero la imagen no se pudo subir',
+      name: 'bannerUploadFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La fecha debe ser futura`
+  String get dateMustBeFuture {
+    return Intl.message(
+      'La fecha debe ser futura',
+      name: 'dateMustBeFuture',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El precio debe ser mayor que 0`
+  String get pricePositive {
+    return Intl.message(
+      'El precio debe ser mayor que 0',
+      name: 'pricePositive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Usa un código de 3 letras, p. ej. USD`
+  String get invalidCurrency {
+    return Intl.message(
+      'Usa un código de 3 letras, p. ej. USD',
+      name: 'invalidCurrency',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Número no válido`
+  String get invalidNumber {
+    return Intl.message(
+      'Número no válido',
+      name: 'invalidNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Inscritos`
+  String get myEventsEnrolled {
+    return Intl.message(
+      'Inscritos',
+      name: 'myEventsEnrolled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Aún no has creado eventos`
+  String get noOwnEvents {
+    return Intl.message(
+      'Aún no has creado eventos',
+      name: 'noOwnEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No estás inscrito en ningún evento`
+  String get noEnrolledEvents {
+    return Intl.message(
+      'No estás inscrito en ningún evento',
+      name: 'noEnrolledEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No tienes tickets próximos`
+  String get noUpcomingTickets {
+    return Intl.message(
+      'No tienes tickets próximos',
+      name: 'noUpcomingTickets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No tienes tickets anteriores`
+  String get noPastTickets {
+    return Intl.message(
+      'No tienes tickets anteriores',
+      name: 'noPastTickets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ticket #{id}`
+  String ticketNumber(int id) {
+    return Intl.message(
+      'Ticket #$id',
+      name: 'ticketNumber',
+      desc: '',
+      args: [id],
+    );
+  }
+
+  /// `Inscrito el {date}`
+  String enrolledOn(String date) {
+    return Intl.message(
+      'Inscrito el $date',
+      name: 'enrolledOn',
+      desc: '',
+      args: [date],
+    );
+  }
+
+  /// `Ver evento`
+  String get viewEvent {
+    return Intl.message('Ver evento', name: 'viewEvent', desc: '', args: []);
+  }
+
+  /// `Cancelar inscripción`
+  String get cancelTicket {
+    return Intl.message(
+      'Cancelar inscripción',
+      name: 'cancelTicket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¿Seguro que quieres cancelar tu inscripción?`
+  String get cancelTicketConfirm {
+    return Intl.message(
+      '¿Seguro que quieres cancelar tu inscripción?',
+      name: 'cancelTicketConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mantener`
+  String get keepTicket {
+    return Intl.message('Mantener', name: 'keepTicket', desc: '', args: []);
+  }
+
+  /// `Inscripción cancelada`
+  String get ticketCancelled {
+    return Intl.message(
+      'Inscripción cancelada',
+      name: 'ticketCancelled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudieron cargar los tickets`
+  String get ticketsLoadError {
+    return Intl.message(
+      'No se pudieron cargar los tickets',
+      name: 'ticketsLoadError',
       desc: '',
       args: [],
     );

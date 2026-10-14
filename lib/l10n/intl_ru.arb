@@ -60,5 +60,74 @@
         "type": "int"
       }
     }
+  },
+  "navHome": "Главная",
+  "navTickets": "Билеты",
+  "navProfile": "Профиль",
+  "createEvent": "Создать событие",
+  "upcomingTicketsCount": "Предстоящих билетов: {count}",
+  "myTickets": "Мои билеты",
+  "ticketsUpcoming": "Предстоящие",
+  "ticketsPast": "Прошедшие",
+  "downloadTicket": "Скачать билет",
+  "@upcomingTicketsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "eventName": "Название события",
+  "eventShortDescription": "Краткое описание",
+  "eventDescription": "Описание",
+  "eventDateTime": "Дата и время",
+  "eventPlace": "Место",
+  "eventCategory": "Категория",
+  "categoryNone": "Без категории",
+  "catMusic": "Музыка",
+  "catCamping": "Кемпинг",
+  "catAdventure": "Приключения",
+  "catWorkshops": "Мастер-классы",
+  "costType": "Тип доступа",
+  "costPaid": "Платное",
+  "eventPrice": "Цена",
+  "eventCurrency": "Валюта",
+  "eventCapacity": "Вместимость",
+  "capacityHint": "Пусто = без ограничений",
+  "addBanner": "Добавить изображение",
+  "changeBanner": "Сменить изображение",
+  "publishEvent": "Опубликовать событие",
+  "eventCreated": "Событие создано",
+  "bannerUploadFailed": "Событие создано, но изображение не удалось загрузить",
+  "dateMustBeFuture": "Дата должна быть в будущем",
+  "pricePositive": "Цена должна быть больше 0",
+  "invalidCurrency": "Используй 3-буквенный код, напр. USD",
+  "invalidNumber": "Неверное число",
+  "myEventsEnrolled": "Записан",
+  "noOwnEvents": "Ты ещё не создал ни одного события",
+  "noEnrolledEvents": "Ты не записан ни на одно событие",
+  "noUpcomingTickets": "Нет предстоящих билетов",
+  "noPastTickets": "Нет прошедших билетов",
+  "ticketNumber": "Билет №{id}",
+  "enrolledOn": "Записан {date}",
+  "viewEvent": "Открыть событие",
+  "cancelTicket": "Отменить запись",
+  "cancelTicketConfirm": "Точно отменить запись?",
+  "keepTicket": "Оставить",
+  "ticketCancelled": "Запись отменена",
+  "ticketsLoadError": "Не удалось загрузить билеты",
+  "@ticketNumber": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "@enrolledOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   }
 }

@@ -12,10 +12,13 @@ UserProfileDTO _$UserProfileDTOFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String?,
       firstName: json['first_name'] as String?,
       lastName: json['last_name'] as String?,
-      avatar: json['avatar'] as String?,
+      avatar: ApiPathsEnums.absoluteUrl(json['avatar'] as String?),
       bio: json['bio'] as String?,
       link: json['link'] as String?,
       userType: json['user_type'] as String?,
+      isVerified: json['is_verified'] as bool?,
+      roles:
+          (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$UserProfileDTOToJson(UserProfileDTO instance) =>
@@ -28,4 +31,6 @@ Map<String, dynamic> _$UserProfileDTOToJson(UserProfileDTO instance) =>
       'bio': instance.bio,
       'link': instance.link,
       'user_type': instance.userType,
+      'is_verified': instance.isVerified,
+      'roles': instance.roles,
     };

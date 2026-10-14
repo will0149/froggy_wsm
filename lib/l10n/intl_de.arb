@@ -59,5 +59,74 @@
         "type": "int"
       }
     }
+  },
+  "navHome": "Start",
+  "navTickets": "Tickets",
+  "navProfile": "Profil",
+  "createEvent": "Event erstellen",
+  "upcomingTicketsCount": "{count} anstehende Tickets",
+  "myTickets": "Meine Tickets",
+  "ticketsUpcoming": "Anstehend",
+  "ticketsPast": "Vergangen",
+  "downloadTicket": "Ticket herunterladen",
+  "@upcomingTicketsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "eventName": "Eventname",
+  "eventShortDescription": "Kurzbeschreibung",
+  "eventDescription": "Beschreibung",
+  "eventDateTime": "Datum und Uhrzeit",
+  "eventPlace": "Ort",
+  "eventCategory": "Kategorie",
+  "categoryNone": "Keine Kategorie",
+  "catMusic": "Musik",
+  "catCamping": "Camping",
+  "catAdventure": "Abenteuer",
+  "catWorkshops": "Workshops",
+  "costType": "Zugangsart",
+  "costPaid": "Kostenpflichtig",
+  "eventPrice": "Preis",
+  "eventCurrency": "Währung",
+  "eventCapacity": "Kapazität",
+  "capacityHint": "Leer = unbegrenzt",
+  "addBanner": "Bild hinzufügen",
+  "changeBanner": "Bild ändern",
+  "publishEvent": "Event veröffentlichen",
+  "eventCreated": "Event erstellt",
+  "bannerUploadFailed": "Das Event wurde erstellt, aber das Bild konnte nicht hochgeladen werden",
+  "dateMustBeFuture": "Das Datum muss in der Zukunft liegen",
+  "pricePositive": "Der Preis muss größer als 0 sein",
+  "invalidCurrency": "Nutze einen 3-Buchstaben-Code, z. B. USD",
+  "invalidNumber": "Ungültige Zahl",
+  "myEventsEnrolled": "Angemeldet",
+  "noOwnEvents": "Du hast noch keine Events erstellt",
+  "noEnrolledEvents": "Du bist für kein Event angemeldet",
+  "noUpcomingTickets": "Keine anstehenden Tickets",
+  "noPastTickets": "Keine vergangenen Tickets",
+  "ticketNumber": "Ticket #{id}",
+  "enrolledOn": "Angemeldet am {date}",
+  "viewEvent": "Event ansehen",
+  "cancelTicket": "Anmeldung stornieren",
+  "cancelTicketConfirm": "Möchtest du deine Anmeldung wirklich stornieren?",
+  "keepTicket": "Behalten",
+  "ticketCancelled": "Anmeldung storniert",
+  "ticketsLoadError": "Tickets konnten nicht geladen werden",
+  "@ticketNumber": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "@enrolledOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   }
 }

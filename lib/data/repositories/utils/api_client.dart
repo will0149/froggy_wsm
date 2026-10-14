@@ -31,20 +31,29 @@ class ApiClient {
         httpCommonUtils = httpCommonUtils ?? HttpCommonUtilsImpl(),
         refreshToken = refreshToken ?? (() => AuthRepository().refreshToken());
 
-  Future<Map<String, dynamic>> getAuthorized(Uri uri) async {
-    var json = await _get(uri);
+  Future<Map<String, dynamic>> getAuthorized(Uri uri) =>
+      _authorized((headers) => httpCommonUtils.get(uri: uri, headers: headers));
+
+  Future<Map<String, dynamic>> postAuthorized(Uri uri, Object body) =>
+      _authorized((headers) => httpCommonUtils.post(
+          uri: uri, body: jsonEncode(body), headers: headers));
+
+  Future<Map<String, dynamic>> deleteAuthorized(Uri uri) => _authorized(
+      (headers) => httpCommonUtils.delete(uri: uri, headers: headers));
+
+  Future<Map<String, dynamic>> putFileAuthorized(
+          Uri uri, String field, String filePath) =>
+      _authorized((headers) => httpCommonUtils.putMultipart(
+          uri: uri, headers: headers, field: field, filePath: filePath));
+
+  /// Envía con el access token; si expiró, renueva una vez y reintenta.
+  Future<Map<String, dynamic>> _authorized(
+      Future<http.Response> Function(Map<String, String> headers) send) async {
+    var json = decode(await send(await headersUtils.headers()));
     if (isTokenNotValid(json) && await refreshToken()) {
-      json = await _get(uri);
+      json = decode(await send(await headersUtils.headers()));
     }
     return json;
-  }
-
-  Future<Map<String, dynamic>> _get(Uri uri) async {
-    final response = await httpCommonUtils.get(
-      uri: uri,
-      headers: await headersUtils.headers(),
-    );
-    return decode(response);
   }
 
   static bool isTokenNotValid(Map<String, dynamic> json) {

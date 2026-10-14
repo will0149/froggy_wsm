@@ -44,6 +44,22 @@ class EventRepository {
         },
       ));
 
+  /// Eventos creados por el usuario (100 por página).
+  Future<Map<String, dynamic>> fetchOwnerEventsPage(int page) =>
+      apiClient.getAuthorized(ApiPathsEnums.eventOwner.uri
+          .replace(queryParameters: {'page': '$page'}));
+
+  /// Requiere cuenta verificada (si no, 403). Solo `event_date` es
+  /// obligatorio; el banner se sube aparte con [uploadBanner].
+  Future<Map<String, dynamic>> createEvent(Map<String, dynamic> event) =>
+      apiClient.postAuthorized(ApiPathsEnums.eventCreate.uri, event);
+
+  Future<Map<String, dynamic>> uploadBanner(int eventId, String filePath) =>
+      apiClient.putFileAuthorized(
+          ApiPathsEnums.eventUpdateImage.uriWithId(eventId),
+          'banner_img',
+          filePath);
+
   Future<Map<String, dynamic>> eventDetails(String id) =>
       apiClient.getAuthorized(ApiPathsEnums.eventDetails.uri
           .replace(queryParameters: {'id': id}));

@@ -60,5 +60,74 @@
         "type": "int"
       }
     }
+  },
+  "navHome": "Início",
+  "navTickets": "Ingressos",
+  "navProfile": "Perfil",
+  "createEvent": "Criar evento",
+  "upcomingTicketsCount": "{count} ingressos próximos",
+  "myTickets": "Meus ingressos",
+  "ticketsUpcoming": "Próximos",
+  "ticketsPast": "Anteriores",
+  "downloadTicket": "Baixar ingresso",
+  "@upcomingTicketsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "eventName": "Nome do evento",
+  "eventShortDescription": "Descrição curta",
+  "eventDescription": "Descrição",
+  "eventDateTime": "Data e hora",
+  "eventPlace": "Local",
+  "eventCategory": "Categoria",
+  "categoryNone": "Sem categoria",
+  "catMusic": "Música",
+  "catCamping": "Camping",
+  "catAdventure": "Aventura",
+  "catWorkshops": "Oficinas",
+  "costType": "Tipo de acesso",
+  "costPaid": "Pago",
+  "eventPrice": "Preço",
+  "eventCurrency": "Moeda",
+  "eventCapacity": "Capacidade",
+  "capacityHint": "Vazio = sem limite",
+  "addBanner": "Adicionar imagem",
+  "changeBanner": "Trocar imagem",
+  "publishEvent": "Publicar evento",
+  "eventCreated": "Evento criado",
+  "bannerUploadFailed": "O evento foi criado, mas a imagem não pôde ser enviada",
+  "dateMustBeFuture": "A data deve ser futura",
+  "pricePositive": "O preço deve ser maior que 0",
+  "invalidCurrency": "Use um código de 3 letras, p. ex. USD",
+  "invalidNumber": "Número inválido",
+  "myEventsEnrolled": "Inscrito",
+  "noOwnEvents": "Você ainda não criou eventos",
+  "noEnrolledEvents": "Você não está inscrito em nenhum evento",
+  "noUpcomingTickets": "Nenhum ingresso próximo",
+  "noPastTickets": "Nenhum ingresso anterior",
+  "ticketNumber": "Ingresso #{id}",
+  "enrolledOn": "Inscrito em {date}",
+  "viewEvent": "Ver evento",
+  "cancelTicket": "Cancelar inscrição",
+  "cancelTicketConfirm": "Tem certeza de que quer cancelar sua inscrição?",
+  "keepTicket": "Manter",
+  "ticketCancelled": "Inscrição cancelada",
+  "ticketsLoadError": "Não foi possível carregar os ingressos",
+  "@ticketNumber": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "@enrolledOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   }
 }

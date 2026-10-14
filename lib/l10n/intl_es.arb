@@ -23,7 +23,7 @@
   "register": "Registro",
   "myEvents": "Eventos",
   "myEventsPaid": "Pagos",
-  "myEventsSaved": "Gardados",
+  "myEventsSaved": "Guardados",
   "information": "Información",
   "similarEvents": "Eventos Similares",
   "settings": "Configuración",
@@ -58,6 +58,75 @@
     "placeholders": {
       "count": {
         "type": "int"
+      }
+    }
+  },
+  "navHome": "Inicio",
+  "navTickets": "Tickets",
+  "navProfile": "Perfil",
+  "createEvent": "Crear evento",
+  "upcomingTicketsCount": "{count} tickets próximos",
+  "myTickets": "Mis Tickets",
+  "ticketsUpcoming": "Próximos",
+  "ticketsPast": "Anteriores",
+  "downloadTicket": "Descargar ticket",
+  "@upcomingTicketsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "eventName": "Nombre del evento",
+  "eventShortDescription": "Descripción corta",
+  "eventDescription": "Descripción",
+  "eventDateTime": "Fecha y hora",
+  "eventPlace": "Lugar",
+  "eventCategory": "Categoría",
+  "categoryNone": "Sin categoría",
+  "catMusic": "Música",
+  "catCamping": "Camping",
+  "catAdventure": "Aventura",
+  "catWorkshops": "Talleres",
+  "costType": "Tipo de acceso",
+  "costPaid": "De pago",
+  "eventPrice": "Precio",
+  "eventCurrency": "Moneda",
+  "eventCapacity": "Cupo",
+  "capacityHint": "Vacío = sin límite",
+  "addBanner": "Agregar imagen",
+  "changeBanner": "Cambiar imagen",
+  "publishEvent": "Publicar evento",
+  "eventCreated": "Evento creado",
+  "bannerUploadFailed": "El evento se creó, pero la imagen no se pudo subir",
+  "dateMustBeFuture": "La fecha debe ser futura",
+  "pricePositive": "El precio debe ser mayor que 0",
+  "invalidCurrency": "Usa un código de 3 letras, p. ej. USD",
+  "invalidNumber": "Número no válido",
+  "myEventsEnrolled": "Inscritos",
+  "noOwnEvents": "Aún no has creado eventos",
+  "noEnrolledEvents": "No estás inscrito en ningún evento",
+  "noUpcomingTickets": "No tienes tickets próximos",
+  "noPastTickets": "No tienes tickets anteriores",
+  "ticketNumber": "Ticket #{id}",
+  "enrolledOn": "Inscrito el {date}",
+  "viewEvent": "Ver evento",
+  "cancelTicket": "Cancelar inscripción",
+  "cancelTicketConfirm": "¿Seguro que quieres cancelar tu inscripción?",
+  "keepTicket": "Mantener",
+  "ticketCancelled": "Inscripción cancelada",
+  "ticketsLoadError": "No se pudieron cargar los tickets",
+  "@ticketNumber": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "@enrolledOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
       }
     }
   }

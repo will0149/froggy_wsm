@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../api_path_enums.dart';
+
 part 'user_profile_dto.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -12,7 +14,8 @@ class UserProfileDTO {
   String? firstName;
   @JsonKey(name: 'last_name')
   String? lastName;
-  @JsonKey(name: 'avatar')
+  /// El API la manda como ruta relativa; aquí ya es absoluta.
+  @JsonKey(name: 'avatar', fromJson: ApiPathsEnums.absoluteUrl)
   String? avatar;
   @JsonKey(name: 'bio')
   String? bio;
@@ -22,6 +25,14 @@ class UserProfileDTO {
   @JsonKey(name: 'user_type')
   String? userType;
 
+  /// Puede crear eventos (los COMMERCE se verifican solos).
+  @JsonKey(name: 'is_verified')
+  bool? isVerified;
+
+  /// Vacío, PROMOTION_MANAGER o ADMIN.
+  @JsonKey(name: 'roles')
+  List<String>? roles;
+
   UserProfileDTO(
       {this.username,
         this.email,
@@ -30,7 +41,9 @@ class UserProfileDTO {
         this.avatar,
         this.bio,
         this.link,
-        this.userType});
+        this.userType,
+        this.isVerified,
+        this.roles});
 
   factory UserProfileDTO.fromJson(Map<String, dynamic> json)  => _$UserProfileDTOFromJson(json);
 

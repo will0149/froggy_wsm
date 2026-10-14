@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 
 import '../../../data/dtos/event_dto.dart';
 import '../../themes/colors/colors.dart';
+import '../../../generated/l10n.dart';
 import '../../pages/event/event_detail_page.dart';
+import '../../utils/event_format.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -27,6 +29,17 @@ class EventFeedCard extends StatefulWidget {
 }
 
 class _EventFeedCardState extends State<EventFeedCard> {
+  String _costLabel(BuildContext context) {
+    final s = S.of(context);
+    return switch (widget.event.eventType) {
+      'FREE' => s.costFree,
+      'INVITATION' => s.costInvitation,
+      'PRIVATE' => s.costPrivate,
+      _ => widget.event
+          .formattedPrice(Localizations.localeOf(context).toString()),
+    };
+  }
+
   void __renderToDetailPage(BuildContext context, String eventId) async {
     await context.pushNamed(EventDetailPage.routeName,
         pathParameters: {"id": eventId});
@@ -104,6 +117,8 @@ class _EventFeedCardState extends State<EventFeedCard> {
                     ),
                     Text(
                       widget.event.eventName ?? "",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
                           .textTheme
                           .titleLarge
@@ -113,8 +128,12 @@ class _EventFeedCardState extends State<EventFeedCard> {
                     Wrap(
                       children: [
                         Text(
-                          DateFormat.yMMMMEEEEd()
-                              .format(DateTime.parse(widget.event.date ?? "")),
+                          switch (DateTime.tryParse(widget.event.date ?? '')) {
+                            final date? => DateFormat.yMMMMEEEEd(
+                                    Localizations.localeOf(context).toString())
+                                .format(date.toLocal()),
+                            null => '',
+                          },
                           style:
                               Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     fontWeight: FontWeight.w800,
@@ -136,7 +155,7 @@ class _EventFeedCardState extends State<EventFeedCard> {
                       color: Colors.deepOrangeAccent.shade100,
                       borderRadius: BorderRadius.circular(5.0)),
                   child: Text(
-                    widget.event.eventType ?? "",
+                    _costLabel(context),
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium
@@ -150,13 +169,17 @@ class _EventFeedCardState extends State<EventFeedCard> {
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
+                    // El API solo da el username del organizador.
                     CircleAvatar(
-                      radius: 25,
+                      radius: 22,
                       backgroundColor: parkeaOrange,
-                      child: CircleAvatar(
-                        radius: 23,
-                        backgroundImage: NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9snMhaTRYJnyI4GxfDBFckcAwrOPlo4G7lQ&s'),
+                      child: Text(
+                        (widget.event.eventOwner ?? '').isEmpty
+                            ? '?'
+                            : widget.event.eventOwner!.characters.first
+                                .toUpperCase(),
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],

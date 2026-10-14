@@ -1,10 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
-import 'package:parkea/data/dtos/user_ticket_dto.dart';
+import 'package:parkea/data/dtos/ticket_dto.dart';
 import 'package:parkea/domain/providers/app_theme_provider.dart';
 import 'package:parkea/domain/usecases/fetch_tickets_uc.dart';
+
+import '../../../generated/l10n.dart';
+import '../event/event_detail_page.dart';
 
 class TicketsPage extends ConsumerStatefulWidget {
   static String get routeName => 'tickets';
@@ -18,13 +23,8 @@ class TicketsPage extends ConsumerStatefulWidget {
 
 class TicketsPageState extends ConsumerState<TicketsPage>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
+  late final TabController _tabController =
+      TabController(length: 2, vsync: this);
 
   @override
   void dispose() {
@@ -36,29 +36,26 @@ class TicketsPageState extends ConsumerState<TicketsPage>
   Widget build(BuildContext context) {
     final isDarkMode = ref.watch(appThemeModeProvider) == ThemeMode.dark;
     final theme = Theme.of(context);
-
-    final upcoming = ref.watch(fetchUpcomingTicketsUCProvider);
-    final past = ref.watch(fetchPastTicketsUCProvider);
+    final s = S.of(context);
+    final tickets = ref.watch(myTicketsUCProvider);
 
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, _) => [
           SliverAppBar(
             expandedHeight: 120,
-            floating: true,
             pinned: true,
-            backgroundColor:
-                isDarkMode ? parkeaDarkBlueAccent : parkeaOrange,
+            backgroundColor: isDarkMode ? parkeaDarkBlueAccent : parkeaOrange,
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: const EdgeInsets.fromLTRB(20, 0, 20, 56),
               title: Text(
-                'Mis Tickets',
+                s.myTickets,
                 style: theme.textTheme.headlineSmall?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              background: Container(
+              background: DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -78,103 +75,79 @@ class TicketsPageState extends ConsumerState<TicketsPage>
               unselectedLabelColor: Colors.white60,
               labelStyle: theme.textTheme.titleSmall
                   ?.copyWith(fontWeight: FontWeight.bold),
-              tabs: const [
-                Tab(text: 'Próximos'),
-                Tab(text: 'Anteriores'),
+              tabs: [
+                Tab(text: s.ticketsUpcoming),
+                Tab(text: s.ticketsPast),
               ],
             ),
           ),
         ],
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            _AsyncTicketGrid(state: upcoming, isUpcoming: true),
-            _AsyncTicketGrid(state: past, isUpcoming: false),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// AsyncValue wrapper
-// ---------------------------------------------------------------------------
-
-class _AsyncTicketGrid extends StatelessWidget {
-  final AsyncValue<List<UserTicketDTO>> state;
-  final bool isUpcoming;
-
-  const _AsyncTicketGrid({required this.state, required this.isUpcoming});
-
-  @override
-  Widget build(BuildContext context) {
-    return state.when(
-      loading: () => const Center(
-        child: CircularProgressIndicator.adaptive(),
-      ),
-      error: (err, _) => Center(
-        child: Text('Error: $err'),
-      ),
-      data: (tickets) => _TicketGrid(tickets: tickets, isUpcoming: isUpcoming),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Grid agrupado por mes
-// ---------------------------------------------------------------------------
-
-class _TicketGrid extends StatelessWidget {
-  final List<UserTicketDTO> tickets;
-  final bool isUpcoming;
-
-  const _TicketGrid({required this.tickets, required this.isUpcoming});
-
-  Map<String, List<UserTicketDTO>> get _grouped {
-    final grouped = <String, List<UserTicketDTO>>{};
-    for (final t in tickets) {
-      final date = DateTime.tryParse(t.eventDate ?? '');
-      if (date == null) continue;
-      final key = DateFormat('MMMM yyyy').format(date);
-      grouped.putIfAbsent(key, () => []).add(t);
-    }
-    return grouped;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (tickets.isEmpty) return _EmptyState(isUpcoming: isUpcoming);
-
-    final grouped = _grouped;
-    final months = grouped.keys.toList();
-
-    return ListView.builder(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
-      itemCount: months.length,
-      itemBuilder: (context, i) {
-        final month = months[i];
-        final items = grouped[month]!;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _MonthHeader(label: month),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 0.7,
-              ),
-              itemCount: items.length,
-              itemBuilder: (context, j) => _TicketCard(ticket: items[j]),
+        body: switch (tickets) {
+          AsyncValue(:final value?) => TabBarView(
+              controller: _tabController,
+              children: [
+                _TicketList(
+                  // Los más cercanos primero.
+                  tickets: value.where((t) => t.isUpcoming).toList(),
+                  emptyMessage: s.noUpcomingTickets,
+                ),
+                _TicketList(
+                  // Los más recientes primero.
+                  tickets:
+                      value.where((t) => !t.isUpcoming).toList().reversed.toList(),
+                  emptyMessage: s.noPastTickets,
+                ),
+              ],
             ),
-            const SizedBox(height: 24),
-          ],
-        );
-      },
+          AsyncError() => _Message(
+              icon: Icons.cloud_off,
+              text: s.ticketsLoadError,
+              onRetry: () => ref.invalidate(myTicketsUCProvider),
+            ),
+          _ => const Center(child: CircularProgressIndicator.adaptive()),
+        },
+      ),
+    );
+  }
+}
+
+class _TicketList extends ConsumerWidget {
+  final List<TicketDTO> tickets;
+  final String emptyMessage;
+
+  const _TicketList({required this.tickets, required this.emptyMessage});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final locale = Localizations.localeOf(context).toString();
+    // La barra inferior se dibuja sobre el body (extendBody).
+    final bottom = MediaQuery.paddingOf(context).bottom + 16;
+    final rows = <Widget>[];
+    String? month;
+    for (final ticket in tickets) {
+      final date = ticket.eventDate;
+      final label = date == null ? '' : DateFormat.yMMMM(locale).format(date);
+      if (label != month) {
+        month = label;
+        rows.add(_MonthHeader(label: label));
+      }
+      rows.add(_TicketCard(ticket: ticket));
+    }
+
+    return RefreshIndicator(
+      onRefresh: () => ref.refresh(myTicketsUCProvider.future),
+      child: tickets.isEmpty
+          ? ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              children: [
+                _Message(icon: Icons.confirmation_number, text: emptyMessage),
+              ],
+            )
+          : ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: EdgeInsets.fromLTRB(16, 8, 16, bottom),
+              children: rows,
+            ),
     );
   }
 }
@@ -187,8 +160,9 @@ class _MonthHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.fromLTRB(0, 16, 0, 8),
       child: Row(
+        spacing: 8,
         children: [
           Container(
             width: 4,
@@ -198,14 +172,12 @@ class _MonthHeader extends StatelessWidget {
               borderRadius: BorderRadius.circular(2),
             ),
           ),
-          const SizedBox(width: 8),
           Text(
             label,
-            style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              color: parkeaBlueAccent,
-            ),
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: parkeaBlueAccent,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
         ],
       ),
@@ -213,472 +185,257 @@ class _MonthHeader extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Tarjeta de ticket
-// ---------------------------------------------------------------------------
-
 class _TicketCard extends StatelessWidget {
-  final UserTicketDTO ticket;
+  final TicketDTO ticket;
 
   const _TicketCard({required this.ticket});
 
   @override
   Widget build(BuildContext context) {
-    final eventDate = DateTime.tryParse(ticket.eventDate ?? '');
-    final isPast = eventDate == null || eventDate.isBefore(DateTime.now());
     final theme = Theme.of(context);
-    final quantity = ticket.quantity ?? 1;
-    final total = double.tryParse(ticket.totalAmount ?? '0') ?? 0;
-
-    return GestureDetector(
-      onTap: () => showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        builder: (_) => _TicketDetailSheet(ticket: ticket),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: theme.cardColor,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.08),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
+    final s = S.of(context);
+    final locale = Localizations.localeOf(context).toString();
+    final event = ticket.event;
+    final date = ticket.eventDate;
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: InkWell(
+        onTap: () => showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          showDragHandle: true,
+          // Por encima de la barra inferior.
+          useRootNavigator: true,
+          builder: (_) => _TicketDetailSheet(ticket: ticket),
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // --- Banner ---
-              Expanded(
-                flex: 5,
-                child: Stack(
-                  fit: StackFit.expand,
+        child: Row(
+          children: [
+            SizedBox.square(
+              dimension: 104,
+              child: _EventImage(
+                url: event.bannerImageUrl,
+                grayscale: !ticket.isUpcoming,
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 4,
                   children: [
-                    ColorFiltered(
-                      colorFilter: isPast
-                          ? const ColorFilter.matrix([
-                              0.2126, 0.7152, 0.0722, 0, 0,
-                              0.2126, 0.7152, 0.0722, 0, 0,
-                              0.2126, 0.7152, 0.0722, 0, 0,
-                              0,      0,      0,      1, 0,
-                            ])
-                          : const ColorFilter.mode(
-                              Colors.transparent, BlendMode.color),
-                      child: Image.network(
-                        ticket.bannerUrl ?? '',
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => Container(
-                          color: parkeaBlueAccentOpacity,
-                          child: const Icon(Icons.image_not_supported,
-                              color: Colors.white54),
-                        ),
-                      ),
+                    Text(
+                      event.eventName ?? '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.titleSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
                     ),
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        height: 40,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                            colors: [Colors.black54, Colors.transparent],
-                          ),
-                        ),
+                    if (date != null)
+                      _IconText(
+                        icon: Icons.calendar_today,
+                        color: parkeaOrange,
+                        text: DateFormat('EEE d MMM · HH:mm', locale)
+                            .format(date),
                       ),
-                    ),
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: _StatusBadge(status: ticket.status ?? ''),
-                    ),
-                    if (quantity > 1)
-                      Positioned(
-                        top: 8,
-                        left: 8,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 3),
-                          decoration: BoxDecoration(
-                            color: parkeaOrange,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            'x$quantity',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
+                    if (event.location?.place case final place?
+                        when place.isNotEmpty)
+                      _IconText(
+                        icon: Icons.place,
+                        color: parkeaBlueAccent,
+                        text: place,
                       ),
+                    Text(
+                      s.ticketNumber(ticket.id),
+                      style: theme.textTheme.labelSmall,
+                    ),
                   ],
                 ),
               ),
-              // --- Línea perforada ---
-              SizedBox(
-                height: 20,
-                child: CustomPaint(
-                  painter: _PerforationPainter(
-                      bgColor: theme.scaffoldBackgroundColor),
-                  child: const SizedBox.expand(),
-                ),
-              ),
-              // --- Info ---
-              Expanded(
-                flex: 4,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 4, 10, 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        ticket.eventName ?? '',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          height: 1.2,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 6),
-                      if (eventDate != null)
-                        Row(
-                          children: [
-                            const Icon(Icons.calendar_today,
-                                size: 10, color: parkeaOrange),
-                            const SizedBox(width: 4),
-                            Expanded(
-                              child: Text(
-                                DateFormat('d MMM · HH:mm').format(eventDate),
-                                style: TextStyle(
-                                    fontSize: 10, color: Colors.grey[600]),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                      const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          const Icon(Icons.location_on,
-                              size: 10, color: parkeaBlueAccent),
-                          const SizedBox(width: 4),
-                          Expanded(
-                            child: Text(
-                              ticket.place ?? '',
-                              style: TextStyle(
-                                  fontSize: 10, color: Colors.grey[600]),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '\$${total.toStringAsFixed(0)}',
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                              color: isPast ? Colors.grey : parkeaOrange,
-                            ),
-                          ),
-                          Icon(
-                            Icons.qr_code_2,
-                            size: 20,
-                            color: isPast
-                                ? Colors.grey
-                                : parkeaDarkBlueAccent,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _StatusBadge extends StatelessWidget {
-  final String status;
-
-  const _StatusBadge({required this.status});
-
-  @override
-  Widget build(BuildContext context) {
-    final (color, label) = switch (status) {
-      'confirmed' => (Colors.green, 'Confirmado'),
-      'used' => (Colors.grey, 'Usado'),
-      'cancelled' => (Colors.red, 'Cancelado'),
-      _ => (Colors.orange, status),
-    };
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.88),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 9,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
-}
-
-class _PerforationPainter extends CustomPainter {
-  final Color bgColor;
-
-  const _PerforationPainter({required this.bgColor});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final linePaint = Paint()
-      ..color = Colors.grey.withValues(alpha: 0.35)
-      ..strokeWidth = 1.2
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-
-    const dashW = 5.0;
-    const gap = 4.0;
-    double x = 14;
-    final y = size.height / 2;
-
-    while (x < size.width - 14) {
-      canvas.drawLine(Offset(x, y), Offset(x + dashW, y), linePaint);
-      x += dashW + gap;
-    }
-
-    final cutPaint = Paint()
-      ..color = bgColor
-      ..style = PaintingStyle.fill;
-    canvas.drawCircle(Offset(0, y), 10, cutPaint);
-    canvas.drawCircle(Offset(size.width, y), 10, cutPaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant _PerforationPainter old) =>
-      old.bgColor != bgColor;
-}
-
-class _EmptyState extends StatelessWidget {
-  final bool isUpcoming;
-
-  const _EmptyState({required this.isUpcoming});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            isUpcoming
-                ? Icons.confirmation_num_outlined
-                : Icons.history_toggle_off,
-            size: 72,
-            color: parkeaLightGrey,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            isUpcoming
-                ? 'No tienes tickets próximos'
-                : 'No tienes tickets anteriores',
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: parkeaLightGrey,
-            ),
-          ),
-          if (isUpcoming) ...[
-            const SizedBox(height: 8),
-            const Text(
-              'Explora eventos y compra tu primer ticket',
-              style: TextStyle(fontSize: 13, color: parkeaLightGrey),
             ),
           ],
-        ],
+        ),
       ),
     );
   }
 }
 
-// ---------------------------------------------------------------------------
-// Bottom sheet de detalle
-// ---------------------------------------------------------------------------
+class _IconText extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final String text;
 
-class _TicketDetailSheet extends StatelessWidget {
-  final UserTicketDTO ticket;
+  const _IconText({required this.icon, required this.color, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      spacing: 4,
+      children: [
+        Icon(icon, size: 14, color: color),
+        Expanded(
+          child: Text(
+            text,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _EventImage extends StatelessWidget {
+  final String? url;
+  final bool grayscale;
+
+  const _EventImage({required this.url, this.grayscale = false});
+
+  @override
+  Widget build(BuildContext context) {
+    const placeholder = DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [parkeaBlueAccent, parkeaDarkBlueAccent],
+        ),
+      ),
+      child: Center(child: Icon(Icons.celebration, color: Colors.white70)),
+    );
+    final image = url == null || url!.isEmpty
+        ? placeholder
+        : CachedNetworkImage(
+            imageUrl: url!,
+            fit: BoxFit.cover,
+            errorWidget: (_, __, ___) => placeholder,
+          );
+    if (!grayscale) return image;
+    // Los tickets de eventos pasados se ven apagados.
+    return ColorFiltered(
+      colorFilter: const ColorFilter.matrix([
+        0.2126, 0.7152, 0.0722, 0, 0, //
+        0.2126, 0.7152, 0.0722, 0, 0, //
+        0.2126, 0.7152, 0.0722, 0, 0, //
+        0, 0, 0, 1, 0, //
+      ]),
+      child: image,
+    );
+  }
+}
+
+class _TicketDetailSheet extends ConsumerStatefulWidget {
+  final TicketDTO ticket;
 
   const _TicketDetailSheet({required this.ticket});
 
   @override
+  ConsumerState<_TicketDetailSheet> createState() => _TicketDetailSheetState();
+}
+
+class _TicketDetailSheetState extends ConsumerState<_TicketDetailSheet> {
+  bool _cancelling = false;
+
+  Future<void> _cancel() async {
+    final s = S.of(context);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Text(s.cancelTicketConfirm),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(s.keepTicket),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(s.cancelTicket),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    setState(() => _cancelling = true);
+    final error =
+        await ref.read(myTicketsUCProvider.notifier).cancel(widget.ticket.id);
+    if (!mounted) return;
+    setState(() => _cancelling = false);
+    final messenger = ScaffoldMessenger.of(context);
+    if (error == null) Navigator.pop(context);
+    messenger.showSnackBar(SnackBar(content: Text(error ?? s.ticketCancelled)));
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final eventDate = DateTime.tryParse(ticket.eventDate ?? '');
-    final purchaseDate = DateTime.tryParse(ticket.datePurchased ?? '');
-    final total = double.tryParse(ticket.totalAmount ?? '0') ?? 0;
-
-    return DraggableScrollableSheet(
-      initialChildSize: 0.72,
-      minChildSize: 0.45,
-      maxChildSize: 0.94,
-      builder: (_, controller) => Container(
-        decoration: BoxDecoration(
-          color: theme.cardColor,
-          borderRadius:
-              const BorderRadius.vertical(top: Radius.circular(24)),
-        ),
-        child: ListView(
-          controller: controller,
-          padding: EdgeInsets.zero,
+    final s = S.of(context);
+    final locale = Localizations.localeOf(context).toString();
+    final ticket = widget.ticket;
+    final event = ticket.event;
+    final date = ticket.eventDate;
+    final purchased = DateTime.tryParse(ticket.datePurchased ?? '')?.toLocal();
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: 10,
           children: [
-            Center(
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 12),
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: AspectRatio(
+                aspectRatio: 2,
+                child: _EventImage(
+                  url: event.bannerImageUrl,
+                  grayscale: !ticket.isUpcoming,
                 ),
               ),
             ),
-            AspectRatio(
-              aspectRatio: 16 / 7,
-              child: Image.network(
-                ticket.bannerUrl ?? '',
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) =>
-                    Container(color: parkeaBlueAccentOpacity),
-              ),
+            Text(
+              event.eventName ?? '',
+              style: theme.textTheme.titleLarge
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          ticket.eventName ?? '',
-                          style: theme.textTheme.titleLarge
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      _StatusChip(status: ticket.status ?? ''),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  if (eventDate != null)
-                    _DetailRow(
-                      icon: Icons.calendar_today,
-                      label: 'Fecha del evento',
-                      value: DateFormat('EEEE, d MMMM yyyy · HH:mm')
-                          .format(eventDate),
-                    ),
-                  _DetailRow(
-                    icon: Icons.location_on,
-                    label: 'Lugar',
-                    value: ticket.place ?? '',
-                  ),
-                  _DetailRow(
-                    icon: Icons.confirmation_num,
-                    label: 'Código de reserva',
-                    value: ticket.ticketCode ?? '',
-                  ),
-                  _DetailRow(
-                    icon: Icons.people_outline,
-                    label: 'Cantidad',
-                    value: '${ticket.quantity ?? 1} ticket(s)',
-                  ),
-                  _DetailRow(
-                    icon: Icons.attach_money,
-                    label: 'Total pagado',
-                    value:
-                        '\$${total.toStringAsFixed(2)} ${ticket.currency ?? ''}',
-                  ),
-                  if (purchaseDate != null)
-                    _DetailRow(
-                      icon: Icons.receipt_long,
-                      label: 'Fecha de compra',
-                      value: DateFormat('d MMMM yyyy, HH:mm')
-                          .format(purchaseDate),
-                    ),
-                  const SizedBox(height: 24),
-                  Center(
-                    child: Container(
-                      width: 148,
-                      height: 148,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                            color: parkeaBlueAccentOpacity, width: 2),
-                      ),
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.qr_code_2,
-                              size: 90, color: parkeaDarkBlueAccent),
-                          SizedBox(height: 4),
-                          Text(
-                            'Código QR',
-                            style: TextStyle(
-                                fontSize: 12, color: parkeaBlueAccent),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.download_outlined),
-                      label: const Text('Descargar ticket'),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: parkeaOrange,
-                        side: const BorderSide(color: parkeaOrange),
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+            if (date != null)
+              _IconText(
+                icon: Icons.calendar_today,
+                color: parkeaOrange,
+                text: DateFormat('EEEE d MMMM y · HH:mm', locale).format(date),
               ),
+            if (event.location?.place case final place? when place.isNotEmpty)
+              _IconText(icon: Icons.place, color: parkeaBlueAccent, text: place),
+            Text(s.ticketNumber(ticket.id), style: theme.textTheme.labelLarge),
+            if (purchased != null)
+              Text(
+                s.enrolledOn(DateFormat.yMMMd(locale).format(purchased)),
+                style: theme.textTheme.bodySmall,
+              ),
+            const SizedBox(height: 4),
+            FilledButton(
+              style: FilledButton.styleFrom(backgroundColor: parkeaOrange),
+              onPressed: event.id == null
+                  ? null
+                  : () {
+                      Navigator.pop(context);
+                      context.pushNamed(EventDetailPage.routeName,
+                          pathParameters: {'id': event.id!});
+                    },
+              child: Text(s.viewEvent),
             ),
+            if (ticket.isUpcoming)
+              TextButton(
+                style: TextButton.styleFrom(
+                    foregroundColor: theme.colorScheme.error),
+                onPressed: _cancelling ? null : _cancel,
+                child: _cancelling
+                    ? const SizedBox.square(
+                        dimension: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : Text(s.cancelTicket),
+              ),
           ],
         ),
       ),
@@ -686,71 +443,26 @@ class _TicketDetailSheet extends StatelessWidget {
   }
 }
 
-class _DetailRow extends StatelessWidget {
+class _Message extends StatelessWidget {
   final IconData icon;
-  final String label;
-  final String value;
+  final String text;
+  final VoidCallback? onRetry;
 
-  const _DetailRow({
-    required this.icon,
-    required this.label,
-    required this.value,
-  });
+  const _Message({required this.icon, required this.text, this.onRetry});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 14),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.all(48),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 12,
         children: [
-          Icon(icon, size: 18, color: parkeaOrange),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(label,
-                    style: const TextStyle(
-                        fontSize: 11, color: parkeaLightGrey)),
-                const SizedBox(height: 2),
-                Text(value,
-                    style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w500)),
-              ],
-            ),
-          ),
+          Icon(icon, size: 48, color: parkeaLightGrey),
+          Text(text, textAlign: TextAlign.center),
+          if (onRetry != null)
+            TextButton(onPressed: onRetry, child: Text(S.of(context).retry)),
         ],
-      ),
-    );
-  }
-}
-
-class _StatusChip extends StatelessWidget {
-  final String status;
-
-  const _StatusChip({required this.status});
-
-  @override
-  Widget build(BuildContext context) {
-    final (color, label) = switch (status) {
-      'confirmed' => (Colors.green, 'Confirmado'),
-      'used' => (Colors.grey, 'Usado'),
-      'cancelled' => (Colors.red, 'Cancelado'),
-      _ => (Colors.orange, status),
-    };
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: color),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-            color: color, fontSize: 12, fontWeight: FontWeight.bold),
       ),
     );
   }

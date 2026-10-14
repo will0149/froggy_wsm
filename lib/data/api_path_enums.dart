@@ -30,6 +30,7 @@ enum ApiPathsEnums {
   ticketEnroll(path: 'ticket/enroll/'),
   ticketEventOwner(path: 'ticket/event/owner/'),
   ticketsByUser(path: 'ticket/user/all/'),
+  ticketCancel(path: 'ticket/cancel/{id}/'),
   ticketCountByEvent(path: 'tickets/count/{event_id}/');
 
   const ApiPathsEnums({required this.path});
@@ -50,4 +51,14 @@ enum ApiPathsEnums {
   }
 
   Uri get uri => Uri.parse(baseUrl).resolve(path);
+
+  /// Para paths con `{id}`, p. ej. `ticket/cancel/{id}/`.
+  Uri uriWithId(Object id) =>
+      Uri.parse(baseUrl).resolve(path.replaceFirst(RegExp(r'\{\w+\}'), '$id'));
+
+  /// El API devuelve algunas URLs como ruta relativa (`/images/...`).
+  static String? absoluteUrl(String? url) =>
+      url == null || url.isEmpty || !url.startsWith('/')
+          ? url
+          : Uri.parse(baseUrl).resolve(url).toString();
 }

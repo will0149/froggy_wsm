@@ -7,6 +7,7 @@ import 'package:parkea/domain/usecases/event_feed_uc.dart';
 import '../../../domain/usecases/fetch_promotions_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/colors.dart';
+import '../../utils/tab_reselect.dart';
 import '../../widgets/event/event_feed_sliver.dart';
 
 /**
@@ -32,12 +33,15 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
   /// `category` del API para cada título; "All" (null) es sin filtro.
   static const _categories = [null, 'MUSIC', 'CAMPING', 'ADVENTURE', 'WORKSHOPS'];
   final TextEditingController searchBarController = TextEditingController();
+  final _scrollController = ScrollController();
+  final _refreshKey = GlobalKey<RefreshIndicatorState>();
 
   String? _category;
 
   @override
   void dispose() {
     searchBarController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -49,6 +53,17 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
     await ref.read(feed.future);
   }
 
+  /// Al volver a tocar Inicio: sube al principio o, si ya está ahí, refresca.
+  void _onReselect() {
+    if (!_scrollController.hasClients) return;
+    if (_scrollController.offset > 0) {
+      _scrollController.animateTo(0,
+          duration: const Duration(milliseconds: 400), curve: Curves.easeOut);
+    } else {
+      _refreshKey.currentState?.show();
+    }
+  }
+
   void _onCategory(String title) {
     final index = titles.indexOf(title);
     setState(() => _category = index < 0 ? null : _categories[index]);
@@ -56,6 +71,9 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(tabReselectProvider, (_, next) {
+      if (next?.index == 0) _onReselect();
+    });
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -85,8 +103,10 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
         ],
       ),
       body: RefreshIndicator(
+        key: _refreshKey,
         onRefresh: _refresh,
         child: CustomScrollView(
+          controller: _scrollController,
           physics: const AlwaysScrollableScrollPhysics(),
           slivers: [
             SliverPadding(

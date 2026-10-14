@@ -57,4 +57,33 @@ class HttpCommonUtilsImpl implements HttpCommonUtils {
       },
     );
   }
+
+  @override
+  Future<http.Response> delete(
+      {required Uri uri, required Map<String, String> headers}) async {
+    logger.t(uri);
+    return await client.delete(uri, headers: headers).timeout(
+          const Duration(seconds: timeOutSecs),
+          onTimeout: () =>
+              http.Response(jsonEncode(defaultTimeOutResponse), 408),
+        );
+  }
+
+  @override
+  Future<http.Response> putMultipart(
+      {required Uri uri,
+      required Map<String, String> headers,
+      required String field,
+      required String filePath}) async {
+    logger.t(uri);
+    final request = http.MultipartRequest('PUT', uri)
+      // Content-Type lo pone MultipartRequest con su boundary.
+      ..headers.addAll({...headers}..remove('Content-Type'))
+      ..files.add(await http.MultipartFile.fromPath(field, filePath));
+    // Las subidas tardan más que una petición normal.
+    final streamed = await request.send().timeout(
+          const Duration(seconds: timeOutSecs * 4),
+        );
+    return http.Response.fromStream(streamed);
+  }
 }

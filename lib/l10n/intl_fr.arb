@@ -60,5 +60,74 @@
         "type": "int"
       }
     }
+  },
+  "navHome": "Accueil",
+  "navTickets": "Billets",
+  "navProfile": "Profil",
+  "createEvent": "Créer un événement",
+  "upcomingTicketsCount": "{count} billets à venir",
+  "myTickets": "Mes billets",
+  "ticketsUpcoming": "À venir",
+  "ticketsPast": "Passés",
+  "downloadTicket": "Télécharger le billet",
+  "@upcomingTicketsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "eventName": "Nom de l'événement",
+  "eventShortDescription": "Description courte",
+  "eventDescription": "Description",
+  "eventDateTime": "Date et heure",
+  "eventPlace": "Lieu",
+  "eventCategory": "Catégorie",
+  "categoryNone": "Sans catégorie",
+  "catMusic": "Musique",
+  "catCamping": "Camping",
+  "catAdventure": "Aventure",
+  "catWorkshops": "Ateliers",
+  "costType": "Type d'accès",
+  "costPaid": "Payant",
+  "eventPrice": "Prix",
+  "eventCurrency": "Devise",
+  "eventCapacity": "Capacité",
+  "capacityHint": "Vide = sans limite",
+  "addBanner": "Ajouter une image",
+  "changeBanner": "Changer l'image",
+  "publishEvent": "Publier l'événement",
+  "eventCreated": "Événement créé",
+  "bannerUploadFailed": "L'événement a été créé, mais l'image n'a pas pu être envoyée",
+  "dateMustBeFuture": "La date doit être dans le futur",
+  "pricePositive": "Le prix doit être supérieur à 0",
+  "invalidCurrency": "Utilise un code à 3 lettres, p. ex. USD",
+  "invalidNumber": "Nombre invalide",
+  "myEventsEnrolled": "Inscrit",
+  "noOwnEvents": "Tu n'as encore créé aucun événement",
+  "noEnrolledEvents": "Tu n'es inscrit à aucun événement",
+  "noUpcomingTickets": "Aucun billet à venir",
+  "noPastTickets": "Aucun billet passé",
+  "ticketNumber": "Billet n°{id}",
+  "enrolledOn": "Inscrit le {date}",
+  "viewEvent": "Voir l'événement",
+  "cancelTicket": "Annuler l'inscription",
+  "cancelTicketConfirm": "Veux-tu vraiment annuler ton inscription ?",
+  "keepTicket": "Garder",
+  "ticketCancelled": "Inscription annulée",
+  "ticketsLoadError": "Impossible de charger les billets",
+  "@ticketNumber": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "@enrolledOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   }
 }

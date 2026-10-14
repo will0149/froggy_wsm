@@ -1,43 +1,19 @@
-import 'package:http/http.dart' as http;
-import 'package:http/retry.dart';
-import 'package:parkea/data/repositories/utils/build_header_utils.dart';
-import 'package:parkea/data/repositories/utils/http_common_utils.dart';
-import 'package:parkea/data/repositories/utils/impl/build_headers_utils_impl.dart';
-import 'package:parkea/data/repositories/utils/impl/http_commons_utils_impl.dart';
-
-import '../../device/utils/loggerConfig.dart';
-import '../mocks/mock_data_utils.dart';
+import '../api_path_enums.dart';
+import 'utils/api_client.dart';
 
 class TicketRepository {
-  late final BuildHeadersUtils headersUtils;
-  late final HttpCommonUtils httpCommonUtils;
-  late final MockDataUtils mockDataUtils;
+  final ApiClient apiClient;
 
-  TicketRepository() {
-    headersUtils = BuildHeadersUtilsImpl();
-    httpCommonUtils = HttpCommonUtilsImpl();
-    mockDataUtils = MockDataUtils();
-  }
+  TicketRepository({ApiClient? apiClient})
+      : apiClient = apiClient ?? ApiClient();
 
-  Future<Map<String, dynamic>> fetchUpcomingTickets() async {
-    var client = RetryClient(http.Client());
-    try {
-      final json = mockDataUtils.upcomingTickets();
-      logger.w('response $json');
-      return Future.value(json);
-    } finally {
-      client.close();
-    }
-  }
+  /// Página [page] de los tickets del usuario (100 por página, por fecha de
+  /// inscripción). No filtra próximos/pasados.
+  Future<Map<String, dynamic>> fetchTicketsPage(int page) =>
+      apiClient.getAuthorized(ApiPathsEnums.ticketsByUser.uri
+          .replace(queryParameters: {'page': '$page'}));
 
-  Future<Map<String, dynamic>> fetchPastTickets() async {
-    var client = RetryClient(http.Client());
-    try {
-      final json = mockDataUtils.pastTickets();
-      logger.w('response $json');
-      return Future.value(json);
-    } finally {
-      client.close();
-    }
-  }
+  /// 204 si se canceló; el ticket se borra.
+  Future<Map<String, dynamic>> cancelTicket(int ticketId) =>
+      apiClient.deleteAuthorized(ApiPathsEnums.ticketCancel.uriWithId(ticketId));
 }
