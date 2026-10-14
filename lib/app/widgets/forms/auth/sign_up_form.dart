@@ -257,6 +257,8 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                       onPressed: () async {
                         final isValid = widget.formKey.currentState!.validate();
                         if (isValid) {
+                          // El aviso de error quedaría detrás del teclado.
+                          FocusScope.of(context).unfocus();
                           final email = emailController.value.text.trim();
                           final request = RegisterDto(
                             username: userNameController.value.text.trim(),

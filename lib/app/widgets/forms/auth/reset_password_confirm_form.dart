@@ -59,6 +59,8 @@ class ResetPasswordConfirmFormState
 
   Future<void> _submit() async {
     if (!widget.formKey.currentState!.validate()) return;
+    // El aviso de resultado quedaría detrás del teclado.
+    FocusScope.of(context).unfocus();
     final error = await ref.read(passwordResetUCProvider.notifier).confirmReset(
           uid: uidController.text,
           token: tokenController.text,

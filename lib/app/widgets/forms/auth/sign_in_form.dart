@@ -124,6 +124,8 @@ class SignInFormState extends ConsumerState<SignInForm> {
                       onPressed: () async {
                         final isValid = widget.formKey.currentState!.validate();
                         if (isValid) {
+                          // El aviso de error quedaría detrás del teclado.
+                          FocusScope.of(context).unfocus();
                           await ref.read(restAuthUCProvider.notifier).signIn(
                                 LoginDTO.fromIdentifier(
                                   identifierController.value.text,

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -24,6 +25,12 @@ class AuthRepository {
   /// El refresh token rota: dos refresh en paralelo con el mismo token hacen
   /// que uno falle, así que todas las instancias comparten la petición en curso.
   static Future<bool>? _refreshInFlight;
+
+  static final _sessionExpired = StreamController<void>.broadcast();
+
+  /// Emite cuando el API rechaza el refresh token (expirado o en blacklist):
+  /// los tokens locales ya se borraron y hay que volver a iniciar sesión.
+  static Stream<void> get sessionExpired => _sessionExpired.stream;
 
   AuthRepository() {
     headersUtils = BuildHeadersUtilsImpl();
@@ -129,6 +136,7 @@ class AuthRepository {
     logger.w("refresh failed $json");
     if (json['status'] == 401) {
       await headersUtils.dropTemporalMemory();
+      _sessionExpired.add(null);
     }
     return false;
   }

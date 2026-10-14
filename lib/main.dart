@@ -11,6 +11,7 @@ import 'package:stack_trace/stack_trace.dart' as stack_trace;
 import 'app/themes/app_theme.dart';
 import 'domain/providers/app_theme_provider.dart';
 import 'domain/routers/app_router.dart';
+import 'domain/usecases/auth/rest_auth_uc.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -42,11 +43,32 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  late final AppLifecycleListener _lifecycle;
+
+  @override
+  void initState() {
+    super.initState();
+    _lifecycle = AppLifecycleListener(
+      onResume: () => ref.read(restAuthUCProvider.notifier).checkSession(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _lifecycle.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
       routerConfig: router,

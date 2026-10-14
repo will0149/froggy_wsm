@@ -25,6 +25,8 @@ class RestAuthUC extends _$RestAuthUC {
 
   @override
   Future<AuthState> build() async {
+    final expired = AuthRepository.sessionExpired.listen((_) => _expire());
+    ref.onDispose(expired.cancel);
     final isFirstRun = await IsFirstRun().isFirstRun();
     if (isFirstRun) {
       return AuthState.firstRun();
@@ -141,6 +143,21 @@ class RestAuthUC extends _$RestAuthUC {
       logger.e(stackTrace);
     }
     return null;
+  }
+
+  /// Al volver a la app: si el refresh token caducó en segundo plano, la
+  /// sesión ya no se puede renovar.
+  Future<void> checkSession() async {
+    if (!_isAuthenticated) return;
+    if (!await headersUtils.validateStorage()) _expire();
+  }
+
+  bool get _isAuthenticated => state.value?.isAuthenticated ?? false;
+
+  void _expire() {
+    if (!_isAuthenticated || !ref.mounted) return;
+    logger.w('session expired');
+    state = AsyncData(AuthState.unauthenticated());
   }
 
   Future<void> logOut() async {
