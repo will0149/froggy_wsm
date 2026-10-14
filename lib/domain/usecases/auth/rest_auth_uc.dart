@@ -10,6 +10,7 @@ import '../../../device/utils/is_first_run.dart';
 import '../../../device/utils/loggerConfig.dart';
 import '../../../data/repositories/utils/build_header_utils.dart';
 import '../../../data/repositories/utils/impl/build_headers_utils_impl.dart';
+import 'api_error_message.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -24,7 +25,6 @@ class RestAuthUC extends _$RestAuthUC {
 
   @override
   Future<AuthState> build() async {
-
     final isFirstRun = await IsFirstRun().isFirstRun();
     if (isFirstRun) {
       return AuthState.firstRun();
@@ -50,6 +50,7 @@ class RestAuthUC extends _$RestAuthUC {
             final tokens = AuthResponseEntity.fromJson(body);
             return (tokens.token, tokens.refreshToken);
           },
+          errorMessage: _signInErrorMessage,
           fallbackError: 'Error al iniciar sesión',
         ));
   }
@@ -60,6 +61,7 @@ class RestAuthUC extends _$RestAuthUC {
           () => repository.register(request),
           readTokens: (body) =>
               (body['access'] as String?, body['refresh'] as String?),
+          errorMessage: apiErrorMessage,
           fallbackError: 'Error al registrarse',
         ));
   }
@@ -69,6 +71,7 @@ class RestAuthUC extends _$RestAuthUC {
   Future<AuthState> _authenticate(
     Future<Map<String, dynamic>> Function() request, {
     required (String?, String?) Function(Map<String, dynamic> body) readTokens,
+    required String? Function(Object? body) errorMessage,
     required String fallbackError,
   }) async {
     final Map<String, dynamic> result;
@@ -76,11 +79,16 @@ class RestAuthUC extends _$RestAuthUC {
       result = await request();
     } on Exception catch (e) {
       logger.e(e.toString());
-      return AuthState.error('No se pudo conectar con el servidor');
+      return AuthState.error(connectionErrorMessage);
     }
     final status = result['status'];
     final body = result['body'];
-    if (status is int && status >= 200 && status < 300 &&
+    if (status == timeoutStatus) {
+      return AuthState.error(connectionErrorMessage);
+    }
+    if (status is int &&
+        status >= 200 &&
+        status < 300 &&
         body is Map<String, dynamic>) {
       final (access, refresh) = readTokens(body);
       if (access != null && refresh != null) {
@@ -89,24 +97,21 @@ class RestAuthUC extends _$RestAuthUC {
         if (user != null) {
           return AuthState.authenticated(user);
         }
+        // Sin perfil no hay sesión: que no reaparezca al reabrir la app.
+        await headersUtils.dropTemporalMemory();
       }
       return AuthState.error('No se pudo cargar el perfil');
     }
     return AuthState.error(
-        _errorMessage(body) ?? '$fallbackError (código: $status)');
+        errorMessage(body) ?? '$fallbackError (código: $status)');
   }
 
-  /// Los errores de validación llegan como `{ "<campo>": ["msg", ...] }`.
-  String? _errorMessage(Object? body) {
-    if (body is! Map<String, dynamic>) return null;
-    if (body.containsKey('non_field_errors')) {
+  /// Credenciales incorrectas llegan como `non_field_errors`.
+  String? _signInErrorMessage(Object? body) {
+    if (body is Map<String, dynamic> && body.containsKey('non_field_errors')) {
       return 'Usuario o contraseña incorrectos';
     }
-    for (final value in body.values) {
-      if (value is List && value.isNotEmpty) return '${value.first}';
-      if (value is String) return value;
-    }
-    return null;
+    return apiErrorMessage(body);
   }
 
   Future<UserProfileDTO?> getUserProfile() async {
@@ -135,13 +140,5 @@ class RestAuthUC extends _$RestAuthUC {
       await headersUtils.dropTemporalMemory();
       return AuthState.unauthenticated();
     });
-  }
-
-  /// Validate email format
-  bool _isValidEmail(String email) {
-    final emailRegex = RegExp(
-      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-    );
-    return emailRegex.hasMatch(email);
   }
 }

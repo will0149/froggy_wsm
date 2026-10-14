@@ -25,17 +25,24 @@ class MessageLookup extends MessageLookupByLibrary {
     "authenticate": MessageLookupByLibrary.simpleMessage("Autenticar"),
     "buyTicket": MessageLookupByLibrary.simpleMessage("Comprar bilhete"),
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
+    "changePassword": MessageLookupByLibrary.simpleMessage("Alterar senha"),
+    "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirmar senha"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
       "Dados e privacidade",
     ),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
     "email": MessageLookupByLibrary.simpleMessage("Correio eletrônico"),
     "eventsForAll": MessageLookupByLibrary.simpleMessage("Eventos para todos"),
+    "fieldRequired": MessageLookupByLibrary.simpleMessage(
+      "Este campo é obrigatório",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Esqueci minha senha",
     ),
     "getHelp": MessageLookupByLibrary.simpleMessage("Ajuda"),
+    "haveResetLink": MessageLookupByLibrary.simpleMessage("Já tenho um link"),
     "information": MessageLookupByLibrary.simpleMessage("Informação"),
+    "invalidEmail": MessageLookupByLibrary.simpleMessage("E-mail inválido"),
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
       "Junte-se ao nosso universo",
     ),
@@ -45,12 +52,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Pago"),
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Salvou"),
     "name": MessageLookupByLibrary.simpleMessage("Nome"),
+    "newPassword": MessageLookupByLibrary.simpleMessage("Nova senha"),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage("Parkea & Comparte"),
     "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
     "password": MessageLookupByLibrary.simpleMessage("Senha"),
+    "passwordResetDone": MessageLookupByLibrary.simpleMessage(
+      "Senha atualizada. Faça login.",
+    ),
+    "passwordTooShort": MessageLookupByLibrary.simpleMessage(
+      "A senha deve ter pelo menos 8 caracteres",
+    ),
+    "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
+      "As senhas não coincidem",
+    ),
     "popularEvents": MessageLookupByLibrary.simpleMessage("Eventos Populares"),
     "province": MessageLookupByLibrary.simpleMessage("Província"),
     "register": MessageLookupByLibrary.simpleMessage("Inscrever-se"),
+    "resetEmailSent": MessageLookupByLibrary.simpleMessage(
+      "Se o e-mail estiver cadastrado, enviamos um link para redefinir sua senha",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("Salvar Evento"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("ver evento"),

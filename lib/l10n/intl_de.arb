@@ -29,5 +29,15 @@
   "settings": "Einstellung",
   "logout": "Ausloggen",
   "getHelp": "Hilfe",
-  "dataAndPrivacy": "Daten und Privatsphäre"
+  "dataAndPrivacy": "Daten und Privatsphäre",
+  "fieldRequired": "Dieses Feld ist erforderlich",
+  "invalidEmail": "Ungültige E-Mail-Adresse",
+  "passwordTooShort": "Das Passwort muss mindestens 8 Zeichen lang sein",
+  "passwordsDoNotMatch": "Die Passwörter stimmen nicht überein",
+  "confirmPassword": "Passwort bestätigen",
+  "newPassword": "Neues Passwort",
+  "changePassword": "Passwort ändern",
+  "resetEmailSent": "Wenn die E-Mail registriert ist, haben wir dir einen Link zum Zurücksetzen des Passworts gesendet",
+  "passwordResetDone": "Passwort aktualisiert. Bitte melde dich an.",
+  "haveResetLink": "Ich habe bereits einen Link"
 }

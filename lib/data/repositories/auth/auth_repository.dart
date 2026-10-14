@@ -25,7 +25,7 @@ class AuthRepository {
   /// que uno falle, así que todas las instancias comparten la petición en curso.
   static Future<bool>? _refreshInFlight;
 
-  AuthRepository(){
+  AuthRepository() {
     headersUtils = BuildHeadersUtilsImpl();
     httpCommonUtils = HttpCommonUtilsImpl();
   }
@@ -50,7 +50,9 @@ class AuthRepository {
     final response = await httpCommonUtils.post(
       uri: ApiPathsEnums.signIn.uri,
       body: jsonEncode(request),
-      headers: {"Content-Type": "application/json",},
+      headers: {
+        "Content-Type": "application/json",
+      },
     );
     return _decode(response);
   }
@@ -59,16 +61,43 @@ class AuthRepository {
     final response = await httpCommonUtils.post(
       uri: ApiPathsEnums.registerUser.uri,
       body: jsonEncode(request),
-      headers: {"Content-Type": "application/json",},
+      headers: {
+        "Content-Type": "application/json",
+      },
     );
     return _decode(response);
   }
 
-  Future<Map<String, dynamic>> resetPassword(String request) async {
+  /// Envía el correo con el enlace `parkea://reset-password?uid=..&token=..`.
+  /// El API responde igual exista o no la cuenta.
+  Future<Map<String, dynamic>> requestPasswordReset(String email) async {
     final response = await httpCommonUtils.post(
       uri: ApiPathsEnums.passwordReset.uri,
-      body: jsonEncode(request),
-      headers: {"Content-Type": "application/json",},
+      body: jsonEncode({"email": email}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    );
+    return _decode(response);
+  }
+
+  Future<Map<String, dynamic>> confirmPasswordReset({
+    required String uid,
+    required String token,
+    required String newPassword1,
+    required String newPassword2,
+  }) async {
+    final response = await httpCommonUtils.post(
+      uri: ApiPathsEnums.passwordResetConfirm.uri,
+      body: jsonEncode({
+        "uid": uid,
+        "token": token,
+        "new_password1": newPassword1,
+        "new_password2": newPassword2,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     );
     return _decode(response);
   }
@@ -86,7 +115,9 @@ class AuthRepository {
     final response = await httpCommonUtils.post(
       uri: ApiPathsEnums.refreshToken.uri,
       body: jsonEncode({"refresh": refresh}),
-      headers: {"Content-Type": "application/json",},
+      headers: {
+        "Content-Type": "application/json",
+      },
     );
     final json = _decode(response);
     final body = json['body'];
@@ -102,14 +133,18 @@ class AuthRepository {
     return false;
   }
 
-  Future<Map<String, dynamic>> logOut() async {
+  /// Mete el refresh token en la blacklist. No requiere Bearer.
+  Future<void> logOut() async {
     final refresh = await headersUtils.getRefreshToken();
+    if (refresh == null) return;
     final response = await httpCommonUtils.post(
       uri: ApiPathsEnums.logout.uri,
       body: jsonEncode({"refresh": refresh}),
-      headers: await headersUtils.headers(),
+      headers: {
+        "Content-Type": "application/json",
+      },
     );
-    return _decode(response);
+    _decode(response);
   }
 
   bool _isTokenNotValid(Map<String, dynamic> json) {
@@ -119,8 +154,13 @@ class AuthRepository {
         body['code'] == 'token_not_valid';
   }
 
+  /// Lanza [FormatException] si no llega el envelope, p. ej. la página HTML
+  /// de un 500 del API.
   Map<String, dynamic> _decode(http.Response response) {
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    final json = jsonDecode(response.body);
+    if (json is! Map<String, dynamic>) {
+      throw FormatException('Respuesta inesperada del API', response.body);
+    }
     logger.w("response $json");
     return json;
   }

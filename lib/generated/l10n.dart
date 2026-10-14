@@ -288,6 +288,106 @@ class S {
   String get categories {
     return Intl.message('Categorias', name: 'categories', desc: '', args: []);
   }
+
+  /// `Este campo es obligatorio`
+  String get fieldRequired {
+    return Intl.message(
+      'Este campo es obligatorio',
+      name: 'fieldRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Correo electrónico no válido`
+  String get invalidEmail {
+    return Intl.message(
+      'Correo electrónico no válido',
+      name: 'invalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La contraseña debe tener al menos 8 caracteres`
+  String get passwordTooShort {
+    return Intl.message(
+      'La contraseña debe tener al menos 8 caracteres',
+      name: 'passwordTooShort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Las contraseñas no coinciden`
+  String get passwordsDoNotMatch {
+    return Intl.message(
+      'Las contraseñas no coinciden',
+      name: 'passwordsDoNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmar contraseña`
+  String get confirmPassword {
+    return Intl.message(
+      'Confirmar contraseña',
+      name: 'confirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nueva contraseña`
+  String get newPassword {
+    return Intl.message(
+      'Nueva contraseña',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cambiar contraseña`
+  String get changePassword {
+    return Intl.message(
+      'Cambiar contraseña',
+      name: 'changePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Si el correo está registrado, te enviamos un enlace para restablecer la contraseña`
+  String get resetEmailSent {
+    return Intl.message(
+      'Si el correo está registrado, te enviamos un enlace para restablecer la contraseña',
+      name: 'resetEmailSent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contraseña actualizada. Inicia sesión.`
+  String get passwordResetDone {
+    return Intl.message(
+      'Contraseña actualizada. Inicia sesión.',
+      name: 'passwordResetDone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ya tengo un enlace`
+  String get haveResetLink {
+    return Intl.message(
+      'Ya tengo un enlace',
+      name: 'haveResetLink',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

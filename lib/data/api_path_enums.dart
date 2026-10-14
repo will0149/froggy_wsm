@@ -11,7 +11,7 @@ enum ApiPathsEnums {
   signIn(path: 'user/login/'),
   logout(path: 'logout/'),
   passwordReset(path: 'user/password/reset/'),
-  passwordResetConfirm(path: 'user/password/reset/confirm'),
+  passwordResetConfirm(path: 'user/password/reset/confirm/'),
   refreshToken(path: 'user/token/refresh/'),
   tokenVerify(path: 'user/token/verify/'),
   //profile
@@ -36,16 +36,16 @@ enum ApiPathsEnums {
   final String path;
 
   /// Base del API. Se puede sobreescribir con
-  /// `--dart-define=API_BASE_URL=http://192.168.x.x:8000/api/v1/`.
+  /// `--dart-define=API_BASE_URL=http://192.168.x.x:8080/api/v1/`.
   static const _baseUrlOverride = String.fromEnvironment('API_BASE_URL');
 
   static String get baseUrl {
     if (_baseUrlOverride.isNotEmpty) return _baseUrlOverride;
     // El emulador de Android accede al host a través de 10.0.2.2.
     if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
-      return 'http://10.0.2.2:8000/api/v1/';
+      return 'http://10.0.2.2:8080/api/v1/';
     }
-    return 'http://localhost:8000/api/v1/';
+    return 'http://localhost:8080/api/v1/';
   }
 
   Uri get uri => Uri.parse(baseUrl).resolve(path);

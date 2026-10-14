@@ -50,5 +50,16 @@
         <key>NSAllowsLocalNetworking</key>
         <true/>
     </dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>reset-password</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>parkea</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

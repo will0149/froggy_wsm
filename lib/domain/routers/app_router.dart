@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/pages/auth/auth_page.dart';
 import 'package:parkea/app/pages/auth/login_page.dart';
+import 'package:parkea/app/pages/auth/password_reset_confirm_page.dart';
 import 'package:parkea/app/pages/auth/password_reset_page.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
 import 'package:parkea/app/pages/user/user_settings.dart';
@@ -66,6 +67,16 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
             name: PasswordResetPage.routeName,
             path: PasswordResetPage.routeLocation,
             builder: (context, state) => const PasswordResetPage(),
+            routes: <RouteBase>[
+              GoRoute(
+                name: PasswordResetConfirmPage.routeName,
+                path: PasswordResetConfirmPage.routeLocation,
+                builder: (context, state) => PasswordResetConfirmPage(
+                  uid: state.uri.queryParameters['uid'],
+                  token: state.uri.queryParameters['token'],
+                ),
+              ),
+            ],
           ),
           GoRoute(
             name: SplashScreen.routeName,
@@ -144,6 +155,14 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
         logger.i('route ${state.matchedLocation}');
       }
 
+      // Enlace del correo de reset: parkea://reset-password?uid=..&token=..
+      if (state.uri.scheme == 'parkea' && state.uri.host == 'reset-password') {
+        return state.namedLocation(
+          PasswordResetConfirmPage.routeName,
+          queryParameters: state.uri.queryParameters,
+        );
+      }
+
       final authBase = AuthPage.routeLocation;
       final isLoginRoute =
           state.matchedLocation == '$authBase/${LoginPage.routeLocation}';
@@ -152,8 +171,9 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
       final isAuthRoute = state.matchedLocation == authBase;
       final isLoadingRoute =
           state.matchedLocation == '$authBase/${SplashScreen.routeLocation}';
-      final isResetPasswordRoute = state.matchedLocation ==
-          '$authBase/${PasswordResetPage.routeLocation}';
+      // Incluye la confirmación (…/resetPassword/confirm).
+      final isResetPasswordRoute = state.matchedLocation
+          .startsWith('$authBase/${PasswordResetPage.routeLocation}');
 
       return authNotifier.value.when(
         data: (loginState) {
@@ -195,7 +215,12 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
             case AuthStatus.error:
               if (kDebugMode) logger.i('error');
               // El formulario muestra el error; se queda en la pantalla actual.
-              if (isLoginRoute || isRegisterRoute) return null;
+              if (isLoginRoute ||
+                  isRegisterRoute ||
+                  isAuthRoute ||
+                  isResetPasswordRoute) {
+                return null;
+              }
               return '$authBase/${LoginPage.routeLocation}';
           }
         },

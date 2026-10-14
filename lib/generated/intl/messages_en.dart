@@ -25,15 +25,26 @@ class MessageLookup extends MessageLookupByLibrary {
     "authenticate": MessageLookupByLibrary.simpleMessage("Authenticate"),
     "buyTicket": MessageLookupByLibrary.simpleMessage("Get ticket"),
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
+    "changePassword": MessageLookupByLibrary.simpleMessage("Change password"),
+    "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm password"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage("Data & Privacy"),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "eventsForAll": MessageLookupByLibrary.simpleMessage("Events for everyone"),
+    "fieldRequired": MessageLookupByLibrary.simpleMessage(
+      "This field is required",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "I forgot my password",
     ),
     "getHelp": MessageLookupByLibrary.simpleMessage("Help"),
+    "haveResetLink": MessageLookupByLibrary.simpleMessage(
+      "I already have a link",
+    ),
     "information": MessageLookupByLibrary.simpleMessage("Information"),
+    "invalidEmail": MessageLookupByLibrary.simpleMessage(
+      "Invalid email address",
+    ),
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
       "Join our universe",
     ),
@@ -43,12 +54,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Paid"),
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Saved"),
     "name": MessageLookupByLibrary.simpleMessage("User Name"),
+    "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage("Parkea & Share"),
     "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
+    "passwordResetDone": MessageLookupByLibrary.simpleMessage(
+      "Password updated. Please log in.",
+    ),
+    "passwordTooShort": MessageLookupByLibrary.simpleMessage(
+      "Password must be at least 8 characters",
+    ),
+    "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
+      "Passwords do not match",
+    ),
     "popularEvents": MessageLookupByLibrary.simpleMessage("Popular events"),
     "province": MessageLookupByLibrary.simpleMessage("Province"),
     "register": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "resetEmailSent": MessageLookupByLibrary.simpleMessage(
+      "If the email is registered, we sent you a link to reset your password",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("Save event"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("Show event"),

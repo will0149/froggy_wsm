@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/data/entities/auth/register_dto.dart';
@@ -8,7 +7,7 @@ import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 import 'package:parkea/generated/l10n.dart';
 import 'package:select_form_field/select_form_field.dart';
 
-import '../../../pages/home/home_feed_page.dart';
+import '../../../utils/form_validators.dart';
 
 class SignUpForm extends ConsumerStatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -27,6 +26,16 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
   var passwordConfirmationController = TextEditingController();
   bool _isObscure = true;
   bool _isObscure2nd = true;
+
+  @override
+  void dispose() {
+    userNameController.dispose();
+    provinceController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    passwordConfirmationController.dispose();
+    super.dispose();
+  }
 
   final List<Map<String, dynamic>> _provinces = [
     {
@@ -80,11 +89,11 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
     ref.listen<AsyncValue<AuthState>>(restAuthUCProvider, (previous, next) {
       next.whenOrNull(
         data: (state) {
-          if (state.isAuthenticated) {
-            context.goNamed(HomeFeedPage.routeName);
-          } else if (state.hasError) {
+          // Al autenticarse, el redirect del router lleva al home.
+          if (state.hasError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.errorMessage ?? 'Error al registrarse')),
+              SnackBar(
+                  content: Text(state.errorMessage ?? 'Error al registrarse')),
             );
           }
         },
@@ -110,13 +119,8 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
               labelText: S.of(context).name,
               prefixIcon: const Icon(Icons.person),
             ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Most has a value';
-              } else {
-                return null;
-              }
-            },
+            autocorrect: false,
+            validator: (value) => FormValidators.required(context, value),
           ),
           SelectFormField(
             //controller: provinceController,
@@ -143,18 +147,15 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
           ),
           TextFormField(
             controller: emailController,
+            keyboardType: TextInputType.emailAddress,
+            autocorrect: false,
             decoration: InputDecoration(
               hintText: 'example@example.com',
               labelText: S.of(context).email,
               prefixIcon: const Icon(Icons.email),
             ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Most has a value';
-              } else {
-                return null;
-              }
-            },
+            validator: (value) =>
+                FormValidators.email(context, value, optional: true),
           ),
           TextFormField(
             controller: passwordController,
@@ -173,13 +174,7 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                     });
                   }),
             ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Password must be longer than 8 characters';
-              } else {
-                return null;
-              }
-            },
+            validator: (value) => FormValidators.newPassword(context, value),
           ),
           TextFormField(
             controller: passwordConfirmationController,
@@ -187,7 +182,7 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
             obscureText: _isObscure2nd,
             decoration: InputDecoration(
               hintText: '******',
-              labelText: S.of(context).password + " Confirmation",
+              labelText: S.of(context).confirmPassword,
               prefixIcon: const Icon(Icons.lock),
               suffixIcon: IconButton(
                   icon: Icon(
@@ -199,16 +194,8 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                     });
                   }),
             ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Password must be longer than 8 characters';
-              } else {
-                if (value != passwordController.text) {
-                  return 'Password must be the same';
-                }
-                return null;
-              }
-            },
+            validator: (value) => FormValidators.confirmPassword(
+                context, value, passwordController.text),
           ),
           Wrap(
             direction: Axis.vertical,
@@ -232,10 +219,13 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                       onPressed: () async {
                         final isValid = widget.formKey.currentState!.validate();
                         if (isValid) {
+                          final email = emailController.value.text.trim();
                           final request = RegisterDto(
-                            username: userNameController.value.text,
+                            username: userNameController.value.text.trim(),
+                            email: email.isEmpty ? null : email,
                             password1: passwordController.value.text,
-                            password2: passwordConfirmationController.value.text,
+                            password2:
+                                passwordConfirmationController.value.text,
                           );
                           await ref
                               .read(restAuthUCProvider.notifier)

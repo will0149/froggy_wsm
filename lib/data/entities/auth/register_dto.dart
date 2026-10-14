@@ -15,9 +15,10 @@ class RegisterDto {
 
   RegisterDto({this.username, this.email, this.password1, this.password2});
 
-  factory RegisterDto.fromJson(Map<String, dynamic> json)  => _$RegisterDtoFromJson(json);
+  factory RegisterDto.fromJson(Map<String, dynamic> json) =>
+      _$RegisterDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RegisterDtoToJson(this);
-
+  /// Sin nulos: el email es opcional y el API no acepta `"email": null`.
+  Map<String, dynamic> toJson() =>
+      _$RegisterDtoToJson(this)..removeWhere((_, value) => value == null);
 }
-

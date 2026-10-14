@@ -30,5 +30,15 @@
   "logout": "Выход",
   "getHelp": "Помощь",
   "dataAndPrivacy": "Данные и конфиденциальность",
-  "categories": "Categories"
+  "categories": "Categories",
+  "fieldRequired": "Это поле обязательно",
+  "invalidEmail": "Неверный адрес эл. почты",
+  "passwordTooShort": "Пароль должен содержать не менее 8 символов",
+  "passwordsDoNotMatch": "Пароли не совпадают",
+  "confirmPassword": "Подтвердите пароль",
+  "newPassword": "Новый пароль",
+  "changePassword": "Изменить пароль",
+  "resetEmailSent": "Если адрес зарегистрирован, мы отправили ссылку для сброса пароля",
+  "passwordResetDone": "Пароль обновлён. Войдите в систему.",
+  "haveResetLink": "У меня уже есть ссылка"
 }

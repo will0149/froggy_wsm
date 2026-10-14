@@ -1,11 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/pages/auth/login_page.dart';
 
-import '../../../../device/utils/loggerConfig.dart';
+import '../../../../domain/usecases/auth/password_reset_uc.dart';
 import '../../../../generated/l10n.dart';
+import '../../../pages/auth/password_reset_confirm_page.dart';
 import '../../../themes/colors/colors.dart';
+import '../../../utils/form_validators.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -21,14 +24,29 @@ class ResetPasswordForm extends ConsumerStatefulWidget {
 }
 
 class ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
-  var emailController = TextEditingController();
-  bool _valid = false;
-  final bool _isObscure = true;
-  bool isLoading = false;
+  final emailController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _submit() async {
+    if (!widget.formKey.currentState!.validate()) return;
+    final error = await ref
+        .read(passwordResetUCProvider.notifier)
+        .requestReset(emailController.text);
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(error ?? S.of(context).resetEmailSent)),
+    );
+    if (error == null) context.goNamed(LoginPage.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
-    // final authState = ref.watch(fireBaseAuthApiProvider);
+    final isLoading = ref.watch(passwordResetUCProvider).isLoading;
     return Form(
       key: widget.formKey,
       child: Wrap(
@@ -44,13 +62,16 @@ class ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
               fontSize: 28,
             ),
           ),
-          TextField(
+          TextFormField(
             controller: emailController,
+            keyboardType: TextInputType.emailAddress,
+            autocorrect: false,
             decoration: InputDecoration(
               hintText: 'example@example.com',
               labelText: S.of(context).email,
               prefixIcon: const Icon(Icons.email),
             ),
+            validator: (value) => FormValidators.email(context, value),
           ),
           Wrap(
             direction: Axis.vertical,
@@ -71,29 +92,7 @@ class ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
                               color: parkeaBlueAccent, width: 1.2),
                         ),
                       ),
-                      onPressed: () async {
-                        setState(() {
-                          _valid = widget.formKey.currentState!.validate();
-                          isLoading = true;
-                        });
-                        if (_valid) {
-                          //set user session data
-                          // authState.auth
-                          //     .sendPasswordResetEmail(
-                          //   email: emailController.value.text,
-                          // )
-                          //     .catchError((error) {
-                          //   logger.e(error);
-                          //   setState(() {
-                          //     isLoading = false;
-                          //   });
-                          // });
-                          setState(() {
-                            isLoading = false;
-                          });
-                          context.goNamed(LoginPage.routeName); //
-                        }
-                      },
+                      onPressed: _submit,
                       child: Text(
                         S.of(context).resetPassword,
                         style: Theme.of(context)
@@ -102,6 +101,13 @@ class ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
                             ?.copyWith(color: Colors.white),
                       ),
                     ),
+              // En local no hay SMTP: el uid/token se copian del log del API.
+              if (kDebugMode)
+                TextButton(
+                  onPressed: () =>
+                      context.pushNamed(PasswordResetConfirmPage.routeName),
+                  child: Text(S.of(context).haveResetLink),
+                ),
             ],
           ),
         ],

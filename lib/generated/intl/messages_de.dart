@@ -24,6 +24,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "authenticate": MessageLookupByLibrary.simpleMessage("Authentifizieren"),
     "buyTicket": MessageLookupByLibrary.simpleMessage("kauf ein Ticket"),
+    "changePassword": MessageLookupByLibrary.simpleMessage("Passwort ändern"),
+    "confirmPassword": MessageLookupByLibrary.simpleMessage(
+      "Passwort bestätigen",
+    ),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
       "Daten und Privatsphäre",
     ),
@@ -32,11 +36,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventsForAll": MessageLookupByLibrary.simpleMessage(
       "Veranstaltungen für alle",
     ),
+    "fieldRequired": MessageLookupByLibrary.simpleMessage(
+      "Dieses Feld ist erforderlich",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Ich habe mein Passwort vergessen",
     ),
     "getHelp": MessageLookupByLibrary.simpleMessage("Hilfe"),
+    "haveResetLink": MessageLookupByLibrary.simpleMessage(
+      "Ich habe bereits einen Link",
+    ),
     "information": MessageLookupByLibrary.simpleMessage("Information"),
+    "invalidEmail": MessageLookupByLibrary.simpleMessage(
+      "Ungültige E-Mail-Adresse",
+    ),
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
       "Tritt unserem Universum bei",
     ),
@@ -46,16 +59,29 @@ class MessageLookup extends MessageLookupByLibrary {
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Bezahlt"),
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Gerettet"),
     "name": MessageLookupByLibrary.simpleMessage("Name"),
+    "newPassword": MessageLookupByLibrary.simpleMessage("Neues Passwort"),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage(
       "Parkea und teilen!",
     ),
     "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
     "password": MessageLookupByLibrary.simpleMessage("Passwort"),
+    "passwordResetDone": MessageLookupByLibrary.simpleMessage(
+      "Passwort aktualisiert. Bitte melde dich an.",
+    ),
+    "passwordTooShort": MessageLookupByLibrary.simpleMessage(
+      "Das Passwort muss mindestens 8 Zeichen lang sein",
+    ),
+    "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
+      "Die Passwörter stimmen nicht überein",
+    ),
     "popularEvents": MessageLookupByLibrary.simpleMessage(
       "beliebte Veranstaltungen",
     ),
     "province": MessageLookupByLibrary.simpleMessage("Provinz"),
     "register": MessageLookupByLibrary.simpleMessage("Anmelden"),
+    "resetEmailSent": MessageLookupByLibrary.simpleMessage(
+      "Wenn die E-Mail registriert ist, haben wir dir einen Link zum Zurücksetzen des Passworts gesendet",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "saveEvent": MessageLookupByLibrary.simpleMessage(
       "Veranstaltung speichern",

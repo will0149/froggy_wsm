@@ -30,5 +30,15 @@
   "logout": "Se déconnecter",
   "getHelp": "Aider",
   "dataAndPrivacy": "Données et Confidentialité",
-  "categories": "Categories"
+  "categories": "Categories",
+  "fieldRequired": "Ce champ est obligatoire",
+  "invalidEmail": "Adresse e-mail invalide",
+  "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+  "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+  "confirmPassword": "Confirmer le mot de passe",
+  "newPassword": "Nouveau mot de passe",
+  "changePassword": "Changer le mot de passe",
+  "resetEmailSent": "Si l'e-mail est enregistré, nous t'avons envoyé un lien pour réinitialiser ton mot de passe",
+  "passwordResetDone": "Mot de passe mis à jour. Connecte-toi.",
+  "haveResetLink": "J'ai déjà un lien"
 }

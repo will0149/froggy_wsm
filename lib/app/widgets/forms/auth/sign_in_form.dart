@@ -8,7 +8,7 @@ import 'package:parkea/generated/l10n.dart';
 import '../../../../data/entities/login_dto.dart';
 import '../../../../domain/usecases/auth/rest_auth_uc.dart';
 import '../../../pages/auth/password_reset_page.dart';
-import '../../../pages/home/home_feed_page.dart';
+import '../../../utils/form_validators.dart';
 
 class SignInForm extends ConsumerStatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -38,11 +38,12 @@ class SignInFormState extends ConsumerState<SignInForm> {
     ref.listen<AsyncValue<AuthState>>(restAuthUCProvider, (previous, next) {
       next.whenOrNull(
         data: (state) {
-          if (state.isAuthenticated) {
-            context.goNamed(HomeFeedPage.routeName);
-          } else if (state.hasError) {
+          // Al autenticarse, el redirect del router lleva al home.
+          if (state.hasError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.errorMessage ?? 'Error al iniciar sesión')),
+              SnackBar(
+                  content:
+                      Text(state.errorMessage ?? 'Error al iniciar sesión')),
             );
           }
         },
@@ -101,13 +102,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
                     });
                   }),
             ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Password must be longer than 8 characters';
-              } else {
-                return null;
-              }
-            },
+            validator: (value) => FormValidators.required(context, value),
           ),
           Wrap(
             direction: Axis.vertical,
@@ -131,12 +126,12 @@ class SignInFormState extends ConsumerState<SignInForm> {
                       onPressed: () async {
                         final isValid = widget.formKey.currentState!.validate();
                         if (isValid) {
-                          await ref
-                              .read(restAuthUCProvider.notifier)
-                              .signIn(LoginDTO.fromIdentifier(
-                                identifierController.value.text,
-                                passwordController.value.text,
-                              ),);
+                          await ref.read(restAuthUCProvider.notifier).signIn(
+                                LoginDTO.fromIdentifier(
+                                  identifierController.value.text,
+                                  passwordController.value.text,
+                                ),
+                              );
                         }
                       },
                       child: Text(

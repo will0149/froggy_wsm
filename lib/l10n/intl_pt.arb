@@ -30,5 +30,15 @@
   "logout": "Fechar Sessão",
   "getHelp": "Ajuda",
   "dataAndPrivacy": "Dados e privacidade",
-  "categories": "Categories"
+  "categories": "Categories",
+  "fieldRequired": "Este campo é obrigatório",
+  "invalidEmail": "E-mail inválido",
+  "passwordTooShort": "A senha deve ter pelo menos 8 caracteres",
+  "passwordsDoNotMatch": "As senhas não coincidem",
+  "confirmPassword": "Confirmar senha",
+  "newPassword": "Nova senha",
+  "changePassword": "Alterar senha",
+  "resetEmailSent": "Se o e-mail estiver cadastrado, enviamos um link para redefinir sua senha",
+  "passwordResetDone": "Senha atualizada. Faça login.",
+  "haveResetLink": "Já tenho um link"
 }

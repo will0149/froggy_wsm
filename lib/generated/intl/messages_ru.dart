@@ -25,17 +25,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "authenticate": MessageLookupByLibrary.simpleMessage("Аутентифицировать"),
     "buyTicket": MessageLookupByLibrary.simpleMessage("Купи билет"),
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
+    "changePassword": MessageLookupByLibrary.simpleMessage("Изменить пароль"),
+    "confirmPassword": MessageLookupByLibrary.simpleMessage(
+      "Подтвердите пароль",
+    ),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
       "Данные и конфиденциальность",
     ),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
     "email": MessageLookupByLibrary.simpleMessage("Эл. адрес"),
     "eventsForAll": MessageLookupByLibrary.simpleMessage("События для всех"),
+    "fieldRequired": MessageLookupByLibrary.simpleMessage(
+      "Это поле обязательно",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Я забыл мой пароль",
     ),
     "getHelp": MessageLookupByLibrary.simpleMessage("Помощь"),
+    "haveResetLink": MessageLookupByLibrary.simpleMessage(
+      "У меня уже есть ссылка",
+    ),
     "information": MessageLookupByLibrary.simpleMessage("Информация"),
+    "invalidEmail": MessageLookupByLibrary.simpleMessage(
+      "Неверный адрес эл. почты",
+    ),
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
       "Присоединяйтесь к нашей вселенной",
     ),
@@ -45,14 +58,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Оплаченный"),
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Сохранено"),
     "name": MessageLookupByLibrary.simpleMessage("Имя"),
+    "newPassword": MessageLookupByLibrary.simpleMessage("Новый пароль"),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage(
       "Parkea и поделиться!",
     ),
     "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
     "password": MessageLookupByLibrary.simpleMessage("Пароль"),
+    "passwordResetDone": MessageLookupByLibrary.simpleMessage(
+      "Пароль обновлён. Войдите в систему.",
+    ),
+    "passwordTooShort": MessageLookupByLibrary.simpleMessage(
+      "Пароль должен содержать не менее 8 символов",
+    ),
+    "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
+      "Пароли не совпадают",
+    ),
     "popularEvents": MessageLookupByLibrary.simpleMessage("Популярные события"),
     "province": MessageLookupByLibrary.simpleMessage("Провинция"),
     "register": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+    "resetEmailSent": MessageLookupByLibrary.simpleMessage(
+      "Если адрес зарегистрирован, мы отправили ссылку для сброса пароля",
+    ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("сохранить событие"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("Показать событие"),
