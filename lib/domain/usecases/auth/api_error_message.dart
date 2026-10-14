@@ -18,3 +18,13 @@ String? apiErrorMessage(Object? body) {
   }
   return null;
 }
+
+/// Errores por campo (`{ "<campo>": ["msg", ...] }`), sin los generales.
+Map<String, List<String>> apiFieldErrors(Object? body) {
+  if (body is! Map<String, dynamic>) return const {};
+  return {
+    for (final MapEntry(:key, :value) in body.entries)
+      if (key != 'non_field_errors' && value is List && value.isNotEmpty)
+        key: [for (final message in value) '$message'],
+  };
+}

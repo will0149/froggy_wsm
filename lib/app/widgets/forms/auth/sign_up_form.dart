@@ -8,6 +8,7 @@ import 'package:parkea/generated/l10n.dart';
 import 'package:select_form_field/select_form_field.dart';
 
 import '../../../utils/form_validators.dart';
+import '../../../utils/password_policy.dart';
 
 class SignUpForm extends ConsumerStatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -26,6 +27,32 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
   var passwordConfirmationController = TextEditingController();
   bool _isObscure = true;
   bool _isObscure2nd = true;
+
+  /// Errores del API por campo (`username`, `email`, `password1`,
+  /// `password2`); se borran al editar el campo.
+  Map<String, List<String>> _apiErrors = const {};
+
+  String? _apiError(String field) => _apiErrors[field]?.join('\n');
+
+  void _clearApiError(String field) {
+    if (!_apiErrors.containsKey(field)) return;
+    setState(() => _apiErrors = {..._apiErrors}..remove(field));
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        content: Text(message),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    PasswordPolicy.ensureLoaded();
+  }
 
   @override
   void dispose() {
@@ -86,23 +113,17 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
   Widget build(BuildContext context) {
     final authState = ref.watch(restAuthUCProvider);
 
-    ref.listen<AsyncValue<AuthState>>(restAuthUCProvider, (previous, next) {
-      next.whenOrNull(
-        data: (state) {
-          // Al autenticarse, el redirect del router lleva al home.
-          if (state.hasError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content: Text(state.errorMessage ?? 'Error al registrarse')),
-            );
-          }
-        },
-        error: (error, _) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error: $error')),
-          );
-        },
-      );
+    // Al autenticarse, el redirect del router lleva al home. Solo se
+    // reacciona a estados finales, no a la carga.
+    ref.listen<AsyncValue<AuthState>>(restAuthUCProvider, (_, next) {
+      switch (next) {
+        case AsyncData(:final value) when value.hasError:
+          setState(() => _apiErrors = value.fieldErrors ?? const {});
+          _showError(value.errorMessage ?? 'Error al registrarse');
+        case AsyncError(:final error):
+          _showError('Error: $error');
+        default:
+      }
     });
 
     return Form(
@@ -120,6 +141,8 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
               prefixIcon: const Icon(Icons.person),
             ),
             autocorrect: false,
+            forceErrorText: _apiError('username'),
+            onChanged: (_) => _clearApiError('username'),
             validator: (value) => FormValidators.required(context, value),
           ),
           SelectFormField(
@@ -154,6 +177,8 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
               labelText: S.of(context).email,
               prefixIcon: const Icon(Icons.email),
             ),
+            forceErrorText: _apiError('email'),
+            onChanged: (_) => _clearApiError('email'),
             validator: (value) =>
                 FormValidators.email(context, value, optional: true),
           ),
@@ -165,6 +190,7 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
               hintText: '******',
               labelText: S.of(context).password,
               prefixIcon: const Icon(Icons.lock),
+              errorMaxLines: 4,
               suffixIcon: IconButton(
                   icon: Icon(
                       _isObscure ? Icons.visibility : Icons.visibility_off),
@@ -174,7 +200,16 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                     });
                   }),
             ),
-            validator: (value) => FormValidators.newPassword(context, value),
+            forceErrorText: _apiError('password1'),
+            onChanged: (_) => _clearApiError('password1'),
+            validator: (value) => FormValidators.newPassword(
+              context,
+              value,
+              userAttributes: [
+                userNameController.text.trim(),
+                emailController.text.trim(),
+              ],
+            ),
           ),
           TextFormField(
             controller: passwordConfirmationController,
@@ -184,6 +219,7 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
               hintText: '******',
               labelText: S.of(context).confirmPassword,
               prefixIcon: const Icon(Icons.lock),
+              errorMaxLines: 4,
               suffixIcon: IconButton(
                   icon: Icon(
                     _isObscure2nd ? Icons.visibility : Icons.visibility_off,
@@ -194,6 +230,8 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
                     });
                   }),
             ),
+            forceErrorText: _apiError('password2'),
+            onChanged: (_) => _clearApiError('password2'),
             validator: (value) => FormValidators.confirmPassword(
                 context, value, passwordController.text),
           ),

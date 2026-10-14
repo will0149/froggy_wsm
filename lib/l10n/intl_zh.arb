@@ -40,5 +40,8 @@
   "changePassword": "變更密碼",
   "resetEmailSent": "如果此電子郵件已註冊，我們已寄送重設密碼的連結",
   "passwordResetDone": "密碼已更新，請登入。",
-  "haveResetLink": "我已經有連結"
+  "haveResetLink": "我已經有連結",
+  "passwordTooCommon": "此密碼太常見",
+  "passwordEntirelyNumeric": "密碼不能只包含數字",
+  "passwordTooSimilar": "密碼與使用者名稱或電子郵件太相似"
 }

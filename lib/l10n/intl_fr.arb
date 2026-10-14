@@ -40,5 +40,8 @@
   "changePassword": "Changer le mot de passe",
   "resetEmailSent": "Si l'e-mail est enregistré, nous t'avons envoyé un lien pour réinitialiser ton mot de passe",
   "passwordResetDone": "Mot de passe mis à jour. Connecte-toi.",
-  "haveResetLink": "J'ai déjà un lien"
+  "haveResetLink": "J'ai déjà un lien",
+  "passwordTooCommon": "Ce mot de passe est trop courant",
+  "passwordEntirelyNumeric": "Le mot de passe ne peut pas contenir uniquement des chiffres",
+  "passwordTooSimilar": "Le mot de passe ressemble trop à ton nom d'utilisateur ou à ton e-mail"
 }

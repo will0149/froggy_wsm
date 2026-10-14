@@ -56,11 +56,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage("Parkea & Comparte"),
     "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
     "password": MessageLookupByLibrary.simpleMessage("Senha"),
+    "passwordEntirelyNumeric": MessageLookupByLibrary.simpleMessage(
+      "A senha não pode conter apenas números",
+    ),
     "passwordResetDone": MessageLookupByLibrary.simpleMessage(
       "Senha atualizada. Faça login.",
     ),
+    "passwordTooCommon": MessageLookupByLibrary.simpleMessage(
+      "Esta senha é muito comum",
+    ),
     "passwordTooShort": MessageLookupByLibrary.simpleMessage(
       "A senha deve ter pelo menos 8 caracteres",
+    ),
+    "passwordTooSimilar": MessageLookupByLibrary.simpleMessage(
+      "A senha é muito parecida com seu usuário ou e-mail",
     ),
     "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
       "As senhas não coincidem",

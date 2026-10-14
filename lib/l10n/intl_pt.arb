@@ -40,5 +40,8 @@
   "changePassword": "Alterar senha",
   "resetEmailSent": "Se o e-mail estiver cadastrado, enviamos um link para redefinir sua senha",
   "passwordResetDone": "Senha atualizada. Faça login.",
-  "haveResetLink": "Já tenho um link"
+  "haveResetLink": "Já tenho um link",
+  "passwordTooCommon": "Esta senha é muito comum",
+  "passwordEntirelyNumeric": "A senha não pode conter apenas números",
+  "passwordTooSimilar": "A senha é muito parecida com seu usuário ou e-mail"
 }

@@ -40,5 +40,8 @@
   "changePassword": "Cambiar contraseña",
   "resetEmailSent": "Si el correo está registrado, te enviamos un enlace para restablecer la contraseña",
   "passwordResetDone": "Contraseña actualizada. Inicia sesión.",
-  "haveResetLink": "Ya tengo un enlace"
+  "haveResetLink": "Ya tengo un enlace",
+  "passwordTooCommon": "Es una contraseña demasiado común",
+  "passwordEntirelyNumeric": "La contraseña no puede ser solo números",
+  "passwordTooSimilar": "La contraseña se parece demasiado a tu usuario o correo"
 }

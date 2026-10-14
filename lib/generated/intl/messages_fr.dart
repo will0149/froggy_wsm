@@ -68,11 +68,20 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
     "password": MessageLookupByLibrary.simpleMessage("Mot de passe"),
+    "passwordEntirelyNumeric": MessageLookupByLibrary.simpleMessage(
+      "Le mot de passe ne peut pas contenir uniquement des chiffres",
+    ),
     "passwordResetDone": MessageLookupByLibrary.simpleMessage(
       "Mot de passe mis à jour. Connecte-toi.",
     ),
+    "passwordTooCommon": MessageLookupByLibrary.simpleMessage(
+      "Ce mot de passe est trop courant",
+    ),
     "passwordTooShort": MessageLookupByLibrary.simpleMessage(
       "Le mot de passe doit contenir au moins 8 caractères",
+    ),
+    "passwordTooSimilar": MessageLookupByLibrary.simpleMessage(
+      "Le mot de passe ressemble trop à ton nom d\'utilisateur ou à ton e-mail",
     ),
     "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
       "Les mots de passe ne correspondent pas",

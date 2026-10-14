@@ -61,7 +61,7 @@ class RestAuthUC extends _$RestAuthUC {
           () => repository.register(request),
           readTokens: (body) =>
               (body['access'] as String?, body['refresh'] as String?),
-          errorMessage: apiErrorMessage,
+          errorMessage: _registerErrorMessage,
           fallbackError: 'Error al registrarse',
         ));
   }
@@ -99,11 +99,26 @@ class RestAuthUC extends _$RestAuthUC {
         }
         // Sin perfil no hay sesión: que no reaparezca al reabrir la app.
         await headersUtils.dropTemporalMemory();
+        return AuthState.error('No se pudo cargar el perfil');
       }
-      return AuthState.error('No se pudo cargar el perfil');
+      return AuthState.error('$fallbackError (sin tokens)');
     }
     return AuthState.error(
-        errorMessage(body) ?? '$fallbackError (código: $status)');
+      errorMessage(body) ?? '$fallbackError (código: $status)',
+      fieldErrors: apiFieldErrors(body),
+    );
+  }
+
+  /// Los errores por campo se muestran en el formulario; aquí solo el general
+  /// (`non_field_errors`: contraseña parecida al usuario, no coinciden…).
+  String? _registerErrorMessage(Object? body) {
+    final general =
+        body is Map<String, dynamic> ? body['non_field_errors'] : null;
+    if (general is List && general.isNotEmpty) return '${general.first}';
+    if (apiFieldErrors(body).isNotEmpty) {
+      return 'No se pudo completar el registro';
+    }
+    return apiErrorMessage(body);
   }
 
   /// Credenciales incorrectas llegan como `non_field_errors`.

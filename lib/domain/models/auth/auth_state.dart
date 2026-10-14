@@ -10,11 +10,15 @@ class AuthState {
   final String? authToken;
   final String? errorMessage;
 
+  /// Errores de validación del API por campo, p. ej. `password1`.
+  final Map<String, List<String>>? fieldErrors;
+
   const AuthState({
     required this.status,
     this.user,
     this.authToken,
     this.errorMessage,
+    this.fieldErrors,
   });
 
   AuthState copyWith({
@@ -22,12 +26,14 @@ class AuthState {
     UserProfileDTO? user,
     String? authToken,
     String? errorMessage,
+    Map<String, List<String>>? fieldErrors,
   }) {
     return AuthState(
       status: status ?? this.status,
       user: user ?? this.user,
       authToken: authToken ?? this.authToken,
       errorMessage: errorMessage ?? this.errorMessage,
+      fieldErrors: fieldErrors ?? this.fieldErrors,
     );
   }
 
@@ -47,9 +53,11 @@ class AuthState {
     status: AuthStatus.unauthenticated,
   );
 
-  factory AuthState.error(String message) => AuthState(
+  factory AuthState.error(String message,
+      {Map<String, List<String>>? fieldErrors}) => AuthState(
     status: AuthStatus.error,
     errorMessage: message,
+    fieldErrors: fieldErrors,
   );
 
   bool get isAuthenticated => status == AuthStatus.authenticated;

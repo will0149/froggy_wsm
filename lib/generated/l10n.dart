@@ -388,6 +388,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Es una contraseña demasiado común`
+  String get passwordTooCommon {
+    return Intl.message(
+      'Es una contraseña demasiado común',
+      name: 'passwordTooCommon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La contraseña no puede ser solo números`
+  String get passwordEntirelyNumeric {
+    return Intl.message(
+      'La contraseña no puede ser solo números',
+      name: 'passwordEntirelyNumeric',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `La contraseña se parece demasiado a tu usuario o correo`
+  String get passwordTooSimilar {
+    return Intl.message(
+      'La contraseña se parece demasiado a tu usuario o correo',
+      name: 'passwordTooSimilar',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

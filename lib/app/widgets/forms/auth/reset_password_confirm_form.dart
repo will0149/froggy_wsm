@@ -7,6 +7,7 @@ import '../../../../generated/l10n.dart';
 import '../../../pages/auth/login_page.dart';
 import '../../../themes/colors/colors.dart';
 import '../../../utils/form_validators.dart';
+import '../../../utils/password_policy.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -40,6 +41,12 @@ class ResetPasswordConfirmFormState
 
   bool get _hasLinkData =>
       (widget.uid?.isNotEmpty ?? false) && (widget.token?.isNotEmpty ?? false);
+
+  @override
+  void initState() {
+    super.initState();
+    PasswordPolicy.ensureLoaded();
+  }
 
   @override
   void dispose() {
@@ -109,6 +116,7 @@ class ResetPasswordConfirmFormState
             decoration: InputDecoration(
               labelText: S.of(context).newPassword,
               prefixIcon: const Icon(Icons.lock),
+              errorMaxLines: 4,
               suffixIcon: IconButton(
                 icon:
                     Icon(_isObscure ? Icons.visibility : Icons.visibility_off),

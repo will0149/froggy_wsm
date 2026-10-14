@@ -40,5 +40,8 @@
   "changePassword": "Change password",
   "resetEmailSent": "If the email is registered, we sent you a link to reset your password",
   "passwordResetDone": "Password updated. Please log in.",
-  "haveResetLink": "I already have a link"
+  "haveResetLink": "I already have a link",
+  "passwordTooCommon": "This password is too common",
+  "passwordEntirelyNumeric": "Password can't be entirely numeric",
+  "passwordTooSimilar": "Password is too similar to your username or email"
 }

@@ -35,24 +35,22 @@ class SignInFormState extends ConsumerState<SignInForm> {
   Widget build(BuildContext context) {
     final authState = ref.watch(restAuthUCProvider);
 
-    ref.listen<AsyncValue<AuthState>>(restAuthUCProvider, (previous, next) {
-      next.whenOrNull(
-        data: (state) {
-          // Al autenticarse, el redirect del router lleva al home.
-          if (state.hasError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content:
-                      Text(state.errorMessage ?? 'Error al iniciar sesión')),
-            );
-          }
-        },
-        error: (error, _) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error: $error')),
-          );
-        },
-      );
+    // Al autenticarse, el redirect del router lleva al home. Solo se
+    // reacciona a estados finales, no a la carga.
+    ref.listen<AsyncValue<AuthState>>(restAuthUCProvider, (_, next) {
+      final message = switch (next) {
+        AsyncData(:final value) when value.hasError =>
+          value.errorMessage ?? 'Error al iniciar sesión',
+        AsyncError(:final error) => 'Error: $error',
+        _ => null,
+      };
+      if (message == null) return;
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+          content: Text(message),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ));
     });
 
     return Form(

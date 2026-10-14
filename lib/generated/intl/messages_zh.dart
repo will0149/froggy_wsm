@@ -48,8 +48,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage("Parkea & Comparte"),
     "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
     "password": MessageLookupByLibrary.simpleMessage("密碼"),
+    "passwordEntirelyNumeric": MessageLookupByLibrary.simpleMessage(
+      "密碼不能只包含數字",
+    ),
     "passwordResetDone": MessageLookupByLibrary.simpleMessage("密碼已更新，請登入。"),
+    "passwordTooCommon": MessageLookupByLibrary.simpleMessage("此密碼太常見"),
     "passwordTooShort": MessageLookupByLibrary.simpleMessage("密碼至少需要 8 個字元"),
+    "passwordTooSimilar": MessageLookupByLibrary.simpleMessage(
+      "密碼與使用者名稱或電子郵件太相似",
+    ),
     "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage("密碼不一致"),
     "popularEvents": MessageLookupByLibrary.simpleMessage("流行的事件"),
     "province": MessageLookupByLibrary.simpleMessage("省"),

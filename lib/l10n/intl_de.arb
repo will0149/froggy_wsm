@@ -39,5 +39,8 @@
   "changePassword": "Passwort ändern",
   "resetEmailSent": "Wenn die E-Mail registriert ist, haben wir dir einen Link zum Zurücksetzen des Passworts gesendet",
   "passwordResetDone": "Passwort aktualisiert. Bitte melde dich an.",
-  "haveResetLink": "Ich habe bereits einen Link"
+  "haveResetLink": "Ich habe bereits einen Link",
+  "passwordTooCommon": "Dieses Passwort ist zu häufig",
+  "passwordEntirelyNumeric": "Das Passwort darf nicht nur aus Zahlen bestehen",
+  "passwordTooSimilar": "Das Passwort ist deinem Benutzernamen oder deiner E-Mail zu ähnlich"
 }
