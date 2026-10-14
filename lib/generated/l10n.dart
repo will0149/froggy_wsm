@@ -888,6 +888,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Ubicación`
+  String get eventLocation {
+    return Intl.message('Ubicación', name: 'eventLocation', desc: '', args: []);
+  }
+
+  /// `Organiza`
+  String get hostedBy {
+    return Intl.message('Organiza', name: 'hostedBy', desc: '', args: []);
+  }
+
+  /// `Acerca del evento`
+  String get aboutEvent {
+    return Intl.message(
+      'Acerca del evento',
+      name: 'aboutEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cómo llegar`
+  String get getDirections {
+    return Intl.message(
+      'Cómo llegar',
+      name: 'getDirections',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo abrir la app de mapas`
+  String get couldNotOpenMaps {
+    return Intl.message(
+      'No se pudo abrir la app de mapas',
+      name: 'couldNotOpenMaps',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Buscar actividad`
+  String get searchEvents {
+    return Intl.message(
+      'Buscar actividad',
+      name: 'searchEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No hay eventos que coincidan con tu búsqueda`
+  String get noSearchResults {
+    return Intl.message(
+      'No hay eventos que coincidan con tu búsqueda',
+      name: 'noSearchResults',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cambiar foto`
+  String get changePhoto {
+    return Intl.message(
+      'Cambiar foto',
+      name: 'changePhoto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Foto actualizada`
+  String get avatarUpdated {
+    return Intl.message(
+      'Foto actualizada',
+      name: 'avatarUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo actualizar la foto`
+  String get avatarUploadFailed {
+    return Intl.message(
+      'No se pudo actualizar la foto',
+      name: 'avatarUploadFailed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -131,6 +131,28 @@ class RestAuthUC extends _$RestAuthUC {
     return apiErrorMessage(body);
   }
 
+  /// Sube la foto de perfil y recarga el perfil. Devuelve null si salió bien
+  /// o el mensaje de error.
+  Future<String?> updateAvatar(String filePath) async {
+    try {
+      final result = await repository.uploadAvatar(filePath);
+      final status = result['status'];
+      if (status == timeoutStatus) return connectionErrorMessage;
+      if (status != 200) {
+        return apiErrorMessage(result['body']) ??
+            'No se pudo actualizar la foto';
+      }
+    } on Exception catch (e) {
+      logger.e(e.toString());
+      return connectionErrorMessage;
+    }
+    final user = await getUserProfile();
+    if (user != null && ref.mounted && _isAuthenticated) {
+      state = AsyncData(AuthState.authenticated(user));
+    }
+    return null;
+  }
+
   Future<UserProfileDTO?> getUserProfile() async {
     try {
       final result = await repository.getUserProfile();

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:horizontal_scroll_item/horizontal_scroll_item.dart';
@@ -38,8 +40,13 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
 
   String? _category;
 
+  /// Búsqueda aplicada al feed; se actualiza al dejar de escribir.
+  String? _search;
+  Timer? _searchDebounce;
+
   @override
   void dispose() {
+    _searchDebounce?.cancel();
     searchBarController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -48,7 +55,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
   Future<void> _refresh() async {
     ref.invalidate(fetchPromotionsUCProvider);
     // Espera solo al feed: es lo que se ve bajo el indicador.
-    final feed = eventFeedUCProvider(_category);
+    final feed = eventFeedUCProvider(_category, _search);
     ref.invalidate(feed);
     await ref.read(feed.future);
   }
@@ -61,6 +68,21 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
           duration: const Duration(milliseconds: 400), curve: Curves.easeOut);
     } else {
       _refreshKey.currentState?.show();
+    }
+  }
+
+  void _onSearchChanged(String text, {bool immediate = false}) {
+    _searchDebounce?.cancel();
+    void apply() {
+      final search = text.trim();
+      if (!mounted) return;
+      setState(() => _search = search.isEmpty ? null : search);
+    }
+
+    if (immediate) {
+      apply();
+    } else {
+      _searchDebounce = Timer(const Duration(milliseconds: 400), apply);
     }
   }
 
@@ -122,11 +144,27 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                     ),
                     SearchBar(
                       controller: searchBarController,
-                      hintText: "Buscar Actividad",
+                      hintText: S.of(context).searchEvents,
+                      textInputAction: TextInputAction.search,
+                      onChanged: _onSearchChanged,
+                      onSubmitted: (text) =>
+                          _onSearchChanged(text, immediate: true),
                       leading: Icon(
                         Icons.search,
                         color: parkeaBlueAccent,
                       ),
+                      trailing: [
+                        if (searchBarController.text.isNotEmpty)
+                          IconButton(
+                            icon: const Icon(Icons.close),
+                            tooltip: MaterialLocalizations.of(context)
+                                .deleteButtonTooltip,
+                            onPressed: () {
+                              searchBarController.clear();
+                              _onSearchChanged('', immediate: true);
+                            },
+                          ),
+                      ],
                       elevation: WidgetStatePropertyAll(2.0),
                       backgroundColor: WidgetStatePropertyAll(Colors.white),
                       shape: WidgetStatePropertyAll(
@@ -166,7 +204,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
             SliverPadding(
               padding: EdgeInsets.only(
                   bottom: MediaQuery.paddingOf(context).bottom),
-              sliver: EventFeedSliver(category: _category),
+              sliver: EventFeedSliver(category: _category, search: _search),
             ),
           ],
         ),

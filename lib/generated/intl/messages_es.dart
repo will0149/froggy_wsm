@@ -30,8 +30,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "aboutEvent": MessageLookupByLibrary.simpleMessage("Acerca del evento"),
     "addBanner": MessageLookupByLibrary.simpleMessage("Agregar imagen"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Autenticar"),
+    "avatarUpdated": MessageLookupByLibrary.simpleMessage("Foto actualizada"),
+    "avatarUploadFailed": MessageLookupByLibrary.simpleMessage(
+      "No se pudo actualizar la foto",
+    ),
     "bannerUploadFailed": MessageLookupByLibrary.simpleMessage(
       "El evento se creó, pero la imagen no se pudo subir",
     ),
@@ -53,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "changePassword": MessageLookupByLibrary.simpleMessage(
       "Cambiar contraseña",
     ),
+    "changePhoto": MessageLookupByLibrary.simpleMessage("Cambiar foto"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Confirmar contraseña",
     ),
@@ -61,6 +67,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "costPaid": MessageLookupByLibrary.simpleMessage("De pago"),
     "costPrivate": MessageLookupByLibrary.simpleMessage("Privado"),
     "costType": MessageLookupByLibrary.simpleMessage("Tipo de acceso"),
+    "couldNotOpenMaps": MessageLookupByLibrary.simpleMessage(
+      "No se pudo abrir la app de mapas",
+    ),
     "createEvent": MessageLookupByLibrary.simpleMessage("Crear evento"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
       "Datos & Privacidad",
@@ -78,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Moneda"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Fecha y hora"),
     "eventDescription": MessageLookupByLibrary.simpleMessage("Descripción"),
+    "eventLocation": MessageLookupByLibrary.simpleMessage("Ubicación"),
     "eventName": MessageLookupByLibrary.simpleMessage("Nombre del evento"),
     "eventPlace": MessageLookupByLibrary.simpleMessage("Lugar"),
     "eventPrice": MessageLookupByLibrary.simpleMessage("Precio"),
@@ -99,8 +109,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Olvide mi Contraseña",
     ),
+    "getDirections": MessageLookupByLibrary.simpleMessage("Cómo llegar"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Ayuda"),
     "haveResetLink": MessageLookupByLibrary.simpleMessage("Ya tengo un enlace"),
+    "hostedBy": MessageLookupByLibrary.simpleMessage("Organiza"),
     "information": MessageLookupByLibrary.simpleMessage("Información"),
     "invalidCurrency": MessageLookupByLibrary.simpleMessage(
       "Usa un código de 3 letras, p. ej. USD",
@@ -133,6 +145,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noPastTickets": MessageLookupByLibrary.simpleMessage(
       "No tienes tickets anteriores",
+    ),
+    "noSearchResults": MessageLookupByLibrary.simpleMessage(
+      "No hay eventos que coincidan con tu búsqueda",
     ),
     "noUpcomingTickets": MessageLookupByLibrary.simpleMessage(
       "No tienes tickets próximos",
@@ -173,6 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "retry": MessageLookupByLibrary.simpleMessage("Reintentar"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("Guardar Evento"),
+    "searchEvents": MessageLookupByLibrary.simpleMessage("Buscar actividad"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("Ir al Evento"),
     "settings": MessageLookupByLibrary.simpleMessage("Configuración"),
     "signUp": MessageLookupByLibrary.simpleMessage("Regístrate"),

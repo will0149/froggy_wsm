@@ -46,13 +46,14 @@ class EventFeedState {
 }
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas).
+/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas) y por
+/// el texto [search] (null sin búsqueda).
 @riverpod
 class EventFeedUC extends _$EventFeedUC {
   final EventRepository repository = EventRepository();
 
   @override
-  Future<EventFeedState> build(String? category) async {
+  Future<EventFeedState> build(String? category, String? search) async {
     final page = await _fetchPage(1);
     return EventFeedState(events: page.events, nextPage: page.nextPage);
   }
@@ -86,7 +87,8 @@ class EventFeedUC extends _$EventFeedUC {
   }
 
   Future<({List<EventDTO> events, int? nextPage})> _fetchPage(int page) async {
-    final result = await repository.fetchEventsPage(page, category: category);
+    final result = await repository.fetchEventsPage(page,
+        category: category, search: search);
     final status = result['status'];
     final body = result['body'];
     // Página fuera de rango: fin de la lista.

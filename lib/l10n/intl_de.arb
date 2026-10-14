@@ -128,5 +128,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "eventLocation": "Ort",
+  "hostedBy": "Veranstaltet von",
+  "aboutEvent": "Über das Event",
+  "getDirections": "Route planen",
+  "couldNotOpenMaps": "Karten-App konnte nicht geöffnet werden",
+  "searchEvents": "Aktivitäten suchen",
+  "noSearchResults": "Keine Events passen zu deiner Suche",
+  "changePhoto": "Foto ändern",
+  "avatarUpdated": "Foto aktualisiert",
+  "avatarUploadFailed": "Foto konnte nicht aktualisiert werden"
 }

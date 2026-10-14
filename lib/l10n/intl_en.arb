@@ -129,5 +129,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "eventLocation": "Location",
+  "hostedBy": "Hosted by",
+  "aboutEvent": "About the event",
+  "getDirections": "Get directions",
+  "couldNotOpenMaps": "Couldn't open the maps app",
+  "searchEvents": "Search activities",
+  "noSearchResults": "No events match your search",
+  "changePhoto": "Change photo",
+  "avatarUpdated": "Photo updated",
+  "avatarUploadFailed": "Couldn't update the photo"
 }

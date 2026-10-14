@@ -30,8 +30,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "aboutEvent": MessageLookupByLibrary.simpleMessage("О событии"),
     "addBanner": MessageLookupByLibrary.simpleMessage("Добавить изображение"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Аутентифицировать"),
+    "avatarUpdated": MessageLookupByLibrary.simpleMessage("Фото обновлено"),
+    "avatarUploadFailed": MessageLookupByLibrary.simpleMessage(
+      "Не удалось обновить фото",
+    ),
     "bannerUploadFailed": MessageLookupByLibrary.simpleMessage(
       "Событие создано, но изображение не удалось загрузить",
     ),
@@ -51,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "categoryNone": MessageLookupByLibrary.simpleMessage("Без категории"),
     "changeBanner": MessageLookupByLibrary.simpleMessage("Сменить изображение"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Изменить пароль"),
+    "changePhoto": MessageLookupByLibrary.simpleMessage("Сменить фото"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Подтвердите пароль",
     ),
@@ -59,6 +65,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "costPaid": MessageLookupByLibrary.simpleMessage("Платное"),
     "costPrivate": MessageLookupByLibrary.simpleMessage("Закрытое"),
     "costType": MessageLookupByLibrary.simpleMessage("Тип доступа"),
+    "couldNotOpenMaps": MessageLookupByLibrary.simpleMessage(
+      "Не удалось открыть карты",
+    ),
     "createEvent": MessageLookupByLibrary.simpleMessage("Создать событие"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
       "Данные и конфиденциальность",
@@ -76,6 +85,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Валюта"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Дата и время"),
     "eventDescription": MessageLookupByLibrary.simpleMessage("Описание"),
+    "eventLocation": MessageLookupByLibrary.simpleMessage("Место"),
     "eventName": MessageLookupByLibrary.simpleMessage("Название события"),
     "eventPlace": MessageLookupByLibrary.simpleMessage("Место"),
     "eventPrice": MessageLookupByLibrary.simpleMessage("Цена"),
@@ -95,10 +105,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Я забыл мой пароль",
     ),
+    "getDirections": MessageLookupByLibrary.simpleMessage("Как добраться"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Помощь"),
     "haveResetLink": MessageLookupByLibrary.simpleMessage(
       "У меня уже есть ссылка",
     ),
+    "hostedBy": MessageLookupByLibrary.simpleMessage("Организатор"),
     "information": MessageLookupByLibrary.simpleMessage("Информация"),
     "invalidCurrency": MessageLookupByLibrary.simpleMessage(
       "Используй 3-буквенный код, напр. USD",
@@ -131,6 +143,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noPastTickets": MessageLookupByLibrary.simpleMessage(
       "Нет прошедших билетов",
+    ),
+    "noSearchResults": MessageLookupByLibrary.simpleMessage(
+      "Нет событий по твоему запросу",
     ),
     "noUpcomingTickets": MessageLookupByLibrary.simpleMessage(
       "Нет предстоящих билетов",
@@ -173,6 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "retry": MessageLookupByLibrary.simpleMessage("Повторить"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("сохранить событие"),
+    "searchEvents": MessageLookupByLibrary.simpleMessage("Поиск занятий"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("Показать событие"),
     "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
     "signUp": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),

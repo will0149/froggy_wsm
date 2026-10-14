@@ -129,5 +129,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "eventLocation": "Место",
+  "hostedBy": "Организатор",
+  "aboutEvent": "О событии",
+  "getDirections": "Как добраться",
+  "couldNotOpenMaps": "Не удалось открыть карты",
+  "searchEvents": "Поиск занятий",
+  "noSearchResults": "Нет событий по твоему запросу",
+  "changePhoto": "Сменить фото",
+  "avatarUpdated": "Фото обновлено",
+  "avatarUploadFailed": "Не удалось обновить фото"
 }

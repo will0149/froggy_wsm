@@ -47,6 +47,11 @@ class AuthRepository {
   Future<Map<String, dynamic>> getUserProfile() =>
       apiClient.getAuthorized(ApiPathsEnums.profile.uri);
 
+  /// Multipart con el campo `avatar`; `body.avatar` es la URL nueva.
+  Future<Map<String, dynamic>> uploadAvatar(String filePath) =>
+      apiClient.putFileAuthorized(
+          ApiPathsEnums.profileImage.uri, 'avatar', filePath);
+
   Future<Map<String, dynamic>> signIn(LoginDTO request) async {
     final response = await httpCommonUtils.post(
       uri: ApiPathsEnums.signIn.uri,

@@ -40,6 +40,20 @@ class EventDTO {
   @JsonKey(name: 'category')
   final String? category;
 
+  /// Dirección, ciudad y país (ISO 3166-1 alfa-2); pueden venir vacíos.
+  @JsonKey(name: 'address')
+  final String? address;
+  @JsonKey(name: 'city')
+  final String? city;
+  @JsonKey(name: 'country')
+  final String? country;
+
+  /// El API las manda como strings decimales; vienen las dos o ninguna.
+  @JsonKey(name: 'latitude', fromJson: _coordinateFromJson)
+  final double? latitude;
+  @JsonKey(name: 'longitude', fromJson: _coordinateFromJson)
+  final double? longitude;
+
   /// null = sin límite de cupo.
   @JsonKey(name: 'capacity')
   final int? capacity;
@@ -59,6 +73,11 @@ class EventDTO {
       required this.privacyType,
       required this.location,
       this.category,
+      this.address,
+      this.city,
+      this.country,
+      this.latitude,
+      this.longitude,
       this.capacity,
       this.availableSpots});
 
@@ -67,6 +86,14 @@ class EventDTO {
   Map<String, dynamic> toJson() => _$EventDTOToJson(this);
 
   static String? _idFromJson(Object? value) => value?.toString();
+
+  static double? _coordinateFromJson(Object? value) => switch (value) {
+        num number => number.toDouble(),
+        String text => double.tryParse(text),
+        _ => null,
+      };
+
+  bool get hasCoordinates => latitude != null && longitude != null;
 
   /// El API manda `price` ("45.0000") y `currency` (ISO 4217) por separado.
   static Object? _readAmount(Map json, String key) =>

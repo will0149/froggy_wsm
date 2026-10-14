@@ -8,7 +8,8 @@ import '../../themes/colors/colors.dart';
 /// Date: 01/06/24
 
 class DetailImageBanner extends ConsumerStatefulWidget {
-  final String url;
+  /// null o vacío: degradado de la marca (eventos sin imagen).
+  final String? url;
 
   const DetailImageBanner(this.url, {super.key});
 
@@ -34,14 +35,21 @@ class DetailImageBannerState extends ConsumerState<DetailImageBanner> {
           child: Container(
             height: size.height * 0.35,
             width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                  widget.url,
+            decoration: switch (widget.url) {
+              final url? when url.isNotEmpty => BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(url),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                fit: BoxFit.cover,
-              ),
-            ),
+              _ => const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [parkeaBlueAccent, parkeaDarkBlueAccent],
+                  ),
+                ),
+            },
           ),
         ),
       ],

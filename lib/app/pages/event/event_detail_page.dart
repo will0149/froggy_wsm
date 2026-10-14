@@ -10,6 +10,7 @@ import 'package:parkea/domain/usecases/fetch_events_uc.dart';
 import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../generated/l10n.dart';
 import '../../utils/event_format.dart';
+import '../../widgets/event/event_location_card.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -85,7 +86,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
         SliverToBoxAdapter(
           child: Column(
             children: [
-              DetailImageBanner(event.bannerImageUrl.toString()),
+              DetailImageBanner(event.bannerImageUrl),
               Transform.translate(
                 offset: const Offset(0, -20),
                 child: _buildEventCard(event, context),
@@ -93,6 +94,8 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
             ],
           ),
         ),
+        if (EventLocationCard.hasLocation(event))
+          SliverToBoxAdapter(child: EventLocationCard(event: event)),
         const SliverToBoxAdapter(
           child: SizedBox(height: 16),
         ),
@@ -196,15 +199,19 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Date & Time',
+                      S.of(context).eventDateTime,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: Colors.grey[600],
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
-                      DateFormat.yMMMMEEEEd(locale.languageCode)
-                          .format(DateTime.parse(event.date ?? "")),
+                      switch (DateTime.tryParse(event.date ?? '')) {
+                        final date? => DateFormat(
+                                'EEEE d MMMM y · HH:mm', locale.toString())
+                            .format(date.toLocal()),
+                        null => '',
+                      },
                       style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -235,7 +242,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Location',
+                      S.of(context).eventLocation,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: Colors.grey[600],
                         fontWeight: FontWeight.w500,
@@ -260,13 +267,17 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
   Widget _buildHostInfo(EventDTO event, ThemeData theme) {
     return Row(
       children: [
+        // El API solo da el username del organizador.
         CircleAvatar(
-          radius: 30,
-          backgroundColor: parkeaOrange.withValues(alpha: 0.2),
-          child: CircleAvatar(
-            radius: 28,
-            backgroundImage: const NetworkImage(
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9snMhaTRYJnyI4GxfDBFckcAwrOPlo4G7lQ&s',
+          radius: 28,
+          backgroundColor: parkeaOrange,
+          child: Text(
+            (event.eventOwner ?? '').isEmpty
+                ? '?'
+                : event.eventOwner!.characters.first.toUpperCase(),
+            style: theme.textTheme.titleLarge?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -276,7 +287,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hosted by',
+                S.of(context).hostedBy,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: Colors.grey[600],
                   fontWeight: FontWeight.w500,
@@ -300,7 +311,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'About Event',
+          S.of(context).aboutEvent,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
           ),
@@ -357,7 +368,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
               elevation: 2,
             ),
             child: Text(
-              '${S.of(context).buyTicket} ${event.formattedPrice(Localizations.localeOf(context).toString())}',
+              '${S.of(context).buyTicket} · ${event.eventType == 'FREE' ? S.of(context).costFree : event.formattedPrice(Localizations.localeOf(context).toString())}',
               style: theme.textTheme.titleMedium?.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

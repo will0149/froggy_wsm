@@ -129,5 +129,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "eventLocation": "地點",
+  "hostedBy": "主辦者",
+  "aboutEvent": "關於活動",
+  "getDirections": "路線",
+  "couldNotOpenMaps": "無法開啟地圖應用程式",
+  "searchEvents": "搜尋活動",
+  "noSearchResults": "沒有符合搜尋的活動",
+  "changePhoto": "更換照片",
+  "avatarUpdated": "照片已更新",
+  "avatarUploadFailed": "無法更新照片"
 }

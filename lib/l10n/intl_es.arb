@@ -129,5 +129,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "eventLocation": "Ubicación",
+  "hostedBy": "Organiza",
+  "aboutEvent": "Acerca del evento",
+  "getDirections": "Cómo llegar",
+  "couldNotOpenMaps": "No se pudo abrir la app de mapas",
+  "searchEvents": "Buscar actividad",
+  "noSearchResults": "No hay eventos que coincidan con tu búsqueda",
+  "changePhoto": "Cambiar foto",
+  "avatarUpdated": "Foto actualizada",
+  "avatarUploadFailed": "No se pudo actualizar la foto"
 }

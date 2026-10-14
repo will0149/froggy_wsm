@@ -15,17 +15,22 @@ class EventFeedSliver extends ConsumerWidget {
   /// MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas.
   final String? category;
 
-  const EventFeedSliver({super.key, this.category});
+  /// Texto de búsqueda; null sin búsqueda.
+  final String? search;
+
+  const EventFeedSliver({super.key, this.category, this.search});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = eventFeedUCProvider(category);
+    final provider = eventFeedUCProvider(category, search);
     final feed = ref.watch(provider);
     // Al refrescar se conserva la lista anterior mientras llega la nueva.
     return switch (feed.value) {
       final value? when value.events.isEmpty => _Message(
-          icon: Icons.event_busy,
-          text: S.of(context).feedEmpty,
+          icon: search == null ? Icons.event_busy : Icons.search_off,
+          text: search == null
+              ? S.of(context).feedEmpty
+              : S.of(context).noSearchResults,
         ),
       final value? => SliverList.builder(
           // +1: el pie con la carga de la siguiente página o el final.

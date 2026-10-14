@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 
 import '../../../data/entities/user/user_profile_dto.dart';
+import '../../../domain/usecases/auth/rest_auth_uc.dart';
+import '../../../generated/l10n.dart';
 
 class UserProfileDashboard extends StatelessWidget {
   final UserProfileDTO? userData;
@@ -42,43 +46,9 @@ class UserProfileDashboard extends StatelessWidget {
         alignment: Alignment.bottomLeft,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: _buildAvatar(),
+          child: _AvatarEditor(avatar: userData?.avatar),
         ),
       ),
-    );
-  }
-
-  Widget _buildAvatar() {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: Colors.white,
-          width: 2,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: userData?.avatar != null && userData!.avatar!.isNotEmpty
-          ? CircleAvatar(
-              radius: 48,
-              backgroundImage: NetworkImage(userData!.avatar!),
-              onBackgroundImageError: (_, __) {},
-            )
-          : CircleAvatar(
-              radius: 48,
-              backgroundColor: parkeaOrange.withValues(alpha: 0.2),
-              child: Icon(
-                Icons.person,
-                size: 40,
-                color: parkeaOrange,
-              ),
-            ),
     );
   }
 
@@ -119,6 +89,100 @@ class UserProfileDashboard extends StatelessWidget {
             ),
           ],
         ],
+      ),
+    );
+  }
+}
+
+/// Avatar del perfil; al tocarlo se elige una foto de la galería y se sube.
+class _AvatarEditor extends ConsumerStatefulWidget {
+  final String? avatar;
+
+  const _AvatarEditor({required this.avatar});
+
+  @override
+  ConsumerState<_AvatarEditor> createState() => _AvatarEditorState();
+}
+
+class _AvatarEditorState extends ConsumerState<_AvatarEditor> {
+  bool _uploading = false;
+
+  Future<void> _change() async {
+    final image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 800,
+      imageQuality: 85,
+    );
+    if (image == null || !mounted) return;
+    final s = S.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    setState(() => _uploading = true);
+    final error =
+        await ref.read(restAuthUCProvider.notifier).updateAvatar(image.path);
+    if (mounted) setState(() => _uploading = false);
+    messenger.showSnackBar(
+      SnackBar(content: Text(error ?? s.avatarUpdated)),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final avatar = widget.avatar;
+    return Semantics(
+      button: true,
+      label: S.of(context).changePhoto,
+      child: GestureDetector(
+        onTap: _uploading ? null : _change,
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.white, width: 2),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.2),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: avatar != null && avatar.isNotEmpty
+                  ? CircleAvatar(
+                      radius: 48,
+                      backgroundImage: NetworkImage(avatar),
+                      onBackgroundImageError: (_, __) {},
+                    )
+                  : CircleAvatar(
+                      radius: 48,
+                      backgroundColor: parkeaOrange.withValues(alpha: 0.2),
+                      child: const Icon(Icons.person,
+                          size: 40, color: parkeaOrange),
+                    ),
+            ),
+            if (_uploading)
+              const Positioned.fill(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black38,
+                  ),
+                  child: Center(
+                    child: CircularProgressIndicator(color: Colors.white),
+                  ),
+                ),
+              ),
+            const Positioned(
+              right: 0,
+              bottom: 0,
+              child: CircleAvatar(
+                radius: 15,
+                backgroundColor: parkeaOrange,
+                child: Icon(Icons.photo_camera, size: 16, color: Colors.white),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

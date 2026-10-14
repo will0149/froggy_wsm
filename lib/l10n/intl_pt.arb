@@ -129,5 +129,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "eventLocation": "Local",
+  "hostedBy": "Organizado por",
+  "aboutEvent": "Sobre o evento",
+  "getDirections": "Como chegar",
+  "couldNotOpenMaps": "Não foi possível abrir o app de mapas",
+  "searchEvents": "Buscar atividades",
+  "noSearchResults": "Nenhum evento corresponde à sua busca",
+  "changePhoto": "Trocar foto",
+  "avatarUpdated": "Foto atualizada",
+  "avatarUploadFailed": "Não foi possível atualizar a foto"
 }
