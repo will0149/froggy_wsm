@@ -78,12 +78,12 @@ class EventDTO {
         _ => value.toString(),
       };
 
-  /// El API manda `price` ("45.0000") sin moneda.
+  /// El API manda `price` ("45.0000") y `currency` (ISO 4217) por separado.
   static Object? _readAmount(Map json, String key) =>
       json[key] ??
       (json['price'] == null
           ? null
-          : {'price': json['price'], 'currency': 'USD'});
+          : {'price': json['price'], 'currency': json['currency'] ?? 'USD'});
 
   /// El API manda `place` como texto libre, sin coordenadas.
   static Object? _readLocation(Map json, String key) =>

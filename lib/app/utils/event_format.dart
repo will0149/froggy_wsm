@@ -7,7 +7,7 @@ import '../../data/dtos/event_dto.dart';
 /// Date: 10/13/26
 
 extension EventFormat on EventDTO {
-  /// El API manda el precio como "45.0000" y sin moneda (se asume USD).
+  /// El API manda el precio como "45.0000" con su `currency` (ISO 4217).
   String formattedPrice(String locale) => NumberFormat.simpleCurrency(
         locale: locale,
         name: amount?.currency ?? 'USD',
