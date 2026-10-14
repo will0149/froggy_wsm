@@ -43,5 +43,22 @@
   "haveResetLink": "J'ai déjà un lien",
   "passwordTooCommon": "Ce mot de passe est trop courant",
   "passwordEntirelyNumeric": "Le mot de passe ne peut pas contenir uniquement des chiffres",
-  "passwordTooSimilar": "Le mot de passe ressemble trop à ton nom d'utilisateur ou à ton e-mail"
+  "passwordTooSimilar": "Le mot de passe ressemble trop à ton nom d'utilisateur ou à ton e-mail",
+  "eventsForYou": "Événements pour toi",
+  "costFree": "Gratuit",
+  "costInvitation": "Sur invitation",
+  "costPrivate": "Privé",
+  "spotsLeft": "{count} places disponibles",
+  "soldOut": "Complet",
+  "feedEmpty": "Aucun événement pour l'instant",
+  "feedLoadError": "Impossible de charger les événements",
+  "retry": "Réessayer",
+  "feedEnd": "Tu as vu tous les événements",
+  "@spotsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

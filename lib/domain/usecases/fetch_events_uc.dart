@@ -4,6 +4,8 @@ import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'auth/api_error_message.dart';
+
 part 'fetch_events_uc.g.dart';
 
 @riverpod
@@ -98,6 +100,10 @@ class FetchEventDetailUC extends _$FetchEventDetailUC {
   Future<EventDTO> build(int id) async {
     repository = EventRepository();
     final result = await repository.eventDetails(id.toString());
-    return EventDTO.fromJson(result["body"]);
+    final body = result['body'];
+    if (result['status'] != 200 || body is! Map<String, dynamic>) {
+      throw Exception(apiErrorMessage(body) ?? 'No se pudo cargar el evento');
+    }
+    return EventDTO.fromJson(body);
   }
 }

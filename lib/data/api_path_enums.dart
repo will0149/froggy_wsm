@@ -19,12 +19,13 @@ enum ApiPathsEnums {
   profileImage(path: 'user/profile/image/'),
   profileUpdate(path: 'user/profile/update/'),
   //path de eventos
-  events(path: 'events/all'),
+  events(path: 'events/all/'),
   eventCreate(path: 'events/create/'),
   eventOwner(path: 'events/owner/'),
   eventUpdateImage(path: 'events/update/image/{id}/'),
-  eventDetails(path: 'events/details/'),
+  eventDetails(path: 'event/details/'),
   eventUpdate(path: 'events/update/'),
+  promotions(path: 'promotions/'),
   // tickets
   ticketEnroll(path: 'ticket/enroll/'),
   ticketEventOwner(path: 'ticket/event/owner/'),

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:parkea/data/entities/auth/register_dto.dart';
 import 'package:parkea/device/utils/loggerConfig.dart';
 
+import '../utils/api_client.dart';
 import '../utils/build_header_utils.dart';
 import '../utils/impl/build_headers_utils_impl.dart';
 import '../../api_path_enums.dart';
@@ -21,6 +22,7 @@ import '../utils/impl/http_commons_utils_impl.dart';
 class AuthRepository {
   late final BuildHeadersUtils headersUtils;
   late final HttpCommonUtils httpCommonUtils;
+  late final ApiClient apiClient;
 
   /// El refresh token rota: dos refresh en paralelo con el mismo token hacen
   /// que uno falle, así que todas las instancias comparten la petición en curso.
@@ -35,23 +37,15 @@ class AuthRepository {
   AuthRepository() {
     headersUtils = BuildHeadersUtilsImpl();
     httpCommonUtils = HttpCommonUtilsImpl();
-  }
-
-  Future<Map<String, dynamic>> getUserProfile() async {
-    var json = await _getProfile();
-    if (_isTokenNotValid(json) && await refreshToken()) {
-      json = await _getProfile();
-    }
-    return json;
-  }
-
-  Future<Map<String, dynamic>> _getProfile() async {
-    final response = await httpCommonUtils.get(
-      uri: ApiPathsEnums.profile.uri,
-      headers: await headersUtils.headers(),
+    apiClient = ApiClient(
+      headersUtils: headersUtils,
+      httpCommonUtils: httpCommonUtils,
+      refreshToken: refreshToken,
     );
-    return _decode(response);
   }
+
+  Future<Map<String, dynamic>> getUserProfile() =>
+      apiClient.getAuthorized(ApiPathsEnums.profile.uri);
 
   Future<Map<String, dynamic>> signIn(LoginDTO request) async {
     final response = await httpCommonUtils.post(
@@ -155,21 +149,6 @@ class AuthRepository {
     _decode(response);
   }
 
-  bool _isTokenNotValid(Map<String, dynamic> json) {
-    final body = json['body'];
-    return json['status'] == 401 &&
-        body is Map<String, dynamic> &&
-        body['code'] == 'token_not_valid';
-  }
-
-  /// Lanza [FormatException] si no llega el envelope, p. ej. la página HTML
-  /// de un 500 del API.
-  Map<String, dynamic> _decode(http.Response response) {
-    final json = jsonDecode(response.body);
-    if (json is! Map<String, dynamic>) {
-      throw FormatException('Respuesta inesperada del API', response.body);
-    }
-    logger.w("response $json");
-    return json;
-  }
+  Map<String, dynamic> _decode(http.Response response) =>
+      ApiClient.decode(response);
 }

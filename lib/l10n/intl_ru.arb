@@ -43,5 +43,22 @@
   "haveResetLink": "У меня уже есть ссылка",
   "passwordTooCommon": "Этот пароль слишком распространён",
   "passwordEntirelyNumeric": "Пароль не может состоять только из цифр",
-  "passwordTooSimilar": "Пароль слишком похож на имя пользователя или эл. адрес"
+  "passwordTooSimilar": "Пароль слишком похож на имя пользователя или эл. адрес",
+  "eventsForYou": "События для тебя",
+  "costFree": "Бесплатно",
+  "costInvitation": "По приглашению",
+  "costPrivate": "Закрытое",
+  "spotsLeft": "Осталось мест: {count}",
+  "soldOut": "Мест нет",
+  "feedEmpty": "Пока нет событий",
+  "feedLoadError": "Не удалось загрузить события",
+  "retry": "Повторить",
+  "feedEnd": "Ты посмотрел все события",
+  "@spotsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -43,5 +43,22 @@
   "haveResetLink": "I already have a link",
   "passwordTooCommon": "This password is too common",
   "passwordEntirelyNumeric": "Password can't be entirely numeric",
-  "passwordTooSimilar": "Password is too similar to your username or email"
+  "passwordTooSimilar": "Password is too similar to your username or email",
+  "eventsForYou": "Events for you",
+  "costFree": "Free",
+  "costInvitation": "By invitation",
+  "costPrivate": "Private",
+  "spotsLeft": "{count} spots left",
+  "soldOut": "Sold out",
+  "feedEmpty": "No events yet",
+  "feedLoadError": "Couldn't load events",
+  "retry": "Retry",
+  "feedEnd": "You're all caught up",
+  "@spotsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

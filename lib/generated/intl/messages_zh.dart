@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh';
 
+  static String m0(count) => "剩餘 ${count} 個名額";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "authenticate": MessageLookupByLibrary.simpleMessage("进行身份验证"),
@@ -27,10 +29,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
     "changePassword": MessageLookupByLibrary.simpleMessage("變更密碼"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("確認密碼"),
+    "costFree": MessageLookupByLibrary.simpleMessage("免費"),
+    "costInvitation": MessageLookupByLibrary.simpleMessage("受邀參加"),
+    "costPrivate": MessageLookupByLibrary.simpleMessage("私人"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage("數據和隱私"),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
     "email": MessageLookupByLibrary.simpleMessage("電子郵件"),
     "eventsForAll": MessageLookupByLibrary.simpleMessage("適合所有人的活動"),
+    "eventsForYou": MessageLookupByLibrary.simpleMessage("為你推薦的活動"),
+    "feedEmpty": MessageLookupByLibrary.simpleMessage("目前還沒有活動"),
+    "feedEnd": MessageLookupByLibrary.simpleMessage("你已看完所有活動"),
+    "feedLoadError": MessageLookupByLibrary.simpleMessage("無法載入活動"),
     "fieldRequired": MessageLookupByLibrary.simpleMessage("此欄位為必填"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("我忘記了我的密碼"),
     "getHelp": MessageLookupByLibrary.simpleMessage("救命"),
@@ -65,11 +74,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "如果此電子郵件已註冊，我們已寄送重設密碼的連結",
     ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+    "retry": MessageLookupByLibrary.simpleMessage("重試"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("保存事件"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("显示事件"),
     "settings": MessageLookupByLibrary.simpleMessage("設置"),
     "signUp": MessageLookupByLibrary.simpleMessage("報名"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("類似事件"),
+    "soldOut": MessageLookupByLibrary.simpleMessage("已額滿"),
+    "spotsLeft": m0,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("使用者名稱或電子郵件"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "請輸入使用者名稱或電子郵件",

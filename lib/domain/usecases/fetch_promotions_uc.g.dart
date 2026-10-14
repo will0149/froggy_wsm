@@ -33,7 +33,7 @@ final class FetchPromotionsUCProvider
   FetchPromotionsUC create() => FetchPromotionsUC();
 }
 
-String _$fetchPromotionsUCHash() => r'bb4a6e7b7b9756f5586a8d66d6e3ce81a8c72318';
+String _$fetchPromotionsUCHash() => r'fff3278e81ae4b31c233b6495025662d33844da9';
 
 abstract class _$FetchPromotionsUC extends $AsyncNotifier<List<PromotionDTO>> {
   FutureOr<List<PromotionDTO>> build();
@@ -46,96 +46,6 @@ abstract class _$FetchPromotionsUC extends $AsyncNotifier<List<PromotionDTO>> {
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<AsyncValue<List<PromotionDTO>>, List<PromotionDTO>>,
         AsyncValue<List<PromotionDTO>>,
-        Object?,
-        Object?>;
-    element.handleValue(ref, created);
-  }
-}
-
-@ProviderFor(FetchPromotionDetailUC)
-const fetchPromotionDetailUCProvider = FetchPromotionDetailUCFamily._();
-
-final class FetchPromotionDetailUCProvider
-    extends $AsyncNotifierProvider<FetchPromotionDetailUC, PromotionDTO> {
-  const FetchPromotionDetailUCProvider._(
-      {required FetchPromotionDetailUCFamily super.from,
-      required int super.argument})
-      : super(
-          retry: null,
-          name: r'fetchPromotionDetailUCProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
-
-  @override
-  String debugGetCreateSourceHash() => _$fetchPromotionDetailUCHash();
-
-  @override
-  String toString() {
-    return r'fetchPromotionDetailUCProvider'
-        ''
-        '($argument)';
-  }
-
-  @$internal
-  @override
-  FetchPromotionDetailUC create() => FetchPromotionDetailUC();
-
-  @override
-  bool operator ==(Object other) {
-    return other is FetchPromotionDetailUCProvider &&
-        other.argument == argument;
-  }
-
-  @override
-  int get hashCode {
-    return argument.hashCode;
-  }
-}
-
-String _$fetchPromotionDetailUCHash() =>
-    r'3d95d3b6e13c7f357a5862822342161657d1569e';
-
-final class FetchPromotionDetailUCFamily extends $Family
-    with
-        $ClassFamilyOverride<FetchPromotionDetailUC, AsyncValue<PromotionDTO>,
-            PromotionDTO, FutureOr<PromotionDTO>, int> {
-  const FetchPromotionDetailUCFamily._()
-      : super(
-          retry: null,
-          name: r'fetchPromotionDetailUCProvider',
-          dependencies: null,
-          $allTransitiveDependencies: null,
-          isAutoDispose: true,
-        );
-
-  FetchPromotionDetailUCProvider call(
-    int id,
-  ) =>
-      FetchPromotionDetailUCProvider._(argument: id, from: this);
-
-  @override
-  String toString() => r'fetchPromotionDetailUCProvider';
-}
-
-abstract class _$FetchPromotionDetailUC extends $AsyncNotifier<PromotionDTO> {
-  late final _$args = ref.$arg as int;
-  int get id => _$args;
-
-  FutureOr<PromotionDTO> build(
-    int id,
-  );
-  @$mustCallSuper
-  @override
-  void runBuild() {
-    final created = build(
-      _$args,
-    );
-    final ref = this.ref as $Ref<AsyncValue<PromotionDTO>, PromotionDTO>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<PromotionDTO>, PromotionDTO>,
-        AsyncValue<PromotionDTO>,
         Object?,
         Object?>;
     element.handleValue(ref, created);

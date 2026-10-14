@@ -43,5 +43,22 @@
   "haveResetLink": "我已經有連結",
   "passwordTooCommon": "此密碼太常見",
   "passwordEntirelyNumeric": "密碼不能只包含數字",
-  "passwordTooSimilar": "密碼與使用者名稱或電子郵件太相似"
+  "passwordTooSimilar": "密碼與使用者名稱或電子郵件太相似",
+  "eventsForYou": "為你推薦的活動",
+  "costFree": "免費",
+  "costInvitation": "受邀參加",
+  "costPrivate": "私人",
+  "spotsLeft": "剩餘 {count} 個名額",
+  "soldOut": "已額滿",
+  "feedEmpty": "目前還沒有活動",
+  "feedLoadError": "無法載入活動",
+  "retry": "重試",
+  "feedEnd": "你已看完所有活動",
+  "@spotsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

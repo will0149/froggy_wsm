@@ -7,21 +7,26 @@ part of 'event_dto.dart';
 // **************************************************************************
 
 EventDTO _$EventDTOFromJson(Map<String, dynamic> json) => EventDTO(
-      id: json['id'] as String?,
+      id: EventDTO._idFromJson(json['id']),
       eventName: json['name'] as String?,
       shortDescription: json['short_description'] as String?,
       description: json['description'] as String?,
       date: json['event_date'] as String?,
-      eventType: json['cost_type'] as String?,
+      eventType: EventDTO._costTypeFromJson(json['cost_type']),
       eventOwner: json['owner'] as String?,
-      amount: json['amount'] == null
+      amount: EventDTO._readAmount(json, 'amount') == null
           ? null
-          : AmountDTO.fromJson(json['amount'] as Map<String, dynamic>),
+          : AmountDTO.fromJson(
+              EventDTO._readAmount(json, 'amount') as Map<String, dynamic>),
       bannerImageUrl: json['banner_img'] as String?,
       privacyType: json['privacy_type'] as String?,
-      location: json['location'] == null
+      location: EventDTO._readLocation(json, 'location') == null
           ? null
-          : LocationDTO.fromJson(json['location'] as Map<String, dynamic>),
+          : LocationDTO.fromJson(
+              EventDTO._readLocation(json, 'location') as Map<String, dynamic>),
+      category: (json['category'] as num?)?.toInt(),
+      capacity: (json['capacity'] as num?)?.toInt(),
+      availableSpots: (json['available_spots'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$EventDTOToJson(EventDTO instance) => <String, dynamic>{
@@ -36,4 +41,7 @@ Map<String, dynamic> _$EventDTOToJson(EventDTO instance) => <String, dynamic>{
       'banner_img': instance.bannerImageUrl,
       'privacy_type': instance.privacyType,
       'location': instance.location?.toJson(),
+      'category': instance.category,
+      'capacity': instance.capacity,
+      'available_spots': instance.availableSpots,
     };

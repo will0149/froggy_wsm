@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:horizontal_scroll_item/horizontal_scroll_item.dart';
 import 'package:parkea/app/widgets/promotions/promotions_component.dart';
-import 'package:parkea/device/utils/loggerConfig.dart';
-import 'package:parkea/domain/usecases/fetch_events_uc.dart';
+import 'package:parkea/domain/usecases/event_feed_uc.dart';
 
 import '../../../domain/usecases/fetch_promotions_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/colors.dart';
-import '../../widgets/event/event_component.dart';
+import '../../widgets/event/event_feed_sliver.dart';
 
 /**
  * Made for parkea.
@@ -28,26 +27,33 @@ class HomeFeedPage extends ConsumerStatefulWidget {
 }
 
 class OnboardingPageState extends ConsumerState<HomeFeedPage> {
+  /// En el orden de `category` del API (0 Música…); "All" es sin filtro.
   final titles = ["All", "Música", "Camping", "Aventura", "Talleres"];
-  final ScrollController _eventsController = ScrollController();
-  final ScrollController _promotionsController = ScrollController();
   final TextEditingController searchBarController = TextEditingController();
 
+  int? _category;
+
   @override
-  void initState() {
-    super.initState();
+  void dispose() {
+    searchBarController.dispose();
+    super.dispose();
   }
 
   Future<void> _refresh() async {
-    ref.refresh(fetchEventsUCProvider.future);
-    ref.refresh(fetchPromotionsUCProvider.future);
-    // comment user detail provider while implementing REST APIs
-    // ref.refresh(getUserDetailProvider.future);
+    ref.invalidate(fetchPromotionsUCProvider);
+    // Espera solo al feed: es lo que se ve bajo el indicador.
+    final feed = eventFeedUCProvider(_category);
+    ref.invalidate(feed);
+    await ref.read(feed.future);
+  }
+
+  void _onCategory(String title) {
+    final index = titles.indexOf(title);
+    setState(() => _category = index <= 0 ? null : index - 1);
   }
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -78,68 +84,69 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
       ),
       body: RefreshIndicator(
         onRefresh: _refresh,
-        child: Padding(
-          padding: const EdgeInsets.only(
-              top: 20.0, right: 10.0, left: 10.0, bottom: 40.0),
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              spacing: 10.0,
-              children: [
-                Wrap(
-                  direction: Axis.vertical,
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+              sliver: SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 10.0,
                   children: [
                     Text(
                       "Buen día!!",
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    SizedBox(
-                      width: size.width * 0.95,
-                      child: SearchBar(
-                        controller: searchBarController,
-                        hintText: "Buscar Actividad",
-                        leading: Icon(
-                          Icons.search,
-                          color: parkeaBlueAccent,
-                        ),
-                        elevation: WidgetStatePropertyAll(2.0),
-                        backgroundColor: WidgetStatePropertyAll(Colors.white),
-                        shape: WidgetStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        side: WidgetStatePropertyAll(
-                            BorderSide(width: 1.0, color: parkeaOrange)),
+                    SearchBar(
+                      controller: searchBarController,
+                      hintText: "Buscar Actividad",
+                      leading: Icon(
+                        Icons.search,
+                        color: parkeaBlueAccent,
                       ),
+                      elevation: WidgetStatePropertyAll(2.0),
+                      backgroundColor: WidgetStatePropertyAll(Colors.white),
+                      shape: WidgetStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      side: WidgetStatePropertyAll(
+                          BorderSide(width: 1.0, color: parkeaOrange)),
                     ),
-                  ],
-                ),
-                Wrap(
-                  children: [
                     HorizontalFilterList(
                       key: PageStorageKey<String>('categoryListKey'),
                       filterListItems: titles,
                       activeColor: parkeaBlueAccent,
                       inactiveColor: parkeaBlack,
                       searchFilterTitle: S.of(context).categories,
-                      onTextChange: (v) {
-                        logger.i("Selected item $v");
-                      },
-                      // titleTextStyle: Theme.of(context)
-                      //     .textTheme
-                      //     .titleMedium
-                      //     ?.copyWith(fontWeight: FontWeight.bold),
-                      // itemsTextStyle: Theme.of(context).textTheme.bodyLarge,
+                      onTextChange: _onCategory,
                     ),
                   ],
                 ),
-                PromotionsComponent(),
-                EventComponent(),
-              ],
+              ),
             ),
-          ),
+            const SliverToBoxAdapter(child: PromotionsComponent()),
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(16, 20, 16, 4),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  S.of(context).eventsForYou,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            // La barra inferior se dibuja sobre el body (extendBody).
+            SliverPadding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.paddingOf(context).bottom),
+              sliver: EventFeedSliver(category: _category),
+            ),
+          ],
         ),
       ),
     );

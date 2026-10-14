@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(count) => "${count} spots left";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "authenticate": MessageLookupByLibrary.simpleMessage("Authenticate"),
@@ -27,10 +29,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change password"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm password"),
+    "costFree": MessageLookupByLibrary.simpleMessage("Free"),
+    "costInvitation": MessageLookupByLibrary.simpleMessage("By invitation"),
+    "costPrivate": MessageLookupByLibrary.simpleMessage("Private"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage("Data & Privacy"),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "eventsForAll": MessageLookupByLibrary.simpleMessage("Events for everyone"),
+    "eventsForYou": MessageLookupByLibrary.simpleMessage("Events for you"),
+    "feedEmpty": MessageLookupByLibrary.simpleMessage("No events yet"),
+    "feedEnd": MessageLookupByLibrary.simpleMessage("You\'re all caught up"),
+    "feedLoadError": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t load events",
+    ),
     "fieldRequired": MessageLookupByLibrary.simpleMessage(
       "This field is required",
     ),
@@ -83,11 +94,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "If the email is registered, we sent you a link to reset your password",
     ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+    "retry": MessageLookupByLibrary.simpleMessage("Retry"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("Save event"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("Show event"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("Similar events"),
+    "soldOut": MessageLookupByLibrary.simpleMessage("Sold out"),
+    "spotsLeft": m0,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Username or email",
     ),

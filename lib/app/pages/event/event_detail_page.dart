@@ -9,6 +9,7 @@ import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/domain/usecases/fetch_events_uc.dart';
 import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../generated/l10n.dart';
+import '../../utils/event_format.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -356,7 +357,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
               elevation: 2,
             ),
             child: Text(
-              '${S.of(context).buyTicket} \$${event.amount?.price}',
+              '${S.of(context).buyTicket} ${event.formattedPrice(Localizations.localeOf(context).toString())}',
               style: theme.textTheme.titleMedium?.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -532,7 +533,7 @@ class RelationalEvents extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      '\$${event.amount?.price}',
+                      event.formattedPrice(Localizations.localeOf(context).toString()),
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: parkeaOrange,
                         fontWeight: FontWeight.bold,

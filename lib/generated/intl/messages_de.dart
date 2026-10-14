@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'de';
 
+  static String m0(count) => "${count} Plätze frei";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "authenticate": MessageLookupByLibrary.simpleMessage("Authentifizieren"),
@@ -28,6 +30,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Passwort bestätigen",
     ),
+    "costFree": MessageLookupByLibrary.simpleMessage("Kostenlos"),
+    "costInvitation": MessageLookupByLibrary.simpleMessage("Mit Einladung"),
+    "costPrivate": MessageLookupByLibrary.simpleMessage("Privat"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
       "Daten und Privatsphäre",
     ),
@@ -35,6 +40,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "eventsForAll": MessageLookupByLibrary.simpleMessage(
       "Veranstaltungen für alle",
+    ),
+    "eventsForYou": MessageLookupByLibrary.simpleMessage("Events für dich"),
+    "feedEmpty": MessageLookupByLibrary.simpleMessage("Noch keine Events"),
+    "feedEnd": MessageLookupByLibrary.simpleMessage(
+      "Du hast alle Events gesehen",
+    ),
+    "feedLoadError": MessageLookupByLibrary.simpleMessage(
+      "Events konnten nicht geladen werden",
     ),
     "fieldRequired": MessageLookupByLibrary.simpleMessage(
       "Dieses Feld ist erforderlich",
@@ -92,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Wenn die E-Mail registriert ist, haben wir dir einen Link zum Zurücksetzen des Passworts gesendet",
     ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+    "retry": MessageLookupByLibrary.simpleMessage("Erneut versuchen"),
     "saveEvent": MessageLookupByLibrary.simpleMessage(
       "Veranstaltung speichern",
     ),
@@ -101,6 +115,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "similarEvents": MessageLookupByLibrary.simpleMessage(
       "ähnliche Veranstaltungen",
     ),
+    "soldOut": MessageLookupByLibrary.simpleMessage("Ausverkauft"),
+    "spotsLeft": m0,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Benutzername oder E-Mail",
     ),

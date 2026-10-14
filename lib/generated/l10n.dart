@@ -418,6 +418,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Eventos para ti`
+  String get eventsForYou {
+    return Intl.message(
+      'Eventos para ti',
+      name: 'eventsForYou',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gratis`
+  String get costFree {
+    return Intl.message('Gratis', name: 'costFree', desc: '', args: []);
+  }
+
+  /// `Con invitación`
+  String get costInvitation {
+    return Intl.message(
+      'Con invitación',
+      name: 'costInvitation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privado`
+  String get costPrivate {
+    return Intl.message('Privado', name: 'costPrivate', desc: '', args: []);
+  }
+
+  /// `{count} cupos disponibles`
+  String spotsLeft(int count) {
+    return Intl.message(
+      '$count cupos disponibles',
+      name: 'spotsLeft',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Agotado`
+  String get soldOut {
+    return Intl.message('Agotado', name: 'soldOut', desc: '', args: []);
+  }
+
+  /// `Aún no hay eventos`
+  String get feedEmpty {
+    return Intl.message(
+      'Aún no hay eventos',
+      name: 'feedEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudieron cargar los eventos`
+  String get feedLoadError {
+    return Intl.message(
+      'No se pudieron cargar los eventos',
+      name: 'feedLoadError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reintentar`
+  String get retry {
+    return Intl.message('Reintentar', name: 'retry', desc: '', args: []);
+  }
+
+  /// `Ya viste todos los eventos`
+  String get feedEnd {
+    return Intl.message(
+      'Ya viste todos los eventos',
+      name: 'feedEnd',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

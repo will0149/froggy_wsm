@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'es';
 
+  static String m0(count) => "${count} cupos disponibles";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "authenticate": MessageLookupByLibrary.simpleMessage("Autenticar"),
@@ -31,12 +33,23 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Confirmar contraseña",
     ),
+    "costFree": MessageLookupByLibrary.simpleMessage("Gratis"),
+    "costInvitation": MessageLookupByLibrary.simpleMessage("Con invitación"),
+    "costPrivate": MessageLookupByLibrary.simpleMessage("Privado"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
       "Datos & Privacidad",
     ),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
     "email": MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
     "eventsForAll": MessageLookupByLibrary.simpleMessage("Eventos para todos"),
+    "eventsForYou": MessageLookupByLibrary.simpleMessage("Eventos para ti"),
+    "feedEmpty": MessageLookupByLibrary.simpleMessage("Aún no hay eventos"),
+    "feedEnd": MessageLookupByLibrary.simpleMessage(
+      "Ya viste todos los eventos",
+    ),
+    "feedLoadError": MessageLookupByLibrary.simpleMessage(
+      "No se pudieron cargar los eventos",
+    ),
     "fieldRequired": MessageLookupByLibrary.simpleMessage(
       "Este campo es obligatorio",
     ),
@@ -89,11 +102,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "Reestablecer Contraseña",
     ),
+    "retry": MessageLookupByLibrary.simpleMessage("Reintentar"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("Guardar Evento"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("Ir al Evento"),
     "settings": MessageLookupByLibrary.simpleMessage("Configuración"),
     "signUp": MessageLookupByLibrary.simpleMessage("Regístrate"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("Eventos Similares"),
+    "soldOut": MessageLookupByLibrary.simpleMessage("Agotado"),
+    "spotsLeft": m0,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("Usuario o correo"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "Ingresa tu usuario o correo",

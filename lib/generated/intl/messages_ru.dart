@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
+  static String m0(count) => "Осталось мест: ${count}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "authenticate": MessageLookupByLibrary.simpleMessage("Аутентифицировать"),
@@ -29,12 +31,21 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Подтвердите пароль",
     ),
+    "costFree": MessageLookupByLibrary.simpleMessage("Бесплатно"),
+    "costInvitation": MessageLookupByLibrary.simpleMessage("По приглашению"),
+    "costPrivate": MessageLookupByLibrary.simpleMessage("Закрытое"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
       "Данные и конфиденциальность",
     ),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
     "email": MessageLookupByLibrary.simpleMessage("Эл. адрес"),
     "eventsForAll": MessageLookupByLibrary.simpleMessage("События для всех"),
+    "eventsForYou": MessageLookupByLibrary.simpleMessage("События для тебя"),
+    "feedEmpty": MessageLookupByLibrary.simpleMessage("Пока нет событий"),
+    "feedEnd": MessageLookupByLibrary.simpleMessage("Ты посмотрел все события"),
+    "feedLoadError": MessageLookupByLibrary.simpleMessage(
+      "Не удалось загрузить события",
+    ),
     "fieldRequired": MessageLookupByLibrary.simpleMessage(
       "Это поле обязательно",
     ),
@@ -89,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Если адрес зарегистрирован, мы отправили ссылку для сброса пароля",
     ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+    "retry": MessageLookupByLibrary.simpleMessage("Повторить"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("сохранить событие"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("Показать событие"),
     "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
@@ -96,6 +108,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "similarEvents": MessageLookupByLibrary.simpleMessage(
       "Подобные мероприятия",
     ),
+    "soldOut": MessageLookupByLibrary.simpleMessage("Мест нет"),
+    "spotsLeft": m0,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Имя пользователя или эл. адрес",
     ),
