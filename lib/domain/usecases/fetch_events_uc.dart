@@ -5,6 +5,7 @@ import 'package:parkea/device/utils/loggerConfig.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'auth/api_error_message.dart';
+import '../../generated/l10n.dart';
 
 part 'fetch_events_uc.g.dart';
 
@@ -101,7 +102,7 @@ class FetchEventDetailUC extends _$FetchEventDetailUC {
     final result = await repository.eventDetails(id.toString());
     final body = result['body'];
     if (result['status'] != 200 || body is! Map<String, dynamic>) {
-      throw Exception(apiErrorMessage(body) ?? 'No se pudo cargar el evento');
+      throw Exception(apiErrorMessage(body) ?? S.current.errLoadEvent);
     }
     return EventDTO.fromJson(body);
   }

@@ -1208,6 +1208,516 @@ class S {
       args: [],
     );
   }
+
+  /// `No se pudo conectar con el servidor`
+  String get errConnection {
+    return Intl.message(
+      'No se pudo conectar con el servidor',
+      name: 'errConnection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo cargar el evento`
+  String get errLoadEvent {
+    return Intl.message(
+      'No se pudo cargar el evento',
+      name: 'errLoadEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudieron cargar los eventos`
+  String get errLoadEvents {
+    return Intl.message(
+      'No se pudieron cargar los eventos',
+      name: 'errLoadEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudieron cargar tus eventos`
+  String get errLoadOwnEvents {
+    return Intl.message(
+      'No se pudieron cargar tus eventos',
+      name: 'errLoadOwnEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudieron cargar eventos similares`
+  String get errLoadSimilar {
+    return Intl.message(
+      'No se pudieron cargar eventos similares',
+      name: 'errLoadSimilar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudieron cargar las promociones`
+  String get errLoadPromotions {
+    return Intl.message(
+      'No se pudieron cargar las promociones',
+      name: 'errLoadPromotions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudieron cargar los tickets`
+  String get errLoadTickets {
+    return Intl.message(
+      'No se pudieron cargar los tickets',
+      name: 'errLoadTickets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo crear el evento`
+  String get errCreateEvent {
+    return Intl.message(
+      'No se pudo crear el evento',
+      name: 'errCreateEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo guardar el evento`
+  String get errSaveEvent {
+    return Intl.message(
+      'No se pudo guardar el evento',
+      name: 'errSaveEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo borrar el evento`
+  String get errDeleteEvent {
+    return Intl.message(
+      'No se pudo borrar el evento',
+      name: 'errDeleteEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Revisa los campos marcados`
+  String get errCheckFields {
+    return Intl.message(
+      'Revisa los campos marcados',
+      name: 'errCheckFields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo completar la inscripción`
+  String get errEnroll {
+    return Intl.message(
+      'No se pudo completar la inscripción',
+      name: 'errEnroll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo cancelar el ticket`
+  String get errCancelTicket {
+    return Intl.message(
+      'No se pudo cancelar el ticket',
+      name: 'errCancelTicket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error al iniciar sesión`
+  String get errLogin {
+    return Intl.message(
+      'Error al iniciar sesión',
+      name: 'errLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error al registrarse`
+  String get errSignUp {
+    return Intl.message(
+      'Error al registrarse',
+      name: 'errSignUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo completar el registro`
+  String get errSignUpIncomplete {
+    return Intl.message(
+      'No se pudo completar el registro',
+      name: 'errSignUpIncomplete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Usuario o contraseña incorrectos`
+  String get errWrongCredentials {
+    return Intl.message(
+      'Usuario o contraseña incorrectos',
+      name: 'errWrongCredentials',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo cargar el perfil`
+  String get errLoadProfile {
+    return Intl.message(
+      'No se pudo cargar el perfil',
+      name: 'errLoadProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El enlace no es válido o ya se usó`
+  String get errInvalidResetLink {
+    return Intl.message(
+      'El enlace no es válido o ya se usó',
+      name: 'errInvalidResetLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error (código: {code})`
+  String errWithCode(int code) {
+    return Intl.message(
+      'Error (código: $code)',
+      name: 'errWithCode',
+      desc: '',
+      args: [code],
+    );
+  }
+
+  /// `¡Buenos días!`
+  String get greetingMorning {
+    return Intl.message(
+      '¡Buenos días!',
+      name: 'greetingMorning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¡Buenas tardes!`
+  String get greetingAfternoon {
+    return Intl.message(
+      '¡Buenas tardes!',
+      name: 'greetingAfternoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¡Buenas noches!`
+  String get greetingEvening {
+    return Intl.message(
+      '¡Buenas noches!',
+      name: 'greetingEvening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Todas`
+  String get catAll {
+    return Intl.message('Todas', name: 'catAll', desc: '', args: []);
+  }
+
+  /// `Promociones`
+  String get promotions {
+    return Intl.message('Promociones', name: 'promotions', desc: '', args: []);
+  }
+
+  /// `Cargando evento…`
+  String get loadingEvent {
+    return Intl.message(
+      'Cargando evento…',
+      name: 'loadingEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Algo salió mal`
+  String get somethingWentWrong {
+    return Intl.message(
+      'Algo salió mal',
+      name: 'somethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Perfil no disponible`
+  String get profileUnavailable {
+    return Intl.message(
+      'Perfil no disponible',
+      name: 'profileUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tu perfil`
+  String get yourProfile {
+    return Intl.message('Tu perfil', name: 'yourProfile', desc: '', args: []);
+  }
+
+  /// `Administra la información de tu perfil`
+  String get manageProfile {
+    return Intl.message(
+      'Administra la información de tu perfil',
+      name: 'manageProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preferencias`
+  String get preferences {
+    return Intl.message(
+      'Preferencias',
+      name: 'preferences',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tema`
+  String get theme {
+    return Intl.message('Tema', name: 'theme', desc: '', args: []);
+  }
+
+  /// `Modo oscuro`
+  String get darkMode {
+    return Intl.message('Modo oscuro', name: 'darkMode', desc: '', args: []);
+  }
+
+  /// `Modo claro`
+  String get lightMode {
+    return Intl.message('Modo claro', name: 'lightMode', desc: '', args: []);
+  }
+
+  /// `Notificaciones`
+  String get notifications {
+    return Intl.message(
+      'Notificaciones',
+      name: 'notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notificaciones push y alertas`
+  String get notificationsSubtitle {
+    return Intl.message(
+      'Notificaciones push y alertas',
+      name: 'notificationsSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Idioma`
+  String get language {
+    return Intl.message('Idioma', name: 'language', desc: '', args: []);
+  }
+
+  /// `Idioma de la app`
+  String get languageSubtitle {
+    return Intl.message(
+      'Idioma de la app',
+      name: 'languageSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Soporte y legal`
+  String get supportLegal {
+    return Intl.message(
+      'Soporte y legal',
+      name: 'supportLegal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preguntas frecuentes y soporte`
+  String get helpSubtitle {
+    return Intl.message(
+      'Preguntas frecuentes y soporte',
+      name: 'helpSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Política de privacidad y uso de datos`
+  String get privacySubtitle {
+    return Intl.message(
+      'Política de privacidad y uso de datos',
+      name: 'privacySubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Acerca de`
+  String get about {
+    return Intl.message('Acerca de', name: 'about', desc: '', args: []);
+  }
+
+  /// `Versión y términos del servicio`
+  String get aboutSubtitle {
+    return Intl.message(
+      'Versión y términos del servicio',
+      name: 'aboutSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Descubre, crea y comparte eventos.`
+  String get aboutDescription {
+    return Intl.message(
+      'Descubre, crea y comparte eventos.',
+      name: 'aboutDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `© {year} Parkea. Todos los derechos reservados.`
+  String allRightsReserved(int year) {
+    return Intl.message(
+      '© $year Parkea. Todos los derechos reservados.',
+      name: 'allRightsReserved',
+      desc: '',
+      args: [year],
+    );
+  }
+
+  /// `Cuenta`
+  String get account {
+    return Intl.message('Cuenta', name: 'account', desc: '', args: []);
+  }
+
+  /// `Cerrar la sesión de tu cuenta`
+  String get logoutSubtitle {
+    return Intl.message(
+      'Cerrar la sesión de tu cuenta',
+      name: 'logoutSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¿Seguro que quieres cerrar sesión?`
+  String get logoutConfirm {
+    return Intl.message(
+      '¿Seguro que quieres cerrar sesión?',
+      name: 'logoutConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo cerrar sesión: {error}`
+  String logoutFailed(String error) {
+    return Intl.message(
+      'No se pudo cerrar sesión: $error',
+      name: 'logoutFailed',
+      desc: '',
+      args: [error],
+    );
+  }
+
+  /// `Comparte con amigos`
+  String get slideShareTitle {
+    return Intl.message(
+      'Comparte con amigos',
+      name: 'slideShareTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Descubre eventos cerca de ti y compártelos con tus amigos.`
+  String get slideShareText {
+    return Intl.message(
+      'Descubre eventos cerca de ti y compártelos con tus amigos.',
+      name: 'slideShareText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Celebra juntos`
+  String get slideCelebrateTitle {
+    return Intl.message(
+      'Celebra juntos',
+      name: 'slideCelebrateTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Inscríbete en un toque y lleva tus tickets siempre contigo.`
+  String get slideCelebrateText {
+    return Intl.message(
+      'Inscríbete en un toque y lleva tus tickets siempre contigo.',
+      name: 'slideCelebrateText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Relájate en compañía`
+  String get slideRelaxTitle {
+    return Intl.message(
+      'Relájate en compañía',
+      name: 'slideRelaxTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Crea tus propios eventos y llega a más personas.`
+  String get slideRelaxText {
+    return Intl.message(
+      'Crea tus propios eventos y llega a más personas.',
+      name: 'slideRelaxText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Empezar`
+  String get getStarted {
+    return Intl.message('Empezar', name: 'getStarted', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

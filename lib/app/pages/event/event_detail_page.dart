@@ -364,13 +364,13 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
   }
 
   Widget _buildLoadingState() {
-    return const Center(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircularProgressIndicator.adaptive(),
-          SizedBox(height: 16),
-          Text('Loading event details...'),
+          const CircularProgressIndicator.adaptive(),
+          const SizedBox(height: 16),
+          Text(S.of(context).loadingEvent),
         ],
       ),
     );
@@ -388,7 +388,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
           ),
           const SizedBox(height: 16),
           Text(
-            'Something went wrong',
+            S.of(context).somethingWentWrong,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: Colors.grey[600],
                 ),
@@ -405,7 +405,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
           ElevatedButton(
             onPressed: () =>
                 ref.refresh(fetchEventDetailUCProvider(widget.eventId)),
-            child: const Text('Retry'),
+            child: Text(S.of(context).retry),
           ),
         ],
       ),

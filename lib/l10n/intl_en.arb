@@ -171,5 +171,82 @@
         "type": "String"
       }
     }
-  }
+  },
+  "errConnection": "Couldn't connect to the server",
+  "errLoadEvent": "Couldn't load the event",
+  "errLoadEvents": "Couldn't load events",
+  "errLoadOwnEvents": "Couldn't load your events",
+  "errLoadSimilar": "Couldn't load similar events",
+  "errLoadPromotions": "Couldn't load promotions",
+  "errLoadTickets": "Couldn't load tickets",
+  "errCreateEvent": "Couldn't create the event",
+  "errSaveEvent": "Couldn't save the event",
+  "errDeleteEvent": "Couldn't delete the event",
+  "errCheckFields": "Check the highlighted fields",
+  "errEnroll": "Couldn't complete the enrollment",
+  "errCancelTicket": "Couldn't cancel the ticket",
+  "errLogin": "Couldn't sign in",
+  "errSignUp": "Couldn't sign up",
+  "errSignUpIncomplete": "Couldn't complete the sign-up",
+  "errWrongCredentials": "Wrong username or password",
+  "errLoadProfile": "Couldn't load the profile",
+  "errInvalidResetLink": "The link is invalid or has already been used",
+  "errWithCode": "Error (code: {code})",
+  "@errWithCode": {
+    "placeholders": {
+      "code": {
+        "type": "int"
+      }
+    }
+  },
+  "greetingMorning": "Good morning!",
+  "greetingAfternoon": "Good afternoon!",
+  "greetingEvening": "Good evening!",
+  "catAll": "All",
+  "promotions": "Promotions",
+  "loadingEvent": "Loading event…",
+  "somethingWentWrong": "Something went wrong",
+  "profileUnavailable": "Profile unavailable",
+  "yourProfile": "Your profile",
+  "manageProfile": "Manage your profile information",
+  "preferences": "Preferences",
+  "theme": "Theme",
+  "darkMode": "Dark mode",
+  "lightMode": "Light mode",
+  "notifications": "Notifications",
+  "notificationsSubtitle": "Push notifications and alerts",
+  "language": "Language",
+  "languageSubtitle": "App language",
+  "supportLegal": "Support & legal",
+  "helpSubtitle": "FAQ and support",
+  "privacySubtitle": "Privacy policy and data usage",
+  "about": "About",
+  "aboutSubtitle": "Version and terms of service",
+  "aboutDescription": "Discover, create and share events.",
+  "allRightsReserved": "© {year} Parkea. All rights reserved.",
+  "@allRightsReserved": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "account": "Account",
+  "logoutSubtitle": "Sign out of your account",
+  "logoutConfirm": "Are you sure you want to sign out?",
+  "logoutFailed": "Couldn't sign out: {error}",
+  "@logoutFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "slideShareTitle": "Share with friends",
+  "slideShareText": "Discover events near you and share them with your friends.",
+  "slideCelebrateTitle": "Celebrate together",
+  "slideCelebrateText": "Enroll with one tap and keep your tickets with you.",
+  "slideRelaxTitle": "Relax in good company",
+  "slideRelaxText": "Create your own events and reach more people.",
+  "getStarted": "Get started"
 }

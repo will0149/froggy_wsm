@@ -9,6 +9,7 @@ import '../../../domain/usecases/auth/rest_auth_uc.dart';
 import '../../themes/colors/colors.dart';
 import '../../widgets/profile_content_tabbar.dart';
 import '../../widgets/user/user_profile_dashboard.dart';
+import '../../../generated/l10n.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -172,7 +173,7 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
             ),
             const SizedBox(height: 24),
             Text(
-              'Profile Unavailable',
+              S.of(context).profileUnavailable,
               style: theme.textTheme.headlineSmall?.copyWith(
                 color: Colors.grey[600],
                 fontWeight: FontWeight.bold,
@@ -190,7 +191,7 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
             ElevatedButton.icon(
               onPressed: () => ref.invalidate(restAuthUCProvider),
               icon: const Icon(Icons.refresh),
-              label: const Text('Retry'),
+              label: Text(S.of(context).retry),
               style: ElevatedButton.styleFrom(
                 backgroundColor: parkeaOrange,
                 foregroundColor: Colors.white,

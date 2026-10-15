@@ -3,7 +3,9 @@
 /// Date: 10/13/26
 library;
 
-const connectionErrorMessage = 'No se pudo conectar con el servidor';
+import '../../../generated/l10n.dart';
+
+String get connectionErrorMessage => S.current.errConnection;
 
 /// El cliente HTTP convierte un timeout en `{"status": 408}`.
 const timeoutStatus = 408;

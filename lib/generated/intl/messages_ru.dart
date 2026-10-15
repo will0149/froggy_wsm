@@ -22,17 +22,30 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(country) => "Вся ${country}";
 
-  static String m1(date) => "Записан ${date}";
+  static String m1(year) => "© ${year} Parkea. Все права защищены.";
 
-  static String m2(count) => "Осталось мест: ${count}";
+  static String m2(date) => "Записан ${date}";
 
-  static String m3(id) => "Билет №${id}";
+  static String m3(code) => "Ошибка (код: ${code})";
 
-  static String m4(count) => "Предстоящих билетов: ${count}";
+  static String m4(error) => "Не удалось выйти: ${error}";
+
+  static String m5(count) => "Осталось мест: ${count}";
+
+  static String m6(id) => "Билет №${id}";
+
+  static String m7(count) => "Предстоящих билетов: ${count}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "about": MessageLookupByLibrary.simpleMessage("О приложении"),
+    "aboutDescription": MessageLookupByLibrary.simpleMessage(
+      "Находите, создавайте и делитесь событиями.",
+    ),
     "aboutEvent": MessageLookupByLibrary.simpleMessage("О событии"),
+    "aboutSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Версия и условия использования",
+    ),
     "accessCode": MessageLookupByLibrary.simpleMessage("Код доступа"),
     "accessCodeHint": MessageLookupByLibrary.simpleMessage(
       "Это закрытое событие. Введите код, который дал организатор.",
@@ -41,9 +54,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Поделитесь им с гостями, чтобы они могли записаться.",
     ),
     "accessCodeRequired": MessageLookupByLibrary.simpleMessage("Введите код"),
+    "account": MessageLookupByLibrary.simpleMessage("Аккаунт"),
     "addBanner": MessageLookupByLibrary.simpleMessage("Добавить изображение"),
     "allLocations": MessageLookupByLibrary.simpleMessage("Все места"),
     "allOfCountry": m0,
+    "allRightsReserved": m1,
     "authenticate": MessageLookupByLibrary.simpleMessage("Аутентифицировать"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Фото обновлено"),
     "avatarUploadFailed": MessageLookupByLibrary.simpleMessage(
@@ -62,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Пусто = без ограничений",
     ),
     "catAdventure": MessageLookupByLibrary.simpleMessage("Приключения"),
+    "catAll": MessageLookupByLibrary.simpleMessage("Все"),
     "catCamping": MessageLookupByLibrary.simpleMessage("Кемпинг"),
     "catMusic": MessageLookupByLibrary.simpleMessage("Музыка"),
     "catWorkshops": MessageLookupByLibrary.simpleMessage("Мастер-классы"),
@@ -83,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Не удалось открыть карты",
     ),
     "createEvent": MessageLookupByLibrary.simpleMessage("Создать событие"),
+    "darkMode": MessageLookupByLibrary.simpleMessage("Тёмная тема"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
       "Данные и конфиденциальность",
     ),
@@ -98,9 +115,63 @@ class MessageLookup extends MessageLookupByLibrary {
     "editEvent": MessageLookupByLibrary.simpleMessage("Редактировать событие"),
     "email": MessageLookupByLibrary.simpleMessage("Эл. адрес"),
     "enroll": MessageLookupByLibrary.simpleMessage("Записаться"),
-    "enrolledOn": m1,
+    "enrolledOn": m2,
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "Готово! Вы записаны",
+    ),
+    "errCancelTicket": MessageLookupByLibrary.simpleMessage(
+      "Не удалось отменить билет",
+    ),
+    "errCheckFields": MessageLookupByLibrary.simpleMessage(
+      "Проверьте отмеченные поля",
+    ),
+    "errConnection": MessageLookupByLibrary.simpleMessage(
+      "Не удалось подключиться к серверу",
+    ),
+    "errCreateEvent": MessageLookupByLibrary.simpleMessage(
+      "Не удалось создать событие",
+    ),
+    "errDeleteEvent": MessageLookupByLibrary.simpleMessage(
+      "Не удалось удалить событие",
+    ),
+    "errEnroll": MessageLookupByLibrary.simpleMessage(
+      "Не удалось завершить запись",
+    ),
+    "errInvalidResetLink": MessageLookupByLibrary.simpleMessage(
+      "Ссылка недействительна или уже использована",
+    ),
+    "errLoadEvent": MessageLookupByLibrary.simpleMessage(
+      "Не удалось загрузить событие",
+    ),
+    "errLoadEvents": MessageLookupByLibrary.simpleMessage(
+      "Не удалось загрузить события",
+    ),
+    "errLoadOwnEvents": MessageLookupByLibrary.simpleMessage(
+      "Не удалось загрузить ваши события",
+    ),
+    "errLoadProfile": MessageLookupByLibrary.simpleMessage(
+      "Не удалось загрузить профиль",
+    ),
+    "errLoadPromotions": MessageLookupByLibrary.simpleMessage(
+      "Не удалось загрузить акции",
+    ),
+    "errLoadSimilar": MessageLookupByLibrary.simpleMessage(
+      "Не удалось загрузить похожие события",
+    ),
+    "errLoadTickets": MessageLookupByLibrary.simpleMessage(
+      "Не удалось загрузить билеты",
+    ),
+    "errLogin": MessageLookupByLibrary.simpleMessage("Ошибка входа"),
+    "errSaveEvent": MessageLookupByLibrary.simpleMessage(
+      "Не удалось сохранить событие",
+    ),
+    "errSignUp": MessageLookupByLibrary.simpleMessage("Ошибка регистрации"),
+    "errSignUpIncomplete": MessageLookupByLibrary.simpleMessage(
+      "Не удалось завершить регистрацию",
+    ),
+    "errWithCode": m3,
+    "errWrongCredentials": MessageLookupByLibrary.simpleMessage(
+      "Неверное имя пользователя или пароль",
     ),
     "eventCapacity": MessageLookupByLibrary.simpleMessage("Вместимость"),
     "eventCategory": MessageLookupByLibrary.simpleMessage("Категория"),
@@ -134,9 +205,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "getDirections": MessageLookupByLibrary.simpleMessage("Как добраться"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Помощь"),
+    "getStarted": MessageLookupByLibrary.simpleMessage("Начать"),
+    "greetingAfternoon": MessageLookupByLibrary.simpleMessage("Добрый день!"),
+    "greetingEvening": MessageLookupByLibrary.simpleMessage("Добрый вечер!"),
+    "greetingMorning": MessageLookupByLibrary.simpleMessage("Доброе утро!"),
     "haveResetLink": MessageLookupByLibrary.simpleMessage(
       "У меня уже есть ссылка",
     ),
+    "helpSubtitle": MessageLookupByLibrary.simpleMessage("Вопросы и поддержка"),
     "hostedBy": MessageLookupByLibrary.simpleMessage("Организатор"),
     "information": MessageLookupByLibrary.simpleMessage("Информация"),
     "invalidAccessCode": MessageLookupByLibrary.simpleMessage(
@@ -156,11 +232,23 @@ class MessageLookup extends MessageLookupByLibrary {
       "Присоединяйтесь к нашей вселенной",
     ),
     "keepTicket": MessageLookupByLibrary.simpleMessage("Оставить"),
+    "language": MessageLookupByLibrary.simpleMessage("Язык"),
+    "languageSubtitle": MessageLookupByLibrary.simpleMessage("Язык приложения"),
+    "lightMode": MessageLookupByLibrary.simpleMessage("Светлая тема"),
+    "loadingEvent": MessageLookupByLibrary.simpleMessage("Загрузка события…"),
     "locationsLoadFailed": MessageLookupByLibrary.simpleMessage(
       "Не удалось загрузить места",
     ),
     "login": MessageLookupByLibrary.simpleMessage("Войти в систему"),
     "logout": MessageLookupByLibrary.simpleMessage("Выход"),
+    "logoutConfirm": MessageLookupByLibrary.simpleMessage(
+      "Вы уверены, что хотите выйти?",
+    ),
+    "logoutFailed": m4,
+    "logoutSubtitle": MessageLookupByLibrary.simpleMessage("Выйти из аккаунта"),
+    "manageProfile": MessageLookupByLibrary.simpleMessage(
+      "Управляйте данными профиля",
+    ),
     "myEvents": MessageLookupByLibrary.simpleMessage("Мероприятия"),
     "myEventsEnrolled": MessageLookupByLibrary.simpleMessage("Записан"),
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Оплаченный"),
@@ -188,6 +276,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noUpcomingTickets": MessageLookupByLibrary.simpleMessage(
       "Нет предстоящих билетов",
+    ),
+    "notifications": MessageLookupByLibrary.simpleMessage("Уведомления"),
+    "notificationsSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Push-уведомления и оповещения",
     ),
     "ownEvent": MessageLookupByLibrary.simpleMessage("Ваше событие"),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage(
@@ -217,9 +309,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "Оплата скоро появится",
     ),
     "popularEvents": MessageLookupByLibrary.simpleMessage("Популярные события"),
+    "preferences": MessageLookupByLibrary.simpleMessage("Настройки"),
     "pricePositive": MessageLookupByLibrary.simpleMessage(
       "Цена должна быть больше 0",
     ),
+    "privacySubtitle": MessageLookupByLibrary.simpleMessage(
+      "Конфиденциальность и данные",
+    ),
+    "profileUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Профиль недоступен",
+    ),
+    "promotions": MessageLookupByLibrary.simpleMessage("Акции"),
     "province": MessageLookupByLibrary.simpleMessage("Провинция"),
     "publishEvent": MessageLookupByLibrary.simpleMessage(
       "Опубликовать событие",
@@ -239,16 +339,41 @@ class MessageLookup extends MessageLookupByLibrary {
     "similarEvents": MessageLookupByLibrary.simpleMessage(
       "Подобные мероприятия",
     ),
+    "slideCelebrateText": MessageLookupByLibrary.simpleMessage(
+      "Записывайтесь в одно касание, билеты всегда с вами.",
+    ),
+    "slideCelebrateTitle": MessageLookupByLibrary.simpleMessage(
+      "Празднуйте вместе",
+    ),
+    "slideRelaxText": MessageLookupByLibrary.simpleMessage(
+      "Создавайте свои события и привлекайте больше людей.",
+    ),
+    "slideRelaxTitle": MessageLookupByLibrary.simpleMessage(
+      "Отдыхайте в хорошей компании",
+    ),
+    "slideShareText": MessageLookupByLibrary.simpleMessage(
+      "Находите события рядом и делитесь ими с друзьями.",
+    ),
+    "slideShareTitle": MessageLookupByLibrary.simpleMessage(
+      "Делитесь с друзьями",
+    ),
     "soldOut": MessageLookupByLibrary.simpleMessage("Мест нет"),
-    "spotsLeft": m2,
+    "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
+      "Что-то пошло не так",
+    ),
+    "spotsLeft": m5,
+    "supportLegal": MessageLookupByLibrary.simpleMessage(
+      "Поддержка и правовая информация",
+    ),
+    "theme": MessageLookupByLibrary.simpleMessage("Тема"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage("Запись отменена"),
-    "ticketNumber": m3,
+    "ticketNumber": m6,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Не удалось загрузить билеты",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Прошедшие"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Предстоящие"),
-    "upcomingTicketsCount": m4,
+    "upcomingTicketsCount": m7,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Имя пользователя или эл. адрес",
     ),
@@ -260,5 +385,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "welcomeAgain": MessageLookupByLibrary.simpleMessage(
       "¡Добро пожаловать обратно!",
     ),
+    "yourProfile": MessageLookupByLibrary.simpleMessage("Ваш профиль"),
   };
 }

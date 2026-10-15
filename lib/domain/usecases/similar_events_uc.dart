@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/dtos/event_dto.dart';
 import '../../data/repositories/events_repository.dart';
 import 'auth/api_error_message.dart';
+import '../../generated/l10n.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -24,7 +25,7 @@ Future<List<EventDTO>> similarEventsUC(
   final body = result['body'];
   if (result['status'] != 200 || body is! Map<String, dynamic>) {
     throw Exception(
-        apiErrorMessage(body) ?? 'No se pudieron cargar eventos similares');
+        apiErrorMessage(body) ?? S.current.errLoadSimilar);
   }
   final results = body['results'];
   return [

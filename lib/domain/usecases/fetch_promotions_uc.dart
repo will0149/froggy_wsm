@@ -3,6 +3,7 @@ import 'package:parkea/data/dtos/promotions/promotion_dto.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'auth/api_error_message.dart';
+import '../../generated/l10n.dart';
 
 part 'fetch_promotions_uc.g.dart';
 
@@ -18,7 +19,7 @@ class FetchPromotionsUC extends _$FetchPromotionsUC {
     if (status == timeoutStatus) throw Exception(connectionErrorMessage);
     if (status != 200 || body is! List) {
       throw Exception(
-          apiErrorMessage(body) ?? 'No se pudieron cargar las promociones');
+          apiErrorMessage(body) ?? S.current.errLoadPromotions);
     }
     return [
       for (final promotion in body.whereType<Map<String, dynamic>>())

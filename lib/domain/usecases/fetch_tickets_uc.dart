@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'auth/api_error_message.dart';
 import 'paged_fetch.dart';
+import '../../generated/l10n.dart';
 
 part 'fetch_tickets_uc.g.dart';
 
@@ -18,7 +19,7 @@ class MyTicketsUC extends _$MyTicketsUC {
     final tickets = await fetchAllPages(
       repository.fetchTicketsPage,
       TicketDTO.fromJson,
-      errorMessage: 'No se pudieron cargar los tickets',
+      errorMessage: S.current.errLoadTickets,
     );
     // Más cercanos primero.
     return tickets
@@ -33,16 +34,16 @@ class MyTicketsUC extends _$MyTicketsUC {
     try {
       result = await repository.enroll(eventId, otp: otp);
     } on Exception {
-      return const EnrollFailed(connectionErrorMessage);
+      return EnrollFailed(connectionErrorMessage);
     }
     final status = result['status'];
     final body = result['body'];
     if (status == timeoutStatus) {
-      return const EnrollFailed(connectionErrorMessage);
+      return EnrollFailed(connectionErrorMessage);
     }
     if (status != 201 && status != 204) {
       return EnrollFailed(
-        apiErrorMessage(body) ?? 'No se pudo completar la inscripción',
+        apiErrorMessage(body) ?? S.current.errEnroll,
         field: apiFieldErrors(body).keys.firstOrNull,
       );
     }
@@ -58,7 +59,7 @@ class MyTicketsUC extends _$MyTicketsUC {
       if (status == timeoutStatus) return connectionErrorMessage;
       if (status != 204 && status != 200) {
         return apiErrorMessage(result['body']) ??
-            'No se pudo cancelar el ticket';
+            S.current.errCancelTicket;
       }
     } on Exception {
       return connectionErrorMessage;

@@ -5,6 +5,7 @@ import 'package:parkea/device/utils/is_first_run.dart';
 import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 
 import '../../domain/models/slider_model.dart';
+import '../../generated/l10n.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -82,7 +83,7 @@ class _Dots extends ConsumerWidget {
                 minimumSize: const Size.fromHeight(40),
               ),
               child: Text(
-                "Empezar",
+                S.of(context).getStarted,
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium

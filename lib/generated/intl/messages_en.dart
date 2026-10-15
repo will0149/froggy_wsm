@@ -22,17 +22,30 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(country) => "All of ${country}";
 
-  static String m1(date) => "Enrolled on ${date}";
+  static String m1(year) => "© ${year} Parkea. All rights reserved.";
 
-  static String m2(count) => "${count} spots left";
+  static String m2(date) => "Enrolled on ${date}";
 
-  static String m3(id) => "Ticket #${id}";
+  static String m3(code) => "Error (code: ${code})";
 
-  static String m4(count) => "${count} upcoming tickets";
+  static String m4(error) => "Couldn\'t sign out: ${error}";
+
+  static String m5(count) => "${count} spots left";
+
+  static String m6(id) => "Ticket #${id}";
+
+  static String m7(count) => "${count} upcoming tickets";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "about": MessageLookupByLibrary.simpleMessage("About"),
+    "aboutDescription": MessageLookupByLibrary.simpleMessage(
+      "Discover, create and share events.",
+    ),
     "aboutEvent": MessageLookupByLibrary.simpleMessage("About the event"),
+    "aboutSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Version and terms of service",
+    ),
     "accessCode": MessageLookupByLibrary.simpleMessage("Access code"),
     "accessCodeHint": MessageLookupByLibrary.simpleMessage(
       "This event is private. Enter the code the organizer gave you.",
@@ -43,9 +56,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "accessCodeRequired": MessageLookupByLibrary.simpleMessage(
       "Enter the code",
     ),
+    "account": MessageLookupByLibrary.simpleMessage("Account"),
     "addBanner": MessageLookupByLibrary.simpleMessage("Add image"),
     "allLocations": MessageLookupByLibrary.simpleMessage("All locations"),
     "allOfCountry": m0,
+    "allRightsReserved": m1,
     "authenticate": MessageLookupByLibrary.simpleMessage("Authenticate"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Photo updated"),
     "avatarUploadFailed": MessageLookupByLibrary.simpleMessage(
@@ -62,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "capacityHint": MessageLookupByLibrary.simpleMessage("Empty = no limit"),
     "catAdventure": MessageLookupByLibrary.simpleMessage("Adventure"),
+    "catAll": MessageLookupByLibrary.simpleMessage("All"),
     "catCamping": MessageLookupByLibrary.simpleMessage("Camping"),
     "catMusic": MessageLookupByLibrary.simpleMessage("Music"),
     "catWorkshops": MessageLookupByLibrary.simpleMessage("Workshops"),
@@ -81,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Couldn\'t open the maps app",
     ),
     "createEvent": MessageLookupByLibrary.simpleMessage("Create event"),
+    "darkMode": MessageLookupByLibrary.simpleMessage("Dark mode"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage("Data & Privacy"),
     "dateMustBeFuture": MessageLookupByLibrary.simpleMessage(
       "The date must be in the future",
@@ -94,9 +111,63 @@ class MessageLookup extends MessageLookupByLibrary {
     "editEvent": MessageLookupByLibrary.simpleMessage("Edit event"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "enroll": MessageLookupByLibrary.simpleMessage("Enroll"),
-    "enrolledOn": m1,
+    "enrolledOn": m2,
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "Done! You\'re enrolled",
+    ),
+    "errCancelTicket": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t cancel the ticket",
+    ),
+    "errCheckFields": MessageLookupByLibrary.simpleMessage(
+      "Check the highlighted fields",
+    ),
+    "errConnection": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t connect to the server",
+    ),
+    "errCreateEvent": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t create the event",
+    ),
+    "errDeleteEvent": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t delete the event",
+    ),
+    "errEnroll": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t complete the enrollment",
+    ),
+    "errInvalidResetLink": MessageLookupByLibrary.simpleMessage(
+      "The link is invalid or has already been used",
+    ),
+    "errLoadEvent": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t load the event",
+    ),
+    "errLoadEvents": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t load events",
+    ),
+    "errLoadOwnEvents": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t load your events",
+    ),
+    "errLoadProfile": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t load the profile",
+    ),
+    "errLoadPromotions": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t load promotions",
+    ),
+    "errLoadSimilar": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t load similar events",
+    ),
+    "errLoadTickets": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t load tickets",
+    ),
+    "errLogin": MessageLookupByLibrary.simpleMessage("Couldn\'t sign in"),
+    "errSaveEvent": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t save the event",
+    ),
+    "errSignUp": MessageLookupByLibrary.simpleMessage("Couldn\'t sign up"),
+    "errSignUpIncomplete": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t complete the sign-up",
+    ),
+    "errWithCode": m3,
+    "errWrongCredentials": MessageLookupByLibrary.simpleMessage(
+      "Wrong username or password",
     ),
     "eventCapacity": MessageLookupByLibrary.simpleMessage("Capacity"),
     "eventCategory": MessageLookupByLibrary.simpleMessage("Category"),
@@ -132,9 +203,16 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "getDirections": MessageLookupByLibrary.simpleMessage("Get directions"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Help"),
+    "getStarted": MessageLookupByLibrary.simpleMessage("Get started"),
+    "greetingAfternoon": MessageLookupByLibrary.simpleMessage(
+      "Good afternoon!",
+    ),
+    "greetingEvening": MessageLookupByLibrary.simpleMessage("Good evening!"),
+    "greetingMorning": MessageLookupByLibrary.simpleMessage("Good morning!"),
     "haveResetLink": MessageLookupByLibrary.simpleMessage(
       "I already have a link",
     ),
+    "helpSubtitle": MessageLookupByLibrary.simpleMessage("FAQ and support"),
     "hostedBy": MessageLookupByLibrary.simpleMessage("Hosted by"),
     "information": MessageLookupByLibrary.simpleMessage("Information"),
     "invalidAccessCode": MessageLookupByLibrary.simpleMessage(
@@ -152,11 +230,25 @@ class MessageLookup extends MessageLookupByLibrary {
       "Join our universe",
     ),
     "keepTicket": MessageLookupByLibrary.simpleMessage("Keep"),
+    "language": MessageLookupByLibrary.simpleMessage("Language"),
+    "languageSubtitle": MessageLookupByLibrary.simpleMessage("App language"),
+    "lightMode": MessageLookupByLibrary.simpleMessage("Light mode"),
+    "loadingEvent": MessageLookupByLibrary.simpleMessage("Loading event…"),
     "locationsLoadFailed": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t load locations",
     ),
     "login": MessageLookupByLibrary.simpleMessage("Sign In"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "logoutConfirm": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to sign out?",
+    ),
+    "logoutFailed": m4,
+    "logoutSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Sign out of your account",
+    ),
+    "manageProfile": MessageLookupByLibrary.simpleMessage(
+      "Manage your profile information",
+    ),
     "myEvents": MessageLookupByLibrary.simpleMessage("Events"),
     "myEventsEnrolled": MessageLookupByLibrary.simpleMessage("Enrolled"),
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Paid"),
@@ -182,6 +274,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noUpcomingTickets": MessageLookupByLibrary.simpleMessage(
       "No upcoming tickets",
+    ),
+    "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
+    "notificationsSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Push notifications and alerts",
     ),
     "ownEvent": MessageLookupByLibrary.simpleMessage("Your event"),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage("Parkea & Share"),
@@ -209,9 +305,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "Payment coming soon",
     ),
     "popularEvents": MessageLookupByLibrary.simpleMessage("Popular events"),
+    "preferences": MessageLookupByLibrary.simpleMessage("Preferences"),
     "pricePositive": MessageLookupByLibrary.simpleMessage(
       "Price must be greater than 0",
     ),
+    "privacySubtitle": MessageLookupByLibrary.simpleMessage(
+      "Privacy policy and data usage",
+    ),
+    "profileUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Profile unavailable",
+    ),
+    "promotions": MessageLookupByLibrary.simpleMessage("Promotions"),
     "province": MessageLookupByLibrary.simpleMessage("Province"),
     "publishEvent": MessageLookupByLibrary.simpleMessage("Publish event"),
     "register": MessageLookupByLibrary.simpleMessage("Sign Up"),
@@ -227,18 +331,41 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("Similar events"),
+    "slideCelebrateText": MessageLookupByLibrary.simpleMessage(
+      "Enroll with one tap and keep your tickets with you.",
+    ),
+    "slideCelebrateTitle": MessageLookupByLibrary.simpleMessage(
+      "Celebrate together",
+    ),
+    "slideRelaxText": MessageLookupByLibrary.simpleMessage(
+      "Create your own events and reach more people.",
+    ),
+    "slideRelaxTitle": MessageLookupByLibrary.simpleMessage(
+      "Relax in good company",
+    ),
+    "slideShareText": MessageLookupByLibrary.simpleMessage(
+      "Discover events near you and share them with your friends.",
+    ),
+    "slideShareTitle": MessageLookupByLibrary.simpleMessage(
+      "Share with friends",
+    ),
     "soldOut": MessageLookupByLibrary.simpleMessage("Sold out"),
-    "spotsLeft": m2,
+    "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong",
+    ),
+    "spotsLeft": m5,
+    "supportLegal": MessageLookupByLibrary.simpleMessage("Support & legal"),
+    "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Enrollment cancelled",
     ),
-    "ticketNumber": m3,
+    "ticketNumber": m6,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t load tickets",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Past"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Upcoming"),
-    "upcomingTicketsCount": m4,
+    "upcomingTicketsCount": m7,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Username or email",
     ),
@@ -248,5 +375,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "viewEvent": MessageLookupByLibrary.simpleMessage("View event"),
     "viewMyTicket": MessageLookupByLibrary.simpleMessage("View my ticket"),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage("¡Welcome back!"),
+    "yourProfile": MessageLookupByLibrary.simpleMessage("Your profile"),
   };
 }

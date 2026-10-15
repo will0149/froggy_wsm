@@ -98,14 +98,14 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Your Profile',
+                  S.of(context).yourProfile,
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Manage your profile information',
+                  S.of(context).manageProfile,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: Colors.grey[600],
                   ),
@@ -129,7 +129,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
         Padding(
           padding: const EdgeInsets.only(left: 4, bottom: 12),
           child: Text(
-            'Preferences',
+            S.of(context).preferences,
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.grey[600],
@@ -152,8 +152,8 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
             children: [
               _buildSettingsTile(
                 icon: isDarkMode ? Icons.dark_mode : Icons.light_mode,
-                title: 'Theme',
-                subtitle: isDarkMode ? 'Dark mode' : 'Light mode',
+                title: S.of(context).theme,
+                subtitle: isDarkMode ? S.of(context).darkMode : S.of(context).lightMode,
                 trailing: Switch(
                   value: isDarkMode,
                   onChanged: (value) {
@@ -166,8 +166,8 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
               _buildDivider(),
               _buildSettingsTile(
                 icon: Icons.notifications_outlined,
-                title: 'Notifications',
-                subtitle: 'Push notifications and alerts',
+                title: S.of(context).notifications,
+                subtitle: S.of(context).notificationsSubtitle,
                 trailing: Icon(
                   Icons.chevron_right,
                   color: Colors.grey[400],
@@ -180,8 +180,8 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
               _buildDivider(),
               _buildSettingsTile(
                 icon: Icons.language_outlined,
-                title: 'Language',
-                subtitle: 'App language settings',
+                title: S.of(context).language,
+                subtitle: S.of(context).languageSubtitle,
                 trailing: Icon(
                   Icons.chevron_right,
                   color: Colors.grey[400],
@@ -205,7 +205,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
         Padding(
           padding: const EdgeInsets.only(left: 4, bottom: 12),
           child: Text(
-            'Support & Legal',
+            S.of(context).supportLegal,
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.grey[600],
@@ -229,7 +229,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
               _buildSettingsTile(
                 icon: Icons.help_outline,
                 title: S.of(context).getHelp,
-                subtitle: 'FAQ, contact support',
+                subtitle: S.of(context).helpSubtitle,
                 trailing: Icon(
                   Icons.chevron_right,
                   color: Colors.grey[400],
@@ -243,7 +243,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
               _buildSettingsTile(
                 icon: Icons.privacy_tip_outlined,
                 title: S.of(context).dataAndPrivacy,
-                subtitle: 'Privacy policy, data usage',
+                subtitle: S.of(context).privacySubtitle,
                 trailing: Icon(
                   Icons.chevron_right,
                   color: Colors.grey[400],
@@ -256,8 +256,8 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
               _buildDivider(),
               _buildSettingsTile(
                 icon: Icons.info_outline,
-                title: 'About',
-                subtitle: 'Version info, terms of service',
+                title: S.of(context).about,
+                subtitle: S.of(context).aboutSubtitle,
                 trailing: Icon(
                   Icons.chevron_right,
                   color: Colors.grey[400],
@@ -281,7 +281,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
         Padding(
           padding: const EdgeInsets.only(left: 4, bottom: 12),
           child: Text(
-            'Account',
+            S.of(context).account,
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.grey[600],
@@ -304,7 +304,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
             icon: Icons.logout,
             iconColor: parkeaOrange,
             title: S.of(context).logout,
-            subtitle: 'Sign out of your account',
+            subtitle: S.of(context).logoutSubtitle,
             titleColor: parkeaOrange,
             trailing: loading
                 ? const SizedBox(
@@ -417,7 +417,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
           
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Error signing out: $e'),
+              content: Text(S.of(context).logoutFailed('$e')),
               backgroundColor: Colors.red,
             ),
           );
@@ -430,15 +430,15 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
     return showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Sign Out'),
-        content: const Text('Are you sure you want to sign out of your account?'),
+        title: Text(S.of(context).logout),
+        content: Text(S.of(context).logoutConfirm),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
+            child: Text(S.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(true),
@@ -446,7 +446,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
               backgroundColor: parkeaOrange,
               foregroundColor: Colors.white,
             ),
-            child: const Text('Sign Out'),
+            child: Text(S.of(context).logout),
           ),
         ],
       ),
@@ -472,10 +472,10 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
           ),
         ),
         children: [
-          const Text('A modern event management app built with Flutter.'),
+          Text(S.of(context).aboutDescription),
           const SizedBox(height: 16),
           Text(
-            '© 2024 Parkea. All rights reserved.',
+            S.of(context).allRightsReserved(DateTime.now().year),
             style: theme.textTheme.bodySmall?.copyWith(
               color: Colors.grey[600],
             ),

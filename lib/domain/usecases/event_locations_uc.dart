@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/repositories/events_repository.dart';
 import 'auth/api_error_message.dart';
+import '../../generated/l10n.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -28,7 +29,7 @@ Future<Map<String, List<EventLocation>>> eventLocationsUC(Ref ref) async {
   final body = result['body'];
   if (result['status'] != 200 || body is! List) {
     throw Exception(
-        apiErrorMessage(body) ?? 'No se pudieron cargar las ubicaciones');
+        apiErrorMessage(body) ?? S.current.locationsLoadFailed);
   }
   final byCountry = <String, List<EventLocation>>{};
   for (final item in body.whereType<Map<String, dynamic>>()) {

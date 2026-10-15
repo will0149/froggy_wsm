@@ -4,6 +4,7 @@ import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/scaffolds/safe_scaffold.dart';
 
 import '../../widgets/slide_show.dart';
+import '../../../generated/l10n.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -24,21 +25,21 @@ class _WelcomeSlidePageState extends State<WelcomeSlidePage> {
       child: Slideshow(
         slides: [
           slideContainer(
-            "Comparte con amigos",
+            S.of(context).slideShareTitle,
             'assets/lotties/89301-party-animals.json',
-            "Bienvenido al app que te ayudara a encontrar los pakins a tu alrededor",
+            S.of(context).slideShareText,
             context,
           ),
           slideContainer(
-            "Celebra juntos",
+            S.of(context).slideCelebrateTitle,
             'assets/lotties/29774-dance-party.json',
-            "Bienvenido al app que te ayudara a encontrar los pakins a tu alrededor",
+            S.of(context).slideCelebrateText,
             context,
           ),
           slideContainer(
-            "Relajate en compañia",
+            S.of(context).slideRelaxTitle,
             'assets/lotties/13498-new-year-party.json',
-            "Bienvenido al app que te ayudara a encontrar los pakins a tu alrededor",
+            S.of(context).slideRelaxText,
             context,
           ),
         ],

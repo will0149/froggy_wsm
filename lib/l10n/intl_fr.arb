@@ -171,5 +171,82 @@
         "type": "String"
       }
     }
-  }
+  },
+  "errConnection": "Impossible de se connecter au serveur",
+  "errLoadEvent": "Impossible de charger l'événement",
+  "errLoadEvents": "Impossible de charger les événements",
+  "errLoadOwnEvents": "Impossible de charger tes événements",
+  "errLoadSimilar": "Impossible de charger les événements similaires",
+  "errLoadPromotions": "Impossible de charger les promotions",
+  "errLoadTickets": "Impossible de charger les tickets",
+  "errCreateEvent": "Impossible de créer l'événement",
+  "errSaveEvent": "Impossible d'enregistrer l'événement",
+  "errDeleteEvent": "Impossible de supprimer l'événement",
+  "errCheckFields": "Vérifie les champs signalés",
+  "errEnroll": "Impossible de finaliser l'inscription",
+  "errCancelTicket": "Impossible d'annuler le ticket",
+  "errLogin": "Échec de la connexion",
+  "errSignUp": "Échec de l'inscription",
+  "errSignUpIncomplete": "Impossible de finaliser l'inscription",
+  "errWrongCredentials": "Nom d'utilisateur ou mot de passe incorrect",
+  "errLoadProfile": "Impossible de charger le profil",
+  "errInvalidResetLink": "Le lien est invalide ou a déjà été utilisé",
+  "errWithCode": "Erreur (code : {code})",
+  "@errWithCode": {
+    "placeholders": {
+      "code": {
+        "type": "int"
+      }
+    }
+  },
+  "greetingMorning": "Bonjour !",
+  "greetingAfternoon": "Bon après-midi !",
+  "greetingEvening": "Bonsoir !",
+  "catAll": "Toutes",
+  "promotions": "Promotions",
+  "loadingEvent": "Chargement de l'événement…",
+  "somethingWentWrong": "Un problème est survenu",
+  "profileUnavailable": "Profil indisponible",
+  "yourProfile": "Ton profil",
+  "manageProfile": "Gère les informations de ton profil",
+  "preferences": "Préférences",
+  "theme": "Thème",
+  "darkMode": "Mode sombre",
+  "lightMode": "Mode clair",
+  "notifications": "Notifications",
+  "notificationsSubtitle": "Notifications push et alertes",
+  "language": "Langue",
+  "languageSubtitle": "Langue de l'app",
+  "supportLegal": "Support et mentions légales",
+  "helpSubtitle": "FAQ et assistance",
+  "privacySubtitle": "Politique de confidentialité et données",
+  "about": "À propos",
+  "aboutSubtitle": "Version et conditions d'utilisation",
+  "aboutDescription": "Découvre, crée et partage des événements.",
+  "allRightsReserved": "© {year} Parkea. Tous droits réservés.",
+  "@allRightsReserved": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "account": "Compte",
+  "logoutSubtitle": "Se déconnecter de ton compte",
+  "logoutConfirm": "Veux-tu vraiment te déconnecter ?",
+  "logoutFailed": "Impossible de se déconnecter : {error}",
+  "@logoutFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "slideShareTitle": "Partage avec tes amis",
+  "slideShareText": "Découvre des événements près de chez toi et partage-les avec tes amis.",
+  "slideCelebrateTitle": "Célébrez ensemble",
+  "slideCelebrateText": "Inscris-toi en un geste et garde tes tickets avec toi.",
+  "slideRelaxTitle": "Détends-toi bien entouré",
+  "slideRelaxText": "Crée tes propres événements et touche plus de monde.",
+  "getStarted": "Commencer"
 }

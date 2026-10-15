@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/usecases/fetch_promotions_uc.dart';
 import '../cards/promotion_card.dart';
+import '../../../generated/l10n.dart';
 
 /**
  * Made for parkea.
@@ -42,7 +43,7 @@ class _PromotionsComponentState extends ConsumerState<PromotionsComponent> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
               child: Text(
-                "Promociones!",
+                S.of(context).promotions,
                 style: Theme.of(context)
                     .textTheme
                     .titleSmall

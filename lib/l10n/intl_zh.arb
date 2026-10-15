@@ -171,5 +171,82 @@
         "type": "String"
       }
     }
-  }
+  },
+  "errConnection": "無法連線到伺服器",
+  "errLoadEvent": "無法載入活動",
+  "errLoadEvents": "無法載入活動列表",
+  "errLoadOwnEvents": "無法載入你的活動",
+  "errLoadSimilar": "無法載入類似活動",
+  "errLoadPromotions": "無法載入優惠",
+  "errLoadTickets": "無法載入票券",
+  "errCreateEvent": "無法建立活動",
+  "errSaveEvent": "無法儲存活動",
+  "errDeleteEvent": "無法刪除活動",
+  "errCheckFields": "請檢查標示的欄位",
+  "errEnroll": "無法完成報名",
+  "errCancelTicket": "無法取消票券",
+  "errLogin": "登入失敗",
+  "errSignUp": "註冊失敗",
+  "errSignUpIncomplete": "無法完成註冊",
+  "errWrongCredentials": "使用者名稱或密碼錯誤",
+  "errLoadProfile": "無法載入個人資料",
+  "errInvalidResetLink": "連結無效或已使用過",
+  "errWithCode": "錯誤（代碼：{code}）",
+  "@errWithCode": {
+    "placeholders": {
+      "code": {
+        "type": "int"
+      }
+    }
+  },
+  "greetingMorning": "早安！",
+  "greetingAfternoon": "午安！",
+  "greetingEvening": "晚安！",
+  "catAll": "全部",
+  "promotions": "優惠活動",
+  "loadingEvent": "正在載入活動…",
+  "somethingWentWrong": "發生錯誤",
+  "profileUnavailable": "無法使用個人資料",
+  "yourProfile": "你的個人資料",
+  "manageProfile": "管理你的個人資料",
+  "preferences": "偏好設定",
+  "theme": "主題",
+  "darkMode": "深色模式",
+  "lightMode": "淺色模式",
+  "notifications": "通知",
+  "notificationsSubtitle": "推播通知與提醒",
+  "language": "語言",
+  "languageSubtitle": "應用程式語言",
+  "supportLegal": "支援與法律",
+  "helpSubtitle": "常見問題與支援",
+  "privacySubtitle": "隱私權政策與資料使用",
+  "about": "關於",
+  "aboutSubtitle": "版本與服務條款",
+  "aboutDescription": "探索、建立並分享活動。",
+  "allRightsReserved": "© {year} Parkea。保留所有權利。",
+  "@allRightsReserved": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "account": "帳號",
+  "logoutSubtitle": "登出你的帳號",
+  "logoutConfirm": "確定要登出嗎？",
+  "logoutFailed": "無法登出：{error}",
+  "@logoutFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "slideShareTitle": "與朋友分享",
+  "slideShareText": "探索你附近的活動並與朋友分享。",
+  "slideCelebrateTitle": "一起慶祝",
+  "slideCelebrateText": "一鍵報名，票券隨身帶著走。",
+  "slideRelaxTitle": "與好友一同放鬆",
+  "slideRelaxText": "建立你自己的活動，觸及更多人。",
+  "getStarted": "開始"
 }

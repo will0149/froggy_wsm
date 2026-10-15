@@ -171,5 +171,82 @@
         "type": "String"
       }
     }
-  }
+  },
+  "errConnection": "No se pudo conectar con el servidor",
+  "errLoadEvent": "No se pudo cargar el evento",
+  "errLoadEvents": "No se pudieron cargar los eventos",
+  "errLoadOwnEvents": "No se pudieron cargar tus eventos",
+  "errLoadSimilar": "No se pudieron cargar eventos similares",
+  "errLoadPromotions": "No se pudieron cargar las promociones",
+  "errLoadTickets": "No se pudieron cargar los tickets",
+  "errCreateEvent": "No se pudo crear el evento",
+  "errSaveEvent": "No se pudo guardar el evento",
+  "errDeleteEvent": "No se pudo borrar el evento",
+  "errCheckFields": "Revisa los campos marcados",
+  "errEnroll": "No se pudo completar la inscripción",
+  "errCancelTicket": "No se pudo cancelar el ticket",
+  "errLogin": "Error al iniciar sesión",
+  "errSignUp": "Error al registrarse",
+  "errSignUpIncomplete": "No se pudo completar el registro",
+  "errWrongCredentials": "Usuario o contraseña incorrectos",
+  "errLoadProfile": "No se pudo cargar el perfil",
+  "errInvalidResetLink": "El enlace no es válido o ya se usó",
+  "errWithCode": "Error (código: {code})",
+  "@errWithCode": {
+    "placeholders": {
+      "code": {
+        "type": "int"
+      }
+    }
+  },
+  "greetingMorning": "¡Buenos días!",
+  "greetingAfternoon": "¡Buenas tardes!",
+  "greetingEvening": "¡Buenas noches!",
+  "catAll": "Todas",
+  "promotions": "Promociones",
+  "loadingEvent": "Cargando evento…",
+  "somethingWentWrong": "Algo salió mal",
+  "profileUnavailable": "Perfil no disponible",
+  "yourProfile": "Tu perfil",
+  "manageProfile": "Administra la información de tu perfil",
+  "preferences": "Preferencias",
+  "theme": "Tema",
+  "darkMode": "Modo oscuro",
+  "lightMode": "Modo claro",
+  "notifications": "Notificaciones",
+  "notificationsSubtitle": "Notificaciones push y alertas",
+  "language": "Idioma",
+  "languageSubtitle": "Idioma de la app",
+  "supportLegal": "Soporte y legal",
+  "helpSubtitle": "Preguntas frecuentes y soporte",
+  "privacySubtitle": "Política de privacidad y uso de datos",
+  "about": "Acerca de",
+  "aboutSubtitle": "Versión y términos del servicio",
+  "aboutDescription": "Descubre, crea y comparte eventos.",
+  "allRightsReserved": "© {year} Parkea. Todos los derechos reservados.",
+  "@allRightsReserved": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "account": "Cuenta",
+  "logoutSubtitle": "Cerrar la sesión de tu cuenta",
+  "logoutConfirm": "¿Seguro que quieres cerrar sesión?",
+  "logoutFailed": "No se pudo cerrar sesión: {error}",
+  "@logoutFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "slideShareTitle": "Comparte con amigos",
+  "slideShareText": "Descubre eventos cerca de ti y compártelos con tus amigos.",
+  "slideCelebrateTitle": "Celebra juntos",
+  "slideCelebrateText": "Inscríbete en un toque y lleva tus tickets siempre contigo.",
+  "slideRelaxTitle": "Relájate en compañía",
+  "slideRelaxText": "Crea tus propios eventos y llega a más personas.",
+  "getStarted": "Empezar"
 }

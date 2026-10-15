@@ -170,5 +170,82 @@
         "type": "String"
       }
     }
-  }
+  },
+  "errConnection": "Verbindung zum Server fehlgeschlagen",
+  "errLoadEvent": "Veranstaltung konnte nicht geladen werden",
+  "errLoadEvents": "Veranstaltungen konnten nicht geladen werden",
+  "errLoadOwnEvents": "Deine Veranstaltungen konnten nicht geladen werden",
+  "errLoadSimilar": "Ähnliche Veranstaltungen konnten nicht geladen werden",
+  "errLoadPromotions": "Aktionen konnten nicht geladen werden",
+  "errLoadTickets": "Tickets konnten nicht geladen werden",
+  "errCreateEvent": "Veranstaltung konnte nicht erstellt werden",
+  "errSaveEvent": "Veranstaltung konnte nicht gespeichert werden",
+  "errDeleteEvent": "Veranstaltung konnte nicht gelöscht werden",
+  "errCheckFields": "Überprüfe die markierten Felder",
+  "errEnroll": "Anmeldung konnte nicht abgeschlossen werden",
+  "errCancelTicket": "Ticket konnte nicht storniert werden",
+  "errLogin": "Anmeldung fehlgeschlagen",
+  "errSignUp": "Registrierung fehlgeschlagen",
+  "errSignUpIncomplete": "Registrierung konnte nicht abgeschlossen werden",
+  "errWrongCredentials": "Benutzername oder Passwort falsch",
+  "errLoadProfile": "Profil konnte nicht geladen werden",
+  "errInvalidResetLink": "Der Link ist ungültig oder wurde bereits verwendet",
+  "errWithCode": "Fehler (Code: {code})",
+  "@errWithCode": {
+    "placeholders": {
+      "code": {
+        "type": "int"
+      }
+    }
+  },
+  "greetingMorning": "Guten Morgen!",
+  "greetingAfternoon": "Guten Tag!",
+  "greetingEvening": "Guten Abend!",
+  "catAll": "Alle",
+  "promotions": "Aktionen",
+  "loadingEvent": "Veranstaltung wird geladen…",
+  "somethingWentWrong": "Etwas ist schiefgelaufen",
+  "profileUnavailable": "Profil nicht verfügbar",
+  "yourProfile": "Dein Profil",
+  "manageProfile": "Verwalte deine Profilinformationen",
+  "preferences": "Einstellungen",
+  "theme": "Design",
+  "darkMode": "Dunkler Modus",
+  "lightMode": "Heller Modus",
+  "notifications": "Benachrichtigungen",
+  "notificationsSubtitle": "Push-Benachrichtigungen und Hinweise",
+  "language": "Sprache",
+  "languageSubtitle": "Sprache der App",
+  "supportLegal": "Support & Rechtliches",
+  "helpSubtitle": "FAQ und Support",
+  "privacySubtitle": "Datenschutz und Datennutzung",
+  "about": "Über",
+  "aboutSubtitle": "Version und Nutzungsbedingungen",
+  "aboutDescription": "Entdecke, erstelle und teile Veranstaltungen.",
+  "allRightsReserved": "© {year} Parkea. Alle Rechte vorbehalten.",
+  "@allRightsReserved": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "account": "Konto",
+  "logoutSubtitle": "Von deinem Konto abmelden",
+  "logoutConfirm": "Möchtest du dich wirklich abmelden?",
+  "logoutFailed": "Abmeldung fehlgeschlagen: {error}",
+  "@logoutFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "slideShareTitle": "Teile mit Freunden",
+  "slideShareText": "Entdecke Veranstaltungen in deiner Nähe und teile sie mit Freunden.",
+  "slideCelebrateTitle": "Feiert zusammen",
+  "slideCelebrateText": "Melde dich mit einem Tipp an und hab deine Tickets immer dabei.",
+  "slideRelaxTitle": "Entspann dich in guter Gesellschaft",
+  "slideRelaxText": "Erstelle eigene Veranstaltungen und erreiche mehr Menschen.",
+  "getStarted": "Los geht's"
 }

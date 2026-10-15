@@ -32,9 +32,7 @@ class HomeFeedPage extends ConsumerStatefulWidget {
 }
 
 class OnboardingPageState extends ConsumerState<HomeFeedPage> {
-  final titles = ["All", "Música", "Camping", "Aventura", "Talleres"];
-
-  /// `category` del API para cada título; "All" (null) es sin filtro.
+  /// `category` del API para cada título de [_titles]; null es sin filtro.
   static const _categories = [
     null,
     'MUSIC',
@@ -99,8 +97,18 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
     }
   }
 
+  List<String> _titles(S s) =>
+      [s.catAll, s.catMusic, s.catCamping, s.catAdventure, s.catWorkshops];
+
+  /// Saludo según la hora local.
+  String _greeting(S s) => switch (DateTime.now().hour) {
+        < 12 => s.greetingMorning,
+        < 19 => s.greetingAfternoon,
+        _ => s.greetingEvening,
+      };
+
   void _onCategory(String title) {
-    final index = titles.indexOf(title);
+    final index = _titles(S.of(context)).indexOf(title);
     setState(() => _category = index < 0 ? null : _categories[index]);
   }
 
@@ -152,7 +160,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                   spacing: 10.0,
                   children: [
                     Text(
-                      "Buen día!!",
+                      _greeting(S.of(context)),
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     SearchBar(
@@ -190,7 +198,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                     ),
                     HorizontalFilterList(
                       key: PageStorageKey<String>('categoryListKey'),
-                      filterListItems: titles,
+                      filterListItems: _titles(S.of(context)),
                       activeColor: parkeaBlueAccent,
                       inactiveColor: parkeaBlack,
                       searchFilterTitle: S.of(context).categories,

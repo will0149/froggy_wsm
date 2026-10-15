@@ -11,6 +11,7 @@ import '../../../device/utils/loggerConfig.dart';
 import '../../../data/repositories/utils/build_header_utils.dart';
 import '../../../data/repositories/utils/impl/build_headers_utils_impl.dart';
 import 'api_error_message.dart';
+import '../../../generated/l10n.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -53,7 +54,7 @@ class RestAuthUC extends _$RestAuthUC {
             return (tokens.token, tokens.refreshToken);
           },
           errorMessage: _signInErrorMessage,
-          fallbackError: 'Error al iniciar sesión',
+          fallbackError: S.current.errLogin,
         ));
   }
 
@@ -64,7 +65,7 @@ class RestAuthUC extends _$RestAuthUC {
           readTokens: (body) =>
               (body['access'] as String?, body['refresh'] as String?),
           errorMessage: _registerErrorMessage,
-          fallbackError: 'Error al registrarse',
+          fallbackError: S.current.errSignUp,
         ));
   }
 
@@ -101,7 +102,7 @@ class RestAuthUC extends _$RestAuthUC {
         }
         // Sin perfil no hay sesión: que no reaparezca al reabrir la app.
         await headersUtils.dropTemporalMemory();
-        return AuthState.error('No se pudo cargar el perfil');
+        return AuthState.error(S.current.errLoadProfile);
       }
       return AuthState.error('$fallbackError (sin tokens)');
     }
@@ -118,7 +119,7 @@ class RestAuthUC extends _$RestAuthUC {
         body is Map<String, dynamic> ? body['non_field_errors'] : null;
     if (general is List && general.isNotEmpty) return '${general.first}';
     if (apiFieldErrors(body).isNotEmpty) {
-      return 'No se pudo completar el registro';
+      return S.current.errSignUpIncomplete;
     }
     return apiErrorMessage(body);
   }
@@ -126,7 +127,7 @@ class RestAuthUC extends _$RestAuthUC {
   /// Credenciales incorrectas llegan como `non_field_errors`.
   String? _signInErrorMessage(Object? body) {
     if (body is Map<String, dynamic> && body.containsKey('non_field_errors')) {
-      return 'Usuario o contraseña incorrectos';
+      return S.current.errWrongCredentials;
     }
     return apiErrorMessage(body);
   }
@@ -140,7 +141,7 @@ class RestAuthUC extends _$RestAuthUC {
       if (status == timeoutStatus) return connectionErrorMessage;
       if (status != 200) {
         return apiErrorMessage(result['body']) ??
-            'No se pudo actualizar la foto';
+            S.current.avatarUploadFailed;
       }
     } on Exception catch (e) {
       logger.e(e.toString());

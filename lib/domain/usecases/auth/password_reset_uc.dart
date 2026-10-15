@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../data/repositories/auth/auth_repository.dart';
 import '../../../device/utils/loggerConfig.dart';
 import 'api_error_message.dart';
+import '../../../generated/l10n.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -43,7 +44,7 @@ class PasswordResetUC extends _$PasswordResetUC {
   String? _confirmErrorMessage(Object? body) {
     if (body is Map<String, dynamic> &&
         (body.containsKey('uid') || body.containsKey('token'))) {
-      return 'El enlace no es válido o ya se usó';
+      return S.current.errInvalidResetLink;
     }
     return apiErrorMessage(body);
   }
@@ -60,7 +61,7 @@ class PasswordResetUC extends _$PasswordResetUC {
       if (status == timeoutStatus) {
         error = connectionErrorMessage;
       } else if (status != 200) {
-        error = errorMessage(result['body']) ?? 'Error (código: $status)';
+        error = errorMessage(result['body']) ?? S.current.errWithCode(status);
       }
     } on Exception catch (e) {
       logger.e(e.toString());

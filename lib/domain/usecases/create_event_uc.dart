@@ -7,6 +7,7 @@ import 'event_feed_uc.dart';
 import 'fetch_events_uc.dart';
 import 'fetch_tickets_uc.dart';
 import 'owner_events_uc.dart';
+import '../../generated/l10n.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -55,7 +56,7 @@ class CreateEventUC extends _$CreateEventUC {
       () => repository.updateEvent(eventId, fields),
       successStatus: 200,
       bannerPath: bannerPath,
-      errorMessage: 'No se pudo guardar el evento',
+      errorMessage: S.current.errSaveEvent,
     );
     if (ref.mounted) state = const AsyncValue.data(null);
     if (result.eventId != null) {
@@ -74,7 +75,7 @@ class CreateEventUC extends _$CreateEventUC {
         () => repository.createEvent(event),
         successStatus: 201,
         bannerPath: bannerPath,
-        errorMessage: 'No se pudo crear el evento',
+        errorMessage: S.current.errCreateEvent,
       );
 
   Future<CreateEventResult> _send(
@@ -99,7 +100,7 @@ class CreateEventUC extends _$CreateEventUC {
       final fieldErrors = apiFieldErrors(body);
       return _failure(
         fieldErrors.isNotEmpty
-            ? 'Revisa los campos marcados'
+            ? S.current.errCheckFields
             : apiErrorMessage(body) ?? errorMessage,
         fieldErrors: fieldErrors,
       );

@@ -171,5 +171,82 @@
         "type": "String"
       }
     }
-  }
+  },
+  "errConnection": "Не удалось подключиться к серверу",
+  "errLoadEvent": "Не удалось загрузить событие",
+  "errLoadEvents": "Не удалось загрузить события",
+  "errLoadOwnEvents": "Не удалось загрузить ваши события",
+  "errLoadSimilar": "Не удалось загрузить похожие события",
+  "errLoadPromotions": "Не удалось загрузить акции",
+  "errLoadTickets": "Не удалось загрузить билеты",
+  "errCreateEvent": "Не удалось создать событие",
+  "errSaveEvent": "Не удалось сохранить событие",
+  "errDeleteEvent": "Не удалось удалить событие",
+  "errCheckFields": "Проверьте отмеченные поля",
+  "errEnroll": "Не удалось завершить запись",
+  "errCancelTicket": "Не удалось отменить билет",
+  "errLogin": "Ошибка входа",
+  "errSignUp": "Ошибка регистрации",
+  "errSignUpIncomplete": "Не удалось завершить регистрацию",
+  "errWrongCredentials": "Неверное имя пользователя или пароль",
+  "errLoadProfile": "Не удалось загрузить профиль",
+  "errInvalidResetLink": "Ссылка недействительна или уже использована",
+  "errWithCode": "Ошибка (код: {code})",
+  "@errWithCode": {
+    "placeholders": {
+      "code": {
+        "type": "int"
+      }
+    }
+  },
+  "greetingMorning": "Доброе утро!",
+  "greetingAfternoon": "Добрый день!",
+  "greetingEvening": "Добрый вечер!",
+  "catAll": "Все",
+  "promotions": "Акции",
+  "loadingEvent": "Загрузка события…",
+  "somethingWentWrong": "Что-то пошло не так",
+  "profileUnavailable": "Профиль недоступен",
+  "yourProfile": "Ваш профиль",
+  "manageProfile": "Управляйте данными профиля",
+  "preferences": "Настройки",
+  "theme": "Тема",
+  "darkMode": "Тёмная тема",
+  "lightMode": "Светлая тема",
+  "notifications": "Уведомления",
+  "notificationsSubtitle": "Push-уведомления и оповещения",
+  "language": "Язык",
+  "languageSubtitle": "Язык приложения",
+  "supportLegal": "Поддержка и правовая информация",
+  "helpSubtitle": "Вопросы и поддержка",
+  "privacySubtitle": "Конфиденциальность и данные",
+  "about": "О приложении",
+  "aboutSubtitle": "Версия и условия использования",
+  "aboutDescription": "Находите, создавайте и делитесь событиями.",
+  "allRightsReserved": "© {year} Parkea. Все права защищены.",
+  "@allRightsReserved": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "account": "Аккаунт",
+  "logoutSubtitle": "Выйти из аккаунта",
+  "logoutConfirm": "Вы уверены, что хотите выйти?",
+  "logoutFailed": "Не удалось выйти: {error}",
+  "@logoutFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "slideShareTitle": "Делитесь с друзьями",
+  "slideShareText": "Находите события рядом и делитесь ими с друзьями.",
+  "slideCelebrateTitle": "Празднуйте вместе",
+  "slideCelebrateText": "Записывайтесь в одно касание, билеты всегда с вами.",
+  "slideRelaxTitle": "Отдыхайте в хорошей компании",
+  "slideRelaxText": "Создавайте свои события и привлекайте больше людей.",
+  "getStarted": "Начать"
 }

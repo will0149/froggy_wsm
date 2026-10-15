@@ -4,6 +4,7 @@ import '../../data/dtos/event_dto.dart';
 import '../../data/repositories/events_repository.dart';
 import '../../device/utils/loggerConfig.dart';
 import 'auth/api_error_message.dart';
+import '../../generated/l10n.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -101,7 +102,7 @@ class EventFeedUC extends _$EventFeedUC {
     if (status == timeoutStatus) throw FeedException(connectionErrorMessage);
     if (status != 200 || body is! Map<String, dynamic>) {
       throw FeedException(
-          apiErrorMessage(body) ?? 'No se pudieron cargar los eventos');
+          apiErrorMessage(body) ?? S.current.errLoadEvents);
     }
     final results = body['results'];
     return (

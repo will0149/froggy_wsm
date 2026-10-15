@@ -6,6 +6,7 @@ import 'auth/api_error_message.dart';
 import 'event_feed_uc.dart';
 import 'fetch_tickets_uc.dart';
 import 'paged_fetch.dart';
+import '../../generated/l10n.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -23,7 +24,7 @@ class OwnerEventsUC extends _$OwnerEventsUC {
     final events = await fetchAllPages(
       repository.fetchOwnerEventsPage,
       EventDTO.fromJson,
-      errorMessage: 'No se pudieron cargar tus eventos',
+      errorMessage: S.current.errLoadOwnEvents,
     );
     // El API los ordena por creación ascendente.
     return events.reversed.toList();
@@ -37,7 +38,7 @@ class OwnerEventsUC extends _$OwnerEventsUC {
       final status = result['status'];
       if (status == timeoutStatus) return connectionErrorMessage;
       if (status != 204) {
-        return apiErrorMessage(result['body']) ?? 'No se pudo borrar el evento';
+        return apiErrorMessage(result['body']) ?? S.current.errDeleteEvent;
       }
     } on Exception {
       return connectionErrorMessage;
