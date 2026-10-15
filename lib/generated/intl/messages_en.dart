@@ -31,6 +31,13 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "aboutEvent": MessageLookupByLibrary.simpleMessage("About the event"),
+    "accessCode": MessageLookupByLibrary.simpleMessage("Access code"),
+    "accessCodeHint": MessageLookupByLibrary.simpleMessage(
+      "This event is private. Enter the code the organizer gave you.",
+    ),
+    "accessCodeRequired": MessageLookupByLibrary.simpleMessage(
+      "Enter the code",
+    ),
     "addBanner": MessageLookupByLibrary.simpleMessage("Add image"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Authenticate"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Photo updated"),
@@ -41,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "The event was created, but the image couldn\'t be uploaded",
     ),
     "buyTicket": MessageLookupByLibrary.simpleMessage("Get ticket"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "cancelTicket": MessageLookupByLibrary.simpleMessage("Cancel enrollment"),
     "cancelTicketConfirm": MessageLookupByLibrary.simpleMessage(
       "Are you sure you want to cancel your enrollment?",
@@ -72,13 +80,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
     "downloadTicket": MessageLookupByLibrary.simpleMessage("Download ticket"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "enroll": MessageLookupByLibrary.simpleMessage("Enroll"),
     "enrolledOn": m0,
+    "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
+      "Done! You\'re enrolled",
+    ),
     "eventCapacity": MessageLookupByLibrary.simpleMessage("Capacity"),
     "eventCategory": MessageLookupByLibrary.simpleMessage("Category"),
     "eventCreated": MessageLookupByLibrary.simpleMessage("Event created"),
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Currency"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Date and time"),
     "eventDescription": MessageLookupByLibrary.simpleMessage("Description"),
+    "eventFinished": MessageLookupByLibrary.simpleMessage("Event ended"),
     "eventLocation": MessageLookupByLibrary.simpleMessage("Location"),
     "eventName": MessageLookupByLibrary.simpleMessage("Event name"),
     "eventPlace": MessageLookupByLibrary.simpleMessage("Place"),
@@ -106,6 +119,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "hostedBy": MessageLookupByLibrary.simpleMessage("Hosted by"),
     "information": MessageLookupByLibrary.simpleMessage("Information"),
+    "invalidAccessCode": MessageLookupByLibrary.simpleMessage(
+      "Invalid access code",
+    ),
     "invalidCurrency": MessageLookupByLibrary.simpleMessage(
       "Use a 3-letter code, e.g. USD",
     ),
@@ -113,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Invalid email address",
     ),
     "invalidNumber": MessageLookupByLibrary.simpleMessage("Invalid number"),
+    "invitationOnly": MessageLookupByLibrary.simpleMessage("Invitation only"),
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
       "Join our universe",
     ),
@@ -142,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noUpcomingTickets": MessageLookupByLibrary.simpleMessage(
       "No upcoming tickets",
     ),
+    "ownEvent": MessageLookupByLibrary.simpleMessage("Your event"),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage("Parkea & Share"),
     "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -162,6 +180,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
       "Passwords do not match",
+    ),
+    "paymentsComingSoon": MessageLookupByLibrary.simpleMessage(
+      "Payment coming soon",
     ),
     "popularEvents": MessageLookupByLibrary.simpleMessage("Popular events"),
     "pricePositive": MessageLookupByLibrary.simpleMessage(
@@ -200,6 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Enter your username or email",
     ),
     "viewEvent": MessageLookupByLibrary.simpleMessage("View event"),
+    "viewMyTicket": MessageLookupByLibrary.simpleMessage("View my ticket"),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage("¡Welcome back!"),
   };
 }

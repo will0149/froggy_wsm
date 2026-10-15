@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:parkea/app/pages/event/ticket_purchase_page.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/banners/detail_image_banner.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/domain/usecases/fetch_events_uc.dart';
+import 'package:parkea/domain/usecases/fetch_tickets_uc.dart';
 import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../generated/l10n.dart';
 import '../../utils/event_format.dart';
+import '../../widgets/event/enroll_button.dart';
 import '../../widgets/event/event_location_card.dart';
 
 /// Made for parkea.
@@ -30,10 +30,11 @@ class EventDetailPage extends ConsumerStatefulWidget {
 }
 
 class EventDetailPageState extends ConsumerState<EventDetailPage> {
-  Future<void> _refresh() {
-    return Future.delayed(
-      const Duration(seconds: 2),
-    );
+  Future<void> _refresh() async {
+    ref
+      ..invalidate(myTicketsUCProvider)
+      ..invalidate(fetchEventDetailUCProvider(widget.eventId));
+    await ref.read(fetchEventDetailUCProvider(widget.eventId).future);
   }
 
   @override
@@ -329,8 +330,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
 
   Widget _buildActionButtons(EventDTO event, BuildContext context) {
     final likeButton = ref.watch(svgIconProvider);
-    final theme = Theme.of(context);
-    
+
     return Row(
       children: [
         Container(
@@ -351,30 +351,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
         ),
         const SizedBox(width: 16),
         Expanded(
-          child: ElevatedButton(
-            onPressed: () {
-              context.pushNamed(
-                TicketPurchasePage.routeName,
-                pathParameters: {'id': widget.eventId.toString()},
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: parkeaOrange,
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              elevation: 2,
-            ),
-            child: Text(
-              '${S.of(context).buyTicket} · ${event.eventType == 'FREE' ? S.of(context).costFree : event.formattedPrice(Localizations.localeOf(context).toString())}',
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          child: EnrollButton(event: event),
         ),
       ],
     );

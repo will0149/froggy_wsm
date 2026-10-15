@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/data/dtos/ticket_dto.dart';
 import 'package:parkea/domain/providers/app_theme_provider.dart';
+import 'package:parkea/domain/usecases/fetch_events_uc.dart';
 import 'package:parkea/domain/usecases/fetch_tickets_uc.dart';
 
 import '../../../generated/l10n.dart';
@@ -93,8 +94,11 @@ class TicketsPageState extends ConsumerState<TicketsPage>
                 ),
                 _TicketList(
                   // Los más recientes primero.
-                  tickets:
-                      value.where((t) => !t.isUpcoming).toList().reversed.toList(),
+                  tickets: value
+                      .where((t) => !t.isUpcoming)
+                      .toList()
+                      .reversed
+                      .toList(),
                   emptyMessage: s.noPastTickets,
                 ),
               ],
@@ -202,14 +206,7 @@ class _TicketCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
-        onTap: () => showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          showDragHandle: true,
-          // Por encima de la barra inferior.
-          useRootNavigator: true,
-          builder: (_) => _TicketDetailSheet(ticket: ticket),
-        ),
+        onTap: () => TicketDetailSheet.show(context, ticket),
         child: Row(
           children: [
             SizedBox.square(
@@ -267,7 +264,8 @@ class _IconText extends StatelessWidget {
   final Color color;
   final String text;
 
-  const _IconText({required this.icon, required this.color, required this.text});
+  const _IconText(
+      {required this.icon, required this.color, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -325,16 +323,32 @@ class _EventImage extends StatelessWidget {
   }
 }
 
-class _TicketDetailSheet extends ConsumerStatefulWidget {
+class TicketDetailSheet extends ConsumerStatefulWidget {
   final TicketDTO ticket;
 
-  const _TicketDetailSheet({required this.ticket});
+  /// Falso cuando se abre desde el detalle del mismo evento.
+  final bool showEventButton;
+
+  const TicketDetailSheet(
+      {super.key, required this.ticket, this.showEventButton = true});
+
+  static Future<void> show(BuildContext context, TicketDTO ticket,
+          {bool showEventButton = true}) =>
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        showDragHandle: true,
+        // Por encima de la barra inferior.
+        useRootNavigator: true,
+        builder: (_) =>
+            TicketDetailSheet(ticket: ticket, showEventButton: showEventButton),
+      );
 
   @override
-  ConsumerState<_TicketDetailSheet> createState() => _TicketDetailSheetState();
+  ConsumerState<TicketDetailSheet> createState() => _TicketDetailSheetState();
 }
 
-class _TicketDetailSheetState extends ConsumerState<_TicketDetailSheet> {
+class _TicketDetailSheetState extends ConsumerState<TicketDetailSheet> {
   bool _cancelling = false;
 
   Future<void> _cancel() async {
@@ -361,6 +375,11 @@ class _TicketDetailSheetState extends ConsumerState<_TicketDetailSheet> {
         await ref.read(myTicketsUCProvider.notifier).cancel(widget.ticket.id);
     if (!mounted) return;
     setState(() => _cancelling = false);
+    // Libera un cupo en el detalle del evento.
+    final eventId = int.tryParse(widget.ticket.event.id ?? '');
+    if (error == null && eventId != null) {
+      ref.invalidate(fetchEventDetailUCProvider(eventId));
+    }
     final messenger = ScaffoldMessenger.of(context);
     if (error == null) Navigator.pop(context);
     messenger.showSnackBar(SnackBar(content: Text(error ?? s.ticketCancelled)));
@@ -405,7 +424,8 @@ class _TicketDetailSheetState extends ConsumerState<_TicketDetailSheet> {
                 text: DateFormat('EEEE d MMMM y · HH:mm', locale).format(date),
               ),
             if (event.location?.place case final place? when place.isNotEmpty)
-              _IconText(icon: Icons.place, color: parkeaBlueAccent, text: place),
+              _IconText(
+                  icon: Icons.place, color: parkeaBlueAccent, text: place),
             Text(s.ticketNumber(ticket.id), style: theme.textTheme.labelLarge),
             if (purchased != null)
               Text(
@@ -413,17 +433,18 @@ class _TicketDetailSheetState extends ConsumerState<_TicketDetailSheet> {
                 style: theme.textTheme.bodySmall,
               ),
             const SizedBox(height: 4),
-            FilledButton(
-              style: FilledButton.styleFrom(backgroundColor: parkeaOrange),
-              onPressed: event.id == null
-                  ? null
-                  : () {
-                      Navigator.pop(context);
-                      context.pushNamed(EventDetailPage.routeName,
-                          pathParameters: {'id': event.id!});
-                    },
-              child: Text(s.viewEvent),
-            ),
+            if (widget.showEventButton)
+              FilledButton(
+                style: FilledButton.styleFrom(backgroundColor: parkeaOrange),
+                onPressed: event.id == null
+                    ? null
+                    : () {
+                        Navigator.pop(context);
+                        context.pushNamed(EventDetailPage.routeName,
+                            pathParameters: {'id': event.id!});
+                      },
+                child: Text(s.viewEvent),
+              ),
             if (ticket.isUpcoming)
               TextButton(
                 style: TextButton.styleFrom(

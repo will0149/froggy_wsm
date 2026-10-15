@@ -13,6 +13,13 @@ class TicketRepository {
       apiClient.getAuthorized(ApiPathsEnums.ticketsByUser.uri
           .replace(queryParameters: {'page': '$page'}));
 
+  /// 201 con el ticket creado, o 204 sin body si el usuario ya estaba
+  /// inscrito. [otp] solo se valida en eventos PRIVATE.
+  Future<Map<String, dynamic>> enroll(int eventId, {String? otp}) =>
+      apiClient.postAuthorized(ApiPathsEnums.ticketEnroll.uri, {
+        'body': {'event': eventId, if (otp != null) 'otp': otp},
+      });
+
   /// 204 si se canceló; el ticket se borra.
   Future<Map<String, dynamic>> cancelTicket(int ticketId) =>
       apiClient.deleteAuthorized(ApiPathsEnums.ticketCancel.uriWithId(ticketId));

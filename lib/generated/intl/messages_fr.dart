@@ -33,6 +33,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "aboutEvent": MessageLookupByLibrary.simpleMessage(
       "À propos de l\'événement",
     ),
+    "accessCode": MessageLookupByLibrary.simpleMessage("Code d\'accès"),
+    "accessCodeHint": MessageLookupByLibrary.simpleMessage(
+      "Cet événement est privé. Saisis le code fourni par l\'organisateur.",
+    ),
+    "accessCodeRequired": MessageLookupByLibrary.simpleMessage(
+      "Saisis le code",
+    ),
     "addBanner": MessageLookupByLibrary.simpleMessage("Ajouter une image"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Authentifier"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Photo mise à jour"),
@@ -43,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "L\'événement a été créé, mais l\'image n\'a pas pu être envoyée",
     ),
     "buyTicket": MessageLookupByLibrary.simpleMessage("Acheter un ticket"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
     "cancelTicket": MessageLookupByLibrary.simpleMessage(
       "Annuler l\'inscription",
     ),
@@ -84,13 +92,18 @@ class MessageLookup extends MessageLookupByLibrary {
       "Télécharger le billet",
     ),
     "email": MessageLookupByLibrary.simpleMessage("E-mail"),
+    "enroll": MessageLookupByLibrary.simpleMessage("M\'inscrire"),
     "enrolledOn": m0,
+    "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
+      "C\'est fait ! Tu es inscrit",
+    ),
     "eventCapacity": MessageLookupByLibrary.simpleMessage("Capacité"),
     "eventCategory": MessageLookupByLibrary.simpleMessage("Catégorie"),
     "eventCreated": MessageLookupByLibrary.simpleMessage("Événement créé"),
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Devise"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Date et heure"),
     "eventDescription": MessageLookupByLibrary.simpleMessage("Description"),
+    "eventFinished": MessageLookupByLibrary.simpleMessage("Événement terminé"),
     "eventLocation": MessageLookupByLibrary.simpleMessage("Lieu"),
     "eventName": MessageLookupByLibrary.simpleMessage("Nom de l\'événement"),
     "eventPlace": MessageLookupByLibrary.simpleMessage("Lieu"),
@@ -122,6 +135,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "haveResetLink": MessageLookupByLibrary.simpleMessage("J\'ai déjà un lien"),
     "hostedBy": MessageLookupByLibrary.simpleMessage("Organisé par"),
     "information": MessageLookupByLibrary.simpleMessage("Informations"),
+    "invalidAccessCode": MessageLookupByLibrary.simpleMessage(
+      "Code d\'accès invalide",
+    ),
     "invalidCurrency": MessageLookupByLibrary.simpleMessage(
       "Utilise un code à 3 lettres, p. ex. USD",
     ),
@@ -129,6 +145,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Adresse e-mail invalide",
     ),
     "invalidNumber": MessageLookupByLibrary.simpleMessage("Nombre invalide"),
+    "invitationOnly": MessageLookupByLibrary.simpleMessage(
+      "Sur invitation uniquement",
+    ),
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
       "Rejoignez notre univers",
     ),
@@ -160,6 +179,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noUpcomingTickets": MessageLookupByLibrary.simpleMessage(
       "Aucun billet à venir",
     ),
+    "ownEvent": MessageLookupByLibrary.simpleMessage("Ton événement"),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage(
       "Parkea et partager",
     ),
@@ -182,6 +202,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
       "Les mots de passe ne correspondent pas",
+    ),
+    "paymentsComingSoon": MessageLookupByLibrary.simpleMessage(
+      "Paiement bientôt disponible",
     ),
     "popularEvents": MessageLookupByLibrary.simpleMessage(
       "Événements populaires",
@@ -230,6 +253,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Saisis ton nom d\'utilisateur ou ton e-mail",
     ),
     "viewEvent": MessageLookupByLibrary.simpleMessage("Voir l\'événement"),
+    "viewMyTicket": MessageLookupByLibrary.simpleMessage("Voir mon ticket"),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage(
       "¡Bienvenue à nouveau!",
     ),

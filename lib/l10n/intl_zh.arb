@@ -139,5 +139,17 @@
   "noSearchResults": "沒有符合搜尋的活動",
   "changePhoto": "更換照片",
   "avatarUpdated": "照片已更新",
-  "avatarUploadFailed": "無法更新照片"
+  "avatarUploadFailed": "無法更新照片",
+  "enroll": "報名",
+  "viewMyTicket": "查看我的票",
+  "eventFinished": "活動已結束",
+  "ownEvent": "你的活動",
+  "paymentsComingSoon": "即將開放付款",
+  "invitationOnly": "僅限邀請",
+  "enrolledSuccess": "完成！你已報名",
+  "accessCode": "存取碼",
+  "accessCodeHint": "這是私人活動。請輸入主辦方提供的代碼。",
+  "accessCodeRequired": "請輸入代碼",
+  "invalidAccessCode": "存取碼無效",
+  "cancel": "取消"
 }

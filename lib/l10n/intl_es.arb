@@ -139,5 +139,17 @@
   "noSearchResults": "No hay eventos que coincidan con tu búsqueda",
   "changePhoto": "Cambiar foto",
   "avatarUpdated": "Foto actualizada",
-  "avatarUploadFailed": "No se pudo actualizar la foto"
+  "avatarUploadFailed": "No se pudo actualizar la foto",
+  "enroll": "Inscribirme",
+  "viewMyTicket": "Ver mi ticket",
+  "eventFinished": "Evento finalizado",
+  "ownEvent": "Es tu evento",
+  "paymentsComingSoon": "Pago próximamente",
+  "invitationOnly": "Solo por invitación",
+  "enrolledSuccess": "¡Listo! Ya estás inscrito",
+  "accessCode": "Código de acceso",
+  "accessCodeHint": "Este evento es privado. Ingresa el código que te dio el organizador.",
+  "accessCodeRequired": "Ingresa el código",
+  "invalidAccessCode": "Código de acceso inválido",
+  "cancel": "Cancelar"
 }

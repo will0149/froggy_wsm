@@ -94,11 +94,10 @@ class FetchEventsUC extends _$FetchEventsUC {
 
 @riverpod
 class FetchEventDetailUC extends _$FetchEventDetailUC {
-  late final EventRepository repository;
+  late final EventRepository repository = EventRepository();
 
   @override
   Future<EventDTO> build(int id) async {
-    repository = EventRepository();
     final result = await repository.eventDetails(id.toString());
     final body = result['body'];
     if (result['status'] != 200 || body is! Map<String, dynamic>) {

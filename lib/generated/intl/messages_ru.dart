@@ -31,6 +31,11 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "aboutEvent": MessageLookupByLibrary.simpleMessage("О событии"),
+    "accessCode": MessageLookupByLibrary.simpleMessage("Код доступа"),
+    "accessCodeHint": MessageLookupByLibrary.simpleMessage(
+      "Это закрытое событие. Введите код, который дал организатор.",
+    ),
+    "accessCodeRequired": MessageLookupByLibrary.simpleMessage("Введите код"),
     "addBanner": MessageLookupByLibrary.simpleMessage("Добавить изображение"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Аутентифицировать"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Фото обновлено"),
@@ -41,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Событие создано, но изображение не удалось загрузить",
     ),
     "buyTicket": MessageLookupByLibrary.simpleMessage("Купи билет"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
     "cancelTicket": MessageLookupByLibrary.simpleMessage("Отменить запись"),
     "cancelTicketConfirm": MessageLookupByLibrary.simpleMessage(
       "Точно отменить запись?",
@@ -78,13 +84,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
     "downloadTicket": MessageLookupByLibrary.simpleMessage("Скачать билет"),
     "email": MessageLookupByLibrary.simpleMessage("Эл. адрес"),
+    "enroll": MessageLookupByLibrary.simpleMessage("Записаться"),
     "enrolledOn": m0,
+    "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
+      "Готово! Вы записаны",
+    ),
     "eventCapacity": MessageLookupByLibrary.simpleMessage("Вместимость"),
     "eventCategory": MessageLookupByLibrary.simpleMessage("Категория"),
     "eventCreated": MessageLookupByLibrary.simpleMessage("Событие создано"),
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Валюта"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Дата и время"),
     "eventDescription": MessageLookupByLibrary.simpleMessage("Описание"),
+    "eventFinished": MessageLookupByLibrary.simpleMessage("Событие завершено"),
     "eventLocation": MessageLookupByLibrary.simpleMessage("Место"),
     "eventName": MessageLookupByLibrary.simpleMessage("Название события"),
     "eventPlace": MessageLookupByLibrary.simpleMessage("Место"),
@@ -112,6 +123,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "hostedBy": MessageLookupByLibrary.simpleMessage("Организатор"),
     "information": MessageLookupByLibrary.simpleMessage("Информация"),
+    "invalidAccessCode": MessageLookupByLibrary.simpleMessage(
+      "Неверный код доступа",
+    ),
     "invalidCurrency": MessageLookupByLibrary.simpleMessage(
       "Используй 3-буквенный код, напр. USD",
     ),
@@ -119,6 +133,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Неверный адрес эл. почты",
     ),
     "invalidNumber": MessageLookupByLibrary.simpleMessage("Неверное число"),
+    "invitationOnly": MessageLookupByLibrary.simpleMessage(
+      "Только по приглашению",
+    ),
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
       "Присоединяйтесь к нашей вселенной",
     ),
@@ -150,6 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noUpcomingTickets": MessageLookupByLibrary.simpleMessage(
       "Нет предстоящих билетов",
     ),
+    "ownEvent": MessageLookupByLibrary.simpleMessage("Ваше событие"),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage(
       "Parkea и поделиться!",
     ),
@@ -172,6 +190,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
       "Пароли не совпадают",
+    ),
+    "paymentsComingSoon": MessageLookupByLibrary.simpleMessage(
+      "Оплата скоро появится",
     ),
     "popularEvents": MessageLookupByLibrary.simpleMessage("Популярные события"),
     "pricePositive": MessageLookupByLibrary.simpleMessage(
@@ -212,6 +233,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Введите имя пользователя или эл. адрес",
     ),
     "viewEvent": MessageLookupByLibrary.simpleMessage("Открыть событие"),
+    "viewMyTicket": MessageLookupByLibrary.simpleMessage("Мой билет"),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage(
       "¡Добро пожаловать обратно!",
     ),

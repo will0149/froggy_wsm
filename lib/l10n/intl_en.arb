@@ -139,5 +139,17 @@
   "noSearchResults": "No events match your search",
   "changePhoto": "Change photo",
   "avatarUpdated": "Photo updated",
-  "avatarUploadFailed": "Couldn't update the photo"
+  "avatarUploadFailed": "Couldn't update the photo",
+  "enroll": "Enroll",
+  "viewMyTicket": "View my ticket",
+  "eventFinished": "Event ended",
+  "ownEvent": "Your event",
+  "paymentsComingSoon": "Payment coming soon",
+  "invitationOnly": "Invitation only",
+  "enrolledSuccess": "Done! You're enrolled",
+  "accessCode": "Access code",
+  "accessCodeHint": "This event is private. Enter the code the organizer gave you.",
+  "accessCodeRequired": "Enter the code",
+  "invalidAccessCode": "Invalid access code",
+  "cancel": "Cancel"
 }

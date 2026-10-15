@@ -978,6 +978,111 @@ class S {
       args: [],
     );
   }
+
+  /// `Inscribirme`
+  String get enroll {
+    return Intl.message('Inscribirme', name: 'enroll', desc: '', args: []);
+  }
+
+  /// `Ver mi ticket`
+  String get viewMyTicket {
+    return Intl.message(
+      'Ver mi ticket',
+      name: 'viewMyTicket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Evento finalizado`
+  String get eventFinished {
+    return Intl.message(
+      'Evento finalizado',
+      name: 'eventFinished',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Es tu evento`
+  String get ownEvent {
+    return Intl.message('Es tu evento', name: 'ownEvent', desc: '', args: []);
+  }
+
+  /// `Pago próximamente`
+  String get paymentsComingSoon {
+    return Intl.message(
+      'Pago próximamente',
+      name: 'paymentsComingSoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Solo por invitación`
+  String get invitationOnly {
+    return Intl.message(
+      'Solo por invitación',
+      name: 'invitationOnly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¡Listo! Ya estás inscrito`
+  String get enrolledSuccess {
+    return Intl.message(
+      '¡Listo! Ya estás inscrito',
+      name: 'enrolledSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Código de acceso`
+  String get accessCode {
+    return Intl.message(
+      'Código de acceso',
+      name: 'accessCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Este evento es privado. Ingresa el código que te dio el organizador.`
+  String get accessCodeHint {
+    return Intl.message(
+      'Este evento es privado. Ingresa el código que te dio el organizador.',
+      name: 'accessCodeHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ingresa el código`
+  String get accessCodeRequired {
+    return Intl.message(
+      'Ingresa el código',
+      name: 'accessCodeRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Código de acceso inválido`
+  String get invalidAccessCode {
+    return Intl.message(
+      'Código de acceso inválido',
+      name: 'invalidAccessCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancelar`
+  String get cancel {
+    return Intl.message('Cancelar', name: 'cancel', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
