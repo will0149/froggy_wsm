@@ -159,5 +159,17 @@
   "deleteEventConfirm": "Todas as inscrições também serão excluídas. Essa ação não pode ser desfeita.",
   "eventDeleted": "Evento excluído",
   "accessCodeOwnerHint": "Compartilhe com seus convidados para que possam se inscrever.",
-  "codeCopied": "Código copiado"
+  "codeCopied": "Código copiado",
+  "allLocations": "Todos os locais",
+  "filterByLocation": "Filtrar por local",
+  "allOfCountry": "Todo {country}",
+  "locationsLoadFailed": "Não foi possível carregar os locais",
+  "noEventsInLocation": "Nenhum evento próximo neste local",
+  "@allOfCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  }
 }

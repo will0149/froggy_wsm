@@ -159,5 +159,17 @@
   "deleteEventConfirm": "所有報名也會一併刪除，此操作無法復原。",
   "eventDeleted": "活動已刪除",
   "accessCodeOwnerHint": "分享給你的來賓，讓他們可以報名。",
-  "codeCopied": "代碼已複製"
+  "codeCopied": "代碼已複製",
+  "allLocations": "所有地點",
+  "filterByLocation": "依地點篩選",
+  "allOfCountry": "{country} 全部",
+  "locationsLoadFailed": "無法載入地點",
+  "noEventsInLocation": "此地點沒有即將舉行的活動",
+  "@allOfCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  }
 }

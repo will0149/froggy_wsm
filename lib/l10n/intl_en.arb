@@ -159,5 +159,17 @@
   "deleteEventConfirm": "All enrollments will be deleted too. This can't be undone.",
   "eventDeleted": "Event deleted",
   "accessCodeOwnerHint": "Share it with your guests so they can enroll.",
-  "codeCopied": "Code copied"
+  "codeCopied": "Code copied",
+  "allLocations": "All locations",
+  "filterByLocation": "Filter by location",
+  "allOfCountry": "All of {country}",
+  "locationsLoadFailed": "Couldn't load locations",
+  "noEventsInLocation": "No upcoming events in this location",
+  "@allOfCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  }
 }

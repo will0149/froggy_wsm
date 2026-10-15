@@ -20,13 +20,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh';
 
-  static String m0(date) => "報名於 ${date}";
+  static String m0(country) => "${country} 全部";
 
-  static String m1(count) => "剩餘 ${count} 個名額";
+  static String m1(date) => "報名於 ${date}";
 
-  static String m2(id) => "票券 #${id}";
+  static String m2(count) => "剩餘 ${count} 個名額";
 
-  static String m3(count) => "${count} 張即將到來的票券";
+  static String m3(id) => "票券 #${id}";
+
+  static String m4(count) => "${count} 張即將到來的票券";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -40,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "accessCodeRequired": MessageLookupByLibrary.simpleMessage("請輸入代碼"),
     "addBanner": MessageLookupByLibrary.simpleMessage("新增圖片"),
+    "allLocations": MessageLookupByLibrary.simpleMessage("所有地點"),
+    "allOfCountry": m0,
     "authenticate": MessageLookupByLibrary.simpleMessage("进行身份验证"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("照片已更新"),
     "avatarUploadFailed": MessageLookupByLibrary.simpleMessage("無法更新照片"),
@@ -78,7 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "editEvent": MessageLookupByLibrary.simpleMessage("編輯活動"),
     "email": MessageLookupByLibrary.simpleMessage("電子郵件"),
     "enroll": MessageLookupByLibrary.simpleMessage("報名"),
-    "enrolledOn": m0,
+    "enrolledOn": m1,
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage("完成！你已報名"),
     "eventCapacity": MessageLookupByLibrary.simpleMessage("名額"),
     "eventCategory": MessageLookupByLibrary.simpleMessage("類別"),
@@ -100,6 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "feedEnd": MessageLookupByLibrary.simpleMessage("你已看完所有活動"),
     "feedLoadError": MessageLookupByLibrary.simpleMessage("無法載入活動"),
     "fieldRequired": MessageLookupByLibrary.simpleMessage("此欄位為必填"),
+    "filterByLocation": MessageLookupByLibrary.simpleMessage("依地點篩選"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("我忘記了我的密碼"),
     "getDirections": MessageLookupByLibrary.simpleMessage("路線"),
     "getHelp": MessageLookupByLibrary.simpleMessage("救命"),
@@ -115,6 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "invitationOnly": MessageLookupByLibrary.simpleMessage("僅限邀請"),
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage("加入我們的宇宙"),
     "keepTicket": MessageLookupByLibrary.simpleMessage("保留"),
+    "locationsLoadFailed": MessageLookupByLibrary.simpleMessage("無法載入地點"),
     "login": MessageLookupByLibrary.simpleMessage("登錄"),
     "logout": MessageLookupByLibrary.simpleMessage("登出"),
     "myEvents": MessageLookupByLibrary.simpleMessage("事件"),
@@ -128,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "navTickets": MessageLookupByLibrary.simpleMessage("票券"),
     "newPassword": MessageLookupByLibrary.simpleMessage("新密碼"),
     "noEnrolledEvents": MessageLookupByLibrary.simpleMessage("你沒有報名任何活動"),
+    "noEventsInLocation": MessageLookupByLibrary.simpleMessage("此地點沒有即將舉行的活動"),
     "noOwnEvents": MessageLookupByLibrary.simpleMessage("你還沒有建立任何活動"),
     "noPastTickets": MessageLookupByLibrary.simpleMessage("沒有過去的票券"),
     "noSearchResults": MessageLookupByLibrary.simpleMessage("沒有符合搜尋的活動"),
@@ -165,13 +172,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "signUp": MessageLookupByLibrary.simpleMessage("報名"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("類似事件"),
     "soldOut": MessageLookupByLibrary.simpleMessage("已額滿"),
-    "spotsLeft": m1,
+    "spotsLeft": m2,
     "ticketCancelled": MessageLookupByLibrary.simpleMessage("已取消報名"),
-    "ticketNumber": m2,
+    "ticketNumber": m3,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage("無法載入票券"),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("已結束"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("即將到來"),
-    "upcomingTicketsCount": m3,
+    "upcomingTicketsCount": m4,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("使用者名稱或電子郵件"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "請輸入使用者名稱或電子郵件",

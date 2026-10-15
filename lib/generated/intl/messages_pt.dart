@@ -20,13 +20,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'pt';
 
-  static String m0(date) => "Inscrito em ${date}";
+  static String m0(country) => "Todo ${country}";
 
-  static String m1(count) => "${count} vagas disponíveis";
+  static String m1(date) => "Inscrito em ${date}";
 
-  static String m2(id) => "Ingresso #${id}";
+  static String m2(count) => "${count} vagas disponíveis";
 
-  static String m3(count) => "${count} ingressos próximos";
+  static String m3(id) => "Ingresso #${id}";
+
+  static String m4(count) => "${count} ingressos próximos";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -42,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Digite o código",
     ),
     "addBanner": MessageLookupByLibrary.simpleMessage("Adicionar imagem"),
+    "allLocations": MessageLookupByLibrary.simpleMessage("Todos os locais"),
+    "allOfCountry": m0,
     "authenticate": MessageLookupByLibrary.simpleMessage("Autenticar"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Foto atualizada"),
     "avatarUploadFailed": MessageLookupByLibrary.simpleMessage(
@@ -92,7 +96,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "editEvent": MessageLookupByLibrary.simpleMessage("Editar evento"),
     "email": MessageLookupByLibrary.simpleMessage("Correio eletrônico"),
     "enroll": MessageLookupByLibrary.simpleMessage("Inscrever-me"),
-    "enrolledOn": m0,
+    "enrolledOn": m1,
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "Pronto! Você está inscrito",
     ),
@@ -124,6 +128,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "fieldRequired": MessageLookupByLibrary.simpleMessage(
       "Este campo é obrigatório",
     ),
+    "filterByLocation": MessageLookupByLibrary.simpleMessage(
+      "Filtrar por local",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Esqueci minha senha",
     ),
@@ -147,6 +154,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Junte-se ao nosso universo",
     ),
     "keepTicket": MessageLookupByLibrary.simpleMessage("Manter"),
+    "locationsLoadFailed": MessageLookupByLibrary.simpleMessage(
+      "Não foi possível carregar os locais",
+    ),
     "login": MessageLookupByLibrary.simpleMessage("Iniciar sessão"),
     "logout": MessageLookupByLibrary.simpleMessage("Fechar Sessão"),
     "myEvents": MessageLookupByLibrary.simpleMessage("Eventos"),
@@ -161,6 +171,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "newPassword": MessageLookupByLibrary.simpleMessage("Nova senha"),
     "noEnrolledEvents": MessageLookupByLibrary.simpleMessage(
       "Você não está inscrito em nenhum evento",
+    ),
+    "noEventsInLocation": MessageLookupByLibrary.simpleMessage(
+      "Nenhum evento próximo neste local",
     ),
     "noOwnEvents": MessageLookupByLibrary.simpleMessage(
       "Você ainda não criou eventos",
@@ -221,17 +234,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "Eventos Semelhantes",
     ),
     "soldOut": MessageLookupByLibrary.simpleMessage("Esgotado"),
-    "spotsLeft": m1,
+    "spotsLeft": m2,
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Inscrição cancelada",
     ),
-    "ticketNumber": m2,
+    "ticketNumber": m3,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Não foi possível carregar os ingressos",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Anteriores"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Próximos"),
-    "upcomingTicketsCount": m3,
+    "upcomingTicketsCount": m4,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Usuário ou e-mail",
     ),

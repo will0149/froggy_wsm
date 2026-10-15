@@ -46,14 +46,16 @@ class EventFeedState {
 }
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas) y por
-/// el texto [search] (null sin búsqueda).
+/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+/// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
+/// [city] (null sin filtro).
 @riverpod
 class EventFeedUC extends _$EventFeedUC {
   final EventRepository repository = EventRepository();
 
   @override
-  Future<EventFeedState> build(String? category, String? search) async {
+  Future<EventFeedState> build(String? category, String? search,
+      {String? country, String? city}) async {
     final page = await _fetchPage(1);
     return EventFeedState(events: page.events, nextPage: page.nextPage);
   }
@@ -81,18 +83,21 @@ class EventFeedUC extends _$EventFeedUC {
       if (!ref.mounted) return;
       state = AsyncData(current.copyWith(
         isLoadingMore: false,
-        loadMoreError: () => e is FeedException ? e.message : connectionErrorMessage,
+        loadMoreError: () =>
+            e is FeedException ? e.message : connectionErrorMessage,
       ));
     }
   }
 
   Future<({List<EventDTO> events, int? nextPage})> _fetchPage(int page) async {
     final result = await repository.fetchEventsPage(page,
-        category: category, search: search);
+        category: category, search: search, city: city, country: country);
     final status = result['status'];
     final body = result['body'];
     // Página fuera de rango: fin de la lista.
-    if (status == 404 && page > 1) return (events: <EventDTO>[], nextPage: null);
+    if (status == 404 && page > 1) {
+      return (events: <EventDTO>[], nextPage: null);
+    }
     if (status == timeoutStatus) throw FeedException(connectionErrorMessage);
     if (status != 200 || body is! Map<String, dynamic>) {
       throw FeedException(

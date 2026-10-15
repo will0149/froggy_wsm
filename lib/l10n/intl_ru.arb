@@ -159,5 +159,17 @@
   "deleteEventConfirm": "Все записи тоже будут удалены. Это действие нельзя отменить.",
   "eventDeleted": "Событие удалено",
   "accessCodeOwnerHint": "Поделитесь им с гостями, чтобы они могли записаться.",
-  "codeCopied": "Код скопирован"
+  "codeCopied": "Код скопирован",
+  "allLocations": "Все места",
+  "filterByLocation": "Фильтр по месту",
+  "allOfCountry": "Вся {country}",
+  "locationsLoadFailed": "Не удалось загрузить места",
+  "noEventsInLocation": "Нет предстоящих событий в этом месте",
+  "@allOfCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -6,11 +6,13 @@ import 'package:horizontal_scroll_item/horizontal_scroll_item.dart';
 import 'package:parkea/app/widgets/promotions/promotions_component.dart';
 import 'package:parkea/domain/usecases/event_feed_uc.dart';
 
+import '../../../domain/usecases/event_locations_uc.dart';
 import '../../../domain/usecases/fetch_promotions_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/colors.dart';
 import '../../utils/tab_reselect.dart';
 import '../../widgets/event/event_feed_sliver.dart';
+import '../../widgets/event/location_filter.dart';
 
 /**
  * Made for parkea.
@@ -33,12 +35,21 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
   final titles = ["All", "Música", "Camping", "Aventura", "Talleres"];
 
   /// `category` del API para cada título; "All" (null) es sin filtro.
-  static const _categories = [null, 'MUSIC', 'CAMPING', 'ADVENTURE', 'WORKSHOPS'];
+  static const _categories = [
+    null,
+    'MUSIC',
+    'CAMPING',
+    'ADVENTURE',
+    'WORKSHOPS'
+  ];
   final TextEditingController searchBarController = TextEditingController();
   final _scrollController = ScrollController();
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
 
   String? _category;
+
+  /// País y ciudad del feed; null en todas las ubicaciones.
+  FeedLocation? _location;
 
   /// Búsqueda aplicada al feed; se actualiza al dejar de escribir.
   String? _search;
@@ -54,8 +65,10 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
 
   Future<void> _refresh() async {
     ref.invalidate(fetchPromotionsUCProvider);
+    ref.invalidate(eventLocationsUCProvider);
     // Espera solo al feed: es lo que se ve bajo el indicador.
-    final feed = eventFeedUCProvider(_category, _search);
+    final feed = eventFeedUCProvider(_category, _search,
+        country: _location?.country, city: _location?.city);
     ref.invalidate(feed);
     await ref.read(feed.future);
   }
@@ -189,27 +202,46 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
             ),
             const SliverToBoxAdapter(child: PromotionsComponent()),
             SliverPadding(
-              padding: const EdgeInsets.fromLTRB(16, 20, 16, 4),
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
               sliver: SliverToBoxAdapter(
-                child: Text(
-                  S.of(context).eventsForYou,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(fontWeight: FontWeight.bold),
+                child: Row(
+                  spacing: 8,
+                  children: [
+                    Text(
+                      S.of(context).eventsForYou,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: LocationFilterChip(
+                          location: _location,
+                          onChanged: (location) =>
+                              setState(() => _location = location),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
             // La barra inferior se dibuja sobre el body (extendBody).
             SliverPadding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.paddingOf(context).bottom),
-              sliver: EventFeedSliver(category: _category, search: _search),
+              padding:
+                  EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
+              sliver: EventFeedSliver(
+                category: _category,
+                search: _search,
+                country: _location?.country,
+                city: _location?.city,
+              ),
             ),
           ],
         ),
       ),
     );
   }
-
 }

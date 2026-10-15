@@ -18,20 +18,28 @@ class EventFeedSliver extends ConsumerWidget {
   /// Texto de búsqueda; null sin búsqueda.
   final String? search;
 
-  const EventFeedSliver({super.key, this.category, this.search});
+  /// País (ISO alfa-2) y ciudad; null sin filtro.
+  final String? country;
+  final String? city;
+
+  const EventFeedSliver(
+      {super.key, this.category, this.search, this.country, this.city});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = eventFeedUCProvider(category, search);
+    final provider =
+        eventFeedUCProvider(category, search, country: country, city: city);
     final feed = ref.watch(provider);
     // Al refrescar se conserva la lista anterior mientras llega la nueva.
     return switch (feed.value) {
-      final value? when value.events.isEmpty => _Message(
-          icon: search == null ? Icons.event_busy : Icons.search_off,
-          text: search == null
-              ? S.of(context).feedEmpty
-              : S.of(context).noSearchResults,
-        ),
+      final value? when value.events.isEmpty => switch ((search, country)) {
+          (_?, _) => _Message(
+              icon: Icons.search_off, text: S.of(context).noSearchResults),
+          (null, _?) => _Message(
+              icon: Icons.location_off, text: S.of(context).noEventsInLocation),
+          (null, null) =>
+            _Message(icon: Icons.event_busy, text: S.of(context).feedEmpty),
+        },
       final value? => SliverList.builder(
           // +1: el pie con la carga de la siguiente página o el final.
           itemCount: value.events.length + 1,
@@ -118,8 +126,7 @@ class _Message extends StatelessWidget {
             Icon(icon, size: 48, color: parkeaLightGrey),
             Text(text, textAlign: TextAlign.center),
             if (onRetry != null)
-              TextButton(
-                  onPressed: onRetry, child: Text(S.of(context).retry)),
+              TextButton(onPressed: onRetry, child: Text(S.of(context).retry)),
           ],
         ),
       ),

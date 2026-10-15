@@ -158,5 +158,17 @@
   "deleteEventConfirm": "Alle Anmeldungen werden ebenfalls gelöscht. Das kann nicht rückgängig gemacht werden.",
   "eventDeleted": "Veranstaltung gelöscht",
   "accessCodeOwnerHint": "Teile ihn mit deinen Gästen, damit sie sich anmelden können.",
-  "codeCopied": "Code kopiert"
+  "codeCopied": "Code kopiert",
+  "allLocations": "Alle Orte",
+  "filterByLocation": "Nach Ort filtern",
+  "allOfCountry": "Ganz {country}",
+  "locationsLoadFailed": "Orte konnten nicht geladen werden",
+  "noEventsInLocation": "Keine bevorstehenden Veranstaltungen an diesem Ort",
+  "@allOfCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  }
 }

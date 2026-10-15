@@ -24,7 +24,7 @@ class EventRepository {
   late final MockDataUtils mockDataUtils;
   late final ApiClient apiClient;
 
-  EventRepository(){
+  EventRepository() {
     headersUtils = BuildHeadersUtilsImpl();
     httpCommonUtils = HttpCommonUtilsImpl();
     mockDataUtils = MockDataUtils();
@@ -37,15 +37,24 @@ class EventRepository {
   /// Página [page] (desde 1) del feed, más recientes primero. `body`:
   /// `{count, next, previous, results}`; fuera de rango responde 404.
   Future<Map<String, dynamic>> fetchEventsPage(int page,
-          {String? category, String? search}) =>
+          {String? category, String? search, String? city, String? country}) =>
       apiClient.getAuthorized(ApiPathsEnums.events.uri.replace(
         queryParameters: {
           'page': '$page',
+          // Sin esto el API incluye los eventos que ya pasaron.
+          'upcoming': 'true',
           if (category != null) 'category': category,
           // Busca en nombre, descripciones, lugar, dirección y ciudad.
           if (search != null) 'search': search,
+          // Ciudad exacta sin distinguir mayúsculas; país ISO 3166-1 alfa-2.
+          if (city != null) 'city': city,
+          if (country != null) 'country': country,
         },
       ));
+
+  /// Países y ciudades con eventos próximos y cuántos tiene cada uno.
+  Future<Map<String, dynamic>> fetchEventLocations() =>
+      apiClient.getAuthorized(ApiPathsEnums.eventLocations.uri);
 
   /// Eventos creados por el usuario (100 por página).
   Future<Map<String, dynamic>> fetchOwnerEventsPage(int page) =>
@@ -75,8 +84,8 @@ class EventRepository {
           filePath);
 
   Future<Map<String, dynamic>> eventDetails(String id) =>
-      apiClient.getAuthorized(ApiPathsEnums.eventDetails.uri
-          .replace(queryParameters: {'id': id}));
+      apiClient.getAuthorized(
+          ApiPathsEnums.eventDetails.uri.replace(queryParameters: {'id': id}));
 
   Future<Map<String, dynamic>> fetchEventsList(Object request) async {
     // final String response = await rootBundle.loadString(eventsPath);
@@ -98,7 +107,7 @@ class EventRepository {
       final json = mockDataUtils.eventList();
       logger.w("response $json");
       return Future.value(json);
-    }finally {
+    } finally {
       client.close();
     }
   }
@@ -132,7 +141,7 @@ class EventRepository {
       final json = mockDataUtils.eventDetail();
       logger.w("response $json");
       return Future.value(json);
-    }finally {
+    } finally {
       client.close();
     }
   }

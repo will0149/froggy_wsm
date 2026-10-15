@@ -1158,6 +1158,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Todas las ubicaciones`
+  String get allLocations {
+    return Intl.message(
+      'Todas las ubicaciones',
+      name: 'allLocations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filtrar por ubicación`
+  String get filterByLocation {
+    return Intl.message(
+      'Filtrar por ubicación',
+      name: 'filterByLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Todo {country}`
+  String allOfCountry(String country) {
+    return Intl.message(
+      'Todo $country',
+      name: 'allOfCountry',
+      desc: '',
+      args: [country],
+    );
+  }
+
+  /// `No se pudieron cargar las ubicaciones`
+  String get locationsLoadFailed {
+    return Intl.message(
+      'No se pudieron cargar las ubicaciones',
+      name: 'locationsLoadFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No hay eventos próximos en esta ubicación`
+  String get noEventsInLocation {
+    return Intl.message(
+      'No hay eventos próximos en esta ubicación',
+      name: 'noEventsInLocation',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

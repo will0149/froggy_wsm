@@ -20,13 +20,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
-  static String m0(date) => "Записан ${date}";
+  static String m0(country) => "Вся ${country}";
 
-  static String m1(count) => "Осталось мест: ${count}";
+  static String m1(date) => "Записан ${date}";
 
-  static String m2(id) => "Билет №${id}";
+  static String m2(count) => "Осталось мест: ${count}";
 
-  static String m3(count) => "Предстоящих билетов: ${count}";
+  static String m3(id) => "Билет №${id}";
+
+  static String m4(count) => "Предстоящих билетов: ${count}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -40,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "accessCodeRequired": MessageLookupByLibrary.simpleMessage("Введите код"),
     "addBanner": MessageLookupByLibrary.simpleMessage("Добавить изображение"),
+    "allLocations": MessageLookupByLibrary.simpleMessage("Все места"),
+    "allOfCountry": m0,
     "authenticate": MessageLookupByLibrary.simpleMessage("Аутентифицировать"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Фото обновлено"),
     "avatarUploadFailed": MessageLookupByLibrary.simpleMessage(
@@ -94,7 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "editEvent": MessageLookupByLibrary.simpleMessage("Редактировать событие"),
     "email": MessageLookupByLibrary.simpleMessage("Эл. адрес"),
     "enroll": MessageLookupByLibrary.simpleMessage("Записаться"),
-    "enrolledOn": m0,
+    "enrolledOn": m1,
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "Готово! Вы записаны",
     ),
@@ -124,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "fieldRequired": MessageLookupByLibrary.simpleMessage(
       "Это поле обязательно",
     ),
+    "filterByLocation": MessageLookupByLibrary.simpleMessage("Фильтр по месту"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Я забыл мой пароль",
     ),
@@ -151,6 +156,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Присоединяйтесь к нашей вселенной",
     ),
     "keepTicket": MessageLookupByLibrary.simpleMessage("Оставить"),
+    "locationsLoadFailed": MessageLookupByLibrary.simpleMessage(
+      "Не удалось загрузить места",
+    ),
     "login": MessageLookupByLibrary.simpleMessage("Войти в систему"),
     "logout": MessageLookupByLibrary.simpleMessage("Выход"),
     "myEvents": MessageLookupByLibrary.simpleMessage("Мероприятия"),
@@ -165,6 +173,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "newPassword": MessageLookupByLibrary.simpleMessage("Новый пароль"),
     "noEnrolledEvents": MessageLookupByLibrary.simpleMessage(
       "Ты не записан ни на одно событие",
+    ),
+    "noEventsInLocation": MessageLookupByLibrary.simpleMessage(
+      "Нет предстоящих событий в этом месте",
     ),
     "noOwnEvents": MessageLookupByLibrary.simpleMessage(
       "Ты ещё не создал ни одного события",
@@ -229,15 +240,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "Подобные мероприятия",
     ),
     "soldOut": MessageLookupByLibrary.simpleMessage("Мест нет"),
-    "spotsLeft": m1,
+    "spotsLeft": m2,
     "ticketCancelled": MessageLookupByLibrary.simpleMessage("Запись отменена"),
-    "ticketNumber": m2,
+    "ticketNumber": m3,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Не удалось загрузить билеты",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Прошедшие"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Предстоящие"),
-    "upcomingTicketsCount": m3,
+    "upcomingTicketsCount": m4,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Имя пользователя или эл. адрес",
     ),

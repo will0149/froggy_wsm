@@ -159,5 +159,17 @@
   "deleteEventConfirm": "Se borrarán también todas las inscripciones. Esta acción no se puede deshacer.",
   "eventDeleted": "Evento borrado",
   "accessCodeOwnerHint": "Compártelo con tus invitados para que puedan inscribirse.",
-  "codeCopied": "Código copiado"
+  "codeCopied": "Código copiado",
+  "allLocations": "Todas las ubicaciones",
+  "filterByLocation": "Filtrar por ubicación",
+  "allOfCountry": "Todo {country}",
+  "locationsLoadFailed": "No se pudieron cargar las ubicaciones",
+  "noEventsInLocation": "No hay eventos próximos en esta ubicación",
+  "@allOfCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  }
 }

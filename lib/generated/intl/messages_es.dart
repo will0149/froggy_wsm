@@ -20,13 +20,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'es';
 
-  static String m0(date) => "Inscrito el ${date}";
+  static String m0(country) => "Todo ${country}";
 
-  static String m1(count) => "${count} cupos disponibles";
+  static String m1(date) => "Inscrito el ${date}";
 
-  static String m2(id) => "Ticket #${id}";
+  static String m2(count) => "${count} cupos disponibles";
 
-  static String m3(count) => "${count} tickets próximos";
+  static String m3(id) => "Ticket #${id}";
+
+  static String m4(count) => "${count} tickets próximos";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -42,6 +44,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ingresa el código",
     ),
     "addBanner": MessageLookupByLibrary.simpleMessage("Agregar imagen"),
+    "allLocations": MessageLookupByLibrary.simpleMessage(
+      "Todas las ubicaciones",
+    ),
+    "allOfCountry": m0,
     "authenticate": MessageLookupByLibrary.simpleMessage("Autenticar"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Foto actualizada"),
     "avatarUploadFailed": MessageLookupByLibrary.simpleMessage(
@@ -98,7 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "editEvent": MessageLookupByLibrary.simpleMessage("Editar evento"),
     "email": MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
     "enroll": MessageLookupByLibrary.simpleMessage("Inscribirme"),
-    "enrolledOn": m0,
+    "enrolledOn": m1,
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "¡Listo! Ya estás inscrito",
     ),
@@ -130,6 +136,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "fieldRequired": MessageLookupByLibrary.simpleMessage(
       "Este campo es obligatorio",
     ),
+    "filterByLocation": MessageLookupByLibrary.simpleMessage(
+      "Filtrar por ubicación",
+    ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Olvide mi Contraseña",
     ),
@@ -155,6 +164,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Únete a nuestro universo",
     ),
     "keepTicket": MessageLookupByLibrary.simpleMessage("Mantener"),
+    "locationsLoadFailed": MessageLookupByLibrary.simpleMessage(
+      "No se pudieron cargar las ubicaciones",
+    ),
     "login": MessageLookupByLibrary.simpleMessage("Iniciar Sesión"),
     "logout": MessageLookupByLibrary.simpleMessage("Cerrar Sesión"),
     "myEvents": MessageLookupByLibrary.simpleMessage("Eventos"),
@@ -169,6 +181,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "newPassword": MessageLookupByLibrary.simpleMessage("Nueva contraseña"),
     "noEnrolledEvents": MessageLookupByLibrary.simpleMessage(
       "No estás inscrito en ningún evento",
+    ),
+    "noEventsInLocation": MessageLookupByLibrary.simpleMessage(
+      "No hay eventos próximos en esta ubicación",
     ),
     "noOwnEvents": MessageLookupByLibrary.simpleMessage(
       "Aún no has creado eventos",
@@ -229,17 +244,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "signUp": MessageLookupByLibrary.simpleMessage("Regístrate"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("Eventos Similares"),
     "soldOut": MessageLookupByLibrary.simpleMessage("Agotado"),
-    "spotsLeft": m1,
+    "spotsLeft": m2,
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Inscripción cancelada",
     ),
-    "ticketNumber": m2,
+    "ticketNumber": m3,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "No se pudieron cargar los tickets",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Anteriores"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Próximos"),
-    "upcomingTicketsCount": m3,
+    "upcomingTicketsCount": m4,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("Usuario o correo"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "Ingresa tu usuario o correo",

@@ -9,26 +9,31 @@ part of 'event_feed_uc.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas) y por
-/// el texto [search] (null sin búsqueda).
+/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+/// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
+/// [city] (null sin filtro).
 
 @ProviderFor(EventFeedUC)
 const eventFeedUCProvider = EventFeedUCFamily._();
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas) y por
-/// el texto [search] (null sin búsqueda).
+/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+/// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
+/// [city] (null sin filtro).
 final class EventFeedUCProvider
     extends $AsyncNotifierProvider<EventFeedUC, EventFeedState> {
   /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-  /// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas) y por
-  /// el texto [search] (null sin búsqueda).
+  /// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+  /// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
+  /// [city] (null sin filtro).
   const EventFeedUCProvider._(
       {required EventFeedUCFamily super.from,
       required (
         String?,
-        String?,
-      )
+        String?, {
+        String? country,
+        String? city,
+      })
           super.argument})
       : super(
           retry: null,
@@ -63,11 +68,12 @@ final class EventFeedUCProvider
   }
 }
 
-String _$eventFeedUCHash() => r'e82dedb1b904d8eb4ff00fdbbe06559ff1670c37';
+String _$eventFeedUCHash() => r'684541eafc7a3af4058e87b5a8e8a9417d544944';
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas) y por
-/// el texto [search] (null sin búsqueda).
+/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+/// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
+/// [city] (null sin filtro).
 
 final class EventFeedUCFamily extends $Family
     with
@@ -78,8 +84,10 @@ final class EventFeedUCFamily extends $Family
             FutureOr<EventFeedState>,
             (
               String?,
-              String?,
-            )> {
+              String?, {
+              String? country,
+              String? city,
+            })> {
   const EventFeedUCFamily._()
       : super(
           retry: null,
@@ -90,16 +98,21 @@ final class EventFeedUCFamily extends $Family
         );
 
   /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-  /// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas) y por
-  /// el texto [search] (null sin búsqueda).
+  /// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+  /// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
+  /// [city] (null sin filtro).
 
   EventFeedUCProvider call(
     String? category,
-    String? search,
-  ) =>
+    String? search, {
+    String? country,
+    String? city,
+  }) =>
       EventFeedUCProvider._(argument: (
         category,
         search,
+        country: country,
+        city: city,
       ), from: this);
 
   @override
@@ -107,27 +120,36 @@ final class EventFeedUCFamily extends $Family
 }
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas) y por
-/// el texto [search] (null sin búsqueda).
+/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+/// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
+/// [city] (null sin filtro).
 
 abstract class _$EventFeedUC extends $AsyncNotifier<EventFeedState> {
   late final _$args = ref.$arg as (
     String?,
-    String?,
-  );
+    String?, {
+    String? country,
+    String? city,
+  });
   String? get category => _$args.$1;
   String? get search => _$args.$2;
+  String? get country => _$args.country;
+  String? get city => _$args.city;
 
   FutureOr<EventFeedState> build(
     String? category,
-    String? search,
-  );
+    String? search, {
+    String? country,
+    String? city,
+  });
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build(
       _$args.$1,
       _$args.$2,
+      country: _$args.country,
+      city: _$args.city,
     );
     final ref = this.ref as $Ref<AsyncValue<EventFeedState>, EventFeedState>;
     final element = ref.element as $ClassProviderElement<

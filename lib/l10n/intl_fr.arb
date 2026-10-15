@@ -159,5 +159,17 @@
   "deleteEventConfirm": "Toutes les inscriptions seront aussi supprimées. Cette action est irréversible.",
   "eventDeleted": "Événement supprimé",
   "accessCodeOwnerHint": "Partage-le avec tes invités pour qu'ils puissent s'inscrire.",
-  "codeCopied": "Code copié"
+  "codeCopied": "Code copié",
+  "allLocations": "Tous les lieux",
+  "filterByLocation": "Filtrer par lieu",
+  "allOfCountry": "Tout {country}",
+  "locationsLoadFailed": "Impossible de charger les lieux",
+  "noEventsInLocation": "Aucun événement à venir à cet endroit",
+  "@allOfCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  }
 }
