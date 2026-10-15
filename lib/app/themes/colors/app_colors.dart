@@ -17,6 +17,18 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
   final Color error;
   final Color onError;
 
+  /// Barra de navegación inferior y su contenido.
+  final Color navBar;
+  final Color onNavBar;
+
+  /// Píldora detrás del destino activo.
+  final Color navIndicator;
+
+  /// Elementos de recompensa (contadores, logros): lo único con color vivo
+  /// sobre la barra.
+  final Color reward;
+  final Color onReward;
+
   const ParkeaColors({
     required this.primary,
     required this.secondary,
@@ -25,6 +37,11 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
     required this.background,
     required this.error,
     required this.onError,
+    required this.navBar,
+    required this.onNavBar,
+    required this.navIndicator,
+    required this.reward,
+    required this.onReward,
   });
 
   factory ParkeaColors.light() {
@@ -36,6 +53,11 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
       background: parkeaWhite,
       error: Color(0xFFB00020),
       onError: parkeaWhite,
+      navBar: parkeaOrange,
+      onNavBar: parkeaWhite,
+      navIndicator: Color(0x3DFFFFFF),
+      reward: parkeaWhite,
+      onReward: parkeaDarkOrange,
     );
   }
 
@@ -48,6 +70,11 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
       background: parkeaBlack,
       error: Color(0xFFCF6679),
       onError: parkeaBlack,
+      navBar: parkeaDarkBlueAccent,
+      onNavBar: parkeaWhite,
+      navIndicator: Color(0x3DFFFFFF),
+      reward: parkeaOrange,
+      onReward: parkeaWhite,
     );
   }
 
@@ -60,6 +87,11 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
     Color? background,
     Color? error,
     Color? onError,
+    Color? navBar,
+    Color? onNavBar,
+    Color? navIndicator,
+    Color? reward,
+    Color? onReward,
   }) {
     return ParkeaColors(
       primary: primary ?? this.primary,
@@ -69,6 +101,11 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
       background: background ?? this.background,
       error: error ?? this.error,
       onError: onError ?? this.onError,
+      navBar: navBar ?? this.navBar,
+      onNavBar: onNavBar ?? this.onNavBar,
+      navIndicator: navIndicator ?? this.navIndicator,
+      reward: reward ?? this.reward,
+      onReward: onReward ?? this.onReward,
     );
   }
 
@@ -85,6 +122,12 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
       background: Color.lerp(background, other.background, t) ?? background,
       error: Color.lerp(error, other.error, t) ?? error,
       onError: Color.lerp(onError, other.onError, t) ?? onError,
+      navBar: Color.lerp(navBar, other.navBar, t) ?? navBar,
+      onNavBar: Color.lerp(onNavBar, other.onNavBar, t) ?? onNavBar,
+      navIndicator:
+          Color.lerp(navIndicator, other.navIndicator, t) ?? navIndicator,
+      reward: Color.lerp(reward, other.reward, t) ?? reward,
+      onReward: Color.lerp(onReward, other.onReward, t) ?? onReward,
     );
   }
 }

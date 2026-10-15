@@ -175,6 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("已保存"),
     "myTickets": MessageLookupByLibrary.simpleMessage("我的票券"),
     "name": MessageLookupByLibrary.simpleMessage("名稱"),
+    "navCreate": MessageLookupByLibrary.simpleMessage("建立"),
     "navHome": MessageLookupByLibrary.simpleMessage("首頁"),
     "navProfile": MessageLookupByLibrary.simpleMessage("個人檔案"),
     "navTickets": MessageLookupByLibrary.simpleMessage("票券"),

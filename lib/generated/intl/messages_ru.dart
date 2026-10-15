@@ -255,6 +255,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Сохранено"),
     "myTickets": MessageLookupByLibrary.simpleMessage("Мои билеты"),
     "name": MessageLookupByLibrary.simpleMessage("Имя"),
+    "navCreate": MessageLookupByLibrary.simpleMessage("Создать"),
     "navHome": MessageLookupByLibrary.simpleMessage("Главная"),
     "navProfile": MessageLookupByLibrary.simpleMessage("Профиль"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Билеты"),

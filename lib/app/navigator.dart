@@ -2,21 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:parkea/app/utils/svg_icons_states.dart';
 import 'package:parkea/app/widgets/exit_pop_scope.dart';
 
-import '../domain/providers/app_theme_provider.dart';
 import '../domain/usecases/auth/rest_auth_uc.dart';
 import '../domain/usecases/fetch_tickets_uc.dart';
 import '../generated/l10n.dart';
 import 'pages/event/create_event_page.dart';
-import 'themes/colors/colors.dart';
+import 'themes/colors/app_colors.dart';
 import 'utils/tab_reselect.dart';
-/*
-* Bottom navigation bar for Parkea app
-*
-* */
 
+/// Barra de navegación inferior (`NavigationBar` de Material 3) para las
+/// ramas del router: Inicio, Tickets y Perfil. "Crear" es una acción, no una
+/// rama: abre la creación de eventos sin cambiar la pestaña.
 class NavigatorBar extends ConsumerWidget {
   const NavigatorBar({
     super.key,
@@ -25,27 +22,20 @@ class NavigatorBar extends ConsumerWidget {
 
   final StatefulNavigationShell navigationShell;
 
-  /// Íconos [activo, inactivo] en el orden de las ramas del router.
-  static const _icons = [
-    ['assets/navbar/hogar_black.svg', 'assets/navbar/hogar.svg'],
-    ['assets/navbar/ticket_black.svg', 'assets/navbar/ticket.svg'],
-    ['assets/navbar/usuario_black.svg', 'assets/navbar/usuario.svg'],
-  ];
-
-  void _onTap(WidgetRef ref, int index) {
-    if (index == navigationShell.currentIndex) {
-      ref.read(tabReselectProvider.notifier).reselect(index);
+  void _goBranch(WidgetRef ref, int branch) {
+    final reselected = branch == navigationShell.currentIndex;
+    if (reselected) {
+      ref.read(tabReselectProvider.notifier).reselect(branch);
+    } else {
+      HapticFeedback.selectionClick();
     }
-    navigationShell.goBranch(
-      index,
-      initialLocation: index == navigationShell.currentIndex,
-    );
+    navigationShell.goBranch(branch, initialLocation: reselected);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDarkMode = ref.watch(appThemeModeProvider) == ThemeMode.dark;
-    final barColor = isDarkMode ? parkeaDarkBlueAccent : parkeaOrange;
+    final s = S.of(context);
+    final palette = colors(context);
     // Crear eventos depende de la verificación, no de user_type.
     final canCreateEvents =
         ref.watch(restAuthUCProvider).value?.user?.isVerified ?? false;
@@ -55,24 +45,40 @@ class NavigatorBar extends ConsumerWidget {
             ?.where((ticket) => ticket.isUpcoming)
             .length ??
         0;
-    final s = S.of(context);
-    final labels = [s.navHome, s.navTickets, s.navProfile];
 
-    Widget tab(int index, {int badge = 0}) => Expanded(
-          child: _NavItem(
-            label: labels[index],
-            activeIcon: _icons[index][0],
-            inactiveIcon: _icons[index][1],
-            selected: index == navigationShell.currentIndex,
-            badge: badge,
-            onTap: () => _onTap(ref, index),
-          ),
-        );
+    // Rama del router de cada destino; null = acción "Crear".
+    final branches = [0, 1, if (canCreateEvents) null, 2];
+    final destinations = [
+      NavigationDestination(
+        icon: const Icon(Icons.home_outlined),
+        selectedIcon: const Icon(Icons.home_rounded),
+        label: s.navHome,
+      ),
+      NavigationDestination(
+        icon: _TicketsIcon(count: upcomingTickets, selected: false),
+        selectedIcon: _TicketsIcon(count: upcomingTickets, selected: true),
+        label: s.navTickets,
+        tooltip: upcomingTickets > 0
+            ? '${s.navTickets}, ${s.upcomingTicketsCount(upcomingTickets)}'
+            : null,
+      ),
+      if (canCreateEvents)
+        NavigationDestination(
+          icon: const _CreateIcon(),
+          label: s.navCreate,
+          tooltip: s.createEvent,
+        ),
+      NavigationDestination(
+        icon: const Icon(Icons.person_outline_rounded),
+        selectedIcon: const Icon(Icons.person_rounded),
+        label: s.navProfile,
+      ),
+    ];
 
     // La barra del sistema toma el color de la barra para que se vean juntas.
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light.copyWith(
-        systemNavigationBarColor: barColor,
+        systemNavigationBarColor: palette.navBar,
         systemNavigationBarIconBrightness: Brightness.light,
       ),
       child: ExitPopScope(
@@ -80,39 +86,24 @@ class NavigatorBar extends ConsumerWidget {
           extendBody: true,
           body: navigationShell,
           bottomNavigationBar: DecoratedBox(
-            decoration: BoxDecoration(
-              color: barColor,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+              boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+            ),
+            child: ClipRRect(
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(25)),
-              border: Border(
-                top: BorderSide(
-                  color: isDarkMode ? parkeaBlack : parkeaWhite,
-                  width: 3,
-                ),
-              ),
-              boxShadow: const [
-                BoxShadow(color: Colors.black26, blurRadius: 10),
-              ],
-            ),
-            child: SafeArea(
-              top: false,
-              child: SizedBox(
-                height: 64,
-                child: Row(
-                  children: [
-                    tab(0),
-                    tab(1, badge: upcomingTickets),
-                    if (canCreateEvents)
-                      Expanded(
-                        child: _CreateButton(
-                          label: s.createEvent,
-                          onTap: () =>
-                              context.pushNamed(CreateEventPage.routeName),
-                        ),
-                      ),
-                    tab(2),
-                  ],
-                ),
+              child: NavigationBar(
+                selectedIndex: branches.indexOf(navigationShell.currentIndex),
+                destinations: destinations,
+                onDestinationSelected: (index) {
+                  if (branches[index] case final branch?) {
+                    _goBranch(ref, branch);
+                  } else {
+                    HapticFeedback.lightImpact();
+                    context.pushNamed(CreateEventPage.routeName);
+                  }
+                },
               ),
             ),
           ),
@@ -122,102 +113,51 @@ class NavigatorBar extends ConsumerWidget {
   }
 }
 
-class _NavItem extends StatelessWidget {
-  final String label;
-  final String activeIcon;
-  final String inactiveIcon;
+/// Ícono de Tickets con el número de tickets próximos. El número "salta" al
+/// cambiar (p. ej. al inscribirse), salvo con las animaciones reducidas.
+class _TicketsIcon extends StatelessWidget {
+  final int count;
   final bool selected;
-  final int badge;
-  final VoidCallback onTap;
 
-  const _NavItem({
-    required this.label,
-    required this.activeIcon,
-    required this.inactiveIcon,
-    required this.selected,
-    required this.badge,
-    required this.onTap,
-  });
+  const _TicketsIcon({required this.count, required this.selected});
 
   @override
   Widget build(BuildContext context) {
-    final semantics = badge > 0
-        ? '$label, ${S.of(context).upcomingTicketsCount(badge)}'
-        : label;
-    return Semantics(
-      label: semantics,
-      selected: selected,
-      button: true,
-      excludeSemantics: true,
-      child: InkResponse(
-        onTap: onTap,
-        radius: 36,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 2,
-          children: [
-            // Píldora detrás del ícono activo.
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
-              decoration: BoxDecoration(
-                color: selected ? Colors.white24 : Colors.transparent,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Badge(
-                isLabelVisible: badge > 0,
-                label: Text('$badge'),
-                backgroundColor: parkeaDarkBlueAccent,
-                child: SvgIconsStates(
-                  isActive: selected,
-                  activeImg: activeIcon,
-                  inactiveImg: inactiveIcon,
-                ),
-              ),
-            ),
-            Text(
-              label,
-              maxLines: 1,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 11,
-                fontWeight: selected ? FontWeight.bold : FontWeight.w500,
-              ),
-            ),
-          ],
+    final animate = !MediaQuery.disableAnimationsOf(context);
+    return Badge(
+      isLabelVisible: count > 0,
+      label: AnimatedSwitcher(
+        duration: animate ? const Duration(milliseconds: 350) : Duration.zero,
+        transitionBuilder: (child, animation) => ScaleTransition(
+          scale: CurvedAnimation(parent: animation, curve: Curves.elasticOut),
+          child: child,
         ),
+        child: Text('$count', key: ValueKey(count)),
       ),
+      child: Icon(selected
+          ? Icons.confirmation_number_rounded
+          : Icons.confirmation_number_outlined),
     );
   }
 }
 
-/// Acción, no tab: abre la creación de eventos (solo cuentas verificadas).
-class _CreateButton extends StatelessWidget {
-  final String label;
-  final VoidCallback onTap;
-
-  const _CreateButton({required this.label, required this.onTap});
+/// Botón destacado de "Crear": círculo blanco con el "+" del color de la
+/// barra.
+class _CreateIcon extends StatelessWidget {
+  const _CreateIcon();
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      label: label,
-      button: true,
-      excludeSemantics: true,
-      child: Center(
-        child: Material(
-          color: Colors.white,
-          shape: const CircleBorder(),
-          elevation: 2,
-          child: InkWell(
-            customBorder: const CircleBorder(),
-            onTap: onTap,
-            child: const Padding(
-              padding: EdgeInsets.all(10),
-              child: Icon(Icons.add, color: parkeaOrange, size: 28),
-            ),
-          ),
-        ),
+    final palette = colors(context);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: palette.onNavBar,
+        shape: BoxShape.circle,
+        boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 4)],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(4),
+        child: Icon(Icons.add_rounded, color: palette.navBar, size: 26),
       ),
     );
   }

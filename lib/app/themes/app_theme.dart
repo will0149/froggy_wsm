@@ -140,12 +140,28 @@ class AppTheme {
         ),
       ),
 
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: parkeaColors.surface,
-        selectedItemColor: parkeaColors.secondary,
-        unselectedItemColor: parkeaColors.onSurface.withValues(alpha: 0.6),
-        type: BottomNavigationBarType.fixed,
-        elevation: 8,
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: parkeaColors.navBar,
+        indicatorColor: parkeaColors.navIndicator,
+        height: 68,
+        elevation: 0,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        iconTheme: WidgetStatePropertyAll(
+          IconThemeData(color: parkeaColors.onNavBar, size: 26),
+        ),
+        labelTextStyle: WidgetStateProperty.resolveWith(
+          (states) => TextStyle(
+            color: parkeaColors.onNavBar,
+            fontSize: 11,
+            fontWeight: states.contains(WidgetState.selected)
+                ? FontWeight.bold
+                : FontWeight.w500,
+          ),
+        ),
+      ),
+      badgeTheme: BadgeThemeData(
+        backgroundColor: parkeaColors.reward,
+        textColor: parkeaColors.onReward,
       ),
     );
   }

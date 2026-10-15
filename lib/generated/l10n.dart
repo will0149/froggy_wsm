@@ -1728,6 +1728,11 @@ class S {
       args: [],
     );
   }
+
+  /// `Crear`
+  String get navCreate {
+    return Intl.message('Crear', name: 'navCreate', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

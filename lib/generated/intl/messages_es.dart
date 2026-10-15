@@ -271,6 +271,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Guardados"),
     "myTickets": MessageLookupByLibrary.simpleMessage("Mis Tickets"),
     "name": MessageLookupByLibrary.simpleMessage("Nombre de usuario"),
+    "navCreate": MessageLookupByLibrary.simpleMessage("Crear"),
     "navHome": MessageLookupByLibrary.simpleMessage("Inicio"),
     "navProfile": MessageLookupByLibrary.simpleMessage("Perfil"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Tickets"),

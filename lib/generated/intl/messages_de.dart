@@ -280,6 +280,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Gerettet"),
     "myTickets": MessageLookupByLibrary.simpleMessage("Meine Tickets"),
     "name": MessageLookupByLibrary.simpleMessage("Name"),
+    "navCreate": MessageLookupByLibrary.simpleMessage("Erstellen"),
     "navHome": MessageLookupByLibrary.simpleMessage("Start"),
     "navProfile": MessageLookupByLibrary.simpleMessage("Profil"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Tickets"),

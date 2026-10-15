@@ -285,6 +285,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "myTickets": MessageLookupByLibrary.simpleMessage("Mes billets"),
     "name": MessageLookupByLibrary.simpleMessage("Nom"),
+    "navCreate": MessageLookupByLibrary.simpleMessage("Créer"),
     "navHome": MessageLookupByLibrary.simpleMessage("Accueil"),
     "navProfile": MessageLookupByLibrary.simpleMessage("Profil"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Billets"),
