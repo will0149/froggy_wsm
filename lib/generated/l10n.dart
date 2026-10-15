@@ -1733,6 +1733,141 @@ class S {
   String get navCreate {
     return Intl.message('Crear', name: 'navCreate', desc: '', args: []);
   }
+
+  /// `Tu evento está al {percent} %`
+  String eventCompleteness(int percent) {
+    return Intl.message(
+      'Tu evento está al $percent %',
+      name: 'eventCompleteness',
+      desc: '',
+      args: [percent],
+    );
+  }
+
+  /// `¡Tu evento está completo!`
+  String get eventComplete {
+    return Intl.message(
+      '¡Tu evento está completo!',
+      name: 'eventComplete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Agrega una imagen: los eventos con imagen destacan en el feed.`
+  String get completenessBanner {
+    return Intl.message(
+      'Agrega una imagen: los eventos con imagen destacan en el feed.',
+      name: 'completenessBanner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Agrega una descripción corta: es lo que se ve en el feed.`
+  String get completenessShortDescription {
+    return Intl.message(
+      'Agrega una descripción corta: es lo que se ve en el feed.',
+      name: 'completenessShortDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cuenta de qué se trata el evento en la descripción.`
+  String get completenessDescription {
+    return Intl.message(
+      'Cuenta de qué se trata el evento en la descripción.',
+      name: 'completenessDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Indica el lugar para que sepan a dónde ir.`
+  String get completenessPlace {
+    return Intl.message(
+      'Indica el lugar para que sepan a dónde ir.',
+      name: 'completenessPlace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Elige una categoría para que aparezca en los filtros.`
+  String get completenessCategory {
+    return Intl.message(
+      'Elige una categoría para que aparezca en los filtros.',
+      name: 'completenessCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Inscritos`
+  String get attendees {
+    return Intl.message('Inscritos', name: 'attendees', desc: '', args: []);
+  }
+
+  /// `{enrolled} de {capacity} inscritos`
+  String enrolledOfCapacity(int enrolled, int capacity) {
+    return Intl.message(
+      '$enrolled de $capacity inscritos',
+      name: 'enrolledOfCapacity',
+      desc: '',
+      args: [enrolled, capacity],
+    );
+  }
+
+  /// `{count, plural, =0{Nadie inscrito todavía} =1{1 inscrito} other{{count} inscritos}}`
+  String enrolledCount(int count) {
+    return Intl.plural(
+      count,
+      zero: 'Nadie inscrito todavía',
+      one: '1 inscrito',
+      other: '$count inscritos',
+      name: 'enrolledCount',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Sin límite de cupo`
+  String get noCapacityLimit {
+    return Intl.message(
+      'Sin límite de cupo',
+      name: 'noCapacityLimit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `¡Evento lleno!`
+  String get eventFull {
+    return Intl.message(
+      '¡Evento lleno!',
+      name: 'eventFull',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{capacity, plural, =1{El único cupo de «{name}» ya está ocupado.} other{Los {capacity} cupos de «{name}» ya están ocupados.}}`
+  String eventFullMessage(int capacity, String name) {
+    return Intl.plural(
+      capacity,
+      one: 'El único cupo de «$name» ya está ocupado.',
+      other: 'Los $capacity cupos de «$name» ya están ocupados.',
+      name: 'eventFullMessage',
+      desc: '',
+      args: [capacity, name],
+    );
+  }
+
+  /// `¡Genial!`
+  String get great {
+    return Intl.message('¡Genial!', name: 'great', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

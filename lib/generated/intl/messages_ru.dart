@@ -24,17 +24,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(year) => "© ${year} Parkea. Все права защищены.";
 
-  static String m2(date) => "Записан ${date}";
+  static String m2(count) =>
+      "${Intl.plural(count, zero: 'Пока никто не записался', one: 'Записан ${count}', few: 'Записано ${count}', many: 'Записано ${count}', other: 'Записано ${count}')}";
 
-  static String m3(code) => "Ошибка (код: ${code})";
+  static String m3(enrolled, capacity) => "Записано ${enrolled} из ${capacity}";
 
-  static String m4(error) => "Не удалось выйти: ${error}";
+  static String m4(date) => "Записан ${date}";
 
-  static String m5(count) => "Осталось мест: ${count}";
+  static String m5(code) => "Ошибка (код: ${code})";
 
-  static String m6(id) => "Билет №${id}";
+  static String m6(percent) => "Событие заполнено на ${percent} %";
 
-  static String m7(count) => "Предстоящих билетов: ${count}";
+  static String m7(capacity, name) =>
+      "${Intl.plural(capacity, one: 'Единственное место на «${name}» занято.', few: 'Все ${capacity} места на «${name}» заняты.', many: 'Все ${capacity} мест на «${name}» заняты.', other: 'Все ${capacity} места на «${name}» заняты.')}";
+
+  static String m8(error) => "Не удалось выйти: ${error}";
+
+  static String m9(count) => "Осталось мест: ${count}";
+
+  static String m10(id) => "Билет №${id}";
+
+  static String m11(count) => "Предстоящих билетов: ${count}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -59,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "allLocations": MessageLookupByLibrary.simpleMessage("Все места"),
     "allOfCountry": m0,
     "allRightsReserved": m1,
+    "attendees": MessageLookupByLibrary.simpleMessage("Участники"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Аутентифицировать"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Фото обновлено"),
     "avatarUploadFailed": MessageLookupByLibrary.simpleMessage(
@@ -87,6 +98,21 @@ class MessageLookup extends MessageLookupByLibrary {
     "changePassword": MessageLookupByLibrary.simpleMessage("Изменить пароль"),
     "changePhoto": MessageLookupByLibrary.simpleMessage("Сменить фото"),
     "codeCopied": MessageLookupByLibrary.simpleMessage("Код скопирован"),
+    "completenessBanner": MessageLookupByLibrary.simpleMessage(
+      "Добавьте изображение: события с ним заметнее в ленте.",
+    ),
+    "completenessCategory": MessageLookupByLibrary.simpleMessage(
+      "Выберите категорию, чтобы событие было в фильтрах.",
+    ),
+    "completenessDescription": MessageLookupByLibrary.simpleMessage(
+      "Расскажите в описании, о чём событие.",
+    ),
+    "completenessPlace": MessageLookupByLibrary.simpleMessage(
+      "Укажите место, чтобы знали, куда идти.",
+    ),
+    "completenessShortDescription": MessageLookupByLibrary.simpleMessage(
+      "Добавьте краткое описание: его видно в ленте.",
+    ),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Подтвердите пароль",
     ),
@@ -115,7 +141,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "editEvent": MessageLookupByLibrary.simpleMessage("Редактировать событие"),
     "email": MessageLookupByLibrary.simpleMessage("Эл. адрес"),
     "enroll": MessageLookupByLibrary.simpleMessage("Записаться"),
-    "enrolledOn": m2,
+    "enrolledCount": m2,
+    "enrolledOfCapacity": m3,
+    "enrolledOn": m4,
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "Готово! Вы записаны",
     ),
@@ -169,18 +197,24 @@ class MessageLookup extends MessageLookupByLibrary {
     "errSignUpIncomplete": MessageLookupByLibrary.simpleMessage(
       "Не удалось завершить регистрацию",
     ),
-    "errWithCode": m3,
+    "errWithCode": m5,
     "errWrongCredentials": MessageLookupByLibrary.simpleMessage(
       "Неверное имя пользователя или пароль",
     ),
     "eventCapacity": MessageLookupByLibrary.simpleMessage("Вместимость"),
     "eventCategory": MessageLookupByLibrary.simpleMessage("Категория"),
+    "eventComplete": MessageLookupByLibrary.simpleMessage(
+      "Событие заполнено полностью!",
+    ),
+    "eventCompleteness": m6,
     "eventCreated": MessageLookupByLibrary.simpleMessage("Событие создано"),
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Валюта"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Дата и время"),
     "eventDeleted": MessageLookupByLibrary.simpleMessage("Событие удалено"),
     "eventDescription": MessageLookupByLibrary.simpleMessage("Описание"),
     "eventFinished": MessageLookupByLibrary.simpleMessage("Событие завершено"),
+    "eventFull": MessageLookupByLibrary.simpleMessage("Все места заняты!"),
+    "eventFullMessage": m7,
     "eventLocation": MessageLookupByLibrary.simpleMessage("Место"),
     "eventName": MessageLookupByLibrary.simpleMessage("Название события"),
     "eventPlace": MessageLookupByLibrary.simpleMessage("Место"),
@@ -206,6 +240,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "getDirections": MessageLookupByLibrary.simpleMessage("Как добраться"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Помощь"),
     "getStarted": MessageLookupByLibrary.simpleMessage("Начать"),
+    "great": MessageLookupByLibrary.simpleMessage("Отлично!"),
     "greetingAfternoon": MessageLookupByLibrary.simpleMessage("Добрый день!"),
     "greetingEvening": MessageLookupByLibrary.simpleMessage("Добрый вечер!"),
     "greetingMorning": MessageLookupByLibrary.simpleMessage("Доброе утро!"),
@@ -244,7 +279,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "logoutConfirm": MessageLookupByLibrary.simpleMessage(
       "Вы уверены, что хотите выйти?",
     ),
-    "logoutFailed": m4,
+    "logoutFailed": m8,
     "logoutSubtitle": MessageLookupByLibrary.simpleMessage("Выйти из аккаунта"),
     "manageProfile": MessageLookupByLibrary.simpleMessage(
       "Управляйте данными профиля",
@@ -260,6 +295,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "navProfile": MessageLookupByLibrary.simpleMessage("Профиль"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Билеты"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Новый пароль"),
+    "noCapacityLimit": MessageLookupByLibrary.simpleMessage(
+      "Без ограничения мест",
+    ),
     "noEnrolledEvents": MessageLookupByLibrary.simpleMessage(
       "Ты не записан ни на одно событие",
     ),
@@ -365,19 +403,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Что-то пошло не так",
     ),
-    "spotsLeft": m5,
+    "spotsLeft": m9,
     "supportLegal": MessageLookupByLibrary.simpleMessage(
       "Поддержка и правовая информация",
     ),
     "theme": MessageLookupByLibrary.simpleMessage("Тема"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage("Запись отменена"),
-    "ticketNumber": m6,
+    "ticketNumber": m10,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Не удалось загрузить билеты",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Прошедшие"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Предстоящие"),
-    "upcomingTicketsCount": m7,
+    "upcomingTicketsCount": m11,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Имя пользователя или эл. адрес",
     ),

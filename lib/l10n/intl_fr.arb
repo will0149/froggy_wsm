@@ -250,5 +250,53 @@
   "slideRelaxText": "Crée tes propres événements et touche plus de monde.",
   "getStarted": "Commencer",
   "pressBackToExit": "Appuie à nouveau sur Retour pour quitter",
-  "navCreate": "Créer"
+  "navCreate": "Créer",
+  "eventCompleteness": "Ton événement est complet à {percent} %",
+  "@eventCompleteness": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "eventComplete": "Ton événement est complet !",
+  "completenessBanner": "Ajoute une image : les événements illustrés ressortent dans le fil.",
+  "completenessShortDescription": "Ajoute une description courte : c'est ce qu'on voit dans le fil.",
+  "completenessDescription": "Explique de quoi parle l'événement dans la description.",
+  "completenessPlace": "Indique le lieu pour qu'on sache où aller.",
+  "completenessCategory": "Choisis une catégorie pour apparaître dans les filtres.",
+  "attendees": "Inscrits",
+  "enrolledOfCapacity": "{enrolled} inscrits sur {capacity}",
+  "@enrolledOfCapacity": {
+    "placeholders": {
+      "enrolled": {
+        "type": "int"
+      },
+      "capacity": {
+        "type": "int"
+      }
+    }
+  },
+  "enrolledCount": "{count, plural, =0{Personne d'inscrit pour l'instant} =1{1 inscrit} other{{count} inscrits}}",
+  "@enrolledCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noCapacityLimit": "Pas de limite de places",
+  "eventFull": "Événement complet !",
+  "eventFullMessage": "{capacity, plural, =1{L'unique place de « {name} » est prise.} other{Les {capacity} places de « {name} » sont prises.}}",
+  "@eventFullMessage": {
+    "placeholders": {
+      "capacity": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "great": "Génial !"
 }

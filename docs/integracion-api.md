@@ -105,8 +105,30 @@ Está en la rama `feat/mobile-tickets-saved` del API. El commit `dae3031` tiene 
 3. **Avatar del organizador** en el feed y el detalle.
 4. **Usar `my_ticket_id`, `?when=` y `ticket/user/count/`**, en lugar de calcularlo en la app.
 
+### Gamificación (ver `docs/propuesta-gamificacion.md`)
+
+**Fase 1: progreso del organizador** (solo app, terminada)
+- [x] Tokens de color para progreso y hitos en `ParkeaColors`
+- [x] Componente de barra de progreso animada y accesible
+- [x] Barra de "evento completo" en el formulario de crear y editar, con la sugerencia de qué falta
+- [x] Barra de inscritos en el detalle del evento propio ("12 de 20"; sin cupo límite, solo el número)
+- [x] Celebración "¡Evento lleno!" la primera vez que el organizador abre su evento lleno
+- [x] Textos en los 7 idiomas
+- [x] Tests de la lógica y de los componentes
+- [x] Prueba en el emulador (claro, oscuro y animaciones reducidas)
+
+**Fase 2: ticket como pase** (depende del backend)
+- [ ] Backend: `POST ticket/checkin/` que pasa el ticket a `USED`
+- [ ] QR del ticket con cuenta regresiva
+- [ ] Escáner de check-in para el organizador
+
+**Fase 3: logros y niveles** (depende del check-in en uso)
+- [ ] Backend: `GET user/progress/` con asistencias, nivel y logros
+- [ ] Pestaña "Logros" y nivel en el perfil
+- [ ] Celebraciones de logro y de nivel
+
 ### Decisiones pendientes
-- **Chino**: la app usa chino tradicional y el API responde en simplificado (`zh-hans`).
+- **Idiomas de la app**: el API ahora solo responde en español e inglés (cambio sin commit en el backend); con la app en de/fr/pt/ru/zh, los errores del API llegan en español. ¿La app se queda solo con es/en o mantiene los 7 idiomas?
 - **Provincia en el registro**: el formulario la pide pero no se envía al API. ¿Se quita o se guarda en el backend?
 - **Abrir la app sin red** lleva a la pantalla de login. La sesión se conserva, pero convendría mostrar "sin conexión" con reintentar.
 - **Pagos e inscripción a eventos PAID e INVITATION**: el backend preparó una propuesta para decidir.

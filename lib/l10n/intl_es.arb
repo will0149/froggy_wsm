@@ -250,5 +250,53 @@
   "slideRelaxText": "Crea tus propios eventos y llega a más personas.",
   "getStarted": "Empezar",
   "pressBackToExit": "Presiona atrás de nuevo para salir",
-  "navCreate": "Crear"
+  "navCreate": "Crear",
+  "eventCompleteness": "Tu evento está al {percent} %",
+  "@eventCompleteness": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "eventComplete": "¡Tu evento está completo!",
+  "completenessBanner": "Agrega una imagen: los eventos con imagen destacan en el feed.",
+  "completenessShortDescription": "Agrega una descripción corta: es lo que se ve en el feed.",
+  "completenessDescription": "Cuenta de qué se trata el evento en la descripción.",
+  "completenessPlace": "Indica el lugar para que sepan a dónde ir.",
+  "completenessCategory": "Elige una categoría para que aparezca en los filtros.",
+  "attendees": "Inscritos",
+  "enrolledOfCapacity": "{enrolled} de {capacity} inscritos",
+  "@enrolledOfCapacity": {
+    "placeholders": {
+      "enrolled": {
+        "type": "int"
+      },
+      "capacity": {
+        "type": "int"
+      }
+    }
+  },
+  "enrolledCount": "{count, plural, =0{Nadie inscrito todavía} =1{1 inscrito} other{{count} inscritos}}",
+  "@enrolledCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noCapacityLimit": "Sin límite de cupo",
+  "eventFull": "¡Evento lleno!",
+  "eventFullMessage": "{capacity, plural, =1{El único cupo de «{name}» ya está ocupado.} other{Los {capacity} cupos de «{name}» ya están ocupados.}}",
+  "@eventFullMessage": {
+    "placeholders": {
+      "capacity": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "great": "¡Genial!"
 }

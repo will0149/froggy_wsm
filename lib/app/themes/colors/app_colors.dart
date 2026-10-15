@@ -29,6 +29,11 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
   final Color reward;
   final Color onReward;
 
+  /// Barras de progreso: fondo y relleno; [success] cuando se completa.
+  final Color progressTrack;
+  final Color progress;
+  final Color success;
+
   const ParkeaColors({
     required this.primary,
     required this.secondary,
@@ -42,6 +47,9 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
     required this.navIndicator,
     required this.reward,
     required this.onReward,
+    required this.progressTrack,
+    required this.progress,
+    required this.success,
   });
 
   factory ParkeaColors.light() {
@@ -58,6 +66,9 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
       navIndicator: Color(0x3DFFFFFF),
       reward: parkeaWhite,
       onReward: parkeaDarkOrange,
+      progressTrack: Color(0xFFEDE7E3),
+      progress: parkeaOrange,
+      success: Color(0xFF2E7D32),
     );
   }
 
@@ -75,6 +86,9 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
       navIndicator: Color(0x3DFFFFFF),
       reward: parkeaOrange,
       onReward: parkeaWhite,
+      progressTrack: Color(0xFF4A4545),
+      progress: parkeaOrange,
+      success: Color(0xFF66BB6A),
     );
   }
 
@@ -92,6 +106,9 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
     Color? navIndicator,
     Color? reward,
     Color? onReward,
+    Color? progressTrack,
+    Color? progress,
+    Color? success,
   }) {
     return ParkeaColors(
       primary: primary ?? this.primary,
@@ -106,6 +123,9 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
       navIndicator: navIndicator ?? this.navIndicator,
       reward: reward ?? this.reward,
       onReward: onReward ?? this.onReward,
+      progressTrack: progressTrack ?? this.progressTrack,
+      progress: progress ?? this.progress,
+      success: success ?? this.success,
     );
   }
 
@@ -128,6 +148,10 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
           Color.lerp(navIndicator, other.navIndicator, t) ?? navIndicator,
       reward: Color.lerp(reward, other.reward, t) ?? reward,
       onReward: Color.lerp(onReward, other.onReward, t) ?? onReward,
+      progressTrack:
+          Color.lerp(progressTrack, other.progressTrack, t) ?? progressTrack,
+      progress: Color.lerp(progress, other.progress, t) ?? progress,
+      success: Color.lerp(success, other.success, t) ?? success,
     );
   }
 }

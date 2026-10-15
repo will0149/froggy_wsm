@@ -8,11 +8,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import '../../../data/dtos/event_dto.dart';
+import '../../../domain/gamification/event_completeness.dart';
 import '../../../domain/usecases/create_event_uc.dart';
 import '../../../domain/usecases/fetch_events_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/colors.dart';
 import '../../utils/form_validators.dart';
+import '../../widgets/gamification/event_completeness_card.dart';
 import 'event_detail_page.dart';
 
 /// Made for parkea.
@@ -65,6 +67,10 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
   @override
   void initState() {
     super.initState();
+    // La tarjeta de "evento completo" se actualiza mientras se escribe.
+    for (final controller in [_shortDescription, _description, _place]) {
+      controller.addListener(_onDetailChanged);
+    }
     final event = widget.event;
     if (event == null) return;
     _name.text = event.eventName ?? '';
@@ -97,6 +103,16 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
     }
     super.dispose();
   }
+
+  void _onDetailChanged() => setState(() {});
+
+  EventCompleteness get _completeness => EventCompleteness.of(
+        hasBanner: _banner != null || widget.event?.bannerImageUrl != null,
+        shortDescription: _shortDescription.text,
+        description: _description.text,
+        place: _place.text,
+        category: _category,
+      );
 
   String? _apiError(String field) => _apiErrors[field]?.join('\n');
 
@@ -369,7 +385,9 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                     : null;
               },
             ),
-            const SizedBox(height: 28),
+            const SizedBox(height: 20),
+            EventCompletenessCard(completeness: _completeness),
+            const SizedBox(height: 20),
             SizedBox(
               height: 48,
               child: FilledButton(

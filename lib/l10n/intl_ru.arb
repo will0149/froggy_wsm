@@ -250,5 +250,53 @@
   "slideRelaxText": "Создавайте свои события и привлекайте больше людей.",
   "getStarted": "Начать",
   "pressBackToExit": "Нажмите «Назад» ещё раз, чтобы выйти",
-  "navCreate": "Создать"
+  "navCreate": "Создать",
+  "eventCompleteness": "Событие заполнено на {percent} %",
+  "@eventCompleteness": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "eventComplete": "Событие заполнено полностью!",
+  "completenessBanner": "Добавьте изображение: события с ним заметнее в ленте.",
+  "completenessShortDescription": "Добавьте краткое описание: его видно в ленте.",
+  "completenessDescription": "Расскажите в описании, о чём событие.",
+  "completenessPlace": "Укажите место, чтобы знали, куда идти.",
+  "completenessCategory": "Выберите категорию, чтобы событие было в фильтрах.",
+  "attendees": "Участники",
+  "enrolledOfCapacity": "Записано {enrolled} из {capacity}",
+  "@enrolledOfCapacity": {
+    "placeholders": {
+      "enrolled": {
+        "type": "int"
+      },
+      "capacity": {
+        "type": "int"
+      }
+    }
+  },
+  "enrolledCount": "{count, plural, =0{Пока никто не записался} one{Записан {count}} few{Записано {count}} many{Записано {count}} other{Записано {count}}}",
+  "@enrolledCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noCapacityLimit": "Без ограничения мест",
+  "eventFull": "Все места заняты!",
+  "eventFullMessage": "{capacity, plural, =1{Единственное место на «{name}» занято.} one{{capacity} место на «{name}» занято.} few{Все {capacity} места на «{name}» заняты.} many{Все {capacity} мест на «{name}» заняты.} other{Все {capacity} места на «{name}» заняты.}}",
+  "@eventFullMessage": {
+    "placeholders": {
+      "capacity": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "great": "Отлично!"
 }

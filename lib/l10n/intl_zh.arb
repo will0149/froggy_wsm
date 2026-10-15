@@ -250,5 +250,53 @@
   "slideRelaxText": "建立你自己的活動，觸及更多人。",
   "getStarted": "開始",
   "pressBackToExit": "再按一次返回鍵即可離開",
-  "navCreate": "建立"
+  "navCreate": "建立",
+  "eventCompleteness": "你的活動已完成 {percent}%",
+  "@eventCompleteness": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "eventComplete": "你的活動資料已完整！",
+  "completenessBanner": "加上圖片：有圖片的活動在動態中更醒目。",
+  "completenessShortDescription": "加上簡短描述：這是動態中顯示的內容。",
+  "completenessDescription": "在描述中說明活動內容。",
+  "completenessPlace": "填寫地點，讓大家知道要去哪裡。",
+  "completenessCategory": "選擇分類，讓活動出現在篩選中。",
+  "attendees": "報名者",
+  "enrolledOfCapacity": "已報名 {enrolled} / {capacity}",
+  "@enrolledOfCapacity": {
+    "placeholders": {
+      "enrolled": {
+        "type": "int"
+      },
+      "capacity": {
+        "type": "int"
+      }
+    }
+  },
+  "enrolledCount": "{count, plural, =0{尚無人報名} other{已有 {count} 人報名}}",
+  "@enrolledCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noCapacityLimit": "不限名額",
+  "eventFull": "活動額滿！",
+  "eventFullMessage": "{capacity, plural, other{「{name}」的 {capacity} 個名額已全部額滿。}}",
+  "@eventFullMessage": {
+    "placeholders": {
+      "capacity": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "great": "太好了！"
 }

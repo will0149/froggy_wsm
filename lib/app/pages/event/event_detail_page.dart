@@ -6,6 +6,7 @@ import 'package:parkea/app/widgets/banners/detail_image_banner.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/domain/usecases/fetch_events_uc.dart';
 import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
+import 'package:parkea/domain/usecases/event_attendance_uc.dart';
 import 'package:parkea/domain/usecases/fetch_tickets_uc.dart';
 import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../generated/l10n.dart';
@@ -13,6 +14,7 @@ import '../../widgets/event/enroll_button.dart';
 import '../../widgets/event/event_location_card.dart';
 import '../../widgets/event/owner_event_actions.dart';
 import '../../widgets/event/similar_events.dart';
+import '../../widgets/gamification/owner_attendance_card.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -35,6 +37,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
   Future<void> _refresh() async {
     ref
       ..invalidate(myTicketsUCProvider)
+      ..invalidate(eventTicketCountUCProvider(widget.eventId))
       ..invalidate(fetchEventDetailUCProvider(widget.eventId));
     await ref.read(fetchEventDetailUCProvider(widget.eventId).future);
   }
@@ -103,6 +106,13 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
             ],
           ),
         ),
+        if (isOwner)
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: OwnerAttendanceCard(event: event),
+            ),
+          ),
         if (isOwner && event.eventType == 'PRIVATE')
           SliverToBoxAdapter(child: AccessCodeCard(event: event)),
         if (EventLocationCard.hasLocation(event))

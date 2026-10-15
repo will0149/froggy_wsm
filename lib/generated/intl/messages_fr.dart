@@ -24,17 +24,28 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(year) => "© ${year} Parkea. Tous droits réservés.";
 
-  static String m2(date) => "Inscrit le ${date}";
+  static String m2(count) =>
+      "${Intl.plural(count, zero: 'Personne d\'inscrit pour l\'instant', one: '1 inscrit', other: '${count} inscrits')}";
 
-  static String m3(code) => "Erreur (code : ${code})";
+  static String m3(enrolled, capacity) =>
+      "${enrolled} inscrits sur ${capacity}";
 
-  static String m4(error) => "Impossible de se déconnecter : ${error}";
+  static String m4(date) => "Inscrit le ${date}";
 
-  static String m5(count) => "${count} places disponibles";
+  static String m5(code) => "Erreur (code : ${code})";
 
-  static String m6(id) => "Billet n°${id}";
+  static String m6(percent) => "Ton événement est complet à ${percent} %";
 
-  static String m7(count) => "${count} billets à venir";
+  static String m7(capacity, name) =>
+      "${Intl.plural(capacity, one: 'L\'unique place de « ${name} » est prise.', other: 'Les ${capacity} places de « ${name} » sont prises.')}";
+
+  static String m8(error) => "Impossible de se déconnecter : ${error}";
+
+  static String m9(count) => "${count} places disponibles";
+
+  static String m10(id) => "Billet n°${id}";
+
+  static String m11(count) => "${count} billets à venir";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -63,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "allLocations": MessageLookupByLibrary.simpleMessage("Tous les lieux"),
     "allOfCountry": m0,
     "allRightsReserved": m1,
+    "attendees": MessageLookupByLibrary.simpleMessage("Inscrits"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Authentifier"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Photo mise à jour"),
     "avatarUploadFailed": MessageLookupByLibrary.simpleMessage(
@@ -93,6 +105,21 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "changePhoto": MessageLookupByLibrary.simpleMessage("Changer la photo"),
     "codeCopied": MessageLookupByLibrary.simpleMessage("Code copié"),
+    "completenessBanner": MessageLookupByLibrary.simpleMessage(
+      "Ajoute une image : les événements illustrés ressortent dans le fil.",
+    ),
+    "completenessCategory": MessageLookupByLibrary.simpleMessage(
+      "Choisis une catégorie pour apparaître dans les filtres.",
+    ),
+    "completenessDescription": MessageLookupByLibrary.simpleMessage(
+      "Explique de quoi parle l\'événement dans la description.",
+    ),
+    "completenessPlace": MessageLookupByLibrary.simpleMessage(
+      "Indique le lieu pour qu\'on sache où aller.",
+    ),
+    "completenessShortDescription": MessageLookupByLibrary.simpleMessage(
+      "Ajoute une description courte : c\'est ce qu\'on voit dans le fil.",
+    ),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Confirmer le mot de passe",
     ),
@@ -125,7 +152,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "editEvent": MessageLookupByLibrary.simpleMessage("Modifier l\'événement"),
     "email": MessageLookupByLibrary.simpleMessage("E-mail"),
     "enroll": MessageLookupByLibrary.simpleMessage("M\'inscrire"),
-    "enrolledOn": m2,
+    "enrolledCount": m2,
+    "enrolledOfCapacity": m3,
+    "enrolledOn": m4,
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "C\'est fait ! Tu es inscrit",
     ),
@@ -181,18 +210,24 @@ class MessageLookup extends MessageLookupByLibrary {
     "errSignUpIncomplete": MessageLookupByLibrary.simpleMessage(
       "Impossible de finaliser l\'inscription",
     ),
-    "errWithCode": m3,
+    "errWithCode": m5,
     "errWrongCredentials": MessageLookupByLibrary.simpleMessage(
       "Nom d\'utilisateur ou mot de passe incorrect",
     ),
     "eventCapacity": MessageLookupByLibrary.simpleMessage("Capacité"),
     "eventCategory": MessageLookupByLibrary.simpleMessage("Catégorie"),
+    "eventComplete": MessageLookupByLibrary.simpleMessage(
+      "Ton événement est complet !",
+    ),
+    "eventCompleteness": m6,
     "eventCreated": MessageLookupByLibrary.simpleMessage("Événement créé"),
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Devise"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Date et heure"),
     "eventDeleted": MessageLookupByLibrary.simpleMessage("Événement supprimé"),
     "eventDescription": MessageLookupByLibrary.simpleMessage("Description"),
     "eventFinished": MessageLookupByLibrary.simpleMessage("Événement terminé"),
+    "eventFull": MessageLookupByLibrary.simpleMessage("Événement complet !"),
+    "eventFullMessage": m7,
     "eventLocation": MessageLookupByLibrary.simpleMessage("Lieu"),
     "eventName": MessageLookupByLibrary.simpleMessage("Nom de l\'événement"),
     "eventPlace": MessageLookupByLibrary.simpleMessage("Lieu"),
@@ -228,6 +263,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "getDirections": MessageLookupByLibrary.simpleMessage("Itinéraire"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Aider"),
     "getStarted": MessageLookupByLibrary.simpleMessage("Commencer"),
+    "great": MessageLookupByLibrary.simpleMessage("Génial !"),
     "greetingAfternoon": MessageLookupByLibrary.simpleMessage(
       "Bon après-midi !",
     ),
@@ -270,7 +306,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "logoutConfirm": MessageLookupByLibrary.simpleMessage(
       "Veux-tu vraiment te déconnecter ?",
     ),
-    "logoutFailed": m4,
+    "logoutFailed": m8,
     "logoutSubtitle": MessageLookupByLibrary.simpleMessage(
       "Se déconnecter de ton compte",
     ),
@@ -290,6 +326,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "navProfile": MessageLookupByLibrary.simpleMessage("Profil"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Billets"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Nouveau mot de passe"),
+    "noCapacityLimit": MessageLookupByLibrary.simpleMessage(
+      "Pas de limite de places",
+    ),
     "noEnrolledEvents": MessageLookupByLibrary.simpleMessage(
       "Tu n\'es inscrit à aucun événement",
     ),
@@ -399,7 +438,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Un problème est survenu",
     ),
-    "spotsLeft": m5,
+    "spotsLeft": m9,
     "supportLegal": MessageLookupByLibrary.simpleMessage(
       "Support et mentions légales",
     ),
@@ -407,13 +446,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Inscription annulée",
     ),
-    "ticketNumber": m6,
+    "ticketNumber": m10,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Impossible de charger les billets",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Passés"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("À venir"),
-    "upcomingTicketsCount": m7,
+    "upcomingTicketsCount": m11,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Nom d\'utilisateur ou e-mail",
     ),

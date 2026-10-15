@@ -20,7 +20,11 @@ class TicketRepository {
         'body': {'event': eventId, if (otp != null) 'otp': otp},
       });
 
+  /// `{"event_id": id, "ticket_count": n}`: inscritos en el evento.
+  Future<Map<String, dynamic>> countByEvent(int eventId) => apiClient
+      .getAuthorized(ApiPathsEnums.ticketCountByEvent.uriWithId(eventId));
+
   /// 204 si se canceló; el ticket se borra.
-  Future<Map<String, dynamic>> cancelTicket(int ticketId) =>
-      apiClient.deleteAuthorized(ApiPathsEnums.ticketCancel.uriWithId(ticketId));
+  Future<Map<String, dynamic>> cancelTicket(int ticketId) => apiClient
+      .deleteAuthorized(ApiPathsEnums.ticketCancel.uriWithId(ticketId));
 }

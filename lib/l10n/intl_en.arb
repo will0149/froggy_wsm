@@ -250,5 +250,53 @@
   "slideRelaxText": "Create your own events and reach more people.",
   "getStarted": "Get started",
   "pressBackToExit": "Press back again to exit",
-  "navCreate": "Create"
+  "navCreate": "Create",
+  "eventCompleteness": "Your event is {percent}% complete",
+  "@eventCompleteness": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "eventComplete": "Your event is complete!",
+  "completenessBanner": "Add an image: events with one stand out in the feed.",
+  "completenessShortDescription": "Add a short description: it's what people see in the feed.",
+  "completenessDescription": "Tell people what the event is about in the description.",
+  "completenessPlace": "Add the place so people know where to go.",
+  "completenessCategory": "Pick a category so it shows up in the filters.",
+  "attendees": "Attendees",
+  "enrolledOfCapacity": "{enrolled} of {capacity} enrolled",
+  "@enrolledOfCapacity": {
+    "placeholders": {
+      "enrolled": {
+        "type": "int"
+      },
+      "capacity": {
+        "type": "int"
+      }
+    }
+  },
+  "enrolledCount": "{count, plural, =0{No one enrolled yet} =1{1 enrolled} other{{count} enrolled}}",
+  "@enrolledCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noCapacityLimit": "No capacity limit",
+  "eventFull": "Event full!",
+  "eventFullMessage": "{capacity, plural, =1{The only spot for “{name}” is taken.} other{All {capacity} spots for “{name}” are taken.}}",
+  "@eventFullMessage": {
+    "placeholders": {
+      "capacity": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "great": "Great!"
 }

@@ -249,5 +249,53 @@
   "slideRelaxText": "Erstelle eigene Veranstaltungen und erreiche mehr Menschen.",
   "getStarted": "Los geht's",
   "pressBackToExit": "Zum Beenden erneut Zurück drücken",
-  "navCreate": "Erstellen"
+  "navCreate": "Erstellen",
+  "eventCompleteness": "Deine Veranstaltung ist zu {percent} % vollständig",
+  "@eventCompleteness": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "eventComplete": "Deine Veranstaltung ist vollständig!",
+  "completenessBanner": "Füge ein Bild hinzu: Veranstaltungen mit Bild fallen im Feed auf.",
+  "completenessShortDescription": "Füge eine Kurzbeschreibung hinzu: Sie erscheint im Feed.",
+  "completenessDescription": "Beschreibe, worum es bei der Veranstaltung geht.",
+  "completenessPlace": "Gib den Ort an, damit alle wissen, wohin.",
+  "completenessCategory": "Wähle eine Kategorie, damit sie in den Filtern erscheint.",
+  "attendees": "Teilnehmende",
+  "enrolledOfCapacity": "{enrolled} von {capacity} angemeldet",
+  "@enrolledOfCapacity": {
+    "placeholders": {
+      "enrolled": {
+        "type": "int"
+      },
+      "capacity": {
+        "type": "int"
+      }
+    }
+  },
+  "enrolledCount": "{count, plural, =0{Noch niemand angemeldet} =1{1 angemeldet} other{{count} angemeldet}}",
+  "@enrolledCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noCapacityLimit": "Keine Platzbegrenzung",
+  "eventFull": "Veranstaltung ausgebucht!",
+  "eventFullMessage": "{capacity, plural, =1{Der einzige Platz für „{name}“ ist vergeben.} other{Alle {capacity} Plätze für „{name}“ sind vergeben.}}",
+  "@eventFullMessage": {
+    "placeholders": {
+      "capacity": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "great": "Super!"
 }
