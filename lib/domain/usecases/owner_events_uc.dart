@@ -7,6 +7,7 @@ import 'event_feed_uc.dart';
 import 'fetch_tickets_uc.dart';
 import 'paged_fetch.dart';
 import '../../generated/l10n.dart';
+import 'repositories.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -17,7 +18,7 @@ part 'owner_events_uc.g.dart';
 /// Eventos creados por el usuario (`events/owner/`), más recientes primero.
 @riverpod
 class OwnerEventsUC extends _$OwnerEventsUC {
-  final EventRepository repository = EventRepository();
+  EventRepository get repository => ref.read(eventRepositoryProvider);
 
   @override
   Future<List<EventDTO>> build() async {

@@ -1,9 +1,9 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/dtos/event_dto.dart';
-import '../../data/repositories/events_repository.dart';
 import 'auth/api_error_message.dart';
 import '../../generated/l10n.dart';
+import 'repositories.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -20,7 +20,7 @@ Future<List<EventDTO>> similarEventsUC(
   if (category == null && country == null) return const [];
   // Uno más por si el propio evento está en la página.
   const limit = 10;
-  final result = await EventRepository().fetchEventsPage(1,
+  final result = await ref.read(eventRepositoryProvider).fetchEventsPage(1,
       category: category, country: country, pageSize: limit + 1);
   final body = result['body'];
   if (result['status'] != 200 || body is! Map<String, dynamic>) {

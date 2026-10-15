@@ -4,12 +4,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'auth/api_error_message.dart';
 import '../../generated/l10n.dart';
+import 'repositories.dart';
 
 part 'fetch_events_uc.g.dart';
 
 @riverpod
 class FetchEventDetailUC extends _$FetchEventDetailUC {
-  late final EventRepository repository = EventRepository();
+  EventRepository get repository => ref.read(eventRepositoryProvider);
 
   @override
   Future<EventDTO> build(int id) async {

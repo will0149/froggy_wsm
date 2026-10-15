@@ -83,14 +83,16 @@ Always run `dart run build_runner build --delete-conflicting-outputs` after modi
 - ARB files for internationalization
 
 ### Testing
-Basic Flutter widget testing setup. Main test file: `test/widget_test.dart`
+- `test/domain/`: use case tests. Repositories are injected through `lib/domain/usecases/repositories.dart` and overridden with a fake HTTP layer (`test/helpers/fake_api.dart`) that answers with the API envelope.
+- `test/data/`: `ApiClient` (token refresh, network errors).
+- `test/app/`: widget tests (e.g. `EnrollButton`).
+- Use `setUpDomainTests()` in `setUpAll`: use cases read their messages through `S.current`.
 
 ### Assets
 - Custom fonts: GothicA1 family
 - SVG icons for navigation
 - Lottie animations for enhanced UX
 - Background images for auth screens
-- Sample JSON data for development
 
 ## Firebase Configuration
 - Firebase Auth configured for iOS and Android

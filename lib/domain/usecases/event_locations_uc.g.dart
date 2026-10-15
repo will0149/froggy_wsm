@@ -52,4 +52,4 @@ final class EventLocationsUCProvider extends $FunctionalProvider<
   }
 }
 
-String _$eventLocationsUCHash() => r'a06fc302587d966ac87177218df803a096accd61';
+String _$eventLocationsUCHash() => r'b1a36c833fc6b2273eabb3547df3f5c6e3dccdfc';

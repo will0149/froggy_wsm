@@ -5,6 +5,7 @@ import '../../data/repositories/events_repository.dart';
 import '../../device/utils/logger_config.dart';
 import 'auth/api_error_message.dart';
 import '../../generated/l10n.dart';
+import 'repositories.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -52,7 +53,7 @@ class EventFeedState {
 /// [city] (null sin filtro).
 @riverpod
 class EventFeedUC extends _$EventFeedUC {
-  final EventRepository repository = EventRepository();
+  EventRepository get repository => ref.read(eventRepositoryProvider);
 
   @override
   Future<EventFeedState> build(String? category, String? search,

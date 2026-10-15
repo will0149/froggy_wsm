@@ -8,6 +8,7 @@ import 'fetch_events_uc.dart';
 import 'fetch_tickets_uc.dart';
 import 'owner_events_uc.dart';
 import '../../generated/l10n.dart';
+import 'repositories.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -28,7 +29,7 @@ typedef CreateEventResult = ({
 /// sube su banner. El estado solo indica si hay una petición en curso.
 @riverpod
 class CreateEventUC extends _$CreateEventUC {
-  final EventRepository repository = EventRepository();
+  EventRepository get repository => ref.read(eventRepositoryProvider);
 
   @override
   FutureOr<void> build() {}

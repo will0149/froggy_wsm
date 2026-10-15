@@ -4,12 +4,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'auth/api_error_message.dart';
 import '../../generated/l10n.dart';
+import 'repositories.dart';
 
 part 'fetch_promotions_uc.g.dart';
 
 @riverpod
 class FetchPromotionsUC extends _$FetchPromotionsUC {
-  late final PromotionsRepository repository = PromotionsRepository();
+  PromotionsRepository get repository => ref.read(promotionsRepositoryProvider);
 
   @override
   Future<List<PromotionDTO>> build() async {

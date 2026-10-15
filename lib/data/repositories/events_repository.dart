@@ -1,9 +1,4 @@
 
-import 'package:parkea/data/repositories/utils/build_header_utils.dart';
-import 'package:parkea/data/repositories/utils/http_common_utils.dart';
-import 'package:parkea/data/repositories/utils/impl/build_headers_utils_impl.dart';
-import 'package:parkea/data/repositories/utils/impl/http_commons_utils_impl.dart';
-
 import '../api_path_enums.dart';
 import 'utils/api_client.dart';
 
@@ -12,18 +7,10 @@ import 'utils/api_client.dart';
 /// Date: 07/01/22
 
 class EventRepository {
-  late final BuildHeadersUtils headersUtils;
-  late final HttpCommonUtils httpCommonUtils;
-  late final ApiClient apiClient;
+  final ApiClient apiClient;
 
-  EventRepository() {
-    headersUtils = BuildHeadersUtilsImpl();
-    httpCommonUtils = HttpCommonUtilsImpl();
-    apiClient = ApiClient(
-      headersUtils: headersUtils,
-      httpCommonUtils: httpCommonUtils,
-    );
-  }
+  EventRepository({ApiClient? apiClient})
+      : apiClient = apiClient ?? ApiClient();
 
   /// Página [page] (desde 1) del feed, más recientes primero. `body`:
   /// `{count, next, previous, results}`; fuera de rango responde 404.

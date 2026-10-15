@@ -33,7 +33,7 @@ final class FetchPromotionsUCProvider
   FetchPromotionsUC create() => FetchPromotionsUC();
 }
 
-String _$fetchPromotionsUCHash() => r'b95524692bff3a8663876b4ab8e8d4351e859831';
+String _$fetchPromotionsUCHash() => r'958c66710fcd1b25ae109816ff160ae262475c6e';
 
 abstract class _$FetchPromotionsUC extends $AsyncNotifier<List<PromotionDTO>> {
   FutureOr<List<PromotionDTO>> build();

@@ -83,7 +83,7 @@ final class SimilarEventsUCProvider extends $FunctionalProvider<
   }
 }
 
-String _$similarEventsUCHash() => r'a92fe5301468f4837fb30f9f28aecaadaffc4895';
+String _$similarEventsUCHash() => r'65800fab085eeef27c86e72b04c5252ce82267f1';
 
 /// Eventos próximos de la misma [category] y el mismo [country] que el
 /// evento [eventId], sin incluirlo. Vacío si el evento no tiene ninguno de

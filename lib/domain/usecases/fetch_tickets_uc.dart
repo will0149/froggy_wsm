@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'auth/api_error_message.dart';
 import 'paged_fetch.dart';
 import '../../generated/l10n.dart';
+import 'repositories.dart';
 
 part 'fetch_tickets_uc.g.dart';
 
@@ -12,7 +13,7 @@ part 'fetch_tickets_uc.g.dart';
 /// por la fecha del evento.
 @riverpod
 class MyTicketsUC extends _$MyTicketsUC {
-  late final TicketRepository repository = TicketRepository();
+  TicketRepository get repository => ref.read(ticketRepositoryProvider);
 
   @override
   Future<List<TicketDTO>> build() async {
