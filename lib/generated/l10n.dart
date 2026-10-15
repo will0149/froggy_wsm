@@ -1718,6 +1718,16 @@ class S {
   String get getStarted {
     return Intl.message('Empezar', name: 'getStarted', desc: '', args: []);
   }
+
+  /// `Presiona atrás de nuevo para salir`
+  String get pressBackToExit {
+    return Intl.message(
+      'Presiona atrás de nuevo para salir',
+      name: 'pressBackToExit',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

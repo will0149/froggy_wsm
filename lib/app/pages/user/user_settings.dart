@@ -1,9 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
-import 'package:parkea/app/pages/auth/login_page.dart';
 import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 
 import '../../../domain/providers/app_theme_provider.dart';
@@ -22,8 +19,6 @@ class UserSettingsPage extends ConsumerStatefulWidget {
 }
 
 class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
-  bool _isLoggingOut = false;
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -402,19 +397,12 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
   Future<void> _handleLogout() async {
     final shouldLogout = await _showLogoutDialog();
     if (shouldLogout == true && mounted) {
-      setState(() {
-        _isLoggingOut = true;
-      });
-
+      // El estado de carga lo da restAuthUCProvider.
       try {
         // Sign out from Firebase
         await ref.read(restAuthUCProvider.notifier).logOut();
       } catch (e) {
         if (mounted) {
-          setState(() {
-            _isLoggingOut = false;
-          });
-          
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(S.of(context).logoutFailed('$e')),

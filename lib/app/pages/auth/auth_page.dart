@@ -1,9 +1,7 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
-import 'package:parkea/app/pages/auth/welcome_slide_page.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/exit_pop_scope.dart';
 import 'package:parkea/app/widgets/paints/bottom_left_curve_orange.dart';

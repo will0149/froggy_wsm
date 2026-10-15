@@ -28,8 +28,7 @@ Future<Map<String, List<EventLocation>>> eventLocationsUC(Ref ref) async {
   final result = await EventRepository().fetchEventLocations();
   final body = result['body'];
   if (result['status'] != 200 || body is! List) {
-    throw Exception(
-        apiErrorMessage(body) ?? S.current.locationsLoadFailed);
+    throw ApiException.from(result, S.current.locationsLoadFailed);
   }
   final byCountry = <String, List<EventLocation>>{};
   for (final item in body.whereType<Map<String, dynamic>>()) {

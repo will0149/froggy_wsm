@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'loggerConfig.dart';
+import 'logger_config.dart';
 
 /// Made for parkea.
 /// By User: josedominguez

@@ -8,7 +8,7 @@ import 'package:parkea/app/pages/auth/password_reset_confirm_page.dart';
 import 'package:parkea/app/pages/auth/password_reset_page.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
 import 'package:parkea/app/pages/user/user_settings.dart';
-import 'package:parkea/device/utils/loggerConfig.dart';
+import 'package:parkea/device/utils/logger_config.dart';
 import 'package:parkea/domain/models/auth/auth_state.dart';
 import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 
@@ -17,7 +17,6 @@ import '../../app/pages/auth/splash_screen.dart';
 import '../../app/pages/auth/welcome_slide_page.dart';
 import '../../app/pages/event/create_event_page.dart';
 import '../../app/pages/event/event_detail_page.dart';
-import '../../app/pages/event/ticket_purchase_page.dart';
 import '../../app/pages/home/home_feed_page.dart';
 import '../../app/pages/ticket/tickets_page.dart';
 import '../../app/pages/user/profile_page.dart';
@@ -120,15 +119,6 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
                     builder: (context, state) => EventDetailPage(
                       eventId: int.parse(state.pathParameters['id']!),
                     ),
-                    routes: <RouteBase>[
-                      GoRoute(
-                        name: TicketPurchasePage.routeName,
-                        path: TicketPurchasePage.routeLocation,
-                        builder: (context, state) => TicketPurchasePage(
-                          eventId: int.parse(state.pathParameters['id']!),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),

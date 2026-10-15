@@ -3,6 +3,7 @@
 /// Made for parkea.
 /// By User: josedominguez
 /// Date: 07/01/22
+library;
 
 class LocationDTO {
   final String? latitud;

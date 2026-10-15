@@ -24,8 +24,7 @@ Future<List<EventDTO>> similarEventsUC(
       category: category, country: country, pageSize: limit + 1);
   final body = result['body'];
   if (result['status'] != 200 || body is! Map<String, dynamic>) {
-    throw Exception(
-        apiErrorMessage(body) ?? S.current.errLoadSimilar);
+    throw ApiException.from(result, S.current.errLoadSimilar);
   }
   final results = body['results'];
   return [

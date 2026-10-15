@@ -158,15 +158,7 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
               fontSize: 16,
             ),
             items: _provinces,
-            onChanged: (val) => print(val),
-            onSaved: (val) => print(val),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Most select a value';
-              } else {
-                return null;
-              }
-            },
+            validator: (value) => FormValidators.required(context, value),
           ),
           TextFormField(
             controller: emailController,

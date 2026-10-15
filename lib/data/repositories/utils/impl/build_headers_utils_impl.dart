@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../../../../device/utils/loggerConfig.dart';
+import '../../../../device/utils/logger_config.dart';
 import '../build_header_utils.dart';
 
 
@@ -14,9 +14,8 @@ class BuildHeadersUtilsImpl implements BuildHeadersUtils {
   static const _accessKey = 'access_token';
   static const _refreshKey = 'refresh_token';
 
-  final storage = const FlutterSecureStorage(aOptions: AndroidOptions(
-    encryptedSharedPreferences: true,
-  ),);
+  // El plugin migra solo los datos guardados con EncryptedSharedPreferences.
+  final storage = const FlutterSecureStorage();
 
   @override
   Future<Map<String, String>> headers() async {

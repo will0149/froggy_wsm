@@ -58,8 +58,7 @@ class MyTicketsUC extends _$MyTicketsUC {
       final status = result['status'];
       if (status == timeoutStatus) return connectionErrorMessage;
       if (status != 204 && status != 200) {
-        return apiErrorMessage(result['body']) ??
-            S.current.errCancelTicket;
+        return apiErrorMessage(result['body']) ?? S.current.errCancelTicket;
       }
     } on Exception {
       return connectionErrorMessage;

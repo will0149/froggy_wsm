@@ -14,11 +14,9 @@ import '../../utils/tab_reselect.dart';
 import '../../widgets/event/event_feed_sliver.dart';
 import '../../widgets/event/location_filter.dart';
 
-/**
- * Made for parkea.
- * By User: josedominguez
- * Date: 07/02/22
- */
+/// Made for parkea.
+/// By User: josedominguez
+/// Date: 07/02/22
 
 class HomeFeedPage extends ConsumerStatefulWidget {
   const HomeFeedPage({super.key});

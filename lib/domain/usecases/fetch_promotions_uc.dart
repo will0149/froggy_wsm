@@ -16,10 +16,8 @@ class FetchPromotionsUC extends _$FetchPromotionsUC {
     final result = await repository.fetchPromotionsList();
     final status = result['status'];
     final body = result['body'];
-    if (status == timeoutStatus) throw Exception(connectionErrorMessage);
     if (status != 200 || body is! List) {
-      throw Exception(
-          apiErrorMessage(body) ?? S.current.errLoadPromotions);
+      throw ApiException.from(result, S.current.errLoadPromotions);
     }
     return [
       for (final promotion in body.whereType<Map<String, dynamic>>())

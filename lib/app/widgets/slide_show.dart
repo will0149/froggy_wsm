@@ -46,7 +46,7 @@ class Slideshow extends ConsumerWidget {
 class _Dots extends ConsumerWidget {
   final int totalSlides;
 
-  const _Dots({super.key, required this.totalSlides});
+  const _Dots({required this.totalSlides});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -100,7 +100,7 @@ class _Dots extends ConsumerWidget {
 class _Dot extends ConsumerWidget {
   final int index;
 
-  const _Dot({super.key, required this.index});
+  const _Dot({required this.index});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -123,7 +123,7 @@ class _Dot extends ConsumerWidget {
 class _Slides extends ConsumerStatefulWidget {
   final List<Widget> slides;
 
-  const _Slides({super.key, required this.slides});
+  const _Slides({required this.slides});
 
   @override
   _SlidesState createState() => _SlidesState();
@@ -169,7 +169,7 @@ class _SlidesState extends ConsumerState<_Slides> {
 class _Slide extends StatelessWidget {
   final Widget slide;
 
-  const _Slide({super.key, required this.slide});
+  const _Slide({required this.slide});
 
   @override
   Widget build(BuildContext context) {

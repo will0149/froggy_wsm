@@ -74,6 +74,7 @@ dependencies:
   flutter_map: ^8.3.2
   latlong2: ^0.10.1
   url_launcher: ^6.3.3
+  logger: ^2.6.2
 
 dev_dependencies:
   flutter_test:
@@ -86,7 +87,6 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   build_runner: ^2.4.15
-  logger: ^2.6.2
   riverpod_generator: ^3.0.3
   # dependencia dev para objetos deserializables DTOs
   json_serializable: ^6.11.1
@@ -110,7 +110,6 @@ flutter:
     - assets/
     - assets/logo/
     - assets/backgrounds/
-    - assets/samples/
     - assets/svgs/
     - assets/svgs/icons/
     - assets/lotties/

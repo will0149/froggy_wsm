@@ -42,7 +42,7 @@ final class PasswordResetUCProvider
   PasswordResetUC create() => PasswordResetUC();
 }
 
-String _$passwordResetUCHash() => r'b33985f725c6921a18e4eb7364f9f0b6c35bb88a';
+String _$passwordResetUCHash() => r'858cf4943fd7e2184823347c25a980eef347f905';
 
 /// Flujo de reset: solicitar el correo y confirmar con el uid/token del
 /// enlace. No toca la sesión, por eso va aparte de [RestAuthUC].

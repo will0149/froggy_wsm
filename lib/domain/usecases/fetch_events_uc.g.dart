@@ -9,48 +9,6 @@ part of 'fetch_events_uc.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(FetchEventsUC)
-const fetchEventsUCProvider = FetchEventsUCProvider._();
-
-final class FetchEventsUCProvider
-    extends $AsyncNotifierProvider<FetchEventsUC, List<EventDTO>> {
-  const FetchEventsUCProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'fetchEventsUCProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
-
-  @override
-  String debugGetCreateSourceHash() => _$fetchEventsUCHash();
-
-  @$internal
-  @override
-  FetchEventsUC create() => FetchEventsUC();
-}
-
-String _$fetchEventsUCHash() => r'f195ba1526a55d0de4eec36a457443d1636bf50e';
-
-abstract class _$FetchEventsUC extends $AsyncNotifier<List<EventDTO>> {
-  FutureOr<List<EventDTO>> build();
-  @$mustCallSuper
-  @override
-  void runBuild() {
-    final created = build();
-    final ref = this.ref as $Ref<AsyncValue<List<EventDTO>>, List<EventDTO>>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<List<EventDTO>>, List<EventDTO>>,
-        AsyncValue<List<EventDTO>>,
-        Object?,
-        Object?>;
-    element.handleValue(ref, created);
-  }
-}
-
 @ProviderFor(FetchEventDetailUC)
 const fetchEventDetailUCProvider = FetchEventDetailUCFamily._();
 
@@ -93,7 +51,7 @@ final class FetchEventDetailUCProvider
 }
 
 String _$fetchEventDetailUCHash() =>
-    r'69b29b0099629706058f1fd0d59dd07b0f81fd8c';
+    r'38b5811c0fdeddd3572143fa4e404f9ca5dc1f07';
 
 final class FetchEventDetailUCFamily extends $Family
     with

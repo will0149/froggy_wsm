@@ -3,7 +3,7 @@ import 'package:parkea/app/themes/colors/colors.dart';
 
 import '../../../generated/l10n.dart';
 import '../../widgets/forms/auth/reset_password_confirm_form.dart';
-import '../../widgets/scaffolds/AuthScaffold.dart';
+import '../../widgets/scaffolds/auth_scaffold.dart';
 
 /// Made for parkea.
 /// By User: josedominguez

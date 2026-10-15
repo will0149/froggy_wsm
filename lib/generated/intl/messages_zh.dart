@@ -204,6 +204,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentsComingSoon": MessageLookupByLibrary.simpleMessage("即將開放付款"),
     "popularEvents": MessageLookupByLibrary.simpleMessage("流行的事件"),
     "preferences": MessageLookupByLibrary.simpleMessage("偏好設定"),
+    "pressBackToExit": MessageLookupByLibrary.simpleMessage("再按一次返回鍵即可離開"),
     "pricePositive": MessageLookupByLibrary.simpleMessage("價格必須大於 0"),
     "privacySubtitle": MessageLookupByLibrary.simpleMessage("隱私權政策與資料使用"),
     "profileUnavailable": MessageLookupByLibrary.simpleMessage("無法使用個人資料"),

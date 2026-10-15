@@ -3,7 +3,7 @@ import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/forms/auth/sign_in_form.dart';
 
 import '../../../generated/l10n.dart';
-import '../../widgets/scaffolds/AuthScaffold.dart';
+import '../../widgets/scaffolds/auth_scaffold.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

@@ -2,7 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/dtos/event_dto.dart';
 import '../../data/repositories/events_repository.dart';
-import '../../device/utils/loggerConfig.dart';
+import '../../device/utils/logger_config.dart';
 import 'auth/api_error_message.dart';
 import '../../generated/l10n.dart';
 
@@ -85,7 +85,7 @@ class EventFeedUC extends _$EventFeedUC {
       state = AsyncData(current.copyWith(
         isLoadingMore: false,
         loadMoreError: () =>
-            e is FeedException ? e.message : connectionErrorMessage,
+            e is ApiException ? e.message : connectionErrorMessage,
       ));
     }
   }
@@ -99,10 +99,8 @@ class EventFeedUC extends _$EventFeedUC {
     if (status == 404 && page > 1) {
       return (events: <EventDTO>[], nextPage: null);
     }
-    if (status == timeoutStatus) throw FeedException(connectionErrorMessage);
     if (status != 200 || body is! Map<String, dynamic>) {
-      throw FeedException(
-          apiErrorMessage(body) ?? S.current.errLoadEvents);
+      throw ApiException.from(result, S.current.errLoadEvents);
     }
     final results = body['results'];
     return (
@@ -119,13 +117,4 @@ class EventFeedUC extends _$EventFeedUC {
       },
     );
   }
-}
-
-class FeedException implements Exception {
-  final String message;
-
-  FeedException(this.message);
-
-  @override
-  String toString() => message;
 }

@@ -308,6 +308,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "popularEvents": MessageLookupByLibrary.simpleMessage("Eventos Populares"),
     "preferences": MessageLookupByLibrary.simpleMessage("Preferências"),
+    "pressBackToExit": MessageLookupByLibrary.simpleMessage(
+      "Pressione voltar novamente para sair",
+    ),
     "pricePositive": MessageLookupByLibrary.simpleMessage(
       "O preço deve ser maior que 0",
     ),

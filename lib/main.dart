@@ -40,7 +40,13 @@ void main() async {
   ]);
 
   GoRouter.optionURLReflectsImperativeAPIs = true;
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(ProviderScope(
+    // Sin reintentos automáticos (Riverpod 3 los hace con backoff y mientras
+    // tanto el provider sigue cargando): el error se muestra enseguida y cada
+    // pantalla ofrece "Reintentar".
+    retry: (_, __) => null,
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends ConsumerStatefulWidget {

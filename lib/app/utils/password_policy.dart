@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 
-import '../../device/utils/loggerConfig.dart';
+import '../../device/utils/logger_config.dart';
 
 /// Made for parkea.
 /// By User: josedominguez

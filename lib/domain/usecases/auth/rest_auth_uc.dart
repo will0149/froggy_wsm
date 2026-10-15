@@ -7,7 +7,7 @@ import '../../../data/entities/auth/register_dto.dart' show RegisterDto;
 import '../../../data/entities/login_dto.dart';
 import '../../../data/repositories/auth/auth_repository.dart';
 import '../../../device/utils/is_first_run.dart';
-import '../../../device/utils/loggerConfig.dart';
+import '../../../device/utils/logger_config.dart';
 import '../../../data/repositories/utils/build_header_utils.dart';
 import '../../../data/repositories/utils/impl/build_headers_utils_impl.dart';
 import 'api_error_message.dart';
@@ -140,8 +140,7 @@ class RestAuthUC extends _$RestAuthUC {
       final status = result['status'];
       if (status == timeoutStatus) return connectionErrorMessage;
       if (status != 200) {
-        return apiErrorMessage(result['body']) ??
-            S.current.avatarUploadFailed;
+        return apiErrorMessage(result['body']) ?? S.current.avatarUploadFailed;
       }
     } on Exception catch (e) {
       logger.e(e.toString());

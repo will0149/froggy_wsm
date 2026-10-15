@@ -7,8 +7,27 @@ import '../../../generated/l10n.dart';
 
 String get connectionErrorMessage => S.current.errConnection;
 
-/// El cliente HTTP convierte un timeout en `{"status": 408}`.
+/// El cliente HTTP convierte un timeout o un fallo de red en
+/// `{"status": 408}`.
 const timeoutStatus = 408;
+
+/// Error de una petición, con el mensaje listo para mostrar al usuario
+/// (`toString` no le agrega el prefijo "Exception:").
+class ApiException implements Exception {
+  final String message;
+
+  const ApiException(this.message);
+
+  /// Desde una respuesta fallida: error de conexión, mensaje del API o
+  /// [fallback].
+  factory ApiException.from(Map<String, dynamic> result, String fallback) =>
+      ApiException(result['status'] == timeoutStatus
+          ? connectionErrorMessage
+          : apiErrorMessage(result['body']) ?? fallback);
+
+  @override
+  String toString() => message;
+}
 
 /// Primer mensaje de un error del API. Llegan como
 /// `{ "<campo>": ["msg", ...] }` o `{ "detail": "msg" }`.

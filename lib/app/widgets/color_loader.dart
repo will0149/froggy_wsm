@@ -11,7 +11,7 @@ class ColorLoader extends StatefulWidget {
   const ColorLoader({super.key, this.color1 = Colors.deepOrangeAccent, this.color2 = Colors.yellow, this.color3 = Colors.lightGreen});
 
   @override
-  _ColorLoaderState createState() => _ColorLoaderState();
+  State<ColorLoader> createState() => _ColorLoaderState();
 }
 
 class _ColorLoaderState extends State<ColorLoader> with TickerProviderStateMixin {

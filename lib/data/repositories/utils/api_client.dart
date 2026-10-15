@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../../../device/utils/loggerConfig.dart';
+import '../../../device/utils/logger_config.dart';
+import '../../constants.dart';
 import '../auth/auth_repository.dart';
 import 'build_header_utils.dart';
 import 'http_common_utils.dart';
@@ -53,11 +54,17 @@ class ApiClient {
   /// Envía con el access token; si expiró, renueva una vez y reintenta.
   Future<Map<String, dynamic>> _authorized(
       Future<http.Response> Function(Map<String, String> headers) send) async {
-    var json = decode(await send(await headersUtils.headers()));
-    if (isTokenNotValid(json) && await refreshToken()) {
-      json = decode(await send(await headersUtils.headers()));
+    try {
+      var json = decode(await send(await headersUtils.headers()));
+      if (isTokenNotValid(json) && await refreshToken()) {
+        json = decode(await send(await headersUtils.headers()));
+      }
+      return json;
+    } on http.ClientException catch (e) {
+      // Sin red o conexión cortada: se trata igual que un timeout.
+      logger.e(e.toString());
+      return Map.of(defaultTimeOutResponse);
     }
-    return json;
   }
 
   static bool isTokenNotValid(Map<String, dynamic> json) {

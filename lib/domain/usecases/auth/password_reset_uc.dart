@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../data/repositories/auth/auth_repository.dart';
-import '../../../device/utils/loggerConfig.dart';
+import '../../../device/utils/logger_config.dart';
 import 'api_error_message.dart';
 import '../../../generated/l10n.dart';
 

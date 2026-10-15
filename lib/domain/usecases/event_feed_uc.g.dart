@@ -68,7 +68,7 @@ final class EventFeedUCProvider
   }
 }
 
-String _$eventFeedUCHash() => r'a2b9d31481c0b85c3af1a696d6cf1d209d031544';
+String _$eventFeedUCHash() => r'6b3efbfdc8cf19cb51945ebe24e392ee10eca8f1';
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
 /// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por

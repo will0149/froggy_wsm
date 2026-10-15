@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/repositories/events_repository.dart';
-import '../../device/utils/loggerConfig.dart';
+import '../../device/utils/logger_config.dart';
 import 'auth/api_error_message.dart';
 import 'event_feed_uc.dart';
 import 'fetch_events_uc.dart';

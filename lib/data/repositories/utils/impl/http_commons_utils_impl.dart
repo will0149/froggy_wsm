@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../device/utils/loggerConfig.dart';
+import '../../../../device/utils/logger_config.dart';
 import '../../../constants.dart';
 import '../http_common_utils.dart';
 

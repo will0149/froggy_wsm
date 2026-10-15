@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -64,24 +65,20 @@ class _EventFeedCardState extends State<EventFeedCard> {
           height: widget.height,
           margin: const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
-            image: DecorationImage(
-              opacity: 0.9,
-              fit: BoxFit.fill,
-              image: Image.network(
-                widget.event.bannerImageUrl.toString(),
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) {
-                    return child;
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    );
-                  }
-                },
-                errorBuilder: (context, exception, stackTrace) =>
-                    const Text('😢'),
-              ).image,
+            // Sin banner, el mismo degradado que el detalle.
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [parkeaBlueAccent, parkeaDarkBlueAccent],
             ),
+            image: switch (widget.event.bannerImageUrl) {
+              final url? when url.isNotEmpty => DecorationImage(
+                  opacity: 0.9,
+                  fit: BoxFit.fill,
+                  image: CachedNetworkImageProvider(url),
+                ),
+              _ => null,
+            },
             borderRadius: BorderRadius.circular(15.0),
           ),
           child: Stack(

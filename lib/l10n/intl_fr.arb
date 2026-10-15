@@ -248,5 +248,6 @@
   "slideCelebrateText": "Inscris-toi en un geste et garde tes tickets avec toi.",
   "slideRelaxTitle": "Détends-toi bien entouré",
   "slideRelaxText": "Crée tes propres événements et touche plus de monde.",
-  "getStarted": "Commencer"
+  "getStarted": "Commencer",
+  "pressBackToExit": "Appuie à nouveau sur Retour pour quitter"
 }

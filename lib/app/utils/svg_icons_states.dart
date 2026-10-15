@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
 
-import '../../domain/providers/app_theme_provider.dart';
 
 class SvgIconsStates extends ConsumerStatefulWidget {
   final bool isActive;

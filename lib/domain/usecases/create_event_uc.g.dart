@@ -39,7 +39,7 @@ final class CreateEventUCProvider
   CreateEventUC create() => CreateEventUC();
 }
 
-String _$createEventUCHash() => r'92e0fc5230de6f882d6c8b109996561abf82635a';
+String _$createEventUCHash() => r'ad58d4939ad5271d444a213052c0dc5fa2a08c86';
 
 /// Formulario de eventos: crea (cuenta verificada) o edita uno propio y luego
 /// sube su banner. El estado solo indica si hay una petición en curso.

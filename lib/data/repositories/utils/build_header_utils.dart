@@ -1,6 +1,7 @@
 /// Made for parkea.
 /// By User: josedominguez
 /// Date: 06/14/25
+library;
 
 abstract class BuildHeadersUtils {
   Future<Map<String, String>> headers();

@@ -1,4 +1,4 @@
-import '../../device/utils/loggerConfig.dart';
+import '../../device/utils/logger_config.dart';
 import 'auth/api_error_message.dart';
 
 /// Made for parkea.
@@ -19,9 +19,8 @@ Future<List<T>> fetchAllPages<T>(
     final result = await fetchPage(page);
     final status = result['status'];
     final body = result['body'];
-    if (status == timeoutStatus) throw Exception(connectionErrorMessage);
     if (status != 200 || body is! Map<String, dynamic>) {
-      throw Exception(apiErrorMessage(body) ?? errorMessage);
+      throw ApiException.from(result, errorMessage);
     }
     final results = body['results'];
     if (results is List) {

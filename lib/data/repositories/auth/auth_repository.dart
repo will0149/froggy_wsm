@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:parkea/data/entities/auth/register_dto.dart';
-import 'package:parkea/device/utils/loggerConfig.dart';
+import 'package:parkea/device/utils/logger_config.dart';
 
 import '../utils/api_client.dart';
 import '../utils/build_header_utils.dart';
