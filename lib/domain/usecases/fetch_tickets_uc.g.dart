@@ -39,7 +39,7 @@ final class MyTicketsUCProvider
   MyTicketsUC create() => MyTicketsUC();
 }
 
-String _$myTicketsUCHash() => r'180b28509e0641e3a43e7cb2e74cd546944b005b';
+String _$myTicketsUCHash() => r'ee2b1b44a6eb59d733a474b9a140a66b755c58ad';
 
 /// Tickets del usuario. El API no filtra próximos/pasados: se separan aquí
 /// por la fecha del evento.

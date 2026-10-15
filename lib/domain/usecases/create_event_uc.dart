@@ -4,6 +4,8 @@ import '../../data/repositories/events_repository.dart';
 import '../../device/utils/loggerConfig.dart';
 import 'auth/api_error_message.dart';
 import 'event_feed_uc.dart';
+import 'fetch_events_uc.dart';
+import 'fetch_tickets_uc.dart';
 import 'owner_events_uc.dart';
 
 /// Made for parkea.
@@ -21,8 +23,8 @@ typedef CreateEventResult = ({
   bool bannerFailed,
 });
 
-/// Crea un evento (cuenta verificada) y luego sube su banner. El estado solo
-/// indica si hay una petición en curso.
+/// Formulario de eventos: crea (cuenta verificada) o edita uno propio y luego
+/// sube su banner. El estado solo indica si hay una petición en curso.
 @riverpod
 class CreateEventUC extends _$CreateEventUC {
   final EventRepository repository = EventRepository();
@@ -43,11 +45,47 @@ class CreateEventUC extends _$CreateEventUC {
     return result;
   }
 
+  /// Cambia solo los campos de [fields]; los que el formulario no tiene
+  /// (dirección, coordenadas…) se conservan.
+  Future<CreateEventResult> updateEvent(
+      int eventId, Map<String, dynamic> fields,
+      {String? bannerPath}) async {
+    state = const AsyncValue.loading();
+    final result = await _send(
+      () => repository.updateEvent(eventId, fields),
+      successStatus: 200,
+      bannerPath: bannerPath,
+      errorMessage: 'No se pudo guardar el evento',
+    );
+    if (ref.mounted) state = const AsyncValue.data(null);
+    if (result.eventId != null) {
+      ref.invalidate(eventFeedUCProvider);
+      ref.invalidate(ownerEventsUCProvider);
+      ref.invalidate(fetchEventDetailUCProvider(eventId));
+      // Los tickets incluyen el evento.
+      ref.invalidate(myTicketsUCProvider);
+    }
+    return result;
+  }
+
   Future<CreateEventResult> _create(
-      Map<String, dynamic> event, String? bannerPath) async {
+          Map<String, dynamic> event, String? bannerPath) =>
+      _send(
+        () => repository.createEvent(event),
+        successStatus: 201,
+        bannerPath: bannerPath,
+        errorMessage: 'No se pudo crear el evento',
+      );
+
+  Future<CreateEventResult> _send(
+    Future<Map<String, dynamic>> Function() request, {
+    required int successStatus,
+    required String? bannerPath,
+    required String errorMessage,
+  }) async {
     final Map<String, dynamic> result;
     try {
-      result = await repository.createEvent(event);
+      result = await request();
     } on Exception catch (e) {
       logger.e(e.toString());
       return _failure(connectionErrorMessage);
@@ -55,12 +93,14 @@ class CreateEventUC extends _$CreateEventUC {
     final status = result['status'];
     final body = result['body'];
     if (status == timeoutStatus) return _failure(connectionErrorMessage);
-    if (status != 201 || body is! Map<String, dynamic> || body['id'] is! int) {
+    if (status != successStatus ||
+        body is! Map<String, dynamic> ||
+        body['id'] is! int) {
       final fieldErrors = apiFieldErrors(body);
       return _failure(
         fieldErrors.isNotEmpty
             ? 'Revisa los campos marcados'
-            : apiErrorMessage(body) ?? 'No se pudo crear el evento',
+            : apiErrorMessage(body) ?? errorMessage,
         fieldErrors: fieldErrors,
       );
     }
@@ -87,5 +127,10 @@ class CreateEventUC extends _$CreateEventUC {
 
   CreateEventResult _failure(String error,
           {Map<String, List<String>> fieldErrors = const {}}) =>
-      (eventId: null, error: error, fieldErrors: fieldErrors, bannerFailed: false);
+      (
+        eventId: null,
+        error: error,
+        fieldErrors: fieldErrors,
+        bannerFailed: false
+      );
 }

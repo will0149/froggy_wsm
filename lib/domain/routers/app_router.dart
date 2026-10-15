@@ -93,6 +93,14 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const CreateEventPage(),
       ),
+      GoRoute(
+        name: EditEventPage.routeName,
+        path: EditEventPage.routeLocation,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => EditEventPage(
+          eventId: int.parse(state.pathParameters['id']!),
+        ),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             NavigatorBar(navigationShell: navigationShell),

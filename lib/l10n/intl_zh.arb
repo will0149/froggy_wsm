@@ -151,5 +151,13 @@
   "accessCodeHint": "這是私人活動。請輸入主辦方提供的代碼。",
   "accessCodeRequired": "請輸入代碼",
   "invalidAccessCode": "存取碼無效",
-  "cancel": "取消"
+  "cancel": "取消",
+  "editEvent": "編輯活動",
+  "saveChanges": "儲存變更",
+  "eventUpdated": "活動已更新",
+  "deleteEvent": "刪除活動",
+  "deleteEventConfirm": "所有報名也會一併刪除，此操作無法復原。",
+  "eventDeleted": "活動已刪除",
+  "accessCodeOwnerHint": "分享給你的來賓，讓他們可以報名。",
+  "codeCopied": "代碼已複製"
 }

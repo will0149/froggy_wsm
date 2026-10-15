@@ -57,6 +57,17 @@ class EventRepository {
   Future<Map<String, dynamic>> createEvent(Map<String, dynamic> event) =>
       apiClient.postAuthorized(ApiPathsEnums.eventCreate.uri, event);
 
+  /// PATCH: solo cambia los campos enviados. 200 con el evento (incluye
+  /// `otp`); los eventos ajenos responden 404.
+  Future<Map<String, dynamic>> updateEvent(
+          int eventId, Map<String, dynamic> fields) =>
+      apiClient.patchAuthorized(
+          ApiPathsEnums.eventUpdate.uriWithId(eventId), fields);
+
+  /// 204; borra también sus tickets y el banner.
+  Future<Map<String, dynamic>> deleteEvent(int eventId) =>
+      apiClient.deleteAuthorized(ApiPathsEnums.eventDelete.uriWithId(eventId));
+
   Future<Map<String, dynamic>> uploadBanner(int eventId, String filePath) =>
       apiClient.putFileAuthorized(
           ApiPathsEnums.eventUpdateImage.uriWithId(eventId),

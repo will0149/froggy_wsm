@@ -151,5 +151,13 @@
   "accessCodeHint": "Cet événement est privé. Saisis le code fourni par l'organisateur.",
   "accessCodeRequired": "Saisis le code",
   "invalidAccessCode": "Code d'accès invalide",
-  "cancel": "Annuler"
+  "cancel": "Annuler",
+  "editEvent": "Modifier l'événement",
+  "saveChanges": "Enregistrer",
+  "eventUpdated": "Événement mis à jour",
+  "deleteEvent": "Supprimer l'événement",
+  "deleteEventConfirm": "Toutes les inscriptions seront aussi supprimées. Cette action est irréversible.",
+  "eventDeleted": "Événement supprimé",
+  "accessCodeOwnerHint": "Partage-le avec tes invités pour qu'ils puissent s'inscrire.",
+  "codeCopied": "Code copié"
 }

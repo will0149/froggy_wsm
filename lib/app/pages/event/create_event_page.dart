@@ -1,12 +1,15 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
+import '../../../data/dtos/event_dto.dart';
 import '../../../domain/usecases/create_event_uc.dart';
+import '../../../domain/usecases/fetch_events_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/colors.dart';
 import '../../utils/form_validators.dart';
@@ -17,13 +20,16 @@ import 'event_detail_page.dart';
 /// Date: 10/13/26
 
 /// Creación de eventos, solo para cuentas verificadas (botón "+" de la
-/// barra inferior).
+/// barra inferior), o edición de uno propio si se pasa [event].
 class CreateEventPage extends ConsumerStatefulWidget {
   static String get routeName => 'createEvent';
 
   static String get routeLocation => '/events/new';
 
-  const CreateEventPage({super.key});
+  /// Evento a editar; null para crear uno nuevo.
+  final EventDTO? event;
+
+  const CreateEventPage({super.key, this.event});
 
   @override
   ConsumerState<CreateEventPage> createState() => _CreateEventPageState();
@@ -49,6 +55,32 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
 
   /// Errores del API por campo; se borran al editar el campo.
   Map<String, List<String>> _apiErrors = const {};
+
+  bool get _isEditing => widget.event != null;
+
+  /// Fecha original al editar: un evento ya pasado se puede guardar sin
+  /// cambiarla.
+  DateTime? _originalDate;
+
+  @override
+  void initState() {
+    super.initState();
+    final event = widget.event;
+    if (event == null) return;
+    _name.text = event.eventName ?? '';
+    _shortDescription.text = event.shortDescription ?? '';
+    _description.text = event.description ?? '';
+    _place.text = event.location?.place ?? '';
+    _date = _originalDate = DateTime.tryParse(event.date ?? '')?.toLocal();
+    _category = _categories.contains(event.category) ? event.category : null;
+    if (_costTypes.contains(event.eventType)) _costType = event.eventType!;
+    if (event.amount case final amount? when _costType == 'PAID') {
+      final price = double.tryParse(amount.price);
+      if (price != null) _price.text = NumberFormat('0.##').format(price);
+      _currency.text = amount.currency;
+    }
+    if (event.capacity case final capacity?) _capacity.text = '$capacity';
+  }
 
   @override
   void dispose() {
@@ -108,33 +140,43 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
     if (!_formKey.currentState!.validate()) return;
     final paid = _costType == 'PAID';
     final capacity = _capacity.text.trim();
-    final result = await ref.read(createEventUCProvider.notifier).create(
-      {
-        'name': _name.text.trim(),
-        'short_description': _shortDescription.text.trim(),
-        'description': _description.text.trim(),
+    final fields = {
+      'name': _name.text.trim(),
+      'short_description': _shortDescription.text.trim(),
+      'description': _description.text.trim(),
+      // Al editar solo se envía si cambió: el API compara con la guardada,
+      // que puede tener microsegundos.
+      if (_date != _originalDate)
         'event_date': _date!.toUtc().toIso8601String(),
-        'place': _place.text.trim(),
-        'category': _category,
-        'cost_type': _costType,
-        if (paid) 'price': _price.text.trim().replaceAll(',', '.'),
-        if (paid) 'currency': _currency.text.trim().toUpperCase(),
-        'capacity': capacity.isEmpty ? null : int.parse(capacity),
-      },
-      bannerPath: _banner?.path,
-    );
+      'place': _place.text.trim(),
+      'category': _category,
+      'cost_type': _costType,
+      if (paid) 'price': _price.text.trim().replaceAll(',', '.'),
+      if (paid) 'currency': _currency.text.trim().toUpperCase(),
+      'capacity': capacity.isEmpty ? null : int.parse(capacity),
+    };
+    final useCase = ref.read(createEventUCProvider.notifier);
+    final result = _isEditing
+        ? await useCase.updateEvent(int.parse(widget.event!.id!), fields,
+            bannerPath: _banner?.path)
+        : await useCase.create(fields, bannerPath: _banner?.path);
     if (!mounted) return;
     final s = S.of(context);
     final messenger = ScaffoldMessenger.of(context);
     if (result.eventId case final id?) {
       messenger.showSnackBar(SnackBar(
-        content: Text(
-            result.bannerFailed ? s.bannerUploadFailed : s.eventCreated),
+        content: Text(result.bannerFailed
+            ? s.bannerUploadFailed
+            : _isEditing
+                ? s.eventUpdated
+                : s.eventCreated),
       ));
       final router = GoRouter.of(context);
       router.pop();
-      router.pushNamed(EventDetailPage.routeName,
-          pathParameters: {'id': '$id'});
+      if (!_isEditing) {
+        router.pushNamed(EventDetailPage.routeName,
+            pathParameters: {'id': '$id'});
+      }
     } else {
       setState(() => _apiErrors = result.fieldErrors);
       messenger
@@ -150,11 +192,21 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
   Widget build(BuildContext context) {
     final s = S.of(context);
     final isLoading = ref.watch(createEventUCProvider).isLoading;
-    final categoryLabels = [s.catMusic, s.catCamping, s.catAdventure, s.catWorkshops];
-    final costLabels = [s.costFree, s.costPaid, s.costInvitation, s.costPrivate];
+    final categoryLabels = [
+      s.catMusic,
+      s.catCamping,
+      s.catAdventure,
+      s.catWorkshops
+    ];
+    final costLabels = [
+      s.costFree,
+      s.costPaid,
+      s.costInvitation,
+      s.costPrivate
+    ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(s.createEvent)),
+      appBar: AppBar(title: Text(_isEditing ? s.editEvent : s.createEvent)),
       body: Form(
         key: _formKey,
         child: ListView(
@@ -162,6 +214,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
           children: [
             _BannerPicker(
               banner: _banner,
+              currentUrl: widget.event?.bannerImageUrl,
               addLabel: s.addBanner,
               changeLabel: s.changeBanner,
               onTap: isLoading ? null : _pickBanner,
@@ -195,7 +248,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
               forceErrorText: _apiError('event_date'),
               validator: (_) => _date == null
                   ? s.fieldRequired
-                  : _date!.isAfter(DateTime.now())
+                  : _date!.isAfter(DateTime.now()) || _date == _originalDate
                       ? null
                       : s.dateMustBeFuture,
               builder: (field) => InkWell(
@@ -288,10 +341,10 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                         ),
                         forceErrorText: _apiError('currency'),
                         onChanged: (_) => _clearApiError('currency'),
-                        validator: (value) =>
-                            RegExp(r'^[A-Za-z]{3}$').hasMatch(value?.trim() ?? '')
-                                ? null
-                                : s.invalidCurrency,
+                        validator: (value) => RegExp(r'^[A-Za-z]{3}$')
+                                .hasMatch(value?.trim() ?? '')
+                            ? null
+                            : s.invalidCurrency,
                       ),
                     ),
                   ],
@@ -328,7 +381,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                         child: CircularProgressIndicator(
                             strokeWidth: 2, color: Colors.white),
                       )
-                    : Text(s.publishEvent),
+                    : Text(_isEditing ? s.saveChanges : s.publishEvent),
               ),
             ),
           ],
@@ -341,12 +394,16 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
 /// Imagen cuadrada del evento (el feed la muestra 1:1).
 class _BannerPicker extends StatelessWidget {
   final XFile? banner;
+
+  /// Banner actual del evento que se edita.
+  final String? currentUrl;
   final String addLabel;
   final String changeLabel;
   final VoidCallback? onTap;
 
   const _BannerPicker({
     required this.banner,
+    this.currentUrl,
     required this.addLabel,
     required this.changeLabel,
     required this.onTap,
@@ -355,6 +412,7 @@ class _BannerPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final hasImage = banner != null || currentUrl != null;
     return AspectRatio(
       aspectRatio: 1,
       child: ClipRRect(
@@ -367,16 +425,17 @@ class _BannerPicker extends StatelessWidget {
               fit: StackFit.expand,
               children: [
                 if (banner != null)
-                  Image.file(File(banner!.path), fit: BoxFit.cover),
+                  Image.file(File(banner!.path), fit: BoxFit.cover)
+                else if (currentUrl != null)
+                  CachedNetworkImage(imageUrl: currentUrl!, fit: BoxFit.cover),
                 Align(
-                  alignment: banner == null
-                      ? Alignment.center
-                      : Alignment.bottomRight,
+                  alignment:
+                      hasImage ? Alignment.bottomRight : Alignment.center,
                   child: Padding(
                     padding: const EdgeInsets.all(12),
                     child: Chip(
                       avatar: const Icon(Icons.photo_library, size: 18),
-                      label: Text(banner == null ? addLabel : changeLabel),
+                      label: Text(hasImage ? changeLabel : addLabel),
                     ),
                   ),
                 ),
@@ -386,5 +445,31 @@ class _BannerPicker extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+/// Edición de un evento propio. Carga el evento por id para que la ruta no
+/// dependa de pasarle el objeto.
+class EditEventPage extends ConsumerWidget {
+  static String get routeName => 'editEvent';
+
+  static String get routeLocation => '/events/:id/edit';
+
+  final int eventId;
+
+  const EditEventPage({super.key, required this.eventId});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return switch (ref.watch(fetchEventDetailUCProvider(eventId))) {
+      AsyncValue(:final value?) => CreateEventPage(event: value),
+      AsyncError(:final error) => Scaffold(
+          appBar: AppBar(),
+          body: Center(child: Text('$error')),
+        ),
+      _ => const Scaffold(
+          body: Center(child: CircularProgressIndicator.adaptive()),
+        ),
+    };
   }
 }

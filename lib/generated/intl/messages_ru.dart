@@ -35,6 +35,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "accessCodeHint": MessageLookupByLibrary.simpleMessage(
       "Это закрытое событие. Введите код, который дал организатор.",
     ),
+    "accessCodeOwnerHint": MessageLookupByLibrary.simpleMessage(
+      "Поделитесь им с гостями, чтобы они могли записаться.",
+    ),
     "accessCodeRequired": MessageLookupByLibrary.simpleMessage("Введите код"),
     "addBanner": MessageLookupByLibrary.simpleMessage("Добавить изображение"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Аутентифицировать"),
@@ -63,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "changeBanner": MessageLookupByLibrary.simpleMessage("Сменить изображение"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Изменить пароль"),
     "changePhoto": MessageLookupByLibrary.simpleMessage("Сменить фото"),
+    "codeCopied": MessageLookupByLibrary.simpleMessage("Код скопирован"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Подтвердите пароль",
     ),
@@ -81,8 +85,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "dateMustBeFuture": MessageLookupByLibrary.simpleMessage(
       "Дата должна быть в будущем",
     ),
+    "deleteEvent": MessageLookupByLibrary.simpleMessage("Удалить событие"),
+    "deleteEventConfirm": MessageLookupByLibrary.simpleMessage(
+      "Все записи тоже будут удалены. Это действие нельзя отменить.",
+    ),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
     "downloadTicket": MessageLookupByLibrary.simpleMessage("Скачать билет"),
+    "editEvent": MessageLookupByLibrary.simpleMessage("Редактировать событие"),
     "email": MessageLookupByLibrary.simpleMessage("Эл. адрес"),
     "enroll": MessageLookupByLibrary.simpleMessage("Записаться"),
     "enrolledOn": m0,
@@ -94,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventCreated": MessageLookupByLibrary.simpleMessage("Событие создано"),
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Валюта"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Дата и время"),
+    "eventDeleted": MessageLookupByLibrary.simpleMessage("Событие удалено"),
     "eventDescription": MessageLookupByLibrary.simpleMessage("Описание"),
     "eventFinished": MessageLookupByLibrary.simpleMessage("Событие завершено"),
     "eventLocation": MessageLookupByLibrary.simpleMessage("Место"),
@@ -103,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventShortDescription": MessageLookupByLibrary.simpleMessage(
       "Краткое описание",
     ),
+    "eventUpdated": MessageLookupByLibrary.simpleMessage("Событие обновлено"),
     "eventsForAll": MessageLookupByLibrary.simpleMessage("События для всех"),
     "eventsForYou": MessageLookupByLibrary.simpleMessage("События для тебя"),
     "feedEmpty": MessageLookupByLibrary.simpleMessage("Пока нет событий"),
@@ -208,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "retry": MessageLookupByLibrary.simpleMessage("Повторить"),
+    "saveChanges": MessageLookupByLibrary.simpleMessage("Сохранить изменения"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("сохранить событие"),
     "searchEvents": MessageLookupByLibrary.simpleMessage("Поиск занятий"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("Показать событие"),

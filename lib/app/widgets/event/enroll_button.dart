@@ -68,7 +68,7 @@ class _EnrollButtonState extends ConsumerState<EnrollButton> {
     final event = widget.event;
     final date = DateTime.tryParse(event.date ?? '');
     if (date != null && date.isBefore(DateTime.now())) return s.eventFinished;
-    if (username != null && event.eventOwner == username) return s.ownEvent;
+    if (event.isOwnedBy(username)) return s.ownEvent;
     if (event.eventType == 'INVITATION') return s.invitationOnly;
     if (event.availableSpots == 0) return s.soldOut;
     if (event.eventType == 'PAID') return s.paymentsComingSoon;

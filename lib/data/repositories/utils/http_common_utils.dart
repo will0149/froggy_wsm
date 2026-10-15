@@ -8,6 +8,8 @@ abstract class HttpCommonUtils {
   Future<http.Response> post(
       {required Uri uri, String? body, required Map<String, String> headers});
   Future<http.Response> get({required Uri uri, required Map<String, String> headers});
+  Future<http.Response> patch(
+      {required Uri uri, String? body, required Map<String, String> headers});
   Future<http.Response> delete(
       {required Uri uri, required Map<String, String> headers});
   /// Sube el archivo en [filePath] como el campo [field] de un multipart.

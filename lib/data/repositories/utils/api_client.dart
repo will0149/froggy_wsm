@@ -38,6 +38,10 @@ class ApiClient {
       _authorized((headers) => httpCommonUtils.post(
           uri: uri, body: jsonEncode(body), headers: headers));
 
+  Future<Map<String, dynamic>> patchAuthorized(Uri uri, Object body) =>
+      _authorized((headers) => httpCommonUtils.patch(
+          uri: uri, body: jsonEncode(body), headers: headers));
+
   Future<Map<String, dynamic>> deleteAuthorized(Uri uri) => _authorized(
       (headers) => httpCommonUtils.delete(uri: uri, headers: headers));
 

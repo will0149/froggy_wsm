@@ -59,6 +59,20 @@ class HttpCommonUtilsImpl implements HttpCommonUtils {
   }
 
   @override
+  Future<http.Response> patch(
+      {required Uri uri,
+      String? body,
+      required Map<String, String> headers}) async {
+    logger.t(uri);
+    if (body != null) logger.i(jsonDecode(body));
+    return await client.patch(uri, body: body, headers: headers).timeout(
+          const Duration(seconds: timeOutSecs),
+          onTimeout: () =>
+              http.Response(jsonEncode(defaultTimeOutResponse), 408),
+        );
+  }
+
+  @override
   Future<http.Response> delete(
       {required Uri uri, required Map<String, String> headers}) async {
     logger.t(uri);

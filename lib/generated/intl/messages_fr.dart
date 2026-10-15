@@ -37,6 +37,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "accessCodeHint": MessageLookupByLibrary.simpleMessage(
       "Cet événement est privé. Saisis le code fourni par l\'organisateur.",
     ),
+    "accessCodeOwnerHint": MessageLookupByLibrary.simpleMessage(
+      "Partage-le avec tes invités pour qu\'ils puissent s\'inscrire.",
+    ),
     "accessCodeRequired": MessageLookupByLibrary.simpleMessage(
       "Saisis le code",
     ),
@@ -69,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Changer le mot de passe",
     ),
     "changePhoto": MessageLookupByLibrary.simpleMessage("Changer la photo"),
+    "codeCopied": MessageLookupByLibrary.simpleMessage("Code copié"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Confirmer le mot de passe",
     ),
@@ -87,10 +91,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "dateMustBeFuture": MessageLookupByLibrary.simpleMessage(
       "La date doit être dans le futur",
     ),
+    "deleteEvent": MessageLookupByLibrary.simpleMessage(
+      "Supprimer l\'événement",
+    ),
+    "deleteEventConfirm": MessageLookupByLibrary.simpleMessage(
+      "Toutes les inscriptions seront aussi supprimées. Cette action est irréversible.",
+    ),
     "devStudio": MessageLookupByLibrary.simpleMessage("Studios Atheneox"),
     "downloadTicket": MessageLookupByLibrary.simpleMessage(
       "Télécharger le billet",
     ),
+    "editEvent": MessageLookupByLibrary.simpleMessage("Modifier l\'événement"),
     "email": MessageLookupByLibrary.simpleMessage("E-mail"),
     "enroll": MessageLookupByLibrary.simpleMessage("M\'inscrire"),
     "enrolledOn": m0,
@@ -102,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventCreated": MessageLookupByLibrary.simpleMessage("Événement créé"),
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Devise"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Date et heure"),
+    "eventDeleted": MessageLookupByLibrary.simpleMessage("Événement supprimé"),
     "eventDescription": MessageLookupByLibrary.simpleMessage("Description"),
     "eventFinished": MessageLookupByLibrary.simpleMessage("Événement terminé"),
     "eventLocation": MessageLookupByLibrary.simpleMessage("Lieu"),
@@ -110,6 +122,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventPrice": MessageLookupByLibrary.simpleMessage("Prix"),
     "eventShortDescription": MessageLookupByLibrary.simpleMessage(
       "Description courte",
+    ),
+    "eventUpdated": MessageLookupByLibrary.simpleMessage(
+      "Événement mis à jour",
     ),
     "eventsForAll": MessageLookupByLibrary.simpleMessage(
       "Événements pour tous",
@@ -222,6 +237,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "retry": MessageLookupByLibrary.simpleMessage("Réessayer"),
+    "saveChanges": MessageLookupByLibrary.simpleMessage("Enregistrer"),
     "saveEvent": MessageLookupByLibrary.simpleMessage(
       "Enregistrer l\'événement",
     ),

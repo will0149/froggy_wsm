@@ -5,12 +5,14 @@ import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/banners/detail_image_banner.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/domain/usecases/fetch_events_uc.dart';
+import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 import 'package:parkea/domain/usecases/fetch_tickets_uc.dart';
 import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../generated/l10n.dart';
 import '../../utils/event_format.dart';
 import '../../widgets/event/enroll_button.dart';
 import '../../widgets/event/event_location_card.dart';
+import '../../widgets/event/owner_event_actions.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -40,6 +42,8 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
   @override
   Widget build(BuildContext context) {
     final eventDetail = ref.watch(fetchEventDetailUCProvider(widget.eventId));
+    final ownEvent = eventDetail.value;
+    final isOwner = ownEvent?.isOwnedBy(_username) ?? false;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -57,6 +61,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
           ),
         ),
         actions: [
+          if (isOwner) DeleteEventButton(event: ownEvent!),
           Container(
             margin: const EdgeInsets.all(8.0),
             decoration: const BoxDecoration(
@@ -81,7 +86,10 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
     );
   }
 
+  String? get _username => ref.watch(restAuthUCProvider).value?.user?.username;
+
   Widget _buildEventContent(EventDTO event, BuildContext context) {
+    final isOwner = event.isOwnedBy(_username);
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
@@ -95,6 +103,8 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
             ],
           ),
         ),
+        if (isOwner && event.eventType == 'PRIVATE')
+          SliverToBoxAdapter(child: AccessCodeCard(event: event)),
         if (EventLocationCard.hasLocation(event))
           SliverToBoxAdapter(child: EventLocationCard(event: event)),
         const SliverToBoxAdapter(
@@ -126,7 +136,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
   Widget _buildEventCard(EventDTO event, BuildContext context) {
     final locale = Localizations.localeOf(context);
     final theme = Theme.of(context);
-    
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: BoxDecoration(
@@ -208,9 +218,9 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
                     ),
                     Text(
                       switch (DateTime.tryParse(event.date ?? '')) {
-                        final date? => DateFormat(
-                                'EEEE d MMMM y · HH:mm', locale.toString())
-                            .format(date.toLocal()),
+                        final date? =>
+                          DateFormat('EEEE d MMMM y · HH:mm', locale.toString())
+                              .format(date.toLocal()),
                         null => '',
                       },
                       style: theme.textTheme.bodyMedium?.copyWith(
@@ -351,7 +361,9 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
         ),
         const SizedBox(width: 16),
         Expanded(
-          child: EnrollButton(event: event),
+          child: event.isOwnedBy(_username)
+              ? EditEventButton(event: event)
+              : EnrollButton(event: event),
         ),
       ],
     );
@@ -384,20 +396,21 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
           Text(
             'Something went wrong',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Colors.grey[600],
-            ),
+                  color: Colors.grey[600],
+                ),
           ),
           const SizedBox(height: 8),
           Text(
             error,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.grey[500],
-            ),
+                  color: Colors.grey[500],
+                ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () => ref.refresh(fetchEventDetailUCProvider(widget.eventId)),
+            onPressed: () =>
+                ref.refresh(fetchEventDetailUCProvider(widget.eventId)),
             child: const Text('Retry'),
           ),
         ],
@@ -413,7 +426,7 @@ class RelationalEvents extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final eventsData = ref.watch(fetchEventsUCProvider);
     final theme = Theme.of(context);
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -449,7 +462,8 @@ class RelationalEvents extends ConsumerWidget {
     );
   }
 
-  Widget _buildEventCard(EventDTO event, ThemeData theme, BuildContext context) {
+  Widget _buildEventCard(
+      EventDTO event, ThemeData theme, BuildContext context) {
     return Container(
       width: 200,
       margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -521,7 +535,8 @@ class RelationalEvents extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      event.formattedPrice(Localizations.localeOf(context).toString()),
+                      event.formattedPrice(
+                          Localizations.localeOf(context).toString()),
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: parkeaOrange,
                         fontWeight: FontWeight.bold,

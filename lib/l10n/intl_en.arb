@@ -151,5 +151,13 @@
   "accessCodeHint": "This event is private. Enter the code the organizer gave you.",
   "accessCodeRequired": "Enter the code",
   "invalidAccessCode": "Invalid access code",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "editEvent": "Edit event",
+  "saveChanges": "Save changes",
+  "eventUpdated": "Event updated",
+  "deleteEvent": "Delete event",
+  "deleteEventConfirm": "All enrollments will be deleted too. This can't be undone.",
+  "eventDeleted": "Event deleted",
+  "accessCodeOwnerHint": "Share it with your guests so they can enroll.",
+  "codeCopied": "Code copied"
 }

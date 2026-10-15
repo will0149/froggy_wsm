@@ -60,6 +60,15 @@ class EventDTO {
   @JsonKey(name: 'available_spots')
   final int? availableSpots;
 
+  /// Si el usuario es el organizador; null en respuestas que no lo incluyen.
+  @JsonKey(name: 'is_owner')
+  final bool? isOwner;
+
+  /// Código de acceso de un evento PRIVATE; solo llega al organizador
+  /// (`events/owner/`, `events/update/`).
+  @JsonKey(name: 'otp')
+  final String? otp;
+
   EventDTO(
       {required this.id,
       required this.eventName,
@@ -79,7 +88,9 @@ class EventDTO {
       this.latitude,
       this.longitude,
       this.capacity,
-      this.availableSpots});
+      this.availableSpots,
+      this.isOwner,
+      this.otp});
 
   factory EventDTO.fromJson(Map<String, dynamic> json)  => _$EventDTOFromJson(json);
 
@@ -94,6 +105,11 @@ class EventDTO {
       };
 
   bool get hasCoordinates => latitude != null && longitude != null;
+
+  /// Usa `is_owner` del API y, si no llega, compara el organizador con
+  /// [username].
+  bool isOwnedBy(String? username) =>
+      isOwner ?? (username != null && eventOwner == username);
 
   /// El API manda `price` ("45.0000") y `currency` (ISO 4217) por separado.
   static Object? _readAmount(Map json, String key) =>

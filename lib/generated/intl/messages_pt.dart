@@ -35,6 +35,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "accessCodeHint": MessageLookupByLibrary.simpleMessage(
       "Este evento é privado. Digite o código que o organizador te deu.",
     ),
+    "accessCodeOwnerHint": MessageLookupByLibrary.simpleMessage(
+      "Compartilhe com seus convidados para que possam se inscrever.",
+    ),
     "accessCodeRequired": MessageLookupByLibrary.simpleMessage(
       "Digite o código",
     ),
@@ -63,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "changeBanner": MessageLookupByLibrary.simpleMessage("Trocar imagem"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Alterar senha"),
     "changePhoto": MessageLookupByLibrary.simpleMessage("Trocar foto"),
+    "codeCopied": MessageLookupByLibrary.simpleMessage("Código copiado"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirmar senha"),
     "costFree": MessageLookupByLibrary.simpleMessage("Grátis"),
     "costInvitation": MessageLookupByLibrary.simpleMessage("Com convite"),
@@ -79,8 +83,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "dateMustBeFuture": MessageLookupByLibrary.simpleMessage(
       "A data deve ser futura",
     ),
+    "deleteEvent": MessageLookupByLibrary.simpleMessage("Excluir evento"),
+    "deleteEventConfirm": MessageLookupByLibrary.simpleMessage(
+      "Todas as inscrições também serão excluídas. Essa ação não pode ser desfeita.",
+    ),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
     "downloadTicket": MessageLookupByLibrary.simpleMessage("Baixar ingresso"),
+    "editEvent": MessageLookupByLibrary.simpleMessage("Editar evento"),
     "email": MessageLookupByLibrary.simpleMessage("Correio eletrônico"),
     "enroll": MessageLookupByLibrary.simpleMessage("Inscrever-me"),
     "enrolledOn": m0,
@@ -92,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventCreated": MessageLookupByLibrary.simpleMessage("Evento criado"),
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Moeda"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Data e hora"),
+    "eventDeleted": MessageLookupByLibrary.simpleMessage("Evento excluído"),
     "eventDescription": MessageLookupByLibrary.simpleMessage("Descrição"),
     "eventFinished": MessageLookupByLibrary.simpleMessage("Evento encerrado"),
     "eventLocation": MessageLookupByLibrary.simpleMessage("Local"),
@@ -101,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventShortDescription": MessageLookupByLibrary.simpleMessage(
       "Descrição curta",
     ),
+    "eventUpdated": MessageLookupByLibrary.simpleMessage("Evento atualizado"),
     "eventsForAll": MessageLookupByLibrary.simpleMessage("Eventos para todos"),
     "eventsForYou": MessageLookupByLibrary.simpleMessage("Eventos para você"),
     "feedEmpty": MessageLookupByLibrary.simpleMessage("Ainda não há eventos"),
@@ -200,6 +211,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "retry": MessageLookupByLibrary.simpleMessage("Tentar novamente"),
+    "saveChanges": MessageLookupByLibrary.simpleMessage("Salvar alterações"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("Salvar Evento"),
     "searchEvents": MessageLookupByLibrary.simpleMessage("Buscar atividades"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("ver evento"),

@@ -150,5 +150,13 @@
   "accessCodeHint": "Diese Veranstaltung ist privat. Gib den Code ein, den du vom Veranstalter erhalten hast.",
   "accessCodeRequired": "Gib den Code ein",
   "invalidAccessCode": "Ungültiger Zugangscode",
-  "cancel": "Abbrechen"
+  "cancel": "Abbrechen",
+  "editEvent": "Veranstaltung bearbeiten",
+  "saveChanges": "Änderungen speichern",
+  "eventUpdated": "Veranstaltung aktualisiert",
+  "deleteEvent": "Veranstaltung löschen",
+  "deleteEventConfirm": "Alle Anmeldungen werden ebenfalls gelöscht. Das kann nicht rückgängig gemacht werden.",
+  "eventDeleted": "Veranstaltung gelöscht",
+  "accessCodeOwnerHint": "Teile ihn mit deinen Gästen, damit sie sich anmelden können.",
+  "codeCopied": "Code kopiert"
 }

@@ -8,18 +8,18 @@ part of 'create_event_uc.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Crea un evento (cuenta verificada) y luego sube su banner. El estado solo
-/// indica si hay una petición en curso.
+/// Formulario de eventos: crea (cuenta verificada) o edita uno propio y luego
+/// sube su banner. El estado solo indica si hay una petición en curso.
 
 @ProviderFor(CreateEventUC)
 const createEventUCProvider = CreateEventUCProvider._();
 
-/// Crea un evento (cuenta verificada) y luego sube su banner. El estado solo
-/// indica si hay una petición en curso.
+/// Formulario de eventos: crea (cuenta verificada) o edita uno propio y luego
+/// sube su banner. El estado solo indica si hay una petición en curso.
 final class CreateEventUCProvider
     extends $AsyncNotifierProvider<CreateEventUC, void> {
-  /// Crea un evento (cuenta verificada) y luego sube su banner. El estado solo
-  /// indica si hay una petición en curso.
+  /// Formulario de eventos: crea (cuenta verificada) o edita uno propio y luego
+  /// sube su banner. El estado solo indica si hay una petición en curso.
   const CreateEventUCProvider._()
       : super(
           from: null,
@@ -39,10 +39,10 @@ final class CreateEventUCProvider
   CreateEventUC create() => CreateEventUC();
 }
 
-String _$createEventUCHash() => r'2efe448983d4b2f70e7b7570509488d0a1ae99ad';
+String _$createEventUCHash() => r'66e267f555d31e158bbf5611f2079e6d79a7af16';
 
-/// Crea un evento (cuenta verificada) y luego sube su banner. El estado solo
-/// indica si hay una petición en curso.
+/// Formulario de eventos: crea (cuenta verificada) o edita uno propio y luego
+/// sube su banner. El estado solo indica si hay una petición en curso.
 
 abstract class _$CreateEventUC extends $AsyncNotifier<void> {
   FutureOr<void> build();

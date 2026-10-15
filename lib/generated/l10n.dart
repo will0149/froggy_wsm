@@ -1083,6 +1083,81 @@ class S {
   String get cancel {
     return Intl.message('Cancelar', name: 'cancel', desc: '', args: []);
   }
+
+  /// `Editar evento`
+  String get editEvent {
+    return Intl.message('Editar evento', name: 'editEvent', desc: '', args: []);
+  }
+
+  /// `Guardar cambios`
+  String get saveChanges {
+    return Intl.message(
+      'Guardar cambios',
+      name: 'saveChanges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Evento actualizado`
+  String get eventUpdated {
+    return Intl.message(
+      'Evento actualizado',
+      name: 'eventUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Borrar evento`
+  String get deleteEvent {
+    return Intl.message(
+      'Borrar evento',
+      name: 'deleteEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Se borrarán también todas las inscripciones. Esta acción no se puede deshacer.`
+  String get deleteEventConfirm {
+    return Intl.message(
+      'Se borrarán también todas las inscripciones. Esta acción no se puede deshacer.',
+      name: 'deleteEventConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Evento borrado`
+  String get eventDeleted {
+    return Intl.message(
+      'Evento borrado',
+      name: 'eventDeleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Compártelo con tus invitados para que puedan inscribirse.`
+  String get accessCodeOwnerHint {
+    return Intl.message(
+      'Compártelo con tus invitados para que puedan inscribirse.',
+      name: 'accessCodeOwnerHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Código copiado`
+  String get codeCopied {
+    return Intl.message(
+      'Código copiado',
+      name: 'codeCopied',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
