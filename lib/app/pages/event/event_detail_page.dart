@@ -9,10 +9,10 @@ import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 import 'package:parkea/domain/usecases/fetch_tickets_uc.dart';
 import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../generated/l10n.dart';
-import '../../utils/event_format.dart';
 import '../../widgets/event/enroll_button.dart';
 import '../../widgets/event/event_location_card.dart';
 import '../../widgets/event/owner_event_actions.dart';
+import '../../widgets/event/similar_events.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -119,13 +119,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
         const SliverToBoxAdapter(
           child: SizedBox(height: 24),
         ),
-        //TODO: se comenta eventos similares
-        // SliverToBoxAdapter(
-        //   child: Padding(
-        //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        //     child: const RelationalEvents(),
-        //   ),
-        // ),
+        SliverToBoxAdapter(child: SimilarEvents(event: event)),
         const SliverToBoxAdapter(
           child: SizedBox(height: 100), // Bottom padding for FAB
         ),
@@ -412,205 +406,6 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
             onPressed: () =>
                 ref.refresh(fetchEventDetailUCProvider(widget.eventId)),
             child: const Text('Retry'),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class RelationalEvents extends ConsumerWidget {
-  const RelationalEvents({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final eventsData = ref.watch(fetchEventsUCProvider);
-    final theme = Theme.of(context);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          S.of(context).similarEvents,
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 16),
-        SizedBox(
-          height: 280,
-          child: eventsData.when(
-            data: (events) {
-              if (events.isEmpty) {
-                return _buildEmptyState(theme);
-              }
-              return ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                itemCount: events.length,
-                itemBuilder: (context, index) {
-                  final event = events[index];
-                  return _buildEventCard(event, theme, context);
-                },
-              );
-            },
-            error: (err, s) => _buildErrorState(err.toString(), theme),
-            loading: () => _buildLoadingState(),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildEventCard(
-      EventDTO event, ThemeData theme, BuildContext context) {
-    return Container(
-      width: 200,
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Image.network(
-                event.bannerImageUrl.toString(),
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey[200],
-                    child: const Icon(
-                      Icons.image_not_supported,
-                      color: Colors.grey,
-                      size: 40,
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    event.eventName ?? "",
-                    style: theme.textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    event.location?.place ?? "",
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: Colors.grey[600],
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const Spacer(),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: parkeaOrange.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      event.formattedPrice(
-                          Localizations.localeOf(context).toString()),
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: parkeaOrange,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLoadingState() {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      itemCount: 3,
-      itemBuilder: (context, index) {
-        return Container(
-          width: 200,
-          margin: const EdgeInsets.symmetric(horizontal: 8),
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: const Center(
-            child: CircularProgressIndicator.adaptive(),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildErrorState(String error, ThemeData theme) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.error_outline,
-            color: Colors.grey[400],
-            size: 48,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Failed to load similar events',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.grey[600],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildEmptyState(ThemeData theme) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.event_busy,
-            color: Colors.grey[400],
-            size: 48,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'No similar events found',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.grey[600],
-            ),
           ),
         ],
       ),

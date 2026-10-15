@@ -223,7 +223,7 @@ class _DateAndPrice extends StatelessWidget {
         else
           const Spacer(),
         Text(
-          _priceLabel(context, locale),
+          event.costLabel(S.of(context), locale),
           style: theme.textTheme.titleSmall?.copyWith(
             color: parkeaOrange,
             fontWeight: FontWeight.bold,
@@ -231,15 +231,5 @@ class _DateAndPrice extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  String _priceLabel(BuildContext context, String locale) {
-    final s = S.of(context);
-    return switch (event.eventType) {
-      'FREE' => s.costFree,
-      'INVITATION' => s.costInvitation,
-      'PRIVATE' => s.costPrivate,
-      _ => event.formattedPrice(locale),
-    };
   }
 }

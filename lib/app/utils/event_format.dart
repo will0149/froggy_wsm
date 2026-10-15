@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 
 import '../../data/dtos/event_dto.dart';
+import '../../generated/l10n.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -12,4 +13,12 @@ extension EventFormat on EventDTO {
         locale: locale,
         name: amount?.currency ?? 'USD',
       ).format(double.tryParse(amount?.price ?? '') ?? 0);
+
+  /// Precio o, si no es de pago, el tipo de acceso.
+  String costLabel(S s, String locale) => switch (eventType) {
+        'FREE' => s.costFree,
+        'INVITATION' => s.costInvitation,
+        'PRIVATE' => s.costPrivate,
+        _ => formattedPrice(locale),
+      };
 }
