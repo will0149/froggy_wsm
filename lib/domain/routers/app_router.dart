@@ -14,6 +14,7 @@ import 'package:parkea/domain/models/auth/auth_state.dart';
 import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 
 import '../../app/navigator.dart';
+import '../../app/themes/auth_theme.dart';
 import '../../app/pages/auth/splash_screen.dart';
 import '../../app/pages/auth/welcome_slide_page.dart';
 import '../../app/pages/event/create_event_page.dart';
@@ -48,34 +49,36 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
       GoRoute(
         name: WelcomeSlidePage.routeName,
         path: WelcomeSlidePage.routeLocation,
-        builder: (context, state) => const WelcomeSlidePage(),
+        builder: (context, state) => const AuthTheme(child: WelcomeSlidePage()),
       ),
       GoRoute(
         name: AuthPage.routeName,
         path: AuthPage.routeLocation,
-        builder: (context, state) => const AuthPage(),
+        builder: (context, state) => const AuthTheme(child: AuthPage()),
         routes: <RouteBase>[
           GoRoute(
             name: LoginPage.routeName,
             path: LoginPage.routeLocation,
-            builder: (context, state) => const LoginPage(),
+            builder: (context, state) => const AuthTheme(child: LoginPage()),
           ),
           GoRoute(
             name: SignUpPage.routeName,
             path: SignUpPage.routeLocation,
-            builder: (context, state) => const SignUpPage(),
+            builder: (context, state) => const AuthTheme(child: SignUpPage()),
           ),
           GoRoute(
             name: PasswordResetPage.routeName,
             path: PasswordResetPage.routeLocation,
-            builder: (context, state) => const PasswordResetPage(),
+            builder: (context, state) => const AuthTheme(child: PasswordResetPage()),
             routes: <RouteBase>[
               GoRoute(
                 name: PasswordResetConfirmPage.routeName,
                 path: PasswordResetConfirmPage.routeLocation,
-                builder: (context, state) => PasswordResetConfirmPage(
-                  uid: state.uri.queryParameters['uid'],
-                  token: state.uri.queryParameters['token'],
+                builder: (context, state) => AuthTheme(
+                  child: PasswordResetConfirmPage(
+                    uid: state.uri.queryParameters['uid'],
+                    token: state.uri.queryParameters['token'],
+                  ),
                 ),
               ),
             ],
@@ -83,7 +86,7 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
           GoRoute(
             name: SplashScreen.routeName,
             path: SplashScreen.routeLocation,
-            builder: (context, state) => const SplashScreen(),
+            builder: (context, state) => const AuthTheme(child: SplashScreen()),
           ),
         ],
       ),

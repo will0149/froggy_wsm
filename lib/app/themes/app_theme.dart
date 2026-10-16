@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:parkea/app/themes/border_radius.dart';
-import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/themes/parkea_input_decoration_theme.dart';
 import 'package:parkea/app/themes/text_theme.dart';
 
@@ -10,15 +9,66 @@ import 'colors/app_colors.dart';
 /// By User: josedominguez
 /// Date: 07/24/23
 
+/// Tema de la app desde los tokens de [ParkeaColors] (ver
+/// `docs/propuesta-design-system.md`). Las pantallas de auth usan
+/// `AuthTheme`.
 class AppTheme {
   AppTheme._();
 
-  static ThemeData get light => _build(isDark: false);
-  static ThemeData get dark => _build(isDark: true);
+  static final ThemeData light = _build(ParkeaColors.light(), Brightness.light);
+  static final ThemeData dark = _build(ParkeaColors.dark(), Brightness.dark);
 
-  static ThemeData _build({required bool isDark}) {
-    final parkeaColors = isDark ? ParkeaColors.dark() : ParkeaColors.light();
-    final colorScheme = isDark ? _darkColorScheme : _lightColorScheme;
+  /// Explícito, sin `fromSeed`, para que Material no invente tonos.
+  static ColorScheme colorScheme(ParkeaColors c, Brightness brightness) {
+    final isDark = brightness == Brightness.dark;
+    return ColorScheme(
+      brightness: brightness,
+      primary: c.primary,
+      onPrimary: c.onPrimary,
+      primaryContainer: c.primaryContainer,
+      onPrimaryContainer: c.onPrimaryContainer,
+      secondary: c.brand,
+      onSecondary: c.onBrand,
+      secondaryContainer: c.brandContainer,
+      onSecondaryContainer: c.onBrandContainer,
+      tertiary: c.brandStrong,
+      onTertiary: c.onBrandStrong,
+      error: c.error,
+      onError: c.onError,
+      errorContainer:
+          isDark ? const Color(0xFF8C1D18) : const Color(0xFFF9DEDC),
+      onErrorContainer:
+          isDark ? const Color(0xFFF9DEDC) : const Color(0xFF410E0B),
+      surface: c.surface,
+      onSurface: c.onSurface,
+      onSurfaceVariant: c.onSurfaceMuted,
+      surfaceDim: isDark ? c.background : const Color(0xFFE5E0DE),
+      surfaceBright: isDark ? const Color(0xFF3A3535) : c.surface,
+      surfaceContainerLowest: isDark ? c.background : c.surface,
+      surfaceContainerLow:
+          isDark ? const Color(0xFF1A1717) : const Color(0xFFFBFAF9),
+      surfaceContainer: isDark ? const Color(0xFF221F1F) : c.background,
+      surfaceContainerHigh:
+          isDark ? const Color(0xFF2B2727) : const Color(0xFFF1EEED),
+      surfaceContainerHighest:
+          isDark ? const Color(0xFF353030) : const Color(0xFFEAE6E5),
+      outline: c.outline,
+      outlineVariant:
+          isDark ? const Color(0xFF3A3535) : const Color(0xFFEAE5E3),
+      inverseSurface: c.onSurface,
+      onInverseSurface: c.surface,
+      inversePrimary:
+          isDark ? const Color(0xFF037791) : const Color(0xFF4FB3CB),
+      shadow: Colors.black,
+      scrim: Colors.black,
+      // Sin tinte azul en las superficies elevadas.
+      surfaceTint: Colors.transparent,
+    );
+  }
+
+  static ThemeData _build(ParkeaColors parkeaColors, Brightness brightness) {
+    final colorScheme = AppTheme.colorScheme(parkeaColors, brightness);
+    final textTheme = parkeaTextTheme(parkeaColors);
 
     return ThemeData(
       useMaterial3: true,
@@ -29,8 +79,10 @@ class AppTheme {
       scaffoldBackgroundColor: parkeaColors.background,
       fontFamily: 'GothicA1',
       inputDecorationTheme: getParkeaInputDecorationTheme(parkeaColors),
-      textTheme: getTextTheme(parkeaColors.onSurface),
+      textTheme: textTheme,
+      dividerColor: parkeaColors.outline,
 
+      // Componentes: se rediseñan en la fase 2.
       switchTheme: SwitchThemeData(
         thumbColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
@@ -57,10 +109,7 @@ class AppTheme {
         elevation: 0,
         surfaceTintColor: parkeaColors.surface,
         iconTheme: IconThemeData(color: parkeaColors.primary),
-        titleTextStyle: getTextTheme(parkeaColors.onSurface).titleLarge?.copyWith(
-          color: parkeaColors.onSurface,
-          fontWeight: FontWeight.w600,
-        ),
+        titleTextStyle: textTheme.titleLarge,
       ),
 
       cardTheme: CardThemeData(
@@ -166,27 +215,3 @@ class AppTheme {
     );
   }
 }
-
-final ColorScheme _lightColorScheme = ColorScheme.fromSeed(
-  seedColor: parkeaBlueAccent,
-  brightness: Brightness.light,
-  primary: parkeaBlueAccent,
-  secondary: parkeaOrange,
-  tertiary: parkeaLightOrange,
-  surface: parkeaWhite,
-  onSurface: parkeaBlack,
-  error: const Color(0xFFB00020),
-  onError: parkeaWhite,
-);
-
-final ColorScheme _darkColorScheme = ColorScheme.fromSeed(
-  seedColor: parkeaBlueAccent,
-  brightness: Brightness.dark,
-  primary: parkeaBlueAccent,
-  secondary: parkeaOrange,
-  tertiary: parkeaLightOrange,
-  surface: parkeaBlack,
-  onSurface: parkeaWhite,
-  error: const Color(0xFFCF6679),
-  onError: parkeaBlack,
-);
