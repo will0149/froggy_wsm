@@ -171,6 +171,8 @@ Map<String, Object?> eventJson(
   Duration fromNow = const Duration(days: 7),
   int? capacity = 20,
   int? availableSpots = 20,
+  double? latitude,
+  double? longitude,
 }) =>
     {
       'id': id,
@@ -188,8 +190,9 @@ Map<String, Object?> eventJson(
       'address': 'Calle 1',
       'city': city,
       'country': country,
-      'latitude': null,
-      'longitude': null,
+      // El API manda las coordenadas como strings decimales.
+      'latitude': latitude?.toString(),
+      'longitude': longitude?.toString(),
       'capacity': capacity,
       'available_spots': availableSpots,
     };

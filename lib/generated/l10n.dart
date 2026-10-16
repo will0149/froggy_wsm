@@ -1868,6 +1868,66 @@ class S {
   String get great {
     return Intl.message('¡Genial!', name: 'great', desc: '', args: []);
   }
+
+  /// `Mapa`
+  String get navMap {
+    return Intl.message('Mapa', name: 'navMap', desc: '', args: []);
+  }
+
+  /// `Activa tu ubicación para ver los eventos cerca de ti`
+  String get mapLocationOff {
+    return Intl.message(
+      'Activa tu ubicación para ver los eventos cerca de ti',
+      name: 'mapLocationOff',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Activar`
+  String get mapEnableLocation {
+    return Intl.message(
+      'Activar',
+      name: 'mapEnableLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ajustes`
+  String get mapOpenSettings {
+    return Intl.message('Ajustes', name: 'mapOpenSettings', desc: '', args: []);
+  }
+
+  /// `No hay eventos próximos con ubicación`
+  String get mapNoEvents {
+    return Intl.message(
+      'No hay eventos próximos con ubicación',
+      name: 'mapNoEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mi ubicación`
+  String get mapMyLocation {
+    return Intl.message(
+      'Mi ubicación',
+      name: 'mapMyLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `a {distance}`
+  String distanceAway(String distance) {
+    return Intl.message(
+      'a $distance',
+      name: 'distanceAway',
+      desc: '',
+      args: [distance],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

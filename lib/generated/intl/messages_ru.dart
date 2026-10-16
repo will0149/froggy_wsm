@@ -24,27 +24,29 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(year) => "© ${year} Parkea. Все права защищены.";
 
-  static String m2(count) =>
+  static String m2(distance) => "в ${distance}";
+
+  static String m3(count) =>
       "${Intl.plural(count, zero: 'Пока никто не записался', one: 'Записан ${count}', few: 'Записано ${count}', many: 'Записано ${count}', other: 'Записано ${count}')}";
 
-  static String m3(enrolled, capacity) => "Записано ${enrolled} из ${capacity}";
+  static String m4(enrolled, capacity) => "Записано ${enrolled} из ${capacity}";
 
-  static String m4(date) => "Записан ${date}";
+  static String m5(date) => "Записан ${date}";
 
-  static String m5(code) => "Ошибка (код: ${code})";
+  static String m6(code) => "Ошибка (код: ${code})";
 
-  static String m6(percent) => "Событие заполнено на ${percent} %";
+  static String m7(percent) => "Событие заполнено на ${percent} %";
 
-  static String m7(capacity, name) =>
+  static String m8(capacity, name) =>
       "${Intl.plural(capacity, one: 'Единственное место на «${name}» занято.', few: 'Все ${capacity} места на «${name}» заняты.', many: 'Все ${capacity} мест на «${name}» заняты.', other: 'Все ${capacity} места на «${name}» заняты.')}";
 
-  static String m8(error) => "Не удалось выйти: ${error}";
+  static String m9(error) => "Не удалось выйти: ${error}";
 
-  static String m9(count) => "Осталось мест: ${count}";
+  static String m10(count) => "Осталось мест: ${count}";
 
-  static String m10(id) => "Билет №${id}";
+  static String m11(id) => "Билет №${id}";
 
-  static String m11(count) => "Предстоящих билетов: ${count}";
+  static String m12(count) => "Предстоящих билетов: ${count}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -137,13 +139,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Все записи тоже будут удалены. Это действие нельзя отменить.",
     ),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
+    "distanceAway": m2,
     "downloadTicket": MessageLookupByLibrary.simpleMessage("Скачать билет"),
     "editEvent": MessageLookupByLibrary.simpleMessage("Редактировать событие"),
     "email": MessageLookupByLibrary.simpleMessage("Эл. адрес"),
     "enroll": MessageLookupByLibrary.simpleMessage("Записаться"),
-    "enrolledCount": m2,
-    "enrolledOfCapacity": m3,
-    "enrolledOn": m4,
+    "enrolledCount": m3,
+    "enrolledOfCapacity": m4,
+    "enrolledOn": m5,
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "Готово! Вы записаны",
     ),
@@ -197,7 +200,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "errSignUpIncomplete": MessageLookupByLibrary.simpleMessage(
       "Не удалось завершить регистрацию",
     ),
-    "errWithCode": m5,
+    "errWithCode": m6,
     "errWrongCredentials": MessageLookupByLibrary.simpleMessage(
       "Неверное имя пользователя или пароль",
     ),
@@ -206,7 +209,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventComplete": MessageLookupByLibrary.simpleMessage(
       "Событие заполнено полностью!",
     ),
-    "eventCompleteness": m6,
+    "eventCompleteness": m7,
     "eventCreated": MessageLookupByLibrary.simpleMessage("Событие создано"),
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Валюта"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Дата и время"),
@@ -214,7 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventDescription": MessageLookupByLibrary.simpleMessage("Описание"),
     "eventFinished": MessageLookupByLibrary.simpleMessage("Событие завершено"),
     "eventFull": MessageLookupByLibrary.simpleMessage("Все места заняты!"),
-    "eventFullMessage": m7,
+    "eventFullMessage": m8,
     "eventLocation": MessageLookupByLibrary.simpleMessage("Место"),
     "eventName": MessageLookupByLibrary.simpleMessage("Название события"),
     "eventPlace": MessageLookupByLibrary.simpleMessage("Место"),
@@ -279,11 +282,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "logoutConfirm": MessageLookupByLibrary.simpleMessage(
       "Вы уверены, что хотите выйти?",
     ),
-    "logoutFailed": m8,
+    "logoutFailed": m9,
     "logoutSubtitle": MessageLookupByLibrary.simpleMessage("Выйти из аккаунта"),
     "manageProfile": MessageLookupByLibrary.simpleMessage(
       "Управляйте данными профиля",
     ),
+    "mapEnableLocation": MessageLookupByLibrary.simpleMessage("Включить"),
+    "mapLocationOff": MessageLookupByLibrary.simpleMessage(
+      "Включите геолокацию, чтобы видеть события рядом с вами",
+    ),
+    "mapMyLocation": MessageLookupByLibrary.simpleMessage("Моё местоположение"),
+    "mapNoEvents": MessageLookupByLibrary.simpleMessage(
+      "Нет предстоящих событий с местоположением",
+    ),
+    "mapOpenSettings": MessageLookupByLibrary.simpleMessage("Настройки"),
     "myEvents": MessageLookupByLibrary.simpleMessage("Мероприятия"),
     "myEventsEnrolled": MessageLookupByLibrary.simpleMessage("Записан"),
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Оплаченный"),
@@ -292,6 +304,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "name": MessageLookupByLibrary.simpleMessage("Имя"),
     "navCreate": MessageLookupByLibrary.simpleMessage("Создать"),
     "navHome": MessageLookupByLibrary.simpleMessage("Главная"),
+    "navMap": MessageLookupByLibrary.simpleMessage("Карта"),
     "navProfile": MessageLookupByLibrary.simpleMessage("Профиль"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Билеты"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Новый пароль"),
@@ -403,19 +416,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Что-то пошло не так",
     ),
-    "spotsLeft": m9,
+    "spotsLeft": m10,
     "supportLegal": MessageLookupByLibrary.simpleMessage(
       "Поддержка и правовая информация",
     ),
     "theme": MessageLookupByLibrary.simpleMessage("Тема"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage("Запись отменена"),
-    "ticketNumber": m10,
+    "ticketNumber": m11,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Не удалось загрузить билеты",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Прошедшие"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Предстоящие"),
-    "upcomingTicketsCount": m11,
+    "upcomingTicketsCount": m12,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Имя пользователя или эл. адрес",
     ),

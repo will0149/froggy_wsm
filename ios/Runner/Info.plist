@@ -45,6 +45,8 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Parkea usa tu ubicación para mostrarte en el mapa los eventos cerca de ti.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Parkea usa tus fotos para la imagen de los eventos que creas.</string>
 	<key>NSAppTransportSecurity</key>

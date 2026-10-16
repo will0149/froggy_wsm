@@ -298,5 +298,12 @@
       }
     }
   },
-  "great": "Great!"
+  "great": "Great!",
+  "navMap": "Map",
+  "mapLocationOff": "Turn on your location to see events near you",
+  "mapEnableLocation": "Turn on",
+  "mapOpenSettings": "Settings",
+  "mapNoEvents": "No upcoming events with a location",
+  "mapMyLocation": "My location",
+  "distanceAway": "{distance} away"
 }

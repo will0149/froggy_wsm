@@ -298,5 +298,12 @@
       }
     }
   },
-  "great": "太好了！"
+  "great": "太好了！",
+  "navMap": "地图",
+  "mapLocationOff": "开启定位以查看你附近的活动",
+  "mapEnableLocation": "开启",
+  "mapOpenSettings": "设置",
+  "mapNoEvents": "没有带位置的即将举行的活动",
+  "mapMyLocation": "我的位置",
+  "distanceAway": "距离 {distance}"
 }

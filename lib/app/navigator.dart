@@ -12,8 +12,9 @@ import 'themes/colors/app_colors.dart';
 import 'utils/tab_reselect.dart';
 
 /// Barra de navegación inferior (`NavigationBar` de Material 3) para las
-/// ramas del router: Inicio, Tickets y Perfil. "Crear" es una acción, no una
-/// rama: abre la creación de eventos sin cambiar la pestaña.
+/// ramas del router: Inicio, Mapa, Tickets y Perfil. "Crear" es una acción,
+/// no una rama: va al centro y abre la creación de eventos sin cambiar la
+/// pestaña.
 class NavigatorBar extends ConsumerWidget {
   const NavigatorBar({
     super.key,
@@ -47,13 +48,24 @@ class NavigatorBar extends ConsumerWidget {
         0;
 
     // Rama del router de cada destino; null = acción "Crear".
-    final branches = [0, 1, if (canCreateEvents) null, 2];
+    final branches = [0, 1, if (canCreateEvents) null, 2, 3];
     final destinations = [
       NavigationDestination(
         icon: const Icon(Icons.home_outlined),
         selectedIcon: const Icon(Icons.home_rounded),
         label: s.navHome,
       ),
+      NavigationDestination(
+        icon: const Icon(Icons.map_outlined),
+        selectedIcon: const Icon(Icons.map_rounded),
+        label: s.navMap,
+      ),
+      if (canCreateEvents)
+        NavigationDestination(
+          icon: const _CreateIcon(),
+          label: s.navCreate,
+          tooltip: s.createEvent,
+        ),
       NavigationDestination(
         icon: _TicketsIcon(count: upcomingTickets, selected: false),
         selectedIcon: _TicketsIcon(count: upcomingTickets, selected: true),
@@ -62,12 +74,6 @@ class NavigatorBar extends ConsumerWidget {
             ? '${s.navTickets}, ${s.upcomingTicketsCount(upcomingTickets)}'
             : null,
       ),
-      if (canCreateEvents)
-        NavigationDestination(
-          icon: const _CreateIcon(),
-          label: s.navCreate,
-          tooltip: s.createEvent,
-        ),
       NavigationDestination(
         icon: const Icon(Icons.person_outline_rounded),
         selectedIcon: const Icon(Icons.person_rounded),

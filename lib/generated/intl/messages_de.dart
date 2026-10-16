@@ -24,29 +24,31 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(year) => "© ${year} Parkea. Alle Rechte vorbehalten.";
 
-  static String m2(count) =>
+  static String m2(distance) => "${distance} entfernt";
+
+  static String m3(count) =>
       "${Intl.plural(count, zero: 'Noch niemand angemeldet', one: '1 angemeldet', other: '${count} angemeldet')}";
 
-  static String m3(enrolled, capacity) =>
+  static String m4(enrolled, capacity) =>
       "${enrolled} von ${capacity} angemeldet";
 
-  static String m4(date) => "Angemeldet am ${date}";
+  static String m5(date) => "Angemeldet am ${date}";
 
-  static String m5(code) => "Fehler (Code: ${code})";
+  static String m6(code) => "Fehler (Code: ${code})";
 
-  static String m6(percent) =>
+  static String m7(percent) =>
       "Deine Veranstaltung ist zu ${percent} % vollständig";
 
-  static String m7(capacity, name) =>
+  static String m8(capacity, name) =>
       "${Intl.plural(capacity, one: 'Der einzige Platz für „${name}“ ist vergeben.', other: 'Alle ${capacity} Plätze für „${name}“ sind vergeben.')}";
 
-  static String m8(error) => "Abmeldung fehlgeschlagen: ${error}";
+  static String m9(error) => "Abmeldung fehlgeschlagen: ${error}";
 
-  static String m9(count) => "${count} Plätze frei";
+  static String m10(count) => "${count} Plätze frei";
 
-  static String m10(id) => "Ticket #${id}";
+  static String m11(id) => "Ticket #${id}";
 
-  static String m11(count) => "${count} anstehende Tickets";
+  static String m12(count) => "${count} anstehende Tickets";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -142,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Alle Anmeldungen werden ebenfalls gelöscht. Das kann nicht rückgängig gemacht werden.",
     ),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studien"),
+    "distanceAway": m2,
     "downloadTicket": MessageLookupByLibrary.simpleMessage(
       "Ticket herunterladen",
     ),
@@ -150,9 +153,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "enroll": MessageLookupByLibrary.simpleMessage("Anmelden"),
-    "enrolledCount": m2,
-    "enrolledOfCapacity": m3,
-    "enrolledOn": m4,
+    "enrolledCount": m3,
+    "enrolledOfCapacity": m4,
+    "enrolledOn": m5,
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "Fertig! Du bist angemeldet",
     ),
@@ -210,7 +213,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "errSignUpIncomplete": MessageLookupByLibrary.simpleMessage(
       "Registrierung konnte nicht abgeschlossen werden",
     ),
-    "errWithCode": m5,
+    "errWithCode": m6,
     "errWrongCredentials": MessageLookupByLibrary.simpleMessage(
       "Benutzername oder Passwort falsch",
     ),
@@ -219,7 +222,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventComplete": MessageLookupByLibrary.simpleMessage(
       "Deine Veranstaltung ist vollständig!",
     ),
-    "eventCompleteness": m6,
+    "eventCompleteness": m7,
     "eventCreated": MessageLookupByLibrary.simpleMessage("Event erstellt"),
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Währung"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Datum und Uhrzeit"),
@@ -233,7 +236,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventFull": MessageLookupByLibrary.simpleMessage(
       "Veranstaltung ausgebucht!",
     ),
-    "eventFullMessage": m7,
+    "eventFullMessage": m8,
     "eventLocation": MessageLookupByLibrary.simpleMessage("Ort"),
     "eventName": MessageLookupByLibrary.simpleMessage("Eventname"),
     "eventPlace": MessageLookupByLibrary.simpleMessage("Ort"),
@@ -306,13 +309,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "logoutConfirm": MessageLookupByLibrary.simpleMessage(
       "Möchtest du dich wirklich abmelden?",
     ),
-    "logoutFailed": m8,
+    "logoutFailed": m9,
     "logoutSubtitle": MessageLookupByLibrary.simpleMessage(
       "Von deinem Konto abmelden",
     ),
     "manageProfile": MessageLookupByLibrary.simpleMessage(
       "Verwalte deine Profilinformationen",
     ),
+    "mapEnableLocation": MessageLookupByLibrary.simpleMessage("Aktivieren"),
+    "mapLocationOff": MessageLookupByLibrary.simpleMessage(
+      "Aktiviere deinen Standort, um Events in deiner Nähe zu sehen",
+    ),
+    "mapMyLocation": MessageLookupByLibrary.simpleMessage("Mein Standort"),
+    "mapNoEvents": MessageLookupByLibrary.simpleMessage(
+      "Keine anstehenden Events mit Standort",
+    ),
+    "mapOpenSettings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
     "myEvents": MessageLookupByLibrary.simpleMessage("Veranstaltungen"),
     "myEventsEnrolled": MessageLookupByLibrary.simpleMessage("Angemeldet"),
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Bezahlt"),
@@ -321,6 +333,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "name": MessageLookupByLibrary.simpleMessage("Name"),
     "navCreate": MessageLookupByLibrary.simpleMessage("Erstellen"),
     "navHome": MessageLookupByLibrary.simpleMessage("Start"),
+    "navMap": MessageLookupByLibrary.simpleMessage("Karte"),
     "navProfile": MessageLookupByLibrary.simpleMessage("Profil"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Tickets"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Neues Passwort"),
@@ -436,7 +449,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Etwas ist schiefgelaufen",
     ),
-    "spotsLeft": m9,
+    "spotsLeft": m10,
     "supportLegal": MessageLookupByLibrary.simpleMessage(
       "Support & Rechtliches",
     ),
@@ -444,13 +457,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Anmeldung storniert",
     ),
-    "ticketNumber": m10,
+    "ticketNumber": m11,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Tickets konnten nicht geladen werden",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Vergangen"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Anstehend"),
-    "upcomingTicketsCount": m11,
+    "upcomingTicketsCount": m12,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Benutzername oder E-Mail",
     ),

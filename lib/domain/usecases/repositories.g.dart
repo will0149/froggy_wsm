@@ -141,3 +141,47 @@ final class PromotionsRepositoryProvider extends $FunctionalProvider<
 
 String _$promotionsRepositoryHash() =>
     r'fa32c2bbc391f34413195469118e0e64055f3745';
+
+@ProviderFor(userLocationService)
+const userLocationServiceProvider = UserLocationServiceProvider._();
+
+final class UserLocationServiceProvider extends $FunctionalProvider<
+    UserLocationService,
+    UserLocationService,
+    UserLocationService> with $Provider<UserLocationService> {
+  const UserLocationServiceProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'userLocationServiceProvider',
+          isAutoDispose: false,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$userLocationServiceHash();
+
+  @$internal
+  @override
+  $ProviderElement<UserLocationService> $createElement(
+          $ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  UserLocationService create(Ref ref) {
+    return userLocationService(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UserLocationService value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UserLocationService>(value),
+    );
+  }
+}
+
+String _$userLocationServiceHash() =>
+    r'b13006e8ff9c7e86ca10781dc4314f9f8ad5df18';

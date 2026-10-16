@@ -18,6 +18,7 @@ import '../../app/pages/auth/welcome_slide_page.dart';
 import '../../app/pages/event/create_event_page.dart';
 import '../../app/pages/event/event_detail_page.dart';
 import '../../app/pages/home/home_feed_page.dart';
+import '../../app/pages/map/events_map_page.dart';
 import '../../app/pages/ticket/tickets_page.dart';
 import '../../app/pages/user/profile_page.dart';
 
@@ -125,7 +126,18 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
             ],
           ),
 
-          // Tab 2: Tickets
+          // Tab 2: Mapa
+          StatefulShellBranch(
+            routes: <RouteBase>[
+              GoRoute(
+                name: EventsMapPage.routeName,
+                path: EventsMapPage.routeLocation,
+                builder: (context, state) => const EventsMapPage(),
+              ),
+            ],
+          ),
+
+          // Tab 3: Tickets
           StatefulShellBranch(
             routes: <RouteBase>[
               GoRoute(
@@ -136,7 +148,7 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
             ],
           ),
 
-          // Tab 3: Profile
+          // Tab 4: Profile
           StatefulShellBranch(
             routes: <RouteBase>[
               GoRoute(

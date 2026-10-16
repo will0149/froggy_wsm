@@ -298,5 +298,12 @@
       }
     }
   },
-  "great": "Отлично!"
+  "great": "Отлично!",
+  "navMap": "Карта",
+  "mapLocationOff": "Включите геолокацию, чтобы видеть события рядом с вами",
+  "mapEnableLocation": "Включить",
+  "mapOpenSettings": "Настройки",
+  "mapNoEvents": "Нет предстоящих событий с местоположением",
+  "mapMyLocation": "Моё местоположение",
+  "distanceAway": "в {distance}"
 }

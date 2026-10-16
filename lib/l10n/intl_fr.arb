@@ -298,5 +298,12 @@
       }
     }
   },
-  "great": "Génial !"
+  "great": "Génial !",
+  "navMap": "Carte",
+  "mapLocationOff": "Activez votre position pour voir les événements près de chez vous",
+  "mapEnableLocation": "Activer",
+  "mapOpenSettings": "Réglages",
+  "mapNoEvents": "Aucun événement à venir avec une adresse",
+  "mapMyLocation": "Ma position",
+  "distanceAway": "à {distance}"
 }
