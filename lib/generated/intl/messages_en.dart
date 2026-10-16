@@ -121,6 +121,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "costPaid": MessageLookupByLibrary.simpleMessage("Paid"),
     "costPrivate": MessageLookupByLibrary.simpleMessage("Private"),
     "costType": MessageLookupByLibrary.simpleMessage("Access type"),
+    "couldNotOpenLink": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t open the link",
+    ),
     "couldNotOpenMaps": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t open the maps app",
     ),
@@ -138,6 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "distanceAway": m2,
     "downloadTicket": MessageLookupByLibrary.simpleMessage("Download ticket"),
     "editEvent": MessageLookupByLibrary.simpleMessage("Edit event"),
+    "editProfile": MessageLookupByLibrary.simpleMessage("Edit profile"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "enroll": MessageLookupByLibrary.simpleMessage("Enroll"),
     "enrolledCount": m3,
@@ -263,6 +267,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Invalid email address",
     ),
     "invalidNumber": MessageLookupByLibrary.simpleMessage("Invalid number"),
+    "invalidWebsite": MessageLookupByLibrary.simpleMessage(
+      "Enter a valid web address, e.g. https://parkea.app",
+    ),
     "invitationOnly": MessageLookupByLibrary.simpleMessage("Invitation only"),
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
       "Join our universe",
@@ -363,9 +370,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacySubtitle": MessageLookupByLibrary.simpleMessage(
       "Privacy policy and data usage",
     ),
+    "profileBio": MessageLookupByLibrary.simpleMessage("Bio"),
+    "profileBioHint": MessageLookupByLibrary.simpleMessage(
+      "Tell people who you are or what you organize",
+    ),
     "profileUnavailable": MessageLookupByLibrary.simpleMessage(
       "Profile unavailable",
     ),
+    "profileUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t update the profile",
+    ),
+    "profileUpdated": MessageLookupByLibrary.simpleMessage("Profile updated"),
+    "profileWebsite": MessageLookupByLibrary.simpleMessage("Website"),
     "promotions": MessageLookupByLibrary.simpleMessage("Promotions"),
     "province": MessageLookupByLibrary.simpleMessage("Province"),
     "publishEvent": MessageLookupByLibrary.simpleMessage("Publish event"),

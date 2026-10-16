@@ -153,6 +153,38 @@ class RestAuthUC extends _$RestAuthUC {
     return null;
   }
 
+  /// Guarda la descripción y la web del perfil ([link] null la borra).
+  /// Devuelve null si salió bien, o el error general y los errores por campo
+  /// (`bio`, `link`).
+  Future<({String message, Map<String, List<String>> fieldErrors})?>
+      updateProfile({required String bio, required String? link}) async {
+    final Map<String, dynamic> result;
+    try {
+      result = await repository.updateProfile({'bio': bio, 'link': link});
+    } on Exception catch (e) {
+      logger.e(e.toString());
+      return (
+        message: connectionErrorMessage,
+        fieldErrors: const <String, List<String>>{}
+      );
+    }
+    final status = result['status'];
+    final body = result['body'];
+    if (status == 200 && body is Map<String, dynamic>) {
+      if (ref.mounted && _isAuthenticated) {
+        state =
+            AsyncData(AuthState.authenticated(UserProfileDTO.fromJson(body)));
+      }
+      return null;
+    }
+    return (
+      message: status == timeoutStatus
+          ? connectionErrorMessage
+          : apiErrorMessage(body) ?? S.current.profileUpdateFailed,
+      fieldErrors: apiFieldErrors(body),
+    );
+  }
+
   Future<UserProfileDTO?> getUserProfile() async {
     try {
       final result = await repository.getUserProfile();

@@ -70,6 +70,7 @@ Contrato general del API:
 ### Perfil
 - **Mis eventos**: los eventos creados por el usuario (`events/owner/`). Los eventos en los que está inscrito se ven en la pestaña Tickets.
 - **Foto de perfil** (`PUT user/profile/image/`, multipart `avatar`).
+- **Editar perfil**: descripción corta (`bio`, máx. 160) y web (`link`, http/https, máx. 200) con `PATCH user/profile/update/`; la app antepone `https://` si falta y un link vacío lo borra. La web se muestra en el perfil y abre el navegador.
 
 ### Crear evento (`events/create/` y `events/update/image/<id>/`)
 - Solo cuentas verificadas (`is_verified`), desde el botón **+** de la barra inferior.

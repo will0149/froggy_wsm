@@ -123,6 +123,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "costPaid": MessageLookupByLibrary.simpleMessage("Платное"),
     "costPrivate": MessageLookupByLibrary.simpleMessage("Закрытое"),
     "costType": MessageLookupByLibrary.simpleMessage("Тип доступа"),
+    "couldNotOpenLink": MessageLookupByLibrary.simpleMessage(
+      "Не удалось открыть ссылку",
+    ),
     "couldNotOpenMaps": MessageLookupByLibrary.simpleMessage(
       "Не удалось открыть карты",
     ),
@@ -142,6 +145,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "distanceAway": m2,
     "downloadTicket": MessageLookupByLibrary.simpleMessage("Скачать билет"),
     "editEvent": MessageLookupByLibrary.simpleMessage("Редактировать событие"),
+    "editProfile": MessageLookupByLibrary.simpleMessage(
+      "Редактировать профиль",
+    ),
     "email": MessageLookupByLibrary.simpleMessage("Эл. адрес"),
     "enroll": MessageLookupByLibrary.simpleMessage("Записаться"),
     "enrolledCount": m3,
@@ -263,6 +269,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Неверный адрес эл. почты",
     ),
     "invalidNumber": MessageLookupByLibrary.simpleMessage("Неверное число"),
+    "invalidWebsite": MessageLookupByLibrary.simpleMessage(
+      "Введите правильный адрес, например https://parkea.app",
+    ),
     "invitationOnly": MessageLookupByLibrary.simpleMessage(
       "Только по приглашению",
     ),
@@ -367,9 +376,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacySubtitle": MessageLookupByLibrary.simpleMessage(
       "Конфиденциальность и данные",
     ),
+    "profileBio": MessageLookupByLibrary.simpleMessage("Описание"),
+    "profileBioHint": MessageLookupByLibrary.simpleMessage(
+      "Расскажите, кто вы или что организуете",
+    ),
     "profileUnavailable": MessageLookupByLibrary.simpleMessage(
       "Профиль недоступен",
     ),
+    "profileUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "Не удалось обновить профиль",
+    ),
+    "profileUpdated": MessageLookupByLibrary.simpleMessage("Профиль обновлён"),
+    "profileWebsite": MessageLookupByLibrary.simpleMessage("Сайт"),
     "promotions": MessageLookupByLibrary.simpleMessage("Акции"),
     "province": MessageLookupByLibrary.simpleMessage("Провинция"),
     "publishEvent": MessageLookupByLibrary.simpleMessage(

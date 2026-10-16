@@ -303,5 +303,13 @@
   "mapOpenSettings": "设置",
   "mapNoEvents": "没有带位置的即将举行的活动",
   "mapMyLocation": "我的位置",
-  "distanceAway": "距离 {distance}"
+  "distanceAway": "距离 {distance}",
+  "editProfile": "编辑个人资料",
+  "profileBio": "简介",
+  "profileBioHint": "介绍一下你自己或你组织的活动",
+  "profileWebsite": "网站",
+  "invalidWebsite": "请输入有效的网址，例如 https://parkea.app",
+  "profileUpdated": "个人资料已更新",
+  "profileUpdateFailed": "无法更新个人资料",
+  "couldNotOpenLink": "无法打开链接"
 }

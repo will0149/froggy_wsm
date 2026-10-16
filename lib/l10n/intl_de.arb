@@ -302,5 +302,13 @@
   "mapOpenSettings": "Einstellungen",
   "mapNoEvents": "Keine anstehenden Events mit Standort",
   "mapMyLocation": "Mein Standort",
-  "distanceAway": "{distance} entfernt"
+  "distanceAway": "{distance} entfernt",
+  "editProfile": "Profil bearbeiten",
+  "profileBio": "Beschreibung",
+  "profileBioHint": "Erzähl, wer du bist oder was du organisierst",
+  "profileWebsite": "Website",
+  "invalidWebsite": "Gib eine gültige Webadresse ein, z. B. https://parkea.app",
+  "profileUpdated": "Profil aktualisiert",
+  "profileUpdateFailed": "Profil konnte nicht aktualisiert werden",
+  "couldNotOpenLink": "Link konnte nicht geöffnet werden"
 }

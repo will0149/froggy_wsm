@@ -130,6 +130,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "costPaid": MessageLookupByLibrary.simpleMessage("De pago"),
     "costPrivate": MessageLookupByLibrary.simpleMessage("Privado"),
     "costType": MessageLookupByLibrary.simpleMessage("Tipo de acceso"),
+    "couldNotOpenLink": MessageLookupByLibrary.simpleMessage(
+      "No se pudo abrir el enlace",
+    ),
     "couldNotOpenMaps": MessageLookupByLibrary.simpleMessage(
       "No se pudo abrir la app de mapas",
     ),
@@ -149,6 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "distanceAway": m2,
     "downloadTicket": MessageLookupByLibrary.simpleMessage("Descargar ticket"),
     "editEvent": MessageLookupByLibrary.simpleMessage("Editar evento"),
+    "editProfile": MessageLookupByLibrary.simpleMessage("Editar perfil"),
     "email": MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
     "enroll": MessageLookupByLibrary.simpleMessage("Inscribirme"),
     "enrolledCount": m3,
@@ -276,6 +280,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Correo electrónico no válido",
     ),
     "invalidNumber": MessageLookupByLibrary.simpleMessage("Número no válido"),
+    "invalidWebsite": MessageLookupByLibrary.simpleMessage(
+      "Escribe una dirección web válida, p. ej. https://parkea.app",
+    ),
     "invitationOnly": MessageLookupByLibrary.simpleMessage(
       "Solo por invitación",
     ),
@@ -382,9 +389,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacySubtitle": MessageLookupByLibrary.simpleMessage(
       "Política de privacidad y uso de datos",
     ),
+    "profileBio": MessageLookupByLibrary.simpleMessage("Descripción"),
+    "profileBioHint": MessageLookupByLibrary.simpleMessage(
+      "Cuéntale a la gente quién eres o qué organizas",
+    ),
     "profileUnavailable": MessageLookupByLibrary.simpleMessage(
       "Perfil no disponible",
     ),
+    "profileUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "No se pudo actualizar el perfil",
+    ),
+    "profileUpdated": MessageLookupByLibrary.simpleMessage(
+      "Perfil actualizado",
+    ),
+    "profileWebsite": MessageLookupByLibrary.simpleMessage("Sitio web"),
     "promotions": MessageLookupByLibrary.simpleMessage("Promociones"),
     "province": MessageLookupByLibrary.simpleMessage("Provincia"),
     "publishEvent": MessageLookupByLibrary.simpleMessage("Publicar evento"),

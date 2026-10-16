@@ -310,5 +310,13 @@
         "type": "String"
       }
     }
-  }
+  },
+  "editProfile": "Editar perfil",
+  "profileBio": "Descripción",
+  "profileBioHint": "Cuéntale a la gente quién eres o qué organizas",
+  "profileWebsite": "Sitio web",
+  "invalidWebsite": "Escribe una dirección web válida, p. ej. https://parkea.app",
+  "profileUpdated": "Perfil actualizado",
+  "profileUpdateFailed": "No se pudo actualizar el perfil",
+  "couldNotOpenLink": "No se pudo abrir el enlace"
 }

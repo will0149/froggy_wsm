@@ -303,5 +303,13 @@
   "mapOpenSettings": "Настройки",
   "mapNoEvents": "Нет предстоящих событий с местоположением",
   "mapMyLocation": "Моё местоположение",
-  "distanceAway": "в {distance}"
+  "distanceAway": "в {distance}",
+  "editProfile": "Редактировать профиль",
+  "profileBio": "Описание",
+  "profileBioHint": "Расскажите, кто вы или что организуете",
+  "profileWebsite": "Сайт",
+  "invalidWebsite": "Введите правильный адрес, например https://parkea.app",
+  "profileUpdated": "Профиль обновлён",
+  "profileUpdateFailed": "Не удалось обновить профиль",
+  "couldNotOpenLink": "Не удалось открыть ссылку"
 }

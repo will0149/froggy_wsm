@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:parkea/app/themes/colors/colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/entities/user/user_profile_dto.dart';
 import '../../../domain/usecases/auth/rest_auth_uc.dart';
 import '../../../generated/l10n.dart';
+import '../../pages/user/edit_profile_page.dart';
+import '../../utils/website.dart';
 
 class UserProfileDashboard extends StatelessWidget {
   final UserProfileDTO? userData;
@@ -19,7 +23,7 @@ class UserProfileDashboard extends StatelessWidget {
     return Column(
       children: [
         _buildHeaderSection(theme),
-        _buildProfileInfo(theme),
+        _buildProfileInfo(context, theme),
       ],
     );
   }
@@ -52,7 +56,7 @@ class UserProfileDashboard extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileInfo(ThemeData theme) {
+  Widget _buildProfileInfo(BuildContext context, ThemeData theme) {
     final fullName =
         '${userData?.firstName ?? ''} ${userData?.lastName ?? ''}'.trim();
     final displayName =
@@ -63,11 +67,22 @@ class UserProfileDashboard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            displayName,
-            style: theme.textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  displayName,
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              OutlinedButton.icon(
+                onPressed: () => context.goNamed(EditProfilePage.routeName),
+                icon: const Icon(Icons.edit_outlined, size: 18),
+                label: Text(S.of(context).editProfile),
+              ),
+            ],
           ),
           if (fullName.isNotEmpty && userData?.username != null) ...[
             const SizedBox(height: 4),
@@ -88,7 +103,61 @@ class UserProfileDashboard extends StatelessWidget {
               ),
             ),
           ],
+          if (userData?.link case final link? when link.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            _WebsiteLink(url: link),
+          ],
         ],
+      ),
+    );
+  }
+}
+
+/// Web del perfil; se abre en el navegador.
+class _WebsiteLink extends StatelessWidget {
+  final String url;
+
+  const _WebsiteLink({required this.url});
+
+  Future<void> _open(BuildContext context) async {
+    final uri = Uri.tryParse(url);
+    final opened = uri != null &&
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!opened && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(S.of(context).couldNotOpenLink)),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Semantics(
+      link: true,
+      child: InkWell(
+        onTap: () => _open(context),
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Row(
+            spacing: 6,
+            children: [
+              const Icon(Icons.link_rounded, size: 18, color: parkeaBlueAccent),
+              Flexible(
+                child: Text(
+                  Website.display(url),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: parkeaBlueAccent,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -52,6 +52,11 @@ class AuthRepository {
       apiClient.putFileAuthorized(
           ApiPathsEnums.profileImage.uri, 'avatar', filePath);
 
+  /// PATCH parcial (`first_name`, `last_name`, `email`, `bio`, `link`); el
+  /// body de la respuesta es el perfil completo.
+  Future<Map<String, dynamic>> updateProfile(Map<String, Object?> fields) =>
+      apiClient.patchAuthorized(ApiPathsEnums.profileUpdate.uri, fields);
+
   Future<Map<String, dynamic>> signIn(LoginDTO request) async {
     final response = await httpCommonUtils.post(
       uri: ApiPathsEnums.signIn.uri,

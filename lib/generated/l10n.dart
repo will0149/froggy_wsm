@@ -1908,6 +1908,81 @@ class S {
       args: [distance],
     );
   }
+
+  /// `Editar perfil`
+  String get editProfile {
+    return Intl.message(
+      'Editar perfil',
+      name: 'editProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Descripción`
+  String get profileBio {
+    return Intl.message('Descripción', name: 'profileBio', desc: '', args: []);
+  }
+
+  /// `Cuéntale a la gente quién eres o qué organizas`
+  String get profileBioHint {
+    return Intl.message(
+      'Cuéntale a la gente quién eres o qué organizas',
+      name: 'profileBioHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sitio web`
+  String get profileWebsite {
+    return Intl.message(
+      'Sitio web',
+      name: 'profileWebsite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Escribe una dirección web válida, p. ej. https://parkea.app`
+  String get invalidWebsite {
+    return Intl.message(
+      'Escribe una dirección web válida, p. ej. https://parkea.app',
+      name: 'invalidWebsite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Perfil actualizado`
+  String get profileUpdated {
+    return Intl.message(
+      'Perfil actualizado',
+      name: 'profileUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo actualizar el perfil`
+  String get profileUpdateFailed {
+    return Intl.message(
+      'No se pudo actualizar el perfil',
+      name: 'profileUpdateFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo abrir el enlace`
+  String get couldNotOpenLink {
+    return Intl.message(
+      'No se pudo abrir el enlace',
+      name: 'couldNotOpenLink',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

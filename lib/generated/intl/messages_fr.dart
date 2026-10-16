@@ -130,6 +130,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "costPaid": MessageLookupByLibrary.simpleMessage("Payant"),
     "costPrivate": MessageLookupByLibrary.simpleMessage("Privé"),
     "costType": MessageLookupByLibrary.simpleMessage("Type d\'accès"),
+    "couldNotOpenLink": MessageLookupByLibrary.simpleMessage(
+      "Impossible d\'ouvrir le lien",
+    ),
     "couldNotOpenMaps": MessageLookupByLibrary.simpleMessage(
       "Impossible d\'ouvrir l\'app de cartes",
     ),
@@ -153,6 +156,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Télécharger le billet",
     ),
     "editEvent": MessageLookupByLibrary.simpleMessage("Modifier l\'événement"),
+    "editProfile": MessageLookupByLibrary.simpleMessage("Modifier le profil"),
     "email": MessageLookupByLibrary.simpleMessage("E-mail"),
     "enroll": MessageLookupByLibrary.simpleMessage("M\'inscrire"),
     "enrolledCount": m3,
@@ -286,6 +290,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Adresse e-mail invalide",
     ),
     "invalidNumber": MessageLookupByLibrary.simpleMessage("Nombre invalide"),
+    "invalidWebsite": MessageLookupByLibrary.simpleMessage(
+      "Saisissez une adresse valide, ex. https://parkea.app",
+    ),
     "invitationOnly": MessageLookupByLibrary.simpleMessage(
       "Sur invitation uniquement",
     ),
@@ -398,9 +405,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacySubtitle": MessageLookupByLibrary.simpleMessage(
       "Politique de confidentialité et données",
     ),
+    "profileBio": MessageLookupByLibrary.simpleMessage("Description"),
+    "profileBioHint": MessageLookupByLibrary.simpleMessage(
+      "Dites qui vous êtes ou ce que vous organisez",
+    ),
     "profileUnavailable": MessageLookupByLibrary.simpleMessage(
       "Profil indisponible",
     ),
+    "profileUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "Impossible de mettre à jour le profil",
+    ),
+    "profileUpdated": MessageLookupByLibrary.simpleMessage("Profil mis à jour"),
+    "profileWebsite": MessageLookupByLibrary.simpleMessage("Site web"),
     "promotions": MessageLookupByLibrary.simpleMessage("Promotions"),
     "province": MessageLookupByLibrary.simpleMessage("Province"),
     "publishEvent": MessageLookupByLibrary.simpleMessage(

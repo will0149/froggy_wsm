@@ -7,6 +7,7 @@ import 'package:parkea/app/pages/auth/login_page.dart';
 import 'package:parkea/app/pages/auth/password_reset_confirm_page.dart';
 import 'package:parkea/app/pages/auth/password_reset_page.dart';
 import 'package:parkea/app/pages/auth/sign_up_page.dart';
+import 'package:parkea/app/pages/user/edit_profile_page.dart';
 import 'package:parkea/app/pages/user/user_settings.dart';
 import 'package:parkea/device/utils/logger_config.dart';
 import 'package:parkea/domain/models/auth/auth_state.dart';
@@ -160,6 +161,11 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
                     name: UserSettingsPage.routeName,
                     path: UserSettingsPage.routeLocation,
                     builder: (context, state) => const UserSettingsPage(),
+                  ),
+                  GoRoute(
+                    name: EditProfilePage.routeName,
+                    path: EditProfilePage.routeLocation,
+                    builder: (context, state) => const EditProfilePage(),
                   ),
                 ],
               ),
