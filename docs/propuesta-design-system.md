@@ -1,6 +1,6 @@
 # Propuesta de design system para Parkea
 
-Estado: **aprobada con las opciones recomendadas** (barra blanca, Inscribirse azul, fondo gris cálido y modo oscuro en la misma pasada). Fase 1 implementada. Las pantallas de auth (bienvenida, login, registro y recuperar contraseña) **no cambian**.
+Estado: **aprobada con las opciones recomendadas** (barra blanca, Inscribirse azul, fondo gris cálido y modo oscuro en la misma pasada). Fases 1 y 2 implementadas. Las pantallas de auth (bienvenida, login, registro y recuperar contraseña) **no cambian**.
 
 ## Resumen
 
@@ -104,7 +104,7 @@ Cada fase es un commit y se valida en el emulador.
    - Nuevo `ParkeaColors`, y `ColorScheme` construido desde los tokens (sin `fromSeed`, para que no invente tonos).
    - `ParkeaRadius`, `ParkeaSpacing` y la escala tipográfica.
    - `AuthScaffold` envuelve sus formularios en un `Theme` con los valores actuales, para que **el login no cambie**.
-2. **Componentes del tema**: botones, inputs, chips, tarjetas, AppBar, barra inferior, snackbars y diálogos. Con esto ya cambia gran parte de la app sin tocar las pantallas.
+2. ✅ **Componentes del tema**: botones, inputs, chips, tarjetas, AppBar, barra inferior, snackbars y diálogos. Con esto ya cambia gran parte de la app sin tocar las pantallas.
 3. **Migración de pantallas.** Se quitan los `Colors.x`, `parkeaOrange` y los `isDarkMode` locales, en este orden: Ajustes, Detalle, Tickets, Perfil, Home, Crear evento y Mapa.
 4. **Guardia.** Un test que busque `Colors.grey`, `parkeaOrange` y `Color(0x` fuera de `lib/app/themes/` y falle si aparecen. Así el sistema no se vuelve a romper.
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parkea/app/themes/border_radius.dart';
+import 'package:parkea/app/themes/dimens.dart';
 import 'package:parkea/app/themes/parkea_input_decoration_theme.dart';
 import 'package:parkea/app/themes/text_theme.dart';
 
@@ -66,152 +66,196 @@ class AppTheme {
     );
   }
 
-  static ThemeData _build(ParkeaColors parkeaColors, Brightness brightness) {
-    final colorScheme = AppTheme.colorScheme(parkeaColors, brightness);
-    final textTheme = parkeaTextTheme(parkeaColors);
+  static ThemeData _build(ParkeaColors c, Brightness brightness) {
+    final colorScheme = AppTheme.colorScheme(c, brightness);
+    final textTheme = parkeaTextTheme(c);
+    final buttonText = textTheme.labelLarge!.copyWith(fontSize: 15);
+    const buttonShape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(ParkeaRadius.md)),
+    );
+    const buttonSize = Size(64, 48);
+    const buttonPadding = EdgeInsets.symmetric(horizontal: ParkeaSpacing.xl);
+    // Botón principal: Filled y Elevated se ven igual (hay pantallas que
+    // todavía usan ElevatedButton).
+    final primaryButton = FilledButton.styleFrom(
+      backgroundColor: c.primary,
+      foregroundColor: c.onPrimary,
+      disabledBackgroundColor: c.onSurface.withValues(alpha: 0.12),
+      disabledForegroundColor: c.onSurface.withValues(alpha: 0.38),
+      minimumSize: buttonSize,
+      padding: buttonPadding,
+      shape: buttonShape,
+      textStyle: buttonText,
+      elevation: 0,
+    );
 
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
-      extensions: <ThemeExtension<ParkeaColors>>[
-        parkeaColors,
-      ],
-      scaffoldBackgroundColor: parkeaColors.background,
+      extensions: <ThemeExtension<ParkeaColors>>[c],
+      scaffoldBackgroundColor: c.background,
+      canvasColor: c.background,
       fontFamily: 'GothicA1',
-      inputDecorationTheme: getParkeaInputDecorationTheme(parkeaColors),
       textTheme: textTheme,
-      dividerColor: parkeaColors.outline,
-
-      // Componentes: se rediseñan en la fase 2.
-      switchTheme: SwitchThemeData(
-        thumbColor: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) {
-            return parkeaColors.secondary;
-          }
-          return parkeaColors.onSurface.withValues(alpha: 0.38);
-        }),
-        trackColor: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) {
-            return parkeaColors.secondary.withValues(alpha: 0.54);
-          }
-          return parkeaColors.onSurface.withValues(alpha: 0.12);
-        }),
-      ),
-
-      listTileTheme: ListTileThemeData(
-        iconColor: parkeaColors.primary,
-        textColor: parkeaColors.onSurface,
-      ),
-
-      appBarTheme: AppBarTheme(
-        backgroundColor: parkeaColors.surface,
-        foregroundColor: parkeaColors.onSurface,
-        elevation: 0,
-        surfaceTintColor: parkeaColors.surface,
-        iconTheme: IconThemeData(color: parkeaColors.primary),
-        titleTextStyle: textTheme.titleLarge,
-      ),
-
-      cardTheme: CardThemeData(
-        color: parkeaColors.surface,
-        elevation: 2,
-        shadowColor: parkeaColors.onSurface.withValues(alpha: 0.12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(ParkeaBorderRadius.card),
-        ),
-      ),
-
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: parkeaColors.secondary,
-          foregroundColor: colorScheme.onSecondary,
-          elevation: 2,
-          shadowColor: parkeaColors.secondary.withValues(alpha: 0.3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(ParkeaBorderRadius.button),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          textStyle: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
-        ),
-      ),
-
+      dividerTheme: DividerThemeData(color: c.outline, thickness: 1, space: 1),
+      inputDecorationTheme: parkeaInputDecorationTheme(c, textTheme),
+      filledButtonTheme: FilledButtonThemeData(style: primaryButton),
+      elevatedButtonTheme: ElevatedButtonThemeData(style: primaryButton),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: parkeaColors.primary,
-          side: BorderSide(color: parkeaColors.primary, width: 1.5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(ParkeaBorderRadius.button),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          textStyle: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
+          foregroundColor: c.primary,
+          side: BorderSide(color: c.primary, width: 1.5),
+          minimumSize: buttonSize,
+          padding: buttonPadding,
+          shape: buttonShape,
+          textStyle: buttonText,
         ),
       ),
-
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: parkeaColors.primary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(ParkeaBorderRadius.button),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          textStyle: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
+          foregroundColor: c.primary,
+          padding: const EdgeInsets.symmetric(
+              horizontal: ParkeaSpacing.md, vertical: ParkeaSpacing.sm),
+          shape: buttonShape,
+          textStyle: buttonText,
         ),
       ),
-
-      chipTheme: ChipThemeData(
-        backgroundColor: parkeaColors.surface,
-        selectedColor: parkeaColors.secondary.withValues(alpha: 0.12),
-        secondarySelectedColor: parkeaColors.secondary,
-        labelStyle: TextStyle(color: parkeaColors.onSurface),
-        secondaryLabelStyle: TextStyle(color: parkeaColors.secondary),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(ParkeaBorderRadius.button),
-          side: BorderSide(color: parkeaColors.primary.withValues(alpha: 0.2)),
-        ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(foregroundColor: c.onSurface),
       ),
-
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: parkeaColors.secondary,
-        foregroundColor: colorScheme.onSecondary,
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(ParkeaBorderRadius.button),
+        backgroundColor: c.surface,
+        foregroundColor: c.primary,
+        elevation: 2,
+        highlightElevation: 4,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(ParkeaRadius.lg)),
         ),
       ),
-
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith((states) =>
+            states.contains(WidgetState.selected) ? c.onPrimary : c.outline),
+        trackColor: WidgetStateProperty.resolveWith((states) =>
+            states.contains(WidgetState.selected) ? c.primary : c.background),
+        trackOutlineColor: WidgetStateProperty.resolveWith((states) =>
+            states.contains(WidgetState.selected)
+                ? Colors.transparent
+                : c.outline),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: c.surface,
+        selectedColor: c.primaryContainer,
+        disabledColor: c.background,
+        checkmarkColor: c.onPrimaryContainer,
+        labelStyle: textTheme.labelLarge,
+        secondaryLabelStyle:
+            textTheme.labelLarge?.copyWith(color: c.onPrimaryContainer),
+        iconTheme: IconThemeData(color: c.primary, size: 18),
+        padding: const EdgeInsets.symmetric(
+            horizontal: ParkeaSpacing.sm, vertical: ParkeaSpacing.sm),
+        side: WidgetStateBorderSide.resolveWith((states) => BorderSide(
+            color: states.contains(WidgetState.selected)
+                ? c.primaryContainer
+                : c.outline)),
+        shape: const StadiumBorder(),
+        showCheckmark: false,
+      ),
+      cardTheme: CardThemeData(
+        color: c.surface,
+        elevation: 0,
+        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(ParkeaRadius.lg),
+          side: BorderSide(color: c.outline),
+        ),
+      ),
+      listTileTheme: ListTileThemeData(
+        iconColor: c.primary,
+        textColor: c.onSurface,
+        subtitleTextStyle: textTheme.bodySmall,
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: c.background,
+        foregroundColor: c.onSurface,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
+        centerTitle: false,
+        iconTheme: IconThemeData(color: c.onSurface),
+        actionsIconTheme: IconThemeData(color: c.onSurface),
+        titleTextStyle: textTheme.titleLarge,
+      ),
+      tabBarTheme: TabBarThemeData(
+        labelColor: c.primary,
+        unselectedLabelColor: c.onSurfaceMuted,
+        indicatorColor: c.primary,
+        dividerColor: c.outline,
+        labelStyle: textTheme.titleSmall,
+        unselectedLabelStyle: textTheme.titleSmall,
+      ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: parkeaColors.navBar,
-        indicatorColor: parkeaColors.navIndicator,
+        backgroundColor: c.navBar,
+        indicatorColor: c.navIndicator,
+        surfaceTintColor: Colors.transparent,
         height: 68,
         elevation: 0,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-        iconTheme: WidgetStatePropertyAll(
-          IconThemeData(color: parkeaColors.onNavBar, size: 26),
-        ),
-        labelTextStyle: WidgetStateProperty.resolveWith(
-          (states) => TextStyle(
-            color: parkeaColors.onNavBar,
-            fontSize: 11,
-            fontWeight: states.contains(WidgetState.selected)
-                ? FontWeight.bold
-                : FontWeight.w500,
-          ),
-        ),
+        iconTheme: WidgetStateProperty.resolveWith((states) => IconThemeData(
+              color: states.contains(WidgetState.selected)
+                  ? c.onPrimaryContainer
+                  : c.onNavBar,
+              size: 24,
+            )),
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          final selected = states.contains(WidgetState.selected);
+          return textTheme.labelSmall?.copyWith(
+            color: selected ? c.primary : c.onNavBar,
+            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+          );
+        }),
       ),
       badgeTheme: BadgeThemeData(
-        backgroundColor: parkeaColors.reward,
-        textColor: parkeaColors.onReward,
+        backgroundColor: c.reward,
+        textColor: c.onReward,
       ),
+      snackBarTheme: SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: colorScheme.inverseSurface,
+        contentTextStyle:
+            textTheme.bodyMedium?.copyWith(color: colorScheme.onInverseSurface),
+        actionTextColor: colorScheme.inversePrimary,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(ParkeaRadius.md)),
+        ),
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: c.surface,
+        surfaceTintColor: Colors.transparent,
+        titleTextStyle: textTheme.titleLarge,
+        contentTextStyle: textTheme.bodyMedium,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(ParkeaRadius.xl)),
+        ),
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: c.surface,
+        surfaceTintColor: Colors.transparent,
+        showDragHandle: true,
+        dragHandleColor: c.outline,
+        shape: const RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.vertical(top: Radius.circular(ParkeaRadius.xl)),
+        ),
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: c.primary,
+        linearTrackColor: c.progressTrack,
+      ),
+      datePickerTheme: DatePickerThemeData(
+        backgroundColor: c.surface,
+        surfaceTintColor: Colors.transparent,
+      ),
+      timePickerTheme: TimePickerThemeData(backgroundColor: c.surface),
     );
   }
 }

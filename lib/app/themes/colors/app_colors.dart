@@ -5,7 +5,8 @@ import 'colors.dart';
 /// By User: josedominguez
 /// Date: 07/24/23
 
-ParkeaColors colors(BuildContext context) => Theme.of(context).extension<ParkeaColors>()!;
+ParkeaColors colors(BuildContext context) =>
+    Theme.of(context).extension<ParkeaColors>()!;
 
 /// Tokens de color (ver `docs/propuesta-design-system.md`): azul = acción,
 /// naranja = marca y emoción, neutros = estructura. Las pantallas usan estos
@@ -49,14 +50,15 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
   final Color error;
   final Color onError;
 
-  /// Barra de navegación inferior y su contenido.
+  /// Barra de navegación inferior y sus destinos inactivos (el activo usa
+  /// [primary]).
   final Color navBar;
   final Color onNavBar;
 
   /// Píldora detrás del destino activo.
   final Color navIndicator;
 
-  /// Elementos de recompensa (contadores, logros).
+  /// Elementos de recompensa con texto (contador de Tickets).
   final Color reward;
   final Color onReward;
 
@@ -118,12 +120,11 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
       warning: Color(0xFFB45309),
       error: Color(0xFFB3261E),
       onError: parkeaWhite,
-      // Componentes: cambian en la fase 2.
-      navBar: parkeaOrange,
-      onNavBar: parkeaWhite,
-      navIndicator: Color(0x3DFFFFFF),
-      reward: parkeaWhite,
-      onReward: parkeaDarkOrange,
+      navBar: parkeaWhite,
+      onNavBar: Color(0xFF6B6464),
+      navIndicator: Color(0xFFE6F3F6),
+      reward: Color(0xFFC2410C),
+      onReward: parkeaWhite,
       progressTrack: Color(0xFFEDE7E3),
       progress: parkeaOrange,
     );
@@ -150,11 +151,11 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
       warning: Color(0xFFFBBF24),
       error: Color(0xFFF2B8B5),
       onError: Color(0xFF601410),
-      navBar: parkeaDarkBlueAccent,
-      onNavBar: parkeaWhite,
-      navIndicator: Color(0x3DFFFFFF),
-      reward: parkeaOrange,
-      onReward: parkeaWhite,
+      navBar: Color(0xFF1E1B1B),
+      onNavBar: Color(0xFFB3ABAA),
+      navIndicator: Color(0xFF0E3D4A),
+      reward: Color(0xFFFB923C),
+      onReward: Color(0xFF1E1B1B),
       progressTrack: Color(0xFF4A4545),
       progress: parkeaOrange,
     );
@@ -165,6 +166,11 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
   factory ParkeaColors.legacy({required bool isDark}) {
     final base = isDark ? ParkeaColors.dark() : ParkeaColors.light();
     return base.copyWith(
+      navBar: isDark ? parkeaDarkBlueAccent : parkeaOrange,
+      onNavBar: parkeaWhite,
+      navIndicator: const Color(0x3DFFFFFF),
+      reward: isDark ? parkeaOrange : parkeaWhite,
+      onReward: isDark ? parkeaWhite : parkeaDarkOrange,
       primary: parkeaBlueAccent,
       surface: isDark ? parkeaBlack : parkeaWhite,
       background: isDark ? parkeaBlack : parkeaWhite,

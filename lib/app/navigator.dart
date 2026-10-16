@@ -82,23 +82,24 @@ class NavigatorBar extends ConsumerWidget {
     ];
 
     // La barra del sistema toma el color de la barra para que se vean juntas.
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final overlay =
+        isDark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark;
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light.copyWith(
+      value: overlay.copyWith(
         systemNavigationBarColor: palette.navBar,
-        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarIconBrightness:
+            isDark ? Brightness.light : Brightness.dark,
       ),
       child: ExitPopScope(
         child: Scaffold(
           extendBody: true,
           body: navigationShell,
           bottomNavigationBar: DecoratedBox(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-              boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+            decoration: BoxDecoration(
+              border: Border(top: BorderSide(color: palette.outline)),
             ),
-            child: ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(25)),
+            child: ClipRect(
               child: NavigationBar(
                 selectedIndex: branches.indexOf(navigationShell.currentIndex),
                 destinations: destinations,
@@ -147,8 +148,8 @@ class _TicketsIcon extends StatelessWidget {
   }
 }
 
-/// Botón destacado de "Crear": círculo blanco con el "+" del color de la
-/// barra.
+/// Botón destacado de "Crear": el único acento de marca de la barra. El "+"
+/// va en [ParkeaColors.onBrand] porque el blanco sobre naranja no se ve.
 class _CreateIcon extends StatelessWidget {
   const _CreateIcon();
 
@@ -157,13 +158,19 @@ class _CreateIcon extends StatelessWidget {
     final palette = colors(context);
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: palette.onNavBar,
+        color: palette.brand,
         shape: BoxShape.circle,
-        boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 4)],
+        boxShadow: [
+          BoxShadow(
+            color: palette.brand.withValues(alpha: 0.35),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(4),
-        child: Icon(Icons.add_rounded, color: palette.navBar, size: 26),
+        padding: const EdgeInsets.all(8),
+        child: Icon(Icons.add_rounded, color: palette.onBrand, size: 28),
       ),
     );
   }
