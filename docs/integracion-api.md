@@ -68,8 +68,7 @@ Contrato general del API:
 - En el detalle del ticket se puede ver el evento y **cancelar la inscripción** (`DELETE ticket/cancel/<id>/`).
 
 ### Perfil
-- **Eventos**: los eventos creados por el usuario (`events/owner/`).
-- **Inscritos**: los eventos de sus tickets.
+- **Mis eventos**: los eventos creados por el usuario (`events/owner/`). Los eventos en los que está inscrito se ven en la pestaña Tickets.
 - **Foto de perfil** (`PUT user/profile/image/`, multipart `avatar`).
 
 ### Crear evento (`events/create/` y `events/update/image/<id>/`)

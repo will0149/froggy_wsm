@@ -769,31 +769,11 @@ class S {
     );
   }
 
-  /// `Inscritos`
-  String get myEventsEnrolled {
-    return Intl.message(
-      'Inscritos',
-      name: 'myEventsEnrolled',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Aún no has creado eventos`
   String get noOwnEvents {
     return Intl.message(
       'Aún no has creado eventos',
       name: 'noOwnEvents',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No estás inscrito en ningún evento`
-  String get noEnrolledEvents {
-    return Intl.message(
-      'No estás inscrito en ningún evento',
-      name: 'noEnrolledEvents',
       desc: '',
       args: [],
     );

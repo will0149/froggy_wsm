@@ -7,7 +7,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../../domain/models/auth/auth_state.dart';
 import '../../../domain/usecases/auth/rest_auth_uc.dart';
 import '../../themes/colors/colors.dart';
-import '../../widgets/profile_content_tabbar.dart';
+import '../../widgets/profile_events_section.dart';
 import '../../widgets/user/user_profile_dashboard.dart';
 import '../../../generated/l10n.dart';
 
@@ -58,9 +58,7 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
         ),
         SliverFillRemaining(
           hasScrollBody: true,
-          child: ProfileContentTabBar(
-            key: UniqueKey(),
-          ),
+          child: const ProfileEventsSection(),
         ),
       ],
     );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/dtos/event_dto.dart';
-import '../../domain/usecases/fetch_tickets_uc.dart';
 import '../../domain/usecases/owner_events_uc.dart';
 import '../../generated/l10n.dart';
 import 'cards/event_feed_card.dart';
@@ -11,26 +10,16 @@ import 'cards/event_feed_card.dart';
 /// By User: josedominguez
 /// Date: 03/09/23
 
-/// Pestañas del perfil: eventos creados por el usuario y eventos en los que
-/// está inscrito. "Guardados" no existe en el API, así que no se muestra.
-class ProfileContentTabBar extends ConsumerWidget {
-  const ProfileContentTabBar({super.key});
+/// Eventos creados por el usuario. Los eventos en los que está inscrito
+/// están en la pestaña Tickets.
+class ProfileEventsSection extends ConsumerWidget {
+  const ProfileEventsSection({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final s = S.of(context);
     final ownEvents = ref.watch(ownerEventsUCProvider);
-    final enrolledEvents = ref.watch(myTicketsUCProvider).whenData(
-        (tickets) => [for (final ticket in tickets) ticket.event]);
-
-    Tab tab(IconData icon, String label) => Tab(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 8,
-            children: [Icon(icon, size: 20), Text(label)],
-          ),
-        );
 
     return Container(
       decoration: BoxDecoration(
@@ -44,62 +33,38 @@ class ProfileContentTabBar extends ConsumerWidget {
           ),
         ],
       ),
-      child: DefaultTabController(
-        length: 2,
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: theme.cardColor,
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(24)),
-              ),
-              child: Column(
-                children: [
-                  // Tab indicator handle
-                  Container(
-                    width: 40,
-                    height: 4,
-                    margin: const EdgeInsets.symmetric(vertical: 12),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                  TabBar(
-                    indicatorColor: theme.primaryColor,
-                    indicatorWeight: 3,
-                    labelColor: theme.primaryColor,
-                    unselectedLabelColor: Colors.grey[600],
-                    labelStyle: theme.textTheme.titleSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                    unselectedLabelStyle: theme.textTheme.titleSmall,
-                    tabs: [
-                      tab(Icons.event, s.myEvents),
-                      tab(Icons.confirmation_num, s.myEventsEnrolled),
-                    ],
-                  ),
-                ],
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
+            decoration: BoxDecoration(
+              color: theme.cardColor,
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(24)),
             ),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  _EventsList(
-                    events: ownEvents,
-                    emptyMessage: s.noOwnEvents,
-                    onRetry: () => ref.invalidate(ownerEventsUCProvider),
+            child: Row(
+              spacing: 8,
+              children: [
+                Icon(Icons.event, size: 20, color: theme.primaryColor),
+                Text(
+                  s.myEvents,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    color: theme.primaryColor,
+                    fontWeight: FontWeight.bold,
                   ),
-                  _EventsList(
-                    events: enrolledEvents,
-                    emptyMessage: s.noEnrolledEvents,
-                    onRetry: () => ref.invalidate(myTicketsUCProvider),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: _EventsList(
+              events: ownEvents,
+              emptyMessage: s.noOwnEvents,
+              onRetry: () => ref.invalidate(ownerEventsUCProvider),
+            ),
+          ),
+        ],
       ),
     );
   }

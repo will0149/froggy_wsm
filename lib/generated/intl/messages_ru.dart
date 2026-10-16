@@ -297,7 +297,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "mapOpenSettings": MessageLookupByLibrary.simpleMessage("Настройки"),
     "myEvents": MessageLookupByLibrary.simpleMessage("Мероприятия"),
-    "myEventsEnrolled": MessageLookupByLibrary.simpleMessage("Записан"),
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Оплаченный"),
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Сохранено"),
     "myTickets": MessageLookupByLibrary.simpleMessage("Мои билеты"),
@@ -310,9 +309,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "newPassword": MessageLookupByLibrary.simpleMessage("Новый пароль"),
     "noCapacityLimit": MessageLookupByLibrary.simpleMessage(
       "Без ограничения мест",
-    ),
-    "noEnrolledEvents": MessageLookupByLibrary.simpleMessage(
-      "Ты не записан ни на одно событие",
     ),
     "noEventsInLocation": MessageLookupByLibrary.simpleMessage(
       "Нет предстоящих событий в этом месте",

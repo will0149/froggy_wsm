@@ -297,7 +297,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "mapOpenSettings": MessageLookupByLibrary.simpleMessage("Settings"),
     "myEvents": MessageLookupByLibrary.simpleMessage("Events"),
-    "myEventsEnrolled": MessageLookupByLibrary.simpleMessage("Enrolled"),
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Paid"),
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Saved"),
     "myTickets": MessageLookupByLibrary.simpleMessage("My Tickets"),
@@ -310,9 +309,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
     "noCapacityLimit": MessageLookupByLibrary.simpleMessage(
       "No capacity limit",
-    ),
-    "noEnrolledEvents": MessageLookupByLibrary.simpleMessage(
-      "You aren\'t enrolled in any event",
     ),
     "noEventsInLocation": MessageLookupByLibrary.simpleMessage(
       "No upcoming events in this location",
