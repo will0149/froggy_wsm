@@ -48,7 +48,7 @@ class EventFeedState {
 }
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+/// por [category] (ver `EventCategory`; null todas), por
 /// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
 /// [city] (null sin filtro).
 @riverpod

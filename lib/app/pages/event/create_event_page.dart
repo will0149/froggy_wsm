@@ -9,9 +9,13 @@ import 'package:intl/intl.dart';
 
 import '../../../data/dtos/event_dto.dart';
 import '../../../domain/gamification/event_completeness.dart';
+import '../../../domain/models/event_category.dart';
 import '../../../domain/usecases/create_event_uc.dart';
 import '../../../domain/usecases/fetch_events_uc.dart';
 import '../../../generated/l10n.dart';
+import '../../themes/colors/app_colors.dart';
+import '../../themes/dimens.dart';
+import '../../utils/event_category_label.dart';
 import '../../utils/form_validators.dart';
 import '../../widgets/gamification/event_completeness_card.dart';
 import 'event_detail_page.dart';
@@ -37,7 +41,6 @@ class CreateEventPage extends ConsumerStatefulWidget {
 }
 
 class _CreateEventPageState extends ConsumerState<CreateEventPage> {
-  static const _categories = ['MUSIC', 'CAMPING', 'ADVENTURE', 'WORKSHOPS'];
   static const _costTypes = ['FREE', 'PAID', 'INVITATION', 'PRIVATE'];
 
   final _formKey = GlobalKey<FormState>();
@@ -50,7 +53,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
   final _capacity = TextEditingController();
 
   DateTime? _date;
-  String? _category;
+  EventCategory? _category;
   String _costType = 'FREE';
   XFile? _banner;
 
@@ -77,7 +80,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
     _description.text = event.description ?? '';
     _place.text = event.location?.place ?? '';
     _date = _originalDate = DateTime.tryParse(event.date ?? '')?.toLocal();
-    _category = _categories.contains(event.category) ? event.category : null;
+    _category = EventCategory.fromApi(event.category);
     if (_costTypes.contains(event.eventType)) _costType = event.eventType!;
     if (event.amount case final amount? when _costType == 'PAID') {
       final price = double.tryParse(amount.price);
@@ -110,7 +113,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
         shortDescription: _shortDescription.text,
         description: _description.text,
         place: _place.text,
-        category: _category,
+        category: _category?.apiValue,
       );
 
   String? _apiError(String field) => _apiErrors[field]?.join('\n');
@@ -164,7 +167,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
       if (_date != _originalDate)
         'event_date': _date!.toUtc().toIso8601String(),
       'place': _place.text.trim(),
-      'category': _category,
+      'category': _category?.apiValue,
       'cost_type': _costType,
       if (paid) 'price': _price.text.trim().replaceAll(',', '.'),
       if (paid) 'currency': _currency.text.trim().toUpperCase(),
@@ -207,12 +210,6 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
   Widget build(BuildContext context) {
     final s = S.of(context);
     final isLoading = ref.watch(createEventUCProvider).isLoading;
-    final categoryLabels = [
-      s.catMusic,
-      s.catCamping,
-      s.catAdventure,
-      s.catWorkshops
-    ];
     final costLabels = [
       s.costFree,
       s.costPaid,
@@ -293,30 +290,62 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
               forceErrorText: _apiError('place'),
               onChanged: (_) => _clearApiError('place'),
             ),
-            DropdownButtonFormField<String?>(
+            DropdownButtonFormField<EventCategory?>(
               initialValue: _category,
-              decoration: InputDecoration(labelText: s.eventCategory),
+              decoration: InputDecoration(
+                labelText: s.eventCategory,
+                errorText: _apiError('category'),
+              ),
               items: [
                 DropdownMenuItem(value: null, child: Text(s.categoryNone)),
-                for (final (i, code) in _categories.indexed)
-                  DropdownMenuItem(value: code, child: Text(categoryLabels[i])),
+                for (final category in EventCategory.values)
+                  DropdownMenuItem(
+                    value: category,
+                    child: Row(
+                      spacing: ParkeaSpacing.sm,
+                      children: [
+                        Icon(category.icon, size: 20),
+                        Text(category.label(s)),
+                      ],
+                    ),
+                  ),
               ],
-              onChanged: (value) => setState(() => _category = value),
+              onChanged: (value) => setState(() {
+                _category = value;
+                _clearApiError('category');
+                // El voluntariado solo puede ser gratis (el API lo exige).
+                if (value?.freeOnly ?? false) {
+                  _costType = 'FREE';
+                  _clearApiError('cost_type');
+                }
+              }),
             ),
             const SizedBox(height: 20),
             Text(s.costType, style: Theme.of(context).textTheme.labelLarge),
             const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              children: [
-                for (final (i, code) in _costTypes.indexed)
-                  ChoiceChip(
-                    label: Text(costLabels[i]),
-                    selected: _costType == code,
-                    onSelected: (_) => setState(() => _costType = code),
-                  ),
-              ],
-            ),
+            if (_category?.freeOnly ?? false)
+              _FreeOnlyNote(text: s.volunteeringFreeNote)
+            else
+              Wrap(
+                spacing: 8,
+                children: [
+                  for (final (i, code) in _costTypes.indexed)
+                    ChoiceChip(
+                      label: Text(costLabels[i]),
+                      selected: _costType == code,
+                      onSelected: (_) => setState(() => _costType = code),
+                    ),
+                ],
+              ),
+            if (_apiError('cost_type') case final error?)
+              Padding(
+                padding: const EdgeInsets.only(top: ParkeaSpacing.xs),
+                child: Text(
+                  error,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.error),
+                ),
+              ),
             if (_costType == 'PAID')
               Padding(
                 padding: const EdgeInsets.only(top: 12),
@@ -487,5 +516,42 @@ class EditEventPage extends ConsumerWidget {
           body: Center(child: CircularProgressIndicator.adaptive()),
         ),
     };
+  }
+}
+
+/// En lugar del selector de acceso cuando la categoría solo admite gratis.
+class _FreeOnlyNote extends StatelessWidget {
+  final String text;
+
+  const _FreeOnlyNote({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = colors(context);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: palette.primaryContainer,
+        borderRadius: BorderRadius.circular(ParkeaRadius.md),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(ParkeaSpacing.md),
+        child: Row(
+          spacing: ParkeaSpacing.md,
+          children: [
+            Icon(Icons.volunteer_activism_rounded,
+                color: palette.onPrimaryContainer),
+            Expanded(
+              child: Text(
+                text,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: palette.onPrimaryContainer),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

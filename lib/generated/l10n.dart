@@ -1983,6 +1983,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Voluntariado`
+  String get catVolunteering {
+    return Intl.message(
+      'Voluntariado',
+      name: 'catVolunteering',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El voluntariado es gratis y cualquiera puede inscribirse.`
+  String get volunteeringFreeNote {
+    return Intl.message(
+      'El voluntariado es gratis y cualquiera puede inscribirse.',
+      name: 'volunteeringFreeNote',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

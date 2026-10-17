@@ -311,5 +311,7 @@
   "invalidWebsite": "Введите правильный адрес, например https://parkea.app",
   "profileUpdated": "Профиль обновлён",
   "profileUpdateFailed": "Не удалось обновить профиль",
-  "couldNotOpenLink": "Не удалось открыть ссылку"
+  "couldNotOpenLink": "Не удалось открыть ссылку",
+  "catVolunteering": "Волонтёрство",
+  "volunteeringFreeNote": "Волонтёрские события бесплатны, записаться может любой."
 }

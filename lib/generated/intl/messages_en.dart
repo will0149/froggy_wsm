@@ -93,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "catAll": MessageLookupByLibrary.simpleMessage("All"),
     "catCamping": MessageLookupByLibrary.simpleMessage("Camping"),
     "catMusic": MessageLookupByLibrary.simpleMessage("Music"),
+    "catVolunteering": MessageLookupByLibrary.simpleMessage("Volunteering"),
     "catWorkshops": MessageLookupByLibrary.simpleMessage("Workshops"),
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
     "categoryNone": MessageLookupByLibrary.simpleMessage("No category"),
@@ -441,6 +442,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "viewEvent": MessageLookupByLibrary.simpleMessage("View event"),
     "viewMyTicket": MessageLookupByLibrary.simpleMessage("View my ticket"),
+    "volunteeringFreeNote": MessageLookupByLibrary.simpleMessage(
+      "Volunteering is free and anyone can sign up.",
+    ),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage("¡Welcome back!"),
     "yourProfile": MessageLookupByLibrary.simpleMessage("Your profile"),
   };

@@ -36,7 +36,7 @@ class EventDTO {
   @JsonKey(name: 'location', readValue: _readLocation)
   final LocationDTO? location;
 
-  /// MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null si no tiene.
+  /// Valor de `EventCategory`; null si no tiene.
   @JsonKey(name: 'category')
   final String? category;
 

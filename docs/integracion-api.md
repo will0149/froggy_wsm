@@ -75,6 +75,7 @@ Contrato general del API:
 ### Crear evento (`events/create/` y `events/update/image/<id>/`)
 - Solo cuentas verificadas (`is_verified`), desde el botón **+** de la barra inferior.
 - Validaciones en la app y errores del API debajo de cada campo.
+- **Voluntariado** (`category: VOLUNTEERING`: siembra de árboles, ayuda social…): siempre gratis y abierto a todos. Al elegirlo, la app fija `cost_type: FREE` y oculta el selector de acceso. El API rechaza otro `cost_type` con 400 en ese campo y guarda el precio en 0. Las categorías de la app están en `EventCategory`.
 
 ### Transversal
 - **Idiomas**: todos los textos de la app están en los 7 idiomas (es, en, de, fr, pt, ru, zh), incluidos los errores de los use cases (por `S.current`).

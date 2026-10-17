@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(year) => "© ${year} Parkea。保留所有權利。";
 
-  static String m2(distance) => "距离 ${distance}";
+  static String m2(distance) => "距離 ${distance}";
 
   static String m3(count) =>
       "${Intl.plural(count, zero: '尚無人報名', other: '已有 ${count} 人報名')}";
@@ -81,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "catAll": MessageLookupByLibrary.simpleMessage("全部"),
     "catCamping": MessageLookupByLibrary.simpleMessage("露營"),
     "catMusic": MessageLookupByLibrary.simpleMessage("音樂"),
+    "catVolunteering": MessageLookupByLibrary.simpleMessage("志工服務"),
     "catWorkshops": MessageLookupByLibrary.simpleMessage("工作坊"),
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
     "categoryNone": MessageLookupByLibrary.simpleMessage("無類別"),
@@ -109,7 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "costPaid": MessageLookupByLibrary.simpleMessage("付費"),
     "costPrivate": MessageLookupByLibrary.simpleMessage("私人"),
     "costType": MessageLookupByLibrary.simpleMessage("入場方式"),
-    "couldNotOpenLink": MessageLookupByLibrary.simpleMessage("无法打开链接"),
+    "couldNotOpenLink": MessageLookupByLibrary.simpleMessage("無法開啟連結"),
     "couldNotOpenMaps": MessageLookupByLibrary.simpleMessage("無法開啟地圖應用程式"),
     "createEvent": MessageLookupByLibrary.simpleMessage("建立活動"),
     "darkMode": MessageLookupByLibrary.simpleMessage("深色模式"),
@@ -123,7 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "distanceAway": m2,
     "downloadTicket": MessageLookupByLibrary.simpleMessage("下載票券"),
     "editEvent": MessageLookupByLibrary.simpleMessage("編輯活動"),
-    "editProfile": MessageLookupByLibrary.simpleMessage("编辑个人资料"),
+    "editProfile": MessageLookupByLibrary.simpleMessage("編輯個人資料"),
     "email": MessageLookupByLibrary.simpleMessage("電子郵件"),
     "enroll": MessageLookupByLibrary.simpleMessage("報名"),
     "enrolledCount": m3,
@@ -194,7 +195,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalidEmail": MessageLookupByLibrary.simpleMessage("電子郵件地址無效"),
     "invalidNumber": MessageLookupByLibrary.simpleMessage("數字無效"),
     "invalidWebsite": MessageLookupByLibrary.simpleMessage(
-      "请输入有效的网址，例如 https://parkea.app",
+      "請輸入有效的網址，例如 https://parkea.app",
     ),
     "invitationOnly": MessageLookupByLibrary.simpleMessage("僅限邀請"),
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage("加入我們的宇宙"),
@@ -210,11 +211,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "logoutFailed": m9,
     "logoutSubtitle": MessageLookupByLibrary.simpleMessage("登出你的帳號"),
     "manageProfile": MessageLookupByLibrary.simpleMessage("管理你的個人資料"),
-    "mapEnableLocation": MessageLookupByLibrary.simpleMessage("开启"),
-    "mapLocationOff": MessageLookupByLibrary.simpleMessage("开启定位以查看你附近的活动"),
+    "mapEnableLocation": MessageLookupByLibrary.simpleMessage("開啟"),
+    "mapLocationOff": MessageLookupByLibrary.simpleMessage("開啟定位以查看你附近的活動"),
     "mapMyLocation": MessageLookupByLibrary.simpleMessage("我的位置"),
-    "mapNoEvents": MessageLookupByLibrary.simpleMessage("没有带位置的即将举行的活动"),
-    "mapOpenSettings": MessageLookupByLibrary.simpleMessage("设置"),
+    "mapNoEvents": MessageLookupByLibrary.simpleMessage("沒有帶位置的即將舉行活動"),
+    "mapOpenSettings": MessageLookupByLibrary.simpleMessage("設定"),
     "myEvents": MessageLookupByLibrary.simpleMessage("事件"),
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("有薪酬的"),
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("已保存"),
@@ -222,7 +223,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "name": MessageLookupByLibrary.simpleMessage("名稱"),
     "navCreate": MessageLookupByLibrary.simpleMessage("建立"),
     "navHome": MessageLookupByLibrary.simpleMessage("首頁"),
-    "navMap": MessageLookupByLibrary.simpleMessage("地图"),
+    "navMap": MessageLookupByLibrary.simpleMessage("地圖"),
     "navProfile": MessageLookupByLibrary.simpleMessage("個人檔案"),
     "navTickets": MessageLookupByLibrary.simpleMessage("票券"),
     "newPassword": MessageLookupByLibrary.simpleMessage("新密碼"),
@@ -254,12 +255,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "pressBackToExit": MessageLookupByLibrary.simpleMessage("再按一次返回鍵即可離開"),
     "pricePositive": MessageLookupByLibrary.simpleMessage("價格必須大於 0"),
     "privacySubtitle": MessageLookupByLibrary.simpleMessage("隱私權政策與資料使用"),
-    "profileBio": MessageLookupByLibrary.simpleMessage("简介"),
-    "profileBioHint": MessageLookupByLibrary.simpleMessage("介绍一下你自己或你组织的活动"),
+    "profileBio": MessageLookupByLibrary.simpleMessage("簡介"),
+    "profileBioHint": MessageLookupByLibrary.simpleMessage("介紹一下你自己或你舉辦的活動"),
     "profileUnavailable": MessageLookupByLibrary.simpleMessage("無法使用個人資料"),
-    "profileUpdateFailed": MessageLookupByLibrary.simpleMessage("无法更新个人资料"),
-    "profileUpdated": MessageLookupByLibrary.simpleMessage("个人资料已更新"),
-    "profileWebsite": MessageLookupByLibrary.simpleMessage("网站"),
+    "profileUpdateFailed": MessageLookupByLibrary.simpleMessage("無法更新個人資料"),
+    "profileUpdated": MessageLookupByLibrary.simpleMessage("個人資料已更新"),
+    "profileWebsite": MessageLookupByLibrary.simpleMessage("網站"),
     "promotions": MessageLookupByLibrary.simpleMessage("優惠活動"),
     "province": MessageLookupByLibrary.simpleMessage("省"),
     "publishEvent": MessageLookupByLibrary.simpleMessage("發布活動"),
@@ -299,6 +300,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "viewEvent": MessageLookupByLibrary.simpleMessage("查看活動"),
     "viewMyTicket": MessageLookupByLibrary.simpleMessage("查看我的票"),
+    "volunteeringFreeNote": MessageLookupByLibrary.simpleMessage(
+      "志工活動免費，任何人都可以報名。",
+    ),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage("¡歡迎回來!"),
     "yourProfile": MessageLookupByLibrary.simpleMessage("你的個人資料"),
   };

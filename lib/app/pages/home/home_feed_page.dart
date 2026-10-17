@@ -6,10 +6,12 @@ import 'package:horizontal_scroll_item/horizontal_scroll_item.dart';
 import 'package:parkea/app/widgets/promotions/promotions_component.dart';
 import 'package:parkea/domain/usecases/event_feed_uc.dart';
 
+import '../../../domain/models/event_category.dart';
 import '../../../domain/usecases/event_locations_uc.dart';
 import '../../../domain/usecases/fetch_promotions_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/app_colors.dart';
+import '../../utils/event_category_label.dart';
 import '../../utils/tab_reselect.dart';
 import '../../widgets/event/event_feed_sliver.dart';
 import '../../widgets/event/location_filter.dart';
@@ -30,14 +32,8 @@ class HomeFeedPage extends ConsumerStatefulWidget {
 }
 
 class OnboardingPageState extends ConsumerState<HomeFeedPage> {
-  /// `category` del API para cada título de [_titles]; null es sin filtro.
-  static const _categories = [
-    null,
-    'MUSIC',
-    'CAMPING',
-    'ADVENTURE',
-    'WORKSHOPS'
-  ];
+  /// Categoría de cada título de [_titles]; null es sin filtro.
+  static const _categories = [null, ...EventCategory.values];
   final TextEditingController searchBarController = TextEditingController();
   final _scrollController = ScrollController();
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -96,7 +92,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
   }
 
   List<String> _titles(S s) =>
-      [s.catAll, s.catMusic, s.catCamping, s.catAdventure, s.catWorkshops];
+      [s.catAll, for (final category in EventCategory.values) category.label(s)];
 
   /// Saludo según la hora local.
   String _greeting(S s) => switch (DateTime.now().hour) {
@@ -107,7 +103,8 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
 
   void _onCategory(String title) {
     final index = _titles(S.of(context)).indexOf(title);
-    setState(() => _category = index < 0 ? null : _categories[index]);
+    setState(
+        () => _category = index < 0 ? null : _categories[index]?.apiValue);
   }
 
   @override

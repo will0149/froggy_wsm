@@ -311,5 +311,7 @@
   "invalidWebsite": "Enter a valid web address, e.g. https://parkea.app",
   "profileUpdated": "Profile updated",
   "profileUpdateFailed": "Couldn't update the profile",
-  "couldNotOpenLink": "Couldn't open the link"
+  "couldNotOpenLink": "Couldn't open the link",
+  "catVolunteering": "Volunteering",
+  "volunteeringFreeNote": "Volunteering is free and anyone can sign up."
 }

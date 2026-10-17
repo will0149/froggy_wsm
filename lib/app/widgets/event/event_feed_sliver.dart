@@ -12,7 +12,7 @@ import '../cards/event_post_card.dart';
 
 /// Feed de eventos con scroll infinito, para un [CustomScrollView].
 class EventFeedSliver extends ConsumerWidget {
-  /// MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas.
+  /// Valor de `EventCategory`; null todas.
   final String? category;
 
   /// Texto de búsqueda; null sin búsqueda.

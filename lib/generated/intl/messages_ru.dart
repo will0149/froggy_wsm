@@ -93,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "catAll": MessageLookupByLibrary.simpleMessage("Все"),
     "catCamping": MessageLookupByLibrary.simpleMessage("Кемпинг"),
     "catMusic": MessageLookupByLibrary.simpleMessage("Музыка"),
+    "catVolunteering": MessageLookupByLibrary.simpleMessage("Волонтёрство"),
     "catWorkshops": MessageLookupByLibrary.simpleMessage("Мастер-классы"),
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
     "categoryNone": MessageLookupByLibrary.simpleMessage("Без категории"),
@@ -451,6 +452,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "viewEvent": MessageLookupByLibrary.simpleMessage("Открыть событие"),
     "viewMyTicket": MessageLookupByLibrary.simpleMessage("Мой билет"),
+    "volunteeringFreeNote": MessageLookupByLibrary.simpleMessage(
+      "Волонтёрские события бесплатны, записаться может любой.",
+    ),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage(
       "¡Добро пожаловать обратно!",
     ),
