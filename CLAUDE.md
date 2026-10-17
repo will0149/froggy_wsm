@@ -36,7 +36,7 @@ flutter run --release             # Run in release mode
 - **`lib/app/`** - Application/Presentation layer
   - `pages/` - Screen widgets (auth, events, user, home)
   - `widgets/` - Reusable UI components (cards, forms, scaffolds)
-  - `themes/` - App theming and styling
+  - `themes/` - Design system: tokens (`ParkeaColors`, `ParkeaRadius`, `ParkeaSpacing`) and component themes. Screens use `colors(context)`/`colorScheme`, never `Colors.x` or `parkeaOrange` (enforced by `test/app/design_system_guard_test.dart`; see `docs/propuesta-design-system.md`). Auth screens keep the old look via `AuthTheme`.
   - `utils/` - UI utilities and transitions
   
 - **`lib/domain/`** - Business logic layer (Pure Dart)

@@ -1,6 +1,6 @@
 # Propuesta de design system para Parkea
 
-Estado: **aprobada con las opciones recomendadas** (barra blanca, Inscribirse azul, fondo gris cálido y modo oscuro en la misma pasada). Fases 1, 2 y 3 implementadas. Las pantallas de auth (bienvenida, login, registro y recuperar contraseña) **no cambian**.
+Estado: **aprobada con las opciones recomendadas** (barra blanca, Inscribirse azul, fondo gris cálido y modo oscuro en la misma pasada). Implementada (fases 1 a 4). Las pantallas de auth (bienvenida, login, registro y recuperar contraseña) **no cambian**.
 
 ## Resumen
 
@@ -106,7 +106,7 @@ Cada fase es un commit y se valida en el emulador.
    - `AuthScaffold` envuelve sus formularios en un `Theme` con los valores actuales, para que **el login no cambie**.
 2. ✅ **Componentes del tema**: botones, inputs, chips, tarjetas, AppBar, barra inferior, snackbars y diálogos. Con esto ya cambia gran parte de la app sin tocar las pantallas.
 3. ✅ **Migración de pantallas.** Se quitan los `Colors.x`, `parkeaOrange` y los `isDarkMode` locales, en este orden: Ajustes, Detalle, Tickets, Perfil, Home, Crear evento y Mapa.
-4. **Guardia.** Un test que busque `Colors.grey`, `parkeaOrange` y `Color(0x` fuera de `lib/app/themes/` y falle si aparecen. Así el sistema no se vuelve a romper.
+4. ✅ **Guardia.** Un test que busque `Colors.grey`, `parkeaOrange` y `Color(0x` fuera de `lib/app/themes/` y falle si aparecen. Así el sistema no se vuelve a romper.
 
 ## Decisiones
 
@@ -114,3 +114,14 @@ Cada fase es un commit y se valida en el emulador.
 2. **Inscribirse**: ¿botón principal azul, como toda acción (recomendado), o un botón de marca `brandStrong` con texto blanco para destacarlo?
 3. **Fondo de pantalla**: ¿gris cálido `#F7F5F4` con tarjetas blancas (recomendado) o blanco puro como hoy?
 4. **Modo oscuro**: ¿se ajusta en esta misma pasada (recomendado, porque hoy el azul no cumple el contraste) o después?
+
+## Cómo usarlo
+
+- **Colores**: `colors(context).primary`, `.brand`, `.onSurfaceMuted`… o `Theme.of(context).colorScheme`. Nunca `Colors.x` (salvo `Colors.transparent`), `parkeaOrange` ni `Color(0x…)` en las pantallas.
+- **Sobre fotos o el mapa**: `ParkeaOverlay.onImage`, `.scrim`, `.shadow`, `.brandGradient` y `.mapLabel`.
+- **Precio**: `PriceTag`. **Crédito del mapa**: `OsmAttribution`.
+- **Medidas**: `ParkeaRadius` y `ParkeaSpacing`.
+- **Botones**: `FilledButton` para la acción principal, `OutlinedButton` para la secundaria y `TextButton` para la terciaria. Ya vienen con el estilo del tema, así que no hace falta `styleFrom` con colores.
+- **Excepciones**: `test/app/design_system_guard_test.dart` falla si aparece un color fuera del tema. Una línea que de verdad lo necesite (una máscara, el fondo de una foto) lleva `// ds-ok: <motivo>`.
+- **Contraste**: `test/app/theme_contrast_test.dart` comprueba que los pares de texto de los tokens lleguen a 4.5:1 en claro y en oscuro.
+
