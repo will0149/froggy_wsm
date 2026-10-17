@@ -28,6 +28,25 @@ flutter run                       # Run in debug mode
 flutter run --release             # Run in release mode
 ```
 
+### Local API & Test Users
+The local API runs with podman on port **8080**: `http://10.0.2.2:8080/api/v1/` from the Android emulator, `http://localhost:8080/api/v1/` from the Mac and the iOS simulator (chosen in `lib/data/api_path_enums.dart`). On a physical device use `--dart-define=API_BASE_URL=http://192.168.x.x:8080/api/v1/`. These accounts only exist in the local database.
+
+| User | Password | Type |
+|------|----------|------|
+| `qa_commerce` | `Qa-cb4789c9!` | COMMERCE, verified (can create events) |
+| `qa203250` | `ZorroVolador77` | PERSON, unverified |
+
+```bash
+# Demo data: 40 events + 5 promotions (--events N --promotions N)
+podman exec parkea_api_web_1 python manage.py seed_demo --reset
+
+# Verify a new account so it can create events (new sign-ups are PERSON + unverified)
+podman exec parkea_api_web_1 python manage.py shell -c "from django.contrib.auth.models import User; p=User.objects.get(username='<user>').profile; p.is_verified=True; p.save()"
+
+# Password reset link (there is no SMTP locally)
+podman logs parkea_api_web_1 | grep parkea://
+```
+
 ### Testing & Quality
 ```bash
 flutter test                      # Run all tests
