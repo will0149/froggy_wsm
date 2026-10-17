@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 
 import '../../../domain/providers/app_theme_provider.dart';
+import '../../themes/colors/app_colors.dart';
+import '../../themes/dimens.dart';
 import '../../../generated/l10n.dart';
 
 /// Made for parkea.
@@ -26,16 +27,8 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
     final restAuthState = ref.watch(restAuthUCProvider);
     
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text(
-          S.of(context).settings,
-          style: theme.textTheme.headlineSmall?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        title: Text(S.of(context).settings),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
@@ -63,263 +56,164 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
   }
 
   Widget _buildProfileSection(ThemeData theme) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundColor: parkeaOrange.withValues(alpha: 0.2),
-            child: const Icon(
-              Icons.person,
-              size: 30,
-              color: parkeaOrange,
+    final palette = colors(context);
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(ParkeaSpacing.lg),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 28,
+              backgroundColor: palette.primaryContainer,
+              child: Icon(Icons.person,
+                  size: 28, color: palette.onPrimaryContainer),
             ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  S.of(context).yourProfile,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  S.of(context).manageProfile,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ],
+            const SizedBox(width: ParkeaSpacing.lg),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(S.of(context).yourProfile,
+                      style: theme.textTheme.titleMedium),
+                  const SizedBox(height: ParkeaSpacing.xs),
+                  Text(S.of(context).manageProfile,
+                      style: theme.textTheme.bodySmall),
+                ],
+              ),
             ),
-          ),
-          Icon(
-            Icons.chevron_right,
-            color: Colors.grey[400],
-          ),
-        ],
+            Icon(Icons.chevron_right, color: palette.onSurfaceMuted),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildPreferencesSection(ThemeData theme, bool isDarkMode) {
+  /// Título de sección y sus filas en una tarjeta.
+  Widget _section(ThemeData theme, String title, List<Widget> tiles) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 4, bottom: 12),
+          padding: const EdgeInsets.only(
+              left: ParkeaSpacing.xs, bottom: ParkeaSpacing.md),
           child: Text(
-            S.of(context).preferences,
-            style: theme.textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[600],
-            ),
+            title,
+            style: theme.textTheme.titleSmall
+                ?.copyWith(color: colors(context).onSurfaceMuted),
           ),
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: theme.cardColor,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 10,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
+        Card(
+          clipBehavior: Clip.antiAlias,
           child: Column(
             children: [
-              _buildSettingsTile(
-                icon: isDarkMode ? Icons.dark_mode : Icons.light_mode,
-                title: S.of(context).theme,
-                subtitle: isDarkMode ? S.of(context).darkMode : S.of(context).lightMode,
-                trailing: Switch(
-                  value: isDarkMode,
-                  onChanged: (value) {
-                    ref.read(appThemeModeProvider.notifier).setTheme(value);
-                  },
-                  activeThumbColor: parkeaOrange,
-                ),
-                theme: theme,
-              ),
-              _buildDivider(),
-              _buildSettingsTile(
-                icon: Icons.notifications_outlined,
-                title: S.of(context).notifications,
-                subtitle: S.of(context).notificationsSubtitle,
-                trailing: Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey[400],
-                ),
-                onTap: () {
-                  // Navigate to notification settings
-                },
-                theme: theme,
-              ),
-              _buildDivider(),
-              _buildSettingsTile(
-                icon: Icons.language_outlined,
-                title: S.of(context).language,
-                subtitle: S.of(context).languageSubtitle,
-                trailing: Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey[400],
-                ),
-                onTap: () {
-                  // Navigate to language settings
-                },
-                theme: theme,
-              ),
+              for (final (index, tile) in tiles.indexed) ...[
+                if (index > 0) _buildDivider(),
+                tile,
+              ],
             ],
           ),
         ),
       ],
     );
+  }
+
+  Widget _chevron() =>
+      Icon(Icons.chevron_right, color: colors(context).onSurfaceMuted);
+
+  Widget _buildPreferencesSection(ThemeData theme, bool isDarkMode) {
+    final s = S.of(context);
+    return _section(theme, s.preferences, [
+      _buildSettingsTile(
+        icon: isDarkMode ? Icons.dark_mode : Icons.light_mode,
+        title: s.theme,
+        subtitle: isDarkMode ? s.darkMode : s.lightMode,
+        trailing: Switch(
+          value: isDarkMode,
+          onChanged: (value) {
+            ref.read(appThemeModeProvider.notifier).setTheme(value);
+          },
+        ),
+        theme: theme,
+      ),
+      _buildSettingsTile(
+        icon: Icons.notifications_outlined,
+        title: s.notifications,
+        subtitle: s.notificationsSubtitle,
+        trailing: _chevron(),
+        onTap: () {
+          // Navigate to notification settings
+        },
+        theme: theme,
+      ),
+      _buildSettingsTile(
+        icon: Icons.language_outlined,
+        title: s.language,
+        subtitle: s.languageSubtitle,
+        trailing: _chevron(),
+        onTap: () {
+          // Navigate to language settings
+        },
+        theme: theme,
+      ),
+    ]);
   }
 
   Widget _buildSupportSection(ThemeData theme) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 4, bottom: 12),
-          child: Text(
-            S.of(context).supportLegal,
-            style: theme.textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[600],
-            ),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: theme.cardColor,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 10,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Column(
-            children: [
-              _buildSettingsTile(
-                icon: Icons.help_outline,
-                title: S.of(context).getHelp,
-                subtitle: S.of(context).helpSubtitle,
-                trailing: Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey[400],
-                ),
-                onTap: () {
-                  // Navigate to help section
-                },
-                theme: theme,
-              ),
-              _buildDivider(),
-              _buildSettingsTile(
-                icon: Icons.privacy_tip_outlined,
-                title: S.of(context).dataAndPrivacy,
-                subtitle: S.of(context).privacySubtitle,
-                trailing: Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey[400],
-                ),
-                onTap: () {
-                  // Navigate to privacy settings
-                },
-                theme: theme,
-              ),
-              _buildDivider(),
-              _buildSettingsTile(
-                icon: Icons.info_outline,
-                title: S.of(context).about,
-                subtitle: S.of(context).aboutSubtitle,
-                trailing: Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey[400],
-                ),
-                onTap: () {
-                  _showAboutDialog(theme);
-                },
-                theme: theme,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+    final s = S.of(context);
+    return _section(theme, s.supportLegal, [
+      _buildSettingsTile(
+        icon: Icons.help_outline,
+        title: s.getHelp,
+        subtitle: s.helpSubtitle,
+        trailing: _chevron(),
+        onTap: () {
+          // Navigate to help section
+        },
+        theme: theme,
+      ),
+      _buildSettingsTile(
+        icon: Icons.privacy_tip_outlined,
+        title: s.dataAndPrivacy,
+        subtitle: s.privacySubtitle,
+        trailing: _chevron(),
+        onTap: () {
+          // Navigate to privacy settings
+        },
+        theme: theme,
+      ),
+      _buildSettingsTile(
+        icon: Icons.info_outline,
+        title: s.about,
+        subtitle: s.aboutSubtitle,
+        trailing: _chevron(),
+        onTap: () {
+          _showAboutDialog(theme);
+        },
+        theme: theme,
+      ),
+    ]);
   }
 
   Widget _buildAccountSection(ThemeData theme, bool loading) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 4, bottom: 12),
-          child: Text(
-            S.of(context).account,
-            style: theme.textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[600],
-            ),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: theme.cardColor,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 10,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: _buildSettingsTile(
-            icon: Icons.logout,
-            iconColor: parkeaOrange,
-            title: S.of(context).logout,
-            subtitle: S.of(context).logoutSubtitle,
-            titleColor: parkeaOrange,
-            trailing: loading
-                ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(parkeaOrange),
-                    ),
-                  )
-                : Icon(
-                    Icons.chevron_right,
-                    color: Colors.grey[400],
-                  ),
-            onTap: loading ? null : _handleLogout,
-            theme: theme,
-          ),
-        ),
-      ],
-    );
+    final s = S.of(context);
+    final error = colors(context).error;
+    return _section(theme, s.account, [
+      _buildSettingsTile(
+        icon: Icons.logout,
+        iconColor: error,
+        title: s.logout,
+        subtitle: s.logoutSubtitle,
+        titleColor: error,
+        trailing: loading
+            ? SizedBox.square(
+                dimension: 20,
+                child: CircularProgressIndicator(strokeWidth: 2, color: error),
+              )
+            : _chevron(),
+        onTap: loading ? null : _handleLogout,
+        theme: theme,
+      ),
+    ]);
   }
 
   Widget _buildSettingsTile({
@@ -332,66 +226,51 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
     Color? titleColor,
     VoidCallback? onTap,
   }) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: (iconColor ?? theme.primaryColor).withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(
-                  icon,
-                  color: iconColor ?? theme.primaryColor,
-                  size: 24,
-                ),
+    final palette = colors(context);
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(ParkeaSpacing.lg),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(ParkeaSpacing.sm),
+              decoration: BoxDecoration(
+                color: iconColor?.withValues(alpha: 0.1) ??
+                    palette.primaryContainer,
+                borderRadius: BorderRadius.circular(ParkeaRadius.sm),
               ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: titleColor,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      subtitle,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ],
-                ),
+              child: Icon(
+                icon,
+                color: iconColor ?? palette.onPrimaryContainer,
+                size: 24,
               ),
-              const SizedBox(width: 16),
-              trailing,
-            ],
-          ),
+            ),
+            const SizedBox(width: ParkeaSpacing.lg),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style:
+                        theme.textTheme.titleMedium?.copyWith(color: titleColor),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(subtitle, style: theme.textTheme.bodySmall),
+                ],
+              ),
+            ),
+            const SizedBox(width: ParkeaSpacing.lg),
+            trailing,
+          ],
         ),
       ),
     );
   }
 
   Widget _buildDivider() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 56),
-      child: Divider(
-        height: 1,
-        color: Colors.grey[200],
-      ),
-    );
+    return const Divider(indent: 72, height: 1);
   }
 
   Future<void> _handleLogout() async {
@@ -406,7 +285,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(S.of(context).logoutFailed('$e')),
-              backgroundColor: Colors.red,
+              backgroundColor: colors(context).error,
             ),
           );
         }
@@ -420,19 +299,16 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
       builder: (context) => AlertDialog(
         title: Text(S.of(context).logout),
         content: Text(S.of(context).logoutConfirm),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
             child: Text(S.of(context).cancel),
           ),
-          ElevatedButton(
+          FilledButton(
             onPressed: () => Navigator.of(context).pop(true),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: parkeaOrange,
-              foregroundColor: Colors.white,
+            style: FilledButton.styleFrom(
+              backgroundColor: colors(context).error,
+              foregroundColor: colors(context).onError,
             ),
             child: Text(S.of(context).logout),
           ),
@@ -448,14 +324,14 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
         applicationName: 'Parkea',
         applicationVersion: '1.1.0',
         applicationIcon: Container(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(ParkeaSpacing.sm),
           decoration: BoxDecoration(
-            color: parkeaOrange.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(12),
+            color: colors(context).brandContainer,
+            borderRadius: BorderRadius.circular(ParkeaRadius.md),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.event,
-            color: parkeaOrange,
+            color: colors(context).onBrandContainer,
             size: 32,
           ),
         ),
@@ -464,9 +340,7 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
           const SizedBox(height: 16),
           Text(
             S.of(context).allRightsReserved(DateTime.now().year),
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: Colors.grey[600],
-            ),
+            style: theme.textTheme.bodySmall,
           ),
         ],
       ),

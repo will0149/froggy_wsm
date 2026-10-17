@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../themes/colors/colors.dart';
+import '../../themes/colors/app_colors.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -28,7 +28,7 @@ class DetailImageBannerState extends ConsumerState<DetailImageBanner> {
             return const LinearGradient(
               begin: Alignment.center,
               end: Alignment.bottomCenter,
-              colors: [Colors.black, Colors.transparent],
+              colors: [Colors.black, Colors.transparent], // ds-ok: máscara
             ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
           },
           blendMode: BlendMode.dstIn,
@@ -42,13 +42,7 @@ class DetailImageBannerState extends ConsumerState<DetailImageBanner> {
                     fit: BoxFit.cover,
                   ),
                 ),
-              _ => const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [parkeaBlueAccent, parkeaDarkBlueAccent],
-                  ),
-                ),
+              _ => const BoxDecoration(gradient: ParkeaOverlay.brandGradient),
             },
           ),
         ),

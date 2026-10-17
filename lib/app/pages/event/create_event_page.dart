@@ -12,7 +12,6 @@ import '../../../domain/gamification/event_completeness.dart';
 import '../../../domain/usecases/create_event_uc.dart';
 import '../../../domain/usecases/fetch_events_uc.dart';
 import '../../../generated/l10n.dart';
-import '../../themes/colors/colors.dart';
 import '../../utils/form_validators.dart';
 import '../../widgets/gamification/event_completeness_card.dart';
 import 'event_detail_page.dart';
@@ -314,7 +313,6 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                   ChoiceChip(
                     label: Text(costLabels[i]),
                     selected: _costType == code,
-                    selectedColor: parkeaOrange.withValues(alpha: 0.25),
                     onSelected: (_) => setState(() => _costType = code),
                   ),
               ],
@@ -391,13 +389,13 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
             SizedBox(
               height: 48,
               child: FilledButton(
-                style: FilledButton.styleFrom(backgroundColor: parkeaOrange),
                 onPressed: isLoading ? null : _submit,
                 child: isLoading
-                    ? const SizedBox.square(
+                    ? SizedBox.square(
                         dimension: 22,
                         child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white),
+                            strokeWidth: 2,
+                            color: Theme.of(context).colorScheme.onPrimary),
                       )
                     : Text(_isEditing ? s.saveChanges : s.publishEvent),
               ),

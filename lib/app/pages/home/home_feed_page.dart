@@ -9,7 +9,7 @@ import 'package:parkea/domain/usecases/event_feed_uc.dart';
 import '../../../domain/usecases/event_locations_uc.dart';
 import '../../../domain/usecases/fetch_promotions_uc.dart';
 import '../../../generated/l10n.dart';
-import '../../themes/colors/colors.dart';
+import '../../themes/colors/app_colors.dart';
 import '../../utils/tab_reselect.dart';
 import '../../widgets/event/event_feed_sliver.dart';
 import '../../widgets/event/location_filter.dart';
@@ -137,8 +137,9 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.notifications),
-            style: ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll(Colors.black12),
+            style: IconButton.styleFrom(
+              backgroundColor: colors(context).surface,
+              side: BorderSide(color: colors(context).outline),
             ),
           )
         ],
@@ -170,7 +171,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                           _onSearchChanged(text, immediate: true),
                       leading: Icon(
                         Icons.search,
-                        color: parkeaBlueAccent,
+                        color: colors(context).primary,
                       ),
                       trailing: [
                         if (searchBarController.text.isNotEmpty)
@@ -184,21 +185,12 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                             },
                           ),
                       ],
-                      elevation: WidgetStatePropertyAll(2.0),
-                      backgroundColor: WidgetStatePropertyAll(Colors.white),
-                      shape: WidgetStatePropertyAll(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      side: WidgetStatePropertyAll(
-                          BorderSide(width: 1.0, color: parkeaOrange)),
                     ),
                     HorizontalFilterList(
                       key: PageStorageKey<String>('categoryListKey'),
                       filterListItems: _titles(S.of(context)),
-                      activeColor: parkeaBlueAccent,
-                      inactiveColor: parkeaBlack,
+                      activeColor: colors(context).primary,
+                      inactiveColor: colors(context).onSurface,
                       searchFilterTitle: S.of(context).categories,
                       onTextChange: _onCategory,
                     ),

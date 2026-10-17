@@ -7,7 +7,7 @@ import '../../../data/dtos/event_dto.dart';
 import '../../../domain/usecases/owner_events_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../pages/event/create_event_page.dart';
-import '../../themes/colors/colors.dart';
+import '../../themes/colors/app_colors.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -27,19 +27,7 @@ class EditEventButton extends StatelessWidget {
           pathParameters: {'id': event.id!}),
       icon: const Icon(Icons.edit),
       label: Text(S.of(context).editEvent),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: parkeaOrange,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        elevation: 2,
-        textStyle: Theme.of(context)
-            .textTheme
-            .titleMedium
-            ?.copyWith(fontWeight: FontWeight.bold),
-      ),
+      style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(52)),
     );
   }
 }
@@ -96,7 +84,7 @@ class _DeleteEventButtonState extends ConsumerState<DeleteEventButton> {
     return Container(
       margin: const EdgeInsets.all(8.0),
       decoration: const BoxDecoration(
-        color: Colors.black54,
+        color: ParkeaOverlay.scrim,
         shape: BoxShape.circle,
       ),
       child: IconButton(
@@ -106,9 +94,9 @@ class _DeleteEventButtonState extends ConsumerState<DeleteEventButton> {
             ? const SizedBox.square(
                 dimension: 20,
                 child: CircularProgressIndicator(
-                    strokeWidth: 2, color: Colors.white),
+                    strokeWidth: 2, color: ParkeaOverlay.onImage),
               )
-            : const Icon(Icons.delete_outline, color: Colors.white),
+            : const Icon(Icons.delete_outline, color: ParkeaOverlay.onImage),
       ),
     );
   }
@@ -139,7 +127,7 @@ class AccessCodeCard extends ConsumerWidget {
         padding: const EdgeInsets.fromLTRB(20, 16, 8, 16),
         child: Row(
           children: [
-            const Icon(Icons.lock_outline, color: parkeaOrange),
+            Icon(Icons.lock_outline, color: colors(context).primary),
             const SizedBox(width: 16),
             Expanded(
               child: Column(

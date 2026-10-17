@@ -251,6 +251,23 @@ class AppTheme {
         color: c.primary,
         linearTrackColor: c.progressTrack,
       ),
+      searchBarTheme: SearchBarThemeData(
+        elevation: const WidgetStatePropertyAll(0),
+        backgroundColor: WidgetStatePropertyAll(c.surface),
+        surfaceTintColor: const WidgetStatePropertyAll(Colors.transparent),
+        side: WidgetStateProperty.resolveWith((states) => BorderSide(
+              color: states.contains(WidgetState.focused)
+                  ? c.primary
+                  : c.outline,
+              width: states.contains(WidgetState.focused) ? 2.5 : 1.5,
+            )),
+        shape: const WidgetStatePropertyAll(StadiumBorder()),
+        hintStyle: WidgetStatePropertyAll(
+            textTheme.bodyLarge?.copyWith(color: c.onSurfaceMuted)),
+        textStyle: WidgetStatePropertyAll(textTheme.bodyLarge),
+        padding: const WidgetStatePropertyAll(
+            EdgeInsets.symmetric(horizontal: ParkeaSpacing.lg)),
+      ),
       datePickerTheme: DatePickerThemeData(
         backgroundColor: c.surface,
         surfaceTintColor: Colors.transparent,

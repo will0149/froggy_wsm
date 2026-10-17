@@ -13,7 +13,10 @@ import '../../../domain/usecases/auth/api_error_message.dart';
 import '../../../domain/usecases/nearby_events_uc.dart';
 import '../../../domain/usecases/repositories.dart';
 import '../../../generated/l10n.dart';
-import '../../themes/colors/colors.dart';
+import '../../themes/colors/app_colors.dart';
+import '../../themes/dimens.dart';
+import '../../widgets/osm_attribution.dart';
+import '../../widgets/price_tag.dart';
 import '../../utils/event_format.dart';
 import '../../utils/tab_reselect.dart';
 import '../event/event_detail_page.dart';
@@ -199,24 +202,10 @@ class _EventsMapPageState extends ConsumerState<EventsMapPage> {
               ),
             ),
           ),
-          // Crédito requerido por OpenStreetMap.
           Positioned(
             right: 0,
             bottom: bottomInset,
-            child: ColoredBox(
-              color: Colors.white70,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                child: Text(
-                  '© OpenStreetMap',
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelSmall
-                      ?.copyWith(color: Colors.black87),
-                ),
-              ),
-            ),
+            child: const OsmAttribution(),
           ),
           Positioned(
             left: 16,
@@ -281,18 +270,15 @@ class _EventBubble extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: selected ? parkeaOrange : Colors.white,
+                color:
+                    selected ? colors(context).primary : ParkeaOverlay.onImage,
                 width: 3,
               ),
               boxShadow: const [
-                BoxShadow(color: Colors.black38, blurRadius: 6),
+                BoxShadow(color: ParkeaOverlay.shadow, blurRadius: 6),
               ],
               // Sin banner, el mismo degradado que el detalle.
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [parkeaBlueAccent, parkeaDarkBlueAccent],
-              ),
+              gradient: ParkeaOverlay.brandGradient,
             ),
             child: ClipOval(
               child: switch (event.bannerImageUrl) {
@@ -316,7 +302,7 @@ class _BubbleIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      const Icon(Icons.event_rounded, color: Colors.white);
+      const Icon(Icons.event_rounded, color: ParkeaOverlay.onImage);
 }
 
 /// Posición del usuario.
@@ -327,10 +313,12 @@ class _UserDot extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.blue.shade600,
+        color: colors(context).primary,
         shape: BoxShape.circle,
-        border: Border.all(color: Colors.white, width: 3),
-        boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 4)],
+        border: Border.all(color: ParkeaOverlay.onImage, width: 3),
+        boxShadow: const [
+          BoxShadow(color: ParkeaOverlay.shadow, blurRadius: 4),
+        ],
       ),
     );
   }
@@ -382,11 +370,13 @@ class _EventPreviewCard extends StatelessWidget {
                     final url? when url.isNotEmpty => CachedNetworkImage(
                         imageUrl: url,
                         fit: BoxFit.cover,
-                        errorWidget: (_, __, ___) =>
-                            const ColoredBox(color: parkeaBlueAccent),
+                        errorWidget: (_, __, ___) => const DecoratedBox(
+                            decoration: BoxDecoration(
+                                gradient: ParkeaOverlay.brandGradient)),
                       ),
-                    _ => const ColoredBox(
-                        color: parkeaBlueAccent,
+                    _ => const DecoratedBox(
+                        decoration: BoxDecoration(
+                            gradient: ParkeaOverlay.brandGradient),
                         child: _BubbleIcon(),
                       ),
                   },
@@ -402,21 +392,24 @@ class _EventPreviewCard extends StatelessWidget {
                       event.eventName ?? '',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: theme.textTheme.titleMedium,
                     ),
                     if (date != null)
                       Text(date, style: theme.textTheme.bodySmall),
                     const SizedBox(height: 4),
-                    Text(
-                      [
-                        event.costLabel(S.of(context), locale),
-                        if (distance != null) distance,
-                      ].join(' · '),
-                      style: theme.textTheme.labelMedium?.copyWith(
-                        color: parkeaOrange,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      spacing: ParkeaSpacing.sm,
+                      children: [
+                        PriceTag(event.costLabel(S.of(context), locale)),
+                        if (distance != null)
+                          Flexible(
+                            child: Text(distance,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: theme.textTheme.labelMedium?.copyWith(
+                                    color: theme.colorScheme.onSurfaceVariant)),
+                          ),
+                      ],
                     ),
                   ],
                 ),

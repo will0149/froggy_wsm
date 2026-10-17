@@ -275,3 +275,29 @@ class ParkeaColors extends ThemeExtension<ParkeaColors> {
     );
   }
 }
+
+/// Colores sobre fotos (banners, burbujas del mapa): no dependen del tema
+/// porque la imagen no cambia con el modo oscuro.
+abstract final class ParkeaOverlay {
+  /// Texto e íconos sobre una imagen o un velo.
+  static const onImage = Color(0xFFFFFFFF);
+
+  /// Velo para que [onImage] se lea sobre cualquier foto.
+  static const scrim = Color(0x8A000000);
+
+  /// Sombra de elementos flotantes sobre el mapa o una imagen.
+  static const shadow = Color(0x42000000);
+
+  /// Etiqueta clara sobre el mapa (crédito de OSM) y su texto: los tiles
+  /// del mapa son claros en los dos modos.
+  static const mapLabel = Color(0xB3FFFFFF);
+  static const onMapLabel = parkeaBlack;
+
+  /// Degradado azul de marca: encabezado del perfil y eventos sin imagen.
+  /// Hace de foto, así que es igual en los dos modos.
+  static const brandGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [parkeaBlueAccent, parkeaDarkBlueAccent],
+  );
+}

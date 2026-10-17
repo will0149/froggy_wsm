@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/dtos/event_dto.dart';
 import '../../domain/usecases/owner_events_uc.dart';
 import '../../generated/l10n.dart';
+import '../themes/colors/app_colors.dart';
+import '../themes/dimens.dart';
 import 'cards/event_feed_card.dart';
 
 /// Made for parkea.
@@ -21,51 +23,28 @@ class ProfileEventsSection extends ConsumerWidget {
     final s = S.of(context);
     final ownEvents = ref.watch(ownerEventsUCProvider);
 
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.scaffoldBackgroundColor,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, -2),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(ParkeaSpacing.screen,
+              ParkeaSpacing.sm, ParkeaSpacing.screen, 0),
+          child: Row(
+            spacing: ParkeaSpacing.sm,
+            children: [
+              Icon(Icons.event, size: 20, color: theme.colorScheme.primary),
+              Text(s.myEvents, style: theme.textTheme.titleMedium),
+            ],
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
-            decoration: BoxDecoration(
-              color: theme.cardColor,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(24)),
-            ),
-            child: Row(
-              spacing: 8,
-              children: [
-                Icon(Icons.event, size: 20, color: theme.primaryColor),
-                Text(
-                  s.myEvents,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    color: theme.primaryColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
+        ),
+        Expanded(
+          child: _EventsList(
+            events: ownEvents,
+            emptyMessage: s.noOwnEvents,
+            onRetry: () => ref.invalidate(ownerEventsUCProvider),
           ),
-          Expanded(
-            child: _EventsList(
-              events: ownEvents,
-              emptyMessage: s.noOwnEvents,
-              onRetry: () => ref.invalidate(ownerEventsUCProvider),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -127,14 +106,14 @@ class _Message extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           spacing: 12,
           children: [
-            Icon(icon, size: 64, color: Colors.grey[400]),
+            Icon(icon, size: 64, color: colors(context).onSurfaceMuted),
             Text(
               text,
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
-                  ?.copyWith(color: Colors.grey[600]),
+                  ?.copyWith(color: colors(context).onSurfaceMuted),
             ),
             if (onRetry != null)
               TextButton.icon(

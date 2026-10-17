@@ -7,7 +7,8 @@ import '../../../data/dtos/event_dto.dart';
 import '../../../generated/l10n.dart';
 import '../../pages/event/event_detail_page.dart';
 import '../../utils/event_format.dart';
-import '../../themes/colors/colors.dart';
+import '../../themes/colors/app_colors.dart';
+import '../price_tag.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -66,7 +67,7 @@ class EventPostCard extends StatelessWidget {
                       style: theme.textTheme.labelMedium?.copyWith(
                         color: event.availableSpots == 0
                             ? theme.colorScheme.error
-                            : parkeaBlueAccent,
+                            : theme.colorScheme.primary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -104,11 +105,12 @@ class _Header extends StatelessWidget {
           // El API solo da el username del organizador, sin avatar.
           CircleAvatar(
             radius: 18,
-            backgroundColor: parkeaOrange,
+            backgroundColor: colors(context).brandContainer,
             child: Text(
               owner.isEmpty ? '?' : owner.characters.first.toUpperCase(),
-              style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: colors(context).onBrandContainer,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(
@@ -165,13 +167,7 @@ class _Placeholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [parkeaBlueAccent, parkeaDarkBlueAccent],
-        ),
-      ),
+      decoration: const BoxDecoration(gradient: ParkeaOverlay.brandGradient),
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(32),
@@ -179,16 +175,17 @@ class _Placeholder extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             spacing: 12,
             children: [
-              const Icon(Icons.celebration, size: 64, color: Colors.white70),
+              const Icon(Icons.celebration,
+                  size: 64, color: ParkeaOverlay.onImage),
               Text(
                 event.eventName ?? '',
                 textAlign: TextAlign.center,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(color: ParkeaOverlay.onImage),
               ),
             ],
           ),
@@ -211,7 +208,7 @@ class _DateAndPrice extends StatelessWidget {
     return Row(
       spacing: 6,
       children: [
-        const Icon(Icons.calendar_today, size: 16, color: parkeaOrange),
+        Icon(Icons.calendar_today, size: 16, color: theme.colorScheme.primary),
         if (date != null)
           Expanded(
             child: Text(
@@ -222,13 +219,7 @@ class _DateAndPrice extends StatelessWidget {
           )
         else
           const Spacer(),
-        Text(
-          event.costLabel(S.of(context), locale),
-          style: theme.textTheme.titleSmall?.copyWith(
-            color: parkeaOrange,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        PriceTag(event.costLabel(S.of(context), locale)),
       ],
     );
   }

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/usecases/event_feed_uc.dart';
 import '../../../generated/l10n.dart';
-import '../../themes/colors/colors.dart';
+import '../../themes/colors/app_colors.dart';
 import '../cards/event_post_card.dart';
 
 /// Made for parkea.
@@ -123,7 +123,7 @@ class _Message extends StatelessWidget {
         child: Column(
           spacing: 12,
           children: [
-            Icon(icon, size: 48, color: parkeaLightGrey),
+            Icon(icon, size: 48, color: colors(context).onSurfaceMuted),
             Text(text, textAlign: TextAlign.center),
             if (onRetry != null)
               TextButton(onPressed: onRetry, child: Text(S.of(context).retry)),

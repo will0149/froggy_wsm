@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:parkea/app/themes/colors/colors.dart';
+import 'package:parkea/app/themes/colors/app_colors.dart';
+import 'package:parkea/app/themes/dimens.dart';
 import 'package:parkea/data/dtos/ticket_dto.dart';
-import 'package:parkea/domain/providers/app_theme_provider.dart';
 import 'package:parkea/domain/usecases/fetch_events_uc.dart';
 import 'package:parkea/domain/usecases/fetch_tickets_uc.dart';
 
@@ -35,8 +35,6 @@ class TicketsPageState extends ConsumerState<TicketsPage>
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = ref.watch(appThemeModeProvider) == ThemeMode.dark;
-    final theme = Theme.of(context);
     final s = S.of(context);
     final tickets = ref.watch(myTicketsUCProvider);
 
@@ -44,38 +42,10 @@ class TicketsPageState extends ConsumerState<TicketsPage>
       body: NestedScrollView(
         headerSliverBuilder: (context, _) => [
           SliverAppBar(
-            expandedHeight: 120,
             pinned: true,
-            backgroundColor: isDarkMode ? parkeaDarkBlueAccent : parkeaOrange,
-            flexibleSpace: FlexibleSpaceBar(
-              titlePadding: const EdgeInsets.fromLTRB(20, 0, 20, 56),
-              title: Text(
-                s.myTickets,
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              background: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: isDarkMode
-                        ? [parkeaDarkBlueAccent, parkeaBlueAccent]
-                        : [parkeaOrange, parkeaDarkOrange],
-                  ),
-                ),
-              ),
-            ),
+            title: Text(s.myTickets),
             bottom: TabBar(
               controller: _tabController,
-              indicatorColor: Colors.white,
-              indicatorWeight: 3,
-              labelColor: Colors.white,
-              unselectedLabelColor: Colors.white60,
-              labelStyle: theme.textTheme.titleSmall
-                  ?.copyWith(fontWeight: FontWeight.bold),
               tabs: [
                 Tab(text: s.ticketsUpcoming),
                 Tab(text: s.ticketsPast),
@@ -171,18 +141,13 @@ class _MonthHeader extends StatelessWidget {
           Container(
             width: 4,
             height: 20,
+            // Acento de marca: forma, sin texto.
             decoration: BoxDecoration(
-              color: parkeaOrange,
+              color: colors(context).brand,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: parkeaBlueAccent,
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
+          Text(label, style: Theme.of(context).textTheme.titleMedium),
         ],
       ),
     );
@@ -202,9 +167,8 @@ class _TicketCard extends StatelessWidget {
     final event = ticket.event;
     final date = ticket.eventDate;
     return Card(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: ParkeaSpacing.md),
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
         onTap: () => TicketDetailSheet.show(context, ticket),
         child: Row(
@@ -227,13 +191,12 @@ class _TicketCard extends StatelessWidget {
                       event.eventName ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.titleSmall
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: theme.textTheme.titleSmall,
                     ),
                     if (date != null)
                       _IconText(
                         icon: Icons.calendar_today,
-                        color: parkeaOrange,
+                        color: theme.colorScheme.primary,
                         text: DateFormat('EEE d MMM · HH:mm', locale)
                             .format(date),
                       ),
@@ -241,7 +204,7 @@ class _TicketCard extends StatelessWidget {
                         when place.isNotEmpty)
                       _IconText(
                         icon: Icons.place,
-                        color: parkeaBlueAccent,
+                        color: theme.colorScheme.onSurfaceVariant,
                         text: place,
                       ),
                     Text(
@@ -295,12 +258,9 @@ class _EventImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const placeholder = DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [parkeaBlueAccent, parkeaDarkBlueAccent],
-        ),
-      ),
-      child: Center(child: Icon(Icons.celebration, color: Colors.white70)),
+      decoration: BoxDecoration(gradient: ParkeaOverlay.brandGradient),
+      child: Center(
+          child: Icon(Icons.celebration, color: ParkeaOverlay.onImage)),
     );
     final image = url == null || url!.isEmpty
         ? placeholder
@@ -414,18 +374,19 @@ class _TicketDetailSheetState extends ConsumerState<TicketDetailSheet> {
             ),
             Text(
               event.eventName ?? '',
-              style: theme.textTheme.titleLarge
-                  ?.copyWith(fontWeight: FontWeight.bold),
+              style: theme.textTheme.titleLarge,
             ),
             if (date != null)
               _IconText(
                 icon: Icons.calendar_today,
-                color: parkeaOrange,
+                color: theme.colorScheme.primary,
                 text: DateFormat('EEEE d MMMM y · HH:mm', locale).format(date),
               ),
             if (event.location?.place case final place? when place.isNotEmpty)
               _IconText(
-                  icon: Icons.place, color: parkeaBlueAccent, text: place),
+                  icon: Icons.place,
+                  color: theme.colorScheme.onSurfaceVariant,
+                  text: place),
             Text(s.ticketNumber(ticket.id), style: theme.textTheme.labelLarge),
             if (purchased != null)
               Text(
@@ -435,7 +396,6 @@ class _TicketDetailSheetState extends ConsumerState<TicketDetailSheet> {
             const SizedBox(height: 4),
             if (widget.showEventButton)
               FilledButton(
-                style: FilledButton.styleFrom(backgroundColor: parkeaOrange),
                 onPressed: event.id == null
                     ? null
                     : () {
@@ -479,7 +439,7 @@ class _Message extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         spacing: 12,
         children: [
-          Icon(icon, size: 48, color: parkeaLightGrey),
+          Icon(icon, size: 48, color: colors(context).onSurfaceMuted),
           Text(text, textAlign: TextAlign.center),
           if (onRetry != null)
             TextButton(onPressed: onRetry, child: Text(S.of(context).retry)),

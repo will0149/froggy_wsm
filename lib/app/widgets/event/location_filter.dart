@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/usecases/event_locations_uc.dart';
 import '../../../generated/l10n.dart';
-import '../../themes/colors/colors.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -51,10 +50,10 @@ class LocationFilterChip extends StatelessWidget {
       (:final country, city: null) => '${countryFlag(country)} $country',
     };
     return InputChip(
-      avatar: const Icon(Icons.place, size: 18, color: parkeaOrange),
+      avatar: Icon(Icons.place,
+          size: 18, color: Theme.of(context).colorScheme.primary),
       label: Text(label, overflow: TextOverflow.ellipsis),
       selected: location != null,
-      selectedColor: parkeaOrange.withValues(alpha: 0.15),
       showCheckmark: false,
       onPressed: () => _pick(context),
       onDeleted: location == null ? null : () => onChanged(null),
@@ -81,7 +80,7 @@ class _LocationSheet extends ConsumerWidget {
             ? null
             : Text('$count', style: theme.textTheme.labelLarge),
         selected: isSelected,
-        selectedColor: parkeaOrange,
+        selectedColor: theme.colorScheme.primary,
         leading: Icon(isSelected ? Icons.check : null),
         onTap: () => Navigator.pop(context, (location: location)),
       );

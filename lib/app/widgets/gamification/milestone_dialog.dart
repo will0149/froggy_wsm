@@ -37,7 +37,6 @@ Future<void> showMilestoneDialog(
         actionsAlignment: MainAxisAlignment.center,
         actions: [
           FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: palette.progress),
             onPressed: () => Navigator.pop(context),
             child: Text(s.great),
           ),

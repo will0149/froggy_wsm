@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:parkea/app/themes/colors/colors.dart';
 import 'package:parkea/app/widgets/banners/detail_image_banner.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/domain/usecases/fetch_events_uc.dart';
@@ -10,6 +9,8 @@ import 'package:parkea/domain/usecases/event_attendance_uc.dart';
 import 'package:parkea/domain/usecases/fetch_tickets_uc.dart';
 import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../generated/l10n.dart';
+import '../../themes/colors/app_colors.dart';
+import '../../themes/dimens.dart';
 import '../../widgets/event/enroll_button.dart';
 import '../../widgets/event/event_location_card.dart';
 import '../../widgets/event/owner_event_actions.dart';
@@ -50,29 +51,29 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        // Sobre el banner: botones con velo para que se lean sobre la foto.
         backgroundColor: Colors.transparent,
-        elevation: 0,
         leading: Container(
-          margin: const EdgeInsets.all(8.0),
+          margin: const EdgeInsets.all(ParkeaSpacing.sm),
           decoration: const BoxDecoration(
-            color: Colors.black54,
+            color: ParkeaOverlay.scrim,
             shape: BoxShape.circle,
           ),
           child: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: ParkeaOverlay.onImage),
             onPressed: () => Navigator.pop(context),
           ),
         ),
         actions: [
           if (isOwner) DeleteEventButton(event: ownEvent!),
           Container(
-            margin: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(ParkeaSpacing.sm),
             decoration: const BoxDecoration(
-              color: Colors.black54,
+              color: ParkeaOverlay.scrim,
               shape: BoxShape.circle,
             ),
             child: IconButton(
-              icon: const Icon(Icons.share, color: Colors.white),
+              icon: const Icon(Icons.share, color: ParkeaOverlay.onImage),
               onPressed: () {},
             ),
           ),
@@ -141,18 +142,11 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
     final locale = Localizations.localeOf(context);
     final theme = Theme.of(context);
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: ParkeaSpacing.lg),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(ParkeaRadius.xl),
+        side: BorderSide(color: colors(context).outline),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,10 +158,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
               children: [
                 Text(
                   event.eventName ?? "",
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: theme.primaryColor,
-                  ),
+                  style: theme.textTheme.headlineSmall,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -187,95 +178,62 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
 
   Widget _buildEventInfo(EventDTO event, Locale locale, ThemeData theme) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(ParkeaSpacing.lg),
       decoration: BoxDecoration(
-        color: parkeaBlueAccent.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(12),
+        color: colors(context).primaryContainer,
+        borderRadius: BorderRadius.circular(ParkeaRadius.md),
       ),
       child: Column(
         children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: const BoxDecoration(
-                  color: parkeaBlueAccent,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.calendar_today,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      S.of(context).eventDateTime,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: Colors.grey[600],
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      switch (DateTime.tryParse(event.date ?? '')) {
-                        final date? =>
-                          DateFormat('EEEE d MMMM y · HH:mm', locale.toString())
-                              .format(date.toLocal()),
-                        null => '',
-                      },
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          _infoRow(
+            theme,
+            icon: Icons.calendar_today,
+            label: S.of(context).eventDateTime,
+            value: switch (DateTime.tryParse(event.date ?? '')) {
+              final date? =>
+                DateFormat('EEEE d MMMM y · HH:mm', locale.toString())
+                    .format(date.toLocal()),
+              null => '',
+            },
           ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: const BoxDecoration(
-                  color: parkeaOrange,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.location_on,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      S.of(context).eventLocation,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: Colors.grey[600],
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      event.location?.place ?? "",
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          const SizedBox(height: ParkeaSpacing.md),
+          _infoRow(
+            theme,
+            icon: Icons.location_on,
+            label: S.of(context).eventLocation,
+            value: event.location?.place ?? '',
           ),
         ],
       ),
+    );
+  }
+
+  Widget _infoRow(ThemeData theme,
+      {required IconData icon, required String label, required String value}) {
+    final palette = colors(context);
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(ParkeaSpacing.sm),
+          decoration: BoxDecoration(
+            color: palette.primary,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(icon, color: palette.onPrimary, size: 20),
+        ),
+        const SizedBox(width: ParkeaSpacing.md),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(label,
+                  style: theme.textTheme.labelMedium
+                      ?.copyWith(color: palette.onPrimaryContainer)),
+              Text(value, style: theme.textTheme.titleSmall),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -285,15 +243,13 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
         // El API solo da el username del organizador.
         CircleAvatar(
           radius: 28,
-          backgroundColor: parkeaOrange,
+          backgroundColor: colors(context).brandContainer,
           child: Text(
             (event.eventOwner ?? '').isEmpty
                 ? '?'
                 : event.eventOwner!.characters.first.toUpperCase(),
-            style: theme.textTheme.titleLarge?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: theme.textTheme.titleLarge
+                ?.copyWith(color: colors(context).onBrandContainer),
           ),
         ),
         const SizedBox(width: 16),
@@ -301,19 +257,8 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                S.of(context).hostedBy,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Text(
-                event.eventOwner ?? "",
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text(S.of(context).hostedBy, style: theme.textTheme.bodySmall),
+              Text(event.eventOwner ?? '', style: theme.textTheme.titleMedium),
             ],
           ),
         ),
@@ -325,12 +270,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          S.of(context).aboutEvent,
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text(S.of(context).aboutEvent, style: theme.textTheme.titleMedium),
         const SizedBox(height: 8),
         Text(
           event.description ?? "",
@@ -347,23 +287,26 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
 
     return Row(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey[300]!),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: IconButton(
-            icon: Icon(
-              likeButton ? Icons.favorite : Icons.favorite_border,
-              color: likeButton ? parkeaOrange : Colors.grey[600],
-              size: 28,
+        // Favorito: emoción, va en naranja de marca.
+        IconButton.outlined(
+          style: IconButton.styleFrom(
+            minimumSize: const Size.square(48),
+            side: BorderSide(color: colors(context).outline),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(ParkeaRadius.md)),
             ),
-            onPressed: () {
-              ref.read(svgIconProvider.notifier).setActive(!likeButton);
-            },
           ),
+          icon: Icon(
+            likeButton ? Icons.favorite : Icons.favorite_border,
+            color: likeButton
+                ? colors(context).brand
+                : colors(context).onSurfaceMuted,
+          ),
+          onPressed: () {
+            ref.read(svgIconProvider.notifier).setActive(!likeButton);
+          },
         ),
-        const SizedBox(width: 16),
+        const SizedBox(width: ParkeaSpacing.md),
         Expanded(
           child: event.isOwnedBy(_username)
               ? EditEventButton(event: event)
@@ -394,21 +337,17 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
           Icon(
             Icons.error_outline,
             size: 64,
-            color: Colors.grey[400],
+            color: colors(context).onSurfaceMuted,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: ParkeaSpacing.lg),
           Text(
             S.of(context).somethingWentWrong,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Colors.grey[600],
-                ),
+            style: Theme.of(context).textTheme.titleLarge,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: ParkeaSpacing.sm),
           Text(
             error,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey[500],
-                ),
+            style: Theme.of(context).textTheme.bodySmall,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),

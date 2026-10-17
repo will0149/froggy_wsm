@@ -8,7 +8,7 @@ import '../../../domain/usecases/fetch_events_uc.dart';
 import '../../../domain/usecases/fetch_tickets_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../pages/ticket/tickets_page.dart';
-import '../../themes/colors/colors.dart';
+import '../../themes/colors/app_colors.dart';
 import '../../utils/event_format.dart';
 
 /// Made for parkea.
@@ -104,31 +104,16 @@ class _EnrollButtonState extends ConsumerState<EnrollButton> {
     }
 
     final loading = _enrolling || (tickets.isLoading && !tickets.hasValue);
-    return ElevatedButton(
+    return FilledButton(
       onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: parkeaOrange,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        elevation: 2,
-      ),
+      style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(52)),
       child: loading
-          ? const SizedBox.square(
+          ? SizedBox.square(
               dimension: 24,
               child: CircularProgressIndicator(
-                  strokeWidth: 2, color: Colors.white),
+                  strokeWidth: 2, color: colors(context).onPrimary),
             )
-          : Text(
-              label,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: onPressed == null ? null : Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
+          : Text(label, textAlign: TextAlign.center),
     );
   }
 }
@@ -221,13 +206,12 @@ class _AccessCodeDialogState extends State<_AccessCodeDialog> {
           child: Text(s.cancel),
         ),
         FilledButton(
-          style: FilledButton.styleFrom(backgroundColor: parkeaOrange),
           onPressed: _sending ? null : _submit,
           child: _sending
-              ? const SizedBox.square(
+              ? SizedBox.square(
                   dimension: 18,
                   child: CircularProgressIndicator(
-                      strokeWidth: 2, color: Colors.white),
+                      strokeWidth: 2, color: colors(context).onPrimary),
                 )
               : Text(s.enroll),
         ),

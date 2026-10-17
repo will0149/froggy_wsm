@@ -5,7 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../data/dtos/event_dto.dart';
-import '../../themes/colors/colors.dart';
+import '../../themes/colors/app_colors.dart';
+import '../price_tag.dart';
 import '../../../generated/l10n.dart';
 import '../../pages/event/event_detail_page.dart';
 import '../../utils/event_format.dart';
@@ -49,7 +50,6 @@ class _EventFeedCardState extends State<EventFeedCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: parkeaLightOrange,
       onTap: (){
          __renderToDetailPage(
             context,
@@ -58,19 +58,13 @@ class _EventFeedCardState extends State<EventFeedCard> {
       },
       child: Card(
         margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-        color: Colors.white70,
-        elevation: 2.0,
         child: Container(
           width: widget.width,
           height: widget.height,
           margin: const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
             // Sin banner, el mismo degradado que el detalle.
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [parkeaBlueAccent, parkeaDarkBlueAccent],
-            ),
+            gradient: ParkeaOverlay.brandGradient,
             image: switch (widget.event.bannerImageUrl) {
               final url? when url.isNotEmpty => DecorationImage(
                   opacity: 0.9,
@@ -87,8 +81,9 @@ class _EventFeedCardState extends State<EventFeedCard> {
               Container(
                 // width: double.infinity,
                 padding: const EdgeInsets.all(10.0),
+                // Panel legible sobre la foto, en los dos modos.
                 decoration: BoxDecoration(
-                  color: Colors.white70,
+                  color: colors(context).surface.withValues(alpha: 0.9),
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(15.0),
                       bottomRight: Radius.circular(15.0)),
@@ -116,10 +111,7 @@ class _EventFeedCardState extends State<EventFeedCard> {
                       widget.event.eventName ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const Divider(),
                     Wrap(
@@ -146,19 +138,7 @@ class _EventFeedCardState extends State<EventFeedCard> {
               Positioned(
                 right: 10,
                 bottom: 10,
-                child: Container(
-                  padding: EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                      color: Colors.deepOrangeAccent.shade100,
-                      borderRadius: BorderRadius.circular(5.0)),
-                  child: Text(
-                    _costLabel(context),
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelMedium
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ),
+                child: PriceTag(_costLabel(context)),
               ),
               Positioned(
                 left: 10,
@@ -169,14 +149,15 @@ class _EventFeedCardState extends State<EventFeedCard> {
                     // El API solo da el username del organizador.
                     CircleAvatar(
                       radius: 22,
-                      backgroundColor: parkeaOrange,
+                      backgroundColor: colors(context).brandContainer,
                       child: Text(
                         (widget.event.eventOwner ?? '').isEmpty
                             ? '?'
                             : widget.event.eventOwner!.characters.first
                                 .toUpperCase(),
-                        style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            color: colors(context).onBrandContainer,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],

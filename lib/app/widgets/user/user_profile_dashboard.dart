@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:parkea/app/themes/colors/colors.dart';
+import 'package:parkea/app/themes/colors/app_colors.dart';
+import 'package:parkea/app/themes/dimens.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/entities/user/user_profile_dto.dart';
@@ -10,51 +11,57 @@ import '../../../domain/usecases/auth/rest_auth_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../pages/user/edit_profile_page.dart';
 import '../../utils/website.dart';
+import '../paints/bottom_left_curve_orange.dart';
 
+/// Encabezado de marca del perfil: el azul con la forma naranja del login,
+/// en el lado opuesto al avatar. Va de fondo del `SliverAppBar`.
+class UserProfileHeader extends StatelessWidget {
+  static const height = 240.0;
+
+  final String? avatar;
+
+  const UserProfileHeader({super.key, required this.avatar});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius:
+          const BorderRadius.vertical(bottom: Radius.circular(ParkeaRadius.xl)),
+      child: SizedBox(
+        width: double.infinity,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            const DecoratedBox(
+              decoration: BoxDecoration(gradient: ParkeaOverlay.brandGradient),
+            ),
+            Transform.flip(
+              flipX: true,
+              child: CustomPaint(painter: BottomLeftCurveOrange()),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(ParkeaSpacing.xl),
+                child: _AvatarEditor(avatar: avatar),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Nombre, usuario, descripción y web del perfil.
 class UserProfileDashboard extends StatelessWidget {
   final UserProfileDTO? userData;
 
   const UserProfileDashboard(this.userData, {super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Column(
-      children: [
-        _buildHeaderSection(theme),
-        _buildProfileInfo(context, theme),
-      ],
-    );
-  }
-
-  Widget _buildHeaderSection(ThemeData theme) {
-    return Container(
-      height: 280,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            parkeaBlueAccent,
-            parkeaBlueAccent.withValues(alpha: 0.8),
-          ],
-        ),
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
-        ),
-      ),
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: _AvatarEditor(avatar: userData?.avatar),
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) =>
+      _buildProfileInfo(context, Theme.of(context));
 
   Widget _buildProfileInfo(BuildContext context, ThemeData theme) {
     final fullName =
@@ -88,10 +95,8 @@ class UserProfileDashboard extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               '@${userData!.username!}',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.grey[600],
-                fontWeight: FontWeight.w500,
-              ),
+              style: theme.textTheme.bodyMedium
+                  ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
             ),
           ],
           if (userData?.bio != null && userData!.bio!.isNotEmpty) ...[
@@ -143,14 +148,15 @@ class _WebsiteLink extends StatelessWidget {
           child: Row(
             spacing: 6,
             children: [
-              const Icon(Icons.link_rounded, size: 18, color: parkeaBlueAccent),
+              Icon(Icons.link_rounded,
+                  size: 18, color: theme.colorScheme.primary),
               Flexible(
                 child: Text(
                   Website.display(url),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: parkeaBlueAccent,
+                    color: theme.colorScheme.primary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -207,12 +213,12 @@ class _AvatarEditorState extends ConsumerState<_AvatarEditor> {
             Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 2),
-                boxShadow: [
+                border: Border.all(color: ParkeaOverlay.onImage, width: 3),
+                boxShadow: const [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.2),
+                    color: ParkeaOverlay.shadow,
                     blurRadius: 12,
-                    offset: const Offset(0, 4),
+                    offset: Offset(0, 4),
                   ),
                 ],
               ),
@@ -224,9 +230,9 @@ class _AvatarEditorState extends ConsumerState<_AvatarEditor> {
                     )
                   : CircleAvatar(
                       radius: 48,
-                      backgroundColor: parkeaOrange.withValues(alpha: 0.2),
-                      child: const Icon(Icons.person,
-                          size: 40, color: parkeaOrange),
+                      backgroundColor: colors(context).brandContainer,
+                      child: Icon(Icons.person,
+                          size: 40, color: colors(context).onBrandContainer),
                     ),
             ),
             if (_uploading)
@@ -234,20 +240,22 @@ class _AvatarEditorState extends ConsumerState<_AvatarEditor> {
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.black38,
+                    color: ParkeaOverlay.scrim,
                   ),
                   child: Center(
-                    child: CircularProgressIndicator(color: Colors.white),
+                    child:
+                        CircularProgressIndicator(color: ParkeaOverlay.onImage),
                   ),
                 ),
               ),
-            const Positioned(
+            Positioned(
               right: 0,
               bottom: 0,
               child: CircleAvatar(
                 radius: 15,
-                backgroundColor: parkeaOrange,
-                child: Icon(Icons.photo_camera, size: 16, color: Colors.white),
+                backgroundColor: colors(context).primary,
+                child: Icon(Icons.photo_camera,
+                    size: 16, color: colors(context).onPrimary),
               ),
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parkea/app/pages/user/user_settings.dart';
@@ -6,7 +7,8 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../domain/models/auth/auth_state.dart';
 import '../../../domain/usecases/auth/rest_auth_uc.dart';
-import '../../themes/colors/colors.dart';
+import '../../themes/colors/app_colors.dart';
+import '../../themes/dimens.dart';
 import '../../widgets/profile_events_section.dart';
 import '../../widgets/user/user_profile_dashboard.dart';
 import '../../../generated/l10n.dart';
@@ -35,7 +37,6 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
       body: authState.when(
         data: (state) => _buildProfileContent(state, context),
         error: (err, s) => _buildErrorState(err.toString(), theme),
@@ -52,7 +53,7 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
-        _buildAppBar(context),
+        _buildAppBar(context, authState.user!.avatar),
         SliverToBoxAdapter(
           child: UserProfileDashboard(authState.user),
         ),
@@ -64,90 +65,57 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
     );
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  /// El encabezado de marca es el fondo; los íconos van claros encima.
+  Widget _buildAppBar(BuildContext context, String? avatar) {
     return SliverAppBar(
-      expandedHeight: 0,
-      floating: true,
-      pinned: false,
+      expandedHeight: UserProfileHeader.height,
       backgroundColor: Colors.transparent,
-      elevation: 0,
+      systemOverlayStyle: SystemUiOverlayStyle.light,
+      flexibleSpace: FlexibleSpaceBar(
+        collapseMode: CollapseMode.pin,
+        background: UserProfileHeader(avatar: avatar),
+      ),
+      foregroundColor: ParkeaOverlay.onImage,
+      iconTheme: const IconThemeData(color: ParkeaOverlay.onImage),
+      actionsIconTheme: const IconThemeData(color: ParkeaOverlay.onImage),
+      automaticallyImplyLeading: false,
       leading: widget.showBackButton
-          ? Container(
-              margin: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.9),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: parkeaBlueAccent),
-                onPressed: () => Navigator.pop(context),
-              ),
+          ? IconButton(
+              icon: const Icon(Icons.arrow_back),
+              color: ParkeaOverlay.onImage,
+              onPressed: () => Navigator.pop(context),
             )
           : null,
       actions: [
-        Container(
-          margin: const EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.9),
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.1),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: IconButton(
-            icon: const Icon(Icons.settings_outlined, color: parkeaBlueAccent),
-            onPressed: () => context.goNamed(UserSettingsPage.routeName),
-          ),
+        IconButton(
+          icon: const Icon(Icons.settings_outlined),
+          color: ParkeaOverlay.onImage,
+          tooltip: S.of(context).settings,
+          onPressed: () => context.goNamed(UserSettingsPage.routeName),
         ),
       ],
     );
   }
 
   Widget _buildLoadingState(ThemeData theme) {
+    final block = theme.colorScheme.surfaceContainerHighest;
     return Skeletonizer(
       enabled: true,
       child: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 280,
-            backgroundColor: Colors.grey[200],
+            expandedHeight: UserProfileHeader.height,
+            backgroundColor: block,
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(ParkeaSpacing.lg),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: const BoxDecoration(
-                      color: Colors.grey,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Container(
-                    width: 200,
-                    height: 24,
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    width: 150,
-                    height: 16,
-                    color: Colors.grey,
-                  ),
+                  Container(width: 200, height: 24, color: block),
+                  const SizedBox(height: ParkeaSpacing.sm),
+                  Container(width: 150, height: 16, color: block),
                 ],
               ),
             ),
@@ -160,40 +128,31 @@ class ProfilePageState extends ConsumerState<ProfilePage> {
   Widget _buildErrorState(String error, ThemeData theme) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(ParkeaSpacing.xl),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               Icons.person_off_outlined,
               size: 80,
-              color: Colors.grey[400],
+              color: theme.colorScheme.onSurfaceVariant,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: ParkeaSpacing.xl),
             Text(
               S.of(context).profileUnavailable,
-              style: theme.textTheme.headlineSmall?.copyWith(
-                color: Colors.grey[600],
-                fontWeight: FontWeight.bold,
-              ),
+              style: theme.textTheme.headlineSmall,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: ParkeaSpacing.sm),
             Text(
               error,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.grey[500],
-              ),
+              style: theme.textTheme.bodySmall,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
-            ElevatedButton.icon(
+            const SizedBox(height: ParkeaSpacing.xl),
+            FilledButton.icon(
               onPressed: () => ref.invalidate(restAuthUCProvider),
               icon: const Icon(Icons.refresh),
               label: Text(S.of(context).retry),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: parkeaOrange,
-                foregroundColor: Colors.white,
-              ),
             ),
           ],
         ),

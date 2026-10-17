@@ -5,7 +5,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/dtos/event_dto.dart';
 import '../../../generated/l10n.dart';
-import '../../themes/colors/colors.dart';
+import '../../themes/colors/app_colors.dart';
+import '../osm_attribution.dart';
+import '../../themes/dimens.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -31,8 +33,8 @@ class EventLocationCard extends StatelessWidget {
         : [event.location?.place, event.address, event.city, event.country]
             .where((part) => part != null && part.isNotEmpty)
             .join(', ');
-    final uri = Uri.https('www.google.com', '/maps/search/',
-        {'api': '1', 'query': query});
+    final uri = Uri.https(
+        'www.google.com', '/maps/search/', {'api': '1', 'query': query});
     final opened = await launchUrl(uri, mode: LaunchMode.externalApplication);
     if (!opened && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -48,84 +50,70 @@ class EventLocationCard extends StatelessWidget {
     final cityLine = [event.city, event.country]
         .where((part) => part != null && part.isNotEmpty)
         .join(', ');
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 12,
-        children: [
-          Text(
-            s.eventLocation,
-            style: theme.textTheme.titleMedium
-                ?.copyWith(fontWeight: FontWeight.bold),
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 12,
-            children: [
-              const Icon(Icons.location_on, color: parkeaOrange),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 2,
-                  children: [
-                    if (event.location?.place case final place?
-                        when place.isNotEmpty)
-                      Text(
-                        place,
-                        style: theme.textTheme.bodyLarge
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                      ),
-                    if (event.address case final address?
-                        when address.isNotEmpty)
-                      Text(address, style: theme.textTheme.bodyMedium),
-                    if (cityLine.isNotEmpty)
-                      Text(
-                        cityLine,
-                        style: theme.textTheme.bodySmall
-                            ?.copyWith(color: Colors.grey[600]),
-                      ),
-                  ],
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: ParkeaSpacing.lg),
+      child: Padding(
+        padding: const EdgeInsets.all(ParkeaSpacing.xl),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 12,
+          children: [
+            Text(
+              s.eventLocation,
+              style: theme.textTheme.titleMedium
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 12,
+              children: [
+                Icon(Icons.location_on, color: colors(context).primary),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 2,
+                    children: [
+                      if (event.location?.place case final place?
+                          when place.isNotEmpty)
+                        Text(
+                          place,
+                          style: theme.textTheme.bodyLarge
+                              ?.copyWith(fontWeight: FontWeight.w600),
+                        ),
+                      if (event.address case final address?
+                          when address.isNotEmpty)
+                        Text(address, style: theme.textTheme.bodyMedium),
+                      if (cityLine.isNotEmpty)
+                        Text(
+                          cityLine,
+                          style: theme.textTheme.bodySmall,
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            if (event.hasCoordinates)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: _StaticMap(
+                    point: LatLng(event.latitude!, event.longitude!),
+                    onTap: () => _openDirections(context),
+                  ),
                 ),
               ),
-            ],
-          ),
-          if (event.hasCoordinates)
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: AspectRatio(
-                aspectRatio: 16 / 9,
-                child: _StaticMap(
-                  point: LatLng(event.latitude!, event.longitude!),
-                  onTap: () => _openDirections(context),
-                ),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () => _openDirections(context),
+                icon: const Icon(Icons.directions),
+                label: Text(s.getDirections),
               ),
             ),
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton.icon(
-              style: OutlinedButton.styleFrom(
-                foregroundColor: parkeaBlueAccent,
-                side: const BorderSide(color: parkeaBlueAccent),
-              ),
-              onPressed: () => _openDirections(context),
-              icon: const Icon(Icons.directions),
-              label: Text(s.getDirections),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -162,31 +150,15 @@ class _StaticMap extends StatelessWidget {
                   width: 44,
                   height: 44,
                   alignment: Alignment.topCenter,
-                  child: const Icon(Icons.location_on,
-                      color: parkeaOrange, size: 44),
+                  // Pin de marca sobre el mapa.
+                  child: Icon(Icons.location_on,
+                      color: colors(context).brand, size: 44),
                 ),
               ],
             ),
           ],
         ),
-        // Crédito requerido por OpenStreetMap.
-        Positioned(
-          right: 0,
-          bottom: 0,
-          child: ColoredBox(
-            color: Colors.white70,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              child: Text(
-                '© OpenStreetMap',
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall
-                    ?.copyWith(color: Colors.black87),
-              ),
-            ),
-          ),
-        ),
+        const Positioned(right: 0, bottom: 0, child: OsmAttribution()),
         // Encima del mapa para recibir el toque (el mapa no tiene gestos).
         Material(
           type: MaterialType.transparency,

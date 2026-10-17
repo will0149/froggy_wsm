@@ -104,7 +104,8 @@ class _ErrorView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.wifi_off_rounded, size: 64, color: Colors.grey),
+            Icon(Icons.wifi_off_rounded,
+                size: 64, color: Theme.of(context).colorScheme.onSurfaceVariant),
             const SizedBox(height: 16),
             Text(
               'No se pudo cargar la página de pago',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:parkea/app/themes/app_theme.dart';
 import 'package:parkea/app/widgets/event/enroll_button.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/data/entities/user/user_profile_dto.dart';
@@ -36,6 +37,7 @@ void main() {
       ],
       retry: (_, __) => null,
       child: MaterialApp(
+        theme: AppTheme.light,
         locale: const Locale('es'),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
@@ -53,7 +55,7 @@ void main() {
   }
 
   bool isEnabled(WidgetTester tester) =>
-      tester.widget<ElevatedButton>(find.byType(ElevatedButton)).onPressed !=
+      tester.widget<FilledButton>(find.byType(FilledButton)).onPressed !=
       null;
 
   testWidgets('evento gratis: se inscribe con un toque', (tester) async {
@@ -66,7 +68,7 @@ void main() {
     // Después de inscribirse la lista de tickets ya lo incluye.
     api.reply('GET', 'ticket/user/all/', 200,
         page([ticketJson(5, eventJson(10))]));
-    await tester.tap(find.byType(ElevatedButton));
+    await tester.tap(find.byType(FilledButton).first);
     await tester.pumpAndSettle();
 
     expect(api.sent('POST', 'ticket/enroll/').single.body, {
@@ -114,17 +116,22 @@ void main() {
     });
     await pumpButton(tester, eventJson(10, costType: 'PRIVATE'));
 
-    await tester.tap(find.byType(ElevatedButton));
+    await tester.tap(find.byType(FilledButton).first);
     await tester.pumpAndSettle();
+    // El botón de la página y el del diálogo dicen lo mismo.
+    final dialogEnroll = find.descendant(
+      of: find.byType(AlertDialog),
+      matching: find.widgetWithText(FilledButton, 'Inscribirme'),
+    );
     await tester.enterText(find.byType(TextField), 'MALO');
-    await tester.tap(find.widgetWithText(FilledButton, 'Inscribirme'));
+    await tester.tap(dialogEnroll);
     await tester.pumpAndSettle();
 
     // El diálogo sigue abierto con el error en el campo.
     expect(find.text('Código de acceso inválido'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField), 'DEMO2345');
-    await tester.tap(find.widgetWithText(FilledButton, 'Inscribirme'));
+    await tester.tap(dialogEnroll);
     await tester.pumpAndSettle();
 
     expect(find.byType(AlertDialog), findsNothing);

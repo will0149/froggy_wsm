@@ -8,7 +8,7 @@ import '../../../data/dtos/event_dto.dart';
 import '../../../domain/usecases/similar_events_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../pages/event/event_detail_page.dart';
-import '../../themes/colors/colors.dart';
+import '../price_tag.dart';
 import '../../utils/event_format.dart';
 
 /// Made for parkea.
@@ -124,14 +124,13 @@ class _SimilarEventCard extends StatelessWidget {
                         event.eventName ?? '',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.titleSmall
-                            ?.copyWith(fontWeight: FontWeight.bold),
+                        style: theme.textTheme.titleSmall,
                       ),
                       if (date != null)
                         Text(
                           DateFormat('EEE d MMM · HH:mm', locale).format(date),
                           style: theme.textTheme.bodySmall
-                              ?.copyWith(color: parkeaBlueAccent),
+                              ?.copyWith(color: theme.colorScheme.primary),
                         ),
                       Text(
                         [event.location?.place, event.city]
@@ -140,17 +139,10 @@ class _SimilarEventCard extends StatelessWidget {
                             .join(' · '),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.bodySmall
-                            ?.copyWith(color: Colors.grey[600]),
+                        style: theme.textTheme.bodySmall,
                       ),
                       const Spacer(),
-                      Text(
-                        event.costLabel(S.of(context), locale),
-                        style: theme.textTheme.labelLarge?.copyWith(
-                          color: parkeaOrange,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      PriceTag(event.costLabel(S.of(context), locale)),
                     ],
                   ),
                 ),
@@ -164,6 +156,7 @@ class _SimilarEventCard extends StatelessWidget {
 
   Widget _placeholder(ThemeData theme) => ColoredBox(
         color: theme.colorScheme.surfaceContainerHighest,
-        child: const Icon(Icons.event, color: Colors.grey, size: 40),
+        child: Icon(Icons.event,
+            color: theme.colorScheme.onSurfaceVariant, size: 40),
       );
 }

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:parkea/data/dtos/promotions/promotion_dto.dart';
 
 import '../../pages/event/event_detail_page.dart';
+import '../../themes/colors/app_colors.dart';
 import '../../themes/colors/colors.dart';
 
 /// Made for parkea.
@@ -24,7 +25,7 @@ class PromotionCard extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Material(
-        color: parkeaDarkBlueAccent,
+        color: parkeaDarkBlueAccent, // ds-ok: fondo de la foto
         child: InkWell(
           onTap: eventId == null
               ? null
@@ -45,7 +46,7 @@ class PromotionCard extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Colors.black87],
+                    colors: [Colors.transparent, ParkeaOverlay.scrim],
                     stops: [0.35, 1],
                   ),
                 ),
@@ -62,10 +63,8 @@ class PromotionCard extends StatelessWidget {
                       promotion.title ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: theme.textTheme.titleMedium
+                          ?.copyWith(color: ParkeaOverlay.onImage),
                     ),
                     if (promotion.description?.isNotEmpty ?? false)
                       Text(
@@ -73,7 +72,7 @@ class PromotionCard extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: theme.textTheme.bodySmall
-                            ?.copyWith(color: Colors.white70),
+                            ?.copyWith(color: ParkeaOverlay.onImage),
                       ),
                   ],
                 ),
