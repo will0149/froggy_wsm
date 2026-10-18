@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/repositories/events_repository.dart';
 import '../../data/repositories/promotions_repository.dart';
 import '../../data/repositories/ticket_repository.dart';
+import '../../device/utils/geocoding_service.dart';
 import '../../device/utils/user_location.dart';
 
 /// Made for parkea.
@@ -25,3 +26,6 @@ PromotionsRepository promotionsRepository(Ref ref) => PromotionsRepository();
 @Riverpod(keepAlive: true)
 UserLocationService userLocationService(Ref ref) =>
     const UserLocationService();
+
+@Riverpod(keepAlive: true)
+GeocodingService geocodingService(Ref ref) => const GeocodingService();

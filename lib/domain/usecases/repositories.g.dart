@@ -185,3 +185,45 @@ final class UserLocationServiceProvider extends $FunctionalProvider<
 
 String _$userLocationServiceHash() =>
     r'b13006e8ff9c7e86ca10781dc4314f9f8ad5df18';
+
+@ProviderFor(geocodingService)
+const geocodingServiceProvider = GeocodingServiceProvider._();
+
+final class GeocodingServiceProvider extends $FunctionalProvider<
+    GeocodingService,
+    GeocodingService,
+    GeocodingService> with $Provider<GeocodingService> {
+  const GeocodingServiceProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'geocodingServiceProvider',
+          isAutoDispose: false,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$geocodingServiceHash();
+
+  @$internal
+  @override
+  $ProviderElement<GeocodingService> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  GeocodingService create(Ref ref) {
+    return geocodingService(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(GeocodingService value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<GeocodingService>(value),
+    );
+  }
+}
+
+String _$geocodingServiceHash() => r'deae49068347e67381e80bc56698f2d9cc969887';

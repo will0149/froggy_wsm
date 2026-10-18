@@ -74,6 +74,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "account": MessageLookupByLibrary.simpleMessage("Konto"),
     "addBanner": MessageLookupByLibrary.simpleMessage("Bild hinzufügen"),
+    "addressUnknown": MessageLookupByLibrary.simpleMessage(
+      "Keine bekannte Adresse für diesen Punkt",
+    ),
     "allLocations": MessageLookupByLibrary.simpleMessage("Alle Orte"),
     "allOfCountry": m0,
     "allRightsReserved": m1,
@@ -103,6 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "catWorkshops": MessageLookupByLibrary.simpleMessage("Workshops"),
     "categoryNone": MessageLookupByLibrary.simpleMessage("Keine Kategorie"),
     "changeBanner": MessageLookupByLibrary.simpleMessage("Bild ändern"),
+    "changeLocation": MessageLookupByLibrary.simpleMessage("Ändern"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Passwort ändern"),
     "changePhoto": MessageLookupByLibrary.simpleMessage("Foto ändern"),
     "codeCopied": MessageLookupByLibrary.simpleMessage("Code kopiert"),
@@ -120,6 +124,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "completenessShortDescription": MessageLookupByLibrary.simpleMessage(
       "Füge eine Kurzbeschreibung hinzu: Sie erscheint im Feed.",
+    ),
+    "confirmLocation": MessageLookupByLibrary.simpleMessage(
+      "Standort bestätigen",
     ),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Passwort bestätigen",
@@ -250,7 +257,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Veranstaltung ausgebucht!",
     ),
     "eventFullMessage": m8,
-    "eventLocation": MessageLookupByLibrary.simpleMessage("Ort"),
+    "eventLocation": MessageLookupByLibrary.simpleMessage("Standort"),
     "eventName": MessageLookupByLibrary.simpleMessage("Eventname"),
     "eventPlace": MessageLookupByLibrary.simpleMessage("Ort"),
     "eventPrice": MessageLookupByLibrary.simpleMessage("Preis"),
@@ -276,6 +283,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "filterByLocation": MessageLookupByLibrary.simpleMessage(
       "Nach Ort filtern",
+    ),
+    "findingAddress": MessageLookupByLibrary.simpleMessage(
+      "Adresse wird gesucht…",
     ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Ich habe mein Passwort vergessen",
@@ -317,6 +327,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "loadingEvent": MessageLookupByLibrary.simpleMessage(
       "Veranstaltung wird geladen…",
     ),
+    "locationNotSet": MessageLookupByLibrary.simpleMessage(
+      "Kein Standort: Das Event erscheint nicht auf der Karte",
+    ),
     "locationsLoadFailed": MessageLookupByLibrary.simpleMessage(
       "Orte konnten nicht geladen werden",
     ),
@@ -341,9 +354,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "Keine anstehenden Events mit Standort",
     ),
     "mapOpenSettings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
+    "moveMapHint": MessageLookupByLibrary.simpleMessage(
+      "Bewege die Karte, um den Pin zu setzen",
+    ),
     "myEvents": MessageLookupByLibrary.simpleMessage("Veranstaltungen"),
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Bezahlt"),
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Gerettet"),
+    "myLocationUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Dein Standort konnte nicht ermittelt werden",
+    ),
     "myTickets": MessageLookupByLibrary.simpleMessage("Meine Tickets"),
     "name": MessageLookupByLibrary.simpleMessage("Name"),
     "navCreate": MessageLookupByLibrary.simpleMessage("Erstellen"),
@@ -364,6 +383,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noPastTickets": MessageLookupByLibrary.simpleMessage(
       "Keine vergangenen Tickets",
+    ),
+    "noPlacesFound": MessageLookupByLibrary.simpleMessage(
+      "Diesen Ort haben wir nicht gefunden",
     ),
     "noSearchResults": MessageLookupByLibrary.simpleMessage(
       "Keine Events passen zu deiner Suche",
@@ -402,6 +424,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentsComingSoon": MessageLookupByLibrary.simpleMessage(
       "Zahlung in Kürze",
     ),
+    "pickOnMap": MessageLookupByLibrary.simpleMessage("Auf der Karte wählen"),
     "popularEvents": MessageLookupByLibrary.simpleMessage(
       "beliebte Veranstaltungen",
     ),
@@ -435,6 +458,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Event veröffentlichen",
     ),
     "register": MessageLookupByLibrary.simpleMessage("Anmelden"),
+    "removeLocation": MessageLookupByLibrary.simpleMessage(
+      "Standort entfernen",
+    ),
     "resetEmailSent": MessageLookupByLibrary.simpleMessage(
       "Wenn die E-Mail registriert ist, haben wir dir einen Link zum Zurücksetzen des Passworts gesendet",
     ),
@@ -448,6 +474,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Nach Name oder Benutzername suchen",
     ),
     "searchEvents": MessageLookupByLibrary.simpleMessage("Aktivitäten suchen"),
+    "searchPlace": MessageLookupByLibrary.simpleMessage(
+      "Adresse oder Ort suchen",
+    ),
     "seeEvent": MessageLookupByLibrary.simpleMessage("siehe Veranstaltung"),
     "settings": MessageLookupByLibrary.simpleMessage("Einstellung"),
     "signUp": MessageLookupByLibrary.simpleMessage("Anmelden"),

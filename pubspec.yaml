@@ -75,6 +75,7 @@ dependencies:
   url_launcher: ^6.3.3
   logger: ^2.6.2
   geolocator: ^14.1.1
+  geocoding: ^5.0.0
 
 dev_dependencies:
   flutter_test:

@@ -6,10 +6,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../../data/dtos/event_dto.dart';
 import '../../../domain/gamification/event_completeness.dart';
 import '../../../domain/models/event_category.dart';
+import '../../../domain/models/event_place.dart';
 import '../../../domain/usecases/create_event_uc.dart';
 import '../../../domain/usecases/event_categories_uc.dart';
 import '../../../domain/usecases/fetch_events_uc.dart';
@@ -20,6 +22,7 @@ import '../../utils/event_category_label.dart';
 import '../../utils/form_validators.dart';
 import '../../widgets/gamification/event_completeness_card.dart';
 import 'event_detail_page.dart';
+import 'location_picker_page.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -71,6 +74,12 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
   /// cambiarla.
   DateTime? _originalDate;
 
+  /// Punto en el mapa con su dirección; null sin ubicación.
+  EventPlace? _location;
+
+  /// Solo se envía la ubicación si se eligió o quitó en este formulario.
+  bool _locationChanged = false;
+
   @override
   void initState() {
     super.initState();
@@ -85,6 +94,14 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
     _description.text = event.description ?? '';
     _place.text = event.location?.place ?? '';
     _date = _originalDate = DateTime.tryParse(event.date ?? '')?.toLocal();
+    if (event.hasCoordinates) {
+      _location = EventPlace(
+        LatLng(event.latitude!, event.longitude!),
+        address: event.address ?? '',
+        city: event.city ?? '',
+        country: event.country ?? '',
+      );
+    }
     _category = _originalCategory = EventCategory.fromApi(event.category);
     if (_costTypes.contains(event.eventType)) _costType = event.eventType!;
     if (event.amount case final amount? when _costType == 'PAID') {
@@ -126,6 +143,40 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
   void _clearApiError(String field) {
     if (!_apiErrors.containsKey(field)) return;
     setState(() => _apiErrors = {..._apiErrors}..remove(field));
+  }
+
+  static const _locationFields = [
+    'address',
+    'city',
+    'country',
+    'latitude',
+    'longitude',
+  ];
+
+  /// Errores del API de cualquiera de los campos de [_location].
+  String? get _locationError {
+    final errors = [
+      for (final field in _locationFields)
+        if (_apiError(field) case final error?) error,
+    ];
+    return errors.isEmpty ? null : errors.join('\n');
+  }
+
+  void _clearLocationErrors() => _locationFields.forEach(_clearApiError);
+
+  Future<void> _pickLocation() async {
+    final picked = await LocationPickerPage.open(context, initial: _location);
+    if (picked == null || !mounted) return;
+    setState(() {
+      _location = picked;
+      _locationChanged = true;
+      _clearLocationErrors();
+      // Si aún no tiene nombre de lugar, propone la dirección.
+      if (_place.text.trim().isEmpty && picked.address.isNotEmpty) {
+        _place.text = picked.address;
+        _clearApiError('place');
+      }
+    });
   }
 
   Future<void> _pickBanner() async {
@@ -172,6 +223,9 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
       if (_date != _originalDate)
         'event_date': _date!.toUtc().toIso8601String(),
       'place': _place.text.trim(),
+      if (_locationChanged)
+        ...?_location?.toApiFields() ??
+            (_isEditing ? EventPlace.clearedApiFields : null),
       'category': _category?.apiValue,
       'cost_type': _costType,
       if (paid) 'price': _price.text.trim().replaceAll(',', '.'),
@@ -317,6 +371,19 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
               forceErrorText: _apiError('place'),
               onChanged: (_) => _clearApiError('place'),
             ),
+            _LocationField(
+              location: _location,
+              error: _locationError,
+              onPick: isLoading ? null : _pickLocation,
+              onRemove: isLoading
+                  ? null
+                  : () => setState(() {
+                        _location = null;
+                        _locationChanged = true;
+                        _clearLocationErrors();
+                      }),
+            ),
+            const SizedBox(height: ParkeaSpacing.lg),
             DropdownButtonFormField<EventCategory?>(
               initialValue: _category,
               decoration: InputDecoration(
@@ -546,6 +613,96 @@ class EditEventPage extends ConsumerWidget {
         ),
     };
   }
+}
+
+/// Ubicación del evento en el mapa: la dirección elegida con opciones para
+/// cambiarla o quitarla, o el botón para elegirla.
+class _LocationField extends StatelessWidget {
+  final EventPlace? location;
+  final String? error;
+  final VoidCallback? onPick;
+  final VoidCallback? onRemove;
+
+  const _LocationField({
+    required this.location,
+    required this.error,
+    required this.onPick,
+    required this.onRemove,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    final theme = Theme.of(context);
+    final location = this.location;
+    final scheme = theme.colorScheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: ParkeaSpacing.xs,
+      children: [
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(ParkeaSpacing.lg,
+                ParkeaSpacing.sm, ParkeaSpacing.xs, ParkeaSpacing.sm),
+            child: Row(
+              spacing: ParkeaSpacing.md,
+              children: [
+                Icon(
+                  location == null ? Icons.map_outlined : Icons.place_rounded,
+                  color: location == null
+                      ? scheme.onSurfaceVariant
+                      : colors(context).primary,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(s.eventLocation, style: theme.textTheme.labelMedium),
+                      Text(
+                        location == null
+                            ? s.locationNotSet
+                            : location.summary.isEmpty
+                                ? _coordinates(location)
+                                : location.summary,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                            color: location == null
+                                ? scheme.onSurfaceVariant
+                                : null),
+                      ),
+                    ],
+                  ),
+                ),
+                TextButton(
+                  onPressed: onPick,
+                  child:
+                      Text(location == null ? s.pickOnMap : s.changeLocation),
+                ),
+                if (location != null)
+                  IconButton(
+                    tooltip: s.removeLocation,
+                    onPressed: onRemove,
+                    icon: const Icon(Icons.close),
+                  ),
+              ],
+            ),
+          ),
+        ),
+        if (error != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: ParkeaSpacing.md),
+            child: Text(error!,
+                style:
+                    theme.textTheme.bodySmall?.copyWith(color: scheme.error)),
+          ),
+      ],
+    );
+  }
+
+  static String _coordinates(EventPlace location) =>
+      '${location.point.latitude.toStringAsFixed(5)}, '
+      '${location.point.longitude.toStringAsFixed(5)}';
 }
 
 /// En lugar del selector de acceso cuando la categoría solo admite gratis.

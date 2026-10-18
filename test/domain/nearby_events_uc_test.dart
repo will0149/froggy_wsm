@@ -7,18 +7,6 @@ import 'package:parkea/domain/usecases/repositories.dart';
 
 import '../helpers/fake_api.dart';
 
-class FakeUserLocation implements UserLocationService {
-  final UserLocation location;
-
-  const FakeUserLocation(this.location);
-
-  @override
-  Future<UserLocation> current() async => location;
-
-  @override
-  Future<void> openSettings() async {}
-}
-
 void main() {
   setUpAll(setUpDomainTests);
 

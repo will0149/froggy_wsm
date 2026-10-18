@@ -47,8 +47,8 @@ class CreateEventUC extends _$CreateEventUC {
     return result;
   }
 
-  /// Cambia solo los campos de [fields]; los que el formulario no tiene
-  /// (dirección, coordenadas…) se conservan.
+  /// Cambia solo los campos de [fields]; los que no se envían se
+  /// conservan.
   Future<CreateEventResult> updateEvent(
       int eventId, Map<String, dynamic> fields,
       {String? bannerPath}) async {

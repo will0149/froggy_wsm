@@ -2043,6 +2043,111 @@ class S {
       args: [query],
     );
   }
+
+  /// `Elegir en el mapa`
+  String get pickOnMap {
+    return Intl.message(
+      'Elegir en el mapa',
+      name: 'pickOnMap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cambiar`
+  String get changeLocation {
+    return Intl.message('Cambiar', name: 'changeLocation', desc: '', args: []);
+  }
+
+  /// `Quitar ubicación`
+  String get removeLocation {
+    return Intl.message(
+      'Quitar ubicación',
+      name: 'removeLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Buscar dirección o lugar`
+  String get searchPlace {
+    return Intl.message(
+      'Buscar dirección o lugar',
+      name: 'searchPlace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No encontramos ese lugar`
+  String get noPlacesFound {
+    return Intl.message(
+      'No encontramos ese lugar',
+      name: 'noPlacesFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmar ubicación`
+  String get confirmLocation {
+    return Intl.message(
+      'Confirmar ubicación',
+      name: 'confirmLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Buscando dirección…`
+  String get findingAddress {
+    return Intl.message(
+      'Buscando dirección…',
+      name: 'findingAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Punto sin dirección conocida`
+  String get addressUnknown {
+    return Intl.message(
+      'Punto sin dirección conocida',
+      name: 'addressUnknown',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mueve el mapa para ubicar el pin`
+  String get moveMapHint {
+    return Intl.message(
+      'Mueve el mapa para ubicar el pin',
+      name: 'moveMapHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No pudimos obtener tu ubicación`
+  String get myLocationUnavailable {
+    return Intl.message(
+      'No pudimos obtener tu ubicación',
+      name: 'myLocationUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sin ubicación: el evento no saldrá en el mapa`
+  String get locationNotSet {
+    return Intl.message(
+      'Sin ubicación: el evento no saldrá en el mapa',
+      name: 'locationNotSet',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

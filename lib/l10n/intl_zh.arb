@@ -128,7 +128,7 @@
       }
     }
   },
-  "eventLocation": "地點",
+  "eventLocation": "位置",
   "hostedBy": "主辦者",
   "aboutEvent": "關於活動",
   "getDirections": "路線",
@@ -324,5 +324,16 @@
         "type": "String"
       }
     }
-  }
+  },
+  "pickOnMap": "在地图上选择",
+  "changeLocation": "更改",
+  "removeLocation": "移除位置",
+  "searchPlace": "搜索地址或地点",
+  "noPlacesFound": "找不到该地点",
+  "confirmLocation": "确认位置",
+  "findingAddress": "正在查找地址…",
+  "addressUnknown": "此位置没有已知地址",
+  "moveMapHint": "移动地图以放置图钉",
+  "myLocationUnavailable": "无法获取你的位置",
+  "locationNotSet": "未设置位置：活动不会显示在地图上"
 }

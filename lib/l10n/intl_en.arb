@@ -324,5 +324,16 @@
         "type": "String"
       }
     }
-  }
+  },
+  "pickOnMap": "Pick on map",
+  "changeLocation": "Change",
+  "removeLocation": "Remove location",
+  "searchPlace": "Search address or place",
+  "noPlacesFound": "We couldn't find that place",
+  "confirmLocation": "Confirm location",
+  "findingAddress": "Finding address…",
+  "addressUnknown": "No known address for this point",
+  "moveMapHint": "Move the map to place the pin",
+  "myLocationUnavailable": "We couldn't get your location",
+  "locationNotSet": "No location: the event won't show on the map"
 }

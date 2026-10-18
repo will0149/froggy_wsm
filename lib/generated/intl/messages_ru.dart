@@ -70,6 +70,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "accessCodeRequired": MessageLookupByLibrary.simpleMessage("Введите код"),
     "account": MessageLookupByLibrary.simpleMessage("Аккаунт"),
     "addBanner": MessageLookupByLibrary.simpleMessage("Добавить изображение"),
+    "addressUnknown": MessageLookupByLibrary.simpleMessage(
+      "Для этой точки адрес неизвестен",
+    ),
     "allLocations": MessageLookupByLibrary.simpleMessage("Все места"),
     "allOfCountry": m0,
     "allRightsReserved": m1,
@@ -100,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
     "categoryNone": MessageLookupByLibrary.simpleMessage("Без категории"),
     "changeBanner": MessageLookupByLibrary.simpleMessage("Сменить изображение"),
+    "changeLocation": MessageLookupByLibrary.simpleMessage("Изменить"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Изменить пароль"),
     "changePhoto": MessageLookupByLibrary.simpleMessage("Сменить фото"),
     "codeCopied": MessageLookupByLibrary.simpleMessage("Код скопирован"),
@@ -117,6 +121,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "completenessShortDescription": MessageLookupByLibrary.simpleMessage(
       "Добавьте краткое описание: его видно в ленте.",
+    ),
+    "confirmLocation": MessageLookupByLibrary.simpleMessage(
+      "Подтвердить место",
     ),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Подтвердите пароль",
@@ -250,6 +257,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Это поле обязательно",
     ),
     "filterByLocation": MessageLookupByLibrary.simpleMessage("Фильтр по месту"),
+    "findingAddress": MessageLookupByLibrary.simpleMessage("Ищем адрес…"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Я забыл мой пароль",
     ),
@@ -290,6 +298,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "languageSubtitle": MessageLookupByLibrary.simpleMessage("Язык приложения"),
     "lightMode": MessageLookupByLibrary.simpleMessage("Светлая тема"),
     "loadingEvent": MessageLookupByLibrary.simpleMessage("Загрузка события…"),
+    "locationNotSet": MessageLookupByLibrary.simpleMessage(
+      "Место не указано: событие не появится на карте",
+    ),
     "locationsLoadFailed": MessageLookupByLibrary.simpleMessage(
       "Не удалось загрузить места",
     ),
@@ -312,9 +323,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "Нет предстоящих событий с местоположением",
     ),
     "mapOpenSettings": MessageLookupByLibrary.simpleMessage("Настройки"),
+    "moveMapHint": MessageLookupByLibrary.simpleMessage(
+      "Двигайте карту, чтобы поставить метку",
+    ),
     "myEvents": MessageLookupByLibrary.simpleMessage("Мероприятия"),
     "myEventsPaid": MessageLookupByLibrary.simpleMessage("Оплаченный"),
     "myEventsSaved": MessageLookupByLibrary.simpleMessage("Сохранено"),
+    "myLocationUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Не удалось определить ваше местоположение",
+    ),
     "myTickets": MessageLookupByLibrary.simpleMessage("Мои билеты"),
     "name": MessageLookupByLibrary.simpleMessage("Имя"),
     "navCreate": MessageLookupByLibrary.simpleMessage("Создать"),
@@ -335,6 +352,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noPastTickets": MessageLookupByLibrary.simpleMessage(
       "Нет прошедших билетов",
+    ),
+    "noPlacesFound": MessageLookupByLibrary.simpleMessage(
+      "Мы не нашли это место",
     ),
     "noSearchResults": MessageLookupByLibrary.simpleMessage(
       "Нет событий по твоему запросу",
@@ -373,6 +393,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentsComingSoon": MessageLookupByLibrary.simpleMessage(
       "Оплата скоро появится",
     ),
+    "pickOnMap": MessageLookupByLibrary.simpleMessage("Выбрать на карте"),
     "popularEvents": MessageLookupByLibrary.simpleMessage("Популярные события"),
     "preferences": MessageLookupByLibrary.simpleMessage("Настройки"),
     "pressBackToExit": MessageLookupByLibrary.simpleMessage(
@@ -402,6 +423,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Опубликовать событие",
     ),
     "register": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+    "removeLocation": MessageLookupByLibrary.simpleMessage("Убрать место"),
     "resetEmailSent": MessageLookupByLibrary.simpleMessage(
       "Если адрес зарегистрирован, мы отправили ссылку для сброса пароля",
     ),
@@ -413,6 +435,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Поиск по имени или логину",
     ),
     "searchEvents": MessageLookupByLibrary.simpleMessage("Поиск занятий"),
+    "searchPlace": MessageLookupByLibrary.simpleMessage(
+      "Поиск адреса или места",
+    ),
     "seeEvent": MessageLookupByLibrary.simpleMessage("Показать событие"),
     "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
     "signUp": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),

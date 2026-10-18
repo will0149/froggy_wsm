@@ -324,5 +324,16 @@
         "type": "String"
       }
     }
-  }
+  },
+  "pickOnMap": "Выбрать на карте",
+  "changeLocation": "Изменить",
+  "removeLocation": "Убрать место",
+  "searchPlace": "Поиск адреса или места",
+  "noPlacesFound": "Мы не нашли это место",
+  "confirmLocation": "Подтвердить место",
+  "findingAddress": "Ищем адрес…",
+  "addressUnknown": "Для этой точки адрес неизвестен",
+  "moveMapHint": "Двигайте карту, чтобы поставить метку",
+  "myLocationUnavailable": "Не удалось определить ваше местоположение",
+  "locationNotSet": "Место не указано: событие не появится на карте"
 }

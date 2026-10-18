@@ -128,7 +128,7 @@
       }
     }
   },
-  "eventLocation": "Lieu",
+  "eventLocation": "Emplacement",
   "hostedBy": "Organisé par",
   "aboutEvent": "À propos de l'événement",
   "getDirections": "Itinéraire",
@@ -324,5 +324,16 @@
         "type": "String"
       }
     }
-  }
+  },
+  "pickOnMap": "Choisir sur la carte",
+  "changeLocation": "Modifier",
+  "removeLocation": "Retirer l'emplacement",
+  "searchPlace": "Rechercher une adresse ou un lieu",
+  "noPlacesFound": "Lieu introuvable",
+  "confirmLocation": "Confirmer l'emplacement",
+  "findingAddress": "Recherche de l'adresse…",
+  "addressUnknown": "Aucune adresse connue pour ce point",
+  "moveMapHint": "Déplacez la carte pour placer l'épingle",
+  "myLocationUnavailable": "Impossible d'obtenir votre position",
+  "locationNotSet": "Sans emplacement : l'événement n'apparaîtra pas sur la carte"
 }

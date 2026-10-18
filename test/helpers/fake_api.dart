@@ -12,6 +12,10 @@ import 'package:parkea/data/repositories/ticket_repository.dart';
 import 'package:parkea/data/repositories/utils/api_client.dart';
 import 'package:parkea/data/repositories/utils/build_header_utils.dart';
 import 'package:parkea/data/repositories/utils/http_common_utils.dart';
+import 'package:parkea/device/utils/geocoding_service.dart';
+import 'package:parkea/device/utils/user_location.dart';
+import 'package:parkea/domain/models/event_place.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:parkea/domain/usecases/repositories.dart';
 import 'package:parkea/generated/l10n.dart';
 
@@ -245,3 +249,39 @@ Map<String, Object?> categoryJson(String code, String name,
         {bool visible = true, bool creatable = true}) =>
     {'code': code, 'name': name, 'visible': visible, 'creatable': creatable};
 
+/// Ubicación fija del dispositivo.
+class FakeUserLocation implements UserLocationService {
+  final UserLocation location;
+
+  const FakeUserLocation(this.location);
+
+  @override
+  Future<UserLocation> current() async => location;
+
+  @override
+  Future<void> openSettings() async {}
+}
+
+/// Geocodificador sin red: [reverse] devuelve [address] para cualquier
+/// punto y [search] los lugares de [places] cuyo texto contiene la búsqueda.
+class FakeGeocoding implements GeocodingService {
+  final EventPlace Function(LatLng point) address;
+  final List<EventPlace> places;
+  final searches = <String>[];
+
+  FakeGeocoding(
+      {EventPlace Function(LatLng point)? address, this.places = const []})
+      : address = address ?? EventPlace.new;
+
+  @override
+  Future<EventPlace> reverse(LatLng point) async => address(point);
+
+  @override
+  Future<List<EventPlace>> search(String query, {int limit = 5}) async {
+    searches.add(query);
+    return [
+      for (final place in places)
+        if (place.summary.toLowerCase().contains(query.toLowerCase())) place,
+    ].take(limit).toList();
+  }
+}
