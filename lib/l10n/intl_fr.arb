@@ -353,5 +353,7 @@
   "cameraUnavailable": "Impossible d'utiliser la caméra. Vérifie l'autorisation dans les réglages ou saisis le code.",
   "accessCodeQrHint": "Tes invités le scannent depuis l'accueil de Parkea.",
   "showQr": "Afficher le QR code",
-  "tooManyAttempts": "Trop de tentatives, attends une minute"
+  "tooManyAttempts": "Trop de tentatives, attends une minute",
+  "shareEvent": "Partager l'événement",
+  "shareEventLink": "Voir sur Parkea : {link}"
 }

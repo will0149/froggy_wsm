@@ -2313,6 +2313,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Compartir evento`
+  String get shareEvent {
+    return Intl.message(
+      'Compartir evento',
+      name: 'shareEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Míralo en Parkea: {link}`
+  String shareEventLink(String link) {
+    return Intl.message(
+      'Míralo en Parkea: $link',
+      name: 'shareEventLink',
+      desc: '',
+      args: [link],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

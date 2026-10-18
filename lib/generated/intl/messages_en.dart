@@ -52,13 +52,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m13(query) => "No one matches “${query}”";
 
-  static String m14(count) => "${count} spots left";
+  static String m14(link) => "See it on Parkea: ${link}";
 
-  static String m15(current, total) => "Step ${current} of ${total}";
+  static String m15(count) => "${count} spots left";
 
-  static String m16(id) => "Ticket #${id}";
+  static String m16(current, total) => "Step ${current} of ${total}";
 
-  static String m17(count) => "${count} upcoming tickets";
+  static String m17(id) => "Ticket #${id}";
+
+  static String m18(count) => "${count} upcoming tickets";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -461,6 +463,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "seeEvent": MessageLookupByLibrary.simpleMessage("Show event"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "shareEvent": MessageLookupByLibrary.simpleMessage("Share event"),
+    "shareEventLink": m14,
     "showQr": MessageLookupByLibrary.simpleMessage("Show QR code"),
     "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("Similar events"),
@@ -486,14 +490,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong",
     ),
-    "spotsLeft": m14,
-    "stepOfTotal": m15,
+    "spotsLeft": m15,
+    "stepOfTotal": m16,
     "supportLegal": MessageLookupByLibrary.simpleMessage("Support & legal"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Enrollment cancelled",
     ),
-    "ticketNumber": m16,
+    "ticketNumber": m17,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t load tickets",
     ),
@@ -502,7 +506,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "tooManyAttempts": MessageLookupByLibrary.simpleMessage(
       "Too many attempts, wait a minute",
     ),
-    "upcomingTicketsCount": m17,
+    "upcomingTicketsCount": m18,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Username or email",
     ),

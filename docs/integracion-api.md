@@ -137,6 +137,12 @@ Está en la rama `feat/mobile-tickets-saved` del API. El commit `dae3031` tiene 
 - **Nombres de países**: hoy se muestran con bandera y código (CO, MX).
 
 ### Antes de producción
+Necesario para publicar en App Store y Google Play:
+- **Eliminar cuenta**: las dos tiendas lo exigen a toda app con registro. Hace falta un endpoint en el backend y la opción en Ajustes.
+- **Política de privacidad y términos**: las tiendas piden el enlace a la política de privacidad. La fila "Datos y privacidad" de Ajustes todavía no abre nada, y el registro no pide aceptar los términos.
+- **Dominio para los enlaces**: compartir un evento manda `parkea://events/<id>`, que WhatsApp y otras apps no muestran como enlace. Con un dominio HTTPS se pueden usar App Links (Android) y Universal Links (iOS).
+
+Además:
 - Configurar la URL de producción (HTTPS) con `API_BASE_URL`. El HTTP sin TLS solo está permitido en el manifest de debug.
 - Revisar la política de uso de los tiles de OpenStreetMap para el volumen esperado.
 - Revisar los logs: en debug se imprimen las respuestas completas, incluidos los tokens. En release el logger está apagado.

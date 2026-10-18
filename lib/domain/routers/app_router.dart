@@ -207,6 +207,15 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
         );
       }
 
+      // Evento compartido: parkea://events/<id>
+      if (state.uri.scheme == 'parkea' && state.uri.host == 'events') {
+        final id = int.tryParse(state.uri.pathSegments.firstOrNull ?? '');
+        return id == null
+            ? HomeFeedPage.routeLocation
+            : state.namedLocation(EventDetailPage.routeName,
+                pathParameters: {'id': '$id'});
+      }
+
       final authBase = AuthPage.routeLocation;
       final isLoginRoute =
           state.matchedLocation == '$authBase/${LoginPage.routeLocation}';

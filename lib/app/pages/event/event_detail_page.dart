@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:parkea/app/widgets/banners/detail_image_banner.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/domain/usecases/fetch_events_uc.dart';
 import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
@@ -11,6 +12,7 @@ import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/app_colors.dart';
 import '../../themes/dimens.dart';
+import '../../utils/event_share.dart';
 import '../../widgets/event/enroll_button.dart';
 import '../../widgets/event/event_location_card.dart';
 import '../../widgets/event/owner_event_actions.dart';
@@ -72,9 +74,13 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
               color: ParkeaOverlay.scrim,
               shape: BoxShape.circle,
             ),
-            child: IconButton(
-              icon: const Icon(Icons.share, color: ParkeaOverlay.onImage),
-              onPressed: () {},
+            child: Builder(
+              builder: (context) => IconButton(
+                tooltip: S.of(context).shareEvent,
+                icon: const Icon(Icons.share, color: ParkeaOverlay.onImage),
+                onPressed:
+                    ownEvent == null ? null : () => _share(context, ownEvent),
+              ),
             ),
           ),
         ],
@@ -88,6 +94,18 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
         ),
       ),
     );
+  }
+
+  void _share(BuildContext context, EventDTO event) {
+    final locale = Localizations.localeOf(context).toString();
+    // En iPad la hoja de compartir se ancla al botón.
+    final box = context.findRenderObject() as RenderBox?;
+    SharePlus.instance.share(ShareParams(
+      text: eventShareText(event, S.of(context), locale),
+      subject: event.eventName,
+      sharePositionOrigin:
+          box == null ? null : box.localToGlobal(Offset.zero) & box.size,
+    ));
   }
 
   String? get _username => ref.watch(restAuthUCProvider).value?.user?.username;

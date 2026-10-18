@@ -50,13 +50,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m13(query) => "没有与“${query}”匹配的人";
 
-  static String m14(count) => "剩餘 ${count} 個名額";
+  static String m14(link) => "在 Parkea 查看：${link}";
 
-  static String m15(current, total) => "第 ${current} 步，共 ${total} 步";
+  static String m15(count) => "剩餘 ${count} 個名額";
 
-  static String m16(id) => "票券 #${id}";
+  static String m16(current, total) => "第 ${current} 步，共 ${total} 步";
 
-  static String m17(count) => "${count} 張即將到來的票券";
+  static String m17(id) => "票券 #${id}";
+
+  static String m18(count) => "${count} 張即將到來的票券";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -319,6 +321,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "searchPlace": MessageLookupByLibrary.simpleMessage("搜索地址或地点"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("显示事件"),
     "settings": MessageLookupByLibrary.simpleMessage("設置"),
+    "shareEvent": MessageLookupByLibrary.simpleMessage("分享活動"),
+    "shareEventLink": m14,
     "showQr": MessageLookupByLibrary.simpleMessage("显示二维码"),
     "signUp": MessageLookupByLibrary.simpleMessage("報名"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("類似事件"),
@@ -332,17 +336,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "slideEnrollTitle": MessageLookupByLibrary.simpleMessage("一鍵報名"),
     "soldOut": MessageLookupByLibrary.simpleMessage("已額滿"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage("發生錯誤"),
-    "spotsLeft": m14,
-    "stepOfTotal": m15,
+    "spotsLeft": m15,
+    "stepOfTotal": m16,
     "supportLegal": MessageLookupByLibrary.simpleMessage("支援與法律"),
     "theme": MessageLookupByLibrary.simpleMessage("主題"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage("已取消報名"),
-    "ticketNumber": m16,
+    "ticketNumber": m17,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage("無法載入票券"),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("已結束"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("即將到來"),
     "tooManyAttempts": MessageLookupByLibrary.simpleMessage("尝试次数过多，请稍等一分钟"),
-    "upcomingTicketsCount": m17,
+    "upcomingTicketsCount": m18,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("使用者名稱或電子郵件"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "請輸入使用者名稱或電子郵件",
