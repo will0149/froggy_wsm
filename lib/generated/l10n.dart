@@ -1484,16 +1484,6 @@ class S {
     return Intl.message('Idioma', name: 'language', desc: '', args: []);
   }
 
-  /// `Idioma de la app`
-  String get languageSubtitle {
-    return Intl.message(
-      'Idioma de la app',
-      name: 'languageSubtitle',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Soporte y legal`
   String get supportLegal {
     return Intl.message(
@@ -2404,6 +2394,16 @@ class S {
     return Intl.message(
       'Muéstralo en la entrada del evento.',
       name: 'ticketPassHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Idioma del dispositivo`
+  String get languageSystem {
+    return Intl.message(
+      'Idioma del dispositivo',
+      name: 'languageSystem',
       desc: '',
       args: [],
     );

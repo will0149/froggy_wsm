@@ -81,7 +81,7 @@ Contrato general del API:
 - **Voluntariado** (`category: VOLUNTEERING`: siembra de árboles, ayuda social…): siempre gratis y abierto a todos. Al elegirlo, la app fija `cost_type: FREE` y oculta el selector de acceso. El API rechaza otro `cost_type` con 400 en ese campo y guarda el precio en 0. Las categorías de la app están en `EventCategory`.
 
 ### Transversal
-- **Idiomas**: español (principal) e inglés, los mismos que el API. Todos los textos de la app están en los dos, incluidos los errores de los use cases (por `S.current`).
+- **Idiomas**: español (principal) e inglés, los mismos que el API. Todos los textos de la app están en los dos, incluidos los errores de los use cases (por `S.current`). En Ajustes → Idioma se elige el del dispositivo, Español o English; se guarda en el dispositivo y se manda al API en `Accept-Language`.
 - **Errores**:
   - Sin red, la app muestra "No se pudo conectar con el servidor" y un botón de reintentar. `ApiClient` convierte el fallo de red en el mismo 408 de un timeout.
   - Los reintentos automáticos de Riverpod están desactivados, así los errores se ven enseguida.
@@ -116,6 +116,7 @@ Contrato general del API:
 - [ ] Celebraciones de logro y de nivel
 
 ### Decisiones pendientes
+- **Ayuda en Ajustes**: falta definir el contacto de soporte (correo, WhatsApp o los dos).
 - **Provincia en el registro**: el formulario la pide pero no se envía al API. ¿Se quita o se guarda en el backend?
 - **Abrir la app sin red** lleva a la pantalla de login. La sesión se conserva, pero convendría mostrar "sin conexión" con reintentar.
 - **Pagos e inscripción a eventos PAID e INVITATION**: el backend preparó una propuesta para decidir.

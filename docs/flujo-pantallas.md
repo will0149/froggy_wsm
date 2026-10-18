@@ -178,9 +178,10 @@ flowchart TD
     editProfile -->|"errores por campo"| editProfile
 
     settings --> theme["Switch claro / oscuro"]
+    settings -->|"Idioma"| language(["Hoja: del dispositivo,<br/>Español o English"])
     settings -->|"Acerca de"| about(["Diálogo: Acerca de"])
     settings -->|"Cerrar sesión"| logoutConfirm(["Diálogo: confirmar"])
     logoutConfirm -->|"sí"| auth["Auth"]
 ```
 
-La tarjeta "Tu perfil" y las filas Notificaciones, Idioma, Ayuda y Privacidad de Ajustes todavía no llevan a ninguna pantalla.
+La tarjeta "Tu perfil" y las filas Notificaciones, Ayuda y Privacidad de Ajustes todavía no llevan a ninguna pantalla.

@@ -11,6 +11,7 @@ import 'package:stack_trace/stack_trace.dart' as stack_trace;
 import 'app/themes/app_theme.dart';
 import 'domain/providers/app_theme_provider.dart';
 import 'domain/routers/app_router.dart';
+import 'domain/usecases/app_locale_uc.dart';
 import 'domain/usecases/auth/rest_auth_uc.dart';
 import 'generated/l10n.dart';
 
@@ -83,6 +84,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ref.watch(appThemeModeProvider),
+      locale: ref.watch(appLocaleUCProvider),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

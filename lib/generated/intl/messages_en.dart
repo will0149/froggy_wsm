@@ -323,7 +323,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "keepTicket": MessageLookupByLibrary.simpleMessage("Keep"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
-    "languageSubtitle": MessageLookupByLibrary.simpleMessage("App language"),
+    "languageSystem": MessageLookupByLibrary.simpleMessage("Device language"),
     "lightMode": MessageLookupByLibrary.simpleMessage("Light mode"),
     "loadingEvent": MessageLookupByLibrary.simpleMessage("Loading event…"),
     "locationNotSet": MessageLookupByLibrary.simpleMessage(

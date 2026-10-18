@@ -210,7 +210,6 @@
   "notifications": "Notificaciones",
   "notificationsSubtitle": "Notificaciones push y alertas",
   "language": "Idioma",
-  "languageSubtitle": "Idioma de la app",
   "supportLegal": "Soporte y legal",
   "helpSubtitle": "Preguntas frecuentes y soporte",
   "privacySubtitle": "Política de privacidad y uso de datos",
@@ -418,5 +417,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "languageSystem": "Idioma del dispositivo"
 }

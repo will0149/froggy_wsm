@@ -210,7 +210,6 @@
   "notifications": "Notifications",
   "notificationsSubtitle": "Push notifications and alerts",
   "language": "Language",
-  "languageSubtitle": "App language",
   "supportLegal": "Support & legal",
   "helpSubtitle": "FAQ and support",
   "privacySubtitle": "Privacy policy and data usage",
@@ -363,5 +362,6 @@
   "ticketUsed": "You already used this ticket",
   "ticketPaid": "Paid: {amount}",
   "ticketQr": "Ticket QR code",
-  "ticketPassHint": "Show it at the event entrance."
+  "ticketPassHint": "Show it at the event entrance.",
+  "languageSystem": "Device language"
 }

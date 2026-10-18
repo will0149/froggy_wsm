@@ -344,8 +344,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "keepTicket": MessageLookupByLibrary.simpleMessage("Mantener"),
     "language": MessageLookupByLibrary.simpleMessage("Idioma"),
-    "languageSubtitle": MessageLookupByLibrary.simpleMessage(
-      "Idioma de la app",
+    "languageSystem": MessageLookupByLibrary.simpleMessage(
+      "Idioma del dispositivo",
     ),
     "lightMode": MessageLookupByLibrary.simpleMessage("Modo claro"),
     "loadingEvent": MessageLookupByLibrary.simpleMessage("Cargando evento…"),

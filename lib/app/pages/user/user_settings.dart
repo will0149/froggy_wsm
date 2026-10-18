@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 
 import '../../../domain/providers/app_theme_provider.dart';
+import '../../../domain/usecases/app_locale_uc.dart';
 import '../../themes/colors/app_colors.dart';
 import '../../themes/dimens.dart';
 import '../../../generated/l10n.dart';
@@ -148,11 +149,9 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
       _buildSettingsTile(
         icon: Icons.language_outlined,
         title: s.language,
-        subtitle: s.languageSubtitle,
+        subtitle: _languageName(ref.watch(appLocaleUCProvider)),
         trailing: _chevron(),
-        onTap: () {
-          // Navigate to language settings
-        },
+        onTap: _showLanguageSheet,
         theme: theme,
       ),
     ]);
@@ -291,6 +290,51 @@ class UserSettingsPageState extends ConsumerState<UserSettingsPage> {
         }
       }
     }
+  }
+
+  /// Cada idioma con su propio nombre, para encontrarlo en cualquier idioma.
+  static const _languageNames = {'es': 'Español', 'en': 'English'};
+
+  String _languageName(Locale? locale) => locale == null
+      ? S.of(context).languageSystem
+      : _languageNames[locale.languageCode] ?? locale.languageCode;
+
+  void _showLanguageSheet() {
+    final current = ref.read(appLocaleUCProvider)?.languageCode ?? '';
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      // Por encima de la barra inferior.
+      useRootNavigator: true,
+      builder: (context) => SafeArea(
+        child: RadioGroup<String>(
+          groupValue: current,
+          onChanged: (code) {
+            Navigator.pop(context);
+            ref
+                .read(appLocaleUCProvider.notifier)
+                .select(code == null || code.isEmpty ? null : Locale(code));
+          },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: ParkeaSpacing.sm),
+                child: Text(S.of(context).language,
+                    style: Theme.of(context).textTheme.titleMedium),
+              ),
+              RadioListTile<String>(
+                value: '',
+                title: Text(S.of(context).languageSystem),
+              ),
+              for (final MapEntry(key: code, value: name)
+                  in _languageNames.entries)
+                RadioListTile<String>(value: code, title: Text(name)),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Future<bool?> _showLogoutDialog() {
