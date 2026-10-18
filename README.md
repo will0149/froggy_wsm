@@ -59,6 +59,25 @@ flutter build apk                 # Build Android APK
 flutter build ios                 # Build iOS (requires macOS)
 ```
 
+### Release APK for Remote Testing
+To test from anywhere (mobile data, another Wi-Fi), expose the local API with a Cloudflare quick tunnel and build the APK against its URL. Keep the trailing `/api/v1/`:
+
+```bash
+# 1. Expose the local API; copy the https://<random>.trycloudflare.com URL it prints
+cloudflared tunnel --url http://localhost:8080
+
+# 2. Build the release APK against that URL
+flutter build apk --release --dart-define=API_BASE_URL=https://<random>.trycloudflare.com/api/v1/
+
+# 3. Install it on a phone connected over USB (Xiaomi: enable "Install via USB" in Developer options)
+~/Library/Android/sdk/platform-tools/adb install -r build/app/outputs/flutter-apk/app-release.apk
+```
+
+The APK is at `build/app/outputs/flutter-apk/app-release.apk` (~97 MB; add `--split-per-abi` for ~35 MB per architecture). Notes:
+- A quick tunnel gets a **new URL every time `cloudflared` restarts**, so the APK must be rebuilt with the new one.
+- Use an `https://` URL: release builds block plain `http://` (only debug builds allow it).
+- The release build is signed with the **debug key** (`android/app/build.gradle.kts`): fine for sharing test builds, not for Play Store.
+
 ## Architecture Overview
 
 The project follows Clean Architecture with four main layers:
