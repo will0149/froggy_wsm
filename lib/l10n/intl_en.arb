@@ -335,5 +335,6 @@
   "addressUnknown": "No known address for this point",
   "moveMapHint": "Move the map to place the pin",
   "myLocationUnavailable": "We couldn't get your location",
-  "locationNotSet": "No location: the event won't show on the map"
+  "locationNotSet": "No location: the event won't show on the map",
+  "imageOfTotal": "Image {current} of {total}"
 }

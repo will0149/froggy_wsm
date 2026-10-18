@@ -342,5 +342,12 @@
   "addressUnknown": "Punto sin dirección conocida",
   "moveMapHint": "Mueve el mapa para ubicar el pin",
   "myLocationUnavailable": "No pudimos obtener tu ubicación",
-  "locationNotSet": "Sin ubicación: el evento no saldrá en el mapa"
+  "locationNotSet": "Sin ubicación: el evento no saldrá en el mapa",
+  "imageOfTotal": "Imagen {current} de {total}",
+  "@imageOfTotal": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  }
 }

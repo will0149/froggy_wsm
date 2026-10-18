@@ -335,5 +335,6 @@
   "addressUnknown": "Ponto sem endereço conhecido",
   "moveMapHint": "Mova o mapa para posicionar o pino",
   "myLocationUnavailable": "Não foi possível obter sua localização",
-  "locationNotSet": "Sem localização: o evento não aparecerá no mapa"
+  "locationNotSet": "Sem localização: o evento não aparecerá no mapa",
+  "imageOfTotal": "Imagem {current} de {total}"
 }

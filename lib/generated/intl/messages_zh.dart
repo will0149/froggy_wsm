@@ -40,15 +40,17 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m8(capacity, name) =>
       "${Intl.plural(capacity, other: '「${name}」的 ${capacity} 個名額已全部額滿。')}";
 
-  static String m9(error) => "無法登出：${error}";
+  static String m9(current, total) => "第 ${current} 张，共 ${total} 张";
 
-  static String m10(query) => "没有与“${query}”匹配的人";
+  static String m10(error) => "無法登出：${error}";
 
-  static String m11(count) => "剩餘 ${count} 個名額";
+  static String m11(query) => "没有与“${query}”匹配的人";
 
-  static String m12(id) => "票券 #${id}";
+  static String m12(count) => "剩餘 ${count} 個名額";
 
-  static String m13(count) => "${count} 張即將到來的票券";
+  static String m13(id) => "票券 #${id}";
+
+  static String m14(count) => "${count} 張即將到來的票券";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -195,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "haveResetLink": MessageLookupByLibrary.simpleMessage("我已經有連結"),
     "helpSubtitle": MessageLookupByLibrary.simpleMessage("常見問題與支援"),
     "hostedBy": MessageLookupByLibrary.simpleMessage("主辦者"),
+    "imageOfTotal": m9,
     "information": MessageLookupByLibrary.simpleMessage("信息"),
     "invalidAccessCode": MessageLookupByLibrary.simpleMessage("存取碼無效"),
     "invalidCurrency": MessageLookupByLibrary.simpleMessage(
@@ -217,7 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "login": MessageLookupByLibrary.simpleMessage("登錄"),
     "logout": MessageLookupByLibrary.simpleMessage("登出"),
     "logoutConfirm": MessageLookupByLibrary.simpleMessage("確定要登出嗎？"),
-    "logoutFailed": m9,
+    "logoutFailed": m10,
     "logoutSubtitle": MessageLookupByLibrary.simpleMessage("登出你的帳號"),
     "manageProfile": MessageLookupByLibrary.simpleMessage("管理你的個人資料"),
     "mapEnableLocation": MessageLookupByLibrary.simpleMessage("開啟"),
@@ -238,7 +241,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "navProfile": MessageLookupByLibrary.simpleMessage("個人檔案"),
     "navTickets": MessageLookupByLibrary.simpleMessage("票券"),
     "newPassword": MessageLookupByLibrary.simpleMessage("新密碼"),
-    "noAttendeesMatch": m10,
+    "noAttendeesMatch": m11,
     "noCapacityLimit": MessageLookupByLibrary.simpleMessage("不限名額"),
     "noEventsInLocation": MessageLookupByLibrary.simpleMessage("此地點沒有即將舉行的活動"),
     "noOwnEvents": MessageLookupByLibrary.simpleMessage("你還沒有建立任何活動"),
@@ -302,15 +305,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "slideShareTitle": MessageLookupByLibrary.simpleMessage("與朋友分享"),
     "soldOut": MessageLookupByLibrary.simpleMessage("已額滿"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage("發生錯誤"),
-    "spotsLeft": m11,
+    "spotsLeft": m12,
     "supportLegal": MessageLookupByLibrary.simpleMessage("支援與法律"),
     "theme": MessageLookupByLibrary.simpleMessage("主題"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage("已取消報名"),
-    "ticketNumber": m12,
+    "ticketNumber": m13,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage("無法載入票券"),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("已結束"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("即將到來"),
-    "upcomingTicketsCount": m13,
+    "upcomingTicketsCount": m14,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("使用者名稱或電子郵件"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "請輸入使用者名稱或電子郵件",

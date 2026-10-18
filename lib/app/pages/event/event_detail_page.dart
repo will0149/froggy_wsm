@@ -99,7 +99,7 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
         SliverToBoxAdapter(
           child: Column(
             children: [
-              DetailImageBanner(event.bannerImageUrl),
+              DetailImageBanner(event.galleryUrls),
               Transform.translate(
                 offset: const Offset(0, -20),
                 child: _buildEventCard(event, context),

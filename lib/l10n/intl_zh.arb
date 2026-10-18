@@ -335,5 +335,6 @@
   "addressUnknown": "此位置没有已知地址",
   "moveMapHint": "移动地图以放置图钉",
   "myLocationUnavailable": "无法获取你的位置",
-  "locationNotSet": "未设置位置：活动不会显示在地图上"
+  "locationNotSet": "未设置位置：活动不会显示在地图上",
+  "imageOfTotal": "第 {current} 张，共 {total} 张"
 }

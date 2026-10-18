@@ -40,15 +40,17 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m8(capacity, name) =>
       "${Intl.plural(capacity, one: 'The only spot for “${name}” is taken.', other: 'All ${capacity} spots for “${name}” are taken.')}";
 
-  static String m9(error) => "Couldn\'t sign out: ${error}";
+  static String m9(current, total) => "Image ${current} of ${total}";
 
-  static String m10(query) => "No one matches “${query}”";
+  static String m10(error) => "Couldn\'t sign out: ${error}";
 
-  static String m11(count) => "${count} spots left";
+  static String m11(query) => "No one matches “${query}”";
 
-  static String m12(id) => "Ticket #${id}";
+  static String m12(count) => "${count} spots left";
 
-  static String m13(count) => "${count} upcoming tickets";
+  static String m13(id) => "Ticket #${id}";
+
+  static String m14(count) => "${count} upcoming tickets";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -269,6 +271,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "helpSubtitle": MessageLookupByLibrary.simpleMessage("FAQ and support"),
     "hostedBy": MessageLookupByLibrary.simpleMessage("Hosted by"),
+    "imageOfTotal": m9,
     "information": MessageLookupByLibrary.simpleMessage("Information"),
     "invalidAccessCode": MessageLookupByLibrary.simpleMessage(
       "Invalid access code",
@@ -303,7 +306,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "logoutConfirm": MessageLookupByLibrary.simpleMessage(
       "Are you sure you want to sign out?",
     ),
-    "logoutFailed": m9,
+    "logoutFailed": m10,
     "logoutSubtitle": MessageLookupByLibrary.simpleMessage(
       "Sign out of your account",
     ),
@@ -336,7 +339,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "navProfile": MessageLookupByLibrary.simpleMessage("Profile"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Tickets"),
     "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
-    "noAttendeesMatch": m10,
+    "noAttendeesMatch": m11,
     "noCapacityLimit": MessageLookupByLibrary.simpleMessage(
       "No capacity limit",
     ),
@@ -454,19 +457,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong",
     ),
-    "spotsLeft": m11,
+    "spotsLeft": m12,
     "supportLegal": MessageLookupByLibrary.simpleMessage("Support & legal"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Enrollment cancelled",
     ),
-    "ticketNumber": m12,
+    "ticketNumber": m13,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t load tickets",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Past"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Upcoming"),
-    "upcomingTicketsCount": m13,
+    "upcomingTicketsCount": m14,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Username or email",
     ),

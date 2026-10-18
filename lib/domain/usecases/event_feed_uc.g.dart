@@ -9,7 +9,7 @@ part of 'event_feed_uc.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+/// por [category] (ver `EventCategory`; null todas), por
 /// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
 /// [city] (null sin filtro).
 
@@ -17,13 +17,13 @@ part of 'event_feed_uc.dart';
 const eventFeedUCProvider = EventFeedUCFamily._();
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+/// por [category] (ver `EventCategory`; null todas), por
 /// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
 /// [city] (null sin filtro).
 final class EventFeedUCProvider
     extends $AsyncNotifierProvider<EventFeedUC, EventFeedState> {
   /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-  /// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+  /// por [category] (ver `EventCategory`; null todas), por
   /// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
   /// [city] (null sin filtro).
   const EventFeedUCProvider._(
@@ -71,7 +71,7 @@ final class EventFeedUCProvider
 String _$eventFeedUCHash() => r'663897a58b7d3900f54aff16757f6ba30268b075';
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+/// por [category] (ver `EventCategory`; null todas), por
 /// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
 /// [city] (null sin filtro).
 
@@ -98,7 +98,7 @@ final class EventFeedUCFamily extends $Family
         );
 
   /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-  /// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+  /// por [category] (ver `EventCategory`; null todas), por
   /// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
   /// [city] (null sin filtro).
 
@@ -120,7 +120,7 @@ final class EventFeedUCFamily extends $Family
 }
 
 /// Feed del home con scroll infinito sobre `events/all/?page=N`, filtrado
-/// por [category] (MUSIC, CAMPING, ADVENTURE o WORKSHOPS; null todas), por
+/// por [category] (ver `EventCategory`; null todas), por
 /// el texto [search] (null sin búsqueda) y por [country] (ISO alfa-2) y
 /// [city] (null sin filtro).
 

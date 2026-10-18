@@ -41,15 +41,17 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m8(capacity, name) =>
       "${Intl.plural(capacity, one: 'El único cupo de «${name}» ya está ocupado.', other: 'Los ${capacity} cupos de «${name}» ya están ocupados.')}";
 
-  static String m9(error) => "No se pudo cerrar sesión: ${error}";
+  static String m9(current, total) => "Imagen ${current} de ${total}";
 
-  static String m10(query) => "Nadie coincide con «${query}»";
+  static String m10(error) => "No se pudo cerrar sesión: ${error}";
 
-  static String m11(count) => "${count} cupos disponibles";
+  static String m11(query) => "Nadie coincide con «${query}»";
 
-  static String m12(id) => "Ticket #${id}";
+  static String m12(count) => "${count} cupos disponibles";
 
-  static String m13(count) => "${count} tickets próximos";
+  static String m13(id) => "Ticket #${id}";
+
+  static String m14(count) => "${count} tickets próximos";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -288,6 +290,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Preguntas frecuentes y soporte",
     ),
     "hostedBy": MessageLookupByLibrary.simpleMessage("Organiza"),
+    "imageOfTotal": m9,
     "information": MessageLookupByLibrary.simpleMessage("Información"),
     "invalidAccessCode": MessageLookupByLibrary.simpleMessage(
       "Código de acceso inválido",
@@ -326,7 +329,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "logoutConfirm": MessageLookupByLibrary.simpleMessage(
       "¿Seguro que quieres cerrar sesión?",
     ),
-    "logoutFailed": m9,
+    "logoutFailed": m10,
     "logoutSubtitle": MessageLookupByLibrary.simpleMessage(
       "Cerrar la sesión de tu cuenta",
     ),
@@ -359,7 +362,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "navProfile": MessageLookupByLibrary.simpleMessage("Perfil"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Tickets"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Nueva contraseña"),
-    "noAttendeesMatch": m10,
+    "noAttendeesMatch": m11,
     "noCapacityLimit": MessageLookupByLibrary.simpleMessage(
       "Sin límite de cupo",
     ),
@@ -483,19 +486,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Algo salió mal",
     ),
-    "spotsLeft": m11,
+    "spotsLeft": m12,
     "supportLegal": MessageLookupByLibrary.simpleMessage("Soporte y legal"),
     "theme": MessageLookupByLibrary.simpleMessage("Tema"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Inscripción cancelada",
     ),
-    "ticketNumber": m12,
+    "ticketNumber": m13,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "No se pudieron cargar los tickets",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Anteriores"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Próximos"),
-    "upcomingTicketsCount": m13,
+    "upcomingTicketsCount": m14,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("Usuario o correo"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "Ingresa tu usuario o correo",

@@ -2148,6 +2148,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Imagen {current} de {total}`
+  String imageOfTotal(int current, int total) {
+    return Intl.message(
+      'Imagen $current de $total',
+      name: 'imageOfTotal',
+      desc: '',
+      args: [current, total],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

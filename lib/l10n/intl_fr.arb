@@ -335,5 +335,6 @@
   "addressUnknown": "Aucune adresse connue pour ce point",
   "moveMapHint": "Déplacez la carte pour placer l'épingle",
   "myLocationUnavailable": "Impossible d'obtenir votre position",
-  "locationNotSet": "Sans emplacement : l'événement n'apparaîtra pas sur la carte"
+  "locationNotSet": "Sans emplacement : l'événement n'apparaîtra pas sur la carte",
+  "imageOfTotal": "Image {current} sur {total}"
 }

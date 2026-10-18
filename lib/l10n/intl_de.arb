@@ -334,5 +334,6 @@
   "addressUnknown": "Keine bekannte Adresse für diesen Punkt",
   "moveMapHint": "Bewege die Karte, um den Pin zu setzen",
   "myLocationUnavailable": "Dein Standort konnte nicht ermittelt werden",
-  "locationNotSet": "Kein Standort: Das Event erscheint nicht auf der Karte"
+  "locationNotSet": "Kein Standort: Das Event erscheint nicht auf der Karte",
+  "imageOfTotal": "Bild {current} von {total}"
 }

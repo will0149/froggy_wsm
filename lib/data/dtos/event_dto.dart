@@ -31,6 +31,11 @@ class EventDTO {
   final AmountDTO? amount;
   @JsonKey(name: 'banner_img')
   final String? bannerImageUrl;
+
+  /// Galería del evento (hasta 5), en orden; la primera es la portada.
+  /// El API manda `[{id, url, position}]`.
+  @JsonKey(name: 'images', fromJson: _imageUrlsFromJson)
+  final List<String>? imageUrls;
   @JsonKey(name: 'privacy_type')
   final String? privacyType;
   @JsonKey(name: 'location', readValue: _readLocation)
@@ -79,6 +84,7 @@ class EventDTO {
       required this.eventOwner,
       required this.amount,
       this.bannerImageUrl,
+      this.imageUrls,
       required this.privacyType,
       required this.location,
       this.category,
@@ -102,6 +108,23 @@ class EventDTO {
         num number => number.toDouble(),
         String text => double.tryParse(text),
         _ => null,
+      };
+
+  static List<String>? _imageUrlsFromJson(Object? value) => switch (value) {
+        List images => [
+            for (final image in images)
+              if (image case {'url': String url} || String url
+                  when url.isNotEmpty)
+                url,
+          ],
+        _ => null,
+      };
+
+  /// Imágenes para el detalle; sin galería, el banner si lo tiene.
+  List<String> get galleryUrls => switch ((imageUrls, bannerImageUrl)) {
+        (final urls?, _) when urls.isNotEmpty => urls,
+        (_, final banner?) when banner.isNotEmpty => [banner],
+        _ => const [],
       };
 
   bool get hasCoordinates => latitude != null && longitude != null;
