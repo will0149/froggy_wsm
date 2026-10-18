@@ -1,9 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/dtos/attendee_dto.dart';
-import '../../themes/colors/app_colors.dart';
 import '../../themes/dimens.dart';
+import '../user_avatar.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -61,30 +60,6 @@ class AttendeeAvatar extends StatelessWidget {
   const AttendeeAvatar({super.key, required this.attendee, this.radius = 22});
 
   @override
-  Widget build(BuildContext context) {
-    final palette = colors(context);
-    final initial = CircleAvatar(
-      radius: radius,
-      backgroundColor: palette.brandContainer,
-      child: Text(
-        attendee.initial,
-        style: Theme.of(context)
-            .textTheme
-            .titleMedium
-            ?.copyWith(color: palette.onBrandContainer),
-      ),
-    );
-    final url = attendee.avatarUrl;
-    if (url == null || url.isEmpty) return initial;
-    return ClipOval(
-      child: CachedNetworkImage(
-        imageUrl: url,
-        width: radius * 2,
-        height: radius * 2,
-        fit: BoxFit.cover,
-        placeholder: (_, __) => initial,
-        errorWidget: (_, __, ___) => initial,
-      ),
-    );
-  }
+  Widget build(BuildContext context) =>
+      UserAvatar(name: attendee.initial, url: attendee.avatarUrl, radius: radius);
 }

@@ -62,6 +62,7 @@ Contrato general del API:
   - Borrar evento (`DELETE events/delete/<id>/`) con confirmación; borra también las inscripciones.
   - En eventos PRIVATE ve el código de acceso con un botón para copiarlo.
 - **Eventos similares**: hasta 10 eventos próximos de la misma categoría y país.
+- **Organizador**: su foto (`owner_avatar`) en el detalle y en las tarjetas del feed; sin foto, su inicial.
 
 ### Tickets (`ticket/user/all/?when=upcoming|past`)
 - Próximos y anteriores (una petición por pestaña), agrupados por mes. El número sobre la pestaña Tickets sale de `ticket/user/count/`.
@@ -90,16 +91,7 @@ Contrato general del API:
   - Se borraron las pantallas, mocks y datos de ejemplo que ya no se usaban. La integración con Yappy se conserva para pagos.
 - **Tests**: 59. Los use cases reciben sus repositorios por providers (`lib/domain/usecases/repositories.dart`) y los tests usan una capa HTTP falsa (`test/helpers/fake_api.dart`).
 
-## Backend: disponible y todavía sin usar en la app
-
-Está en la rama `feat/mobile-tickets-saved` del API (commit `dae3031`). Todo se validó con curl contra el contenedor local.
-
-1. **Avatar del organizador**: `owner_avatar` en todos los eventos.
-
 ## Pasos que siguen
-
-### App (el backend ya lo permite)
-1. **Avatar del organizador** en el feed y el detalle.
 
 ### Gamificación (ver `docs/propuesta-gamificacion.md`)
 

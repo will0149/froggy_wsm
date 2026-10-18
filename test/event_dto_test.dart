@@ -40,4 +40,14 @@ void main() {
     expect(event.formattedPrice('en'), '\$10.00');
     expect(event.location?.place, 'Amador');
   });
+
+  test('owner_avatar: relativo se vuelve absoluto y null se mantiene', () {
+    final withAvatar = EventDTO.fromJson(
+        {'id': 1, 'owner_avatar': '/images/profiles/demo.jpg'});
+    final withoutAvatar = EventDTO.fromJson({'id': 2, 'owner_avatar': null});
+
+    expect(withAvatar.ownerAvatar, startsWith('http'));
+    expect(withAvatar.ownerAvatar, endsWith('/images/profiles/demo.jpg'));
+    expect(withoutAvatar.ownerAvatar, isNull);
+  });
 }

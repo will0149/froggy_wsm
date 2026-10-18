@@ -18,6 +18,7 @@ import '../../widgets/event/owner_event_actions.dart';
 import '../../widgets/event/save_event_button.dart';
 import '../../widgets/event/similar_events.dart';
 import '../../widgets/gamification/owner_attendance_card.dart';
+import '../../widgets/user_avatar.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -258,17 +259,11 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
   Widget _buildHostInfo(EventDTO event, ThemeData theme) {
     return Row(
       children: [
-        // El API solo da el username del organizador.
-        CircleAvatar(
+        UserAvatar(
+          name: event.eventOwner ?? '',
+          url: event.ownerAvatar,
           radius: 28,
-          backgroundColor: colors(context).brandContainer,
-          child: Text(
-            (event.eventOwner ?? '').isEmpty
-                ? '?'
-                : event.eventOwner!.characters.first.toUpperCase(),
-            style: theme.textTheme.titleLarge
-                ?.copyWith(color: colors(context).onBrandContainer),
-          ),
+          style: theme.textTheme.titleLarge,
         ),
         const SizedBox(width: 16),
         Expanded(

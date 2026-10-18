@@ -36,6 +36,7 @@ EventDTO _$EventDTOFromJson(Map<String, dynamic> json) => EventDTO(
       isOwner: json['is_owner'] as bool?,
       isSaved: json['is_saved'] as bool?,
       myTicketId: (json['my_ticket_id'] as num?)?.toInt(),
+      ownerAvatar: ApiPathsEnums.absoluteUrl(json['owner_avatar'] as String?),
       otp: json['otp'] as String?,
     );
 
@@ -61,6 +62,7 @@ Map<String, dynamic> _$EventDTOToJson(EventDTO instance) => <String, dynamic>{
       'capacity': instance.capacity,
       'available_spots': instance.availableSpots,
       'is_owner': instance.isOwner,
+      'owner_avatar': instance.ownerAvatar,
       'my_ticket_id': instance.myTicketId,
       'is_saved': instance.isSaved,
       'otp': instance.otp,

@@ -9,6 +9,7 @@ import '../../pages/event/event_detail_page.dart';
 import '../../utils/event_format.dart';
 import '../../themes/colors/app_colors.dart';
 import '../price_tag.dart';
+import '../user_avatar.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -102,16 +103,11 @@ class _Header extends StatelessWidget {
       child: Row(
         spacing: 10,
         children: [
-          // El API solo da el username del organizador, sin avatar.
-          CircleAvatar(
+          UserAvatar(
+            name: owner,
+            url: event.ownerAvatar,
             radius: 18,
-            backgroundColor: colors(context).brandContainer,
-            child: Text(
-              owner.isEmpty ? '?' : owner.characters.first.toUpperCase(),
-              style: TextStyle(
-                  color: colors(context).onBrandContainer,
-                  fontWeight: FontWeight.bold),
-            ),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Expanded(
             child: Column(

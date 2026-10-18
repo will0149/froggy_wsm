@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../../data/dtos/event_dto.dart';
 import '../../themes/colors/app_colors.dart';
 import '../price_tag.dart';
+import '../user_avatar.dart';
 import '../../../generated/l10n.dart';
 import '../../pages/event/event_detail_page.dart';
 import '../../utils/event_format.dart';
@@ -146,19 +147,10 @@ class _EventFeedCardState extends State<EventFeedCard> {
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    // El API solo da el username del organizador.
-                    CircleAvatar(
-                      radius: 22,
-                      backgroundColor: colors(context).brandContainer,
-                      child: Text(
-                        (widget.event.eventOwner ?? '').isEmpty
-                            ? '?'
-                            : widget.event.eventOwner!.characters.first
-                                .toUpperCase(),
-                        style: TextStyle(
-                            color: colors(context).onBrandContainer,
-                            fontWeight: FontWeight.bold),
-                      ),
+                    UserAvatar(
+                      name: widget.event.eventOwner ?? '',
+                      url: widget.event.ownerAvatar,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),

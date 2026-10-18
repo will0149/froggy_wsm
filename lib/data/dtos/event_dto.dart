@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../api_path_enums.dart';
+
 import 'amount_dto.dart';
 import 'event_image_dto.dart';
 import 'location_dto.dart';
@@ -69,6 +71,10 @@ class EventDTO {
   @JsonKey(name: 'is_owner')
   final bool? isOwner;
 
+  /// Foto de perfil del organizador; null si no tiene.
+  @JsonKey(name: 'owner_avatar', fromJson: ApiPathsEnums.absoluteUrl)
+  final String? ownerAvatar;
+
   /// Ticket del usuario en el evento; solo llega en `event/details/`.
   @JsonKey(name: 'my_ticket_id')
   final int? myTicketId;
@@ -106,6 +112,7 @@ class EventDTO {
       this.isOwner,
       this.isSaved,
       this.myTicketId,
+      this.ownerAvatar,
       this.otp});
 
   factory EventDTO.fromJson(Map<String, dynamic> json)  => _$EventDTOFromJson(json);
