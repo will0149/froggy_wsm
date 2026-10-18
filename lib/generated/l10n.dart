@@ -2238,6 +2238,86 @@ class S {
       args: [current, total],
     );
   }
+
+  /// `Unirme a un evento privado`
+  String get joinPrivateEvent {
+    return Intl.message(
+      'Unirme a un evento privado',
+      name: 'joinPrivateEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Evento privado`
+  String get privateEvent {
+    return Intl.message(
+      'Evento privado',
+      name: 'privateEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Escanea el QR que te compartió el organizador`
+  String get scanQrHint {
+    return Intl.message(
+      'Escanea el QR que te compartió el organizador',
+      name: 'scanQrHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `O escribe el código`
+  String get orEnterCode {
+    return Intl.message(
+      'O escribe el código',
+      name: 'orEnterCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abrir evento`
+  String get openEvent {
+    return Intl.message('Abrir evento', name: 'openEvent', desc: '', args: []);
+  }
+
+  /// `No se pudo usar la cámara. Revisa el permiso en los ajustes o escribe el código.`
+  String get cameraUnavailable {
+    return Intl.message(
+      'No se pudo usar la cámara. Revisa el permiso en los ajustes o escribe el código.',
+      name: 'cameraUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tus invitados lo escanean desde el inicio de Parkea.`
+  String get accessCodeQrHint {
+    return Intl.message(
+      'Tus invitados lo escanean desde el inicio de Parkea.',
+      name: 'accessCodeQrHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mostrar QR`
+  String get showQr {
+    return Intl.message('Mostrar QR', name: 'showQr', desc: '', args: []);
+  }
+
+  /// `Demasiados intentos, espera un minuto`
+  String get tooManyAttempts {
+    return Intl.message(
+      'Demasiados intentos, espera un minuto',
+      name: 'tooManyAttempts',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

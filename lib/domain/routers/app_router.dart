@@ -20,6 +20,7 @@ import '../../app/pages/auth/welcome_slide_page.dart';
 import '../../app/pages/event/create_event_page.dart';
 import '../../app/pages/event/event_attendees_page.dart';
 import '../../app/pages/event/event_detail_page.dart';
+import '../../app/pages/event/join_private_event_page.dart';
 import '../../app/pages/home/home_feed_page.dart';
 import '../../app/pages/map/events_map_page.dart';
 import '../../app/pages/ticket/tickets_page.dart';
@@ -106,6 +107,12 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
         builder: (context, state) => EditEventPage(
           eventId: int.parse(state.pathParameters['id']!),
         ),
+      ),
+      GoRoute(
+        name: JoinPrivateEventPage.routeName,
+        path: JoinPrivateEventPage.routeLocation,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const JoinPrivateEventPage(),
       ),
       GoRoute(
         name: EventAttendeesPage.routeName,

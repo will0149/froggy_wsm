@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:horizontal_scroll_item/horizontal_scroll_item.dart';
 import 'package:parkea/app/widgets/promotions/promotions_component.dart';
 import 'package:parkea/domain/usecases/event_feed_uc.dart';
@@ -11,6 +12,8 @@ import '../../../domain/usecases/event_locations_uc.dart';
 import '../../../domain/usecases/fetch_promotions_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/app_colors.dart';
+import '../../themes/dimens.dart';
+import '../event/join_private_event_page.dart';
 import '../../utils/event_category_label.dart';
 import '../../utils/tab_reselect.dart';
 import '../../widgets/event/event_feed_sliver.dart';
@@ -145,6 +148,16 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
         ),
         centerTitle: true,
         actions: [
+          IconButton(
+            tooltip: S.of(context).joinPrivateEvent,
+            onPressed: () => context.pushNamed(JoinPrivateEventPage.routeName),
+            icon: const Icon(Icons.qr_code_scanner),
+            style: IconButton.styleFrom(
+              backgroundColor: colors(context).surface,
+              side: BorderSide(color: colors(context).outline),
+            ),
+          ),
+          const SizedBox(width: ParkeaSpacing.sm),
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.notifications),

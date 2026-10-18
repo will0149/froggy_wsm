@@ -345,5 +345,14 @@
   "welcomeSkip": "Пропустить",
   "welcomeSignUp": "Создать аккаунт",
   "welcomeSignIn": "У меня уже есть аккаунт",
-  "stepOfTotal": "Шаг {current} из {total}"
+  "stepOfTotal": "Шаг {current} из {total}",
+  "joinPrivateEvent": "Присоединиться к закрытому событию",
+  "privateEvent": "Закрытое событие",
+  "scanQrHint": "Отсканируй QR-код, который прислал организатор",
+  "orEnterCode": "Или введи код",
+  "openEvent": "Открыть событие",
+  "cameraUnavailable": "Не удалось использовать камеру. Проверь разрешение в настройках или введи код.",
+  "accessCodeQrHint": "Гости сканируют его на главном экране Parkea.",
+  "showQr": "Показать QR-код",
+  "tooManyAttempts": "Слишком много попыток, подожди минуту"
 }

@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../data/dtos/event_dto.dart';
 import '../../../domain/usecases/owner_events_uc.dart';
+import '../../../domain/usecases/private_event_access_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../pages/event/create_event_page.dart';
 import '../../themes/colors/app_colors.dart';
+import '../../themes/dimens.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -147,6 +150,14 @@ class AccessCodeCard extends ConsumerWidget {
               ),
             ),
             IconButton(
+              tooltip: s.showQr,
+              icon: const Icon(Icons.qr_code),
+              onPressed: () => showDialog<void>(
+                context: context,
+                builder: (_) => _AccessCodeQrDialog(code: otp),
+              ),
+            ),
+            IconButton(
               icon: const Icon(Icons.copy),
               onPressed: () async {
                 await Clipboard.setData(ClipboardData(text: otp));
@@ -158,6 +169,59 @@ class AccessCodeCard extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// QR del código para que los invitados lo escaneen desde el inicio.
+class _AccessCodeQrDialog extends StatelessWidget {
+  final String code;
+
+  const _AccessCodeQrDialog({required this.code});
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    final theme = Theme.of(context);
+    return AlertDialog(
+      title: Text(s.accessCode, textAlign: TextAlign.center),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        spacing: ParkeaSpacing.md,
+        children: [
+          // Fondo claro también en modo oscuro: los lectores necesitan
+          // contraste.
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: ParkeaOverlay.onImage,
+              borderRadius: BorderRadius.circular(ParkeaRadius.md),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(ParkeaSpacing.md),
+              child: QrImageView(
+                data: accessCodeQrData(code),
+                size: 220,
+                semanticsLabel: s.accessCode,
+              ),
+            ),
+          ),
+          SelectableText(
+            code,
+            style: theme.textTheme.headlineSmall?.copyWith(letterSpacing: 2),
+          ),
+          Text(
+            s.accessCodeQrHint,
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodySmall,
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(MaterialLocalizations.of(context).closeButtonLabel),
+        ),
+      ],
     );
   }
 }

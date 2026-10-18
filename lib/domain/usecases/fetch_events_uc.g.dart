@@ -51,7 +51,7 @@ final class FetchEventDetailUCProvider
 }
 
 String _$fetchEventDetailUCHash() =>
-    r'5f3dd2b3898ce93df7a7e5d88a50bbcae83f3ed1';
+    r'66b83d72e4d1e88b95357e6cb79806cfac59cc53';
 
 final class FetchEventDetailUCFamily extends $Family
     with

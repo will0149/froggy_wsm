@@ -83,7 +83,14 @@ class EventRepository {
       apiClient.deleteAuthorized(
           ApiPathsEnums.eventImages.uriWithId(eventId).resolve('$imageId/'));
 
-  Future<Map<String, dynamic>> eventDetails(String id) =>
-      apiClient.getAuthorized(
-          ApiPathsEnums.eventDetails.uri.replace(queryParameters: {'id': id}));
+  /// [code]: código de acceso de un evento PRIVATE; sin él, el API solo
+  /// lo muestra al organizador y a los inscritos.
+  Future<Map<String, dynamic>> eventDetails(String id, {String? code}) =>
+      apiClient.getAuthorized(ApiPathsEnums.eventDetails.uri.replace(
+          queryParameters: {'id': id, if (code != null) 'code': code}));
+
+  /// El evento PRIVATE de [code], con la forma de [eventDetails].
+  Future<Map<String, dynamic>> eventByAccessCode(String code) =>
+      apiClient.getAuthorized(ApiPathsEnums.eventAccess.uri
+          .replace(queryParameters: {'code': code}));
 }

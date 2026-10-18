@@ -8,6 +8,7 @@ import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/data/entities/user/user_profile_dto.dart';
 import 'package:parkea/domain/models/auth/auth_state.dart';
 import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
+import 'package:parkea/domain/usecases/private_event_access_uc.dart';
 import 'package:parkea/generated/l10n.dart';
 
 import '../helpers/fake_api.dart';
@@ -17,6 +18,12 @@ class _SignedIn extends RestAuthUC {
   @override
   Future<AuthState> build() async =>
       AuthState.authenticated(UserProfileDTO(username: 'yo'));
+}
+
+/// Evento 10 abierto con su código desde el escáner.
+class _Unlocked extends PrivateEventAccessUC {
+  @override
+  Map<int, String> build() => {10: 'DEMO2345'};
 }
 
 void main() {
@@ -29,11 +36,13 @@ void main() {
     api.reply('GET', 'ticket/user/all/', 200, page([]));
   });
 
-  Future<void> pumpButton(WidgetTester tester, Map<String, Object?> event) async {
+  Future<void> pumpButton(WidgetTester tester, Map<String, Object?> event,
+      {bool unlocked = false}) async {
     await tester.pumpWidget(ProviderScope(
       overrides: [
         ...repositoryOverrides(api),
         restAuthUCProvider.overrideWith(_SignedIn.new),
+        if (unlocked) privateEventAccessUCProvider.overrideWith(_Unlocked.new),
       ],
       retry: (_, __) => null,
       child: MaterialApp(
@@ -55,8 +64,7 @@ void main() {
   }
 
   bool isEnabled(WidgetTester tester) =>
-      tester.widget<FilledButton>(find.byType(FilledButton)).onPressed !=
-      null;
+      tester.widget<FilledButton>(find.byType(FilledButton)).onPressed != null;
 
   testWidgets('evento gratis: se inscribe con un toque', (tester) async {
     api.reply('POST', 'ticket/enroll/', 201, ticketJson(5, eventJson(10)));
@@ -66,8 +74,8 @@ void main() {
     expect(isEnabled(tester), isTrue);
 
     // Después de inscribirse la lista de tickets ya lo incluye.
-    api.reply('GET', 'ticket/user/all/', 200,
-        page([ticketJson(5, eventJson(10))]));
+    api.reply(
+        'GET', 'ticket/user/all/', 200, page([ticketJson(5, eventJson(10))]));
     await tester.tap(find.byType(FilledButton).first);
     await tester.pumpAndSettle();
 
@@ -79,8 +87,8 @@ void main() {
   });
 
   testWidgets('con ticket: "Ver mi ticket"', (tester) async {
-    api.reply('GET', 'ticket/user/all/', 200,
-        page([ticketJson(5, eventJson(10))]));
+    api.reply(
+        'GET', 'ticket/user/all/', 200, page([ticketJson(5, eventJson(10))]));
     await pumpButton(tester, eventJson(10));
 
     expect(find.text('Ver mi ticket'), findsOneWidget);
@@ -89,8 +97,7 @@ void main() {
 
   testWidgets('deshabilitado con el motivo', (tester) async {
     final cases = {
-      'Evento finalizado':
-          eventJson(10, fromNow: const Duration(days: -1)),
+      'Evento finalizado': eventJson(10, fromNow: const Duration(days: -1)),
       'Es tu evento': eventJson(10, owner: 'yo'),
       'Solo por invitación': eventJson(10, costType: 'INVITATION'),
       'Agotado': eventJson(10, availableSpots: 0),
@@ -112,7 +119,9 @@ void main() {
       final otp = ((request.body as Map)['body'] as Map)['otp'];
       return otp == 'DEMO2345'
           ? envelope(201, ticketJson(5, eventJson(10, costType: 'PRIVATE')))
-          : envelope(400, {'otp': ['Código de acceso inválido.']});
+          : envelope(400, {
+              'otp': ['Código de acceso inválido.']
+            });
     });
     await pumpButton(tester, eventJson(10, costType: 'PRIVATE'));
 
@@ -135,6 +144,24 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(AlertDialog), findsNothing);
+    expect(find.text('¡Listo! Ya estás inscrito'), findsOneWidget);
+  });
+
+  testWidgets('evento privado abierto con su código: no lo vuelve a pedir',
+      (tester) async {
+    api.reply('POST', 'ticket/enroll/', 201,
+        ticketJson(5, eventJson(10, costType: 'PRIVATE')));
+    await pumpButton(tester, eventJson(10, costType: 'PRIVATE'),
+        unlocked: true);
+
+    await tester.tap(find.byType(FilledButton));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(AlertDialog), findsNothing);
+    expect(
+        ((api.sent('POST', 'ticket/enroll/').single.body as Map)['body']
+            as Map)['otp'],
+        'DEMO2345');
     expect(find.text('¡Listo! Ya estás inscrito'), findsOneWidget);
   });
 }

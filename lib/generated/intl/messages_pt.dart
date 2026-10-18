@@ -78,6 +78,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "accessCodeOwnerHint": MessageLookupByLibrary.simpleMessage(
       "Compartilhe com seus convidados para que possam se inscrever.",
     ),
+    "accessCodeQrHint": MessageLookupByLibrary.simpleMessage(
+      "Seus convidados o escaneiam na tela inicial do Parkea.",
+    ),
     "accessCodeRequired": MessageLookupByLibrary.simpleMessage(
       "Digite o código",
     ),
@@ -96,6 +99,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Não foi possível atualizar a foto",
     ),
     "buyTicket": MessageLookupByLibrary.simpleMessage("Comprar bilhete"),
+    "cameraUnavailable": MessageLookupByLibrary.simpleMessage(
+      "Não foi possível usar a câmera. Verifique a permissão nas configurações ou digite o código.",
+    ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
     "cancelTicket": MessageLookupByLibrary.simpleMessage("Cancelar inscrição"),
     "cancelTicketConfirm": MessageLookupByLibrary.simpleMessage(
@@ -309,6 +315,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "joinOurUniverse": MessageLookupByLibrary.simpleMessage(
       "Junte-se ao nosso universo",
     ),
+    "joinPrivateEvent": MessageLookupByLibrary.simpleMessage(
+      "Entrar em um evento privado",
+    ),
     "keepTicket": MessageLookupByLibrary.simpleMessage("Manter"),
     "language": MessageLookupByLibrary.simpleMessage("Idioma"),
     "languageSubtitle": MessageLookupByLibrary.simpleMessage("Idioma do app"),
@@ -383,6 +392,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "notificationsSubtitle": MessageLookupByLibrary.simpleMessage(
       "Notificações push e alertas",
     ),
+    "openEvent": MessageLookupByLibrary.simpleMessage("Abrir evento"),
+    "orEnterCode": MessageLookupByLibrary.simpleMessage("Ou digite o código"),
     "ownEvent": MessageLookupByLibrary.simpleMessage("É o seu evento"),
     "parkeaAndShare": MessageLookupByLibrary.simpleMessage("Parkea & Comparte"),
     "parkeaAppName": MessageLookupByLibrary.simpleMessage("Parkea!"),
@@ -420,6 +431,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacySubtitle": MessageLookupByLibrary.simpleMessage(
       "Política de privacidade e uso de dados",
     ),
+    "privateEvent": MessageLookupByLibrary.simpleMessage("Evento privado"),
     "profileBio": MessageLookupByLibrary.simpleMessage("Descrição"),
     "profileBioHint": MessageLookupByLibrary.simpleMessage(
       "Conte quem você é ou o que você organiza",
@@ -447,6 +459,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "retry": MessageLookupByLibrary.simpleMessage("Tentar novamente"),
     "saveChanges": MessageLookupByLibrary.simpleMessage("Salvar alterações"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("Salvar Evento"),
+    "scanQrHint": MessageLookupByLibrary.simpleMessage(
+      "Escaneie o QR code que o organizador compartilhou com você",
+    ),
     "searchAttendees": MessageLookupByLibrary.simpleMessage(
       "Buscar por nome ou usuário",
     ),
@@ -456,6 +471,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "seeEvent": MessageLookupByLibrary.simpleMessage("ver evento"),
     "settings": MessageLookupByLibrary.simpleMessage("Definições"),
+    "showQr": MessageLookupByLibrary.simpleMessage("Mostrar QR code"),
     "signUp": MessageLookupByLibrary.simpleMessage("Inscrever-se"),
     "similarEvents": MessageLookupByLibrary.simpleMessage(
       "Eventos Semelhantes",
@@ -495,6 +511,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Anteriores"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Próximos"),
+    "tooManyAttempts": MessageLookupByLibrary.simpleMessage(
+      "Muitas tentativas, espere um minuto",
+    ),
     "upcomingTicketsCount": m17,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Usuário ou e-mail",

@@ -24,6 +24,7 @@ enum ApiPathsEnums {
   eventOwner(path: 'events/owner/'),
   eventImages(path: 'events/{id}/images/'),
   eventDetails(path: 'event/details/'),
+  eventAccess(path: 'events/access/'),
   eventLocations(path: 'events/locations/'),
   eventCategories(path: 'events/categories/'),
   eventUpdate(path: 'events/update/{id}/'),

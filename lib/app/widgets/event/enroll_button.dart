@@ -6,6 +6,7 @@ import '../../../data/dtos/ticket_dto.dart';
 import '../../../domain/usecases/auth/rest_auth_uc.dart';
 import '../../../domain/usecases/fetch_events_uc.dart';
 import '../../../domain/usecases/fetch_tickets_uc.dart';
+import '../../../domain/usecases/private_event_access_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../pages/ticket/tickets_page.dart';
 import '../../themes/colors/app_colors.dart';
@@ -36,11 +37,20 @@ class _EnrollButtonState extends ConsumerState<EnrollButton> {
       ref.read(myTicketsUCProvider.notifier).enroll(_eventId, otp: otp);
 
   Future<void> _onEnroll() async {
-    final EnrollResult? result;
+    EnrollResult? result;
     if (widget.event.eventType == 'PRIVATE') {
+      // Abierto con su código (QR o escrito): no se vuelve a pedir.
+      if (ref.read(privateEventAccessUCProvider)[_eventId] case final code?) {
+        setState(() => _enrolling = true);
+        result = await _enroll(otp: code);
+        if (!mounted) return;
+        setState(() => _enrolling = false);
+        // El organizador cambió el código: se pide a mano.
+        if (result case EnrollFailed(field: 'otp')) result = null;
+      }
       // El diálogo muestra los errores del código y solo se cierra con
       // otro resultado.
-      result = await showDialog<EnrollResult>(
+      result ??= await showDialog<EnrollResult>(
         context: context,
         builder: (_) => _AccessCodeDialog(onSubmit: (otp) => _enroll(otp: otp)),
       );
@@ -182,10 +192,10 @@ class _AccessCodeDialogState extends State<_AccessCodeDialog> {
             autofocus: true,
             // readOnly y no enabled: deshabilitarlo le quita el foco.
             readOnly: _sending,
-            // El código distingue mayúsculas.
+            // En mayúsculas, como lo ve el organizador (el API no las distingue).
             autocorrect: false,
             enableSuggestions: false,
-            textCapitalization: TextCapitalization.none,
+            textCapitalization: TextCapitalization.characters,
             onChanged: (_) {
               if (_error != null) setState(() => _error = null);
             },

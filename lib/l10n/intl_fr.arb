@@ -345,5 +345,14 @@
   "welcomeSkip": "Passer",
   "welcomeSignUp": "Créer un compte",
   "welcomeSignIn": "J'ai déjà un compte",
-  "stepOfTotal": "Étape {current} sur {total}"
+  "stepOfTotal": "Étape {current} sur {total}",
+  "joinPrivateEvent": "Rejoindre un événement privé",
+  "privateEvent": "Événement privé",
+  "scanQrHint": "Scanne le QR code que l'organisateur t'a partagé",
+  "orEnterCode": "Ou saisis le code",
+  "openEvent": "Ouvrir l'événement",
+  "cameraUnavailable": "Impossible d'utiliser la caméra. Vérifie l'autorisation dans les réglages ou saisis le code.",
+  "accessCodeQrHint": "Tes invités le scannent depuis l'accueil de Parkea.",
+  "showQr": "Afficher le QR code",
+  "tooManyAttempts": "Trop de tentatives, attends une minute"
 }

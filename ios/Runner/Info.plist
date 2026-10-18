@@ -42,6 +42,8 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Parkea usa la cámara para escanear el código QR de los eventos privados.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Parkea usa tu ubicación para mostrarte en el mapa los eventos cerca de ti.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

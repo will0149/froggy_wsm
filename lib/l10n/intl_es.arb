@@ -386,5 +386,14 @@
         "type": "int"
       }
     }
-  }
+  },
+  "joinPrivateEvent": "Unirme a un evento privado",
+  "privateEvent": "Evento privado",
+  "scanQrHint": "Escanea el QR que te compartió el organizador",
+  "orEnterCode": "O escribe el código",
+  "openEvent": "Abrir evento",
+  "cameraUnavailable": "No se pudo usar la cámara. Revisa el permiso en los ajustes o escribe el código.",
+  "accessCodeQrHint": "Tus invitados lo escanean desde el inicio de Parkea.",
+  "showQr": "Mostrar QR",
+  "tooManyAttempts": "Demasiados intentos, espera un minuto"
 }

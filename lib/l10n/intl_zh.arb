@@ -345,5 +345,14 @@
   "welcomeSkip": "略過",
   "welcomeSignUp": "建立帳號",
   "welcomeSignIn": "我已有帳號",
-  "stepOfTotal": "第 {current} 步，共 {total} 步"
+  "stepOfTotal": "第 {current} 步，共 {total} 步",
+  "joinPrivateEvent": "加入私人活动",
+  "privateEvent": "私人活动",
+  "scanQrHint": "扫描组织者分享给你的二维码",
+  "orEnterCode": "或输入代码",
+  "openEvent": "打开活动",
+  "cameraUnavailable": "无法使用相机。请在设置中检查权限，或输入代码。",
+  "accessCodeQrHint": "你的嘉宾可以在 Parkea 首页扫描它。",
+  "showQr": "显示二维码",
+  "tooManyAttempts": "尝试次数过多，请稍等一分钟"
 }

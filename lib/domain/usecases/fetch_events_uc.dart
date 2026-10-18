@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'auth/api_error_message.dart';
 import '../../generated/l10n.dart';
+import 'private_event_access_uc.dart';
 import 'repositories.dart';
 
 part 'fetch_events_uc.g.dart';
@@ -14,7 +15,10 @@ class FetchEventDetailUC extends _$FetchEventDetailUC {
 
   @override
   Future<EventDTO> build(int id) async {
-    final result = await repository.eventDetails(id.toString());
+    // Un evento PRIVATE solo se ve con su código, salvo para el
+    // organizador y los inscritos.
+    final code = ref.read(privateEventAccessUCProvider)[id];
+    final result = await repository.eventDetails(id.toString(), code: code);
     final body = result['body'];
     if (result['status'] != 200 || body is! Map<String, dynamic>) {
       throw ApiException.from(result, S.current.errLoadEvent);
