@@ -198,10 +198,14 @@ class _AccessCodeQrDialog extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.all(ParkeaSpacing.md),
-              child: QrImageView(
-                data: accessCodeQrData(code),
-                size: 220,
-                semanticsLabel: s.accessCode,
+              // Tamaño fijo: AlertDialog mide su contenido y QrImageView
+              // (un LayoutBuilder) no admite esa medición.
+              child: SizedBox.square(
+                dimension: 220,
+                child: QrImageView(
+                  data: accessCodeQrData(code),
+                  semanticsLabel: s.accessCode,
+                ),
               ),
             ),
           ),
