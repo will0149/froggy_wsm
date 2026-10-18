@@ -407,5 +407,16 @@
   "errLoadSavedEvents": "No se pudieron cargar tus guardados",
   "errUnsaveEvent": "No se pudo quitar de guardados",
   "noSavedEvents": "Aún no has guardado eventos. Toca el corazón de un evento para verlo aquí.",
-  "unsaveEvent": "Quitar de guardados"
+  "unsaveEvent": "Quitar de guardados",
+  "ticketUsed": "Ya usaste este ticket",
+  "ticketPaid": "Pagado: {amount}",
+  "ticketQr": "Código QR del ticket",
+  "ticketPassHint": "Muéstralo en la entrada del evento.",
+  "@ticketPaid": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -34,7 +34,7 @@ class _EnrollButtonState extends ConsumerState<EnrollButton> {
   int get _eventId => int.parse(widget.event.id!);
 
   Future<EnrollResult> _enroll({String? otp}) =>
-      ref.read(myTicketsUCProvider.notifier).enroll(_eventId, otp: otp);
+      ref.read(ticketActionsUCProvider.notifier).enroll(_eventId, otp: otp);
 
   Future<void> _onEnroll() async {
     EnrollResult? result;
@@ -89,10 +89,15 @@ class _EnrollButtonState extends ConsumerState<EnrollButton> {
   Widget build(BuildContext context) {
     final s = S.of(context);
     final event = widget.event;
-    final tickets = ref.watch(myTicketsUCProvider);
     final username = ref.watch(restAuthUCProvider).value?.user?.username;
-    final TicketDTO? ticket = tickets.value
-        ?.where((ticket) => ticket.event.id == event.id)
+    // El detalle trae `my_ticket_id`; la hoja necesita el ticket completo.
+    final myTicketId = event.myTicketId;
+    final tickets = myTicketId == null
+        ? null
+        : ref.watch(myTicketsUCProvider(
+            TicketPeriod.of(DateTime.tryParse(event.date ?? '')?.toLocal())));
+    final TicketDTO? ticket = tickets?.value
+        ?.where((ticket) => ticket.id == myTicketId)
         .firstOrNull;
     final price = event.eventType == 'PAID'
         ? event.formattedPrice(Localizations.localeOf(context).toString())
@@ -100,20 +105,22 @@ class _EnrollButtonState extends ConsumerState<EnrollButton> {
 
     final String label;
     VoidCallback? onPressed;
-    if (ticket != null) {
+    if (myTicketId != null) {
       label = s.viewMyTicket;
-      onPressed =
-          () => TicketDetailSheet.show(context, ticket, showEventButton: false);
+      if (ticket != null) {
+        onPressed = () =>
+            TicketDetailSheet.show(context, ticket, showEventButton: false);
+      }
     } else if (_blockedReason(s, username) case final reason?) {
       label = price == null ? reason : '$reason · $price';
     } else {
       label =
           event.eventType == 'FREE' ? '${s.enroll} · ${s.costFree}' : s.enroll;
-      // Sin la lista de tickets no se sabe si ya está inscrito.
-      if (!tickets.isLoading && !_enrolling) onPressed = _onEnroll;
+      if (!_enrolling) onPressed = _onEnroll;
     }
 
-    final loading = _enrolling || (tickets.isLoading && !tickets.hasValue);
+    final loading =
+        _enrolling || (tickets != null && tickets.isLoading && !tickets.hasValue);
     return FilledButton(
       onPressed: onPressed,
       style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(52)),

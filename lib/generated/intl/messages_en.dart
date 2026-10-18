@@ -60,7 +60,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m17(id) => "Ticket #${id}";
 
-  static String m18(count) => "${count} upcoming tickets";
+  static String m18(amount) => "Paid: ${amount}";
+
+  static String m19(count) => "${count} upcoming tickets";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -507,6 +509,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Enrollment cancelled",
     ),
     "ticketNumber": m17,
+    "ticketPaid": m18,
+    "ticketPassHint": MessageLookupByLibrary.simpleMessage(
+      "Show it at the event entrance.",
+    ),
+    "ticketQr": MessageLookupByLibrary.simpleMessage("Ticket QR code"),
+    "ticketUsed": MessageLookupByLibrary.simpleMessage(
+      "You already used this ticket",
+    ),
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t load tickets",
     ),
@@ -516,7 +526,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Too many attempts, wait a minute",
     ),
     "unsaveEvent": MessageLookupByLibrary.simpleMessage("Remove from saved"),
-    "upcomingTicketsCount": m18,
+    "upcomingTicketsCount": m19,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Username or email",
     ),

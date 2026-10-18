@@ -40,12 +40,7 @@ class NavigatorBar extends ConsumerWidget {
     // Crear eventos depende de la verificación, no de user_type.
     final canCreateEvents =
         ref.watch(restAuthUCProvider).value?.user?.isVerified ?? false;
-    final upcomingTickets = ref
-            .watch(myTicketsUCProvider)
-            .value
-            ?.where((ticket) => ticket.isUpcoming)
-            .length ??
-        0;
+    final upcomingTickets = ref.watch(ticketCountUCProvider).value?.upcoming ?? 0;
 
     // Rama del router de cada destino; null = acción "Crear".
     final branches = [0, 1, if (canCreateEvents) null, 2, 3];

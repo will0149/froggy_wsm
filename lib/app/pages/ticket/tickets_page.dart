@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:parkea/app/themes/colors/app_colors.dart';
 import 'package:parkea/app/themes/dimens.dart';
 import 'package:parkea/data/dtos/ticket_dto.dart';
@@ -36,7 +37,6 @@ class TicketsPageState extends ConsumerState<TicketsPage>
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final tickets = ref.watch(myTicketsUCProvider);
 
     return Scaffold(
       body: NestedScrollView(
@@ -53,46 +53,47 @@ class TicketsPageState extends ConsumerState<TicketsPage>
             ),
           ),
         ],
-        body: switch (tickets) {
-          AsyncValue(:final value?) => TabBarView(
-              controller: _tabController,
-              children: [
-                _TicketList(
-                  // Los más cercanos primero.
-                  tickets: value.where((t) => t.isUpcoming).toList(),
-                  emptyMessage: s.noUpcomingTickets,
-                ),
-                _TicketList(
-                  // Los más recientes primero.
-                  tickets: value
-                      .where((t) => !t.isUpcoming)
-                      .toList()
-                      .reversed
-                      .toList(),
-                  emptyMessage: s.noPastTickets,
-                ),
-              ],
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            _TicketList(
+              period: TicketPeriod.upcoming,
+              emptyMessage: s.noUpcomingTickets,
             ),
-          AsyncError() => _Message(
-              icon: Icons.cloud_off,
-              text: s.ticketsLoadError,
-              onRetry: () => ref.invalidate(myTicketsUCProvider),
+            _TicketList(
+              period: TicketPeriod.past,
+              emptyMessage: s.noPastTickets,
             ),
-          _ => const Center(child: CircularProgressIndicator.adaptive()),
-        },
+          ],
+        ),
       ),
     );
   }
 }
 
 class _TicketList extends ConsumerWidget {
-  final List<TicketDTO> tickets;
+  final TicketPeriod period;
   final String emptyMessage;
 
-  const _TicketList({required this.tickets, required this.emptyMessage});
+  const _TicketList({required this.period, required this.emptyMessage});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final s = S.of(context);
+    final provider = myTicketsUCProvider(period);
+    return switch (ref.watch(provider)) {
+      AsyncValue(:final value?) => _buildList(context, ref, value),
+      AsyncError() => _Message(
+          icon: Icons.cloud_off,
+          text: s.ticketsLoadError,
+          onRetry: () => ref.invalidate(provider),
+        ),
+      _ => const Center(child: CircularProgressIndicator.adaptive()),
+    };
+  }
+
+  Widget _buildList(
+      BuildContext context, WidgetRef ref, List<TicketDTO> tickets) {
     final locale = Localizations.localeOf(context).toString();
     // La barra inferior se dibuja sobre el body (extendBody).
     final bottom = MediaQuery.paddingOf(context).bottom + 16;
@@ -109,7 +110,10 @@ class _TicketList extends ConsumerWidget {
     }
 
     return RefreshIndicator(
-      onRefresh: () => ref.refresh(myTicketsUCProvider.future),
+      onRefresh: () {
+        ref.invalidate(ticketCountUCProvider);
+        return ref.refresh(myTicketsUCProvider(period).future);
+      },
       child: tickets.isEmpty
           ? ListView(
               physics: const AlwaysScrollableScrollPhysics(),
@@ -332,7 +336,7 @@ class _TicketDetailSheetState extends ConsumerState<TicketDetailSheet> {
     if (confirmed != true || !mounted) return;
     setState(() => _cancelling = true);
     final error =
-        await ref.read(myTicketsUCProvider.notifier).cancel(widget.ticket.id);
+        await ref.read(ticketActionsUCProvider.notifier).cancel(widget.ticket.id);
     if (!mounted) return;
     setState(() => _cancelling = false);
     // Libera un cupo en el detalle del evento.
@@ -354,8 +358,10 @@ class _TicketDetailSheetState extends ConsumerState<TicketDetailSheet> {
     final event = ticket.event;
     final date = ticket.eventDate;
     final purchased = DateTime.tryParse(ticket.datePurchased ?? '')?.toLocal();
+    final paid = double.tryParse(ticket.pricePaid ?? '') ?? 0;
     return SafeArea(
-      child: Padding(
+      // Con el QR puede no caber en pantallas bajas.
+      child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -365,7 +371,8 @@ class _TicketDetailSheetState extends ConsumerState<TicketDetailSheet> {
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: AspectRatio(
-                aspectRatio: 2,
+                // Con el QR, el banner cede espacio.
+                aspectRatio: ticket.showsPass ? 3 : 2,
                 child: _EventImage(
                   url: event.bannerImageUrl,
                   grayscale: !ticket.isUpcoming,
@@ -387,7 +394,21 @@ class _TicketDetailSheetState extends ConsumerState<TicketDetailSheet> {
                   icon: Icons.place,
                   color: theme.colorScheme.onSurfaceVariant,
                   text: place),
+            if (ticket.showsPass) _TicketPass(code: ticket.code!),
+            if (ticket.isUsed)
+              _IconText(
+                icon: Icons.verified,
+                color: theme.colorScheme.primary,
+                text: s.ticketUsed,
+              ),
             Text(s.ticketNumber(ticket.id), style: theme.textTheme.labelLarge),
+            if (paid > 0)
+              Text(
+                s.ticketPaid(NumberFormat.simpleCurrency(
+                        locale: locale, name: ticket.currency ?? 'USD')
+                    .format(paid)),
+                style: theme.textTheme.bodySmall,
+              ),
             if (purchased != null)
               Text(
                 s.enrolledOn(DateFormat.yMMMd(locale).format(purchased)),
@@ -420,6 +441,53 @@ class _TicketDetailSheetState extends ConsumerState<TicketDetailSheet> {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// QR del ticket para la entrada, con el código debajo por si el lector
+/// falla.
+class _TicketPass extends StatelessWidget {
+  final String code;
+
+  const _TicketPass({required this.code});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final s = S.of(context);
+    return Column(
+      spacing: ParkeaSpacing.sm,
+      children: [
+        // Fondo claro también en modo oscuro: los lectores necesitan
+        // contraste.
+        DecoratedBox(
+          decoration: BoxDecoration(
+            color: ParkeaOverlay.onImage,
+            borderRadius: BorderRadius.circular(ParkeaRadius.md),
+            border: Border.all(color: colors(context).outline),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(ParkeaSpacing.md),
+            child: SizedBox.square(
+              dimension: 200,
+              child: QrImageView(
+                data: ticketQrData(code),
+                semanticsLabel: s.ticketQr,
+              ),
+            ),
+          ),
+        ),
+        SelectableText(
+          code,
+          style: theme.textTheme.titleMedium?.copyWith(letterSpacing: 2),
+        ),
+        Text(
+          s.ticketPassHint,
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodySmall,
+        ),
+      ],
     );
   }
 }

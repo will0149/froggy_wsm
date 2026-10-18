@@ -2368,6 +2368,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Ya usaste este ticket`
+  String get ticketUsed {
+    return Intl.message(
+      'Ya usaste este ticket',
+      name: 'ticketUsed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pagado: {amount}`
+  String ticketPaid(String amount) {
+    return Intl.message(
+      'Pagado: $amount',
+      name: 'ticketPaid',
+      desc: '',
+      args: [amount],
+    );
+  }
+
+  /// `Código QR del ticket`
+  String get ticketQr {
+    return Intl.message(
+      'Código QR del ticket',
+      name: 'ticketQr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Muéstralo en la entrada del evento.`
+  String get ticketPassHint {
+    return Intl.message(
+      'Muéstralo en la entrada del evento.',
+      name: 'ticketPassHint',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

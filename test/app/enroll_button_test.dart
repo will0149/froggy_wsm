@@ -73,9 +73,6 @@ void main() {
     expect(find.text('Inscribirme · Gratis'), findsOneWidget);
     expect(isEnabled(tester), isTrue);
 
-    // Después de inscribirse la lista de tickets ya lo incluye.
-    api.reply(
-        'GET', 'ticket/user/all/', 200, page([ticketJson(5, eventJson(10))]));
     await tester.tap(find.byType(FilledButton).first);
     await tester.pumpAndSettle();
 
@@ -83,16 +80,26 @@ void main() {
       'body': {'event': 10},
     });
     expect(find.text('¡Listo! Ya estás inscrito'), findsOneWidget);
-    expect(find.text('Ver mi ticket'), findsOneWidget);
   });
 
-  testWidgets('con ticket: "Ver mi ticket"', (tester) async {
+  testWidgets('con my_ticket_id: "Ver mi ticket" con el ticket próximo',
+      (tester) async {
     api.reply(
         'GET', 'ticket/user/all/', 200, page([ticketJson(5, eventJson(10))]));
-    await pumpButton(tester, eventJson(10));
+    await pumpButton(tester, {...eventJson(10), 'my_ticket_id': 5});
 
     expect(find.text('Ver mi ticket'), findsOneWidget);
     expect(isEnabled(tester), isTrue);
+    expect(
+        api.sent('GET', 'ticket/user/all/').single.uri.queryParameters['when'],
+        'upcoming');
+  });
+
+  testWidgets('sin my_ticket_id no carga los tickets', (tester) async {
+    await pumpButton(tester, eventJson(10));
+
+    expect(find.text('Inscribirme · Gratis'), findsOneWidget);
+    expect(api.sent('GET', 'ticket/user/all/'), isEmpty);
   });
 
   testWidgets('deshabilitado con el motivo', (tester) async {

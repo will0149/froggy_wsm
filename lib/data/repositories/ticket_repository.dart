@@ -8,10 +8,14 @@ class TicketRepository {
       : apiClient = apiClient ?? ApiClient();
 
   /// Página [page] de los tickets del usuario (100 por página, por fecha de
-  /// inscripción). No filtra próximos/pasados.
-  Future<Map<String, dynamic>> fetchTicketsPage(int page) =>
-      apiClient.getAuthorized(ApiPathsEnums.ticketsByUser.uri
-          .replace(queryParameters: {'page': '$page'}));
+  /// inscripción). [when]: `upcoming` o `past`, según la fecha del evento.
+  Future<Map<String, dynamic>> fetchTicketsPage(int page, {String? when}) =>
+      apiClient.getAuthorized(ApiPathsEnums.ticketsByUser.uri.replace(
+          queryParameters: {'page': '$page', if (when != null) 'when': when}));
+
+  /// `{"upcoming": n, "past": n}`: tickets del usuario.
+  Future<Map<String, dynamic>> countTickets() =>
+      apiClient.getAuthorized(ApiPathsEnums.ticketsCountByUser.uri);
 
   /// 201 con el ticket creado, o 204 sin body si el usuario ya estaba
   /// inscrito. [otp] solo se valida en eventos PRIVATE.

@@ -69,6 +69,10 @@ class EventDTO {
   @JsonKey(name: 'is_owner')
   final bool? isOwner;
 
+  /// Ticket del usuario en el evento; solo llega en `event/details/`.
+  @JsonKey(name: 'my_ticket_id')
+  final int? myTicketId;
+
   /// Si el usuario lo guardó; null en respuestas que no lo incluyen.
   @JsonKey(name: 'is_saved')
   final bool? isSaved;
@@ -101,6 +105,7 @@ class EventDTO {
       this.availableSpots,
       this.isOwner,
       this.isSaved,
+      this.myTicketId,
       this.otp});
 
   factory EventDTO.fromJson(Map<String, dynamic> json)  => _$EventDTOFromJson(json);

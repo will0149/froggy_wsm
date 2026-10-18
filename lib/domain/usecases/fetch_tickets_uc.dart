@@ -9,24 +9,64 @@ import 'repositories.dart';
 
 part 'fetch_tickets_uc.g.dart';
 
-/// Tickets del usuario. El API no filtra próximos/pasados: se separan aquí
-/// por la fecha del evento.
+/// Contenido del QR del ticket, distinto del QR de acceso de un evento
+/// privado (`parkea://events/join`).
+String ticketQrData(String code) => 'parkea://tickets/$code';
+
+/// Próximos o pasados, según la fecha del evento (como `?when=` del API).
+enum TicketPeriod {
+  upcoming,
+  past;
+
+  static TicketPeriod of(DateTime? eventDate) =>
+      eventDate != null && eventDate.isAfter(DateTime.now()) ? upcoming : past;
+}
+
+/// Tickets del usuario de [period]: los próximos del más cercano al más
+/// lejano y los pasados del más reciente al más antiguo.
 @riverpod
 class MyTicketsUC extends _$MyTicketsUC {
-  TicketRepository get repository => ref.read(ticketRepositoryProvider);
-
   @override
-  Future<List<TicketDTO>> build() async {
+  Future<List<TicketDTO>> build(TicketPeriod period) async {
+    final repository = ref.read(ticketRepositoryProvider);
     final tickets = await fetchAllPages(
-      repository.fetchTicketsPage,
+      (page) => repository.fetchTicketsPage(page, when: period.name),
       TicketDTO.fromJson,
       errorMessage: S.current.errLoadTickets,
     );
-    // Más cercanos primero.
-    return tickets
-      ..sort((a, b) =>
-          (a.eventDate ?? DateTime(0)).compareTo(b.eventDate ?? DateTime(0)));
+    final epoch = DateTime(0);
+    tickets.sort((a, b) =>
+        (a.eventDate ?? epoch).compareTo(b.eventDate ?? epoch));
+    return period == TicketPeriod.upcoming ? tickets : tickets.reversed.toList();
   }
+}
+
+/// Cuántos tickets próximos y pasados tiene el usuario (`ticket/user/count/`),
+/// para el número de la pestaña Tickets.
+@riverpod
+Future<({int upcoming, int past})> ticketCountUC(Ref ref) async {
+  final result = await ref.read(ticketRepositoryProvider).countTickets();
+  final body = result['body'];
+  if (result['status'] != 200 || body is! Map<String, dynamic>) {
+    throw ApiException.from(result, S.current.errLoadTickets);
+  }
+  return (
+    upcoming: (body['upcoming'] as num?)?.toInt() ?? 0,
+    past: (body['past'] as num?)?.toInt() ?? 0,
+  );
+}
+
+/// Inscribirse y cancelar. Al terminar recarga los tickets y su conteo.
+@riverpod
+class TicketActionsUC extends _$TicketActionsUC {
+  TicketRepository get repository => ref.read(ticketRepositoryProvider);
+
+  @override
+  void build() {}
+
+  void _reloadTickets() => ref
+    ..invalidate(myTicketsUCProvider)
+    ..invalidate(ticketCountUCProvider);
 
   /// Inscribe al usuario en [eventId]. Si ya estaba inscrito el API no
   /// devuelve el ticket; se encuentra al recargar la lista.
@@ -48,7 +88,7 @@ class MyTicketsUC extends _$MyTicketsUC {
         field: apiFieldErrors(body).keys.firstOrNull,
       );
     }
-    ref.invalidateSelf();
+    _reloadTickets();
     return const Enrolled();
   }
 
@@ -64,7 +104,7 @@ class MyTicketsUC extends _$MyTicketsUC {
     } on Exception {
       return connectionErrorMessage;
     }
-    ref.invalidateSelf();
+    _reloadTickets();
     return null;
   }
 }

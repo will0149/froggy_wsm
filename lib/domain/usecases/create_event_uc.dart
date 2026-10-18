@@ -75,8 +75,9 @@ class CreateEventUC extends _$CreateEventUC {
       ref.invalidate(eventFeedUCProvider);
       ref.invalidate(ownerEventsUCProvider);
       ref.invalidate(fetchEventDetailUCProvider(eventId));
-      // Los tickets incluyen el evento.
+      // Los tickets incluyen el evento; con otra fecha cambia de pestaña.
       ref.invalidate(myTicketsUCProvider);
+      ref.invalidate(ticketCountUCProvider);
     }
     return result;
   }

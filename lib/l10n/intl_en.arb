@@ -359,5 +359,9 @@
   "errLoadSavedEvents": "Couldn't load your saved events",
   "errUnsaveEvent": "Couldn't remove it from saved",
   "noSavedEvents": "You haven't saved any events yet. Tap the heart on an event to see it here.",
-  "unsaveEvent": "Remove from saved"
+  "unsaveEvent": "Remove from saved",
+  "ticketUsed": "You already used this ticket",
+  "ticketPaid": "Paid: {amount}",
+  "ticketQr": "Ticket QR code",
+  "ticketPassHint": "Show it at the event entrance."
 }

@@ -158,7 +158,7 @@ flowchart TD
     tickets["Tickets"] --> tabs{"Pestaña"}
     tabs -->|"Próximos"| upcoming["Agrupados por mes<br/>el más cercano primero"]
     tabs -->|"Anteriores"| past["Agrupados por mes<br/>en gris"]
-    upcoming & past -->|"toca un ticket"| sheet(["Hoja: detalle del ticket"])
+    upcoming & past -->|"toca un ticket"| sheet(["Hoja: detalle del ticket<br/>QR del pase si es próximo y sin usar"])
     sheet -->|"Ver evento"| detail["Detalle del evento"]
     sheet -->|"Cancelar inscripción<br/>solo próximos"| confirm(["Diálogo: confirmar"])
     confirm -->|"cancelado"| tickets

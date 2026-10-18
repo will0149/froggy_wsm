@@ -36,6 +36,7 @@ enum ApiPathsEnums {
   ticketEnroll(path: 'ticket/enroll/'),
   ticketEventOwner(path: 'ticket/event/owner/'),
   ticketsByUser(path: 'ticket/user/all/'),
+  ticketsCountByUser(path: 'ticket/user/count/'),
   ticketCancel(path: 'ticket/cancel/{id}/'),
   ticketCountByEvent(path: 'tickets/count/{event_id}/');
 

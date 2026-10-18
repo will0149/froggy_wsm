@@ -61,7 +61,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m17(id) => "Ticket #${id}";
 
-  static String m18(count) => "${count} tickets próximos";
+  static String m18(amount) => "Pagado: ${amount}";
+
+  static String m19(count) => "${count} tickets próximos";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -536,6 +538,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Inscripción cancelada",
     ),
     "ticketNumber": m17,
+    "ticketPaid": m18,
+    "ticketPassHint": MessageLookupByLibrary.simpleMessage(
+      "Muéstralo en la entrada del evento.",
+    ),
+    "ticketQr": MessageLookupByLibrary.simpleMessage("Código QR del ticket"),
+    "ticketUsed": MessageLookupByLibrary.simpleMessage("Ya usaste este ticket"),
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "No se pudieron cargar los tickets",
     ),
@@ -545,7 +553,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Demasiados intentos, espera un minuto",
     ),
     "unsaveEvent": MessageLookupByLibrary.simpleMessage("Quitar de guardados"),
-    "upcomingTicketsCount": m18,
+    "upcomingTicketsCount": m19,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("Usuario o correo"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "Ingresa tu usuario o correo",

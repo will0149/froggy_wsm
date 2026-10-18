@@ -63,12 +63,14 @@ Contrato general del API:
   - En eventos PRIVATE ve el código de acceso con un botón para copiarlo.
 - **Eventos similares**: hasta 10 eventos próximos de la misma categoría y país.
 
-### Tickets (`ticket/user/all/`)
-- Próximos y anteriores, agrupados por mes, con un número sobre la pestaña Tickets.
+### Tickets (`ticket/user/all/?when=upcoming|past`)
+- Próximos y anteriores (una petición por pestaña), agrupados por mes. El número sobre la pestaña Tickets sale de `ticket/user/count/`.
+- **Pase con QR**: en los tickets próximos y sin usar, el detalle muestra el `code` como QR (`parkea://tickets/<code>`) y como texto. Un ticket `USED` dice "Ya usaste este ticket"; si se pagó, se muestra `price_paid`. Al cancelar, el API borra el ticket.
 - En el detalle del ticket se puede ver el evento y **cancelar la inscripción** (`DELETE ticket/cancel/<id>/`).
+- El detalle del evento usa `my_ticket_id` para mostrar "Ver mi ticket" sin esperar la lista de tickets.
 
 ### Perfil
-- **Mis eventos**: los eventos creados por el usuario (`events/owner/`). Los eventos en los que está inscrito se ven en la pestaña Tickets.
+- **Eventos y Guardados**, en dos pestañas: los eventos creados por el usuario (`events/owner/`) y los que guardó con el corazón del detalle (`events/saved/`; `POST` y `DELETE events/saved/<id>/`). Los eventos en los que está inscrito se ven en la pestaña Tickets.
 - **Foto de perfil** (`PUT user/profile/image/`, multipart `avatar`).
 - **Editar perfil**: descripción corta (`bio`, máx. 160) y web (`link`, http/https, máx. 200) con `PATCH user/profile/update/`; la app antepone `https://` si falta y un link vacío lo borra. La web se muestra en el perfil y abre el navegador.
 
@@ -90,21 +92,14 @@ Contrato general del API:
 
 ## Backend: disponible y todavía sin usar en la app
 
-Está en la rama `feat/mobile-tickets-saved` del API. El commit `dae3031` tiene los puntos del 1 al 5. Las ubicaciones (`events/locations/`) y la traducción de mensajes **todavía no tienen commit** y esperan revisión. Todo se validó con curl contra el contenedor local.
+Está en la rama `feat/mobile-tickets-saved` del API (commit `dae3031`). Todo se validó con curl contra el contenedor local.
 
-1. **`event/details/`** agrega `my_ticket_id`, `is_owner`, `is_saved` y `owner_avatar`. La app ya usa `is_owner`; para saber si el usuario está inscrito todavía busca en su lista de tickets.
-2. **Tickets**: `ticket/user/all/?when=upcoming|past` y `ticket/user/count/` (`{"upcoming": n, "past": n}`). La app sigue separando y contando por su cuenta.
-3. **Datos del ticket**: `code` (para el QR), `status` (`ACTIVE | CANCELLED | USED`), `price_paid` y `currency`.
-4. **Guardados**: `POST` y `DELETE events/saved/<id>/`, `GET events/saved/`, e `is_saved` en todos los eventos.
-5. **Avatar del organizador**: `owner_avatar` en todos los eventos.
+1. **Avatar del organizador**: `owner_avatar` en todos los eventos.
 
 ## Pasos que siguen
 
 ### App (el backend ya lo permite)
-1. **Guardados / favoritos**: activar el corazón del detalle y mostrar la pestaña de guardados.
-2. **Ticket con QR**: mostrar el `code` como QR y el estado del ticket.
-3. **Avatar del organizador** en el feed y el detalle.
-4. **Usar `my_ticket_id`, `?when=` y `ticket/user/count/`**, en lugar de calcularlo en la app.
+1. **Avatar del organizador** en el feed y el detalle.
 
 ### Gamificación (ver `docs/propuesta-gamificacion.md`)
 

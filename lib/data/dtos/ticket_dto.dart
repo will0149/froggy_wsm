@@ -18,7 +18,35 @@ class TicketDTO {
   @JsonKey(name: 'date_purchased')
   final String? datePurchased;
 
-  TicketDTO({required this.id, required this.event, this.datePurchased});
+  /// Código del pase: lo muestra el QR y lo lee el check-in.
+  @JsonKey(name: 'code')
+  final String? code;
+
+  /// `ACTIVE`, `USED` (ya entró al evento) o `CANCELLED`.
+  @JsonKey(name: 'status')
+  final String? status;
+
+  /// Lo que pagó, como "45.0000" en [currency] (ISO 4217).
+  @JsonKey(name: 'price_paid')
+  final String? pricePaid;
+  @JsonKey(name: 'currency')
+  final String? currency;
+
+  TicketDTO({
+    required this.id,
+    required this.event,
+    this.datePurchased,
+    this.code,
+    this.status,
+    this.pricePaid,
+    this.currency,
+  });
+
+  bool get isUsed => status == 'USED';
+
+  /// Se muestra el QR: evento próximo y ticket sin usar.
+  bool get showsPass =>
+      isUpcoming && (status ?? 'ACTIVE') == 'ACTIVE' && (code?.isNotEmpty ?? false);
 
   /// Fecha del evento en hora local.
   DateTime? get eventDate => DateTime.tryParse(event.date ?? '')?.toLocal();

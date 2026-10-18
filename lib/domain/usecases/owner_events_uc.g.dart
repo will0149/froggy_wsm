@@ -36,7 +36,7 @@ final class OwnerEventsUCProvider
   OwnerEventsUC create() => OwnerEventsUC();
 }
 
-String _$ownerEventsUCHash() => r'2248ea7572a6d4f6d7bbf7534bb5d50a9fc8b534';
+String _$ownerEventsUCHash() => r'd8217115f34c319187e38c8a22729e1e8c13c16e';
 
 /// Eventos creados por el usuario (`events/owner/`), más recientes primero.
 

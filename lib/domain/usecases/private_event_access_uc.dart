@@ -25,7 +25,7 @@ String accessCodeQrData(String code) => Uri(
 String? parseAccessCode(String raw) {
   final text = raw.trim();
   final uri = Uri.tryParse(text);
-  final fromQr = uri != null && uri.scheme == 'parkea'
+  final fromQr = uri != null && uri.scheme == 'parkea' && uri.host == 'events'
       ? uri.queryParameters['code']
       : null;
   final code = (fromQr ?? text).replaceAll(RegExp(r'\s'), '');

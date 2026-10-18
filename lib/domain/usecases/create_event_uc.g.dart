@@ -39,7 +39,7 @@ final class CreateEventUCProvider
   CreateEventUC create() => CreateEventUC();
 }
 
-String _$createEventUCHash() => r'2ff6abf9879ac5326146e026769706dc4c2362cd';
+String _$createEventUCHash() => r'c09cf21583a6c7e668f9652c89b7c0338d26fa86';
 
 /// Formulario de eventos: crea (cuenta verificada) o edita uno propio y luego
 /// actualiza su galería. El estado solo indica si hay una petición en curso.

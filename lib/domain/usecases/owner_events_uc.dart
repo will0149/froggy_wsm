@@ -47,7 +47,9 @@ class OwnerEventsUC extends _$OwnerEventsUC {
     ref.invalidateSelf();
     ref.invalidate(eventFeedUCProvider);
     // Si el organizador estaba inscrito, su ticket se borró con el evento.
-    ref.invalidate(myTicketsUCProvider);
+    ref
+      ..invalidate(myTicketsUCProvider)
+      ..invalidate(ticketCountUCProvider);
     return null;
   }
 }
