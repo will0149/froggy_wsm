@@ -2004,31 +2004,21 @@ class S {
     );
   }
 
-  /// `Lista de inscritos`
-  String get attendeeList {
-    return Intl.message(
-      'Lista de inscritos',
-      name: 'attendeeList',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Ver todos ({count})`
-  String seeAllAttendees(int count) {
-    return Intl.message(
-      'Ver todos ($count)',
-      name: 'seeAllAttendees',
-      desc: '',
-      args: [count],
-    );
-  }
-
   /// `No se pudieron cargar los inscritos`
   String get errLoadAttendees {
     return Intl.message(
       'No se pudieron cargar los inscritos',
       name: 'errLoadAttendees',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personas inscritas`
+  String get enrolledPeople {
+    return Intl.message(
+      'Personas inscritas',
+      name: 'enrolledPeople',
       desc: '',
       args: [],
     );

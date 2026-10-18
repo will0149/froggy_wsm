@@ -314,14 +314,6 @@
   "couldNotOpenLink": "無法開啟連結",
   "catVolunteering": "志工服務",
   "volunteeringFreeNote": "志工活動免費，任何人都可以報名。",
-  "attendeeList": "报名名单",
-  "seeAllAttendees": "查看全部（{count}）",
-  "@seeAllAttendees": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "errLoadAttendees": "无法加载报名者"
+  "errLoadAttendees": "无法加载报名者",
+  "enrolledPeople": "已报名的人"
 }

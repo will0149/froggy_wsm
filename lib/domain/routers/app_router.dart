@@ -18,6 +18,7 @@ import '../../app/themes/auth_theme.dart';
 import '../../app/pages/auth/splash_screen.dart';
 import '../../app/pages/auth/welcome_slide_page.dart';
 import '../../app/pages/event/create_event_page.dart';
+import '../../app/pages/event/event_attendees_page.dart';
 import '../../app/pages/event/event_detail_page.dart';
 import '../../app/pages/home/home_feed_page.dart';
 import '../../app/pages/map/events_map_page.dart';
@@ -69,7 +70,8 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
           GoRoute(
             name: PasswordResetPage.routeName,
             path: PasswordResetPage.routeLocation,
-            builder: (context, state) => const AuthTheme(child: PasswordResetPage()),
+            builder: (context, state) =>
+                const AuthTheme(child: PasswordResetPage()),
             routes: <RouteBase>[
               GoRoute(
                 name: PasswordResetConfirmPage.routeName,
@@ -102,6 +104,14 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
         path: EditEventPage.routeLocation,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => EditEventPage(
+          eventId: int.parse(state.pathParameters['id']!),
+        ),
+      ),
+      GoRoute(
+        name: EventAttendeesPage.routeName,
+        path: EventAttendeesPage.routeLocation,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => EventAttendeesPage(
           eventId: int.parse(state.pathParameters['id']!),
         ),
       ),

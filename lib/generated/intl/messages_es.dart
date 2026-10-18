@@ -43,13 +43,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m9(error) => "No se pudo cerrar sesión: ${error}";
 
-  static String m10(count) => "Ver todos (${count})";
+  static String m10(count) => "${count} cupos disponibles";
 
-  static String m11(count) => "${count} cupos disponibles";
+  static String m11(id) => "Ticket #${id}";
 
-  static String m12(id) => "Ticket #${id}";
-
-  static String m13(count) => "${count} tickets próximos";
+  static String m12(count) => "${count} tickets próximos";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -78,7 +76,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "allOfCountry": m0,
     "allRightsReserved": m1,
-    "attendeeList": MessageLookupByLibrary.simpleMessage("Lista de inscritos"),
     "attendees": MessageLookupByLibrary.simpleMessage("Inscritos"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Autenticar"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Foto actualizada"),
@@ -162,6 +159,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "enrolledCount": m3,
     "enrolledOfCapacity": m4,
     "enrolledOn": m5,
+    "enrolledPeople": MessageLookupByLibrary.simpleMessage(
+      "Personas inscritas",
+    ),
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "¡Listo! Ya estás inscrito",
     ),
@@ -424,7 +424,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage("Guardar cambios"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("Guardar Evento"),
     "searchEvents": MessageLookupByLibrary.simpleMessage("Buscar actividad"),
-    "seeAllAttendees": m10,
     "seeEvent": MessageLookupByLibrary.simpleMessage("Ir al Evento"),
     "settings": MessageLookupByLibrary.simpleMessage("Configuración"),
     "signUp": MessageLookupByLibrary.simpleMessage("Regístrate"),
@@ -451,19 +450,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Algo salió mal",
     ),
-    "spotsLeft": m11,
+    "spotsLeft": m10,
     "supportLegal": MessageLookupByLibrary.simpleMessage("Soporte y legal"),
     "theme": MessageLookupByLibrary.simpleMessage("Tema"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Inscripción cancelada",
     ),
-    "ticketNumber": m12,
+    "ticketNumber": m11,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "No se pudieron cargar los tickets",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Anteriores"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Próximos"),
-    "upcomingTicketsCount": m13,
+    "upcomingTicketsCount": m12,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("Usuario o correo"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "Ingresa tu usuario o correo",

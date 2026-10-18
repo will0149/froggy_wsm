@@ -42,13 +42,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m9(error) => "Couldn\'t sign out: ${error}";
 
-  static String m10(count) => "See all (${count})";
+  static String m10(count) => "${count} spots left";
 
-  static String m11(count) => "${count} spots left";
+  static String m11(id) => "Ticket #${id}";
 
-  static String m12(id) => "Ticket #${id}";
-
-  static String m13(count) => "${count} upcoming tickets";
+  static String m12(count) => "${count} upcoming tickets";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -75,7 +73,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "allLocations": MessageLookupByLibrary.simpleMessage("All locations"),
     "allOfCountry": m0,
     "allRightsReserved": m1,
-    "attendeeList": MessageLookupByLibrary.simpleMessage("Attendee list"),
     "attendees": MessageLookupByLibrary.simpleMessage("Attendees"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Authenticate"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Photo updated"),
@@ -151,6 +148,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enrolledCount": m3,
     "enrolledOfCapacity": m4,
     "enrolledOn": m5,
+    "enrolledPeople": MessageLookupByLibrary.simpleMessage("Enrolled people"),
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "Done! You\'re enrolled",
     ),
@@ -401,7 +399,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage("Save changes"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("Save event"),
     "searchEvents": MessageLookupByLibrary.simpleMessage("Search activities"),
-    "seeAllAttendees": m10,
     "seeEvent": MessageLookupByLibrary.simpleMessage("Show event"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
@@ -428,19 +425,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong",
     ),
-    "spotsLeft": m11,
+    "spotsLeft": m10,
     "supportLegal": MessageLookupByLibrary.simpleMessage("Support & legal"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Enrollment cancelled",
     ),
-    "ticketNumber": m12,
+    "ticketNumber": m11,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t load tickets",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Past"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Upcoming"),
-    "upcomingTicketsCount": m13,
+    "upcomingTicketsCount": m12,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Username or email",
     ),

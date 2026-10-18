@@ -42,13 +42,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m9(error) => "Не удалось выйти: ${error}";
 
-  static String m10(count) => "Показать всех (${count})";
+  static String m10(count) => "Осталось мест: ${count}";
 
-  static String m11(count) => "Осталось мест: ${count}";
+  static String m11(id) => "Билет №${id}";
 
-  static String m12(id) => "Билет №${id}";
-
-  static String m13(count) => "Предстоящих билетов: ${count}";
+  static String m12(count) => "Предстоящих билетов: ${count}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -73,7 +71,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "allLocations": MessageLookupByLibrary.simpleMessage("Все места"),
     "allOfCountry": m0,
     "allRightsReserved": m1,
-    "attendeeList": MessageLookupByLibrary.simpleMessage("Список участников"),
     "attendees": MessageLookupByLibrary.simpleMessage("Участники"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Аутентифицировать"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Фото обновлено"),
@@ -157,6 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enrolledCount": m3,
     "enrolledOfCapacity": m4,
     "enrolledOn": m5,
+    "enrolledPeople": MessageLookupByLibrary.simpleMessage("Записавшиеся"),
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "Готово! Вы записаны",
     ),
@@ -409,7 +407,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveChanges": MessageLookupByLibrary.simpleMessage("Сохранить изменения"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("сохранить событие"),
     "searchEvents": MessageLookupByLibrary.simpleMessage("Поиск занятий"),
-    "seeAllAttendees": m10,
     "seeEvent": MessageLookupByLibrary.simpleMessage("Показать событие"),
     "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
     "signUp": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
@@ -438,19 +435,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Что-то пошло не так",
     ),
-    "spotsLeft": m11,
+    "spotsLeft": m10,
     "supportLegal": MessageLookupByLibrary.simpleMessage(
       "Поддержка и правовая информация",
     ),
     "theme": MessageLookupByLibrary.simpleMessage("Тема"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage("Запись отменена"),
-    "ticketNumber": m12,
+    "ticketNumber": m11,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Не удалось загрузить билеты",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Прошедшие"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Предстоящие"),
-    "upcomingTicketsCount": m13,
+    "upcomingTicketsCount": m12,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Имя пользователя или эл. адрес",
     ),

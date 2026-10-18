@@ -314,14 +314,6 @@
   "couldNotOpenLink": "Не удалось открыть ссылку",
   "catVolunteering": "Волонтёрство",
   "volunteeringFreeNote": "Волонтёрские события бесплатны, записаться может любой.",
-  "attendeeList": "Список участников",
-  "seeAllAttendees": "Показать всех ({count})",
-  "@seeAllAttendees": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "errLoadAttendees": "Не удалось загрузить участников"
+  "errLoadAttendees": "Не удалось загрузить участников",
+  "enrolledPeople": "Записавшиеся"
 }

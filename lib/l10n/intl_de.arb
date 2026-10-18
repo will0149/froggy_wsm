@@ -313,14 +313,6 @@
   "couldNotOpenLink": "Link konnte nicht geöffnet werden",
   "catVolunteering": "Ehrenamt",
   "volunteeringFreeNote": "Ehrenamtliche Events sind kostenlos und offen für alle.",
-  "attendeeList": "Teilnehmerliste",
-  "seeAllAttendees": "Alle anzeigen ({count})",
-  "@seeAllAttendees": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "errLoadAttendees": "Teilnehmer konnten nicht geladen werden"
+  "errLoadAttendees": "Teilnehmer konnten nicht geladen werden",
+  "enrolledPeople": "Angemeldete Personen"
 }

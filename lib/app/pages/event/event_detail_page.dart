@@ -12,7 +12,6 @@ import '../../../generated/l10n.dart';
 import '../../themes/colors/app_colors.dart';
 import '../../themes/dimens.dart';
 import '../../widgets/event/enroll_button.dart';
-import '../../widgets/event/event_attendees_card.dart';
 import '../../widgets/event/event_location_card.dart';
 import '../../widgets/event/owner_event_actions.dart';
 import '../../widgets/event/similar_events.dart';
@@ -40,7 +39,6 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
     ref
       ..invalidate(myTicketsUCProvider)
       ..invalidate(eventTicketCountUCProvider(widget.eventId))
-      ..invalidate(eventAttendeesUCProvider(widget.eventId))
       ..invalidate(fetchEventDetailUCProvider(widget.eventId));
     await ref.read(fetchEventDetailUCProvider(widget.eventId).future);
   }
@@ -114,13 +112,6 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: OwnerAttendanceCard(event: event),
-            ),
-          ),
-        if (isOwner)
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: EventAttendeesCard(eventId: widget.eventId),
             ),
           ),
         if (isOwner && event.eventType == 'PRIVATE')
