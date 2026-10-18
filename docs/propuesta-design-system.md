@@ -1,6 +1,6 @@
 # Propuesta de design system para Parkea
 
-Estado: **aprobada con las opciones recomendadas** (barra blanca, Inscribirse azul, fondo gris cálido y modo oscuro en la misma pasada). Implementada (fases 1 a 4). Las pantallas de auth (bienvenida, login, registro y recuperar contraseña) **no cambian**.
+Estado: **aprobada con las opciones recomendadas** (barra blanca, Inscribirse azul, fondo gris cálido y modo oscuro en la misma pasada). Implementada (fases 1 a 4). Las pantallas de auth (login, registro y recuperar contraseña) **no cambian**. La bienvenida se rehízo después (18/10/26) con el mismo `AuthTheme`: pasos con "Siguiente" y "Saltar", y crear cuenta o iniciar sesión en el último.
 
 ## Resumen
 

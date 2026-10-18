@@ -55,9 +55,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m14(count) => "${count} vagas disponíveis";
 
-  static String m15(id) => "Ingresso #${id}";
+  static String m15(current, total) => "Passo ${current} de ${total}";
 
-  static String m16(count) => "${count} ingressos próximos";
+  static String m16(id) => "Ingresso #${id}";
+
+  static String m17(count) => "${count} ingressos próximos";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -272,7 +274,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "galleryHint": m9,
     "getDirections": MessageLookupByLibrary.simpleMessage("Como chegar"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Ajuda"),
-    "getStarted": MessageLookupByLibrary.simpleMessage("Começar"),
     "great": MessageLookupByLibrary.simpleMessage("Ótimo!"),
     "greetingAfternoon": MessageLookupByLibrary.simpleMessage("Boa tarde!"),
     "greetingEvening": MessageLookupByLibrary.simpleMessage("Boa noite!"),
@@ -459,41 +460,42 @@ class MessageLookup extends MessageLookupByLibrary {
     "similarEvents": MessageLookupByLibrary.simpleMessage(
       "Eventos Semelhantes",
     ),
-    "slideCelebrateText": MessageLookupByLibrary.simpleMessage(
-      "Inscreva-se com um toque e leve seus tickets sempre com você.",
+    "slideCreateText": MessageLookupByLibrary.simpleMessage(
+      "Publique seu programa e alcance mais pessoas.",
     ),
-    "slideCelebrateTitle": MessageLookupByLibrary.simpleMessage(
-      "Celebrem juntos",
+    "slideCreateTitle": MessageLookupByLibrary.simpleMessage(
+      "Crie seus eventos",
     ),
-    "slideRelaxText": MessageLookupByLibrary.simpleMessage(
-      "Crie seus próprios eventos e alcance mais pessoas.",
+    "slideDiscoverText": MessageLookupByLibrary.simpleMessage(
+      "Shows, oficinas e programas perto de você para compartilhar com seus amigos.",
     ),
-    "slideRelaxTitle": MessageLookupByLibrary.simpleMessage(
-      "Relaxe em boa companhia",
+    "slideDiscoverTitle": MessageLookupByLibrary.simpleMessage(
+      "Descubra eventos",
     ),
-    "slideShareText": MessageLookupByLibrary.simpleMessage(
-      "Descubra eventos perto de você e compartilhe com seus amigos.",
+    "slideEnrollText": MessageLookupByLibrary.simpleMessage(
+      "Seus tickets ficam no seu celular, sempre à mão.",
     ),
-    "slideShareTitle": MessageLookupByLibrary.simpleMessage(
-      "Compartilhe com amigos",
+    "slideEnrollTitle": MessageLookupByLibrary.simpleMessage(
+      "Inscreva-se com um toque",
     ),
     "soldOut": MessageLookupByLibrary.simpleMessage("Esgotado"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Algo deu errado",
     ),
     "spotsLeft": m14,
+    "stepOfTotal": m15,
     "supportLegal": MessageLookupByLibrary.simpleMessage("Suporte e jurídico"),
     "theme": MessageLookupByLibrary.simpleMessage("Tema"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Inscrição cancelada",
     ),
-    "ticketNumber": m15,
+    "ticketNumber": m16,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Não foi possível carregar os ingressos",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Anteriores"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Próximos"),
-    "upcomingTicketsCount": m16,
+    "upcomingTicketsCount": m17,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Usuário ou e-mail",
     ),
@@ -506,6 +508,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "O voluntariado é gratuito e qualquer pessoa pode se inscrever.",
     ),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage("¡Bem vindo de novo!"),
+    "welcomeNext": MessageLookupByLibrary.simpleMessage("Próximo"),
+    "welcomeSignIn": MessageLookupByLibrary.simpleMessage("Já tenho conta"),
+    "welcomeSignUp": MessageLookupByLibrary.simpleMessage("Criar conta"),
+    "welcomeSkip": MessageLookupByLibrary.simpleMessage("Pular"),
     "yourProfile": MessageLookupByLibrary.simpleMessage("Seu perfil"),
   };
 }

@@ -1604,69 +1604,64 @@ class S {
     );
   }
 
-  /// `Comparte con amigos`
-  String get slideShareTitle {
+  /// `Descubre eventos`
+  String get slideDiscoverTitle {
     return Intl.message(
-      'Comparte con amigos',
-      name: 'slideShareTitle',
+      'Descubre eventos',
+      name: 'slideDiscoverTitle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Descubre eventos cerca de ti y compártelos con tus amigos.`
-  String get slideShareText {
+  /// `Conciertos, talleres y planes cerca de ti para compartir con tus amigos.`
+  String get slideDiscoverText {
     return Intl.message(
-      'Descubre eventos cerca de ti y compártelos con tus amigos.',
-      name: 'slideShareText',
+      'Conciertos, talleres y planes cerca de ti para compartir con tus amigos.',
+      name: 'slideDiscoverText',
       desc: '',
       args: [],
     );
   }
 
-  /// `Celebra juntos`
-  String get slideCelebrateTitle {
+  /// `Inscríbete en un toque`
+  String get slideEnrollTitle {
     return Intl.message(
-      'Celebra juntos',
-      name: 'slideCelebrateTitle',
+      'Inscríbete en un toque',
+      name: 'slideEnrollTitle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Inscríbete en un toque y lleva tus tickets siempre contigo.`
-  String get slideCelebrateText {
+  /// `Tus tickets quedan en tu teléfono, siempre a mano.`
+  String get slideEnrollText {
     return Intl.message(
-      'Inscríbete en un toque y lleva tus tickets siempre contigo.',
-      name: 'slideCelebrateText',
+      'Tus tickets quedan en tu teléfono, siempre a mano.',
+      name: 'slideEnrollText',
       desc: '',
       args: [],
     );
   }
 
-  /// `Relájate en compañía`
-  String get slideRelaxTitle {
+  /// `Crea tus eventos`
+  String get slideCreateTitle {
     return Intl.message(
-      'Relájate en compañía',
-      name: 'slideRelaxTitle',
+      'Crea tus eventos',
+      name: 'slideCreateTitle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Crea tus propios eventos y llega a más personas.`
-  String get slideRelaxText {
+  /// `Publica tu plan y llega a más personas.`
+  String get slideCreateText {
     return Intl.message(
-      'Crea tus propios eventos y llega a más personas.',
-      name: 'slideRelaxText',
+      'Publica tu plan y llega a más personas.',
+      name: 'slideCreateText',
       desc: '',
       args: [],
     );
-  }
-
-  /// `Empezar`
-  String get getStarted {
-    return Intl.message('Empezar', name: 'getStarted', desc: '', args: []);
   }
 
   /// `Presiona atrás de nuevo para salir`
@@ -2201,6 +2196,46 @@ class S {
       name: 'imagesSyncFailed',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Siguiente`
+  String get welcomeNext {
+    return Intl.message('Siguiente', name: 'welcomeNext', desc: '', args: []);
+  }
+
+  /// `Saltar`
+  String get welcomeSkip {
+    return Intl.message('Saltar', name: 'welcomeSkip', desc: '', args: []);
+  }
+
+  /// `Crear cuenta`
+  String get welcomeSignUp {
+    return Intl.message(
+      'Crear cuenta',
+      name: 'welcomeSignUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ya tengo cuenta`
+  String get welcomeSignIn {
+    return Intl.message(
+      'Ya tengo cuenta',
+      name: 'welcomeSignIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Paso {current} de {total}`
+  String stepOfTotal(int current, int total) {
+    return Intl.message(
+      'Paso $current de $total',
+      name: 'stepOfTotal',
+      desc: '',
+      args: [current, total],
     );
   }
 }

@@ -237,13 +237,12 @@
       }
     }
   },
-  "slideShareTitle": "Comparte con amigos",
-  "slideShareText": "Descubre eventos cerca de ti y compártelos con tus amigos.",
-  "slideCelebrateTitle": "Celebra juntos",
-  "slideCelebrateText": "Inscríbete en un toque y lleva tus tickets siempre contigo.",
-  "slideRelaxTitle": "Relájate en compañía",
-  "slideRelaxText": "Crea tus propios eventos y llega a más personas.",
-  "getStarted": "Empezar",
+  "slideDiscoverTitle": "Descubre eventos",
+  "slideDiscoverText": "Conciertos, talleres y planes cerca de ti para compartir con tus amigos.",
+  "slideEnrollTitle": "Inscríbete en un toque",
+  "slideEnrollText": "Tus tickets quedan en tu teléfono, siempre a mano.",
+  "slideCreateTitle": "Crea tus eventos",
+  "slideCreateText": "Publica tu plan y llega a más personas.",
   "pressBackToExit": "Presiona atrás de nuevo para salir",
   "navCreate": "Crear",
   "eventCompleteness": "Tu evento está al {percent} %",
@@ -372,5 +371,20 @@
     }
   },
   "imagesPrepareFailed": "Algunas imágenes no se pudieron preparar y no se agregaron.",
-  "imagesSyncFailed": "El evento se guardó, pero algunas imágenes no se pudieron actualizar."
+  "imagesSyncFailed": "El evento se guardó, pero algunas imágenes no se pudieron actualizar.",
+  "welcomeNext": "Siguiente",
+  "welcomeSkip": "Saltar",
+  "welcomeSignUp": "Crear cuenta",
+  "welcomeSignIn": "Ya tengo cuenta",
+  "stepOfTotal": "Paso {current} de {total}",
+  "@stepOfTotal": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

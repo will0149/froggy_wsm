@@ -54,9 +54,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m14(count) => "Осталось мест: ${count}";
 
-  static String m15(id) => "Билет №${id}";
+  static String m15(current, total) => "Шаг ${current} из ${total}";
 
-  static String m16(count) => "Предстоящих билетов: ${count}";
+  static String m16(id) => "Билет №${id}";
+
+  static String m17(count) => "Предстоящих билетов: ${count}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -269,7 +271,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "galleryHint": m9,
     "getDirections": MessageLookupByLibrary.simpleMessage("Как добраться"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Помощь"),
-    "getStarted": MessageLookupByLibrary.simpleMessage("Начать"),
     "great": MessageLookupByLibrary.simpleMessage("Отлично!"),
     "greetingAfternoon": MessageLookupByLibrary.simpleMessage("Добрый день!"),
     "greetingEvening": MessageLookupByLibrary.simpleMessage("Добрый вечер!"),
@@ -460,41 +461,42 @@ class MessageLookup extends MessageLookupByLibrary {
     "similarEvents": MessageLookupByLibrary.simpleMessage(
       "Подобные мероприятия",
     ),
-    "slideCelebrateText": MessageLookupByLibrary.simpleMessage(
-      "Записывайтесь в одно касание, билеты всегда с вами.",
+    "slideCreateText": MessageLookupByLibrary.simpleMessage(
+      "Опубликуйте свой план и привлеките больше людей.",
     ),
-    "slideCelebrateTitle": MessageLookupByLibrary.simpleMessage(
-      "Празднуйте вместе",
+    "slideCreateTitle": MessageLookupByLibrary.simpleMessage(
+      "Создавайте события",
     ),
-    "slideRelaxText": MessageLookupByLibrary.simpleMessage(
-      "Создавайте свои события и привлекайте больше людей.",
+    "slideDiscoverText": MessageLookupByLibrary.simpleMessage(
+      "Концерты, мастер-классы и планы рядом с вами, чтобы делиться с друзьями.",
     ),
-    "slideRelaxTitle": MessageLookupByLibrary.simpleMessage(
-      "Отдыхайте в хорошей компании",
+    "slideDiscoverTitle": MessageLookupByLibrary.simpleMessage(
+      "Находите события",
     ),
-    "slideShareText": MessageLookupByLibrary.simpleMessage(
-      "Находите события рядом и делитесь ими с друзьями.",
+    "slideEnrollText": MessageLookupByLibrary.simpleMessage(
+      "Билеты всегда под рукой в вашем телефоне.",
     ),
-    "slideShareTitle": MessageLookupByLibrary.simpleMessage(
-      "Делитесь с друзьями",
+    "slideEnrollTitle": MessageLookupByLibrary.simpleMessage(
+      "Запись в одно касание",
     ),
     "soldOut": MessageLookupByLibrary.simpleMessage("Мест нет"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Что-то пошло не так",
     ),
     "spotsLeft": m14,
+    "stepOfTotal": m15,
     "supportLegal": MessageLookupByLibrary.simpleMessage(
       "Поддержка и правовая информация",
     ),
     "theme": MessageLookupByLibrary.simpleMessage("Тема"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage("Запись отменена"),
-    "ticketNumber": m15,
+    "ticketNumber": m16,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Не удалось загрузить билеты",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Прошедшие"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Предстоящие"),
-    "upcomingTicketsCount": m16,
+    "upcomingTicketsCount": m17,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Имя пользователя или эл. адрес",
     ),
@@ -509,6 +511,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "welcomeAgain": MessageLookupByLibrary.simpleMessage(
       "¡Добро пожаловать обратно!",
     ),
+    "welcomeNext": MessageLookupByLibrary.simpleMessage("Далее"),
+    "welcomeSignIn": MessageLookupByLibrary.simpleMessage(
+      "У меня уже есть аккаунт",
+    ),
+    "welcomeSignUp": MessageLookupByLibrary.simpleMessage("Создать аккаунт"),
+    "welcomeSkip": MessageLookupByLibrary.simpleMessage("Пропустить"),
     "yourProfile": MessageLookupByLibrary.simpleMessage("Ваш профиль"),
   };
 }

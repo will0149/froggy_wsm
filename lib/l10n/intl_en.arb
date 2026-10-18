@@ -237,13 +237,12 @@
       }
     }
   },
-  "slideShareTitle": "Share with friends",
-  "slideShareText": "Discover events near you and share them with your friends.",
-  "slideCelebrateTitle": "Celebrate together",
-  "slideCelebrateText": "Enroll with one tap and keep your tickets with you.",
-  "slideRelaxTitle": "Relax in good company",
-  "slideRelaxText": "Create your own events and reach more people.",
-  "getStarted": "Get started",
+  "slideDiscoverTitle": "Discover events",
+  "slideDiscoverText": "Concerts, workshops and plans near you to share with your friends.",
+  "slideEnrollTitle": "Enroll in one tap",
+  "slideEnrollText": "Your tickets stay on your phone, always at hand.",
+  "slideCreateTitle": "Create your events",
+  "slideCreateText": "Publish your plan and reach more people.",
   "pressBackToExit": "Press back again to exit",
   "navCreate": "Create",
   "eventCompleteness": "Your event is {percent}% complete",
@@ -341,5 +340,10 @@
   "galleryHint": "Up to {max} images. The cover is the one shown in the feed.",
   "imagesLimitReached": "An event can have at most {max} images; the first ones were added.",
   "imagesPrepareFailed": "Some images couldn't be prepared and weren't added.",
-  "imagesSyncFailed": "The event was saved, but some images couldn't be updated."
+  "imagesSyncFailed": "The event was saved, but some images couldn't be updated.",
+  "welcomeNext": "Next",
+  "welcomeSkip": "Skip",
+  "welcomeSignUp": "Create account",
+  "welcomeSignIn": "I already have an account",
+  "stepOfTotal": "Step {current} of {total}"
 }

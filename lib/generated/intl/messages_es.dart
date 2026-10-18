@@ -55,9 +55,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m14(count) => "${count} cupos disponibles";
 
-  static String m15(id) => "Ticket #${id}";
+  static String m15(current, total) => "Paso ${current} de ${total}";
 
-  static String m16(count) => "${count} tickets próximos";
+  static String m16(id) => "Ticket #${id}";
+
+  static String m17(count) => "${count} tickets próximos";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -282,7 +284,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "galleryHint": m9,
     "getDirections": MessageLookupByLibrary.simpleMessage("Cómo llegar"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Ayuda"),
-    "getStarted": MessageLookupByLibrary.simpleMessage("Empezar"),
     "great": MessageLookupByLibrary.simpleMessage("¡Genial!"),
     "greetingAfternoon": MessageLookupByLibrary.simpleMessage(
       "¡Buenas tardes!",
@@ -477,41 +478,42 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings": MessageLookupByLibrary.simpleMessage("Configuración"),
     "signUp": MessageLookupByLibrary.simpleMessage("Regístrate"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("Eventos Similares"),
-    "slideCelebrateText": MessageLookupByLibrary.simpleMessage(
-      "Inscríbete en un toque y lleva tus tickets siempre contigo.",
+    "slideCreateText": MessageLookupByLibrary.simpleMessage(
+      "Publica tu plan y llega a más personas.",
     ),
-    "slideCelebrateTitle": MessageLookupByLibrary.simpleMessage(
-      "Celebra juntos",
+    "slideCreateTitle": MessageLookupByLibrary.simpleMessage(
+      "Crea tus eventos",
     ),
-    "slideRelaxText": MessageLookupByLibrary.simpleMessage(
-      "Crea tus propios eventos y llega a más personas.",
+    "slideDiscoverText": MessageLookupByLibrary.simpleMessage(
+      "Conciertos, talleres y planes cerca de ti para compartir con tus amigos.",
     ),
-    "slideRelaxTitle": MessageLookupByLibrary.simpleMessage(
-      "Relájate en compañía",
+    "slideDiscoverTitle": MessageLookupByLibrary.simpleMessage(
+      "Descubre eventos",
     ),
-    "slideShareText": MessageLookupByLibrary.simpleMessage(
-      "Descubre eventos cerca de ti y compártelos con tus amigos.",
+    "slideEnrollText": MessageLookupByLibrary.simpleMessage(
+      "Tus tickets quedan en tu teléfono, siempre a mano.",
     ),
-    "slideShareTitle": MessageLookupByLibrary.simpleMessage(
-      "Comparte con amigos",
+    "slideEnrollTitle": MessageLookupByLibrary.simpleMessage(
+      "Inscríbete en un toque",
     ),
     "soldOut": MessageLookupByLibrary.simpleMessage("Agotado"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Algo salió mal",
     ),
     "spotsLeft": m14,
+    "stepOfTotal": m15,
     "supportLegal": MessageLookupByLibrary.simpleMessage("Soporte y legal"),
     "theme": MessageLookupByLibrary.simpleMessage("Tema"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Inscripción cancelada",
     ),
-    "ticketNumber": m15,
+    "ticketNumber": m16,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "No se pudieron cargar los tickets",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Anteriores"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Próximos"),
-    "upcomingTicketsCount": m16,
+    "upcomingTicketsCount": m17,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("Usuario o correo"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "Ingresa tu usuario o correo",
@@ -524,6 +526,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "welcomeAgain": MessageLookupByLibrary.simpleMessage(
       "¡Bienvenido de nuevo!",
     ),
+    "welcomeNext": MessageLookupByLibrary.simpleMessage("Siguiente"),
+    "welcomeSignIn": MessageLookupByLibrary.simpleMessage("Ya tengo cuenta"),
+    "welcomeSignUp": MessageLookupByLibrary.simpleMessage("Crear cuenta"),
+    "welcomeSkip": MessageLookupByLibrary.simpleMessage("Saltar"),
     "yourProfile": MessageLookupByLibrary.simpleMessage("Tu perfil"),
   };
 }

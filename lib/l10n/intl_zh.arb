@@ -237,13 +237,12 @@
       }
     }
   },
-  "slideShareTitle": "與朋友分享",
-  "slideShareText": "探索你附近的活動並與朋友分享。",
-  "slideCelebrateTitle": "一起慶祝",
-  "slideCelebrateText": "一鍵報名，票券隨身帶著走。",
-  "slideRelaxTitle": "與好友一同放鬆",
-  "slideRelaxText": "建立你自己的活動，觸及更多人。",
-  "getStarted": "開始",
+  "slideDiscoverTitle": "探索活動",
+  "slideDiscoverText": "你附近的音樂會、工作坊和活動，與朋友一起分享。",
+  "slideEnrollTitle": "一鍵報名",
+  "slideEnrollText": "票券存在手機裡，隨時都在身邊。",
+  "slideCreateTitle": "建立你的活動",
+  "slideCreateText": "發布你的計畫，觸及更多人。",
   "pressBackToExit": "再按一次返回鍵即可離開",
   "navCreate": "建立",
   "eventCompleteness": "你的活動已完成 {percent}%",
@@ -341,5 +340,10 @@
   "galleryHint": "最多 {max} 张图片。封面会显示在动态中。",
   "imagesLimitReached": "每个活动最多 {max} 张图片，已添加前几张。",
   "imagesPrepareFailed": "部分图片无法处理，未添加。",
-  "imagesSyncFailed": "活动已保存，但部分图片未能更新。"
+  "imagesSyncFailed": "活动已保存，但部分图片未能更新。",
+  "welcomeNext": "下一步",
+  "welcomeSkip": "略過",
+  "welcomeSignUp": "建立帳號",
+  "welcomeSignIn": "我已有帳號",
+  "stepOfTotal": "第 {current} 步，共 {total} 步"
 }

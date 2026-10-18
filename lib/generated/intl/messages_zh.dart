@@ -52,9 +52,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m14(count) => "剩餘 ${count} 個名額";
 
-  static String m15(id) => "票券 #${id}";
+  static String m15(current, total) => "第 ${current} 步，共 ${total} 步";
 
-  static String m16(count) => "${count} 張即將到來的票券";
+  static String m16(id) => "票券 #${id}";
+
+  static String m17(count) => "${count} 張即將到來的票券";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -193,7 +195,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "galleryHint": m9,
     "getDirections": MessageLookupByLibrary.simpleMessage("路線"),
     "getHelp": MessageLookupByLibrary.simpleMessage("救命"),
-    "getStarted": MessageLookupByLibrary.simpleMessage("開始"),
     "great": MessageLookupByLibrary.simpleMessage("太好了！"),
     "greetingAfternoon": MessageLookupByLibrary.simpleMessage("午安！"),
     "greetingEvening": MessageLookupByLibrary.simpleMessage("晚安！"),
@@ -310,23 +311,26 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings": MessageLookupByLibrary.simpleMessage("設置"),
     "signUp": MessageLookupByLibrary.simpleMessage("報名"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("類似事件"),
-    "slideCelebrateText": MessageLookupByLibrary.simpleMessage("一鍵報名，票券隨身帶著走。"),
-    "slideCelebrateTitle": MessageLookupByLibrary.simpleMessage("一起慶祝"),
-    "slideRelaxText": MessageLookupByLibrary.simpleMessage("建立你自己的活動，觸及更多人。"),
-    "slideRelaxTitle": MessageLookupByLibrary.simpleMessage("與好友一同放鬆"),
-    "slideShareText": MessageLookupByLibrary.simpleMessage("探索你附近的活動並與朋友分享。"),
-    "slideShareTitle": MessageLookupByLibrary.simpleMessage("與朋友分享"),
+    "slideCreateText": MessageLookupByLibrary.simpleMessage("發布你的計畫，觸及更多人。"),
+    "slideCreateTitle": MessageLookupByLibrary.simpleMessage("建立你的活動"),
+    "slideDiscoverText": MessageLookupByLibrary.simpleMessage(
+      "你附近的音樂會、工作坊和活動，與朋友一起分享。",
+    ),
+    "slideDiscoverTitle": MessageLookupByLibrary.simpleMessage("探索活動"),
+    "slideEnrollText": MessageLookupByLibrary.simpleMessage("票券存在手機裡，隨時都在身邊。"),
+    "slideEnrollTitle": MessageLookupByLibrary.simpleMessage("一鍵報名"),
     "soldOut": MessageLookupByLibrary.simpleMessage("已額滿"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage("發生錯誤"),
     "spotsLeft": m14,
+    "stepOfTotal": m15,
     "supportLegal": MessageLookupByLibrary.simpleMessage("支援與法律"),
     "theme": MessageLookupByLibrary.simpleMessage("主題"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage("已取消報名"),
-    "ticketNumber": m15,
+    "ticketNumber": m16,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage("無法載入票券"),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("已結束"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("即將到來"),
-    "upcomingTicketsCount": m16,
+    "upcomingTicketsCount": m17,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("使用者名稱或電子郵件"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(
       "請輸入使用者名稱或電子郵件",
@@ -337,6 +341,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "志工活動免費，任何人都可以報名。",
     ),
     "welcomeAgain": MessageLookupByLibrary.simpleMessage("¡歡迎回來!"),
+    "welcomeNext": MessageLookupByLibrary.simpleMessage("下一步"),
+    "welcomeSignIn": MessageLookupByLibrary.simpleMessage("我已有帳號"),
+    "welcomeSignUp": MessageLookupByLibrary.simpleMessage("建立帳號"),
+    "welcomeSkip": MessageLookupByLibrary.simpleMessage("略過"),
     "yourProfile": MessageLookupByLibrary.simpleMessage("你的個人資料"),
   };
 }

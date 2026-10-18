@@ -237,13 +237,12 @@
       }
     }
   },
-  "slideShareTitle": "Partage avec tes amis",
-  "slideShareText": "Découvre des événements près de chez toi et partage-les avec tes amis.",
-  "slideCelebrateTitle": "Célébrez ensemble",
-  "slideCelebrateText": "Inscris-toi en un geste et garde tes tickets avec toi.",
-  "slideRelaxTitle": "Détends-toi bien entouré",
-  "slideRelaxText": "Crée tes propres événements et touche plus de monde.",
-  "getStarted": "Commencer",
+  "slideDiscoverTitle": "Découvre des événements",
+  "slideDiscoverText": "Concerts, ateliers et sorties près de chez toi à partager avec tes amis.",
+  "slideEnrollTitle": "Inscris-toi en un geste",
+  "slideEnrollText": "Tes tickets restent sur ton téléphone, toujours à portée de main.",
+  "slideCreateTitle": "Crée tes événements",
+  "slideCreateText": "Publie ton projet et touche plus de monde.",
   "pressBackToExit": "Appuie à nouveau sur Retour pour quitter",
   "navCreate": "Créer",
   "eventCompleteness": "Ton événement est complet à {percent} %",
@@ -341,5 +340,10 @@
   "galleryHint": "Jusqu'à {max} images. La couverture est celle affichée dans le fil.",
   "imagesLimitReached": "Un événement peut avoir au maximum {max} images ; les premières ont été ajoutées.",
   "imagesPrepareFailed": "Certaines images n'ont pas pu être préparées et n'ont pas été ajoutées.",
-  "imagesSyncFailed": "L'événement a été enregistré, mais certaines images n'ont pas pu être mises à jour."
+  "imagesSyncFailed": "L'événement a été enregistré, mais certaines images n'ont pas pu être mises à jour.",
+  "welcomeNext": "Suivant",
+  "welcomeSkip": "Passer",
+  "welcomeSignUp": "Créer un compte",
+  "welcomeSignIn": "J'ai déjà un compte",
+  "stepOfTotal": "Étape {current} sur {total}"
 }

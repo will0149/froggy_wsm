@@ -102,7 +102,6 @@ class AuthPageState extends ConsumerState<AuthPage> {
                       style:
                           Theme.of(context).textTheme.headlineSmall?.copyWith(
                               fontFamily: "GothicA1-Bold",
-                              backgroundColor: Colors.white70,
                               shadows: [
                                 Shadow(
                                   offset: const Offset(1, 1),

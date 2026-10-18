@@ -236,13 +236,12 @@
       }
     }
   },
-  "slideShareTitle": "Teile mit Freunden",
-  "slideShareText": "Entdecke Veranstaltungen in deiner Nähe und teile sie mit Freunden.",
-  "slideCelebrateTitle": "Feiert zusammen",
-  "slideCelebrateText": "Melde dich mit einem Tipp an und hab deine Tickets immer dabei.",
-  "slideRelaxTitle": "Entspann dich in guter Gesellschaft",
-  "slideRelaxText": "Erstelle eigene Veranstaltungen und erreiche mehr Menschen.",
-  "getStarted": "Los geht's",
+  "slideDiscoverTitle": "Entdecke Events",
+  "slideDiscoverText": "Konzerte, Workshops und Pläne in deiner Nähe zum Teilen mit Freunden.",
+  "slideEnrollTitle": "Mit einem Tipp dabei",
+  "slideEnrollText": "Deine Tickets bleiben auf deinem Handy, immer griffbereit.",
+  "slideCreateTitle": "Erstelle deine Events",
+  "slideCreateText": "Veröffentliche deinen Plan und erreiche mehr Menschen.",
   "pressBackToExit": "Zum Beenden erneut Zurück drücken",
   "navCreate": "Erstellen",
   "eventCompleteness": "Deine Veranstaltung ist zu {percent} % vollständig",
@@ -340,5 +339,10 @@
   "galleryHint": "Bis zu {max} Bilder. Das Titelbild wird im Feed angezeigt.",
   "imagesLimitReached": "Ein Event kann höchstens {max} Bilder haben; die ersten wurden hinzugefügt.",
   "imagesPrepareFailed": "Einige Bilder konnten nicht vorbereitet werden und wurden nicht hinzugefügt.",
-  "imagesSyncFailed": "Das Event wurde gespeichert, aber einige Bilder konnten nicht aktualisiert werden."
+  "imagesSyncFailed": "Das Event wurde gespeichert, aber einige Bilder konnten nicht aktualisiert werden.",
+  "welcomeNext": "Weiter",
+  "welcomeSkip": "Überspringen",
+  "welcomeSignUp": "Konto erstellen",
+  "welcomeSignIn": "Ich habe schon ein Konto",
+  "stepOfTotal": "Schritt {current} von {total}"
 }

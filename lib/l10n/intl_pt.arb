@@ -237,13 +237,12 @@
       }
     }
   },
-  "slideShareTitle": "Compartilhe com amigos",
-  "slideShareText": "Descubra eventos perto de você e compartilhe com seus amigos.",
-  "slideCelebrateTitle": "Celebrem juntos",
-  "slideCelebrateText": "Inscreva-se com um toque e leve seus tickets sempre com você.",
-  "slideRelaxTitle": "Relaxe em boa companhia",
-  "slideRelaxText": "Crie seus próprios eventos e alcance mais pessoas.",
-  "getStarted": "Começar",
+  "slideDiscoverTitle": "Descubra eventos",
+  "slideDiscoverText": "Shows, oficinas e programas perto de você para compartilhar com seus amigos.",
+  "slideEnrollTitle": "Inscreva-se com um toque",
+  "slideEnrollText": "Seus tickets ficam no seu celular, sempre à mão.",
+  "slideCreateTitle": "Crie seus eventos",
+  "slideCreateText": "Publique seu programa e alcance mais pessoas.",
   "pressBackToExit": "Pressione voltar novamente para sair",
   "navCreate": "Criar",
   "eventCompleteness": "Seu evento está {percent}% completo",
@@ -341,5 +340,10 @@
   "galleryHint": "Até {max} imagens. A capa é a que aparece no feed.",
   "imagesLimitReached": "Um evento pode ter no máximo {max} imagens; as primeiras foram adicionadas.",
   "imagesPrepareFailed": "Algumas imagens não puderam ser preparadas e não foram adicionadas.",
-  "imagesSyncFailed": "O evento foi salvo, mas algumas imagens não puderam ser atualizadas."
+  "imagesSyncFailed": "O evento foi salvo, mas algumas imagens não puderam ser atualizadas.",
+  "welcomeNext": "Próximo",
+  "welcomeSkip": "Pular",
+  "welcomeSignUp": "Criar conta",
+  "welcomeSignIn": "Já tenho conta",
+  "stepOfTotal": "Passo {current} de {total}"
 }

@@ -55,9 +55,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m14(count) => "${count} places disponibles";
 
-  static String m15(id) => "Billet n°${id}";
+  static String m15(current, total) => "Étape ${current} sur ${total}";
 
-  static String m16(count) => "${count} billets à venir";
+  static String m16(id) => "Billet n°${id}";
+
+  static String m17(count) => "${count} billets à venir";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -294,7 +296,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "galleryHint": m9,
     "getDirections": MessageLookupByLibrary.simpleMessage("Itinéraire"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Aider"),
-    "getStarted": MessageLookupByLibrary.simpleMessage("Commencer"),
     "great": MessageLookupByLibrary.simpleMessage("Génial !"),
     "greetingAfternoon": MessageLookupByLibrary.simpleMessage(
       "Bon après-midi !",
@@ -499,29 +500,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "similarEvents": MessageLookupByLibrary.simpleMessage(
       "Événements similaires",
     ),
-    "slideCelebrateText": MessageLookupByLibrary.simpleMessage(
-      "Inscris-toi en un geste et garde tes tickets avec toi.",
+    "slideCreateText": MessageLookupByLibrary.simpleMessage(
+      "Publie ton projet et touche plus de monde.",
     ),
-    "slideCelebrateTitle": MessageLookupByLibrary.simpleMessage(
-      "Célébrez ensemble",
+    "slideCreateTitle": MessageLookupByLibrary.simpleMessage(
+      "Crée tes événements",
     ),
-    "slideRelaxText": MessageLookupByLibrary.simpleMessage(
-      "Crée tes propres événements et touche plus de monde.",
+    "slideDiscoverText": MessageLookupByLibrary.simpleMessage(
+      "Concerts, ateliers et sorties près de chez toi à partager avec tes amis.",
     ),
-    "slideRelaxTitle": MessageLookupByLibrary.simpleMessage(
-      "Détends-toi bien entouré",
+    "slideDiscoverTitle": MessageLookupByLibrary.simpleMessage(
+      "Découvre des événements",
     ),
-    "slideShareText": MessageLookupByLibrary.simpleMessage(
-      "Découvre des événements près de chez toi et partage-les avec tes amis.",
+    "slideEnrollText": MessageLookupByLibrary.simpleMessage(
+      "Tes tickets restent sur ton téléphone, toujours à portée de main.",
     ),
-    "slideShareTitle": MessageLookupByLibrary.simpleMessage(
-      "Partage avec tes amis",
+    "slideEnrollTitle": MessageLookupByLibrary.simpleMessage(
+      "Inscris-toi en un geste",
     ),
     "soldOut": MessageLookupByLibrary.simpleMessage("Complet"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Un problème est survenu",
     ),
     "spotsLeft": m14,
+    "stepOfTotal": m15,
     "supportLegal": MessageLookupByLibrary.simpleMessage(
       "Support et mentions légales",
     ),
@@ -529,13 +531,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Inscription annulée",
     ),
-    "ticketNumber": m15,
+    "ticketNumber": m16,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Impossible de charger les billets",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Passés"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("À venir"),
-    "upcomingTicketsCount": m16,
+    "upcomingTicketsCount": m17,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Nom d\'utilisateur ou e-mail",
     ),
@@ -550,6 +552,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "welcomeAgain": MessageLookupByLibrary.simpleMessage(
       "¡Bienvenue à nouveau!",
     ),
+    "welcomeNext": MessageLookupByLibrary.simpleMessage("Suivant"),
+    "welcomeSignIn": MessageLookupByLibrary.simpleMessage(
+      "J\'ai déjà un compte",
+    ),
+    "welcomeSignUp": MessageLookupByLibrary.simpleMessage("Créer un compte"),
+    "welcomeSkip": MessageLookupByLibrary.simpleMessage("Passer"),
     "yourProfile": MessageLookupByLibrary.simpleMessage("Ton profil"),
   };
 }

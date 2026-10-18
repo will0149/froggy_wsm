@@ -6,73 +6,32 @@ import 'logger_config.dart';
 /// By User: josedominguez
 /// Date: 10/13/22
 
+/// Si la bienvenida aún no se completó en esta instalación.
 class IsFirstRun {
   static const _firstRunSettingsKey = 'is_first_run';
-  static const _firstCallSettingsKey = 'is_first_call';
 
   static bool? _isFirstRun;
 
-  /// Returns true if this is the first time this function has been called
-  /// since installing the app, otherwise false.
-  ///
-  /// In contrast to [IsFirstRun.isFirstRun()], this method only returns true
-  /// on the first call after installing the app, while [IsFirstRun.isFirstRun()] continues
-  /// to return true as long as the app is running after calling it the first time after installing it.
-  Future<bool> isFirstCall() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool firstCall;
-    try {
-      firstCall = prefs.getBool(_firstCallSettingsKey) ?? true;
-    } on Exception {
-      firstCall = true;
-    }
-    await prefs.setBool(_firstCallSettingsKey, false);
-
-    return firstCall;
-  }
-
-  /// Returns true if this is the first time you call this method
-  /// since installing the app, otherwise false.
-  ///
-  /// In contrast to [IsFirstRun.isFirstCall()], this method continues
-  /// to return true as long as the app keeps running after the first call after installing the app,
-  /// while [IsFirstRun.isFirstCall()] returns true only on the first call after installing the app.
+  /// true hasta que se llame a [complete]: si la app se cierra a mitad de
+  /// la bienvenida, se vuelve a mostrar.
   Future<bool> isFirstRun() async {
-    logger.i("Validating if its firs run");
-    if (_isFirstRun != null) {
-      return _isFirstRun!;
-    } else {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool isFirstRun;
-      try {
-        isFirstRun = prefs.getBool(_firstRunSettingsKey) ?? true;
-      } on Exception {
-        isFirstRun = true;
-      }
-      await prefs.setBool(_firstRunSettingsKey, false);
-      _isFirstRun ??= isFirstRun;
-      return isFirstRun;
+    if (_isFirstRun case final cached?) return cached;
+    logger.i('Validating if its first run');
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _isFirstRun = prefs.getBool(_firstRunSettingsKey) ?? true;
+    } on Exception {
+      _isFirstRun = true;
     }
+    return _isFirstRun!;
   }
 
-  void setAfterFirstRun() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  /// Marca la bienvenida como vista. Cambia el valor en memoria antes de
+  /// guardarlo para que quien lea después (p. ej. al recargar la sesión) ya
+  /// vea false.
+  Future<void> complete() async {
     _isFirstRun = false;
-    await prefs.setBool(_firstRunSettingsKey, _isFirstRun!);
-  }
-
-  /// Resets the plugin.
-  ///
-  /// The first call to [IsFirstRun.isFirstCall()] after calling [reset()]
-  /// method will return true, subsequent calls will return false.
-  ///
-  /// Calls to [IsFirstRun.isFirstRun()] after calling [reset()] will return true
-  /// for as long as the app is running after calling [[IsFirstRun.isFirstRun()]]
-  /// the first time after the reset.
-  /// After a restart of the app, [IsFirstRun.isFirstRun()] will return false.
-  Future<void> reset() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(_firstRunSettingsKey, true);
-    prefs.setBool(_firstCallSettingsKey, true);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_firstRunSettingsKey, false);
   }
 }

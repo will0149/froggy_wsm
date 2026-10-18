@@ -208,6 +208,8 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
       final isAuthRoute = state.matchedLocation == authBase;
       final isLoadingRoute =
           state.matchedLocation == '$authBase/${SplashScreen.routeLocation}';
+      final isWelcomeRoute =
+          state.matchedLocation == WelcomeSlidePage.routeLocation;
       // Incluye la confirmación (…/resetPassword/confirm).
       final isResetPasswordRoute = state.matchedLocation
           .startsWith('$authBase/${PasswordResetPage.routeLocation}');
@@ -230,11 +232,14 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
               if (kDebugMode) {
                 logger.i('authenticated ${state.matchedLocation}');
               }
+              // La bienvenida también: con la sesión guardada (p. ej. al
+              // reinstalar en iOS) no se queda ahí.
               if (isAuthRoute ||
                   isLoginRoute ||
                   isRegisterRoute ||
                   isLoadingRoute ||
-                  isResetPasswordRoute) {
+                  isResetPasswordRoute ||
+                  isWelcomeRoute) {
                 return HomeFeedPage.routeLocation;
               }
               return null;
@@ -242,10 +247,13 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
               if (kDebugMode) {
                 logger.i('unauthenticated ${state.matchedLocation}');
               }
+              // Al terminar la bienvenida, ella misma lleva a login o
+              // registro; sin esto pasaría un instante por AuthPage.
               if (isLoginRoute ||
                   isRegisterRoute ||
                   isAuthRoute ||
-                  isResetPasswordRoute) {
+                  isResetPasswordRoute ||
+                  isWelcomeRoute) {
                 return null;
               }
               return AuthPage.routeLocation;

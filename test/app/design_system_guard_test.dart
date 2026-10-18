@@ -16,8 +16,7 @@ void main() {
     'lib/app/widgets/forms/auth/',
     'lib/app/widgets/scaffolds/auth_scaffold.dart',
     'lib/app/widgets/paints/',
-    // Solo los usan la bienvenida y el splash.
-    'lib/app/widgets/slide_show.dart',
+    // Solo lo usa el splash.
     'lib/app/widgets/color_loader.dart',
   ];
 
