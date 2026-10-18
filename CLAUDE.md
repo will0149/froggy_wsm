@@ -89,7 +89,7 @@ Always run `dart run build_runner build --delete-conflicting-outputs` after modi
 - Use `setUpDomainTests()` in `setUpAll`: use cases read their messages through `S.current`.
 
 ### Assets
-- Custom fonts: GothicA1 family
+- Custom fonts: Nunito family (Google Fonts, OFL)
 - SVG icons for navigation
 - Lottie animations for enhanced UX
 - Background images for auth screens

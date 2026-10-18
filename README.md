@@ -152,7 +152,7 @@ Go Router implementation with:
 
 ## Assets
 
-- **Fonts**: GothicA1 family
+- **Fonts**: Nunito family
 - **Icons**: SVG for navigation
 - **Animations**: Lottie for enhanced UX
 - **Images**: Background images for auth screens

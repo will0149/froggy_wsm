@@ -38,10 +38,9 @@ class AuthTheme extends StatelessWidget {
         parkeaColors,
       ],
       scaffoldBackgroundColor: parkeaColors.background,
-      fontFamily: 'GothicA1',
+      fontFamily: parkeaFontFamily,
       inputDecorationTheme: getParkeaInputDecorationTheme(parkeaColors),
       textTheme: getTextTheme(parkeaColors.onSurface),
-
       switchTheme: SwitchThemeData(
         thumbColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
@@ -56,24 +55,22 @@ class AuthTheme extends StatelessWidget {
           return parkeaColors.onSurface.withValues(alpha: 0.12);
         }),
       ),
-
       listTileTheme: ListTileThemeData(
         iconColor: parkeaColors.primary,
         textColor: parkeaColors.onSurface,
       ),
-
       appBarTheme: AppBarTheme(
         backgroundColor: parkeaColors.surface,
         foregroundColor: parkeaColors.onSurface,
         elevation: 0,
         surfaceTintColor: parkeaColors.surface,
         iconTheme: IconThemeData(color: parkeaColors.primary),
-        titleTextStyle: getTextTheme(parkeaColors.onSurface).titleLarge?.copyWith(
-          color: parkeaColors.onSurface,
-          fontWeight: FontWeight.w600,
-        ),
+        titleTextStyle:
+            getTextTheme(parkeaColors.onSurface).titleLarge?.copyWith(
+                  color: parkeaColors.onSurface,
+                  fontWeight: FontWeight.w600,
+                ),
       ),
-
       cardTheme: CardThemeData(
         color: parkeaColors.surface,
         elevation: 2,
@@ -82,7 +79,6 @@ class AuthTheme extends StatelessWidget {
           borderRadius: BorderRadius.circular(ParkeaBorderRadius.card),
         ),
       ),
-
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: parkeaColors.secondary,
@@ -94,12 +90,12 @@ class AuthTheme extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           textStyle: const TextStyle(
+            fontFamily: parkeaFontFamily,
             fontWeight: FontWeight.w600,
             fontSize: 16,
           ),
         ),
       ),
-
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: parkeaColors.primary,
@@ -109,12 +105,12 @@ class AuthTheme extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           textStyle: const TextStyle(
+            fontFamily: parkeaFontFamily,
             fontWeight: FontWeight.w600,
             fontSize: 16,
           ),
         ),
       ),
-
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: parkeaColors.primary,
@@ -123,25 +119,26 @@ class AuthTheme extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           textStyle: const TextStyle(
+            fontFamily: parkeaFontFamily,
             fontWeight: FontWeight.w600,
             fontSize: 16,
           ),
         ),
       ),
-
       chipTheme: ChipThemeData(
         backgroundColor: parkeaColors.surface,
         selectedColor: parkeaColors.secondary.withValues(alpha: 0.12),
         secondarySelectedColor: parkeaColors.secondary,
-        labelStyle: TextStyle(color: parkeaColors.onSurface),
-        secondaryLabelStyle: TextStyle(color: parkeaColors.secondary),
+        labelStyle: TextStyle(
+            fontFamily: parkeaFontFamily, color: parkeaColors.onSurface),
+        secondaryLabelStyle: TextStyle(
+            fontFamily: parkeaFontFamily, color: parkeaColors.secondary),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(ParkeaBorderRadius.button),
           side: BorderSide(color: parkeaColors.primary.withValues(alpha: 0.2)),
         ),
       ),
-
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: parkeaColors.secondary,
         foregroundColor: colorScheme.onSecondary,
@@ -150,7 +147,6 @@ class AuthTheme extends StatelessWidget {
           borderRadius: BorderRadius.circular(ParkeaBorderRadius.button),
         ),
       ),
-
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: parkeaColors.navBar,
         indicatorColor: parkeaColors.navIndicator,
@@ -162,6 +158,7 @@ class AuthTheme extends StatelessWidget {
         ),
         labelTextStyle: WidgetStateProperty.resolveWith(
           (states) => TextStyle(
+            fontFamily: parkeaFontFamily,
             color: parkeaColors.onNavBar,
             fontSize: 11,
             fontWeight: states.contains(WidgetState.selected)

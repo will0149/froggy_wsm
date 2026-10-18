@@ -6,10 +6,15 @@ import 'colors/app_colors.dart';
 /// By User: josedominguez
 /// Date: 08/01/22
 
+/// Familia de toda la app. Va también en cada estilo del tema: los
+/// componentes (botones, chips, etc.) usan su `textStyle` tal cual y no
+/// heredan `ThemeData.fontFamily`.
+const parkeaFontFamily = 'Nunito';
+
 /// Solo color, con los tamaños por defecto de Material; lo usan las
 /// pantallas de auth (`AuthTheme`).
 TextTheme getTextTheme(Color textColor) {
-  final style = TextStyle(color: textColor);
+  final style = TextStyle(fontFamily: parkeaFontFamily, color: textColor);
   return TextTheme(
     displayLarge: style,
     displayMedium: style,
@@ -29,10 +34,11 @@ TextTheme getTextTheme(Color textColor) {
   );
 }
 
-/// Escala tipográfica (GothicA1): títulos en negrita para que las pantallas
+/// Escala tipográfica (Nunito): títulos en negrita para que las pantallas
 /// no tengan que hacer `copyWith(fontWeight: bold)`.
 TextTheme parkeaTextTheme(ParkeaColors palette) {
   TextStyle style(double size, FontWeight weight, {Color? color}) => TextStyle(
+        fontFamily: parkeaFontFamily,
         fontSize: size,
         fontWeight: weight,
         color: color ?? palette.onSurface,

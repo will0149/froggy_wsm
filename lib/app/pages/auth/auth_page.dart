@@ -101,7 +101,6 @@ class AuthPageState extends ConsumerState<AuthPage> {
                       S.of(context).joinOurUniverse,
                       style:
                           Theme.of(context).textTheme.headlineSmall?.copyWith(
-                              fontFamily: "GothicA1-Bold",
                               shadows: [
                                 Shadow(
                                   offset: const Offset(1, 1),
@@ -232,7 +231,7 @@ class AuthPageState extends ConsumerState<AuthPage> {
                 child: Text(
                   S.of(context).devStudio,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Colors.white, fontFamily: "GothicA1-Bold"),
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
               onTap: () {

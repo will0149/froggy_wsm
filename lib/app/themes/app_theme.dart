@@ -95,7 +95,7 @@ class AppTheme {
       extensions: <ThemeExtension<ParkeaColors>>[c],
       scaffoldBackgroundColor: c.background,
       canvasColor: c.background,
-      fontFamily: 'GothicA1',
+      fontFamily: parkeaFontFamily,
       textTheme: textTheme,
       dividerTheme: DividerThemeData(color: c.outline, thickness: 1, space: 1),
       inputDecorationTheme: parkeaInputDecorationTheme(c, textTheme),
@@ -256,9 +256,8 @@ class AppTheme {
         backgroundColor: WidgetStatePropertyAll(c.surface),
         surfaceTintColor: const WidgetStatePropertyAll(Colors.transparent),
         side: WidgetStateProperty.resolveWith((states) => BorderSide(
-              color: states.contains(WidgetState.focused)
-                  ? c.primary
-                  : c.outline,
+              color:
+                  states.contains(WidgetState.focused) ? c.primary : c.outline,
               width: states.contains(WidgetState.focused) ? 2.5 : 1.5,
             )),
         shape: const WidgetStatePropertyAll(StadiumBorder()),

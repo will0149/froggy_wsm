@@ -3,17 +3,24 @@ import 'package:flutter/material.dart';
 import 'colors/app_colors.dart';
 import 'dimens.dart';
 import 'pill_input_border.dart';
+import 'text_theme.dart';
 
 /// Inputs de las pantallas de auth (`AuthTheme`), como eran antes del design
 /// system.
 InputDecorationTheme getParkeaInputDecorationTheme(ParkeaColors parkeaColors) {
   return InputDecorationTheme(
-    labelStyle: TextStyle(color: parkeaColors.primary),
-    hintStyle: TextStyle(color: parkeaColors.primary),
-    suffixStyle: TextStyle(color: parkeaColors.primary),
-    helperStyle: TextStyle(color: parkeaColors.primary),
-    prefixStyle: TextStyle(color: parkeaColors.primary),
-    floatingLabelStyle: TextStyle(color: parkeaColors.primary),
+    labelStyle:
+        TextStyle(fontFamily: parkeaFontFamily, color: parkeaColors.primary),
+    hintStyle:
+        TextStyle(fontFamily: parkeaFontFamily, color: parkeaColors.primary),
+    suffixStyle:
+        TextStyle(fontFamily: parkeaFontFamily, color: parkeaColors.primary),
+    helperStyle:
+        TextStyle(fontFamily: parkeaFontFamily, color: parkeaColors.primary),
+    prefixStyle:
+        TextStyle(fontFamily: parkeaFontFamily, color: parkeaColors.primary),
+    floatingLabelStyle:
+        TextStyle(fontFamily: parkeaFontFamily, color: parkeaColors.primary),
     filled: true,
     fillColor: parkeaColors.surface,
     border: OutlineInputBorder(
@@ -55,6 +62,7 @@ InputDecorationTheme parkeaInputDecorationTheme(
         horizontal: ParkeaSpacing.xl, vertical: ParkeaSpacing.lg),
     labelStyle: textTheme.bodyLarge?.copyWith(color: c.onSurfaceMuted),
     floatingLabelStyle: WidgetStateTextStyle.resolveWith((states) => TextStyle(
+          fontFamily: parkeaFontFamily,
           color: states.contains(WidgetState.error)
               ? c.error
               : states.contains(WidgetState.focused)

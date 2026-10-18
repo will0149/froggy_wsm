@@ -58,7 +58,7 @@ Los tokens `navBar`, `reward` y `progress` de `ParkeaColors` pasan a ser alias d
 
 - **Radios**: `sm 8` (badges), `md 12` (botones e inputs de varias líneas), `lg 16` (tarjetas y hojas), `xl 24` (encabezados y hojas inferiores) y `full` (píldoras: inputs de una línea y chips).
 - **Espacios**: escala de 4 (4, 8, 12, 16, 24, 32), con 16 de margen lateral en todas las pantallas.
-- **Tipografía (GothicA1)**:
+- **Tipografía (Nunito)**:
   - Títulos: `headlineSmall` 24/w700 y `titleLarge` 20/w700.
   - Subtítulos: `titleMedium` 16/w600.
   - Texto: `bodyLarge` 16/w400 y `bodyMedium` 14/w400.
