@@ -239,3 +239,9 @@ Map<String, Object?> attendeeJson(
       'status': status,
       'date_purchased': enrolled,
     };
+
+/// Categoría con el formato de `events/categories/`.
+Map<String, Object?> categoryJson(String code, String name,
+        {bool visible = true, bool creatable = true}) =>
+    {'code': code, 'name': name, 'visible': visible, 'creatable': creatable};
+

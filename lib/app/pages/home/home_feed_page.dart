@@ -6,7 +6,7 @@ import 'package:horizontal_scroll_item/horizontal_scroll_item.dart';
 import 'package:parkea/app/widgets/promotions/promotions_component.dart';
 import 'package:parkea/domain/usecases/event_feed_uc.dart';
 
-import '../../../domain/models/event_category.dart';
+import '../../../domain/usecases/event_categories_uc.dart';
 import '../../../domain/usecases/event_locations_uc.dart';
 import '../../../domain/usecases/fetch_promotions_uc.dart';
 import '../../../generated/l10n.dart';
@@ -32,8 +32,6 @@ class HomeFeedPage extends ConsumerStatefulWidget {
 }
 
 class OnboardingPageState extends ConsumerState<HomeFeedPage> {
-  /// Categoría de cada título de [_titles]; null es sin filtro.
-  static const _categories = [null, ...EventCategory.values];
   final TextEditingController searchBarController = TextEditingController();
   final _scrollController = ScrollController();
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -58,6 +56,7 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
   Future<void> _refresh() async {
     ref.invalidate(fetchPromotionsUCProvider);
     ref.invalidate(eventLocationsUCProvider);
+    ref.invalidate(eventCategoriesUCProvider);
     // Espera solo al feed: es lo que se ve bajo el indicador.
     final feed = eventFeedUCProvider(_category, _search,
         country: _location?.country, city: _location?.city);
@@ -91,8 +90,11 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
     }
   }
 
-  List<String> _titles(S s) =>
-      [s.catAll, for (final category in EventCategory.values) category.label(s)];
+  /// Categorías del filtro: las visibles según el admin.
+  List<CategoryOption> _categories(List<CategoryOption>? active) => [
+        for (final option in categoryOptionsOrAll(active, S.of(context)))
+          if (option.visible) option,
+      ];
 
   /// Saludo según la hora local.
   String _greeting(S s) => switch (DateTime.now().hour) {
@@ -101,10 +103,13 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
         _ => s.greetingEvening,
       };
 
+  String _categoryCodes(List<CategoryOption>? active) =>
+      _categories(active).map((o) => o.category.apiValue).join(',');
+
   void _onCategory(String title) {
-    final index = _titles(S.of(context)).indexOf(title);
-    setState(
-        () => _category = index < 0 ? null : _categories[index]?.apiValue);
+    final selected = _categories(ref.read(eventCategoriesUCProvider).value)
+        .where((option) => option.name == title);
+    setState(() => _category = selected.firstOrNull?.category.apiValue);
   }
 
   @override
@@ -112,6 +117,15 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
     ref.listen(tabReselectProvider, (_, next) {
       if (next?.index == 0) _onReselect();
     });
+    // Si la lista cambia (p. ej. el admin desactivó una), el filtro se
+    // reinicia en "Todas", igual que la pestaña marcada.
+    ref.listen(eventCategoriesUCProvider, (previous, next) {
+      if (_category != null &&
+          _categoryCodes(previous?.value) != _categoryCodes(next.value)) {
+        setState(() => _category = null);
+      }
+    });
+    final categories = _categories(ref.watch(eventCategoriesUCProvider).value);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -184,8 +198,13 @@ class OnboardingPageState extends ConsumerState<HomeFeedPage> {
                       ],
                     ),
                     HorizontalFilterList(
-                      key: PageStorageKey<String>('categoryListKey'),
-                      filterListItems: _titles(S.of(context)),
+                      // Cambia con la lista para que la selección interna
+                      // no apunte a otra categoría.
+                      key: ValueKey(_categoryCodes(categories)),
+                      filterListItems: [
+                        S.of(context).catAll,
+                        for (final option in categories) option.name,
+                      ],
                       activeColor: colors(context).primary,
                       inactiveColor: colors(context).onSurface,
                       searchFilterTitle: S.of(context).categories,

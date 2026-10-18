@@ -11,6 +11,7 @@ import '../../../data/dtos/event_dto.dart';
 import '../../../domain/gamification/event_completeness.dart';
 import '../../../domain/models/event_category.dart';
 import '../../../domain/usecases/create_event_uc.dart';
+import '../../../domain/usecases/event_categories_uc.dart';
 import '../../../domain/usecases/fetch_events_uc.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/app_colors.dart';
@@ -54,6 +55,10 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
 
   DateTime? _date;
   EventCategory? _category;
+
+  /// La del evento que se edita: se puede conservar aunque el admin ya no
+  /// la permita al crear.
+  EventCategory? _originalCategory;
   String _costType = 'FREE';
   XFile? _banner;
 
@@ -80,7 +85,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
     _description.text = event.description ?? '';
     _place.text = event.location?.place ?? '';
     _date = _originalDate = DateTime.tryParse(event.date ?? '')?.toLocal();
-    _category = EventCategory.fromApi(event.category);
+    _category = _originalCategory = EventCategory.fromApi(event.category);
     if (_costTypes.contains(event.eventType)) _costType = event.eventType!;
     if (event.amount case final amount? when _costType == 'PAID') {
       final price = double.tryParse(amount.price);
@@ -197,6 +202,11 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
       }
     } else {
       setState(() => _apiErrors = result.fieldErrors);
+      // El admin pudo desactivarla con el formulario abierto: recarga las
+      // opciones y el error queda bajo el selector.
+      if (result.fieldErrors.containsKey('category')) {
+        ref.invalidate(eventCategoriesUCProvider);
+      }
       messenger
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(
@@ -204,6 +214,23 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
           backgroundColor: Theme.of(context).colorScheme.error,
         ));
     }
+  }
+
+  /// Las que el admin permite al crear, más la elegida y la original del
+  /// evento aunque ya no lo estén: el selector no puede perder su valor.
+  List<CategoryOption> _categoryOptions(S s) {
+    final all =
+        categoryOptionsOrAll(ref.watch(eventCategoriesUCProvider).value, s);
+    return [
+      for (final option in all)
+        if (option.creatable ||
+            option.category == _category ||
+            option.category == _originalCategory)
+          option,
+      for (final kept in {_category, _originalCategory})
+        if (kept != null && !all.any((option) => option.category == kept))
+          CategoryOption(kept, kept.label(s)),
+    ];
   }
 
   @override
@@ -298,14 +325,14 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
               ),
               items: [
                 DropdownMenuItem(value: null, child: Text(s.categoryNone)),
-                for (final category in EventCategory.values)
+                for (final option in _categoryOptions(s))
                   DropdownMenuItem(
-                    value: category,
+                    value: option.category,
                     child: Row(
                       spacing: ParkeaSpacing.sm,
                       children: [
-                        Icon(category.icon, size: 20),
-                        Text(category.label(s)),
+                        Icon(option.category.icon, size: 20),
+                        Text(option.name),
                       ],
                     ),
                   ),
@@ -342,8 +369,10 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                 padding: const EdgeInsets.only(top: ParkeaSpacing.xs),
                 child: Text(
                   error,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.error),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(color: Theme.of(context).colorScheme.error),
                 ),
               ),
             if (_costType == 'PAID')

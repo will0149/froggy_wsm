@@ -1,4 +1,3 @@
-
 import '../api_path_enums.dart';
 import 'utils/api_client.dart';
 
@@ -39,6 +38,11 @@ class EventRepository {
   /// Países y ciudades con eventos próximos y cuántos tiene cada uno.
   Future<Map<String, dynamic>> fetchEventLocations() =>
       apiClient.getAuthorized(ApiPathsEnums.eventLocations.uri);
+
+  /// Categorías activas, en el orden del admin: `[{code, name}]` con el
+  /// nombre traducido según `Accept-Language`.
+  Future<Map<String, dynamic>> fetchEventCategories() =>
+      apiClient.getAuthorized(ApiPathsEnums.eventCategories.uri);
 
   /// Eventos creados por el usuario (100 por página).
   Future<Map<String, dynamic>> fetchOwnerEventsPage(int page) =>

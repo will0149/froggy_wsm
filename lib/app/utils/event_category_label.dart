@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/models/event_category.dart';
+import '../../domain/usecases/event_categories_uc.dart';
 import '../../generated/l10n.dart';
 
 /// Made for parkea.
@@ -24,3 +25,12 @@ extension EventCategoryLabel on EventCategory {
         EventCategory.volunteering => Icons.volunteer_activism_rounded,
       };
 }
+
+/// Las categorías habilitadas del API o, si no se pudieron cargar (null),
+/// todas las de [EventCategory] con su texto local.
+List<CategoryOption> categoryOptionsOrAll(List<CategoryOption>? active, S s) =>
+    active ??
+    [
+      for (final category in EventCategory.values)
+        CategoryOption(category, category.label(s)),
+    ];
