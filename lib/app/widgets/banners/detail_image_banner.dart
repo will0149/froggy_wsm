@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../generated/l10n.dart';
 import '../../themes/colors/app_colors.dart';
@@ -42,7 +43,9 @@ class _DetailImageBannerState extends State<DetailImageBanner> {
   }
 
   Future<void> _openViewer(int index) async {
-    final page = await Navigator.of(context).push<int>(MaterialPageRoute(
+    // Sobre la barra inferior del shell.
+    final page = await Navigator.of(context, rootNavigator: true)
+        .push<int>(MaterialPageRoute(
       fullscreenDialog: true,
       builder: (_) => _ImageViewerPage(urls: widget.urls, initialPage: index),
     ));
@@ -186,7 +189,13 @@ class _ImageViewerPageState extends State<_ImageViewerPage> {
         backgroundColor: Colors.black, // ds-ok: fondo de foto
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          foregroundColor: ParkeaOverlay.onImage,
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+          // El tema fija los colores del icono y el título.
+          iconTheme: const IconThemeData(color: ParkeaOverlay.onImage),
+          titleTextStyle: Theme.of(context)
+              .textTheme
+              .titleMedium
+              ?.copyWith(color: ParkeaOverlay.onImage),
           title: total > 1
               ? Text(S.of(context).imageOfTotal(_page + 1, total))
               : null,

@@ -50,7 +50,7 @@ class EventRepository {
           .replace(queryParameters: {'page': '$page'}));
 
   /// Requiere cuenta verificada (si no, 403). Solo `event_date` es
-  /// obligatorio; el banner se sube aparte con [uploadBanner].
+  /// obligatorio; las imágenes se suben aparte con [uploadImage].
   Future<Map<String, dynamic>> createEvent(Map<String, dynamic> event) =>
       apiClient.postAuthorized(ApiPathsEnums.eventCreate.uri, event);
 
@@ -61,15 +61,27 @@ class EventRepository {
       apiClient.patchAuthorized(
           ApiPathsEnums.eventUpdate.uriWithId(eventId), fields);
 
-  /// 204; borra también sus tickets y el banner.
+  /// 204; borra también sus tickets y sus imágenes.
   Future<Map<String, dynamic>> deleteEvent(int eventId) =>
       apiClient.deleteAuthorized(ApiPathsEnums.eventDelete.uriWithId(eventId));
 
-  Future<Map<String, dynamic>> uploadBanner(int eventId, String filePath) =>
-      apiClient.putFileAuthorized(
-          ApiPathsEnums.eventUpdateImage.uriWithId(eventId),
-          'banner_img',
-          filePath);
+  /// Agrega una imagen al final de la galería (máx. 5, 2 MB). 201 con
+  /// `{id, url, position}`; 400 con error en `image` si no se acepta.
+  Future<Map<String, dynamic>> uploadImage(int eventId, String filePath) =>
+      apiClient.postFileAuthorized(
+          ApiPathsEnums.eventImages.uriWithId(eventId), 'image', filePath);
+
+  /// [imageIds] con todas las imágenes del evento, una vez cada una; la
+  /// primera queda de portada. 200 con la galería ordenada.
+  Future<Map<String, dynamic>> reorderImages(int eventId, List<int> imageIds) =>
+      apiClient.putAuthorized(
+          ApiPathsEnums.eventImages.uriWithId(eventId).resolve('order/'),
+          {'ids': imageIds});
+
+  /// 204; si era la portada, la siguiente pasa a serlo.
+  Future<Map<String, dynamic>> deleteImage(int eventId, int imageId) =>
+      apiClient.deleteAuthorized(
+          ApiPathsEnums.eventImages.uriWithId(eventId).resolve('$imageId/'));
 
   Future<Map<String, dynamic>> eventDetails(String id) =>
       apiClient.getAuthorized(

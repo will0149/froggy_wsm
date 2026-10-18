@@ -9,17 +9,17 @@ part of 'create_event_uc.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 /// Formulario de eventos: crea (cuenta verificada) o edita uno propio y luego
-/// sube su banner. El estado solo indica si hay una petición en curso.
+/// actualiza su galería. El estado solo indica si hay una petición en curso.
 
 @ProviderFor(CreateEventUC)
 const createEventUCProvider = CreateEventUCProvider._();
 
 /// Formulario de eventos: crea (cuenta verificada) o edita uno propio y luego
-/// sube su banner. El estado solo indica si hay una petición en curso.
+/// actualiza su galería. El estado solo indica si hay una petición en curso.
 final class CreateEventUCProvider
     extends $AsyncNotifierProvider<CreateEventUC, void> {
   /// Formulario de eventos: crea (cuenta verificada) o edita uno propio y luego
-  /// sube su banner. El estado solo indica si hay una petición en curso.
+  /// actualiza su galería. El estado solo indica si hay una petición en curso.
   const CreateEventUCProvider._()
       : super(
           from: null,
@@ -39,10 +39,10 @@ final class CreateEventUCProvider
   CreateEventUC create() => CreateEventUC();
 }
 
-String _$createEventUCHash() => r'edf9507a15755c93d66929cabd53176ae7432c71';
+String _$createEventUCHash() => r'2ff6abf9879ac5326146e026769706dc4c2362cd';
 
 /// Formulario de eventos: crea (cuenta verificada) o edita uno propio y luego
-/// sube su banner. El estado solo indica si hay una petición en curso.
+/// actualiza su galería. El estado solo indica si hay una petición en curso.
 
 abstract class _$CreateEventUC extends $AsyncNotifier<void> {
   FutureOr<void> build();

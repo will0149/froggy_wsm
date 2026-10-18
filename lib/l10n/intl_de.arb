@@ -93,11 +93,8 @@
   "eventCurrency": "Währung",
   "eventCapacity": "Kapazität",
   "capacityHint": "Leer = unbegrenzt",
-  "addBanner": "Bild hinzufügen",
-  "changeBanner": "Bild ändern",
   "publishEvent": "Event veröffentlichen",
   "eventCreated": "Event erstellt",
-  "bannerUploadFailed": "Das Event wurde erstellt, aber das Bild konnte nicht hochgeladen werden",
   "dateMustBeFuture": "Das Datum muss in der Zukunft liegen",
   "pricePositive": "Der Preis muss größer als 0 sein",
   "invalidCurrency": "Nutze einen 3-Buchstaben-Code, z. B. USD",
@@ -335,5 +332,13 @@
   "moveMapHint": "Bewege die Karte, um den Pin zu setzen",
   "myLocationUnavailable": "Dein Standort konnte nicht ermittelt werden",
   "locationNotSet": "Kein Standort: Das Event erscheint nicht auf der Karte",
-  "imageOfTotal": "Bild {current} von {total}"
+  "imageOfTotal": "Bild {current} von {total}",
+  "addImages": "Bilder hinzufügen",
+  "coverImage": "Titelbild",
+  "makeCoverImage": "Als Titelbild verwenden",
+  "removeImage": "Bild entfernen",
+  "galleryHint": "Bis zu {max} Bilder. Das Titelbild wird im Feed angezeigt.",
+  "imagesLimitReached": "Ein Event kann höchstens {max} Bilder haben; die ersten wurden hinzugefügt.",
+  "imagesPrepareFailed": "Einige Bilder konnten nicht vorbereitet werden und wurden nicht hinzugefügt.",
+  "imagesSyncFailed": "Das Event wurde gespeichert, aber einige Bilder konnten nicht aktualisiert werden."
 }

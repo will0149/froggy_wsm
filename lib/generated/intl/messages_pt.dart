@@ -41,17 +41,23 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m8(capacity, name) =>
       "${Intl.plural(capacity, one: 'A única vaga de “${name}” já está ocupada.', other: 'As ${capacity} vagas de “${name}” já estão ocupadas.')}";
 
-  static String m9(current, total) => "Imagem ${current} de ${total}";
+  static String m9(max) =>
+      "Até ${max} imagens. A capa é a que aparece no feed.";
 
-  static String m10(error) => "Não foi possível sair: ${error}";
+  static String m10(current, total) => "Imagem ${current} de ${total}";
 
-  static String m11(query) => "Ninguém corresponde a “${query}”";
+  static String m11(max) =>
+      "Um evento pode ter no máximo ${max} imagens; as primeiras foram adicionadas.";
 
-  static String m12(count) => "${count} vagas disponíveis";
+  static String m12(error) => "Não foi possível sair: ${error}";
 
-  static String m13(id) => "Ingresso #${id}";
+  static String m13(query) => "Ninguém corresponde a “${query}”";
 
-  static String m14(count) => "${count} ingressos próximos";
+  static String m14(count) => "${count} vagas disponíveis";
+
+  static String m15(id) => "Ingresso #${id}";
+
+  static String m16(count) => "${count} ingressos próximos";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -74,7 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Digite o código",
     ),
     "account": MessageLookupByLibrary.simpleMessage("Conta"),
-    "addBanner": MessageLookupByLibrary.simpleMessage("Adicionar imagem"),
+    "addImages": MessageLookupByLibrary.simpleMessage("Adicionar imagens"),
     "addressUnknown": MessageLookupByLibrary.simpleMessage(
       "Ponto sem endereço conhecido",
     ),
@@ -86,9 +92,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Foto atualizada"),
     "avatarUploadFailed": MessageLookupByLibrary.simpleMessage(
       "Não foi possível atualizar a foto",
-    ),
-    "bannerUploadFailed": MessageLookupByLibrary.simpleMessage(
-      "O evento foi criado, mas a imagem não pôde ser enviada",
     ),
     "buyTicket": MessageLookupByLibrary.simpleMessage("Comprar bilhete"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
@@ -105,7 +108,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "catWorkshops": MessageLookupByLibrary.simpleMessage("Oficinas"),
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
     "categoryNone": MessageLookupByLibrary.simpleMessage("Sem categoria"),
-    "changeBanner": MessageLookupByLibrary.simpleMessage("Trocar imagem"),
     "changeLocation": MessageLookupByLibrary.simpleMessage("Alterar"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Alterar senha"),
     "changePhoto": MessageLookupByLibrary.simpleMessage("Trocar foto"),
@@ -140,6 +142,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "couldNotOpenMaps": MessageLookupByLibrary.simpleMessage(
       "Não foi possível abrir o app de mapas",
     ),
+    "coverImage": MessageLookupByLibrary.simpleMessage("Capa"),
     "createEvent": MessageLookupByLibrary.simpleMessage("Criar evento"),
     "darkMode": MessageLookupByLibrary.simpleMessage("Modo escuro"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
@@ -266,6 +269,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Esqueci minha senha",
     ),
+    "galleryHint": m9,
     "getDirections": MessageLookupByLibrary.simpleMessage("Como chegar"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Ajuda"),
     "getStarted": MessageLookupByLibrary.simpleMessage("Começar"),
@@ -278,7 +282,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Perguntas frequentes e suporte",
     ),
     "hostedBy": MessageLookupByLibrary.simpleMessage("Organizado por"),
-    "imageOfTotal": m9,
+    "imageOfTotal": m10,
+    "imagesLimitReached": m11,
+    "imagesPrepareFailed": MessageLookupByLibrary.simpleMessage(
+      "Algumas imagens não puderam ser preparadas e não foram adicionadas.",
+    ),
+    "imagesSyncFailed": MessageLookupByLibrary.simpleMessage(
+      "O evento foi salvo, mas algumas imagens não puderam ser atualizadas.",
+    ),
     "information": MessageLookupByLibrary.simpleMessage("Informação"),
     "invalidAccessCode": MessageLookupByLibrary.simpleMessage(
       "Código de acesso inválido",
@@ -313,8 +324,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "logoutConfirm": MessageLookupByLibrary.simpleMessage(
       "Tem certeza de que quer sair?",
     ),
-    "logoutFailed": m10,
+    "logoutFailed": m12,
     "logoutSubtitle": MessageLookupByLibrary.simpleMessage("Sair da sua conta"),
+    "makeCoverImage": MessageLookupByLibrary.simpleMessage("Usar como capa"),
     "manageProfile": MessageLookupByLibrary.simpleMessage(
       "Gerencie as informações do seu perfil",
     ),
@@ -344,7 +356,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "navProfile": MessageLookupByLibrary.simpleMessage("Perfil"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Ingressos"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Nova senha"),
-    "noAttendeesMatch": m11,
+    "noAttendeesMatch": m13,
     "noCapacityLimit": MessageLookupByLibrary.simpleMessage(
       "Sem limite de vagas",
     ),
@@ -423,6 +435,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "province": MessageLookupByLibrary.simpleMessage("Província"),
     "publishEvent": MessageLookupByLibrary.simpleMessage("Publicar evento"),
     "register": MessageLookupByLibrary.simpleMessage("Inscrever-se"),
+    "removeImage": MessageLookupByLibrary.simpleMessage("Remover imagem"),
     "removeLocation": MessageLookupByLibrary.simpleMessage(
       "Remover localização",
     ),
@@ -468,19 +481,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Algo deu errado",
     ),
-    "spotsLeft": m12,
+    "spotsLeft": m14,
     "supportLegal": MessageLookupByLibrary.simpleMessage("Suporte e jurídico"),
     "theme": MessageLookupByLibrary.simpleMessage("Tema"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Inscrição cancelada",
     ),
-    "ticketNumber": m13,
+    "ticketNumber": m15,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Não foi possível carregar os ingressos",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Anteriores"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Próximos"),
-    "upcomingTicketsCount": m14,
+    "upcomingTicketsCount": m16,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Usuário ou e-mail",
     ),

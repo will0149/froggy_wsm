@@ -94,11 +94,8 @@
   "eventCurrency": "Валюта",
   "eventCapacity": "Вместимость",
   "capacityHint": "Пусто = без ограничений",
-  "addBanner": "Добавить изображение",
-  "changeBanner": "Сменить изображение",
   "publishEvent": "Опубликовать событие",
   "eventCreated": "Событие создано",
-  "bannerUploadFailed": "Событие создано, но изображение не удалось загрузить",
   "dateMustBeFuture": "Дата должна быть в будущем",
   "pricePositive": "Цена должна быть больше 0",
   "invalidCurrency": "Используй 3-буквенный код, напр. USD",
@@ -336,5 +333,13 @@
   "moveMapHint": "Двигайте карту, чтобы поставить метку",
   "myLocationUnavailable": "Не удалось определить ваше местоположение",
   "locationNotSet": "Место не указано: событие не появится на карте",
-  "imageOfTotal": "Изображение {current} из {total}"
+  "imageOfTotal": "Изображение {current} из {total}",
+  "addImages": "Добавить изображения",
+  "coverImage": "Обложка",
+  "makeCoverImage": "Сделать обложкой",
+  "removeImage": "Удалить изображение",
+  "galleryHint": "До {max} изображений. Обложка показывается в ленте.",
+  "imagesLimitReached": "У события может быть не больше {max} изображений; добавлены первые.",
+  "imagesPrepareFailed": "Некоторые изображения не удалось подготовить, они не добавлены.",
+  "imagesSyncFailed": "Событие сохранено, но некоторые изображения не удалось обновить."
 }

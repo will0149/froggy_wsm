@@ -22,7 +22,7 @@ enum ApiPathsEnums {
   events(path: 'events/all/'),
   eventCreate(path: 'events/create/'),
   eventOwner(path: 'events/owner/'),
-  eventUpdateImage(path: 'events/update/image/{id}/'),
+  eventImages(path: 'events/{id}/images/'),
   eventDetails(path: 'event/details/'),
   eventLocations(path: 'events/locations/'),
   eventCategories(path: 'events/categories/'),

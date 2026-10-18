@@ -40,17 +40,23 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m8(capacity, name) =>
       "${Intl.plural(capacity, one: 'Единственное место на «${name}» занято.', few: 'Все ${capacity} места на «${name}» заняты.', many: 'Все ${capacity} мест на «${name}» заняты.', other: 'Все ${capacity} места на «${name}» заняты.')}";
 
-  static String m9(current, total) => "Изображение ${current} из ${total}";
+  static String m9(max) =>
+      "До ${max} изображений. Обложка показывается в ленте.";
 
-  static String m10(error) => "Не удалось выйти: ${error}";
+  static String m10(current, total) => "Изображение ${current} из ${total}";
 
-  static String m11(query) => "Никто не найден по запросу «${query}»";
+  static String m11(max) =>
+      "У события может быть не больше ${max} изображений; добавлены первые.";
 
-  static String m12(count) => "Осталось мест: ${count}";
+  static String m12(error) => "Не удалось выйти: ${error}";
 
-  static String m13(id) => "Билет №${id}";
+  static String m13(query) => "Никто не найден по запросу «${query}»";
 
-  static String m14(count) => "Предстоящих билетов: ${count}";
+  static String m14(count) => "Осталось мест: ${count}";
+
+  static String m15(id) => "Билет №${id}";
+
+  static String m16(count) => "Предстоящих билетов: ${count}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -71,7 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "accessCodeRequired": MessageLookupByLibrary.simpleMessage("Введите код"),
     "account": MessageLookupByLibrary.simpleMessage("Аккаунт"),
-    "addBanner": MessageLookupByLibrary.simpleMessage("Добавить изображение"),
+    "addImages": MessageLookupByLibrary.simpleMessage("Добавить изображения"),
     "addressUnknown": MessageLookupByLibrary.simpleMessage(
       "Для этой точки адрес неизвестен",
     ),
@@ -83,9 +89,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Фото обновлено"),
     "avatarUploadFailed": MessageLookupByLibrary.simpleMessage(
       "Не удалось обновить фото",
-    ),
-    "bannerUploadFailed": MessageLookupByLibrary.simpleMessage(
-      "Событие создано, но изображение не удалось загрузить",
     ),
     "buyTicket": MessageLookupByLibrary.simpleMessage("Купи билет"),
     "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
@@ -104,7 +107,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "catWorkshops": MessageLookupByLibrary.simpleMessage("Мастер-классы"),
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
     "categoryNone": MessageLookupByLibrary.simpleMessage("Без категории"),
-    "changeBanner": MessageLookupByLibrary.simpleMessage("Сменить изображение"),
     "changeLocation": MessageLookupByLibrary.simpleMessage("Изменить"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Изменить пароль"),
     "changePhoto": MessageLookupByLibrary.simpleMessage("Сменить фото"),
@@ -141,6 +143,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "couldNotOpenMaps": MessageLookupByLibrary.simpleMessage(
       "Не удалось открыть карты",
     ),
+    "coverImage": MessageLookupByLibrary.simpleMessage("Обложка"),
     "createEvent": MessageLookupByLibrary.simpleMessage("Создать событие"),
     "darkMode": MessageLookupByLibrary.simpleMessage("Тёмная тема"),
     "dataAndPrivacy": MessageLookupByLibrary.simpleMessage(
@@ -263,6 +266,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "Я забыл мой пароль",
     ),
+    "galleryHint": m9,
     "getDirections": MessageLookupByLibrary.simpleMessage("Как добраться"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Помощь"),
     "getStarted": MessageLookupByLibrary.simpleMessage("Начать"),
@@ -275,7 +279,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "helpSubtitle": MessageLookupByLibrary.simpleMessage("Вопросы и поддержка"),
     "hostedBy": MessageLookupByLibrary.simpleMessage("Организатор"),
-    "imageOfTotal": m9,
+    "imageOfTotal": m10,
+    "imagesLimitReached": m11,
+    "imagesPrepareFailed": MessageLookupByLibrary.simpleMessage(
+      "Некоторые изображения не удалось подготовить, они не добавлены.",
+    ),
+    "imagesSyncFailed": MessageLookupByLibrary.simpleMessage(
+      "Событие сохранено, но некоторые изображения не удалось обновить.",
+    ),
     "information": MessageLookupByLibrary.simpleMessage("Информация"),
     "invalidAccessCode": MessageLookupByLibrary.simpleMessage(
       "Неверный код доступа",
@@ -312,8 +323,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "logoutConfirm": MessageLookupByLibrary.simpleMessage(
       "Вы уверены, что хотите выйти?",
     ),
-    "logoutFailed": m10,
+    "logoutFailed": m12,
     "logoutSubtitle": MessageLookupByLibrary.simpleMessage("Выйти из аккаунта"),
+    "makeCoverImage": MessageLookupByLibrary.simpleMessage("Сделать обложкой"),
     "manageProfile": MessageLookupByLibrary.simpleMessage(
       "Управляйте данными профиля",
     ),
@@ -343,7 +355,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "navProfile": MessageLookupByLibrary.simpleMessage("Профиль"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Билеты"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Новый пароль"),
-    "noAttendeesMatch": m11,
+    "noAttendeesMatch": m13,
     "noCapacityLimit": MessageLookupByLibrary.simpleMessage(
       "Без ограничения мест",
     ),
@@ -426,6 +438,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Опубликовать событие",
     ),
     "register": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+    "removeImage": MessageLookupByLibrary.simpleMessage("Удалить изображение"),
     "removeLocation": MessageLookupByLibrary.simpleMessage("Убрать место"),
     "resetEmailSent": MessageLookupByLibrary.simpleMessage(
       "Если адрес зарегистрирован, мы отправили ссылку для сброса пароля",
@@ -469,19 +482,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Что-то пошло не так",
     ),
-    "spotsLeft": m12,
+    "spotsLeft": m14,
     "supportLegal": MessageLookupByLibrary.simpleMessage(
       "Поддержка и правовая информация",
     ),
     "theme": MessageLookupByLibrary.simpleMessage("Тема"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage("Запись отменена"),
-    "ticketNumber": m13,
+    "ticketNumber": m15,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Не удалось загрузить билеты",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Прошедшие"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Предстоящие"),
-    "upcomingTicketsCount": m14,
+    "upcomingTicketsCount": m16,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Имя пользователя или эл. адрес",
     ),

@@ -88,17 +88,25 @@ class FakeHttp implements HttpCommonUtils {
       _send('PATCH', uri, _decode(body));
 
   @override
+  Future<http.Response> put(
+          {required Uri uri,
+          String? body,
+          required Map<String, String> headers}) =>
+      _send('PUT', uri, _decode(body));
+
+  @override
   Future<http.Response> delete(
           {required Uri uri, required Map<String, String> headers}) =>
       _send('DELETE', uri, null);
 
   @override
-  Future<http.Response> putMultipart(
-          {required Uri uri,
+  Future<http.Response> sendMultipart(
+          {required String method,
+          required Uri uri,
           required Map<String, String> headers,
           required String field,
           required String filePath}) =>
-      _send('PUT', uri, {field: filePath});
+      _send(method, uri, {field: filePath});
 }
 
 class FakeHeaders implements BuildHeadersUtils {

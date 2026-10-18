@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -12,14 +9,17 @@ import '../../../data/dtos/event_dto.dart';
 import '../../../domain/gamification/event_completeness.dart';
 import '../../../domain/models/event_category.dart';
 import '../../../domain/models/event_place.dart';
+import '../../../domain/models/gallery_image.dart';
 import '../../../domain/usecases/create_event_uc.dart';
 import '../../../domain/usecases/event_categories_uc.dart';
 import '../../../domain/usecases/fetch_events_uc.dart';
+import '../../../device/utils/image_compressor.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/app_colors.dart';
 import '../../themes/dimens.dart';
 import '../../utils/event_category_label.dart';
 import '../../utils/form_validators.dart';
+import '../../widgets/event/event_gallery_picker.dart';
 import '../../widgets/gamification/event_completeness_card.dart';
 import 'event_detail_page.dart';
 import 'location_picker_page.dart';
@@ -63,7 +63,16 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
   /// la permita al crear.
   EventCategory? _originalCategory;
   String _costType = 'FREE';
-  XFile? _banner;
+
+  /// Máximo de imágenes por evento que acepta el API.
+  static const _maxImages = 5;
+
+  /// Galería en su orden; la primera es la portada.
+  List<GalleryImage> _gallery = const [];
+
+  /// Las del evento que se edita, en su orden actual en el API.
+  List<int> _originalImageIds = const [];
+  bool _preparingImages = false;
 
   /// Errores del API por campo; se borran al editar el campo.
   Map<String, List<String>> _apiErrors = const {};
@@ -102,6 +111,13 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
         country: event.country ?? '',
       );
     }
+    _gallery = [
+      for (final image in event.images ?? const [])
+        StoredImage(id: image.id, url: image.url),
+    ];
+    _originalImageIds = [
+      for (final image in event.images ?? const []) image.id
+    ];
     _category = _originalCategory = EventCategory.fromApi(event.category);
     if (_costTypes.contains(event.eventType)) _costType = event.eventType!;
     if (event.amount case final amount? when _costType == 'PAID') {
@@ -131,7 +147,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
   void _onDetailChanged() => setState(() {});
 
   EventCompleteness get _completeness => EventCompleteness.of(
-        hasBanner: _banner != null || widget.event?.bannerImageUrl != null,
+        hasBanner: _gallery.isNotEmpty,
         shortDescription: _shortDescription.text,
         description: _description.text,
         place: _place.text,
@@ -179,13 +195,33 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
     });
   }
 
-  Future<void> _pickBanner() async {
-    final image = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 1600,
-      imageQuality: 85,
-    );
-    if (image != null) setState(() => _banner = image);
+  /// Elige hasta completar [_maxImages] y las reduce a JPEG de 1600 px
+  /// (ver [compressEventImage]) antes de mostrarlas.
+  Future<void> _addImages() async {
+    final remaining = _maxImages - _gallery.length;
+    if (remaining <= 0) return;
+    final picked = await ImagePicker()
+        .pickMultiImage(limit: remaining, requestFullMetadata: false);
+    if (picked.isEmpty || !mounted) return;
+    setState(() => _preparingImages = true);
+    final paths = await Future.wait(
+        picked.take(remaining).map((image) => compressEventImage(image.path)));
+    if (!mounted) return;
+    final ready = paths.nonNulls.map(NewImage.new).toList();
+    setState(() {
+      _preparingImages = false;
+      _gallery = [..._gallery, ...ready];
+    });
+    final s = S.of(context);
+    final messages = [
+      if (picked.length > remaining) s.imagesLimitReached(_maxImages),
+      if (ready.length < paths.length) s.imagesPrepareFailed,
+    ];
+    if (messages.isNotEmpty) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(messages.join('\n'))));
+    }
   }
 
   Future<void> _pickDate() async {
@@ -235,15 +271,16 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
     final useCase = ref.read(createEventUCProvider.notifier);
     final result = _isEditing
         ? await useCase.updateEvent(int.parse(widget.event!.id!), fields,
-            bannerPath: _banner?.path)
-        : await useCase.create(fields, bannerPath: _banner?.path);
+            gallery: _gallery, originalImageIds: _originalImageIds)
+        : await useCase.create(fields,
+            images: _gallery.whereType<NewImage>().toList());
     if (!mounted) return;
     final s = S.of(context);
     final messenger = ScaffoldMessenger.of(context);
     if (result.eventId case final id?) {
       messenger.showSnackBar(SnackBar(
-        content: Text(result.bannerFailed
-            ? s.bannerUploadFailed
+        content: Text(result.imagesFailed
+            ? s.imagesSyncFailed
             : _isEditing
                 ? s.eventUpdated
                 : s.eventCreated),
@@ -305,12 +342,14 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
           children: [
-            _BannerPicker(
-              banner: _banner,
-              currentUrl: widget.event?.bannerImageUrl,
-              addLabel: s.addBanner,
-              changeLabel: s.changeBanner,
-              onTap: isLoading ? null : _pickBanner,
+            EventGalleryPicker(
+              images: _gallery,
+              maxImages: _maxImages,
+              busy: _preparingImages,
+              onAdd: isLoading ? null : _addImages,
+              onChanged: isLoading
+                  ? null
+                  : (images) => setState(() => _gallery = images),
             ),
             const SizedBox(height: 20),
             TextFormField(
@@ -526,63 +565,6 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Imagen cuadrada del evento (el feed la muestra 1:1).
-class _BannerPicker extends StatelessWidget {
-  final XFile? banner;
-
-  /// Banner actual del evento que se edita.
-  final String? currentUrl;
-  final String addLabel;
-  final String changeLabel;
-  final VoidCallback? onTap;
-
-  const _BannerPicker({
-    required this.banner,
-    this.currentUrl,
-    required this.addLabel,
-    required this.changeLabel,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final hasImage = banner != null || currentUrl != null;
-    return AspectRatio(
-      aspectRatio: 1,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Material(
-          color: theme.colorScheme.surfaceContainerHighest,
-          child: InkWell(
-            onTap: onTap,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                if (banner != null)
-                  Image.file(File(banner!.path), fit: BoxFit.cover)
-                else if (currentUrl != null)
-                  CachedNetworkImage(imageUrl: currentUrl!, fit: BoxFit.cover),
-                Align(
-                  alignment:
-                      hasImage ? Alignment.bottomRight : Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Chip(
-                      avatar: const Icon(Icons.photo_library, size: 18),
-                      label: Text(hasImage ? changeLabel : addLabel),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
         ),
       ),
     );

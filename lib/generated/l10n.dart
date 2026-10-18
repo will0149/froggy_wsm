@@ -679,26 +679,6 @@ class S {
     );
   }
 
-  /// `Agregar imagen`
-  String get addBanner {
-    return Intl.message(
-      'Agregar imagen',
-      name: 'addBanner',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Cambiar imagen`
-  String get changeBanner {
-    return Intl.message(
-      'Cambiar imagen',
-      name: 'changeBanner',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Publicar evento`
   String get publishEvent {
     return Intl.message(
@@ -714,16 +694,6 @@ class S {
     return Intl.message(
       'Evento creado',
       name: 'eventCreated',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `El evento se creó, pero la imagen no se pudo subir`
-  String get bannerUploadFailed {
-    return Intl.message(
-      'El evento se creó, pero la imagen no se pudo subir',
-      name: 'bannerUploadFailed',
       desc: '',
       args: [],
     );
@@ -2156,6 +2126,81 @@ class S {
       name: 'imageOfTotal',
       desc: '',
       args: [current, total],
+    );
+  }
+
+  /// `Agregar imágenes`
+  String get addImages {
+    return Intl.message(
+      'Agregar imágenes',
+      name: 'addImages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Portada`
+  String get coverImage {
+    return Intl.message('Portada', name: 'coverImage', desc: '', args: []);
+  }
+
+  /// `Usar como portada`
+  String get makeCoverImage {
+    return Intl.message(
+      'Usar como portada',
+      name: 'makeCoverImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quitar imagen`
+  String get removeImage {
+    return Intl.message(
+      'Quitar imagen',
+      name: 'removeImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hasta {max} imágenes. La portada es la que se ve en el feed.`
+  String galleryHint(int max) {
+    return Intl.message(
+      'Hasta $max imágenes. La portada es la que se ve en el feed.',
+      name: 'galleryHint',
+      desc: '',
+      args: [max],
+    );
+  }
+
+  /// `Un evento puede tener como máximo {max} imágenes; se agregaron las primeras.`
+  String imagesLimitReached(int max) {
+    return Intl.message(
+      'Un evento puede tener como máximo $max imágenes; se agregaron las primeras.',
+      name: 'imagesLimitReached',
+      desc: '',
+      args: [max],
+    );
+  }
+
+  /// `Algunas imágenes no se pudieron preparar y no se agregaron.`
+  String get imagesPrepareFailed {
+    return Intl.message(
+      'Algunas imágenes no se pudieron preparar y no se agregaron.',
+      name: 'imagesPrepareFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `El evento se guardó, pero algunas imágenes no se pudieron actualizar.`
+  String get imagesSyncFailed {
+    return Intl.message(
+      'El evento se guardó, pero algunas imágenes no se pudieron actualizar.',
+      name: 'imagesSyncFailed',
+      desc: '',
+      args: [],
     );
   }
 }

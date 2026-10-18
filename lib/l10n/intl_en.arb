@@ -94,11 +94,8 @@
   "eventCurrency": "Currency",
   "eventCapacity": "Capacity",
   "capacityHint": "Empty = no limit",
-  "addBanner": "Add image",
-  "changeBanner": "Change image",
   "publishEvent": "Publish event",
   "eventCreated": "Event created",
-  "bannerUploadFailed": "The event was created, but the image couldn't be uploaded",
   "dateMustBeFuture": "The date must be in the future",
   "pricePositive": "Price must be greater than 0",
   "invalidCurrency": "Use a 3-letter code, e.g. USD",
@@ -336,5 +333,13 @@
   "moveMapHint": "Move the map to place the pin",
   "myLocationUnavailable": "We couldn't get your location",
   "locationNotSet": "No location: the event won't show on the map",
-  "imageOfTotal": "Image {current} of {total}"
+  "imageOfTotal": "Image {current} of {total}",
+  "addImages": "Add images",
+  "coverImage": "Cover",
+  "makeCoverImage": "Make cover",
+  "removeImage": "Remove image",
+  "galleryHint": "Up to {max} images. The cover is the one shown in the feed.",
+  "imagesLimitReached": "An event can have at most {max} images; the first ones were added.",
+  "imagesPrepareFailed": "Some images couldn't be prepared and weren't added.",
+  "imagesSyncFailed": "The event was saved, but some images couldn't be updated."
 }

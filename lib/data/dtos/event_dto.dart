@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'amount_dto.dart';
+import 'event_image_dto.dart';
 import 'location_dto.dart';
 
 /// Made for parkea.
@@ -33,9 +34,8 @@ class EventDTO {
   final String? bannerImageUrl;
 
   /// Galería del evento (hasta 5), en orden; la primera es la portada.
-  /// El API manda `[{id, url, position}]`.
-  @JsonKey(name: 'images', fromJson: _imageUrlsFromJson)
-  final List<String>? imageUrls;
+  @JsonKey(name: 'images', fromJson: _imagesFromJson)
+  final List<EventImageDTO>? images;
   @JsonKey(name: 'privacy_type')
   final String? privacyType;
   @JsonKey(name: 'location', readValue: _readLocation)
@@ -84,7 +84,7 @@ class EventDTO {
       required this.eventOwner,
       required this.amount,
       this.bannerImageUrl,
-      this.imageUrls,
+      this.images,
       required this.privacyType,
       required this.location,
       this.category,
@@ -110,19 +110,19 @@ class EventDTO {
         _ => null,
       };
 
-  static List<String>? _imageUrlsFromJson(Object? value) => switch (value) {
-        List images => [
-            for (final image in images)
-              if (image case {'url': String url} || String url
-                  when url.isNotEmpty)
-                url,
-          ],
-        _ => null,
-      };
+  /// Ordenadas por `position`, sin las que no traen URL.
+  static List<EventImageDTO>? _imagesFromJson(List<dynamic>? value) => value
+      ?.whereType<Map<String, dynamic>>()
+      .map(EventImageDTO.fromJson)
+      .where((image) => image.url.isNotEmpty)
+      .toList()
+    ?..sort((a, b) => a.position.compareTo(b.position));
 
   /// Imágenes para el detalle; sin galería, el banner si lo tiene.
-  List<String> get galleryUrls => switch ((imageUrls, bannerImageUrl)) {
-        (final urls?, _) when urls.isNotEmpty => urls,
+  List<String> get galleryUrls => switch ((images, bannerImageUrl)) {
+        (final images?, _) when images.isNotEmpty => [
+            for (final image in images) image.url
+          ],
         (_, final banner?) when banner.isNotEmpty => [banner],
         _ => const [],
       };

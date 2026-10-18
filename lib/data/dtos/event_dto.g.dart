@@ -19,7 +19,7 @@ EventDTO _$EventDTOFromJson(Map<String, dynamic> json) => EventDTO(
           : AmountDTO.fromJson(
               EventDTO._readAmount(json, 'amount') as Map<String, dynamic>),
       bannerImageUrl: json['banner_img'] as String?,
-      imageUrls: EventDTO._imageUrlsFromJson(json['images']),
+      images: EventDTO._imagesFromJson(json['images'] as List?),
       privacyType: json['privacy_type'] as String?,
       location: EventDTO._readLocation(json, 'location') == null
           ? null
@@ -47,7 +47,7 @@ Map<String, dynamic> _$EventDTOToJson(EventDTO instance) => <String, dynamic>{
       'owner': instance.eventOwner,
       'amount': instance.amount?.toJson(),
       'banner_img': instance.bannerImageUrl,
-      'images': instance.imageUrls,
+      'images': instance.images?.map((e) => e.toJson()).toList(),
       'privacy_type': instance.privacyType,
       'location': instance.location?.toJson(),
       'category': instance.category,

@@ -94,11 +94,8 @@
   "eventCurrency": "Moneda",
   "eventCapacity": "Cupo",
   "capacityHint": "Vacío = sin límite",
-  "addBanner": "Agregar imagen",
-  "changeBanner": "Cambiar imagen",
   "publishEvent": "Publicar evento",
   "eventCreated": "Evento creado",
-  "bannerUploadFailed": "El evento se creó, pero la imagen no se pudo subir",
   "dateMustBeFuture": "La fecha debe ser futura",
   "pricePositive": "El precio debe ser mayor que 0",
   "invalidCurrency": "Usa un código de 3 letras, p. ej. USD",
@@ -346,8 +343,34 @@
   "imageOfTotal": "Imagen {current} de {total}",
   "@imageOfTotal": {
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
-  }
+  },
+  "addImages": "Agregar imágenes",
+  "coverImage": "Portada",
+  "makeCoverImage": "Usar como portada",
+  "removeImage": "Quitar imagen",
+  "galleryHint": "Hasta {max} imágenes. La portada es la que se ve en el feed.",
+  "@galleryHint": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "imagesLimitReached": "Un evento puede tener como máximo {max} imágenes; se agregaron las primeras.",
+  "@imagesLimitReached": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "imagesPrepareFailed": "Algunas imágenes no se pudieron preparar y no se agregaron.",
+  "imagesSyncFailed": "El evento se guardó, pero algunas imágenes no se pudieron actualizar."
 }

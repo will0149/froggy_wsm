@@ -81,6 +81,20 @@ class HttpCommonUtilsImpl implements HttpCommonUtils {
   }
 
   @override
+  Future<http.Response> put(
+      {required Uri uri,
+      String? body,
+      required Map<String, String> headers}) async {
+    logger.t(uri);
+    if (body != null) logger.i(jsonDecode(body));
+    return await client.put(uri, body: body, headers: _withLanguage(headers)).timeout(
+          const Duration(seconds: timeOutSecs),
+          onTimeout: () =>
+              http.Response(jsonEncode(defaultTimeOutResponse), 408),
+        );
+  }
+
+  @override
   Future<http.Response> delete(
       {required Uri uri, required Map<String, String> headers}) async {
     logger.t(uri);
@@ -92,13 +106,14 @@ class HttpCommonUtilsImpl implements HttpCommonUtils {
   }
 
   @override
-  Future<http.Response> putMultipart(
-      {required Uri uri,
+  Future<http.Response> sendMultipart(
+      {required String method,
+      required Uri uri,
       required Map<String, String> headers,
       required String field,
       required String filePath}) async {
     logger.t(uri);
-    final request = http.MultipartRequest('PUT', uri)
+    final request = http.MultipartRequest(method, uri)
       // Content-Type lo pone MultipartRequest con su boundary.
       ..headers.addAll(_withLanguage(headers)..remove('Content-Type'))
       ..files.add(await http.MultipartFile.fromPath(field, filePath));
