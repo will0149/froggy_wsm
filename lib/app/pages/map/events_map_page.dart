@@ -41,8 +41,8 @@ class _EventsMapPageState extends ConsumerState<EventsMapPage> {
   /// Sin ubicación ni eventos: Ciudad de Panamá.
   static const _fallbackCenter = LatLng(8.9824, -79.5199);
 
-  /// Eventos que entran en la vista inicial junto al usuario.
-  static const _closestInView = 5;
+  /// Radio alrededor del usuario que cubre la vista inicial.
+  static const _initialRadiusMeters = 50000.0;
 
   final _map = MapController();
   bool _mapReady = false;
@@ -54,19 +54,22 @@ class _EventsMapPageState extends ConsumerState<EventsMapPage> {
     super.dispose();
   }
 
-  /// Vista inicial: el usuario y sus eventos más cercanos o, sin ubicación,
-  /// todos los eventos.
+  /// Vista inicial: [_initialRadiusMeters] alrededor del usuario o, sin
+  /// ubicación, todos los eventos.
   CameraFit? _cameraFit(NearbyEventsState state) {
-    final user = state.location.position;
-    final points = [
-      if (user != null) user,
-      for (final nearby
-          in user == null ? state.events : state.events.take(_closestInView))
-        nearby.point,
-    ];
-    if (points.isEmpty) return null;
+    if (state.location.position case final user?) {
+      const distance = Distance();
+      return CameraFit.coordinates(
+        coordinates: [
+          for (final bearing in const [0.0, 90.0, 180.0, 270.0])
+            distance.offset(user, _initialRadiusMeters, bearing),
+        ],
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+      );
+    }
+    if (state.events.isEmpty) return null;
     return CameraFit.coordinates(
-      coordinates: points,
+      coordinates: [for (final nearby in state.events) nearby.point],
       padding: const EdgeInsets.fromLTRB(56, 120, 56, 200),
       maxZoom: 15,
     );
