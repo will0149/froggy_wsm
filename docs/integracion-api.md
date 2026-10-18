@@ -117,6 +117,8 @@ Contrato general del API:
 - [ ] Celebraciones de logro y de nivel
 
 ### Decisiones pendientes
+- **Notificaciones push y bandeja** (la campana del Inicio no hace nada todavía): FCM con registro del token, `GET notifications/` y no leídas. Hay una propuesta de contrato enviada a la sesión del backend, en pausa. En iOS hace falta la clave APNs en Firebase y la capability Push Notifications.
+- **Solicitar verificación**: solo las cuentas `is_verified` crean eventos y no hay forma de pedirlo desde la app. Propuesta enviada al backend (`POST`/`GET user/verification/` con `business_name`, `phone` y `message`, sin documentos adjuntos), en pausa.
 - **Ayuda en Ajustes**: falta definir el contacto de soporte (correo, WhatsApp o los dos).
 - **Provincia en el registro**: el formulario la pide pero no se envía al API. ¿Se quita o se guarda en el backend?
 - **Pagos e inscripción a eventos PAID e INVITATION**: el backend preparó una propuesta para decidir.
