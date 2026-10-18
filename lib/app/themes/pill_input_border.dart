@@ -81,6 +81,14 @@ class PillInputBorder extends OutlineInputBorder {
   Path getOuterPath(Rect rect, {TextDirection? textDirection}) =>
       _resolve(rect).getOuterPath(rect, textDirection: textDirection);
 
+  // El fondo (`filled`) se pinta con esto; sin delegarlo usaría el radio
+  // por defecto de OutlineInputBorder (4) y asomaría bajo la píldora.
+  @override
+  void paintInterior(Canvas canvas, Rect rect, Paint paint,
+          {TextDirection? textDirection}) =>
+      _resolve(rect)
+          .paintInterior(canvas, rect, paint, textDirection: textDirection);
+
   @override
   void paint(
     Canvas canvas,
