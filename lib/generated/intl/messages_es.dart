@@ -423,6 +423,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "notificationsSubtitle": MessageLookupByLibrary.simpleMessage(
       "Notificaciones push y alertas",
     ),
+    "offlineMessage": MessageLookupByLibrary.simpleMessage(
+      "No pudimos conectar con Parkea. Revisa tu conexión a internet; tu sesión sigue guardada.",
+    ),
+    "offlineTitle": MessageLookupByLibrary.simpleMessage("Sin conexión"),
     "openEvent": MessageLookupByLibrary.simpleMessage("Abrir evento"),
     "orEnterCode": MessageLookupByLibrary.simpleMessage("O escribe el código"),
     "ownEvent": MessageLookupByLibrary.simpleMessage("Es tu evento"),

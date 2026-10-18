@@ -363,5 +363,7 @@
   "ticketPaid": "Paid: {amount}",
   "ticketQr": "Ticket QR code",
   "ticketPassHint": "Show it at the event entrance.",
-  "languageSystem": "Device language"
+  "languageSystem": "Device language",
+  "offlineTitle": "You're offline",
+  "offlineMessage": "We couldn't reach Parkea. Check your internet connection; you're still signed in."
 }

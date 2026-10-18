@@ -84,6 +84,7 @@ Contrato general del API:
 - **Idiomas**: español (principal) e inglés, los mismos que el API. Todos los textos de la app están en los dos, incluidos los errores de los use cases (por `S.current`). En Ajustes → Idioma se elige el del dispositivo, Español o English; se guarda en el dispositivo y se manda al API en `Accept-Language`.
 - **Errores**:
   - Sin red, la app muestra "No se pudo conectar con el servidor" y un botón de reintentar. `ApiClient` convierte el fallo de red en el mismo 408 de un timeout.
+  - Al abrir la app con sesión guardada y sin red (408, 5xx o una respuesta que no es el envelope), el splash muestra "Sin conexión" con Reintentar y la sesión se conserva. Solo un rechazo de la sesión lleva al login.
   - Los reintentos automáticos de Riverpod están desactivados, así los errores se ven enseguida.
 - **Enums del API en texto**: `cost_type` (`FREE | PAID | INVITATION | PRIVATE`), `category` (`MUSIC | CAMPING | ADVENTURE | WORKSHOPS`) y `user_type` (`PERSON | COMMERCE`).
 - **Calidad**:
@@ -118,7 +119,6 @@ Contrato general del API:
 ### Decisiones pendientes
 - **Ayuda en Ajustes**: falta definir el contacto de soporte (correo, WhatsApp o los dos).
 - **Provincia en el registro**: el formulario la pide pero no se envía al API. ¿Se quita o se guarda en el backend?
-- **Abrir la app sin red** lleva a la pantalla de login. La sesión se conserva, pero convendría mostrar "sin conexión" con reintentar.
 - **Pagos e inscripción a eventos PAID e INVITATION**: el backend preparó una propuesta para decidir.
 - **Orden del feed**: hoy es por fecha de creación. El backend puede agregar `?ordering=` para mostrar primero los más cercanos.
 - **Nombres de países**: hoy se muestran con bandera y código (CO, MX).

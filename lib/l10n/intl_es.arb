@@ -418,5 +418,7 @@
       }
     }
   },
-  "languageSystem": "Idioma del dispositivo"
+  "languageSystem": "Idioma del dispositivo",
+  "offlineTitle": "Sin conexión",
+  "offlineMessage": "No pudimos conectar con Parkea. Revisa tu conexión a internet; tu sesión sigue guardada."
 }

@@ -16,6 +16,8 @@ flowchart TD
     status -->|"sin sesión"| auth["Auth<br/>/auth"]
     status -->|"error de login"| login["Login"]
     status -->|"con sesión"| shell
+    status -->|"con sesión, sin red"| offline(["Splash: Sin conexión<br/>Reintentar"])
+    offline -->|"Reintentar"| status
 
     welcome -->|"Comenzar"| auth
     auth -->|"inicia sesión o se registra"| shell

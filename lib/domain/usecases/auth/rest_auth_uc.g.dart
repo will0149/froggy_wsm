@@ -33,7 +33,7 @@ final class RestAuthUCProvider
   RestAuthUC create() => RestAuthUC();
 }
 
-String _$restAuthUCHash() => r'297b0754e06eb2810b973d2a1887a33eaf4d805d';
+String _$restAuthUCHash() => r'956b893180c461d324728afbab0b2152f5a1a768';
 
 abstract class _$RestAuthUC extends $AsyncNotifier<AuthState> {
   FutureOr<AuthState> build();

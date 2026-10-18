@@ -38,12 +38,15 @@ class RestAuthUC extends _$RestAuthUC {
       return AuthState.unauthenticated();
     }
 
-    final user = await getUserProfile();
-    if (user != null) {
-      return AuthState.authenticated(user);
-    }
+    final (:user, :unreachable) = await _fetchProfile();
+    if (user != null) return AuthState.authenticated(user);
+    // Sin red la sesión se conserva: el splash ofrece reintentar.
+    if (unreachable) return AuthState.offline();
     return AuthState.unauthenticated();
   }
+
+  /// Vuelve a intentar abrir la sesión guardada.
+  void retry() => ref.invalidateSelf();
 
   Future<void> signIn(LoginDTO request) async {
     state = const AsyncValue.loading();
@@ -185,19 +188,34 @@ class RestAuthUC extends _$RestAuthUC {
     );
   }
 
-  Future<UserProfileDTO?> getUserProfile() async {
+  Future<UserProfileDTO?> getUserProfile() async =>
+      (await _fetchProfile()).user;
+
+  /// [unreachable]: sin red, timeout o error del servidor (5xx o una
+  /// respuesta que no es el envelope), a diferencia de una sesión rechazada.
+  Future<({UserProfileDTO? user, bool unreachable})> _fetchProfile() async {
+    final Map<String, dynamic> result;
     try {
-      final result = await repository.getUserProfile();
-      final body = result['body'];
-      if (result['status'] == 200 && body is Map<String, dynamic>) {
-        return UserProfileDTO.fromJson(body);
-      }
-    } catch (e, stackTrace) {
-      // También errores de parseo: un perfil ilegible equivale a no tenerlo.
+      result = await repository.getUserProfile();
+    } on Exception catch (e) {
       logger.e(e.toString());
-      logger.e(stackTrace);
+      return (user: null, unreachable: true);
     }
-    return null;
+    final status = result['status'];
+    final body = result['body'];
+    if (status == 200 && body is Map<String, dynamic>) {
+      try {
+        return (user: UserProfileDTO.fromJson(body), unreachable: false);
+      } catch (e, stackTrace) {
+        // Un perfil ilegible equivale a no tenerlo.
+        logger.e(e.toString());
+        logger.e(stackTrace);
+      }
+    }
+    return (
+      user: null,
+      unreachable: status == timeoutStatus || (status is int && status >= 500),
+    );
   }
 
   /// Al volver a la app: si el refresh token caducó en segundo plano, la

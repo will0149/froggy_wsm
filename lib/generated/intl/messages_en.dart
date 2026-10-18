@@ -398,6 +398,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "notificationsSubtitle": MessageLookupByLibrary.simpleMessage(
       "Push notifications and alerts",
     ),
+    "offlineMessage": MessageLookupByLibrary.simpleMessage(
+      "We couldn\'t reach Parkea. Check your internet connection; you\'re still signed in.",
+    ),
+    "offlineTitle": MessageLookupByLibrary.simpleMessage("You\'re offline"),
     "openEvent": MessageLookupByLibrary.simpleMessage("Open event"),
     "orEnterCode": MessageLookupByLibrary.simpleMessage("Or enter the code"),
     "ownEvent": MessageLookupByLibrary.simpleMessage("Your event"),

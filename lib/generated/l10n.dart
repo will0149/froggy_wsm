@@ -2408,6 +2408,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Sin conexión`
+  String get offlineTitle {
+    return Intl.message(
+      'Sin conexión',
+      name: 'offlineTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No pudimos conectar con Parkea. Revisa tu conexión a internet; tu sesión sigue guardada.`
+  String get offlineMessage {
+    return Intl.message(
+      'No pudimos conectar con Parkea. Revisa tu conexión a internet; tu sesión sigue guardada.',
+      name: 'offlineMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

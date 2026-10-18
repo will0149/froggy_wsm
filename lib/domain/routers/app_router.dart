@@ -273,6 +273,9 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
                 return null;
               }
               return AuthPage.routeLocation;
+            case AuthStatus.offline:
+              // El splash muestra "sin conexión" y el botón de reintentar.
+              return isLoadingRoute ? null : '$authBase/${SplashScreen.routeLocation}';
             case AuthStatus.error:
               if (kDebugMode) logger.i('error');
               // El formulario muestra el error; se queda en la pantalla actual.

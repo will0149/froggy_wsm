@@ -1,7 +1,17 @@
 
 import 'package:parkea/data/entities/user/user_profile_dto.dart' show UserProfileDTO;
 
-enum AuthStatus { initial, firstRun, loading, authenticated, unauthenticated, error }
+enum AuthStatus {
+  initial,
+  firstRun,
+  loading,
+  authenticated,
+  unauthenticated,
+  error,
+
+  /// Hay sesión guardada pero el API no respondió al abrir la app.
+  offline,
+}
 
 /// Base class for authentication states
 class AuthState {
@@ -53,6 +63,8 @@ class AuthState {
     status: AuthStatus.unauthenticated,
   );
 
+  factory AuthState.offline() => const AuthState(status: AuthStatus.offline);
+
   factory AuthState.error(String message,
       {Map<String, List<String>>? fieldErrors}) => AuthState(
     status: AuthStatus.error,
@@ -63,4 +75,5 @@ class AuthState {
   bool get isAuthenticated => status == AuthStatus.authenticated;
   bool get isLoading => status == AuthStatus.loading;
   bool get hasError => status == AuthStatus.error;
+  bool get isOffline => status == AuthStatus.offline;
 }
