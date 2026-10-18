@@ -445,7 +445,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "profileUpdated": MessageLookupByLibrary.simpleMessage("Perfil atualizado"),
     "profileWebsite": MessageLookupByLibrary.simpleMessage("Site"),
     "promotions": MessageLookupByLibrary.simpleMessage("Promoções"),
-    "province": MessageLookupByLibrary.simpleMessage("Província"),
     "publishEvent": MessageLookupByLibrary.simpleMessage("Publicar evento"),
     "register": MessageLookupByLibrary.simpleMessage("Inscrever-se"),
     "removeImage": MessageLookupByLibrary.simpleMessage("Remover imagem"),

@@ -184,11 +184,6 @@ class S {
     return Intl.message('Nombre de usuario', name: 'name', desc: '', args: []);
   }
 
-  /// `Provincia`
-  String get province {
-    return Intl.message('Provincia', name: 'province', desc: '', args: []);
-  }
-
   /// `Eventos Populares`
   String get popularEvents {
     return Intl.message(

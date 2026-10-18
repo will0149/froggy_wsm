@@ -479,7 +479,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "profileUpdated": MessageLookupByLibrary.simpleMessage("Profil mis à jour"),
     "profileWebsite": MessageLookupByLibrary.simpleMessage("Site web"),
     "promotions": MessageLookupByLibrary.simpleMessage("Promotions"),
-    "province": MessageLookupByLibrary.simpleMessage("Province"),
     "publishEvent": MessageLookupByLibrary.simpleMessage(
       "Publier l\'événement",
     ),

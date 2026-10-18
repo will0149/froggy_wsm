@@ -302,7 +302,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "profileUpdated": MessageLookupByLibrary.simpleMessage("個人資料已更新"),
     "profileWebsite": MessageLookupByLibrary.simpleMessage("網站"),
     "promotions": MessageLookupByLibrary.simpleMessage("優惠活動"),
-    "province": MessageLookupByLibrary.simpleMessage("省"),
     "publishEvent": MessageLookupByLibrary.simpleMessage("發布活動"),
     "register": MessageLookupByLibrary.simpleMessage("報名"),
     "removeImage": MessageLookupByLibrary.simpleMessage("移除图片"),

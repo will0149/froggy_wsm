@@ -487,7 +487,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "profileWebsite": MessageLookupByLibrary.simpleMessage("Website"),
     "promotions": MessageLookupByLibrary.simpleMessage("Aktionen"),
-    "province": MessageLookupByLibrary.simpleMessage("Provinz"),
     "publishEvent": MessageLookupByLibrary.simpleMessage(
       "Event veröffentlichen",
     ),

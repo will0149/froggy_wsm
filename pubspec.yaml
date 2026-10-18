@@ -38,7 +38,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   flutter_toastr: 1.0.3
-  select_form_field: "^2.2.0"
   #firebase dependencies:
   firebase_auth: ^6.1.4
   cloud_firestore: ^6.1.2 #Dependencia temporal para bloquear y desbloquear el app de forma remota

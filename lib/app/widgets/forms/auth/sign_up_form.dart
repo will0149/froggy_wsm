@@ -5,7 +5,6 @@ import 'package:parkea/data/entities/auth/register_dto.dart';
 import 'package:parkea/domain/models/auth/auth_state.dart';
 import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 import 'package:parkea/generated/l10n.dart';
-import 'package:select_form_field/select_form_field.dart';
 
 import '../../../utils/form_validators.dart';
 import '../../../utils/password_policy.dart';
@@ -21,7 +20,6 @@ class SignUpForm extends ConsumerStatefulWidget {
 
 class SignUpFormState extends ConsumerState<SignUpForm> {
   var userNameController = TextEditingController();
-  var provinceController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var passwordConfirmationController = TextEditingController();
@@ -57,57 +55,11 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
   @override
   void dispose() {
     userNameController.dispose();
-    provinceController.dispose();
     emailController.dispose();
     passwordController.dispose();
     passwordConfirmationController.dispose();
     super.dispose();
   }
-
-  final List<Map<String, dynamic>> _provinces = [
-    {
-      'value': 'panama',
-      'label': 'Panama',
-      'textStyle': const TextStyle(
-        color: parkeaBlueAccent,
-        fontWeight: FontWeight.bold,
-        fontSize: 12,
-      ),
-      'icon': const Icon(Icons.location_city),
-    },
-    {
-      'value': 'colon',
-      'label': 'Colón',
-      'textStyle': const TextStyle(
-        color: parkeaBlueAccent,
-        fontWeight: FontWeight.bold,
-        fontSize: 12,
-      ),
-      'icon': const Icon(Icons.location_city),
-    },
-    {
-      'value': 'herrera',
-      'label': 'Herrera',
-      'enable': false,
-      'textStyle': const TextStyle(
-        color: parkeaBlueAccent,
-        fontWeight: FontWeight.bold,
-        fontSize: 12,
-      ),
-      'icon': const Icon(Icons.location_city),
-    },
-    {
-      'value': 'chorrera',
-      'label': 'Chorrera',
-      'enable': false,
-      'textStyle': const TextStyle(
-        color: parkeaBlueAccent,
-        fontWeight: FontWeight.bold,
-        fontSize: 12,
-      ),
-      'icon': const Icon(Icons.location_city),
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -143,21 +95,6 @@ class SignUpFormState extends ConsumerState<SignUpForm> {
             autocorrect: false,
             forceErrorText: _apiError('username'),
             onChanged: (_) => _clearApiError('username'),
-            validator: (value) => FormValidators.required(context, value),
-          ),
-          SelectFormField(
-            //controller: provinceController,
-            type: SelectFormFieldType.dropdown,
-            // or can be dialog
-            initialValue: 'panama',
-            labelText: S.of(context).province,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: parkeaBlueAccent,
-              fontWeight: FontWeight.normal,
-              fontSize: 16,
-            ),
-            items: _provinces,
             validator: (value) => FormValidators.required(context, value),
           ),
           TextFormField(
