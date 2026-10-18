@@ -293,6 +293,11 @@ abstract final class ParkeaOverlay {
   static const mapLabel = Color(0xB3FFFFFF);
   static const onMapLabel = parkeaBlack;
 
+  /// QR compartido como imagen: negro sobre blanco en los dos modos, como
+  /// lo esperan los lectores.
+  static const qrModules = Color(0xFF000000);
+  static const qrBackground = Color(0xFFFFFFFF);
+
   /// Degradado azul de marca: encabezado del perfil y eventos sin imagen.
   /// Hace de foto, así que es igual en los dos modos.
   static const brandGradient = LinearGradient(

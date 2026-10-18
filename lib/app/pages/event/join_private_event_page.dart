@@ -16,7 +16,11 @@ import 'event_detail_page.dart';
 /// Abre un evento PRIVATE con su QR o escribiendo el código. Los eventos
 /// privados no salen en el inicio ni en el mapa.
 class JoinPrivateEventPage extends ConsumerStatefulWidget {
-  const JoinPrivateEventPage({super.key});
+  /// Código de un enlace `parkea://events/join?code=..`: se consulta al
+  /// abrir la pantalla.
+  final String? initialCode;
+
+  const JoinPrivateEventPage({super.key, this.initialCode});
 
   static String get routeName => 'joinPrivateEvent';
 
@@ -36,6 +40,17 @@ class _JoinPrivateEventPageState extends ConsumerState<JoinPrivateEventPage> {
   /// Último código rechazado: la cámara lo sigue leyendo mientras el QR
   /// esté enfocado y no se vuelve a consultar.
   String? _rejectedCode;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialCode case final raw?) {
+      if (parseAccessCode(raw) case final code?) {
+        _codeController.text = code;
+        WidgetsBinding.instance.addPostFrameCallback((_) => _open(code));
+      }
+    }
+  }
 
   @override
   void dispose() {

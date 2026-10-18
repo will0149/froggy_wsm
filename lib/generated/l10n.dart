@@ -2428,6 +2428,21 @@ class S {
       args: [],
     );
   }
+
+  /// `Compartir`
+  String get share {
+    return Intl.message('Compartir', name: 'share', desc: '', args: []);
+  }
+
+  /// `Te invito a {name} en Parkea. Es un evento privado: escanea el QR desde el inicio de la app o entra con el código {code}.\n{link}`
+  String accessCodeShareText(String name, String code, String link) {
+    return Intl.message(
+      'Te invito a $name en Parkea. Es un evento privado: escanea el QR desde el inicio de la app o entra con el código $code.\n$link',
+      name: 'accessCodeShareText',
+      desc: '',
+      args: [name, code, link],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

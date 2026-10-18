@@ -20,49 +20,52 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(country) => "All of ${country}";
+  static String m0(name, code, link) =>
+      "You\'re invited to ${name} on Parkea. It\'s a private event: scan the QR from the app\'s home screen or join with the code ${code}.\n${link}";
 
-  static String m1(year) => "© ${year} Parkea. All rights reserved.";
+  static String m1(country) => "All of ${country}";
 
-  static String m2(distance) => "${distance} away";
+  static String m2(year) => "© ${year} Parkea. All rights reserved.";
 
-  static String m3(count) =>
+  static String m3(distance) => "${distance} away";
+
+  static String m4(count) =>
       "${Intl.plural(count, zero: 'No one enrolled yet', one: '1 enrolled', other: '${count} enrolled')}";
 
-  static String m4(enrolled, capacity) => "${enrolled} of ${capacity} enrolled";
+  static String m5(enrolled, capacity) => "${enrolled} of ${capacity} enrolled";
 
-  static String m5(date) => "Enrolled on ${date}";
+  static String m6(date) => "Enrolled on ${date}";
 
-  static String m6(code) => "Error (code: ${code})";
+  static String m7(code) => "Error (code: ${code})";
 
-  static String m7(percent) => "Your event is ${percent}% complete";
+  static String m8(percent) => "Your event is ${percent}% complete";
 
-  static String m8(capacity, name) =>
+  static String m9(capacity, name) =>
       "${Intl.plural(capacity, one: 'The only spot for “${name}” is taken.', other: 'All ${capacity} spots for “${name}” are taken.')}";
 
-  static String m9(max) =>
+  static String m10(max) =>
       "Up to ${max} images. The cover is the one shown in the feed.";
 
-  static String m10(current, total) => "Image ${current} of ${total}";
+  static String m11(current, total) => "Image ${current} of ${total}";
 
-  static String m11(max) =>
+  static String m12(max) =>
       "An event can have at most ${max} images; the first ones were added.";
 
-  static String m12(error) => "Couldn\'t sign out: ${error}";
+  static String m13(error) => "Couldn\'t sign out: ${error}";
 
-  static String m13(query) => "No one matches “${query}”";
+  static String m14(query) => "No one matches “${query}”";
 
-  static String m14(link) => "See it on Parkea: ${link}";
+  static String m15(link) => "See it on Parkea: ${link}";
 
-  static String m15(count) => "${count} spots left";
+  static String m16(count) => "${count} spots left";
 
-  static String m16(current, total) => "Step ${current} of ${total}";
+  static String m17(current, total) => "Step ${current} of ${total}";
 
-  static String m17(id) => "Ticket #${id}";
+  static String m18(id) => "Ticket #${id}";
 
-  static String m18(amount) => "Paid: ${amount}";
+  static String m19(amount) => "Paid: ${amount}";
 
-  static String m19(count) => "${count} upcoming tickets";
+  static String m20(count) => "${count} upcoming tickets";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -87,14 +90,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "accessCodeRequired": MessageLookupByLibrary.simpleMessage(
       "Enter the code",
     ),
+    "accessCodeShareText": m0,
     "account": MessageLookupByLibrary.simpleMessage("Account"),
     "addImages": MessageLookupByLibrary.simpleMessage("Add images"),
     "addressUnknown": MessageLookupByLibrary.simpleMessage(
       "No known address for this point",
     ),
     "allLocations": MessageLookupByLibrary.simpleMessage("All locations"),
-    "allOfCountry": m0,
-    "allRightsReserved": m1,
+    "allOfCountry": m1,
+    "allRightsReserved": m2,
     "attendees": MessageLookupByLibrary.simpleMessage("Attendees"),
     "authenticate": MessageLookupByLibrary.simpleMessage("Authenticate"),
     "avatarUpdated": MessageLookupByLibrary.simpleMessage("Photo updated"),
@@ -163,15 +167,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "All enrollments will be deleted too. This can\'t be undone.",
     ),
     "devStudio": MessageLookupByLibrary.simpleMessage("Atheneox Studios"),
-    "distanceAway": m2,
+    "distanceAway": m3,
     "downloadTicket": MessageLookupByLibrary.simpleMessage("Download ticket"),
     "editEvent": MessageLookupByLibrary.simpleMessage("Edit event"),
     "editProfile": MessageLookupByLibrary.simpleMessage("Edit profile"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "enroll": MessageLookupByLibrary.simpleMessage("Enroll"),
-    "enrolledCount": m3,
-    "enrolledOfCapacity": m4,
-    "enrolledOn": m5,
+    "enrolledCount": m4,
+    "enrolledOfCapacity": m5,
+    "enrolledOn": m6,
     "enrolledPeople": MessageLookupByLibrary.simpleMessage("Enrolled people"),
     "enrolledSuccess": MessageLookupByLibrary.simpleMessage(
       "Done! You\'re enrolled",
@@ -235,7 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "errUnsaveEvent": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t remove it from saved",
     ),
-    "errWithCode": m6,
+    "errWithCode": m7,
     "errWrongCredentials": MessageLookupByLibrary.simpleMessage(
       "Wrong username or password",
     ),
@@ -244,7 +248,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventComplete": MessageLookupByLibrary.simpleMessage(
       "Your event is complete!",
     ),
-    "eventCompleteness": m7,
+    "eventCompleteness": m8,
     "eventCreated": MessageLookupByLibrary.simpleMessage("Event created"),
     "eventCurrency": MessageLookupByLibrary.simpleMessage("Currency"),
     "eventDateTime": MessageLookupByLibrary.simpleMessage("Date and time"),
@@ -252,7 +256,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventDescription": MessageLookupByLibrary.simpleMessage("Description"),
     "eventFinished": MessageLookupByLibrary.simpleMessage("Event ended"),
     "eventFull": MessageLookupByLibrary.simpleMessage("Event full!"),
-    "eventFullMessage": m8,
+    "eventFullMessage": m9,
     "eventLocation": MessageLookupByLibrary.simpleMessage("Location"),
     "eventName": MessageLookupByLibrary.simpleMessage("Event name"),
     "eventPlace": MessageLookupByLibrary.simpleMessage("Place"),
@@ -278,7 +282,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "forgotPassword": MessageLookupByLibrary.simpleMessage(
       "I forgot my password",
     ),
-    "galleryHint": m9,
+    "galleryHint": m10,
     "getDirections": MessageLookupByLibrary.simpleMessage("Get directions"),
     "getHelp": MessageLookupByLibrary.simpleMessage("Help"),
     "great": MessageLookupByLibrary.simpleMessage("Great!"),
@@ -292,8 +296,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "helpSubtitle": MessageLookupByLibrary.simpleMessage("FAQ and support"),
     "hostedBy": MessageLookupByLibrary.simpleMessage("Hosted by"),
-    "imageOfTotal": m10,
-    "imagesLimitReached": m11,
+    "imageOfTotal": m11,
+    "imagesLimitReached": m12,
     "imagesPrepareFailed": MessageLookupByLibrary.simpleMessage(
       "Some images couldn\'t be prepared and weren\'t added.",
     ),
@@ -337,7 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "logoutConfirm": MessageLookupByLibrary.simpleMessage(
       "Are you sure you want to sign out?",
     ),
-    "logoutFailed": m12,
+    "logoutFailed": m13,
     "logoutSubtitle": MessageLookupByLibrary.simpleMessage(
       "Sign out of your account",
     ),
@@ -371,7 +375,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "navProfile": MessageLookupByLibrary.simpleMessage("Profile"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Tickets"),
     "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
-    "noAttendeesMatch": m13,
+    "noAttendeesMatch": m14,
     "noCapacityLimit": MessageLookupByLibrary.simpleMessage(
       "No capacity limit",
     ),
@@ -478,8 +482,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "seeEvent": MessageLookupByLibrary.simpleMessage("Show event"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "share": MessageLookupByLibrary.simpleMessage("Share"),
     "shareEvent": MessageLookupByLibrary.simpleMessage("Share event"),
-    "shareEventLink": m14,
+    "shareEventLink": m15,
     "showQr": MessageLookupByLibrary.simpleMessage("Show QR code"),
     "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "similarEvents": MessageLookupByLibrary.simpleMessage("Similar events"),
@@ -505,15 +510,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong",
     ),
-    "spotsLeft": m15,
-    "stepOfTotal": m16,
+    "spotsLeft": m16,
+    "stepOfTotal": m17,
     "supportLegal": MessageLookupByLibrary.simpleMessage("Support & legal"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Enrollment cancelled",
     ),
-    "ticketNumber": m17,
-    "ticketPaid": m18,
+    "ticketNumber": m18,
+    "ticketPaid": m19,
     "ticketPassHint": MessageLookupByLibrary.simpleMessage(
       "Show it at the event entrance.",
     ),
@@ -530,7 +535,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Too many attempts, wait a minute",
     ),
     "unsaveEvent": MessageLookupByLibrary.simpleMessage("Remove from saved"),
-    "upcomingTicketsCount": m19,
+    "upcomingTicketsCount": m20,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Username or email",
     ),

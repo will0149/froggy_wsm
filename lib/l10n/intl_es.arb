@@ -420,5 +420,20 @@
   },
   "languageSystem": "Idioma del dispositivo",
   "offlineTitle": "Sin conexión",
-  "offlineMessage": "No pudimos conectar con Parkea. Revisa tu conexión a internet; tu sesión sigue guardada."
+  "offlineMessage": "No pudimos conectar con Parkea. Revisa tu conexión a internet; tu sesión sigue guardada.",
+  "share": "Compartir",
+  "accessCodeShareText": "Te invito a {name} en Parkea. Es un evento privado: escanea el QR desde el inicio de la app o entra con el código {code}.\n{link}",
+  "@accessCodeShareText": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "code": {
+        "type": "String"
+      },
+      "link": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../data/dtos/event_dto.dart';
 import '../../../domain/usecases/owner_events_uc.dart';
@@ -11,6 +12,7 @@ import '../../../generated/l10n.dart';
 import '../../pages/event/create_event_page.dart';
 import '../../themes/colors/app_colors.dart';
 import '../../themes/dimens.dart';
+import '../../utils/qr_png.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
@@ -154,7 +156,7 @@ class AccessCodeCard extends ConsumerWidget {
               icon: const Icon(Icons.qr_code),
               onPressed: () => showDialog<void>(
                 context: context,
-                builder: (_) => _AccessCodeQrDialog(code: otp),
+                builder: (_) => _AccessCodeQrDialog(event: event, code: otp),
               ),
             ),
             IconButton(
@@ -173,11 +175,45 @@ class AccessCodeCard extends ConsumerWidget {
   }
 }
 
-/// QR del código para que los invitados lo escaneen desde el inicio.
-class _AccessCodeQrDialog extends StatelessWidget {
+/// QR del código para que los invitados lo escaneen desde el inicio. Se
+/// puede compartir como imagen con el código y el enlace.
+class _AccessCodeQrDialog extends StatefulWidget {
+  final EventDTO event;
   final String code;
 
-  const _AccessCodeQrDialog({required this.code});
+  const _AccessCodeQrDialog({required this.event, required this.code});
+
+  @override
+  State<_AccessCodeQrDialog> createState() => _AccessCodeQrDialogState();
+}
+
+class _AccessCodeQrDialogState extends State<_AccessCodeQrDialog> {
+  bool _sharing = false;
+
+  Future<void> _share(BuildContext buttonContext) async {
+    final s = S.of(context);
+    // En iPad la hoja de compartir se ancla al botón.
+    final box = buttonContext.findRenderObject() as RenderBox?;
+    final origin = box == null ? null : box.localToGlobal(Offset.zero) & box.size;
+    setState(() => _sharing = true);
+    try {
+      final png = await qrPng(accessCodeQrData(code));
+      await SharePlus.instance.share(ShareParams(
+        text: s.accessCodeShareText(
+            widget.event.eventName ?? '', code, accessCodeQrData(code)),
+        subject: widget.event.eventName,
+        files: [
+          XFile.fromData(png, mimeType: 'image/png', name: 'parkea-$code.png'),
+        ],
+        fileNameOverrides: ['parkea-$code.png'],
+        sharePositionOrigin: origin,
+      ));
+    } finally {
+      if (mounted) setState(() => _sharing = false);
+    }
+  }
+
+  String get code => widget.code;
 
   @override
   Widget build(BuildContext context) {
@@ -224,6 +260,18 @@ class _AccessCodeQrDialog extends StatelessWidget {
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(MaterialLocalizations.of(context).closeButtonLabel),
+        ),
+        Builder(
+          builder: (buttonContext) => FilledButton.icon(
+            onPressed: _sharing ? null : () => _share(buttonContext),
+            icon: _sharing
+                ? const SizedBox.square(
+                    dimension: 18,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.share),
+            label: Text(s.share),
+          ),
         ),
       ],
     );

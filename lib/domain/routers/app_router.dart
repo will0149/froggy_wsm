@@ -112,7 +112,8 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
         name: JoinPrivateEventPage.routeName,
         path: JoinPrivateEventPage.routeLocation,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const JoinPrivateEventPage(),
+        builder: (context, state) => JoinPrivateEventPage(
+            initialCode: state.uri.queryParameters['code']),
       ),
       GoRoute(
         name: EventAttendeesPage.routeName,
@@ -207,8 +208,16 @@ final routerProvider = Provider<GoRouter>((Ref ref) {
         );
       }
 
-      // Evento compartido: parkea://events/<id>
+      // Evento compartido: parkea://events/<id>, o el código de un evento
+      // privado: parkea://events/join?code=..
       if (state.uri.scheme == 'parkea' && state.uri.host == 'events') {
+        if (state.uri.pathSegments.firstOrNull == 'join') {
+          return state.namedLocation(JoinPrivateEventPage.routeName,
+              queryParameters: {
+                if (state.uri.queryParameters['code'] case final code?)
+                  'code': code,
+              });
+        }
         final id = int.tryParse(state.uri.pathSegments.firstOrNull ?? '');
         return id == null
             ? HomeFeedPage.routeLocation

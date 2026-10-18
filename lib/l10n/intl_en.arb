@@ -365,5 +365,7 @@
   "ticketPassHint": "Show it at the event entrance.",
   "languageSystem": "Device language",
   "offlineTitle": "You're offline",
-  "offlineMessage": "We couldn't reach Parkea. Check your internet connection; you're still signed in."
+  "offlineMessage": "We couldn't reach Parkea. Check your internet connection; you're still signed in.",
+  "share": "Share",
+  "accessCodeShareText": "You're invited to {name} on Parkea. It's a private event: scan the QR from the app's home screen or join with the code {code}.\n{link}"
 }

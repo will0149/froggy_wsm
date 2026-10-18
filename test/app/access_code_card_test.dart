@@ -1,8 +1,11 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:parkea/app/themes/app_theme.dart';
+import 'package:parkea/app/utils/qr_png.dart';
 import 'package:parkea/app/widgets/event/owner_event_actions.dart';
 import 'package:parkea/data/dtos/event_dto.dart';
 import 'package:parkea/domain/usecases/owner_events_uc.dart';
@@ -44,5 +47,19 @@ void main() {
 
     expect(find.byType(QrImageView), findsOneWidget);
     expect(find.text('PA57AFSN'), findsNWidgets(2));
+    expect(find.widgetWithText(FilledButton, 'Compartir'), findsOneWidget);
+  });
+
+  testWidgets('qrPng genera un PNG cuadrado con margen', (tester) async {
+    final png = await tester.runAsync(() => qrPng('parkea://events/join?code=X',
+        size: 200));
+
+    expect(png!.sublist(0, 8), [137, 80, 78, 71, 13, 10, 26, 10]);
+    final image = await tester.runAsync(() async {
+      final codec = await ui.instantiateImageCodec(png);
+      return (await codec.getNextFrame()).image;
+    });
+    expect(image!.width, 240);
+    expect(image.height, 240);
   });
 }

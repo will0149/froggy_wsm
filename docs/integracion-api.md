@@ -60,7 +60,7 @@ Contrato general del API:
 - **Organizador del evento**:
   - "Editar evento" usa el formulario de crear, ya lleno (`PATCH events/update/<id>/`). Solo manda los campos del formulario, así no borra dirección ni coordenadas.
   - Borrar evento (`DELETE events/delete/<id>/`) con confirmación; borra también las inscripciones.
-  - En eventos PRIVATE ve el código de acceso con un botón para copiarlo.
+  - En eventos PRIVATE ve el código de acceso: lo puede copiar, mostrar como QR y compartir el QR como imagen junto con el código y el enlace `parkea://events/join?code=..`, que abre la pantalla de unirse y consulta el código.
 - **Eventos similares**: hasta 10 eventos próximos de la misma categoría y país.
 - **Organizador**: su foto (`owner_avatar`) en el detalle y en las tarjetas del feed; sin foto, su inicial.
 
