@@ -2003,6 +2003,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Lista de inscritos`
+  String get attendeeList {
+    return Intl.message(
+      'Lista de inscritos',
+      name: 'attendeeList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ver todos ({count})`
+  String seeAllAttendees(int count) {
+    return Intl.message(
+      'Ver todos ($count)',
+      name: 'seeAllAttendees',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `No se pudieron cargar los inscritos`
+  String get errLoadAttendees {
+    return Intl.message(
+      'No se pudieron cargar los inscritos',
+      name: 'errLoadAttendees',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

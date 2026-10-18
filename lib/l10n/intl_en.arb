@@ -313,5 +313,15 @@
   "profileUpdateFailed": "Couldn't update the profile",
   "couldNotOpenLink": "Couldn't open the link",
   "catVolunteering": "Volunteering",
-  "volunteeringFreeNote": "Volunteering is free and anyone can sign up."
+  "volunteeringFreeNote": "Volunteering is free and anyone can sign up.",
+  "attendeeList": "Attendee list",
+  "seeAllAttendees": "See all ({count})",
+  "@seeAllAttendees": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errLoadAttendees": "Couldn't load the attendees"
 }

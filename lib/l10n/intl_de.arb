@@ -312,5 +312,15 @@
   "profileUpdateFailed": "Profil konnte nicht aktualisiert werden",
   "couldNotOpenLink": "Link konnte nicht geöffnet werden",
   "catVolunteering": "Ehrenamt",
-  "volunteeringFreeNote": "Ehrenamtliche Events sind kostenlos und offen für alle."
+  "volunteeringFreeNote": "Ehrenamtliche Events sind kostenlos und offen für alle.",
+  "attendeeList": "Teilnehmerliste",
+  "seeAllAttendees": "Alle anzeigen ({count})",
+  "@seeAllAttendees": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errLoadAttendees": "Teilnehmer konnten nicht geladen werden"
 }

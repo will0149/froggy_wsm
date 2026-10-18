@@ -20,6 +20,11 @@ class TicketRepository {
         'body': {'event': eventId, if (otp != null) 'otp': otp},
       });
 
+  /// Página [page] de los tickets de [eventId], que debe ser del usuario.
+  Future<Map<String, dynamic>> fetchEventAttendeesPage(int eventId, int page) =>
+      apiClient.getAuthorized(ApiPathsEnums.ticketEventOwner.uri.replace(
+          queryParameters: {'event': '$eventId', 'page': '$page'}));
+
   /// `{"event_id": id, "ticket_count": n}`: inscritos en el evento.
   Future<Map<String, dynamic>> countByEvent(int eventId) => apiClient
       .getAuthorized(ApiPathsEnums.ticketCountByEvent.uriWithId(eventId));

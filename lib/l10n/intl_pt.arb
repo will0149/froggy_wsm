@@ -313,5 +313,15 @@
   "profileUpdateFailed": "Não foi possível atualizar o perfil",
   "couldNotOpenLink": "Não foi possível abrir o link",
   "catVolunteering": "Voluntariado",
-  "volunteeringFreeNote": "O voluntariado é gratuito e qualquer pessoa pode se inscrever."
+  "volunteeringFreeNote": "O voluntariado é gratuito e qualquer pessoa pode se inscrever.",
+  "attendeeList": "Lista de inscritos",
+  "seeAllAttendees": "Ver todos ({count})",
+  "@seeAllAttendees": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errLoadAttendees": "Não foi possível carregar os inscritos"
 }

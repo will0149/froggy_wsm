@@ -313,5 +313,15 @@
   "profileUpdateFailed": "Impossible de mettre à jour le profil",
   "couldNotOpenLink": "Impossible d'ouvrir le lien",
   "catVolunteering": "Bénévolat",
-  "volunteeringFreeNote": "Le bénévolat est gratuit et ouvert à tous."
+  "volunteeringFreeNote": "Le bénévolat est gratuit et ouvert à tous.",
+  "attendeeList": "Liste des inscrits",
+  "seeAllAttendees": "Tout voir ({count})",
+  "@seeAllAttendees": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errLoadAttendees": "Impossible de charger les inscrits"
 }

@@ -61,7 +61,8 @@ class FakeHttp implements HttpCommonUtils {
         headers: {'content-type': 'application/json; charset=utf-8'});
   }
 
-  static Object? _decode(String? body) => body == null ? null : jsonDecode(body);
+  static Object? _decode(String? body) =>
+      body == null ? null : jsonDecode(body);
 
   @override
   Future<http.Response> get(
@@ -213,4 +214,28 @@ Map<String, Object?> ticketJson(int id, Map<String, Object?> event) => {
       'event': event,
       'customer': {'username': 'yo', 'first_name': '', 'last_name': ''},
       'date_purchased': '2026-10-14T02:20:09Z',
+    };
+
+/// Ticket con el formato de `ticket/event/owner/?event=<id>`.
+Map<String, Object?> attendeeJson(
+  int id,
+  int eventId, {
+  String username = 'inscrito',
+  String firstName = '',
+  String lastName = '',
+  String? avatar,
+  String status = 'ACTIVE',
+  String enrolled = '2026-10-14T02:20:09Z',
+}) =>
+    {
+      'id': id,
+      'customer': {
+        'username': username,
+        'first_name': firstName,
+        'last_name': lastName,
+        'avatar': avatar,
+      },
+      'event': eventId,
+      'status': status,
+      'date_purchased': enrolled,
     };
