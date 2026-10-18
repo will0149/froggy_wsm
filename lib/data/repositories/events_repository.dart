@@ -49,6 +49,19 @@ class EventRepository {
       apiClient.getAuthorized(ApiPathsEnums.eventOwner.uri
           .replace(queryParameters: {'page': '$page'}));
 
+  /// Eventos guardados por el usuario, pasados incluidos.
+  Future<Map<String, dynamic>> fetchSavedEventsPage(int page) =>
+      apiClient.getAuthorized(ApiPathsEnums.savedEvents.uri
+          .replace(queryParameters: {'page': '$page'}));
+
+  /// 201 al guardarlo, 200 si ya estaba guardado.
+  Future<Map<String, dynamic>> saveEvent(int eventId) => apiClient
+      .postAuthorized(ApiPathsEnums.savedEvent.uriWithId(eventId), const {});
+
+  /// 204, aunque no estuviera guardado.
+  Future<Map<String, dynamic>> unsaveEvent(int eventId) =>
+      apiClient.deleteAuthorized(ApiPathsEnums.savedEvent.uriWithId(eventId));
+
   /// Requiere cuenta verificada (si no, 403). Solo `event_date` es
   /// obligatorio; las imágenes se suben aparte con [uploadImage].
   Future<Map<String, dynamic>> createEvent(Map<String, dynamic> event) =>

@@ -8,7 +8,6 @@ import 'package:parkea/domain/usecases/fetch_events_uc.dart';
 import 'package:parkea/domain/usecases/auth/rest_auth_uc.dart';
 import 'package:parkea/domain/usecases/event_attendance_uc.dart';
 import 'package:parkea/domain/usecases/fetch_tickets_uc.dart';
-import '../../../domain/providers/icons/svg_icon_provider.dart';
 import '../../../generated/l10n.dart';
 import '../../themes/colors/app_colors.dart';
 import '../../themes/dimens.dart';
@@ -16,6 +15,7 @@ import '../../utils/event_share.dart';
 import '../../widgets/event/enroll_button.dart';
 import '../../widgets/event/event_location_card.dart';
 import '../../widgets/event/owner_event_actions.dart';
+import '../../widgets/event/save_event_button.dart';
 import '../../widgets/event/similar_events.dart';
 import '../../widgets/gamification/owner_attendance_card.dart';
 
@@ -301,29 +301,9 @@ class EventDetailPageState extends ConsumerState<EventDetailPage> {
   }
 
   Widget _buildActionButtons(EventDTO event, BuildContext context) {
-    final likeButton = ref.watch(svgIconProvider);
-
     return Row(
       children: [
-        // Favorito: emoción, va en naranja de marca.
-        IconButton.outlined(
-          style: IconButton.styleFrom(
-            minimumSize: const Size.square(48),
-            side: BorderSide(color: colors(context).outline),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(ParkeaRadius.md)),
-            ),
-          ),
-          icon: Icon(
-            likeButton ? Icons.favorite : Icons.favorite_border,
-            color: likeButton
-                ? colors(context).brand
-                : colors(context).onSurfaceMuted,
-          ),
-          onPressed: () {
-            ref.read(svgIconProvider.notifier).setActive(!likeButton);
-          },
-        ),
+        SaveEventButton(event: event),
         const SizedBox(width: ParkeaSpacing.md),
         Expanded(
           child: event.isOwnedBy(_username)

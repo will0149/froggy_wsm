@@ -209,14 +209,9 @@ class S {
     );
   }
 
-  /// `Guardar Evento`
+  /// `Guardar`
   String get saveEvent {
-    return Intl.message(
-      'Guardar Evento',
-      name: 'saveEvent',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Guardar', name: 'saveEvent', desc: '', args: []);
   }
 
   /// `Registro`
@@ -2333,6 +2328,46 @@ class S {
       args: [link],
     );
   }
+
+  /// `No se pudieron cargar tus guardados`
+  String get errLoadSavedEvents {
+    return Intl.message(
+      'No se pudieron cargar tus guardados',
+      name: 'errLoadSavedEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No se pudo quitar de guardados`
+  String get errUnsaveEvent {
+    return Intl.message(
+      'No se pudo quitar de guardados',
+      name: 'errUnsaveEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Aún no has guardado eventos. Toca el corazón de un evento para verlo aquí.`
+  String get noSavedEvents {
+    return Intl.message(
+      'Aún no has guardado eventos. Toca el corazón de un evento para verlo aquí.',
+      name: 'noSavedEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quitar de guardados`
+  String get unsaveEvent {
+    return Intl.message(
+      'Quitar de guardados',
+      name: 'unsaveEvent',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -2341,12 +2376,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'es'),
-      Locale.fromSubtags(languageCode: 'de'),
       Locale.fromSubtags(languageCode: 'en'),
-      Locale.fromSubtags(languageCode: 'fr'),
-      Locale.fromSubtags(languageCode: 'pt'),
-      Locale.fromSubtags(languageCode: 'ru'),
-      Locale.fromSubtags(languageCode: 'zh'),
     ];
   }
 

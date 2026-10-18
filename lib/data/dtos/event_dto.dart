@@ -69,6 +69,10 @@ class EventDTO {
   @JsonKey(name: 'is_owner')
   final bool? isOwner;
 
+  /// Si el usuario lo guardó; null en respuestas que no lo incluyen.
+  @JsonKey(name: 'is_saved')
+  final bool? isSaved;
+
   /// Código de acceso de un evento PRIVATE; solo llega al organizador
   /// (`events/owner/`, `events/update/`).
   @JsonKey(name: 'otp')
@@ -96,6 +100,7 @@ class EventDTO {
       this.capacity,
       this.availableSpots,
       this.isOwner,
+      this.isSaved,
       this.otp});
 
   factory EventDTO.fromJson(Map<String, dynamic> json)  => _$EventDTOFromJson(json);

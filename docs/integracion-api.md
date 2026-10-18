@@ -78,7 +78,7 @@ Contrato general del API:
 - **Voluntariado** (`category: VOLUNTEERING`: siembra de árboles, ayuda social…): siempre gratis y abierto a todos. Al elegirlo, la app fija `cost_type: FREE` y oculta el selector de acceso. El API rechaza otro `cost_type` con 400 en ese campo y guarda el precio en 0. Las categorías de la app están en `EventCategory`.
 
 ### Transversal
-- **Idiomas**: todos los textos de la app están en los 7 idiomas (es, en, de, fr, pt, ru, zh), incluidos los errores de los use cases (por `S.current`).
+- **Idiomas**: español (principal) e inglés, los mismos que el API. Todos los textos de la app están en los dos, incluidos los errores de los use cases (por `S.current`).
 - **Errores**:
   - Sin red, la app muestra "No se pudo conectar con el servidor" y un botón de reintentar. `ApiClient` convierte el fallo de red en el mismo 408 de un timeout.
   - Los reintentos automáticos de Riverpod están desactivados, así los errores se ven enseguida.
@@ -114,7 +114,7 @@ Está en la rama `feat/mobile-tickets-saved` del API. El commit `dae3031` tiene 
 - [x] Barra de "evento completo" en el formulario de crear y editar, con la sugerencia de qué falta
 - [x] Barra de inscritos en el detalle del evento propio ("12 de 20"; sin cupo límite, solo el número)
 - [x] Celebración "¡Evento lleno!" la primera vez que el organizador abre su evento lleno
-- [x] Textos en los 7 idiomas
+- [x] Textos en español e inglés
 - [x] Tests de la lógica y de los componentes
 - [x] Prueba en el emulador (claro, oscuro y animaciones reducidas)
 
@@ -129,7 +129,6 @@ Está en la rama `feat/mobile-tickets-saved` del API. El commit `dae3031` tiene 
 - [ ] Celebraciones de logro y de nivel
 
 ### Decisiones pendientes
-- **Idiomas de la app**: el API ahora solo responde en español e inglés (cambio sin commit en el backend); con la app en de/fr/pt/ru/zh, los errores del API llegan en español. ¿La app se queda solo con es/en o mantiene los 7 idiomas?
 - **Provincia en el registro**: el formulario la pide pero no se envía al API. ¿Se quita o se guarda en el backend?
 - **Abrir la app sin red** lleva a la pantalla de login. La sesión se conserva, pero convendría mostrar "sin conexión" con reintentar.
 - **Pagos e inscripción a eventos PAID e INVITATION**: el backend preparó una propuesta para decidir.

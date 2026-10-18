@@ -18,7 +18,7 @@
   "popularEvents": "Eventos Populares",
   "seeEvent": "Ir al Evento",
   "buyTicket": "Comprar Entrada",
-  "saveEvent": "Guardar Evento",
+  "saveEvent": "Guardar",
   "register": "Registro",
   "myEvents": "Eventos",
   "myEventsPaid": "Pagos",
@@ -403,5 +403,9 @@
         "type": "String"
       }
     }
-  }
+  },
+  "errLoadSavedEvents": "No se pudieron cargar tus guardados",
+  "errUnsaveEvent": "No se pudo quitar de guardados",
+  "noSavedEvents": "Aún no has guardado eventos. Toca el corazón de un evento para verlo aquí.",
+  "unsaveEvent": "Quitar de guardados"
 }

@@ -51,7 +51,7 @@ final class PrivateEventAccessUCProvider
 }
 
 String _$privateEventAccessUCHash() =>
-    r'480171ddfe6b1c524520f9d5fa6e53f54f68b896';
+    r'fc6d67019a7c84cff696b2ebce2d7a8b20401d47';
 
 /// Códigos de los eventos PRIVATE que el usuario abrió en esta sesión, por
 /// id de evento. El detalle los manda al API y la inscripción no los vuelve

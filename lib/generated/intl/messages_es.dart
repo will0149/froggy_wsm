@@ -228,6 +228,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "errLoadPromotions": MessageLookupByLibrary.simpleMessage(
       "No se pudieron cargar las promociones",
     ),
+    "errLoadSavedEvents": MessageLookupByLibrary.simpleMessage(
+      "No se pudieron cargar tus guardados",
+    ),
     "errLoadSimilar": MessageLookupByLibrary.simpleMessage(
       "No se pudieron cargar eventos similares",
     ),
@@ -241,6 +244,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "errSignUp": MessageLookupByLibrary.simpleMessage("Error al registrarse"),
     "errSignUpIncomplete": MessageLookupByLibrary.simpleMessage(
       "No se pudo completar el registro",
+    ),
+    "errUnsaveEvent": MessageLookupByLibrary.simpleMessage(
+      "No se pudo quitar de guardados",
     ),
     "errWithCode": m6,
     "errWrongCredentials": MessageLookupByLibrary.simpleMessage(
@@ -402,6 +408,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "noPlacesFound": MessageLookupByLibrary.simpleMessage(
       "No encontramos ese lugar",
     ),
+    "noSavedEvents": MessageLookupByLibrary.simpleMessage(
+      "Aún no has guardado eventos. Toca el corazón de un evento para verlo aquí.",
+    ),
     "noSearchResults": MessageLookupByLibrary.simpleMessage(
       "No hay eventos que coincidan con tu búsqueda",
     ),
@@ -479,7 +488,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "retry": MessageLookupByLibrary.simpleMessage("Reintentar"),
     "saveChanges": MessageLookupByLibrary.simpleMessage("Guardar cambios"),
-    "saveEvent": MessageLookupByLibrary.simpleMessage("Guardar Evento"),
+    "saveEvent": MessageLookupByLibrary.simpleMessage("Guardar"),
     "scanQrHint": MessageLookupByLibrary.simpleMessage(
       "Escanea el QR que te compartió el organizador",
     ),
@@ -535,6 +544,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "tooManyAttempts": MessageLookupByLibrary.simpleMessage(
       "Demasiados intentos, espera un minuto",
     ),
+    "unsaveEvent": MessageLookupByLibrary.simpleMessage("Quitar de guardados"),
     "upcomingTicketsCount": m18,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage("Usuario o correo"),
     "usernameOrEmailRequired": MessageLookupByLibrary.simpleMessage(

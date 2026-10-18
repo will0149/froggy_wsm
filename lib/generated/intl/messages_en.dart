@@ -213,6 +213,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "errLoadPromotions": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t load promotions",
     ),
+    "errLoadSavedEvents": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t load your saved events",
+    ),
     "errLoadSimilar": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t load similar events",
     ),
@@ -226,6 +229,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "errSignUp": MessageLookupByLibrary.simpleMessage("Couldn\'t sign up"),
     "errSignUpIncomplete": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t complete the sign-up",
+    ),
+    "errUnsaveEvent": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t remove it from saved",
     ),
     "errWithCode": m6,
     "errWrongCredentials": MessageLookupByLibrary.simpleMessage(
@@ -377,6 +383,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "noPlacesFound": MessageLookupByLibrary.simpleMessage(
       "We couldn\'t find that place",
     ),
+    "noSavedEvents": MessageLookupByLibrary.simpleMessage(
+      "You haven\'t saved any events yet. Tap the heart on an event to see it here.",
+    ),
     "noSearchResults": MessageLookupByLibrary.simpleMessage(
       "No events match your search",
     ),
@@ -450,7 +459,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "retry": MessageLookupByLibrary.simpleMessage("Retry"),
     "saveChanges": MessageLookupByLibrary.simpleMessage("Save changes"),
-    "saveEvent": MessageLookupByLibrary.simpleMessage("Save event"),
+    "saveEvent": MessageLookupByLibrary.simpleMessage("Save"),
     "scanQrHint": MessageLookupByLibrary.simpleMessage(
       "Scan the QR code the organizer shared with you",
     ),
@@ -506,6 +515,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "tooManyAttempts": MessageLookupByLibrary.simpleMessage(
       "Too many attempts, wait a minute",
     ),
+    "unsaveEvent": MessageLookupByLibrary.simpleMessage("Remove from saved"),
     "upcomingTicketsCount": m18,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Username or email",

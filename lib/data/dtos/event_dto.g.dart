@@ -34,6 +34,7 @@ EventDTO _$EventDTOFromJson(Map<String, dynamic> json) => EventDTO(
       capacity: (json['capacity'] as num?)?.toInt(),
       availableSpots: (json['available_spots'] as num?)?.toInt(),
       isOwner: json['is_owner'] as bool?,
+      isSaved: json['is_saved'] as bool?,
       otp: json['otp'] as String?,
     );
 
@@ -59,5 +60,6 @@ Map<String, dynamic> _$EventDTOToJson(EventDTO instance) => <String, dynamic>{
       'capacity': instance.capacity,
       'available_spots': instance.availableSpots,
       'is_owner': instance.isOwner,
+      'is_saved': instance.isSaved,
       'otp': instance.otp,
     };

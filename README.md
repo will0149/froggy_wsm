@@ -124,7 +124,7 @@ lib/
 | **Firebase Auth** | Authentication + custom REST API |
 | **http** | HTTP client |
 | **json_annotation** | JSON serialization |
-| **Flutter Intl** | Internationalization (Spanish primary, 7 languages) |
+| **Flutter Intl** | Internationalization (Spanish primary, English secondary) |
 
 ## State Management
 

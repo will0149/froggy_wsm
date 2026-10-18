@@ -18,7 +18,7 @@
   "popularEvents": "Popular events",
   "seeEvent": "Show event",
   "buyTicket": "Get ticket",
-  "saveEvent": "Save event",
+  "saveEvent": "Save",
   "register": "Sign Up",
   "myEvents": "Events",
   "myEventsPaid": "Paid",
@@ -355,5 +355,9 @@
   "showQr": "Show QR code",
   "tooManyAttempts": "Too many attempts, wait a minute",
   "shareEvent": "Share event",
-  "shareEventLink": "See it on Parkea: {link}"
+  "shareEventLink": "See it on Parkea: {link}",
+  "errLoadSavedEvents": "Couldn't load your saved events",
+  "errUnsaveEvent": "Couldn't remove it from saved",
+  "noSavedEvents": "You haven't saved any events yet. Tap the heart on an event to see it here.",
+  "unsaveEvent": "Remove from saved"
 }

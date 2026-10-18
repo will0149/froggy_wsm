@@ -3,59 +3,76 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/dtos/event_dto.dart';
 import '../../domain/usecases/owner_events_uc.dart';
+import '../../domain/usecases/saved_events_uc.dart';
 import '../../generated/l10n.dart';
 import '../themes/colors/app_colors.dart';
-import '../themes/dimens.dart';
 import 'cards/event_feed_card.dart';
 
 /// Made for parkea.
 /// By User: josedominguez
 /// Date: 03/09/23
 
-/// Eventos creados por el usuario. Los eventos en los que está inscrito
-/// están en la pestaña Tickets.
+/// Eventos creados por el usuario y los que guardó, en dos pestañas. Los
+/// eventos en los que está inscrito están en la pestaña Tickets.
 class ProfileEventsSection extends ConsumerWidget {
   const ProfileEventsSection({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
     final s = S.of(context);
-    final ownEvents = ref.watch(ownerEventsUCProvider);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(ParkeaSpacing.screen,
-              ParkeaSpacing.sm, ParkeaSpacing.screen, 0),
-          child: Row(
-            spacing: ParkeaSpacing.sm,
-            children: [
-              Icon(Icons.event, size: 20, color: theme.colorScheme.primary),
-              Text(s.myEvents, style: theme.textTheme.titleMedium),
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          TabBar(
+            tabs: [
+              Tab(
+                icon: const Icon(Icons.event, size: 20),
+                iconMargin: EdgeInsets.zero,
+                text: s.myEvents,
+              ),
+              Tab(
+                icon: const Icon(Icons.favorite, size: 20),
+                iconMargin: EdgeInsets.zero,
+                text: s.myEventsSaved,
+              ),
             ],
           ),
-        ),
-        Expanded(
-          child: _EventsList(
-            events: ownEvents,
-            emptyMessage: s.noOwnEvents,
-            onRetry: () => ref.invalidate(ownerEventsUCProvider),
+          Expanded(
+            child: TabBarView(
+              children: [
+                _EventsList(
+                  events: ref.watch(ownerEventsUCProvider),
+                  emptyIcon: Icons.event_busy,
+                  emptyMessage: s.noOwnEvents,
+                  onRetry: () => ref.invalidate(ownerEventsUCProvider),
+                ),
+                _EventsList(
+                  events: ref.watch(savedEventsUCProvider),
+                  emptyIcon: Icons.favorite_border,
+                  emptyMessage: s.noSavedEvents,
+                  onRetry: () => ref.invalidate(savedEventsUCProvider),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
 class _EventsList extends StatelessWidget {
   final AsyncValue<List<EventDTO>> events;
+  final IconData emptyIcon;
   final String emptyMessage;
   final VoidCallback onRetry;
 
   const _EventsList({
     required this.events,
+    required this.emptyIcon,
     required this.emptyMessage,
     required this.onRetry,
   });
@@ -67,7 +84,7 @@ class _EventsList extends StatelessWidget {
     final bottom = MediaQuery.paddingOf(context).bottom + 16;
     return switch (events) {
       AsyncValue(:final value?) when value.isEmpty =>
-        _Message(icon: Icons.event_busy, text: emptyMessage),
+        _Message(icon: emptyIcon, text: emptyMessage),
       AsyncValue(:final value?) => ListView.builder(
           padding: EdgeInsets.fromLTRB(16, 16, 16, bottom),
           itemCount: value.length,

@@ -59,7 +59,7 @@ flutter run --release             # Run in release mode
 - **Authentication**: Firebase Auth + custom REST API
 - **HTTP**: Dart http package
 - **Serialization**: json_annotation + json_serializable
-- **Internationalization**: Flutter Intl (Spanish primary, 7 languages supported)
+- **Internationalization**: Flutter Intl (Spanish primary, English secondary)
 
 ### State Management Pattern
 Uses Riverpod with code generation. The project is transitioning from separated providers (`lib/domain/providers/` - deprecated) to integrated usecases (`lib/domain/usecases/`) that handle both business logic and state management with `@riverpod` annotations.

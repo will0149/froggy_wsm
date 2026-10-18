@@ -29,6 +29,8 @@ enum ApiPathsEnums {
   eventCategories(path: 'events/categories/'),
   eventUpdate(path: 'events/update/{id}/'),
   eventDelete(path: 'events/delete/{id}/'),
+  savedEvents(path: 'events/saved/'),
+  savedEvent(path: 'events/saved/{id}/'),
   promotions(path: 'promotions/'),
   // tickets
   ticketEnroll(path: 'ticket/enroll/'),
