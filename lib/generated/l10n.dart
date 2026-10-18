@@ -2023,6 +2023,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Buscar por nombre o usuario`
+  String get searchAttendees {
+    return Intl.message(
+      'Buscar por nombre o usuario',
+      name: 'searchAttendees',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nadie coincide con «{query}»`
+  String noAttendeesMatch(String query) {
+    return Intl.message(
+      'Nadie coincide con «$query»',
+      name: 'noAttendeesMatch',
+      desc: '',
+      args: [query],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

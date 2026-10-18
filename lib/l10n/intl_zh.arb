@@ -315,5 +315,14 @@
   "catVolunteering": "志工服務",
   "volunteeringFreeNote": "志工活動免費，任何人都可以報名。",
   "errLoadAttendees": "无法加载报名者",
-  "enrolledPeople": "已报名的人"
+  "enrolledPeople": "已报名的人",
+  "searchAttendees": "按姓名或用户名搜索",
+  "noAttendeesMatch": "没有与“{query}”匹配的人",
+  "@noAttendeesMatch": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -315,5 +315,14 @@
   "catVolunteering": "Volunteering",
   "volunteeringFreeNote": "Volunteering is free and anyone can sign up.",
   "errLoadAttendees": "Couldn't load the attendees",
-  "enrolledPeople": "Enrolled people"
+  "enrolledPeople": "Enrolled people",
+  "searchAttendees": "Search by name or username",
+  "noAttendeesMatch": "No one matches “{query}”",
+  "@noAttendeesMatch": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  }
 }

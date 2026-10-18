@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:parkea/data/dtos/attendee_dto.dart';
 import 'package:parkea/domain/usecases/auth/api_error_message.dart';
 import 'package:parkea/domain/usecases/event_attendance_uc.dart';
 
@@ -70,5 +71,23 @@ void main() {
       throwsA(isA<ApiException>().having((e) => e.message, 'message',
           'No eres el organizador de este evento.')),
     );
+  });
+
+  group('matches', () {
+    final jose = AttendeeDTO.fromJson(attendeeJson(1, 12,
+        username: 'jlopez', firstName: 'José', lastName: 'López'));
+
+    test('por nombre, apellido o username, sin mayúsculas ni tildes', () {
+      expect(jose.matches('jose'), isTrue);
+      expect(jose.matches('LOPEZ'), isTrue);
+      expect(jose.matches('josé lóp'), isTrue);
+      expect(jose.matches('jlop'), isTrue);
+      expect(jose.matches('maria'), isFalse);
+    });
+
+    test('vacío o solo espacios coincide con todos', () {
+      expect(jose.matches(''), isTrue);
+      expect(jose.matches('   '), isTrue);
+    });
   });
 }

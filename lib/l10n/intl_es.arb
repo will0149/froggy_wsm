@@ -322,5 +322,14 @@
   "catVolunteering": "Voluntariado",
   "volunteeringFreeNote": "El voluntariado es gratis y cualquiera puede inscribirse.",
   "errLoadAttendees": "No se pudieron cargar los inscritos",
-  "enrolledPeople": "Personas inscritas"
+  "enrolledPeople": "Personas inscritas",
+  "searchAttendees": "Buscar por nombre o usuario",
+  "noAttendeesMatch": "Nadie coincide con «{query}»",
+  "@noAttendeesMatch": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  }
 }

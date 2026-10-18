@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../data/dtos/attendee_dto.dart';
 import '../../../domain/usecases/event_attendance_uc.dart';
 import '../../../generated/l10n.dart';
+import '../../themes/colors/app_colors.dart';
 import '../../themes/dimens.dart';
 import '../../widgets/event/attendee_tile.dart';
 
@@ -10,9 +12,11 @@ import '../../widgets/event/attendee_tile.dart';
 /// By User: josedominguez
 /// Date: 10/17/26
 
-/// Inscritos en un evento del organizador, el más reciente primero. Se
-/// abre desde `OwnerAttendanceCard` en el detalle del evento.
-class EventAttendeesPage extends ConsumerWidget {
+/// Inscritos en un evento del organizador, el más reciente primero, con
+/// buscador por nombre o username. Se abre desde `OwnerAttendanceCard` en el
+/// detalle del evento, que solo ve el organizador; el API responde 403 a
+/// cualquier otro.
+class EventAttendeesPage extends ConsumerStatefulWidget {
   final int eventId;
 
   const EventAttendeesPage({super.key, required this.eventId});
@@ -22,9 +26,22 @@ class EventAttendeesPage extends ConsumerWidget {
   static String get routeLocation => '/events/:id/attendees';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<EventAttendeesPage> createState() => _EventAttendeesPageState();
+}
+
+class _EventAttendeesPageState extends ConsumerState<EventAttendeesPage> {
+  final _search = TextEditingController();
+
+  @override
+  void dispose() {
+    _search.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final s = S.of(context);
-    final provider = eventAttendeesUCProvider(eventId);
+    final provider = eventAttendeesUCProvider(widget.eventId);
     final attendees = ref.watch(provider);
     return Scaffold(
       appBar: AppBar(
@@ -45,19 +62,7 @@ class EventAttendeesPage extends ConsumerWidget {
         child: switch (attendees) {
           AsyncValue(:final value?) when value.isEmpty =>
             _message(context, s.enrolledCount(0)),
-          AsyncValue(:final value?) => ListView.separated(
-              padding: const EdgeInsets.all(ParkeaSpacing.screen),
-              itemCount: value.length,
-              separatorBuilder: (_, __) =>
-                  const SizedBox(height: ParkeaSpacing.sm),
-              itemBuilder: (_, index) => Card(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: ParkeaSpacing.md, vertical: ParkeaSpacing.xs),
-                  child: AttendeeTile(attendee: value[index]),
-                ),
-              ),
-            ),
+          AsyncValue(:final value?) => _list(context, value),
           AsyncValue(:final error?) => _message(
               context,
               error.toString(),
@@ -69,6 +74,59 @@ class EventAttendeesPage extends ConsumerWidget {
           _ => const Center(child: CircularProgressIndicator()),
         },
       ),
+    );
+  }
+
+  Widget _list(BuildContext context, List<AttendeeDTO> attendees) {
+    final s = S.of(context);
+    final query = _search.text;
+    final found = [
+      for (final attendee in attendees)
+        if (attendee.matches(query)) attendee,
+    ];
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+              ParkeaSpacing.screen, ParkeaSpacing.sm, ParkeaSpacing.screen, 0),
+          child: SearchBar(
+            controller: _search,
+            hintText: s.searchAttendees,
+            textInputAction: TextInputAction.search,
+            onChanged: (_) => setState(() {}),
+            leading: Icon(Icons.search, color: colors(context).primary),
+            trailing: [
+              if (query.isNotEmpty)
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  tooltip:
+                      MaterialLocalizations.of(context).deleteButtonTooltip,
+                  onPressed: () => setState(_search.clear),
+                ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: found.isEmpty
+              ? _message(context, s.noAttendeesMatch(query.trim()))
+              : ListView.separated(
+                  padding: const EdgeInsets.all(ParkeaSpacing.screen),
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  itemCount: found.length,
+                  separatorBuilder: (_, __) =>
+                      const SizedBox(height: ParkeaSpacing.sm),
+                  itemBuilder: (_, index) => Card(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: ParkeaSpacing.md,
+                          vertical: ParkeaSpacing.xs),
+                      child: AttendeeTile(attendee: found[index]),
+                    ),
+                  ),
+                ),
+        ),
+      ],
     );
   }
 

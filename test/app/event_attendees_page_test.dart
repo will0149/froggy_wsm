@@ -128,4 +128,50 @@ void main() {
 
     expect(find.text('bob'), findsOneWidget);
   });
+
+  testWidgets('el buscador filtra por nombre o username y se puede limpiar',
+      (tester) async {
+    api.reply(
+        'GET',
+        'ticket/event/owner/',
+        200,
+        page([
+          attendeeJson(1, 12,
+              username: 'jlopez', firstName: 'José', lastName: 'López'),
+          attendeeJson(2, 12,
+              username: 'msmith', firstName: 'Mary', lastName: 'Smith'),
+          attendeeJson(3, 12, username: 'bob'),
+        ]));
+    await pump(tester, const EventAttendeesPage(eventId: 12));
+
+    expect(find.byType(AttendeeTile), findsNWidgets(3));
+
+    await tester.enterText(find.byType(SearchBar), 'jose');
+    await tester.pump();
+
+    expect(find.byType(AttendeeTile), findsOneWidget);
+    expect(find.text('José López'), findsOneWidget);
+    // El total de la burbuja no cambia al filtrar.
+    expect(
+        find.descendant(of: find.byType(CountBubble), matching: find.text('3')),
+        findsOneWidget);
+
+    await tester.enterText(find.byType(SearchBar), 'zzz');
+    await tester.pump();
+
+    expect(find.byType(AttendeeTile), findsNothing);
+    expect(find.text('Nadie coincide con «zzz»'), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.close));
+    await tester.pump();
+
+    expect(find.byType(AttendeeTile), findsNWidgets(3));
+  });
+
+  testWidgets('sin inscritos no muestra el buscador', (tester) async {
+    api.reply('GET', 'ticket/event/owner/', 200, page([]));
+    await pump(tester, const EventAttendeesPage(eventId: 12));
+
+    expect(find.byType(SearchBar), findsNothing);
+  });
 }

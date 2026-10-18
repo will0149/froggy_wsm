@@ -315,5 +315,14 @@
   "catVolunteering": "Волонтёрство",
   "volunteeringFreeNote": "Волонтёрские события бесплатны, записаться может любой.",
   "errLoadAttendees": "Не удалось загрузить участников",
-  "enrolledPeople": "Записавшиеся"
+  "enrolledPeople": "Записавшиеся",
+  "searchAttendees": "Поиск по имени или логину",
+  "noAttendeesMatch": "Никто не найден по запросу «{query}»",
+  "@noAttendeesMatch": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  }
 }

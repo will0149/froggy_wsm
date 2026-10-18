@@ -44,11 +44,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m9(error) => "Abmeldung fehlgeschlagen: ${error}";
 
-  static String m10(count) => "${count} Plätze frei";
+  static String m10(query) => "Niemand passt zu „${query}“";
 
-  static String m11(id) => "Ticket #${id}";
+  static String m11(count) => "${count} Plätze frei";
 
-  static String m12(count) => "${count} anstehende Tickets";
+  static String m12(id) => "Ticket #${id}";
+
+  static String m13(count) => "${count} anstehende Tickets";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -350,6 +352,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "navProfile": MessageLookupByLibrary.simpleMessage("Profil"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Tickets"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Neues Passwort"),
+    "noAttendeesMatch": m10,
     "noCapacityLimit": MessageLookupByLibrary.simpleMessage(
       "Keine Platzbegrenzung",
     ),
@@ -441,6 +444,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveEvent": MessageLookupByLibrary.simpleMessage(
       "Veranstaltung speichern",
     ),
+    "searchAttendees": MessageLookupByLibrary.simpleMessage(
+      "Nach Name oder Benutzername suchen",
+    ),
     "searchEvents": MessageLookupByLibrary.simpleMessage("Aktivitäten suchen"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("siehe Veranstaltung"),
     "settings": MessageLookupByLibrary.simpleMessage("Einstellung"),
@@ -470,7 +476,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Etwas ist schiefgelaufen",
     ),
-    "spotsLeft": m10,
+    "spotsLeft": m11,
     "supportLegal": MessageLookupByLibrary.simpleMessage(
       "Support & Rechtliches",
     ),
@@ -478,13 +484,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Anmeldung storniert",
     ),
-    "ticketNumber": m11,
+    "ticketNumber": m12,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Tickets konnten nicht geladen werden",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Vergangen"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Anstehend"),
-    "upcomingTicketsCount": m12,
+    "upcomingTicketsCount": m13,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Benutzername oder E-Mail",
     ),

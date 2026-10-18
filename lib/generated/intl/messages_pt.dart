@@ -43,11 +43,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m9(error) => "Não foi possível sair: ${error}";
 
-  static String m10(count) => "${count} vagas disponíveis";
+  static String m10(query) => "Ninguém corresponde a “${query}”";
 
-  static String m11(id) => "Ingresso #${id}";
+  static String m11(count) => "${count} vagas disponíveis";
 
-  static String m12(count) => "${count} ingressos próximos";
+  static String m12(id) => "Ingresso #${id}";
+
+  static String m13(count) => "${count} ingressos próximos";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -320,6 +322,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "navProfile": MessageLookupByLibrary.simpleMessage("Perfil"),
     "navTickets": MessageLookupByLibrary.simpleMessage("Ingressos"),
     "newPassword": MessageLookupByLibrary.simpleMessage("Nova senha"),
+    "noAttendeesMatch": m10,
     "noCapacityLimit": MessageLookupByLibrary.simpleMessage(
       "Sem limite de vagas",
     ),
@@ -401,6 +404,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "retry": MessageLookupByLibrary.simpleMessage("Tentar novamente"),
     "saveChanges": MessageLookupByLibrary.simpleMessage("Salvar alterações"),
     "saveEvent": MessageLookupByLibrary.simpleMessage("Salvar Evento"),
+    "searchAttendees": MessageLookupByLibrary.simpleMessage(
+      "Buscar por nome ou usuário",
+    ),
     "searchEvents": MessageLookupByLibrary.simpleMessage("Buscar atividades"),
     "seeEvent": MessageLookupByLibrary.simpleMessage("ver evento"),
     "settings": MessageLookupByLibrary.simpleMessage("Definições"),
@@ -430,19 +436,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Algo deu errado",
     ),
-    "spotsLeft": m10,
+    "spotsLeft": m11,
     "supportLegal": MessageLookupByLibrary.simpleMessage("Suporte e jurídico"),
     "theme": MessageLookupByLibrary.simpleMessage("Tema"),
     "ticketCancelled": MessageLookupByLibrary.simpleMessage(
       "Inscrição cancelada",
     ),
-    "ticketNumber": m11,
+    "ticketNumber": m12,
     "ticketsLoadError": MessageLookupByLibrary.simpleMessage(
       "Não foi possível carregar os ingressos",
     ),
     "ticketsPast": MessageLookupByLibrary.simpleMessage("Anteriores"),
     "ticketsUpcoming": MessageLookupByLibrary.simpleMessage("Próximos"),
-    "upcomingTicketsCount": m12,
+    "upcomingTicketsCount": m13,
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Usuário ou e-mail",
     ),

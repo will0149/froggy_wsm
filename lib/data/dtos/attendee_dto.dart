@@ -57,6 +57,26 @@ class AttendeeDTO {
 
   DateTime? get enrolledAt => DateTime.tryParse(datePurchased ?? '');
 
+  /// Si [query] aparece en el nombre o el username, sin distinguir
+  /// mayúsculas ni tildes ("jose" encuentra a "José").
+  bool matches(String query) {
+    final needle = _fold(query.trim());
+    if (needle.isEmpty) return true;
+    return _fold('$displayName $username').contains(needle);
+  }
+
+  static const _accents = {
+    'á': 'a', 'à': 'a', 'â': 'a', 'ä': 'a', 'ã': 'a', //
+    'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e', //
+    'í': 'i', 'ì': 'i', 'î': 'i', 'ï': 'i', //
+    'ó': 'o', 'ò': 'o', 'ô': 'o', 'ö': 'o', 'õ': 'o', //
+    'ú': 'u', 'ù': 'u', 'û': 'u', 'ü': 'u', //
+    'ñ': 'n', 'ç': 'c',
+  };
+
+  static String _fold(String text) =>
+      text.toLowerCase().split('').map((char) => _accents[char] ?? char).join();
+
   /// `event` llega como objeto completo o solo como id.
   static Object? _readEventId(Map json, String key) => switch (json[key]) {
         {'id': final int id} => id,
